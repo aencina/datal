@@ -7,6 +7,6 @@ def render_to_response(template, dictionary, mimetype=settings.DEFAULT_CONTENT_T
     try:
         request = dictionary.pop('request')
     except:
-        pass #dale que va
+        request = dictionary
     context_instance = RequestContext(request)
     return django_render_to_response(template, dictionary, context_instance, mimetype=mimetype)
