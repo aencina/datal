@@ -4,6 +4,9 @@
 <head>
     <title>{{preferences.account_name}} &middot; {{preferences.account_page_titles}}</title>
     <meta charset="utf-8">
+
+    <link rel="shortcut icon" href="{{preferences.account_favicon}}" />
+
     {% compress css %}
     <!-- RESET -->
     <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/reset.css' %}"/>
@@ -15,7 +18,6 @@
     <link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/buttons.css' %}"/>
     <!-- COMPONENT -->
     <link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/embed.css' %}"/>
-    <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/viewDataStream.css' %}"/>
     <link type="text/css" rel="stylesheet" media="screen" href="{% static 'c3/c3.min.css' %}"/>
 
     {% endcompress %}
@@ -24,36 +26,50 @@
         <!-- BRANDED -->
         <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
         {% endcompress %}
-        <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-        <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+        <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+        <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
     {% endif %}
     
     {% include "js.html" %}
     {% block js_includes %}{% endblock %}
 
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
+<!-- Libraries -->
+    <script type="text/javascript"
+          src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart']
+            }]
+    }"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
+
+
     <script type="text/javascript" src="/js_core/plugins/multimarker.js?id={{settings.VERSION_JS_CSS}}"></script>
+
 
     <script type="text/javascript" src="/js_core/models.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script type="text/javascript" src="{% static 'd3/d3.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'c3/c3.min.js' %}"></script>
 
+    <script src="/js_core/base_modules/DataTableUtils.js"></script>
     <script language="javascript" src="/js_core/base_modules/charts/ChartsFactory.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script language="javascript" src="/js_core/base_modules/charts/models/data.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script language="javascript" src="/js_core/base_modules/charts/models/chart.js?id={{settings.VERSION_JS_CSS}}"></script>
-    
-    <script src="/js_core/base_modules/DataTableUtils.js"></script>
+
     <script language="javascript" src="/js_core/base_modules/charts/views/chart.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script language="javascript" src="/js_core/base_modules/charts/views/charts.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script language="javascript" src="/js_core/base_modules/charts/views/mapChart.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script language="javascript" src="/js_core/base_modules/charts/views/googleCharts.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script language="javascript" src="/js_core/base_modules/charts/views/c3Charts.js?id={{settings.VERSION_JS_CSS}}"></script>
 
+    <script type="text/javascript" src="/js_microsites/viewChart/ChartView.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+
     <script type="text/javascript" src="/js_microsites/viewChart/viewEmbedChartView.js?id={{settings.VERSION_JS_CSS}}"></script>
 
     {% if preferences.enable_embed_options %}
-        <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+        <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
     {% endif %}
 </head>
 
@@ -61,13 +77,13 @@
 
 <div id="id_chartBox" class="chartBox">
     <h2 class="chartTitle">
-        <a target="_blank" class="clearfix" title="{{visualization_revision.title}}" href="{{base_uri}}{{visualization_revision.permalink}}{%if parameters_query%}?{{parameters_query}}{%endif%}">
+        <a target="_blank" class="clearfix" title="{{visualization_revision.title}}" href="{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{{ visualization_revision.visualization_id|permalink:'visualization' }}">
             <img src="{{preferences.account_logo}}" alt="{{preferences.account_name}}" title="{{preferences.account_name}}" class="FL" style="width:45px; !important"/>
             <span class="txt"><strong>{{ visualization_revision.title }}</strong></span>
         </a>
     </h2>
     <!-- VISUALIZATION CONTAINER -->
-    <div class="chartContainer" style="width:{{width}}px;height:{{height}}px;">
+    <div class="chartContainer">
         <div id="id_visualizationResult" class="chartContainerInner clearfix" style="position:relative;height:100%;width:100%"></div>
     </div>
 </div>
@@ -78,32 +94,46 @@
 
 google.load('visualization', '1', {packages: ['corechart', 'geomap']});
 
+var viewVisualizationModel = {
+    title: "{{visualization_revision.title}}", 
+    description: "{{visualization_revision.description|escapejs}}", 
+    visualizationJson : '{{result|escapejs}}',
+    chartJson : '{{visualization_revision.impl_details|escapejs}}',
+    chartLib: "{{visualization_revision.lib}}",
+    status : '{{visualization_revision.status}}',
+    createdAt: "{{ visualization_revision.created_at|date:'F d, Y, h:i A'|capfirst }}",
+    modifiedAt: "{{ visualization_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}",
+    lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{{ visualization_revision.visualization_id|permalink:'visualization' }}",
+    lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
+    guid: "{{visualization_revision.guid}}",
 
-$(document).ready(function(){
+    // Revisar
+    id: "{{ visualization_revision.last_published_revision_id }}",
+    visualization_id: "{{ visualization_revision.visualization_id }}",
+}
 
-    var visualizationModel = new visualization({
-        id: "{{datastream.datastreamrevision_id}}",
-        datastream_id: "{{datastream.datastream_id}}",
-        visualization_id: "{{visualization_revision.visualization_id}}",
-        title: "{{visualization_revision.title}}" , 
-        description: "{{visualization_revision.description|escapejs}}", 
-        guid: "{{visualization_revision.guid}}",
-        visualizationJson : '{{result|escapejs}}',
-        chartJson : '{{visualization_revision.impl_details|escapejs}}',
-        chartLib : '{{visualization_revision.lib}}',
-        status : '{{visualization_revision.status}}',
-        visualizationrevision_id : '{{visualization_revision.visualization_revision_id}}',
-        datastreamrevision_id : '{{visualization_revision.datastreamrevision_id}}',
-        embedUrl: "{{base_uri}}{% url "chart_manager.embed" visualization_revision.guid %}?end_point={%if url_query%}&{{url_query}}{%endif%}",
-        permaLink: "{{base_uri}}{{ visualization_revision.permalink }}",
-        joinIntersectedClusters: "{{join_intersected_clusters}}",
-    });
-    var chartView = new viewEmbedChartView({
-        model: visualizationModel
-    });
+var visualizationModel = new charts.models.Chart( viewVisualizationModel );
 
-    chartView.setLoading();
+visualizationModel.parse({
+    id: {{ visualization_revision.visualization_id }},
+    revision_id: {{ visualization_revision.visualization_revision_id }},
+
+    title: '{{ visualization_revision.title }}',
+    description: '{{ visualization_revision.description }}',
+    notes: '{{ visualization_revision.notes }}',
+    lib: '{{ visualization_revision.lib }}',
+
+    data: '{{ visualization_revision.data }}',
+
+    format: {{ visualization_revision.format | jsonify }},
+    chart: {{ visualization_revision.chart | jsonify }},
+}); 
+
+var chartView = new viewEmbedChartView({
+    model: visualizationModel
 });
+
 </script>
 </body>
 </html>

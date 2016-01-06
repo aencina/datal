@@ -58,7 +58,7 @@
 
 {% if preferences.account_enable_sharing %}
   <script type="text/javascript" charset="utf-8" src="https://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
-  <script type="text/javascript" src="https://w.sharethis.com/button/buttons.js"></script>
+  <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
   <script type="text/javascript">stLight.options({publisher: "b6aba428-3562-4003-b6a8-018086ce7af4", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 {% endif%}
 
@@ -162,13 +162,12 @@ var viewVisualizationModel = {
     lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
     publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{{ visualization_revision.visualization_id|permalink:'visualization' }}",
     lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
-
-    // Validar si es necesario
     guid: "{{visualization_revision.guid}}",
 
     // Revisar
     id: "{{ visualization_revision.last_published_revision_id }}",
     visualization_id: "{{ visualization_revision.visualization_id }}",
+    embedUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% url 'viewChart.embed' visualization_revision.guid %}"
 }
 
 // Plugins - Extend Main Model
