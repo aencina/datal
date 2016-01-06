@@ -23,6 +23,8 @@ from core.models import Category
 
 # Éste ya estaba acá, si comento éste y descomento la anterior, da error en el metodo suggest.
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+
 
 @login_required
 @privilege_required('workspace.can_access_admin')
@@ -46,7 +48,7 @@ def load(request):
     federated_accounts_ids = [x['id'] for x in account.account_set.values('id').all()]
     categories = Category.objects.get_for_home(language, federated_accounts_ids+[account.id])
 
-    return render_to_response('personalizeHome/index.html', locals())
+    return render_to_response('personalizeHome/index.html', locals(), context_instance=RequestContext(request))
 
 
 @login_required
