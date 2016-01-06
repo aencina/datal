@@ -1,1 +1,44 @@
-Embed not found
+{% load i18n compress staticfiles sass_tags plugins_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ settings.APPLICATION_DETAILS.name }} &middot; {% trans "APP-DISCOVERINGDATA-TEXT" %}</title>
+<meta charset="utf-8">
+
+{% compress css %}
+<!-- RESET -->
+<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/reset.css' %}"/>
+<!-- DATA STREAM BOX -->
+<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/dataStreamBox.css' %}"/>
+<!-- COMPONENT -->
+<link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/embed.css' %}"/>
+
+{% if not 'favicon'|inplugin %}
+<link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
+{% else %}
+{% plugins_call 'favicon' %}
+{% endif %}
+
+<script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+{% endcompress %}
+
+</head>
+<body>
+<div class="dataStreamContainer" id="id_dataservice_container">
+    <div id="id_dataservice_NN">
+        <div class="dataStreamBox clearfix">
+            <h2>
+                <a href="{{settings.BASE_URI}}" title="{{ settings.APPLICATION_DETAILS.name }}" class="clearfix" target="_blank">
+                  <span class="txt"><span class="titleDS"><strong>{{ settings.APPLICATION_DETAILS.name }}</strong>
+                  <br> {% trans "APP-DISCOVERINGDATA-TEXT" %}
+                  </span></span>
+                </a>
+            </h2>
+            <div class="Mensaje">
+                <table class="Nulo"><tbody><tr><td> {% trans "APP-OOPS-TEXT" %} <span>{% trans "APP-NODATAFOUD-TEXT" %}.</span></td></tr></tbody></table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

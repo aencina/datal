@@ -26,8 +26,12 @@ var theme7View = Backbone.Epoxy.View.extend({
 		"click #links_section tr .remove" : "removeRow"
 	},
 
-	initialize: function() {
-		this.options.currentView.helpAndTips('hide');
+	initialize: function(options) {
+
+		this.currentView = options.currentView;
+        this.currentModel = options.currentModel;
+
+		this.currentView.helpAndTips('hide');
 		that = this;
 		this.template = _.template($("#id_theme7Template").html());
 		this.render();

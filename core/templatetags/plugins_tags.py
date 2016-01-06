@@ -15,7 +15,7 @@ def plugins_call(context, method_name):
             response += method(context)
     return response
 
-@register.filter(name='ifplugin')
+@register.filter(name='inplugin')
 def inplugin(value):
     plugins = DatalPluginPoint().get_plugins()
     for plugin in plugins:

@@ -24,7 +24,7 @@
   <div class="account-box-content relative">
     
     {# Hide sign up link if method of plugin is activated #}
-    {% if not 'hide_signup_link'|ifplugin %}
+    {% if not 'hide_signup_link'|inplugin %}
     <a href="/signup" title="{% trans 'APP-SIGNUP-TITLE-TEXT' %}" class="signInLink link absolute">{% trans 'APP-SIGNUP-TITLE-TEXT' %}</a>
     {% endif %}
 

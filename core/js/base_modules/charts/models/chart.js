@@ -215,7 +215,7 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     serializeServerExcelRange: function(selection){
-        if (_.isUndefined(selection)) return '';
+        if (_.isUndefined(selection) || selection === '') return '';
         var range = DataTableUtils.excelToRange(selection);
 
         if (range.from.row === -1 && range.to.row === -1) {
