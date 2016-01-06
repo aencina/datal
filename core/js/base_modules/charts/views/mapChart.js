@@ -38,11 +38,16 @@ charts.views.MapChart = charts.views.Chart.extend({
 
     render: function () {
         this.clearMapOverlays();
-        if(this.model.data.get('points') && this.model.data.get('points').length){
-            this.createMapPoints();
+        var points = this.model.data.get('points');
+        var clusters = this.model.data.get('clusters');
+        var styles = this.model.data.get('styles');
+        var styledPoints = this.mergePointsAndStyles(points, styles);
+
+        if(!_.isUndefined(points) && points.length !== 0){
+            this.createMapPoints(styledPoints);
         }
-        if(this.model.data.get('clusters') && this.model.data.get('clusters').length){
-            this.createMapClusters();
+        if(!_.isUndefined(clusters) && clusters.length !== 0){
+            this.createMapClusters(clusters);
         }
         return this;
     },
@@ -56,6 +61,15 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.listenTo(this.model, 'change', this.render, this);
         this.listenTo(this.model, 'change:mapType', this.onChangeMapType, this);
         this.listenTo(this.model, 'data_updated', this.handleDataUpdated, this);
+    },
+
+    mergePointsAndStyles: function (points, styles) {
+        _.each(styles, function (style) {
+            if (points[style.rows[0]]) {
+                points[style.rows[0]].styles = style.styles;
+            };
+        });
+        return points;
     },
 
     onChangeMapType: function (model, type) {
@@ -141,12 +155,11 @@ charts.views.MapChart = charts.views.Chart.extend({
     /**
      * Crea puntos en el mapa, pueden ser de tipo traces o markers
      */
-    createMapPoints: function () {
-        var self = this,
-            styles = this.parseKmlStyles(this.model.get('styles'));
-        _.each(this.model.data.get('points'), function (point, index) {
+    createMapPoints: function (points) {
+
+        _.each(points, function (point, index) {
             if(point.trace){
-                this.createMapTrace(point, index, styles);
+                this.createMapTrace(point, index);
             } else {
                 this.createMapMarker(point, index, styles);
             }
@@ -159,14 +172,15 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @param  {int} index      Indice del trace en el arreglo local de traces
      * @param  {object} styles  Estilos para dibujar el trace
      */
-    createMapTrace: function (point, index, styles) {
+    createMapTrace: function (point, index) {
         var paths = _.map(point.trace, function (tracePoint, index) {
             return {lat: parseFloat(tracePoint.lat), lng: parseFloat(tracePoint.long)};
         });
+        var styles = this.parseKmlStyles(point.styles);
 
         var isPolygon = (paths[0].lat == paths[paths.length-1].lat && paths[0].lng == paths[paths.length-1].lng);
-
         if(isPolygon){
+            console.log(styles.polyStyle)
             this.mapTraces.push(this.createMapPolygon(paths, styles.polyStyle));
         } else {
             this.mapTraces.push(this.createMapPolyline(paths, styles.lineStyle))
@@ -289,18 +303,16 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @return {object}
      */
     parseKmlStyles: function (styles) {
-        styles = styles || [];
-        var parsedStyles = this.stylesDefault;
+        var parsedStyles = _.clone(this.stylesDefault);
 
-        if(styles.length && styles[0].styles){
-            //Obtiene el primer estilo encontrado en la data
-            styles = styles[0].styles;
-            if(styles.lineStyle){
-                parsedStyles.lineStyle = this.kmlStyleToLine(styles.lineStyle);
-            }
-            if(styles.polyStyle){
-                parsedStyles.polyStyle = this.kmlStyleToPolygon(parsedStyles.lineStyle, styles.polyStyle);
-            }
+        if (_.isUndefined(styles)) {
+            return parsedStyles;
+        }
+        if(styles.lineStyle){
+            parsedStyles.lineStyle = this.kmlStyleToLine(styles.lineStyle);
+        }
+        if(styles.polyStyle){
+            parsedStyles.polyStyle = this.kmlStyleToPolygon(parsedStyles.lineStyle, styles.polyStyle);
         }
 
         return parsedStyles;
@@ -312,7 +324,7 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @return {object
      */
     kmlStyleToLine: function(lineStyle) {
-        var defaultStyle = this.get('stylesDefault').lineStyle;
+        var defaultStyle = _.clone(this.stylesDefault.lineStyle);
         return {
             "strokeColor": this.getStyleFromKml(lineStyle, 'color', 'color', defaultStyle.strokeColor),
             "strokeOpacity": this.getStyleFromKml(lineStyle, 'color', 'opacity', defaultStyle.strokeOpacity),
@@ -327,14 +339,14 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @return {object}
      */
     kmlStyleToPolygon: function (lineStyle, polyStyle) {
-        var defaultStyle = this.get('stylesDefault').polyStyle;
-        var opacity = this.getStyleFromKml(polyStyle, 'fill', 'opacity', defaultStyle.strokeWeight);
+        var defaultStyle = _.clone(this.stylesDefault.polyStyle);
+
         return {
             "strokeColor": lineStyle.strokeColor,
             "strokeOpacity": lineStyle.strokeOpacity,
             "strokeWeight": lineStyle.strokeWeight,
-            "fillColor": this.getStyleFromKml(polyStyle, 'fill', 'color', defaultStyle.strokeWeight),
-            "fillOpacity": this.getStyleFromKml(polyStyle, 'fill', 'opacity', defaultStyle.strokeWeight)
+            "fillColor": this.getStyleFromKml(polyStyle, 'fill', 'color', defaultStyle.fillColor),
+            "fillOpacity": this.getStyleFromKml(polyStyle, 'fill', 'opacity', defaultStyle.fillOpacity)
         };
     },
 
@@ -349,13 +361,14 @@ charts.views.MapChart = charts.views.Chart.extend({
     getStyleFromKml: function (kmlStyles, attribute, type, defaultStyle) {
         var style = kmlStyles[attribute] || null;
         if(style == null) return defaultStyle;
-
         //Convierte el color de formato ARGB a RGB
-        if(type == 'color')
+        if(type == 'color') {
             return '#' + style.substring(2);
+        }
         //La opacidad se extrae del color y convierte de hexadecimal a entero
-        if(type == 'opacity')
+        if(type == 'opacity') {
             return parseInt(style.substring(0, 2), 16) / 256;
+        }
 
         return style;
     }
