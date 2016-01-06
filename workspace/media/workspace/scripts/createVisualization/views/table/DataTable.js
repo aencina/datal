@@ -146,15 +146,19 @@ var DataTableView = Backbone.View.extend({
       var table = $('.handsontable'),
           windowHeight = $(window).height();
 
-      var tableHeight =
-        windowHeight
-      - parseFloat( $('.global-navigation').height() )
-      - parseFloat( $('.context-menu').height() )
-      - parseFloat( table.parent().css('padding-top').split('px')[0] )
-      - 30 // As margin bottom
-      ;
+      if( table.length > 0){
 
-      table.css('height', tableHeight+'px');
+        var tableHeight =
+          windowHeight
+        - parseFloat( $('.global-navigation').height() )
+        - parseFloat( $('.context-menu').height() )
+        - parseFloat( table.parent().css('padding-top').split('px')[0] )
+        - 30 // As margin bottom
+        ;
+
+        table.css('height', tableHeight+'px');
+
+      }
 
     }).resize();
       
