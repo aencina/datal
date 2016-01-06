@@ -24,6 +24,8 @@ var MainView = Backbone.View.extend({
         this.listenTo(this.stepBarView, 'next', this.onClickNext, this);
         this.listenTo(this.stepBarView, 'prev', this.onClickPrev, this);
 
+        this.setLoadingHeight();
+
     },
 
     render: function () {
@@ -78,5 +80,28 @@ var MainView = Backbone.View.extend({
         }).fail(function (response) {
             this.stateModel.set('step', 2);
         });
-    }
+    },
+
+    setLoadingHeight: function(){
+
+        $(window).resize(function(){
+
+            var windowHeight = $(window).height(),
+                sectionTitleHeight = $('.main-section .section-title').height();
+
+            var sectionContentHeight =
+                windowHeight
+                - $('.global-navigation').height()
+                - sectionTitleHeight;
+
+            $('.loading').css({
+                'height': sectionContentHeight+'px',
+                'margin-top': -sectionTitleHeight / 2
+
+            });
+
+        }).resize();
+
+    }, 
+    
 });
