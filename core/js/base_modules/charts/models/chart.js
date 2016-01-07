@@ -109,6 +109,11 @@ charts.models.Chart = Backbone.Model.extend({
                 nullValuePreset: res.format.nullValuePreset,
             });
             if (data.type === 'mapchart') {
+                if (! res.chart.bounds)  {
+                     var div = '#id_visualizationResult'; // (?)
+                     center = [0, 0]; // (?)
+                     res.chart.bounds = this.getBoundsByCenterAndZoom(div, center, res.chart.zoom)
+                     }
                 data = _.extend(data,{
                     mapType: res.chart.mapType? res.chart.mapType.toUpperCase(): undefined,
                     geoType: res.chart.geoType,
@@ -153,6 +158,20 @@ charts.models.Chart = Backbone.Model.extend({
         }
 
         this.set(data);
+    },
+
+    getBoundsByCenterAndZoom: function(div, center, zoom){
+            var d = $(div);
+            var zf = Math.pow(2, zoom) * 2;
+            var dw = d.width()  / zf;
+            var dh = d.height() / zf;
+ 
+            var map_bounds = [];
+            map_bounds[0] = center[0] + dh; //NE lat
+            map_bounds[1] = center[1] + dw; //NE lng
+            map_bounds[2] = center[0] - dh; //SW lat
+            map_bounds[3] = center[1] - dw; //SW lng
+            return map_bounds;
     },
 
     bindDataModel: function () {
