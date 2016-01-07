@@ -64,12 +64,33 @@ charts.views.MapChart = charts.views.Chart.extend({
     },
 
     mergePointsAndStyles: function (points, styles) {
+        var self = this;
+
         _.each(styles, function (style) {
             if (points[style.rows[0]]) {
                 points[style.rows[0]].styles = style.styles;
             };
         });
-        return points;
+        return _.map(points, function (point, index) {
+            point.styles = self.lookupStyle(point, index, styles);
+            return point;
+        });
+    },
+
+    lookupStyle: function (point, pointIndex, styles) {
+        var result = styles[0].styles;
+        // Find style by ID
+
+        // Find style by row number
+        var style = _.find(styles, function (style) {
+            return style.rows.indexOf(pointIndex) !== -1;
+        });
+        if (!_.isUndefined(style)) {
+            result = style.styles;
+        }
+
+        return result;
+
     },
 
     onChangeMapType: function (model, type) {
@@ -180,7 +201,6 @@ charts.views.MapChart = charts.views.Chart.extend({
 
         var isPolygon = (paths[0].lat == paths[paths.length-1].lat && paths[0].lng == paths[paths.length-1].lng);
         if(isPolygon){
-            console.log(styles.polyStyle)
             this.mapTraces.push(this.createMapPolygon(paths, styles.polyStyle));
         } else {
             this.mapTraces.push(this.createMapPolyline(paths, styles.lineStyle))
