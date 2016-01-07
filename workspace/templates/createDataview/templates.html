@@ -14,14 +14,17 @@
       </div>
       <% } %>
 
+
       <% if (tables.length > 1) {%>
-      <div class="title">{% trans 'APP-SELECT-DATASET-TABLE' %}</div>
-      <div class="form-group">
-        <select class="form-control select-table">
-          <% _(tables).each(function(table){ %>
-            <option value="<%= table %>">Hoja número <%= table + 1 %></option>
-          <% }); %>
-        </select>
+      <div class="select-table-view">
+        <div class="title">{% trans 'APP-SELECT-DATASET-TABLE' %}</div>
+        <div class="form-group">
+          <select class="form-control select-table">
+            <% _(tables).each(function(table){ %>
+              <option value="<%= table %>">Hoja número <%= table + 1 %></option>
+            <% }); %>
+          </select>
+        </div>
       </div>
       <% } %>
 
