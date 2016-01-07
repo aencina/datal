@@ -71,7 +71,7 @@ msgid "ACCOUNT-FORM-CONTACT-PERSON-EMAIL-LABEL"
 msgstr "E-mail of contact person"
 
 msgid "ACCOUNT-FORM-CONTACT-DATAPERSON-EMAIL-LABEL"
-msgstr "E-mail of data responsable"
+msgstr "E-mail of person responsible for data"
 
 msgid "ACCOUNT-FORM-CONTACT-PERSON-PHONE-LABEL"
 msgstr "Phone"
@@ -539,7 +539,7 @@ msgid "APP-PICTURE-TEXT"
 msgstr "Picture"
 
 msgid "DSFIND-HELPTIP-TITLE"
-msgstr "Helpfull Tips"
+msgstr "Helpful Tips"
 
 msgid "USR-GRAVATAR-TIP1"
 msgstr "DATAL uses the power of"
@@ -764,7 +764,7 @@ msgid "APP-DELETE-TEXT"
 msgstr "Delete"
 
 msgid "WORKSPACE-DOMAIN-SETTINGS"
-msgstr "Domains settings"
+msgstr "Domain settings"
 
 msgid "ACCOUNT-DOMAIN-TIP"
 msgstr "Enter your domain here.<br/>You need first to configure a CNAME with your sysadmin and point it to cloud.junar.com"
@@ -830,10 +830,10 @@ msgid "APP-LAST-ACTIVITY-TEXT"
 msgstr "Last activity"
 
 msgid "APP-USER-TIP"
-msgstr "<h6>HELPFULL TIPS</h6><p>There are 3 types of roles:</p><p><strong>Editor:</strong><br> Can collect and transform datasets into Data Views and Visualizations, and use those in Dashboards.</p><p><strong>Publishers:</strong><br> Same privileges as Editor, plus the permition to publish the resources to the Branded Open Data Site.</p><p><strong>Account administrators:</strong><br> Same privileges as Editor and Publisher, plus management of account settings.</p>"
+msgstr "<h6>HELPFUL TIPS</h6><p>There are 3 types of roles:</p><p><strong>Editor:</strong><br> Can collect and transform datasets into Data Views and Visualizations, and use those in Dashboards.</p><p><strong>Publishers:</strong><br> Same privileges as Editor, plus the permition to publish the resources to the Branded Open Data Site.</p><p><strong>Account administrators:</strong><br> Same privileges as Editor and Publisher, plus management of account settings.</p>"
 
 msgid "APP-USER-TIP-PRIVATE"
-msgstr "<h6>HELPFULL TIPS</h6><p>There are 4 roles in the DATAL Private Data Platform:</p><p><strong>Editor:</strong><br> Collect and transform datasets into richer and more usable formats such as Data Views, Visualizations, and themed Dashboards</p><p><strong>Publishers:</strong><br> Collect and enhance datasets, and approve which data to publish in the Branded Private Data Site</p><p><strong>Administrators:</strong> Collect, Enhance, and Publish datasets and manageaccount settings</p><p><strong>Members:</strong><br>Chance to access to private resources</p>"
+msgstr "<h6>HELPFUL TIPS</h6><p>There are 4 roles in the DATAL Private Data Platform:</p><p><strong>Editor:</strong><br> Collect and transform datasets into richer and more usable formats such as Data Views, Visualizations, and themed Dashboards</p><p><strong>Publishers:</strong><br> Collect and enhance datasets, and approve which data to publish in the Branded Private Data Site</p><p><strong>Administrators:</strong> Collect, Enhance, and Publish datasets and manageaccount settings</p><p><strong>Members:</strong><br>Chance to access to private resources</p>"
 
 msgid "CHRT-XAXISNAME-TEXT"
 msgstr "X axis name"
@@ -1715,13 +1715,10 @@ msgid "DATASET-NOT-PUBLISHED"
 msgstr "The dataset related to this Data View must be published"
 
 msgid "ACCOUNT-USERS-USERNAME-TIP"
-msgstr "The <em>username</em> must be unique.<br/>This validation is being made between all users from DATAL."
+msgstr "The <em>username</em> must be unique.<br/>This validation applies across all DATAL accounts."
 
 msgid "ACCOUNT-USERS-EMAIL-TIP"
-msgstr "The <em>e-mail</em> must be unique.<br/>This validation is being made between all users from DATAL."
-
-msgid "ACCOUNT-USERS-ROLES-TIP"
-msgstr "Check below the differences between roles."
+msgstr "The <em>e-mail</em> must be unique.<br/>This validation applies across all DATAL accounts."
 
 msgid "MISSING-TRACKING-ID"
 msgstr "To add any event, you need to set the property ID of your Google Analytics account."
@@ -2465,7 +2462,7 @@ msgid "APP-CONTACT-EMAIL-TIP"
 msgstr "This is the contact e-mail of the person responsible for this dataset."
 
 msgid "APP-LICENSE-TIP"
-msgstr "The license with which the dataset is published. Licenses examples can be found here "
+msgstr "The license with which the dataset is published. License examples can be found here "
 
 msgid "APP-LICENSE-EXAMPLE-TITLE"
 msgstr "View license examples"
@@ -2678,7 +2675,7 @@ msgid "ACCOUNT-ENABLE-DOWNLOADS-LABEL"
 msgstr "Enable downloads"
 
 msgid "SOCIAL-DOWNLOADS-TIP"
-msgstr "Allow users download your Datasets."
+msgstr "Allow users to download your Datasets."
 
 msgid "APP-DATASETCANTBEUSEDTOCREATECHILD-TEXT"
 msgstr "This Dataset cannot be used to create a Data View."
