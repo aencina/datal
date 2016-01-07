@@ -28,3 +28,6 @@ alias collectstatic-core="echo yes | /home/vagrant/env/bin/python /home/vagrant/
 alias collectstatic-workspace="echo yes | /home/vagrant/env/bin/python /home/vagrant/app/manage.py collectstatic --settings=workspace.settings"
 alias collectstatic-microsites="echo yes | /home/vagrant/env/bin/python /home/vagrant/app/manage.py collectstatic --settings=microsites.settings"
 alias collectstatic-all="echo yes | collectstatic-core -c; echo yes | collectstatic-workspace ; echo yes | collectstatic-microsites "
+
+alias clear_pyco='find ~/app/ -iname "*.py[co]" -exec rm -f {} \;'
+
