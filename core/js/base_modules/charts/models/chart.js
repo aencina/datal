@@ -115,7 +115,7 @@ charts.models.Chart = Backbone.Model.extend({
                     options:{
                         zoom: res.chart.zoom,
                         bounds: res.chart.bounds? res.chart.bounds.split(';'): undefined,
-                        center: res.chart.center? {lat: res.chart.center[0], long: res.chart.center[1]}: undefined                    }
+                        center: res.chart.mapCenter? {lat: res.chart.mapCenter[0], long: res.chart.mapCenter[1]}: undefined                    }
                 });
             };
         }

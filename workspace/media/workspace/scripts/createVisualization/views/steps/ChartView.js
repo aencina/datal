@@ -273,9 +273,6 @@ var ChartView = StepViewSPA.extend({
 
 		this.setupChart();
 
-		console.log(initial);
-		console.log(this.model.data.get('rows'));
-
 		if(this.model.data.get('rows').length){
 			this.onChartChanged();
 		}
