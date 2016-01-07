@@ -149,3 +149,9 @@ msgstr "Tu descarga comenzará en un momento. Si esto no sucede, por favor inten
 
 msgid "VIEWDS-WAITMESSAGEEXPORT-TITLE"
 msgstr "Exportando..."
+
+msgid "EMBED-HEIGHT-ERROR"
+msgstr "La altura debe ser un número"
+
+msgid "EMBED-WIDTH-ERROR"
+msgstr "El ancho debe ser un número"

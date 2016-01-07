@@ -6,7 +6,7 @@ from core.models import GuidModel, CategoryI18n
 from core.communitymanagers import FinderManager
 from core.search.elastic import ElasticsearchFinder
 from core.v8.views import EngineViewSetMixin
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import NotFound
 from django.conf import settings

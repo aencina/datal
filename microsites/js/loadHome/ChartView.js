@@ -34,8 +34,10 @@ var ChartView = Backbone.View.extend({
                 el: this.$el,
                 model: this.model
             });
-            
+
             if(this.model.valid()){
+                var height = this.chartInstance.$el.parent().height();
+                this.chartInstance.$el.height( height );
                 this.chartInstance.render();
             };
         }

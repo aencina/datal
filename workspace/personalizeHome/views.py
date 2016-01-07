@@ -5,7 +5,7 @@ import json
 from django.views.decorators.http import require_POST
 from django.utils.translation import ugettext
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render_to_response, HttpResponse
+from django.shortcuts import HttpResponse
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 
@@ -17,6 +17,13 @@ from workspace.personalizeHome.managers import ThemeFinder
 from core.builders.themes import ThemeBuilder
 
 from core.models import Category
+
+# Éste es usado para traer la variable de SETTINGS que necesito en el template HTML
+#from core.shortcuts import render_to_response
+
+# Éste ya estaba acá, si comento éste y descomento la anterior, da error en el metodo suggest.
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 @login_required
@@ -41,7 +48,7 @@ def load(request):
     federated_accounts_ids = [x['id'] for x in account.account_set.values('id').all()]
     categories = Category.objects.get_for_home(language, federated_accounts_ids+[account.id])
 
-    return render_to_response('personalizeHome/index.html', locals())
+    return render_to_response('personalizeHome/index.html', locals(), context_instance=RequestContext(request))
 
 
 @login_required

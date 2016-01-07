@@ -88,7 +88,7 @@
 	.embedPopup .ao-dialogue{width:400px;margin-top:15px;margin-bottom:0;}
 	.embedPopup .ao-dialogue textarea{width:410px;height:120px;}
 	.embedPopup .ao-dialogue label{width:auto;display:inline;font-weight:normal;font-size:12px;}
-	.embedPopup .ao-dialogue input[type=text]{width:30px;display:inline;margin:0 7px;}
+	.embedPopup .ao-dialogue input[type=text]{width:34px;display:inline;margin:0 7px;}
 	.embedPopup .ao-dialogue td{padding-left:0;padding-right:0;text-align:center;}
 	
 	/*EMBED OVERLAY*/

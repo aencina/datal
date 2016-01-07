@@ -45,8 +45,6 @@
 		{% endif %}
 	{% endif %}
 	
-	{# TODO: HACER EMBEDS #}
-	{% comment %}
 	{% if preferences.enable_embed_options %}
 	<li>
 		<a class="icon embed border-box" id="id_embedButton">
@@ -55,8 +53,7 @@
 		</a>
 	</li>
 	{% endif %}
-	{% endcomment %}
-
+	
 	{% if notes and preferences.account_enable_notes %}
 	<li style="{%if preferences.account_description_enhancement %}display:none;{% endif %}">
 		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar">

@@ -16,6 +16,7 @@
 <script type="text/javascript" src="/js_microsites/loadHome/theme8Model.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_microsites/loadHome/theme8View.js?id={{settings.VERSION_JS_CSS}}"></script>
 <link type="text/css" rel="stylesheet" media="screen" href="/static/microsites/styles/components/theme8.css?id={{settings.VERSION_JS_CSS}}"/>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block themeContent %}
@@ -79,6 +80,12 @@
                     <h2 data-bind="text:titleUpgradeable"></h2>
                     <h3>{{config.buttonsSectionDescription}}</h3>
                 </div>
+
+                <form method="get" action="/search/" class="search buttons-search clearfix" target="_blank">
+                   <input type="text" name="q" class="buttons-field" placeholder="{% trans 'HEADERAUTO-SEARCH-PLACEHOLDER' %}">
+                   <input type="submit" value="" class="buttons-search-button">
+               </form>
+
             </div>
             
             

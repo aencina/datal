@@ -1,8 +1,8 @@
-{% load i18n compress staticfiles sass_tags %}
+{% load i18n compress staticfiles sass_tags plugins_tags %}
 <!DOCTYPE html>
 <html>
 <head>
-<title>DATAL &middot; {% trans "APP-DISCOVERINGDATA-TEXT" %}</title>
+<title>{{ settings.APPLICATION_DETAILS.name }} &middot; {% trans "APP-DISCOVERINGDATA-TEXT" %}</title>
 <meta charset="utf-8">
 
 {% compress css %}
@@ -13,7 +13,11 @@
 <!-- COMPONENT -->
 <link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/embed.css' %}"/>
 
+{% if not 'favicon'|inplugin %}
 <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
+{% else %}
+{% plugins_call 'favicon' %}
+{% endif %}
 
 <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
 {% endcompress %}

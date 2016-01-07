@@ -3,16 +3,41 @@ if(typeof datalEvents === 'undefined'){
     _.extend(datalEvents, Backbone.Events);
 }
 
-var BaseView = Backbone.View.extend({
+var BaseView = function(options) {
+	this.inheritedEvents = [];
 
-	el: 'body',
+	Backbone.View.call(this, options);
+}
 
-	events: {
+_.extend(BaseView.prototype, Backbone.View.prototype, {
+		
+	// Extend functions
+
+	baseEvents: {
 		"click .header .tab.pulldown > a": "onHeaderPulldownButtonClicked",
 		"click .button-pulldown .button": "toggleDropDownMenu",
 		"click #id_navNewDataview": "onNewDataviewButtonClicked",
 		"click #id_navNewVisualization": "onNewVisualizationButtonClicked",
 	},
+
+	events: function() {
+		var e = _.extend({}, this.baseEvents);
+
+		_.each(this.inheritedEvents, function(events) {
+			e = _.extend(e, events);
+		});
+
+		return e;
+	},
+
+	addEvents: function(eventObj) {
+		this.inheritedEvents.push(eventObj);
+		this.delegateEvents();
+	},
+
+	// BaseView functions
+
+	el: 'body',
 
 	initialize: function(){
 		this.showHiddenElements();
@@ -134,3 +159,5 @@ var BaseView = Backbone.View.extend({
 	},
 
 });
+	
+BaseView.extend = Backbone.View.extend;

@@ -52,10 +52,17 @@
 .toolbar .ic_Chart{background-position:-3px -903px;}
 .toolbar .ic_Table,
 .toolbar .iconTabs .ic_Table:hover{background-position:0 -800px;}
-.ic_Dset{background:url(/static/workspace/images/common/ic_resources.png) no-repeat 0 -1px !important;padding-left:19px !important;}
-.ic_Dashboard{background:url(/static/workspace/images/common/ic_resources.png) no-repeat 0 -61px !important;padding-left:22px !important;}
-.ic_Data{background:url(/static/workspace/images/common/ic_resources.png) no-repeat 0 -22px !important;padding-left:20px !important;}
-.ic_Chart{background:url(/static/workspace/images/common/ic_resources.png) no-repeat 0 -41px !important;padding-left:19px !important;}
+
+.ic_Dset,
+.ic_Dashboard,
+.ic_Data,
+.ic_Chart{background:url(/static/workspace/images/common/ic_resources.png) no-repeat 0 -1px !important;padding-left:22px !important;float:left;height:18px;}
+
+.ic_Dset{}
+.ic_Dashboard{background-position:0 -61px !important;}
+.ic_Data{background-position:0 -22px !important;}
+.ic_Chart{background-position:0 -41px !important;}
+
 .toolbar .ic_Table:hover{background-position:0 -825px;}
 .toolbar .ic_Bar{background-position:0 -850px;padding-left:25px;}
 .toolbar .ic_Bar:hover{background-position:0 -875px;}

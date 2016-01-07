@@ -287,7 +287,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
     def _remove_all(self):
 
-        for visualization_revision in VisualizationRevision.objects.filter(datastream_revision=self.datastream_revision):
+        for visualization_revision in VisualizationRevision.objects.filter(datastream=self.datastream_revision.datastream):
             VisualizationLifeCycleManager(user=self.user, resource=visualization_revision).remove(killemall=True)
 
         self.datastream.delete()

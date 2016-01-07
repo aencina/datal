@@ -139,6 +139,7 @@
       datastream_category: '{{ datastream_revision.category_name }}',
       datastream_sources: sources,
       {% if visualization_revision %}
+        editMode: true,
         id: {{ visualization_revision.visualization_id }},
         revision_id: {{ visualization_revision.visualization_revision_id }},
 

@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from core import settings
+from django.conf import settings
 from core.exceptions import MailServiceNotFoundException
 import importlib
 

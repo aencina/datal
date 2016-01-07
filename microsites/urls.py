@@ -8,12 +8,12 @@ from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from djangoplugins.utils import include_plugins
 
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 from microsites.rest.datastreams import RestDataStreamViewSet
 from microsites.rest.maps import RestMapViewSet
 from microsites.rest.charts import RestChartViewSet
 from microsites.rest.routers import MicrositeEngineRouter
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 
 router = MicrositeEngineRouter()
 router.register(r'datastreams', RestDataStreamViewSet, base_name='datastreams')

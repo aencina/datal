@@ -64,7 +64,7 @@
                 		iconType = "ic_Data";
                 		break;
                 	
-                	case "chart":
+                	case "vz":
                 		iconType = "ic_Chart";
                 		break;
 
@@ -78,11 +78,7 @@
                         break;
                 			
                 }
-            	$( "<li></li>" )
-                .data( "ui-autocomplete-item", item )
-                .append( "<a><span class='"+ iconType+ "'>"+item.label+"</span></a>" )
-                .appendTo( ul);
-            	
+            	$( "<li></li>" ).data( "ui-autocomplete-item", item ).append( "<a><span class='" + iconType + "'>" + item.label + "</span></a>" ).appendTo( ul);          	
             	return;
             	
             };
@@ -162,7 +158,7 @@
         		case 'ds':
         			typeResource = 'ic_Data';
         			break;
-        		case 'chart':
+        		case 'vz':
         			typeResource = 'ic_Chart';
         			break;
         		case 'db':
@@ -173,7 +169,7 @@
                 if ($SourcesContainer.find('#' + id + '_tag').length == 0) {
                     var html = '<span id="' + id + '_tag" class="tag">';
                     html += '<span class="tagInner clearfix">';
-                    html += '<span class="tagTxt '+ typeResource + '"id="' + id + "_"+ pTypeResource+'" data="'+pUrl+'">' + name + '</span>';
+                    html += '<span class="tagTxt" id="' + id + "_"+ pTypeResource+'" data="'+pUrl+'"><span class="icon '+ typeResource + '"></span>' + name + '</span>';
                     html += '<a href="javascript:;" rel="#' +id + '_tag" title="Remove Source"><span class="DN">Remove Source</span></a>';
                     html += '</span>';
                     html += '</span>';

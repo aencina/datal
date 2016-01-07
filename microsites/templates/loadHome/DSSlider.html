@@ -11,15 +11,19 @@
                         <span class="txt">
                             <span class="titleDS"><strong>{{resource.title}}</strong></span>
                             <span class="descriptionDS">{{resource.description|truncate:"50"}}</span>
+                            {% comment %}
                             <span class="infoDS">
                                 <span class="categoryDS">{{resource.category_name}}</span> 
                                 <span class="sep">|</span> 
                                 <span class="authorDS">by <strong>{{resource.author}}</strong></span>
                             </span>
+                            {% endcomment %}
                         </span>
                     </a>
                 </h2>
-                <div id="id_dataservice_{{resource.visualization_id}}"></div>
+                <div class="sliderContent">
+                    <div id="id_dataservice_{{resource.visualization_id}}"></div>
+                </div>
 
                 <script type="text/javascript">
 
@@ -78,11 +82,13 @@
                         <span class="txt">
                             <span class="titleDS"><strong>{{resource.title}}</strong></span>
                             <span class="descriptionDS">{{resource.description|truncate:"50"}}</span>
+                            {% comment %}
                             <span class="infoDS">
                                 <span class="categoryDS">{{resource.category_name}}</span> 
                                 <span class="sep">|</span> 
                                 <span class="authorDS">by <strong>{{resource.author }}</strong></span>
                             </span>
+                            {% endcomment %}
                         </span>
                     </a>
                 </h2>

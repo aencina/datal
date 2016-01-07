@@ -6,6 +6,7 @@
 <!-- CSS LIBS -->
 <link href="{% sass_src 'core/styles/plugins/jquery-file-upload/jquery.fileupload-ui.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
 <link type="text/css" href="{% sass_src 'core/styles/plugins/jquery-file-upload/jquery.fileupload.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
+<link href="{% sass_src 'core/styles/actions.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
 
 <!-- CSS JUNAR -->
 <link href="{% sass_src 'workspace/styles/accountAdmin.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
@@ -14,10 +15,12 @@
 
 <!-- JS LIBS -->
 <script type="text/javascript" src="/js_core/plugins/saferStringify.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% comment %}
 <script type="text/javascript" src="/js_core/libs/underscore151/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/libs/backbone100/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backbone_validation/backbone-validation-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/libs/epoxy/backbone.epoxy.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% endcomment %}
+<script type="text/javascript" src="/js_core/libs/backbone_validation/backbone-validation-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/taggingCompleteSources.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 

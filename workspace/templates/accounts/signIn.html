@@ -1,5 +1,5 @@
 {% extends 'base_workspace.html' %}
-{% load i18n extra_tags compress staticfiles sass_tags %}
+{% load i18n extra_tags compress staticfiles sass_tags plugins_tags %}
 
 {% block meta %}
 
@@ -22,7 +22,12 @@
     </div>
   </header>
   <div class="account-box-content relative">
+    
+    {# Hide sign up link if method of plugin is activated #}
+    {% if not 'hide_signup_link'|inplugin %}
     <a href="/signup" title="{% trans 'APP-SIGNUP-TITLE-TEXT' %}" class="signInLink link absolute">{% trans 'APP-SIGNUP-TITLE-TEXT' %}</a>
+    {% endif %}
+
     <form action="{{form.action}}" method="post" novalidate>
       {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
       {% csrf_token %}

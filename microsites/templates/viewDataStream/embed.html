@@ -4,6 +4,9 @@
 <head>
 <title>{{preferences.account_name}} &middot; {{preferences.account_page_titles}}</title>
 <meta charset="utf-8">
+
+<link rel="shortcut icon" href="{{preferences.account_favicon}}" />
+
 {% compress css %}
     <!-- RESET -->
 <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/reset.css' %}"/>
@@ -36,7 +39,7 @@
 {% if preferences.enable_embed_options %}
 <!--  <script type="text/javascript" src="/js_microsites/modules/share.js?id={{settings.VERSION_JS_CSS}}"></script> -->
 	<script type="text/javascript" src="/js_microsites/viewDataStream/embedActions.js?id={{settings.VERSION_JS_CSS}}"></script>
-<!--	<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
+<!--	<script type="text/javascript" charset="utf-8" src="https://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
 	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script> -->
 	<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 {% endif %}
@@ -148,8 +151,8 @@
 <!-- 			            <div class="menuInner"> -->
 <!-- 			                <ul class="In share"> -->
 <!-- 			                    <li class="J"><a href="javascript:;" title="{% trans 'APP-SHARE-TEXT' %}" class="Icon FR ic_Menu open"><span>{% trans "APP-SHARE-TEXT" %}</span></a></li> -->
-<!-- 			                    <li class="facebook"><iframe src="http://www.facebook.com/plugins/like.php" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:112px; height:20px;" allowTransparency="true"></iframe></li> -->
-<!-- 			                    <li class="twitter"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html" style="width:112px; height:20px;"></iframe></li> -->
+<!-- 			                    <li class="facebook"><iframe src="https://www.facebook.com/plugins/like.php" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:112px; height:20px;" allowTransparency="true"></iframe></li> -->
+<!-- 			                    <li class="twitter"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html" style="width:112px; height:20px;"></iframe></li> -->
 <!-- 			                    <li class="google"><div class="g-plusone" data-size="medium" data-count="true"></div></li> -->
 <!-- 			                    <li class="url"><input type="text" value="" class="share_url_input" readonly="readonly"/></li> -->
 <!-- 			                </ul> -->

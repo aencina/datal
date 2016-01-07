@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 import logging
 
 

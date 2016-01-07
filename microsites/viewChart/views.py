@@ -80,7 +80,9 @@ def embed(request, guid):
     except:
         return render_to_response('viewChart/embed404.html',{'settings': settings, 'request' : request})
 
-    VisualizationHitsDAO(visualization_revision.visualization).add(ChannelTypes.WEB)
+    #VisualizationHitsDAO(visualization_revision.visualization).add(ChannelTypes.WEB)
+    VisualizationHitsDAO(visualization_revision).add(ChannelTypes.WEB)
+
     width = request.REQUEST.get('width', False) # TODO get default value from somewhere
     height = request.REQUEST.get('height', False) # TODO get default value from somewhere
 

@@ -1,6 +1,14 @@
 {% set user = pillar['system']['user'] %}
 {% set group = pillar['system']['group'] %}
 
+cleanpython:
+  cmd.run:
+    - user: {{ user }}
+    - group: {{ group }}
+    - cwd: {{install_dir}}{{ pillar['application']['path'] }}
+    - names:
+      - find -iname "*.py[co]" -exec rm -f {} \;
+
 {% if salt['grains.get']('os') == 'Debian' %}
 install_ruby:
   pkg.installed:

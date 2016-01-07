@@ -740,12 +740,16 @@ i.icon.TNCLIMA{}
 
 
 /* Tags */
-.tag, .param{margin:0 10px 10px 0;float:left;}
-.tag .tagTxt, .param .paramTxt {
-  background:#e2e2e2;
+.tag, 
+.param{margin:0 10px 10px 0;float:left;}
+.tag .tagTxt, 
+.param .paramTxt {
+  background-color:#e2e2e2 !important;
   word-wrap:break-word;display:block;float:left;padding:2px 8px;font-size:11px;line-height:20px;height:20px;}
-
-.tag .tagInner a:hover, .tag .tagTxt.isEditing, .param .paramInner a:hover{background-position: 0 -19px;
+.tag .tagTxt .icon{padding-left:0 !important;margin-top:2px;}
+.tag .tagInner a:hover, 
+.tag .tagTxt.isEditing, 
+.param .paramInner a:hover{background-position: 0 -19px;
 border-color: #ccc;}
 
 /* Rich text editor */

@@ -2,7 +2,7 @@ from django import template
 from django.forms.formsets import formset_factory
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 
 
 from core.auth import forms as auth_forms
