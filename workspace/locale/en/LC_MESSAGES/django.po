@@ -3376,11 +3376,11 @@ msgstr "Custom pattern"
 msgid "APP-CONFIGURE-FORMAT"
 msgstr "Configure formats"
 
-msgid "APP-ORIGIN-FORMAT"
-msgstr "Origin format"
+msgid "APP-ORIGIN"
+msgstr "Origin"
 
-msgid "APP-OUTPUT-FORMAT"
-msgstr "Output format"
+msgid "APP-OUTPUT"
+msgstr "Output"
 
 msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
 msgstr "Decimals / Thousands indicators"

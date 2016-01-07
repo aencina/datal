@@ -3369,11 +3369,11 @@ msgstr "Patrón personalizado"
 msgid "APP-CONFIGURE-FORMAT"
 msgstr "Configurar formatos"
 
-msgid "APP-ORIGIN-FORMAT"
-msgstr "Formato origen"
+msgid "APP-ORIGIN"
+msgstr "Origen"
 
-msgid "APP-OUTPUT-FORMAT"
-msgstr "Formato salida"
+msgid "APP-OUTPUT"
+msgstr "Salida"
 
 msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
 msgstr "Indicadores de decimales / miles"
