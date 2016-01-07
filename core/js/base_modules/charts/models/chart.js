@@ -234,9 +234,15 @@ charts.models.Chart = Backbone.Model.extend({
         if (_.isUndefined(serverExcelRange)) {
             return serverExcelRange;
         };
+
+        // Parseo del formato "Column:D,Column:E,Column:F,Column:G" a "D:G".
+        // Notese que solo se asume que el formato de origen contiene columnas consecutivas y 
+        // ordenadas.
         if (serverExcelRange.indexOf('Column:') !== -1) {
-            col = serverExcelRange.replace('Column:', '');
-            serverExcelRange = [col, ':', col].join('');
+            cols = serverExcelRange.split(',').map(function (item) {
+                return item.replace('Column:', '');
+            });
+            serverExcelRange = [cols[0], ':', cols[cols.length - 1]].join('');
         }
         return serverExcelRange;
     },
