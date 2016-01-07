@@ -12,7 +12,7 @@ from core.lifecycle.datastreams import DatastreamSearchDAOFactory
 from core.daos.datastreams import DatastreamHitsDAO, DataStreamDBDAO
 from core.daos.visualizations import *
 
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 
 
 

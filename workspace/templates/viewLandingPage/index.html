@@ -40,129 +40,125 @@
 {% block content %}
 <div class="columns equal-width clearfix">
 
-	<div class="container">
+	<div class="row">
 
-		<div class="row">
+		<div class="col-xs-12">
+			
+			<!-- Activity -->
+			<section class="box activity">
+	
+			{% if stats.account_max_resource != 0 %}
 
-			<div class="col-xs-12">
-				
-				<!-- Activity -->
-				<section class="box activity">
-		
-				{% if stats.account_max_resource != 0 %}
-
-					<header>
-						<div class="row">
-							<div class="col-xs-9">
-								<h3 class="title">{% trans "LANDINGPAGE-ACTIVITY-TITLE" %}</h3>
-							</div>
-							<div class="col-xs-3">
-								<h3 class="title">{% trans "LANDINGPAGE-ACTIVITY-TIME" %}</h3>
-							</div>
+				<header>
+					<div class="row">
+						<div class="col-xs-9">
+							<h3 class="title">{% trans "LANDINGPAGE-ACTIVITY-TITLE" %}</h3>
 						</div>
-					</header>
+						<div class="col-xs-3">
+							<h3 class="title">{% trans "LANDINGPAGE-ACTIVITY-TIME" %}</h3>
+						</div>
+					</div>
+				</header>
 
-					<div class="box-content">
+				<div class="box-content">
 
-						{% for activity in account_activities %}
-							<article class="clearfix">
-								<div class="row">
-									<div class="col-xs-9">
-										<p>
-											
-											{{activity.user_name}}
-											
-											{% get_activity_type activity.action_id as the_activity %}
-											
-											{{the_activity}}
+					{% for activity in account_activities %}
+						<article class="clearfix">
+							<div class="row">
+								<div class="col-xs-9">
+									<p>
+										
+										{{activity.user_name}}
+										
+										{% get_activity_type activity.action_id as the_activity %}
+										
+										{{the_activity}}
 
-											{% if activity.type == 'dt' %}
-												{% trans "LANDINGPAGE-ACTIVITY-DATASET" %}
-											{% elif activity.type == 'ds' %}
-												{% trans "LANDINGPAGE-ACTIVITY-DATAVIEW" %}
-											{% elif activity.type == 'vz' %}
-												{% trans "LANDINGPAGE-ACTIVITY-VISUALIZATION" %}
-											{% else %}
-												 	<!-- Nav items from plugins -->
-										    	{% get_plugins core.plugins.DatalPluginPoint as plugins %}
-										    	{% for plugin in plugins %}
-										    		{% if plugin.is_active and plugin.doc_type == activity.type %}
-										    			{% autoescape off %}
-										    				{{ plugin.landing_list_item }}
-										     			{% endautoescape %}
-										     		{% endif %}
-										     	{% endfor %}
-											{% endif %}
-											
-											{# 1 == DELETE -> No tiene link #}
-											{% if activity.action_id != "1" %}
-												<a class="resource" href="{{activity.resource_link}}" title="{{activity.title}}">
-														<span>{{activity.title}}</span>
-												</a>
-											{% else %}
-												{{activity.title}}
-											{% endif%}
+										{% if activity.type == 'dt' %}
+											{% trans "LANDINGPAGE-ACTIVITY-DATASET" %}
+										{% elif activity.type == 'ds' %}
+											{% trans "LANDINGPAGE-ACTIVITY-DATAVIEW" %}
+										{% elif activity.type == 'vz' %}
+											{% trans "LANDINGPAGE-ACTIVITY-VISUALIZATION" %}
+										{% else %}
+											 	<!-- Nav items from plugins -->
+									    	{% get_plugins core.plugins_point.DatalPluginPoint as plugins %}
+									    	{% for plugin in plugins %}
+									    		{% if plugin.is_active and plugin.doc_type == activity.type %}
+									    			{% autoescape off %}
+									    				{{ plugin.landing_list_item }}
+									     			{% endautoescape %}
+									     		{% endif %}
+									     	{% endfor %}
+										{% endif %}
+										
+										{# 1 == DELETE -> No tiene link #}
+										{% if activity.action_id != "1" %}
+											<a class="resource" href="{{activity.resource_link}}" title="{{activity.title}}">
+													<span>{{activity.title}}</span>
+											</a>
+										{% else %}
+											{{activity.title}}
+										{% endif%}
 
-											{# las VZ todavia no tienen categorias #}
-											{% if activity.category %} <span class="sep">|</span> <span class="category">{{activity.category}}</span> {% endif %}
+										{# las VZ todavia no tienen categorias #}
+										{% if activity.category %} <span class="sep">|</span> <span class="category">{{activity.category}}</span> {% endif %}
 
-										</p>
-									</div>
-
-									<div class="col-xs-3">
-										<p><time>{{activity.time}}</time></p>
-									</div>
+									</p>
 								</div>
-							</article>
-						{% endfor %}
-					</div>
 
-				{% else %}
-
-								<div class="row center">
-					<div class="col-xs-4">
-						<div class="step1">
-							<div class="arrowRight"></div>
-							<h2 class="left">{% trans "LANDINGPAGE-NOACTIVITY-STEP1" %}</h2>
-							<img src="/static/workspace/images/viewLandingPage/step1.gif">
-						</div>
-					</div>
-					<div class="col-xs-4">
-						<div class="step2">
-							<div class="arrowRight"></div>
-							<h2 class="left">{% trans "LANDINGPAGE-NOACTIVITY-STEP2" %}</h2>
-							<img src="/static/workspace/images/viewLandingPage/step2.gif">
-						</div>
-					</div>
-					<div class="col-xs-4">
-						<div class="step3">
-							<h2 class="left">{% trans "LANDINGPAGE-NOACTIVITY-STEP3" %}</h2>
-							<img src="/static/workspace/images/viewLandingPage/step3.gif">
-						</div>
-					</div>
-					
-					<div class="col-xs-12 center">
-						<div class="start">
-							<h2>{% trans "LANDINGPAGE-NOACTIVITY-START" %}</h2>
-
-							<div class="button-pulldown">
-								<a class="button primary" title="{% trans 'APP-ADDNEWDATASET-TEXT' %}">{% trans 'APP-ADDNEWDATASET-TEXT' %}<span class="icon icon-right icon-pulldown"></span></a>
-								<ul class="dropdown">
-									<li><a  href="{% url 'manageDatasets.create_type' 'file' %}" class="button primary" title="{% trans 'APP-UPLOAD-FILE-TEXT' %}">{% trans 'APP-UPLOAD-FILE-TEXT' %}</a></li>
-									<li><a href="{% url 'manageDatasets.create_type' 'url' %}" class="button primary" title="{% trans 'APP-WEBSITE-TEXT' %}">{% trans 'APP-WEBSITE-TEXT' %}</a></li>
-									<li><a href="{% url 'manageDatasets.create_type' 'webservice' %}" class="button primary" title="{% trans 'APP-WEBSERVICE-TEXT' %}">{% trans 'APP-WEBSERVICE-TEXT' %}</a></li>
-								</ul>
+								<div class="col-xs-3">
+									<p><time>{{activity.time}}</time></p>
+								</div>
 							</div>
-
-						</div>
-					</div>
+						</article>
+					{% endfor %}
 				</div>
 
-				{% endif %}
+			{% else %}
 
-				</section>
+							<div class="row center">
+				<div class="col-xs-4">
+					<div class="step1">
+						<div class="arrowRight"></div>
+						<h2 class="left">{% trans "LANDINGPAGE-NOACTIVITY-STEP1" %}</h2>
+						<img src="/static/workspace/images/viewLandingPage/step1.gif">
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="step2">
+						<div class="arrowRight"></div>
+						<h2 class="left">{% trans "LANDINGPAGE-NOACTIVITY-STEP2" %}</h2>
+						<img src="/static/workspace/images/viewLandingPage/step2.gif">
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="step3">
+						<h2 class="left">{% trans "LANDINGPAGE-NOACTIVITY-STEP3" %}</h2>
+						<img src="/static/workspace/images/viewLandingPage/step3.gif">
+					</div>
+				</div>
+				
+				<div class="col-xs-12 center">
+					<div class="start">
+						<h2>{% trans "LANDINGPAGE-NOACTIVITY-START" %}</h2>
 
+						<div class="button-pulldown">
+							<a class="button primary" title="{% trans 'APP-ADDNEWDATASET-TEXT' %}">{% trans 'APP-ADDNEWDATASET-TEXT' %}<span class="icon icon-right icon-pulldown"></span></a>
+							<ul class="dropdown">
+								<li><a  href="{% url 'manageDatasets.create_type' 'file' %}" class="button primary" title="{% trans 'APP-UPLOAD-FILE-TEXT' %}">{% trans 'APP-UPLOAD-FILE-TEXT' %}</a></li>
+								<li><a href="{% url 'manageDatasets.create_type' 'url' %}" class="button primary" title="{% trans 'APP-WEBSITE-TEXT' %}">{% trans 'APP-WEBSITE-TEXT' %}</a></li>
+								<li><a href="{% url 'manageDatasets.create_type' 'webservice' %}" class="button primary" title="{% trans 'APP-WEBSERVICE-TEXT' %}">{% trans 'APP-WEBSERVICE-TEXT' %}</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
 			</div>
+
+			{% endif %}
+
+			</section>
 
 		</div>
 

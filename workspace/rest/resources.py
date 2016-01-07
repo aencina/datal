@@ -10,7 +10,7 @@ from rest_framework.compat import OrderedDict
 from rest_framework_extensions.cache.decorators import cache_response
 from django.conf import settings
 from core.rest.cache import CacheKeyConstructor
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 
 import json
 import logging

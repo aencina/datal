@@ -28,9 +28,10 @@ class EngineSerializer(serializers.Serializer):
             # la extension real
             name = filename if len(filename.split('.')) == 1 else '.'.join(filename.split('.')[:-1])
             filename2 = '{}.{}'.format(name, extension)
-            
-        if settings.DEBUG and filename2: 
-            logger.info('Redirect %s %s %s' % (redirect_to, filename, filename2))
+
+        if settings.DEBUG: 
+            logger.info('Redirect %s %s' % (redirect_to, filename))
+            if filename2: logger.info('Redirect f2 %s %s' % (redirect_to, filename2))
         
         return filename2 or filename
 
@@ -43,6 +44,7 @@ class EngineSerializer(serializers.Serializer):
                 redirect = isinstance(json_data, dict) and json_data.get('fType') == 'REDIRECT'
             
             filename = self.get_filename(obj, json_data, redirect)
+            
             return {'result': json_data or obj['result'], 
                     'redirect': redirect, 
                     'filename': filename 

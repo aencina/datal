@@ -7,7 +7,7 @@ from django.views.i18n import javascript_catalog
 from rest_framework import routers
 from djangoplugins.utils import include_plugins
 
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 from workspace.rest.datasets import RestDataSetViewSet
 from workspace.rest.datastreams import RestDataStreamViewSet
 from workspace.rest.maps import RestMapViewSet

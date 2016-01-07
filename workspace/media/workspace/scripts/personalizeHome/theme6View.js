@@ -22,7 +22,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 		this.currentView = options.currentView;
         this.currentModel = options.currentModel;
 
-		this.options.currentView.helpAndTips('hide');
+		this.currentView.helpAndTips('hide');
 		that = this;
 		this.template = _.template($("#id_theme6Template").html());
 		this.render();

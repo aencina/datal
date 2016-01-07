@@ -3,7 +3,7 @@ import logging
 from post_office import mail
 
 from core.lib.mail.mail import MailService
-from core import settings
+from django.conf import settings
 
 
 class DjangoMailService(MailService):

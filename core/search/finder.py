@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from core.utils import slugify
 from core import helpers, choices
 from core.exceptions import SearchIndexNotFoundException
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 
 logger = logging.getLogger(__name__)
 

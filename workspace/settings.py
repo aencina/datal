@@ -77,3 +77,8 @@ try:
     MIDDLEWARE_CLASSES += WORKSPACE_PLUGIN_MIDDLEWARE_CLASSES
 except:
     pass
+
+try:    
+    from plugins.local_settings import *
+except ImportError:
+    pass

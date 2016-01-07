@@ -1702,9 +1702,6 @@ msgstr "El <em>usuario</em> debe ser único.<br/>Esta validación se realiza ent
 msgid "ACCOUNT-USERS-EMAIL-TIP"
 msgstr "El <em>e-mail</em> debe ser único.<br/>Esta validación se realiza entre todos los usuarios de DATAL."
 
-msgid "ACCOUNT-USERS-ROLES-TIP"
-msgstr "Compruebe más abajo las diferencias entre los roles."
-
 msgid "MISSING-TRACKING-ID"
 msgstr "Para agregar cualquier evento, es necesario especificar el ID de propiedad de la cuenta de Google Analytics."
 

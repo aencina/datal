@@ -61,7 +61,7 @@ charts.models.Chart = Backbone.Model.extend({
             id: this.get('id'),
             type: this.get('type')
         });
-
+        this.editMode = false;
         this.bindEvents();
     },
 
@@ -80,6 +80,8 @@ charts.models.Chart = Backbone.Model.extend({
             datastream_category: res.datastream_category
         };
 
+        this.editMode = res.editMode || false;
+
         _.extend(data, _.pick(res, [
             'revision_id',
             'lib'
@@ -87,7 +89,7 @@ charts.models.Chart = Backbone.Model.extend({
 
 
         //edit
-        if(res.revision_id){
+        if (res.revision_id && this.editMode) {
             data = _.extend(data,{
                 type: res.format.type,
 
@@ -215,7 +217,7 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     serializeServerExcelRange: function(selection){
-        if (_.isUndefined(selection)) return '';
+        if (_.isUndefined(selection) || selection === '') return '';
         var range = DataTableUtils.excelToRange(selection);
 
         if (range.from.row === -1 && range.to.row === -1) {
@@ -232,9 +234,15 @@ charts.models.Chart = Backbone.Model.extend({
         if (_.isUndefined(serverExcelRange)) {
             return serverExcelRange;
         };
+
+        // Parseo del formato "Column:D,Column:E,Column:F,Column:G" a "D:G".
+        // Notese que solo se asume que el formato de origen contiene columnas consecutivas y 
+        // ordenadas.
         if (serverExcelRange.indexOf('Column:') !== -1) {
-            col = serverExcelRange.replace('Column:', '');
-            serverExcelRange = [col, ':', col].join('');
+            cols = serverExcelRange.split(',').map(function (item) {
+                return item.replace('Column:', '');
+            });
+            serverExcelRange = [cols[0], ':', cols[cols.length - 1]].join('');
         }
         return serverExcelRange;
     },

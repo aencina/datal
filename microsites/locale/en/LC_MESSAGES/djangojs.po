@@ -149,3 +149,10 @@ msgstr "Your download will begin in a moment. <br/>If it doesn't, please try aga
 
 msgid "VIEWDS-WAITMESSAGEEXPORT-TITLE"
 msgstr "Exporting..."
+
+msgid "EMBED-HEIGHT-ERROR"
+msgstr "Height should be a number"
+
+msgid "EMBED-WIDTH-ERROR"
+msgstr "Width should be a number"
+

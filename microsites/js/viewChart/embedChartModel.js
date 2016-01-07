@@ -1,16 +1,12 @@
 var embedChart = Backbone.Model.extend({
     defaults: {
         'title': "",
-        'width': "400",
-        'height': "175",
-        'url': "",
-        'headerRows': "0",
-        'fixedColumns': "0"
+        'width': 450,
+        'height': 300,
+        'url': ""
     },
     initialize: function(){
-        //load the default values
-        this.attributes.width = Configuration.chartSize.embed.width;
-        this.attributes.height = Configuration.chartSize.embed.height;
+        
     },
     validate: function(attributes, options){
         var errors  = {};       
@@ -25,7 +21,7 @@ var embedChart = Backbone.Model.extend({
         var errorList = [];
         
         if(isNaN(height)){
-            errorList.push("Height should be a number");
+            errorList.push( gettext('EMBED-HEIGHT-ERROR') );
         }
         errors.height = errorList;
         
@@ -38,7 +34,7 @@ var embedChart = Backbone.Model.extend({
         var errorList = [];
         
         if(isNaN(width)){
-            errorList.push("Width should be a number");
+            errorList.push( gettext('EMBED-WIDTH-ERROR') );
         }
         errors.width = errorList;
         
@@ -47,16 +43,4 @@ var embedChart = Backbone.Model.extend({
         }
         return false;
     },  
-    setHeaders: function(headers) {
-        var headerRows  = $.trim(headers);
-        var url         =  this.get('url').replace(/header_row=\d*/, 'header_row=' + headerRows);
-        
-        this.set({'headerRows': headerRows, 'url': url}, {validate: true});     
-    },
-    setColumns: function(columns) {
-        var fixedColumns= $.trim(columns);
-        var url         =  this.get('url').replace(/fixed_column=\d*/, 'fixed_column=' + fixedColumn);
-        
-        this.set({'fixedColumns': fixedColumns, 'url': url}, {validate: true});     
-    },
 });

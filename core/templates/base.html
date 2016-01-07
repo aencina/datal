@@ -1,4 +1,4 @@
-{% load i18n compress staticfiles %}
+{% load i18n compress staticfiles plugins_tags %}
 <!DOCTYPE html>
 <html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
 <head>
@@ -15,7 +15,11 @@
 	{% block head %}{% endblock %}
 
     {% block favicon %}
+        {% if not 'favicon'|inplugin %}
         <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
+        {% else %}
+        {% plugins_call 'favicon' %}
+        {% endif %}
     {% endblock %}
 
 	{% include "css.html" %}

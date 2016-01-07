@@ -426,3 +426,13 @@ try:
     STATICFILES_DIRS += PLUGIN_STATIC_DIRS
 except:
     pass
+
+try:    
+    from plugins.settings import *
+except ImportError:
+    pass
+
+try:    
+    from plugins.local_settings import *
+except ImportError:
+    pass

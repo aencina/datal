@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from core.utils import include_notroot_plugins
 
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 from api.v2.datastreams import DataStreamViewSet
 from api.v2.datasets import DataSetViewSet
 from api.v2.visualizations import VisualizationViewSet

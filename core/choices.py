@@ -3,7 +3,7 @@ from django.conf import settings
 
 from model_utils import Choices
 
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 
 VISUALIZATION_TYPES = (
     ('columnchart', 'columnchart'),

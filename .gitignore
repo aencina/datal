@@ -16,6 +16,7 @@ otros/
 celerybeat*
 celerybeat-schedule
 celerybeati.pid
+celerydb.sqlite
 .vagrant/
 fabfile*.py
 .DS_Store

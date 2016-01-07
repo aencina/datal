@@ -31,7 +31,6 @@ TEMPLATE_DIRS = (
 SEARCH_MAX_RESULTS = 100
 PAGINATION_RESULTS_PER_PAGE = 10
 PAGINATION_COMMENTS_PER_PAGE  = 10
-DEFAULT_MICROSITE_CHART_SIZES = {"embed":{"width":400, "height":115}, "normal":{"width":"90%", "height":620}}
 
 INSTALLED_APPS += (
     'microsites',
@@ -58,5 +57,10 @@ REST_FRAMEWORK['DEFAULT_PERMISSION_CLASSES'] = (
 
 try:
     from microsites.local_settings import *
+except ImportError:
+    pass
+
+try:    
+    from plugins.local_settings import *
 except ImportError:
     pass

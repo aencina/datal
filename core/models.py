@@ -382,18 +382,6 @@ class DataStreamRevision(RevisionModel):
         return DataStreamRevision.objects.filter(dataset=dataset)
 
 
-    @staticmethod
-    def remove_related_to_dataset(dataset):
-        """
-        Elimino las revisiones de DataStream asociados a un dataset en particular y su DataStream
-        """
-        datastream_ids = set()
-        datastream_revisions = DataStreamRevision.related_to_dataset(dataset)
-        for datastreamrevision in datastream_revisions:
-            datastream_ids.add(datastreamrevision.id)
-            datastreamrevision.delete()
-        DataStream.objects.filter(pk__in=datastream_ids).delete()
-
     def update(self, changed_fields, **fields):
         if changed_fields:
             if 'category' in changed_fields:

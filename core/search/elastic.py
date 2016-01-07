@@ -4,7 +4,7 @@ from django.conf import settings
 from core.search.finder import Finder, FinderManager
 import re
 import logging
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 
 logger = logging.getLogger(__name__)
 

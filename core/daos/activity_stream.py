@@ -6,7 +6,7 @@ from core.models import User
 from core import http as LocalHelper
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext
-from core.plugins import DatalPluginPoint
+from core.plugins_point import DatalPluginPoint
 import redis
 import datetime
 import logging

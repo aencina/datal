@@ -7,7 +7,6 @@ import mandrill
 import logging
 
 from core.lib.mail.mail import MailService
-from core import settings
 from django.conf import settings
 
 
