@@ -61,7 +61,7 @@ charts.models.Chart = Backbone.Model.extend({
             id: this.get('id'),
             type: this.get('type')
         });
-
+        this.editMode = false;
         this.bindEvents();
     },
 
@@ -80,6 +80,8 @@ charts.models.Chart = Backbone.Model.extend({
             datastream_category: res.datastream_category
         };
 
+        this.editMode = res.editMode || false;
+
         _.extend(data, _.pick(res, [
             'revision_id',
             'lib'
@@ -87,7 +89,7 @@ charts.models.Chart = Backbone.Model.extend({
 
 
         //edit
-        if(res.revision_id){
+        if (res.revision_id && this.editMode) {
             data = _.extend(data,{
                 type: res.format.type,
 
