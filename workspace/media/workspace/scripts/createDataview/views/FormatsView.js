@@ -65,7 +65,8 @@ var FormatsView = Backbone.Epoxy.View.extend({
         } else {
             this.$('.input-locale').addClass('hidden');
         };
-
+        this.onChangeInputPattern(null, this.model.get('inputPattern'));
+        this.onChangeOutputPattern(null, this.model.get('outputPattern'));
 
         Backbone.Validation.bind(this, {
             valid: function (view, attr, selector) {
