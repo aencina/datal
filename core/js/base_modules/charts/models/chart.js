@@ -89,7 +89,7 @@ charts.models.Chart = Backbone.Model.extend({
 
 
         //edit
-        if (res.revision_id && this.editMode) {
+        if (res.revision_id) {
             data = _.extend(data,{
                 type: res.format.type,
 
@@ -107,8 +107,22 @@ charts.models.Chart = Backbone.Model.extend({
 
                 nullValueAction: res.format.nullValueAction,
                 nullValuePreset: res.format.nullValuePreset,
+            });
+            if (data.type === 'mapchart') {
+                data = _.extend(data,{
+                    mapType: res.chart.mapType? res.chart.mapType.toUpperCase(): undefined,
+                    geoType: res.chart.geoType,
+                    options:{
+                        zoom: res.chart.zoom,
+                        bounds: res.chart.bounds? res.chart.bounds.split(';'): undefined,
+                        center: res.chart.mapCenter? {lat: res.chart.mapCenter[0], long: res.chart.mapCenter[1]}: undefined                    }
+                });
+            };
+        }
 
-                //data
+        //edit
+        if (res.revision_id && this.editMode) {
+            data = _.extend(data,{
                 range_data: this.parseColumnFormat(res.data),
                 range_headers: this.parseColumnFormat(res.chart.headerSelection),
                 range_labels: this.parseColumnFormat(res.chart.labelSelection),
@@ -122,16 +136,10 @@ charts.models.Chart = Backbone.Model.extend({
                     range_lat: this.parseColumnFormat(res.chart.latitudSelection),
                     range_lon: this.parseColumnFormat(res.chart.longitudSelection),
                     range_trace: this.parseColumnFormat(res.chart.traceSelection),
-                    mapType: res.chart.mapType? res.chart.mapType.toUpperCase(): undefined,
-                    geoType: res.chart.geoType,
-                    options:{
-                        zoom: res.chart.zoom,
-                        bounds: res.chart.bounds? res.chart.bounds.split(';'): undefined,
-                        center: res.chart.mapCenter? {lat: res.chart.mapCenter[0], long: res.chart.mapCenter[1]}: undefined
-                    }
                 });
             };
         }
+
         this.set(data);
     },
 
