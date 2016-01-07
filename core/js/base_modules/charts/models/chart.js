@@ -171,7 +171,7 @@ charts.models.Chart = Backbone.Model.extend({
             map_bounds[1] = center[1] + dw; //NE lng
             map_bounds[2] = center[0] - dh; //SW lat
             map_bounds[3] = center[1] - dw; //SW lng
-            return map_bounds;
+            return map_bounds.join(';');
     },
 
     bindDataModel: function () {
