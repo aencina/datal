@@ -19,6 +19,11 @@ var SelectDataView = Backbone.View.extend({
 
         this.listenTo(this.internalState, 'change:mode', this.onChangeMode, this);
         this.listenTo(this.dataviewModel.dataset, 'change:tables', this.render, this);
+        this.listenTo(this.dataviewModel.dataset, 'request', this.onFetchStart, this);
+    },
+
+    onFetchStart: function (e) {
+        this.$('.data-table-view .loading').removeClass('hidden');
     },
 
     render: function () {

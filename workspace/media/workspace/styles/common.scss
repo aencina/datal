@@ -821,7 +821,7 @@ border-color: #ccc;}
 /* Ajax loading */
 .ajaxLoadingOverlay{background:#fff url(#{$loader-url-light}) center center no-repeat;}
 
-.loading{background-color:#fff;background-position:center center;background-repeat:no-repeat;position:absolute;top:0;bottom:0;left:0;right:0;z-index:1;opacity:.75;}
+.loading{background-color:#fff;background-position:center center;background-repeat:no-repeat;position:absolute;top:0;bottom:0;left:0;right:0;z-index:200;opacity:.75;}
 .loading.semi-light{background-image:url(#{$loader-url-semi-light});}
 .loading.light{background-image:url(#{$loader-url-light});}
 
