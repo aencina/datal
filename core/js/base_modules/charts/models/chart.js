@@ -110,8 +110,9 @@ charts.models.Chart = Backbone.Model.extend({
             });
             if (data.type === 'mapchart') {
                 if (! res.chart.bounds)  {
+                       console.log(res.chart);
                      var div = '#id_visualizationResult'; // (?)
-                     center = [0, 0]; // (?)
+                     center = res.chart.center;
                      res.chart.bounds = this.getBoundsByCenterAndZoom(div, center, res.chart.zoom)
                      }
                 data = _.extend(data,{
@@ -120,7 +121,7 @@ charts.models.Chart = Backbone.Model.extend({
                     options:{
                         zoom: res.chart.zoom,
                         bounds: res.chart.bounds? res.chart.bounds.split(';'): undefined,
-                        center: res.chart.mapCenter? {lat: res.chart.mapCenter[0], long: res.chart.mapCenter[1]}: undefined                    }
+                        center: res.chart.mapCenter? {lat: res.chart.center[0], long: res.chart.center[1]}: undefined                    }
                 });
             };
         }
