@@ -12,10 +12,14 @@ var PreviewView = Backbone.View.extend({
             rowsRaw = this.model.data.get('rowsRaw'),
             headers = this.model.data.get('headers');
 
+        console.log(this.model.toJSON());
 
         this.$el.html(this.template({
           rows: this.formatRows(rowsRaw),
-          headers: _.map(headers, this.formatCell.bind(this))
+          headers: _.map(headers, this.formatCell.bind(this)),
+          dataview: this.model.toJSON(),
+          tags: this.model.tags.toJSON(),
+          sources: this.model.sources.toJSON()
         }));
 
     },
