@@ -5,7 +5,7 @@ cleanpython:
   cmd.run:
     - user: {{ user }}
     - group: {{ group }}
-    - cwd: {{install_dir}}{{ pillar['application']['path'] }}
+    - cwd: {{ pillar['application']['path'] }}
     - names:
       - find -iname "*.py[co]" -exec rm -f {} \;
 
