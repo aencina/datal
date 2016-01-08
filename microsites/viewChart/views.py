@@ -66,7 +66,7 @@ def embed(request, guid):
     """
     account = request.account
     preferences = request.preferences
-    msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+    msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
     base_uri = msprotocol + '://' + preferences['account_domain']
 
     try:

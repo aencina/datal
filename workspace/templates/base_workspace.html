@@ -132,7 +132,7 @@
 									-->
 
 									<!-- ODS Button -->
-									<a id="id_openDataSiteButton" href="http://{{ preference.account_domain }}" target="_blank" class="button alpha FR" title="{% trans 'HEADER-ODS-BUTTON' %}">{% trans 'HEADER-ODS-BUTTON' %}<span class="icon icon-view-site icon-right"></span></a>
+									<a id="id_openDataSiteButton" href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}" target="_blank" class="button alpha FR" title="{% trans 'HEADER-ODS-BUTTON' %}">{% trans 'HEADER-ODS-BUTTON' %}<span class="icon icon-view-site icon-right"></span></a>
 
 									{% plugins_call 'workspace_header' %}
 

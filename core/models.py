@@ -788,7 +788,7 @@ class VisualizationRevision(RevisionModel):
     def clone(self, status=choices.StatusChoices.DRAFT):
         visualization_revision = VisualizationRevision(
             visualization=self.visualization,
-            datastream_revision=self.datastream_revision,
+            datastream=self.datastream,
             user=self.user,
             lib=self.lib,
             impl_details=self.impl_details,

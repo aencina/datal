@@ -77,7 +77,7 @@ def save(request):
                 'messages': [ugettext('APP-PREFERENCES-SAVESUCCESSFULLY-TEXT')]}), content_type='application/json')
         else:
             account = request.account
-            msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+            msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
             previewHome = msprotocol + '://' + preferences['account_domain']+'/home?preview=true'
             preferences['account.preview'] = jsonContent
             return HttpResponse(json.dumps({'preview_home':previewHome}), content_type='application/json')

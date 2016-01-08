@@ -184,7 +184,7 @@ def account_logo(account, klass, roles):
     elif 'ao-free-user' in roles:
         return ''
     else:
-        msprotocol = 'https' if preferences['account.microsite.https'].lower() == 'true' else 'http'
+        msprotocol = 'https' if preferences['account.microsite.https'] else 'http'
         account_domain = msprotocol + '://' + account_domain
     account_logo = account_logo and account_logo or '/static/workspace/images/_workspace/im_logoNotDefined.gif'
     account_name = preferences['account_name']

@@ -130,8 +130,8 @@ def get_catalog_xml(request):
     api_domain = preferences['account_api_domain']
     transparency_domain = preferences['account_api_transparency']
     account = Account.objects.get(pk=account_id)
-    msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
-    apiprotocol = 'https' if account.get_preference('account.api.https').lower() == 'true' else 'http'
+    msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+    apiprotocol = 'https' if account.get_preference('account.api.https') else 'http'
     developers_link = msprotocol + '://' + domain + reverse('manageDeveloper.filter')
     datastreams_revision_ids = DataStreamRevision.objects.values_list('id').filter(
         datastream__user__account_id=account_id, status=StatusChoices.PUBLISHED

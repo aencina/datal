@@ -380,7 +380,7 @@ def change_status(request, datastream_revision_id=None):
         # Limpio un poco
         response['result'] = DataStreamDBDAO().get(request.user.language, datastream_revision_id=datastream_revision_id)
         account = request.account
-        msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('viewDataStream.view', urlconf='microsites.urls', 
             kwargs={'id': response['result']['datastream_id'], 'slug': '-'})
         response['result'].pop('parameters')

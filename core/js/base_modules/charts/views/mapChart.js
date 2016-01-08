@@ -90,6 +90,8 @@ charts.views.MapChart = charts.views.Chart.extend({
                     );
         }
         
+        console.log('create_map',this.model.get('options'));
+
         if(this.model.get('options').bounds){
             var b = this.model.get('options').bounds;
             var southWest = new google.maps.LatLng(parseFloat(b[2]),parseFloat(b[3])),
