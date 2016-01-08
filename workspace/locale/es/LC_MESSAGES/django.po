@@ -1859,7 +1859,7 @@ msgid "WEBSERVICE-STEP1-HELPTEXT"
 msgstr "Estos parámetros ha venido de la conjunto de datos que está utilizando para crear esta vista de datos. Se utilizan para filtrar la información que este conjunto de datos puede traer<br/><br/>Si los parámetros no son editables, usted no será capaz de cambiar su valor original"
 
 msgid "APP-DSWEBSERVICE-TEXT"
-msgstr "Elija un nombre más apropiado para los parámetros <small>(si es necesario y si son editables)</small>"
+msgstr "Elija un nombre más apropiado para los parámetros <span>(si es necesario y si son editables)</span>"
 
 msgid "WEBSERVICE-HELP-TIP"
 msgstr "- El servicio web debe aceptar llamadas SOAP 1.2<br/>El elemento principal de la respuesta debe ser nombrado 'NewDataSet'. Puede tener uno o más hijos que representen filas. Las filas pueden tener uno o más hijos que representen celdas."

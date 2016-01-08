@@ -1874,7 +1874,7 @@ msgid "WEBSERVICE-STEP1-HELPTEXT"
 msgstr "These parameters has come from the Dataset that you are using to create this Data View. They are used to filter the information that this Dataset can bring.<br/><br/>If the parameters are not editable, you will not be able to change it's original value"
 
 msgid "APP-DSWEBSERVICE-TEXT"
-msgstr "Choose a better name for the parameters <small>(if needed and editable)</small>"
+msgstr "Choose a better name for the parameters <span>(if needed and editable)</span>"
 
 msgid "WEBSERVICE-HELP-TIP"
 msgstr "- The webservice must accept SOAP 1.2 calls<br/>- The response root element must be named 'NewDataSet'. It may have one or more childs representing rows. Rows may have one or more childs representing cells."
