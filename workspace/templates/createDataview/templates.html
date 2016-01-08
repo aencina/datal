@@ -221,35 +221,76 @@
 </script>
 
 <script type="text/template" id="preview_dataview_template">
-  <header>
-    <h3>Asegurate que todo va bien con tu vista.
-      <span class="txt">Para archivos extensos mostramos aquí sólo hasta 100 filas. Podrás verlo completo al finalizar.</span>
-    </h3>
-  </header>
 
-  <div class="col-xs-12 preview-datastream">
-    <% if (rows.length === 0) { %>
-      <div class="loading light"></div>
-    <% } %>
-    <table>
-      <thead>
-        <tr>
-          <% _.each(headers, function(cell) { %>
-            <th><%= cell %></th>
-          <% }); %>
-        </tr>
-      </thead>
-      <tbody>
-        <% _.each(rows, function(cells, row) { %>
+  <div class="step-revision description">
+
+    <a class="icon icon-edit fill-background corner-position editMetadata" title="{% trans 'APP-EDIT-DESCRIPTION-TEXT' %}"></a>
+
+    <div class="row">
+        <div class="title">{% trans "APP-TITLE-TEXT" %}</div>
+        <p class="meta_title"></p>
+    </div>
+
+    <div class="row">
+        <div class="title">{% trans "APP-DESCRIPTION-TEXT" %}</div>
+        <p class="meta_description"></p>
+    </div>
+
+    <div class="row">
+        <div class="title">{% trans "APP-CATEGORY-TEXT" %}</div>
+        <p class="meta_category"></p>
+    </div>
+
+    <div class="row">
+        <div class="title">{% trans "APP-TAGS-TEXT" %}</div>
+        <p class="meta_tags"></p>
+    </div>
+
+    <div class="row">
+        <div class="title">{% trans "APP-SOURCE-TEXT" %}</div>
+        <p class="meta_source"></p>
+    </div>
+    
+    <div class="row">
+        <div class="title">{% trans 'APP-VIEW-DATASET-NOTES-TEXT' %}</div>
+        <div class="notes meta_notes"></div>
+    </div>
+
+  </div>
+  
+  <div class="step-revision description">
+
+    <a class="icon icon-edit fill-background corner-position editData" title="{% trans 'APP-EDIT-DATA-TEXT' %}"></a>
+
+    <div class="row">
+      <div class="title">{% trans 'APP-SELECTED-DATA-TEXT' %}</div>
+    </div>
+
+    <div class="preview-datastream">
+      <% if (rows.length === 0) { %>
+        <div class="loading light"></div>
+      <% } %>
+      <table>
+        <thead>
           <tr>
-            <% _.each(cells, function(cell, col) { %>
-              <td><%= cell %></td>
+            <% _.each(headers, function(cell) { %>
+              <th><%= cell %></th>
             <% }); %>
           </tr>
-        <% }); %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% _.each(rows, function(cells, row) { %>
+            <tr>
+              <% _.each(cells, function(cell, col) { %>
+                <td><%= cell %></td>
+              <% }); %>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      </div>
     </div>
+
   </div>
 </script>
 
