@@ -3342,3 +3342,6 @@ msgstr "Responsive"
 
 msgid "ADMIN-HOME-THEMES-THEME8-TEXT"
 msgstr "Catalog"
+
+msgid "APP-SELECTED-DATA-TEXT"
+msgstr "Dados seleccionado"

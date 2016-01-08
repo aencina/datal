@@ -3389,3 +3389,6 @@ msgstr "punto"
 
 msgid "APP-COMMA"
 msgstr "coma"
+
+msgid "APP-SELECTED-DATA-TEXT"
+msgstr "Datos seleccionados"

@@ -227,40 +227,60 @@
     <a class="icon icon-edit fill-background corner-position editMetadata" title="{% trans 'APP-EDIT-DESCRIPTION-TEXT' %}"></a>
 
     <div class="row">
-        <div class="title">{% trans "APP-TITLE-TEXT" %}</div>
-        <p class="meta_title"></p>
+      <div class="title">{% trans "APP-TITLE-TEXT" %}</div>
+      <p class="meta_title"><%= dataview.title %></p>
     </div>
 
     <div class="row">
-        <div class="title">{% trans "APP-DESCRIPTION-TEXT" %}</div>
-        <p class="meta_description"></p>
+      <div class="title">{% trans "APP-DESCRIPTION-TEXT" %}</div>
+      <p class="meta_description"><%= dataview.description %></p>
     </div>
 
     <div class="row">
-        <div class="title">{% trans "APP-CATEGORY-TEXT" %}</div>
-        <p class="meta_category"></p>
+      <div class="title">{% trans "APP-CATEGORY-TEXT" %}</div>
+      <p class="meta_category"><%= dataview.category %></p>
     </div>
 
+    <% if (sources != '') { %>
     <div class="row">
-        <div class="title">{% trans "APP-TAGS-TEXT" %}</div>
-        <p class="meta_tags"></p>
+      <div class="title">{% trans "APP-SOURCE-TEXT" %}</div>
+      <p class="meta_source">
+       <% _.each(sources, function(source) { %>
+          <a href="<%= source.source__url %>" target="_blank"><%= source.source__name %></a>
+        <% }); %>
+       </p>
     </div>
+    <% } %>
 
+    <% if (tags != '') { %>
     <div class="row">
-        <div class="title">{% trans "APP-SOURCE-TEXT" %}</div>
-        <p class="meta_source"></p>
+      <div class="title">{% trans "APP-TAGS-TEXT" %}</div>
+        <div class="sourcesContent">
+          <% _.each(tags, function(tag) { %>
+            <div class="tag">
+              <span class="tagInner clearfix">
+                <span class="tagTxt">
+                  <%= tag.tag__name %>
+                </span>
+              </span>
+            </div>
+          <% }); %>
+        </div>
     </div>
+    <% } %>
     
+    <% if (dataview.notes != '') { %>
     <div class="row">
-        <div class="title">{% trans 'APP-VIEW-DATASET-NOTES-TEXT' %}</div>
-        <div class="notes meta_notes"></div>
+      <div class="title">{% trans 'APP-VIEW-DATASET-NOTES-TEXT' %}</div>
+      <div class="notes meta_notes"><%= dataview.notes %></div>
     </div>
+    <% } %>
 
   </div>
   
   <div class="step-revision description">
 
-    <a class="icon icon-edit fill-background corner-position editData" title="{% trans 'APP-EDIT-DATA-TEXT' %}"></a>
+    <a class="icon icon-edit fill-background corner-position editData" title="{% trans 'APP-EDITDSSELECTION-TEXT' %}"></a>
 
     <div class="row">
       <div class="title">{% trans 'APP-SELECTED-DATA-TEXT' %}</div>
