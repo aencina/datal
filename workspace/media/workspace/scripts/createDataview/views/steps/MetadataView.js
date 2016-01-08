@@ -56,10 +56,12 @@ var MetadataView = Backbone.Epoxy.View.extend({
           minLength: 3,
           select: function (e, ui) {
             e.preventDefault();
-            self.model.set('name', ui.item.value);
-            self.model.set('url', '');
+            self.model.set({
+                source__name: ui.item.value,
+                source__url: ''
+            });
             if(self.model.isValid(true)){
-              self.collection.add(self.model.toJSON());
+              self.model.sources.add(self.model.toJSON());
               $(e.target).val('');
             }
           }
