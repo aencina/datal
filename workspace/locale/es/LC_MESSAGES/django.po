@@ -1556,7 +1556,7 @@ msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "Para que una URL sea una fuente de datos, debe ser una página web que contenga la etiqueta &lt;table&gt"
 
 msgid "CREATE-STEP1-DISCLAIMER2"
-msgstr "Los archivos CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML también pueden ser usados como fuentes"
+msgstr "Los archivos CSV, XLS, XLSX, KML, KMZ, TSV, XML también pueden ser usados como fuentes"
 
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "Por ahora, no se puede extraer datos desde una imagen o flash (.swf) "
@@ -1565,7 +1565,7 @@ msgid "CREATE-STEP1-DISCLAIMER4"
 msgstr "La página o archivo que contiene los datos debe tener una URL. Una URL es la dirección de Internet que ves en el navegador"
 
 msgid "CREATE-STEP1-DISCLAIMER5"
-msgstr "Si estás recolectando datos desde una &lt;table&gt; dentor de un &lt;iframe&gt; o &lt;frame&gt;, necesitas usar la URL del &lt;iframe&gt; o del &lt;frame&gt;"
+msgstr "Si estás recolectando datos desde una &lt;table&gt; dentro de un &lt;iframe&gt; o &lt;frame&gt;, necesitas usar la URL del &lt;iframe&gt; o del &lt;frame&gt;"
 
 msgid "CREATE-STEP1-DISCLAIMER6"
 msgstr "Los archivos deben estar encodeados en UTF-8"

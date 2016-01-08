@@ -1575,7 +1575,7 @@ msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "For an URL to be a data source, it must be a HTML webpage that contains HTML &lt;table&gt; tags"
 
 msgid "CREATE-STEP1-DISCLAIMER2"
-msgstr "CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML files can also be used as data sources"
+msgstr "CSV, XLS, XLSX, KML, KMZ, TSV, XML files can also be used as data sources"
 
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "As of now, you cannot extract data from an image, flash (.swf)"
