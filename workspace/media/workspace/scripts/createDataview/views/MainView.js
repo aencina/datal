@@ -83,6 +83,7 @@ var MainView = Backbone.View.extend({
     },
 
     setLoadingHeight: function(){
+        var self = this;
 
         $(window).resize(function(){
 
@@ -94,7 +95,7 @@ var MainView = Backbone.View.extend({
                 - $('.global-navigation').height()
                 - sectionTitleHeight;
 
-            $('.loading').css({
+            self.$('.loading.initial-loading').css({
                 'height': sectionContentHeight+'px',
                 'margin-top': -sectionTitleHeight / 2
 
