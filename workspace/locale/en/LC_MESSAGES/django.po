@@ -1569,7 +1569,7 @@ msgid "APP-KEEPINMIND-TEXT"
 msgstr "Please, take a look at the following tips and try again"
 
 msgid "CREATE-STEP1-DISCLAIMER0"
-msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 500.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
+msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 1.000.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
 
 msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "For an URL to be a data source, it must be a HTML webpage that contains HTML &lt;table&gt; tags"

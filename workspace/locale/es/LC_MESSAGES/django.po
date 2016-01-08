@@ -1550,7 +1550,7 @@ msgid "APP-KEEPINMIND-TEXT"
 msgstr "Por favor, lee la ayuda a continuación e intenta nuevamente"
 
 msgid "CREATE-STEP1-DISCLAIMER0"
-msgstr "El tamaño máximo permitido para los conjuntos de datos son:<ol><li><strong>- CSV:</strong> 500.000 filas y 100 columnas</li><li><strong>- XLSx / XLS:</strong> 100.000 filas y 50 columnas</li><li><strong>- KML:</strong> 100.000 marcadores</li><strong>- HTML, XML y otros formatos:</strong> 50.000 filas y 30 columnas</li></ol>"
+msgstr "El tamaño máximo permitido para los conjuntos de datos son:<ol><li><strong>- CSV:</strong> 1.000.000 filas y 100 columnas</li><li><strong>- XLSx / XLS:</strong> 100.000 filas y 50 columnas</li><li><strong>- KML:</strong> 100.000 marcadores</li><strong>- HTML, XML y otros formatos:</strong> 50.000 filas y 30 columnas</li></ol>"
 
 msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "Para que una URL sea una fuente de datos, debe ser una página web que contenga la etiqueta &lt;table&gt"
