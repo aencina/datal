@@ -109,19 +109,13 @@ charts.models.Chart = Backbone.Model.extend({
                 nullValuePreset: res.format.nullValuePreset,
             });
             if (data.type === 'mapchart') {
-                if (! res.chart.bounds)  {
-                       console.log(res.chart);
-                     var div = '#id_visualizationResult'; // (?)
-                     center = res.chart.center;
-                     res.chart.bounds = this.getBoundsByCenterAndZoom(div, center, res.chart.zoom)
-                     }
                 data = _.extend(data,{
                     mapType: res.chart.mapType? res.chart.mapType.toUpperCase(): undefined,
                     geoType: res.chart.geoType,
                     options:{
                         zoom: res.chart.zoom,
                         bounds: res.chart.bounds? res.chart.bounds.split(';'): undefined,
-                        center: res.chart.mapCenter? {lat: res.chart.center[0], long: res.chart.center[1]}: undefined                    }
+                        center: res.chart.center? {lat: res.chart.center[0], long: res.chart.center[1]}: undefined                    }
                 });
             };
         }
@@ -137,10 +131,6 @@ charts.models.Chart = Backbone.Model.extend({
                 range_lon: this.parseColumnFormat(res.chart.longitudSelection)
 
             });
-
-            /* hack para simular producción
-            res.chart.bounds = false;
-            res.chart.center = [44,55];*/
 
             if (data.type === 'mapchart') {
                 data = _.extend(data,{
@@ -159,20 +149,6 @@ charts.models.Chart = Backbone.Model.extend({
         }
 
         this.set(data);
-    },
-
-    getBoundsByCenterAndZoom: function(div, center, zoom){
-            var d = $(div);
-            var zf = Math.pow(2, zoom) * 2;
-            var dw = d.width()  / zf;
-            var dh = d.height() / zf;
- 
-            var map_bounds = [];
-            map_bounds[0] = center[0] + dh; //NE lat
-            map_bounds[1] = center[1] + dw; //NE lng
-            map_bounds[2] = center[0] - dh; //SW lat
-            map_bounds[3] = center[1] - dw; //SW lng
-            return map_bounds.join(';');
     },
 
     bindDataModel: function () {
