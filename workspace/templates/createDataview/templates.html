@@ -364,48 +364,46 @@
 
     <% if (tables.length > 0) { %>
       <div class="hot-sel-col">
-        <p>{% trans 'APP-FULL-TABLE-TEXT' %} <a class="btn-clear" data-mode="table">x</a></p>
+        <p>{% trans 'APP-FULL-TABLE-TEXT' %} <span class="grey">|</span> <a class="btn-clear red" data-mode="table">x</a></p>
       </div>
     <% } %>
 
     <% if (columns.length > 0) { %>
       <div class="hot-sel-col">
-        <p>{% trans 'APP-COLS-TEXT' %} <a class="btn-clear" data-mode="col">x</a></p>
+        <p>{% trans 'APP-COLS-TEXT' %} <span class="grey">|</span> <a class="btn-clear red" data-mode="col">x</a></p>
       </div>
     <% } %>
 
     <% if (rows.length > 0) { %>
       <div class="hot-sel-row">
-        <p>{% trans 'APP-ROWS-TEXT' %} <a class="btn-clear" data-mode="row">x</a></p>
+        <p>{% trans 'APP-ROWS-TEXT' %} <span class="grey">|</span> <a class="btn-clear red" data-mode="row">x</a></p>
       </div>
     <% } %>
 
     <% if (cells.length > 0) { %>
       <div class="hot-sel-cell">
-        <p>{% trans 'APP-SELECTION-TEXT' %} <a class="btn-clear" data-mode="cell">x</a></p>
+        <p>{% trans 'APP-SELECTION-TEXT' %} <span class="grey">|</span> <a class="btn-clear red" data-mode="cell">x</a></p>
       </div>
     <% } %>
 
+    <div class="tree-list">
+
     <% if (headers.length > 0) { %>
       <div class="hot-sel-header">
-        <p>{% trans 'APP-HEADERS-TEXT' %} <a class="btn-clear" data-mode="header">x</a></p>
+        <p><span class="icon icon-tree FL"></span>{% trans 'APP-HEADERS-TEXT' %} <span class="grey">|</span> <a class="btn-clear red" data-mode="header">x</a></p>
       </div>
     <% } %>
 
     <% if (filters.length > 0) { %>
       <div class="hot-sel-4">
-        <p>{% trans 'APP-FILTERS-TEXT' %}</p>
+        <p><span class="icon icon-tree FL"></span>{% trans 'APP-FILTERS-TEXT' %}</p>
         <ul>
         <% _.each(filters, function (item) { %>
-          <li>{% trans 'APP-COLUMN-TEXT' %} <%= item.excelCol %>
-            <a class="btn-edit" data-col="<%= item.column %>" data-mode="filter">
-              <!-- <span class="icon icon-edit"></span> -->
-              editar
-            </a>
-            <a class="btn-clear" data-col="<%= item.column %>" data-mode="filter">
-              <!-- <span class="icon icon-delete"></span> -->
-              x
-            </a>
+          <li><span class="icon icon-tree FL"></span>{% trans 'APP-COLUMN-TEXT' %} <%= item.excelCol %> 
+            <span class="grey">-</span>
+            <a class="btn-edit" data-col="<%= item.column %>" data-mode="filter">{% trans 'APP-EDIT-TEXT' %}</a>
+            <span class="grey">|</span>
+            <a class="btn-clear red" data-col="<%= item.column %>" data-mode="filter">x</a>
           </li>
         <% }); %>
         </ul>
@@ -414,23 +412,21 @@
 
     <% if (formats.length > 0) { %>
       <div class="hot-sel-4">
-        <p>{% trans 'APP-COL-FORMAT-TEXT' %}</p>
+        <p><span class="icon icon-tree FL"></span>{% trans 'APP-COL-FORMAT-TEXT' %}</p>
         <ul>
         <% _.each(formats, function (item) { %>
-          <li>{% trans 'APP-COLUMN-TEXT' %} <%= item.excelCol %>
-            <a class="btn-edit" data-col="<%= item.column %>" data-mode="format">
-              <!-- <span class="icon icon-edit"></span> -->
-              editar
-            </a>
-            <a class="btn-clear" data-col="<%= item.column %>" data-mode="format">
-              <!-- <span class="icon icon-delete"></span> -->
-              x
-            </a>
+          <li><span class="icon icon-tree FL"></span>{% trans 'APP-COLUMN-TEXT' %} <%= item.excelCol %>
+            <span class="grey">-</span>
+            <a class="btn-edit" data-col="<%= item.column %>" data-mode="format">{% trans 'APP-EDIT-TEXT' %}</a>
+            <span class="grey">|</span>
+            <a class="btn-clear red" data-col="<%= item.column %>" data-mode="format">x</a>
           </li>
         <% }); %>
         </ul>
       </div>
     <% } %>
+
+  </div>
 
     <% if (total > 0) { %>
 

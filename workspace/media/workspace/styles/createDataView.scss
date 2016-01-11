@@ -39,6 +39,18 @@
 	}
 }
 
+.tree-list{
+	p,
+	li{
+		margin-bottom: 0;
+		padding-bottom: 0 !important;
+		line-height: 32px !important;
+	}
+	ul{
+		padding-left: 35px;
+	}
+}
+
 /* Lists (then move and merge with old forms) */
 .list-group-item{
 	position: relative;

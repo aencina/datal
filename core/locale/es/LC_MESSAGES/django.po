@@ -466,7 +466,7 @@ msgid "APP-FREEZE-TEXT"
 msgstr "Congelar"
 
 msgid "APP-ROWS-TEXT"
-msgstr "filas"
+msgstr "Filas"
 
 msgid "APP-COLUMNS-TEXT"
 msgstr "Comentario"
