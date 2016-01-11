@@ -39,6 +39,17 @@
 	}
 }
 
+/* Divider for back button on titles */
+.sidebar{
+	.title{
+		.icon:after{
+			content: "|";
+			margin: 0 8px;
+		}
+	}
+}
+
+/* Resume of collection */
 .tree-list{
 	p,
 	li{
