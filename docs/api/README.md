@@ -32,6 +32,7 @@ Todos los recursos de la api salvo que aparezca alguna excepción retornan una o
 - **category_name**: Nombre de la categoría de la vista.
 - **parameters (solo en datastreams)** : parametros dinámicos para el contenido de un datastream
 - **result (solo en datastreams)** : cuando se llama al metodo data de un datastream
+- **type (solo en busquedas de recursos)**: un string de dos caracters ('ds', 'dt', 'vz')
 
 ```
 {
@@ -116,6 +117,12 @@ Los recursos que maneja la API son:
 
 # GET Listados
 
+Busca un litado de recursos 
+
+```
+ET /api/v2/resources
+```
+
 Busca un listado de datastreams.
 
 ```
@@ -141,7 +148,7 @@ y sino se pueden pasar los siguientes parametros para ordenar o filtrar la búsq
 - **offset**: a partir de que datastream traer el resultado (se usa para paginar)
 - **limit**: junto con offset se usa para limitar la cantidad de resultados 
 - **order**: pudiendo ser su valor *top*, *viewed*, *downloaded* o *last* y ordenando el resultado según esos criterios.
-- **categories**: listado de categorias 
+- **categories**: listado de los nombres de categorias separados por coma
 - **resources**: listado de recursos (Ej. "dt,ds,vz")
 
 Cuando se aplican limites a las busquedas el resultado se devuelve encapsulando los objetos en otros paramteros.
