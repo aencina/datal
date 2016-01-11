@@ -9,6 +9,10 @@
 
 	.form-group{
 		margin-left: 10px;
+
+		p.has-error{
+			margin-left: 0 !important;
+		}
 	}
 
 	ul{
@@ -18,6 +22,12 @@
 			background: none !important;
 			padding-left: 0 !important;
 		}	
+	}
+
+	.buttons{
+		margin: 20px 0 0 10px;
+		padding-top: 20px;
+		border-top: 1px solid $color-base-extra-light;
 	}
 }
 
