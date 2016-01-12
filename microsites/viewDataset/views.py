@@ -10,10 +10,10 @@ from core.exceptions import *
 from microsites.exceptions import *
 from django.views.decorators.http import require_http_methods
 
+logger = logging.getLogger(__name__)
 
 def view(request, dataset_id, slug):
     """ Show dataset """
-    logger = logging.getLogger(__name__)
     account = request.account
     preferences = request.preferences
 
@@ -41,7 +41,7 @@ def view(request, dataset_id, slug):
 def download(request, dataset_id, slug):
     """ download internal dataset file """
     try:
-        dataset = DatasetDBDAO().get(request.auth_manager.language, dataset_id=id, published=True)
+        dataset = DatasetDBDAO().get(request.auth_manager.language, dataset_id=dataset_id, published=True)
     except:
         raise DatasetDoesNotExist
     else:
