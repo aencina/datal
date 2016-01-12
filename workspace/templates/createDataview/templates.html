@@ -1009,31 +1009,10 @@
 </script>
 
 <script type="text/template" id="edit_arguments_overlay_template">
-  <div class="ao-popup-overlay">
-    <a class="close btn-cancel"></a>
-    <div class="argumentsOverlay">
-      <div class="In clearfix">
-        <div>
-          <h4>{% trans "APP-EDITPARAM-TEXT" %}</h4>
-
-          <p class="info">{% trans "OVERLAY-PARAM-TIP" %}</p>
-
-          <div class="form clearfix">
-            <form action="" onsubmit="return false" autocomplete="off" novalidate="">
-              <div class="row">
-                <label for="param"><%= arg.name %></label>
-                <input name="param" type="text" size="30" value="<%= arg.value %>" class="field">
-              </div>
-            </form>
-          </div>
-
-          <div class="buttons center">
-          <a class="button btn-cancel" title="{% trans 'APP-CANCEL-TEXT' %}">{% trans "APP-CANCEL-TEXT" %}</a>
-          <a class="button primary btn-accept" title="{% trans 'APP-DONE-TEXT' %}"><span>{% trans "APP-DONE-TEXT" %}</span></a> 
-          </div>
-
-        </div>
-      </div>
+  <form action="" onsubmit="return false" autocomplete="off" novalidate="">
+    <div class="row">
+      <label for="param"><%= arg.name %></label>
+      <input name="param" type="text" size="30" value="<%= arg.value %>" class="field">
     </div>
-  </div>
+  </form>
 </script>
