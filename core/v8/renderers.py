@@ -68,7 +68,7 @@ class JSONEngineRenderer(EngineRenderer):
             table = []
             for x_row in select_rows(x_table):
                 row = []
-                for x_cell in select_cells(x_row):
+                for x_cell in x_row.xpath("*[self::td or self::th]"):
                     etree.strip_elements(x_cell, 'form', 'select')
                     text = "".join(x_cell.xpath("descendant::text()"))
                     row.append(text.strip(" \n\t"))
