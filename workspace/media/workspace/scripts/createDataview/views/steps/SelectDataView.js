@@ -233,7 +233,7 @@ var SelectDataView = Backbone.View.extend({
         e.preventDefault();
 
         this.editArgumentsOverlayView = new EditArgumentOverlayView({
-            el: '#overlay',
+            el: '#id_overlay_edit_params',
             model: model
         });
         this.editArgumentsOverlayView.render();

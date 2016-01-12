@@ -1,0 +1,23 @@
+{% load i18n extra_tags core_components components %}
+
+{% overlay id_overlay_edit_params %}
+<div class="argumentsOverlay">
+	<div class="In clearfix">
+		<div class="In clearfix">
+			<h4>{% trans "APP-EDITPARAM-TEXT" %}</h4>
+
+			<p class="info">{% trans "OVERLAY-PARAM-TIP" %}</p>
+
+			<div class="form clearfix" id="id_editParamsForm">
+				
+			</div>
+
+			<div class="buttons center">
+				<a class="button btn-cancel" title="{% trans 'APP-CANCEL-TEXT' %}">{% trans "APP-CANCEL-TEXT" %}</a>
+				<a class="button primary btn-accept" title="{% trans 'APP-DONE-TEXT' %}"><span>{% trans "APP-DONE-TEXT" %}</span></a> 
+			</div>
+
+		</div>
+	</div>
+</div>
+{% endoverlay %}
