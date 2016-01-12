@@ -47,7 +47,7 @@ def embed(request, guid):
         datastream = DataStreamDBDAO().get(
             preferences['account_language'], guid=guid, published=True )
         parameters_query = RequestProcessor(request).get_arguments(datastream['parameters'])
-    except Http404:
+    except DataStreamRevision.DoesNotExist:
         return render_to_response('viewDataStream/embed404.html', {'settings': settings, 'request': request})
 
     DatastreamHitsDAO(datastream).add(ChannelTypes.WEB)
