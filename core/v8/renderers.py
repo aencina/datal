@@ -3,9 +3,14 @@ from babel import numbers, dates
 from rest_framework.renderers import JSONRenderer
 import json
 from lxml import html, etree
+from lxml.cssselect import CSSSelector
 import datetime
 import sys
 import re
+
+select_tables = CSSSelector(".ao-table-selectable")
+select_rows = CSSSelector(".ao-row-selectable")
+select_cells = CSSSelector(".ao-cell-selectable")
 
 
 class EngineRenderer(renderers.BaseRenderer):
@@ -17,6 +22,7 @@ class CSVEngineRenderer(EngineRenderer):
     media_type="text/csv"
     format = "csv"
 
+
 class TSVEngineRenderer(EngineRenderer):
     media_type="text/tab-separated-values"
     format = "tsv"
@@ -24,19 +30,24 @@ class TSVEngineRenderer(EngineRenderer):
 class PJSONEngineRenderer(JSONRenderer):
     format = "pjson"
 
+
 class AJSONEngineRenderer(JSONRenderer):
     format = "ajson"
+
 
 class XLSEngineRenderer(EngineRenderer):
     media_type="application/vnd.ms-excel"
     format = "xls"
 
+
 class XLSNonRedirectEngineRenderer(JSONRenderer):
     format = "xls"
+
 
 class XMLEngineRenderer(EngineRenderer):
     media_type="text/xml"
     format = "xml"
+
 
 class HTMLEngineRenderer(EngineRenderer):
     media_type="text/html"
@@ -53,10 +64,11 @@ class JSONEngineRenderer(EngineRenderer):
 
         result = []
 
-        for x_table in x_tree.xpath('//table'):
+        for x_table in select_tables(x_tree):
             table = []
-            for x_row in x_table.xpath('tr'):
-                row = [x_cell.text for x_cell in x_row.xpath('td')]
+            for x_row in select_rows(x_table):
+                cells = select_cells(x_row)
+                row = [x_cell.text.strip(" \n\t") if x_cell.text is not None else '' for x_cell in cells]
                 table.append(row)
 
             result.append(table)

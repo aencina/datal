@@ -239,28 +239,29 @@ var SelectDataView = Backbone.View.extend({
         this.editArgumentsOverlayView.render();
     },
 
-    hideTablesView: function (shouldHide) {
+    hideTablesAndParamsView: function (shouldHide) {
         this.$('.select-table-view').toggleClass('hidden', shouldHide);
+        this.$('.edit-params-view').toggleClass('hidden', shouldHide);
     },
 
     onChangeMode: function (model, value) {
         var currentlyEditingModel = model.get('currently-editing-model');
         if (value === 'headers') {
-            this.hideTablesView(true);
+            this.hideTablesAndParamsView(true);
             this.selectionView.hide();
             this.headersOptionsView.show();
         } else if (value === 'add-filter') {
-            this.hideTablesView(true);
+            this.hideTablesAndParamsView(true);
             this.disableSelection();
             this.selectionView.hide();
             this.attachFiltersView(currentlyEditingModel);
         } else if (value === 'set-formats') {
-            this.hideTablesView(true);
+            this.hideTablesAndParamsView(true);
             this.disableSelection();
             this.selectionView.hide();
             this.attachFormatsView(currentlyEditingModel);
         } else {
-            this.hideTablesView(false);
+            this.hideTablesAndParamsView(false);
             model.unset('currently-editing-model');
             this.enableSelection();
             this.destroyFiltersView();

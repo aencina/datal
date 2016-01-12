@@ -6,11 +6,13 @@
 
     <div class="sidebar">
       <% if (args.length !== 0) {%>
-      <div class="title">{% trans 'APP-DATASET-PARAMETERS' %}</div>
-      <div class="form-group">
-        <% _(args).each(function(arg, index){ %>
-          <p> <%= arg.name %>: <a class="edit-arg" data-name="<%= arg.name %>"> <%= arg.value %></a></p>
-        <% }); %>
+      <div class="edit-params-view">
+        <div class="title">{% trans 'APP-DATASET-PARAMETERS' %}</div>
+        <div class="form-group">
+          <% _(args).each(function(arg, index){ %>
+            <p> <%= arg.name %>: <a class="edit-arg" data-name="<%= arg.name %>"> <%= arg.value %></a></p>
+          <% }); %>
+        </div>
       </div>
       <% } %>
 
