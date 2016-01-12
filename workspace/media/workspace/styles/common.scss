@@ -828,6 +828,110 @@ border-color: #ccc;}
 .loading.semi-light{background-image:url(#{$loader-url-semi-light});}
 .loading.light{background-image:url(#{$loader-url-light});}
 
+/* Tooltip */
+.tooltip{
+  color: #FFF;
+  background-color: $nav-bg;
+  visibility: hidden;
+  @include border-radius(3px);
+  text-align: left; 
+  opacity: 0;
+  z-index: 300;
+  padding: 7px 11px;  
+  position: absolute;
+  cursor: default;
+  @include transition(all, 240ms, ease-in-out);
+  line-height: 19px;
+  top: auto;
+  left: 50%;
+}
+.tooltip:after,
+.tooltip.tooltip-top:after{
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  margin-left: -7px;
+  content: ' ';
+  height: 0px;
+  width: 0px;
+  border: 6px solid transparent;
+    border-top-color: $nav-bg;  
+}
+/* Tooltip top */
+.tooltip.tooltip-top{
+  bottom: 115%;
+  transform: translateX(-50%);
+}
+/* Tooltip right */
+.tooltip.tooltip-right{
+  top: 50%;
+  right: auto;
+  left: 106%;
+  transform: translateY(-50%);
+  margin-right: auto; 
+  margin-left: auto;
+}
+.tooltip.tooltip-right:after{
+  left: -5px;
+  top: 50%; 
+  margin-top: -6px;
+  bottom: auto;
+  border-top-color: transparent;  
+    border-right-color: $nav-bg;  
+}
+/* Tooltip left */
+.tooltip.tooltip-left{
+  top: 50%;
+  left: auto;
+  right: 105%;
+  transform: translateY(-50%);  
+  margin-left: auto;  
+}
+.tooltip.tooltip-left:after{
+  left: auto;
+  right: -12px;
+  top: 50%;
+  margin-top: -6px;
+  bottom: auto;
+  border-top-color: transparent;  
+    border-left-color: $nav-bg; 
+}
+/* Tooltip bottom */
+.tooltip.tooltip-bottom{
+  top: 115%;
+  bottom: auto;
+  transform: translateX(-50%);
+  margin-bottom: auto;  
+}
+.tooltip.tooltip-bottom:after{
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -7px;
+  content: ' ';
+  height: 0px;
+  width: 0px;
+  border: 6px solid transparent;
+    border-top-color: transparent;  
+    border-bottom-color: $nav-bg; 
+}
+
+/* Tooltip on focus */
+.on-focus > .tooltip{
+  display: block;
+}
+.on-focus .tooltip.tooltip-left,
+.on-focus .tooltip.tooltip-right{
+  margin-top: -19px;
+}
+/* Tooltip on hover of element containing tooltip default*/
+*:not(.on-focus):hover > .tooltip,
+.on-focus input:focus + .tooltip{
+  visibility: visible;
+  opacity: 1;
+  @include transition(all, 240ms, ease-in-out); 
+}
+
 /* Error Manager */
 .gritter-item{font-size: 14px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   .error-description{margin-left: 10px;

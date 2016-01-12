@@ -3401,3 +3401,9 @@ msgstr "Seleccione la localización que representa a los indicadores de miles y 
 
 msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
 msgstr "Seleccione la localización que se usará para representar el formato de salida de la vista"
+
+msgid "APP-DATE-ORIGIN-FORMAT-TIP-1"
+msgstr "Usa patrones de formateo de fecha y hora de"
+
+msgid "APP-DATE-ORIGIN-FORMAT-TIP-2"
+msgstr "yyyy: Año completo (Ej: 2001)<br> yy: Año abreviado (Ej: 01)<br> MM: Mes empezado con 0 (Ej: Julio 07)<br> M: Mes sin 0 (Ej: Julio 7)<br> dd: Día empezado con 0 (Ej: Abril 04)<br> d: Día sin 0 (Ej: Abril 4)<br> - (guión) y / (barra) separa términos"
