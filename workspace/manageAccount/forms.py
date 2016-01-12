@@ -89,12 +89,25 @@ class CategoryDeleteForm(forms.Form):
 
 
 class UserForm(forms.Form):
+
+    # Patch, deberiamos usa run model i18n
+    def translateRole(self, code):
+        if code == 'ao-account-admin':
+            return ugettext_lazy('APP-TEXT-ADMIN')
+        elif code == 'ao-editor':
+            return ugettext_lazy('APP-TEXT-COLLECTOR')
+        elif code == 'ao-publisher':
+            return ugettext_lazy('APP-TEXT-PUBLISHER')
+        else:
+            return ugettext_lazy('APP-TEXT-COLLECTOR')
+
+
     def __init__(self, role_codes, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         roles = Role.objects.values('name', 'code').filter(code__in = role_codes).all().order_by('-id')
         role_choices = []
         for role in roles:
-            role_choices.append((role['code'], role['name']))
+            role_choices.append((role['code'],self.translateRole(role['code'])))
         role_choices = tuple(role_choices)
         self.fields['role'] = forms.ChoiceField(label=ugettext_lazy('APP-ROLE-TEXT'), required=True, choices = role_choices)
 
