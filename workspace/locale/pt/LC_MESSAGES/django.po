@@ -3342,3 +3342,15 @@ msgstr "Catalog"
 
 msgid "APP-SELECTED-DATA-TEXT"
 msgstr "Dados seleccionado"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Use a formatação padrão EUA.<br><hr class='divider divider-xs'>0: Dígito <br>#: Dígito, de zero ausente <br>. (ponto): Separador decimal <br>, (coma): Separador de agrupamento <br>-: Signo menos"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Selecione milhares e indicadores decimais exatamente como mostrado nesta coluna"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Selecione os indicadores de localização representam milhares e decimais nesta coluna"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Seleccionar o local para ser usado para representar o formato de saída de vista"

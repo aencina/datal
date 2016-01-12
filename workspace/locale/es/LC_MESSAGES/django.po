@@ -3389,3 +3389,15 @@ msgstr "coma"
 
 msgid "APP-SELECTED-DATA-TEXT"
 msgstr "Datos seleccionados"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Usa el patrón de formateo de EEUU.<br><hr class='divider divider-xs'>0: Dígito <br>#: Dígito, cero ausente <br>. (punto): Separador decimal <br>, (coma): Separador de agrupación <br>-: Signo menos"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Seleccione indicadores de miles y decimales exactamente igual a como aparecen en esta columna"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Seleccione la localización que representa a los indicadores de miles y decimales en esta columna"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Seleccione la localización que se usará para representar el formato de salida de la vista"

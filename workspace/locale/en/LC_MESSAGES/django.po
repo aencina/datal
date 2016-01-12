@@ -3396,3 +3396,15 @@ msgstr "comma"
 
 msgid "APP-SELECTED-DATA-TEXT"
 msgstr "Data selected"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Use the USA formatting pattern.<br><hr class='divider divider-xs'>0: Digit <br>#: Digit, zero absent <br>. (dot): Decimal separator <br>, (coma): Grouping separator <br>-: Minus symbol"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Select thousands and decimal indicators exactly as shown in this column"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Select the location indicators representing thousands and decimals in this column"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Select the location to be used to represent the output format of sight"

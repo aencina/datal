@@ -616,7 +616,7 @@
                       </label>
                       <a class="btn-help icon icon-help has-tooltip FR">
                         <div class="tooltip">
-                          <p>Seleccione indicadores de miles y decimales exactamente igual a como aparecen en esta columna</p>
+                          <p>{% trans 'APP-NUMBER-ORIGIN-SYMBOLS-TIP' %}</p>
                         </div>
                       </a>
                     </div>
@@ -630,7 +630,7 @@
                       </label>
                       <a class="btn-help icon icon-help has-tooltip FR">
                         <div class="tooltip">
-                          <p>Seleccione la localización que representa a los indicadores de miles y decimales en esta columna</p>
+                          <p>{% trans 'APP-NUMBER-ORIGIN-LOCATION-TIP' %}</p>
                         </div>
                       </a>
                     </div>
@@ -665,6 +665,7 @@
             <div class="input-locale hidden">
               <div class="form-group">
                 <label>{% trans 'APP-LOCALE' %}</label>
+                <div class="input-group">
                 <select class="form-control" name="inputLocale">
                   <option selected="selected" value="">{% trans 'APP-SELECT-TEXT' %}...</option>
                   <option value="en">English</option>
@@ -792,6 +793,12 @@
                   <option value="ji">Yiddish</option>
                   <option value="zu">Zulu</option>
                 </select>
+                <a class="addon icon icon-help has-tooltip">
+                  <div class="tooltip">
+                    <p>{% trans 'APP-NUMBER-OUTPUT-LOCATION-TIP' %}</p>
+                  </div>
+                </a>
+                </div>
               </div>
             </div>
 
@@ -849,7 +856,7 @@
                 </select>
                 <a class="addon icon icon-help has-tooltip">
                   <div class="tooltip">
-                    <p>Seleccione la localización que se usará para representar el formato de salida de la vista.</p>
+                    <p>{% trans 'APP-NUMBER-OUTPUT-LOCATION-TIP' %}</p>
                   </div>
                 </a>
                 </div>
@@ -859,6 +866,7 @@
             <div class="date-display-locale<%= (!_.isUndefined(column.type) && column.type !== 'DATE')? ' hidden': '' %>">
               <div class="form-group">
                 <label>{% trans 'APP-LOCALE' %}</label>
+                <div class="input-group">
                 <select class="form-control" name="dateDisplayLocale">
                   <option selected="selected" value="">{% trans 'APP-SELECT-TEXT' %}...</option>
                   <option value="en">English</option>
@@ -883,6 +891,12 @@
                   <option value="es_ni">Spanish (Nicaragua)</option>
                   <option value="es_pr">Spanish (Puerto Rico)</option>
                 </select>
+                <a class="addon icon icon-help has-tooltip">
+                  <div class="tooltip">
+                    <p>{% trans 'APP-NUMBER-OUTPUT-LOCATION-TIP' %}</p>
+                  </div>
+                </a>
+                </div>
               </div>
             </div>
 
@@ -928,15 +942,7 @@
     <option value="custom">{% trans 'APP-CUSTOMIZE-TEXT' %}</option>
   </select>
   <a class="addon icon icon-help has-tooltip">
-    <div class="tooltip">
-      <p>Usa el patrón de formateo de EEUUU.</p>
-      <hr class="divider divider-xs">
-      <p>0: Dígito </p>
-      <p>#: Dígito, cero ausente </p>
-      <p>. (punto): Separador decimal </p>
-      <p>, (coma): Separador de agrupación </p>
-      <p>-: Signo menos</p>
-    </div>
+    <div class="tooltip">{% trans 'APP-NUMBER-ORIGIN-FORMAT-TIP' %}</div>
   </a>
   </div>
 </script>
