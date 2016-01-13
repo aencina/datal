@@ -71,74 +71,78 @@
 </script>
 
 <script type="text/template" id="metadata_view_template">
-  <header>
-    <h3 id="id_dataHeader">Cuéntanos sobre que se trata tu vista.
-      <span>Los campos con (<span class="required">*</span>) son obligatorios.</span>
-    </h3>
-  </header>
-  <div class="columns clearfix">
+<div class="row">
+  <div class="col-xs-7">
+    <header>
+      <h3 id="id_dataHeader">Cuéntanos sobre que se trata tu vista.
+        <span>Los campos con (<span class="required">*</span>) son obligatorios.</span>
+      </h3>
+    </header>
+    <div class="columns clearfix">
 
-    <div class="CL formContent">
+      <div class="CL formContent">
 
-      <fieldset>
+        <fieldset>
+
+          <div class="row clearfix">
+            <label for="title">{% trans "APP-TITLE-TEXT" %}</label>
+            <input type="text" class="title" name="title" maxlength="80" data-bind="" autofocus="autofocus">
+            <span class="required">*</span>
+          </div>
+
+          <div class="row clearfix">
+            <label for="description">{% trans "APP-DESCRIPTION-TEXT" %}</label>
+            <input type="text" class="description" name="description" maxlength="140" data-bind="">
+            <span class="required">*</span>
+          </div>
+
+          <div class="row clearfix">
+            <label>Categoría</label>
+            <select class="category" name="category">
+              <% _.each(categories, function (category) { %>
+                <option value="<%= category[0] %>"><%= category[1] %></option>
+              <% }); %>
+            </select>
+          </div>
+
+        </fieldset>
+
+        <hr class="separator">
 
         <div class="row clearfix">
-          <label for="title">{% trans "APP-TITLE-TEXT" %}</label>
-          <input type="text" class="title" name="title" maxlength="80" data-bind="" autofocus="autofocus">
-          <span class="required">*</span>
-        </div>
-
-        <div class="row clearfix">
-          <label for="description">{% trans "APP-DESCRIPTION-TEXT" %}</label>
-          <input type="text" class="description" name="description" maxlength="140" data-bind="">
-          <span class="required">*</span>
-        </div>
-
-        <div class="row clearfix">
-          <label>Categoría</label>
-          <select class="category" name="category">
-            <% _.each(categories, function (category) { %>
-              <option value="<%= category[0] %>"><%= category[1] %></option>
-            <% }); %>
-          </select>
-        </div>
-
-      </fieldset>
-
-      <hr class="separator">
-
-      <div class="row clearfix">
-        <label for="">{% trans "APP-SOURCES-TEXT" %}:</label>
-        <div>
-          <input name="source-name" type="text" class="input-source" maxlength="80"/>
-          <p class="tip">{% trans "EDITDS-SOURCE-TIP1" %} <a class="add-source">{% trans "EDITDS-SOURCE-TIP2" %}</a>.</p>
-          <div class="sourcesContent sources-view">
+          <label for="">{% trans "APP-SOURCES-TEXT" %}:</label>
+          <div>
+            <input name="source-name" type="text" class="input-source" maxlength="80"/>
+            <p class="tip">{% trans "EDITDS-SOURCE-TIP1" %} <a class="add-source">{% trans "EDITDS-SOURCE-TIP2" %}</a>.</p>
+            <div class="sourcesContent sources-view">
+            </div>
           </div>
         </div>
+
+        <div class="edit-source-view"></div>
+
+        <div class="tags-view"></div>
+
+        <hr class="separator">
+
+        <fieldset class="form clearfix">
+
+          <div class="row clearfix notes-field">
+            <label for="id_notes_2">{% trans "APP-NOTES-TEXT" %}</label>
+            <div class="textarea clearfix FL">
+              <textarea id="id_notes_2" class="notes" maxlength="2048"></textarea>
+            </div>
+          </div>
+
+        </fieldset>
+
+        <div class="params-view"></div>
+
       </div>
 
-      <div class="edit-source-view"></div>
-
-      <div class="tags-view"></div>
-
-      <hr class="separator">
-
-      <fieldset class="form clearfix">
-
-        <div class="row clearfix notes-field">
-          <label for="id_notes_2">{% trans "APP-NOTES-TEXT" %}</label>
-          <div class="textarea clearfix FL">
-            <textarea id="id_notes_2" class="notes" maxlength="2048"></textarea>
-          </div>
-        </div>
-
-      </fieldset>
-
-      <div class="params-view"></div>
-
     </div>
-
   </div>
+</div>
 </script>
 
 <script type="text/template" id="edit_source_template">
@@ -231,90 +235,102 @@
     <div class="loading light"></div>
   <% } %>
 
-  <div class="step-revision description">
+  <div class="row">
 
-    <a class="icon icon-edit fill-background corner-position go-to" data-step="1" title="{% trans 'APP-EDIT-DESCRIPTION-TEXT' %}"></a>
+    <div class="col-xs-12">
 
-    <div class="row">
-      <div class="title">{% trans "APP-TITLE-TEXT" %}</div>
-      <p class="meta_title"><%= dataview.title %></p>
-    </div>
+      <div class="step-revision description">
 
-    <div class="row">
-      <div class="title">{% trans "APP-DESCRIPTION-TEXT" %}</div>
-      <p class="meta_description"><%= dataview.description %></p>
-    </div>
+        <a class="icon icon-edit fill-background corner-position go-to" data-step="1" title="{% trans 'APP-EDIT-DESCRIPTION-TEXT' %}"></a>
 
-    <div class="row">
-      <div class="title">{% trans "APP-CATEGORY-TEXT" %}</div>
-      <p class="meta_category"><%= category[1] %></p>
-    </div>
-
-    <% if (sources != '') { %>
-    <div class="row">
-      <div class="title">{% trans "APP-SOURCE-TEXT" %}</div>
-      <p class="meta_source">
-       <% _.each(sources, function(source) { %>
-          <a href="<%= source.source__url %>" target="_blank"><%= source.source__name %></a>
-        <% }); %>
-       </p>
-    </div>
-    <% } %>
-
-    <% if (tags != '') { %>
-    <div class="row">
-      <div class="title">{% trans "APP-TAGS-TEXT" %}</div>
-        <div class="sourcesContent">
-          <% _.each(tags, function(tag) { %>
-            <div class="tag">
-              <span class="tagInner clearfix">
-                <span class="tagTxt">
-                  <%= tag.tag__name %>
-                </span>
-              </span>
-            </div>
-          <% }); %>
+        <div class="row">
+          <div class="title">{% trans "APP-TITLE-TEXT" %}</div>
+          <p class="meta_title"><%= dataview.title %></p>
         </div>
-    </div>
-    <% } %>
-    
-    <% if (dataview.notes != '') { %>
-    <div class="row">
-      <div class="title">{% trans 'APP-VIEW-DATASET-NOTES-TEXT' %}</div>
-      <div class="notes meta_notes"><%= dataview.notes %></div>
-    </div>
-    <% } %>
 
-  </div>
-  
-  <div class="step-revision description">
+        <div class="row">
+          <div class="title">{% trans "APP-DESCRIPTION-TEXT" %}</div>
+          <p class="meta_description"><%= dataview.description %></p>
+        </div>
 
-    <a class="icon icon-edit fill-background corner-position go-to" data-step="0" title="{% trans 'APP-EDITDSSELECTION-TEXT' %}"></a>
+        <div class="row">
+          <div class="title">{% trans "APP-CATEGORY-TEXT" %}</div>
+          <p class="meta_category"><%= category[1] %></p>
+        </div>
 
-    <div class="row">
-      <div class="title">{% trans 'APP-SELECTED-DATA-TEXT' %}</div>
-    </div>
-
-    <div class="preview-datastream">
-      <table>
-        <thead>
-          <tr>
-            <% _.each(headers, function(cell) { %>
-              <th><%= cell %></th>
+        <% if (sources != '') { %>
+        <div class="row">
+          <div class="title">{% trans "APP-SOURCE-TEXT" %}</div>
+          <p class="meta_source">
+           <% _.each(sources, function(source) { %>
+              <a href="<%= source.source__url %>" target="_blank"><%= source.source__name %></a>
             <% }); %>
-          </tr>
-        </thead>
-        <tbody>
-          <% _.each(rows, function(cells, row) { %>
-            <tr>
-              <% _.each(cells, function(cell, col) { %>
-                <td><%= cell %></td>
+           </p>
+        </div>
+        <% } %>
+
+        <% if (tags != '') { %>
+        <div class="row">
+          <div class="title">{% trans "APP-TAGS-TEXT" %}</div>
+            <div class="sourcesContent">
+              <% _.each(tags, function(tag) { %>
+                <div class="tag">
+                  <span class="tagInner clearfix">
+                    <span class="tagTxt">
+                      <%= tag.tag__name %>
+                    </span>
+                  </span>
+                </div>
               <% }); %>
-            </tr>
-          <% }); %>
-        </tbody>
-      </table>
+            </div>
+        </div>
+        <% } %>
+        
+        <% if (dataview.notes != '') { %>
+        <div class="row">
+          <div class="title">{% trans 'APP-VIEW-DATASET-NOTES-TEXT' %}</div>
+          <div class="notes meta_notes"><%= dataview.notes %></div>
+        </div>
+        <% } %>
+
       </div>
+
+    </div>
+    
+    <div class="col-xs-12">
+
+      <div class="step-revision description">
+
+        <a class="icon icon-edit fill-background corner-position go-to" data-step="0" title="{% trans 'APP-EDITDSSELECTION-TEXT' %}"></a>
+
+        <div class="row">
+          <div class="title">{% trans 'APP-SELECTED-DATA-TEXT' %}</div>
+        </div>
+
+        <div class="preview-datastream">
+          <table>
+            <thead>
+              <tr>
+                <% _.each(headers, function(cell) { %>
+                  <th><%= cell %></th>
+                <% }); %>
+              </tr>
+            </thead>
+            <tbody>
+              <% _.each(rows, function(cells, row) { %>
+                <tr>
+                  <% _.each(cells, function(cell, col) { %>
+                    <td><%= cell %></td>
+                  <% }); %>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
