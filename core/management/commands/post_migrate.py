@@ -2,11 +2,28 @@ from django.core.management.base import BaseCommand
 
 from optparse import make_option
 
-from core.models import User, Grant, VisualizationRevision, Preference
-
+from core.models import User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision
+from core.choices import StatusChoices
 import json
 
 class Command(BaseCommand):
+
+    def chanageResourcesStatus(self, resources):
+        for res in resources:
+            if res.status == 2:
+                res.status = StatusChoices.PENDING_REVIEW # 1
+            elif res.status == 4:
+                res.status = StatusChoices.DRAFT # 0
+            elif res.status = 5:
+                res.status = StatusChoices.DRAFT # 0
+            res.save()
+
+    def changeStatus(self):
+        self.chanageResourcesStatus(VisualizationRevision.objects.all())
+        self.chanageResourcesStatus(DataStreamRevision.objects.all())
+        self.chanageResourcesStatus(DatasetRevision.objects.all())
+             
+
 
     def handle(self, *args, **options):
         print('FIXING USER GRANTS')
@@ -74,4 +91,6 @@ class Command(BaseCommand):
             home.value=json.dumps(config)
             home.save()
                 
-            
+            # actualizo estados
+            self.changeStatus() 
+        
