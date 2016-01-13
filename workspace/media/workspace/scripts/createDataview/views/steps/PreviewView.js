@@ -12,8 +12,6 @@ var PreviewView = Backbone.View.extend({
             rowsRaw = this.model.data.get('rowsRaw'),
             headers = this.model.data.get('headers');
 
-        console.log(this.model.toJSON());
-
         this.$el.html(this.template({
           rows: this.formatRows(rowsRaw),
           headers: _.map(headers, this.formatCell.bind(this)),
