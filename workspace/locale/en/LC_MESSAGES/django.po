@@ -3335,7 +3335,7 @@ msgid "APP-DATASET-PARAMETERS"
 msgstr "Dataset Parameters"
 
 msgid "APP-SELECT-DATASET-TABLE"
-msgstr "Page/sheet"
+msgstr "Tables"
 
 msgid "APP-COLS-TEXT"
 msgstr "Columns"
@@ -3414,3 +3414,6 @@ msgstr "Use patterns formatting date and time <a href='https://docs.oracle.com/j
 
 msgid "APP-ERR-NO-TABLES-FOUND"
 msgstr "No tables were found."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Table"

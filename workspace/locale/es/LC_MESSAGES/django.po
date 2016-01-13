@@ -3328,7 +3328,7 @@ msgid "APP-DATASET-PARAMETERS"
 msgstr "Parámetros del conjunto de datos"
 
 msgid "APP-SELECT-DATASET-TABLE"
-msgstr "Página / Tabla"
+msgstr "Tablas"
 
 msgid "APP-COLS-TEXT"
 msgstr "Columnas"
@@ -3410,3 +3410,6 @@ msgstr "Usa patrones de formateo de fecha y hora de <a href='https://api.jqueryu
 
 msgid "APP-ERR-NO-TABLES-FOUND"
 msgstr "No se encontraron tablas."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Tabla"

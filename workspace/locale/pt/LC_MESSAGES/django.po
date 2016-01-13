@@ -3360,3 +3360,6 @@ msgstr "Use padrões de formatação de data e hora <a href='https://docs.oracle
 
 msgid "APP-ERR-NO-TABLES-FOUND"
 msgstr "No tables were found."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Table"
