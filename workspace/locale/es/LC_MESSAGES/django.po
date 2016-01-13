@@ -3407,3 +3407,6 @@ msgstr "Usa patrones de formateo de fecha y hora de <a href='https://docs.oracle
 
 msgid "APP-DATE-OUTPUT-FORMAT-TIP"
 msgstr "Usa patrones de formateo de fecha y hora de <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Día del mes (sin cero inicial) <br> dd: Día del mes (dos dígitos)"
+
+msgid "APP-ERR-NO-TABLES-FOUND"
+msgstr "No se encontraron tablas."

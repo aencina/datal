@@ -3411,3 +3411,6 @@ msgstr "Select the location to be used to represent the output format of sight"
 
 msgid "APP-DATE-ORIGIN-FORMAT-TIP"
 msgstr "Use patterns formatting date and time <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Whole year (Ej: 2001)<br> yy: Abbreviated year (Ej: 01)<br> MM: Month starting with 0 (Ej: July 07)<br> M: Month without 0 (Ej: July 7)<br> dd: Day start with 0 (Ej: April 04)<br> d: Day without 0 (Ej: April 4)<br> - (dash) y / (bar) separate terms"
+
+msgid "APP-ERR-NO-TABLES-FOUND"
+msgstr "No tables were found."
