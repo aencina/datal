@@ -472,8 +472,9 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 /* Arguments Overlay */
 .argumentsOverlay{width:400px;}
 .ao-popup-overlay .argumentsOverlay .In form{width:auto;}
-.ao-popup-overlay .argumentsOverlay p{padding-top:18px;line-height:16px;}
+.ao-popup-overlay .argumentsOverlay p{padding:0 25px;line-height:16px;}
 .argumentsOverlay .form{margin:20px;padding:15px 15px 0;border:1px solid #ddd;border-left:0;border-right:0;background:#efefef;}
 .argumentsOverlay .form label{display:block;font-weight:bold;height:auto;line-height:normal;padding-bottom:10px;}
 .argumentsOverlay .form .field{height:28px;width:306px;margin-bottom:15px;}
+.argumentsOverlay .buttons{padding-bottom:25px;}
 .argumentsOverlay .buttons a{margin:0 5px;cursor:pointer;}

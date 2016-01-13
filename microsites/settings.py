@@ -17,6 +17,7 @@ MIDDLEWARE_CLASSES += (
     'django.middleware.csrf.CsrfViewMiddleware',
     'microsites.middlewares.auth.AccessManager',
     'microsites.middlewares.ioc.DependencyInjector',
+    'microsites.middlewares.https.SSLRedirect',
     'microsites.middlewares.catch.ExceptionManager',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware'
