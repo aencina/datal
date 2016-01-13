@@ -1,7 +1,6 @@
 var EditArgumentOverlayView = Backbone.View.extend({
 
 	events:{
-		'change input[name="param"]': 'onParamChanged',
 		'click a.btn-accept': 'onClickAccept',
 		'click a.btn-cancel': 'onClickCancel',
 	},
@@ -37,12 +36,10 @@ var EditArgumentOverlayView = Backbone.View.extend({
 
 	},
 
-	onParamChanged: function(event){
-		var value = $(event.currentTarget).val();
-		this.model.set('value', value);
-	},
-
 	onClickAccept:function(){
+		var value = this.$el.find('#id_editParamsForm input[name=param]').val();
+		this.model.set('value', value);
+
 		if (this.model.isValid()) {
 			this.$el.data('overlay').close();
 		};

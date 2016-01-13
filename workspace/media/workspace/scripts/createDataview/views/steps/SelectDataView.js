@@ -17,16 +17,38 @@ var SelectDataView = Backbone.View.extend({
 
         this.template = _.template( $('#select_data_template').html() );
 
+        this.setNullLoadingHeight();
+
         this.listenTo(this.internalState, 'change:mode', this.onChangeMode, this);
         this.listenTo(this.dataviewModel.dataset, 'change:tables', this.render, this);
         this.listenTo(this.dataviewModel.dataset, 'request', this.onFetchStart, this);
     },
 
+    setNullLoadingHeight: function(){
+
+        var windowHeight = $(window).height(),
+            sectionTitleHeight = $('.main-section .section-title').height();
+
+        var sectionContentHeight =
+            windowHeight
+            - $('.global-navigation').height()
+            - sectionTitleHeight;
+
+        this.$('.data-table-view .table-view').css({
+            'height': sectionContentHeight+'px'
+        });
+
+    }, 
+
     onFetchStart: function (e) {
+
+        this.setNullLoadingHeight();
+
         this.$('.data-table-view .loading').removeClass('hidden');
     },
 
     render: function () {
+
         var tableId = tableId = this.dataviewModel.get('tableId');
 
         var editableArgs = this.datasetModel.args.where({editable: true}).map(function (m) {
