@@ -3410,7 +3410,10 @@ msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
 msgstr "Select the location to be used to represent the output format of sight"
 
 msgid "APP-DATE-ORIGIN-FORMAT-TIP"
-msgstr "Use patterns formatting date and time <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Whole year (Ej: 2001)<br> yy: Abbreviated year (Ej: 01)<br> MM: Month starting with 0 (Ej: July 07)<br> M: Month without 0 (Ej: July 7)<br> dd: Day start with 0 (Ej: April 04)<br> d: Day without 0 (Ej: April 4)<br> - (dash) y / (bar) separate terms"
+msgstr "Use patterns formatting date and time from <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Whole year (Ej: 2001)<br> yy: Abbreviated year (Ej: 01)<br> MM: Month starting with 0 (Ej: July 07)<br> M: Month without 0 (Ej: July 7)<br> dd: Day start with 0 (Ej: April 04)<br> d: Day without 0 (Ej: April 4)<br> - (dash) y / (bar) separate terms"
+
+msgid "APP-DATE-OUTPUT-FORMAT-TIP"
+msgstr "Use patterns formatting date and time from <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Day of the month (without leading zero) <br> dd: Day of the month (two digits) <br> o: Day of the year (without leading zero) <br> oo: Day of the year (three digits) <br> D: Short day name <br> DD: Long day name <br> m: Month of the year (without leading zero) <br> mm:Month of the year (two digits) <br> M: Short month name <br> MM: Long month name <br> y: Year (two digits) <br> yy: Year (four digits) <br> @: Unix timestamp (month from 01/01/1970) <br> !: Windows ticks (100ns from 01/01/0001) <br> '...': Literal text <br> '': Single quote <br> Everything else: Literal text"
 
 msgid "APP-ERR-NO-TABLES-FOUND"
 msgstr "No tables were found."
