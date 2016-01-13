@@ -1,9 +1,9 @@
 var FiltersOptionsView = Backbone.Epoxy.View.extend({
 
     events: {
-        'click button.btn-clear': 'onClickClear',
+        'click a.btn-clear': 'onClickClear',
         'click a.btn-back': 'onClickBack',
-        'click button.btn-ok': 'onClickOk',
+        'click a.btn-ok': 'onClickOk',
 
         'change input[name="default"]': 'onChangeInput'
     },
