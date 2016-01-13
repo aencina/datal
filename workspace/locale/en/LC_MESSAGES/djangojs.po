@@ -374,7 +374,7 @@ msgid "ADMIN-HOME-SECTION-RESOURCETITLE"
 msgstr "Resources Slider section"
 
 msgid "ADMIN-HOME-SECTION-RESOURCEDESCRIPTION"
-msgstr "Start typing the the name of the resources that will be included in the slider, and select them from the list."
+msgstr "Procurar e adicionar recursos para o carrousel."
 
 msgid "ADMIN-HOME-SECTION-LEFTBOTTOMTITLE"
 msgstr "Left Bottom section"
