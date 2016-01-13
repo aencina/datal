@@ -22,6 +22,7 @@ var SelectDataView = Backbone.View.extend({
         this.listenTo(this.internalState, 'change:mode', this.onChangeMode, this);
         this.listenTo(this.dataviewModel.dataset, 'change:tables', this.render, this);
         this.listenTo(this.dataviewModel.dataset, 'request', this.onFetchStart, this);
+        this.listenTo(this.dataviewModel.dataset, 'sync', this.onFetchEnd, this);
     },
 
     setNullLoadingHeight: function(){
@@ -40,15 +41,18 @@ var SelectDataView = Backbone.View.extend({
 
     }, 
 
-    onFetchStart: function (e) {
+    onFetchStart: function () {
 
         this.setNullLoadingHeight();
 
         this.$('.data-table-view .loading').removeClass('hidden');
     },
 
-    render: function () {
+    onFetchEnd: function () {
+        this.$('.data-table-view .loading').addClass('hidden');
+    },
 
+    render: function () {
         var tableId = tableId = this.dataviewModel.get('tableId');
 
         var editableArgs = this.datasetModel.args.where({editable: true}).map(function (m) {
@@ -61,6 +65,7 @@ var SelectDataView = Backbone.View.extend({
         }));
         this.$('.select-table').val(tableId);
 
+        this.$('.data-table-view .loading').addClass('hidden');
         this.attachChildrenViews();
     },
 

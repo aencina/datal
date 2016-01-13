@@ -64,6 +64,9 @@ var DataTableView = Backbone.View.extend({
     }
 
     this.data = tableData.rows;
+    if (columns.length === 0) {
+      return;
+    }
 
     this.table = new Handsontable(this.$('.table-view').get(0), {
       rowHeaders: true, colHeaders: true,
@@ -132,6 +135,9 @@ var DataTableView = Backbone.View.extend({
 
   render: function () {
     var self = this;
+    if (_.isUndefined(this.table)) {
+      return;
+    }
     this.table.loadData(this.data);
     _.each(this.collection.models, function (model) {
       self.onAddSelected(model, false);
