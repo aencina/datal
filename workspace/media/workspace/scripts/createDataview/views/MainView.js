@@ -55,7 +55,8 @@ var MainView = Backbone.View.extend({
         } else if (step === 2) {
             this.currentView = new PreviewView({
                 model: this.dataviewModel,
-                categories: this.categories
+                categories: this.categories,
+                stateModel: this.stateModel
             });
         }
         this.$('.current-step').empty();

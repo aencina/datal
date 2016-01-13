@@ -1,8 +1,14 @@
 var PreviewView = Backbone.View.extend({
 
+    events: {
+        'click a.go-to': 'onGoTo'
+    },
+
     initialize: function (options) {
         this.template = _.template( $('#preview_dataview_template').html() );
         this.categories = options.categories;
+        this.stateModel = options.stateModel;
+
         this.model.data.clear();
         this.model.fetch();
         this.listenTo(this.model.data, 'change:rowsRaw change:headers', this.render, this);
@@ -26,6 +32,11 @@ var PreviewView = Backbone.View.extend({
           category: category
         }));
 
+    },
+
+    onGoTo: function (e) {
+        var step = $(e.currentTarget).data('step');
+        this.stateModel.set({step: step});
     },
 
     // TODO: Código portado de un template, necesita mejoras
