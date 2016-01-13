@@ -5,7 +5,7 @@ PROJECT_PATH, FILENAME = os.path.split(os.path.abspath(os.path.dirname(__file__)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['.junar.com']
+ALLOWED_HOSTS = ['*']
 
 ADMINS = (
     ('Webmaster', 'webmaster@junar.com'),
