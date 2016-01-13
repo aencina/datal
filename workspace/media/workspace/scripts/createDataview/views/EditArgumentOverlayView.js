@@ -7,28 +7,30 @@ var EditArgumentOverlayView = Backbone.View.extend({
 	},
 
 	initialize: function() {
-    this.template = _.template( $('#edit_arguments_overlay_template').html() );
+		this.template = _.template( $('#edit_arguments_overlay_template').html() );
 
 		this.listenTo(this.model, "invalid", this.onValidationErrors);
-  },
 
-  render: function() {
-    this.$el.html(this.template({
-      arg: this.model.toJSON()
-    }));
+		this.$el.overlay({
+			top: 'center',
+			left: 'center',
+			mask: {
+				color: '#000',
+				loadSpeed: 200,
+				opacity: 0.5,
+				zIndex: 99999
+			}
+		});
+	},
 
-    this.$el.overlay({
-      top: 'center',
-      left: 'center',
-      mask: {
-        color: '#000',
-        loadSpeed: 200,
-        opacity: 0.5,
-        zIndex: 99999
-      }
-    });
-
-    this.$el.data('overlay').load();
+	render: function() {
+		this.$el.find('#id_editParamsForm').html(
+			this.template({
+				arg: this.model.toJSON()
+			})
+		);
+			
+		this.$el.data('overlay').load();
 	},
 
 	onValidationErrors: function(){
@@ -36,14 +38,14 @@ var EditArgumentOverlayView = Backbone.View.extend({
 	},
 
 	onParamChanged: function(event){
-		var value 	= $(event.currentTarget).val();
+		var value = $(event.currentTarget).val();
 		this.model.set('value', value);
 	},
 
 	onClickAccept:function(){
-    if (this.model.isValid()) {
-		  this.$el.data('overlay').close();
-    };
+		if (this.model.isValid()) {
+			this.$el.data('overlay').close();
+		};
 	},
 
 	onClickCancel:function(){
