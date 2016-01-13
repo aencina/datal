@@ -3409,7 +3409,7 @@ msgid "APP-DATE-OUTPUT-FORMAT-TIP"
 msgstr "Usa patrones de formateo de fecha y hora de <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Día del mes (sin cero inicial) <br> dd: Día del mes (dos dígitos) <br> o: Día del año (sin ceros iniciales) <br> oo: Día del año (tres dígitos) <br> D: Nombre día corto <br> DD: Nombre día largo <br> m: Mes del año (sin cero inicial) <br> mm: Mes del año (dos dígitos) <br> M: Nombre mes corto <br> MM: Nombre mes largo <br> y: Año (dos dígitos) <br> yy: Año (cuatro dígitos) <br> @: Unix timestamp (mes desde 01/01/1970) <br> !: Windows ticks (100ns desde 01/01/0001) <br> '...': Texto literal <br> '': Comilla simple <br> Todo lo demás: Texto literal"
 
 msgid "APP-ERR-NO-TABLES-FOUND"
-msgstr "No se encontraron tablas."
+msgstr "El parámetro no arroja resultados, intente con uno diferente."
 
 msgid "APP-DATASET-SHEET"
 msgstr "Tabla"
