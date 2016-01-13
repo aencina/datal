@@ -341,13 +341,13 @@
 
     <div class="buttons_view_container">
       <ul class="buttons-bar">
-        <li class="step step0">
+        <li class="step step0<%= (step > 0) ? ' step-done': '' %>">
           <a>{% trans 'APP-DATA-SELECTION-TEXT' %}</a>
         </li>
-        <li class="step step1">
+        <li class="step step1<%= (step > 1) ? ' step-done': '' %>">
           <a>{% trans 'APP-DESCRIPTION-TEXT' %}</a>
         </li>
-        <li class="step step2">
+        <li class="step step2<%= (step > 2) ? ' step-done': '' %>">
           <a>{% trans 'APP-REVISION-TEXT' %}</a>
         </li>
       </ul>

@@ -176,6 +176,10 @@ a.green:hover,
   &[data-step="4"] li.step3 a,
   &[data-step="4"] li.step3 a:hover{color:$green;cursor:pointer;}
 
+  li.step-done a {
+    color: #009245;
+    cursor: pointer;
+  }
 }
 
 
