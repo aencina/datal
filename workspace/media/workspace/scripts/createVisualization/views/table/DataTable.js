@@ -56,7 +56,7 @@ var DataTableView = Backbone.View.extend({
         };
       });
     } else {
-      columns = _.map(tableData.rows[0], function (cell) {
+      columns = _.map(tableData.rows[0] || [], function (cell) {
         return {
           renderer: self.typeToRenderer['TEXT']
         };

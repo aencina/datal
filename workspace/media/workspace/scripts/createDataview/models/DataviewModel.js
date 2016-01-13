@@ -299,7 +299,7 @@ var DataviewModel = Backbone.Model.extend({
             rows;
         if (tables.length !== 0) {
             rows = tables[value];
-            this.set('totalCols', rows[0].length);
+            this.set('totalCols', _.isUndefined(rows[0])? 0: rows[0].length );
             this.set('totalRows', rows.length);
         }
     },
