@@ -451,8 +451,9 @@
 
   <div class="row">
 
+    <a class="btn-back center"><span class="icon FL"><</span></a>
+    <span class="pipe"></span>
     <div class="title">
-      <a class="btn-back center"><span class="icon FL"><</span></a>
       {% trans 'APP-TABLE-HEADERS-TEXT' %}
     </div>
     <p>{% trans 'APP-CREATE-DATAVIEW-TABLE-HEADERS-TIP-TEXT' %}</p>
@@ -467,8 +468,9 @@
 
 <script type="text/template" id="filters_options_template">
 
+  <a class="btn-back center"><span class="icon FL"><</span></a>
+  <span class="pipe"></span>
   <div class="title">
-      <a class="btn-back center"><span class="icon FL"><</span></a>
       {% trans 'APP-FILTER-DATA-TEXT' %}
   </div>
   <p><strong>{% trans 'APP-ADD-NEW-FILTER-TEXT' %}</strong></p>
@@ -540,8 +542,9 @@
 
 <script type="text/template" id="formats_template">
 
+  <a class="btn-back center"><span class="icon FL"><</span></a>
+  <span class="pipe"></span>
   <div class="title">
-    <a class="btn-back center"><span class="icon FL"><</span></a>
     {% trans 'APP-CONFIG-DATA-TYPE-AND-COLUMN-FORMAT-TEXT' %}
   </div>
   <p><strong>{% trans 'APP-CONFIGURE-A-COLUMN-TEXT' %}</strong></p>
@@ -949,12 +952,7 @@
       <% if (type === 'NUMBER') { %>
         {% trans 'APP-NUMBER-ORIGIN-FORMAT-TIP' %}
       <% } else if (type === 'DATE' && subtype === 'input') { %>
-        
-        {% trans 'APP-DATE-ORIGIN-FORMAT-TIP-1' %} 
-        <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html" target="_blank">Java 7</a>.
-        <hr class='divider divider-xs'>
-        {% trans 'APP-DATE-ORIGIN-FORMAT-TIP-2' %}
-
+        {% trans 'APP-DATE-ORIGIN-FORMAT-TIP' %}
       <% } else if (type === 'DATE' && subtype === 'output') { %>
         {% trans 'APP-DATE-OUTPUT-FORMAT-TIP' %}
       <% } %>
