@@ -3,7 +3,7 @@ var FiltersOptionsView = Backbone.Epoxy.View.extend({
     events: {
         'click a.btn-clear': 'onClickClear',
         'click a.btn-back': 'onClickBack',
-        'click button.btn-ok': 'onClickOk',
+        'click a.btn-ok': 'onClickOk',
 
         'change input[name="default"]': 'onChangeInput'
     },
@@ -51,6 +51,15 @@ var FiltersOptionsView = Backbone.Epoxy.View.extend({
         this.applyBindings();
 
         this.setInitialState();
+
+        Backbone.Validation.bind(this, {
+            valid: function (view, attr, selector) {
+                view.setIndividualError(view.$('[name=' + attr + ']'), attr, '');
+            },
+            invalid: function (view, attr, error, selector) {
+                view.setIndividualError(view.$('[name=' + attr + ']'), attr, error);
+            },
+        });
     },
 
     setInitialState: function () {
@@ -77,8 +86,10 @@ var FiltersOptionsView = Backbone.Epoxy.View.extend({
     },
 
     onClickOk: function () {
-        this.collection.add(this.model);
-        this.stateModel.set('mode', 'data');
+        if (this.model.isValid(true)) {
+            this.collection.add(this.model);
+            this.stateModel.set('mode', 'data');
+        }
     },
 
     onChangeColumn: function (model, value) {
@@ -134,4 +145,15 @@ var FiltersOptionsView = Backbone.Epoxy.View.extend({
     hide: function () {
         this.$el.addClass('hidden');
     },
+
+    setIndividualError: function(element, name, error){
+        if( error !== ''){
+            element.addClass('has-error');
+            element.next('p.has-error').remove();
+            element.after('<p class="has-error">'+error+'</p>');
+        } else {
+            element.removeClass('has-error');
+            element.next('p.has-error').remove();
+        }
+    }
 });

@@ -1,7 +1,14 @@
 var PreviewView = Backbone.View.extend({
 
-    initialize: function () {
+    events: {
+        'click a.go-to': 'onGoTo'
+    },
+
+    initialize: function (options) {
         this.template = _.template( $('#preview_dataview_template').html() );
+        this.categories = options.categories;
+        this.stateModel = options.stateModel;
+
         this.model.data.clear();
         this.model.fetch();
         this.listenTo(this.model.data, 'change:rowsRaw change:headers', this.render, this);
@@ -10,18 +17,26 @@ var PreviewView = Backbone.View.extend({
     render: function () {
         var container = this.$('.table-container').get(0),
             rowsRaw = this.model.data.get('rowsRaw'),
-            headers = this.model.data.get('headers');
-
-        console.log(this.model.toJSON());
+            headers = this.model.data.get('headers'),
+            categoryId = Number(this.model.get('category'));
+            category = _.find(this.categories, function (category) {
+                return category[0] === categoryId;
+            });
 
         this.$el.html(this.template({
           rows: this.formatRows(rowsRaw),
           headers: _.map(headers, this.formatCell.bind(this)),
           dataview: this.model.toJSON(),
           tags: this.model.tags.toJSON(),
-          sources: this.model.sources.toJSON()
+          sources: this.model.sources.toJSON(),
+          category: category
         }));
 
+    },
+
+    onGoTo: function (e) {
+        var step = $(e.currentTarget).data('step');
+        this.stateModel.set({step: step});
     },
 
     // TODO: Código portado de un template, necesita mejoras

@@ -3363,3 +3363,6 @@ msgstr "Use padrões de formatação de data e hora de <a href='https://api.jque
 
 msgid "APP-ERR-NO-TABLES-FOUND"
 msgstr "No tables were found."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Table"

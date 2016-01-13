@@ -23,7 +23,7 @@
         <div class="form-group">
           <select class="form-control select-table">
             <% _(tables).each(function(table){ %>
-              <option value="<%= table %>">Hoja número <%= table + 1 %></option>
+              <option value="<%= table %>">{% trans 'APP-DATASET-SHEET' %} <%= table + 1 %></option>
             <% }); %>
           </select>
         </div>
@@ -233,7 +233,7 @@
 
   <div class="step-revision description">
 
-    <a class="icon icon-edit fill-background corner-position editMetadata" title="{% trans 'APP-EDIT-DESCRIPTION-TEXT' %}"></a>
+    <a class="icon icon-edit fill-background corner-position go-to" data-step="1" title="{% trans 'APP-EDIT-DESCRIPTION-TEXT' %}"></a>
 
     <div class="row">
       <div class="title">{% trans "APP-TITLE-TEXT" %}</div>
@@ -247,7 +247,7 @@
 
     <div class="row">
       <div class="title">{% trans "APP-CATEGORY-TEXT" %}</div>
-      <p class="meta_category"><%= dataview.category %></p>
+      <p class="meta_category"><%= category[1] %></p>
     </div>
 
     <% if (sources != '') { %>
@@ -289,7 +289,7 @@
   
   <div class="step-revision description">
 
-    <a class="icon icon-edit fill-background corner-position editData" title="{% trans 'APP-EDITDSSELECTION-TEXT' %}"></a>
+    <a class="icon icon-edit fill-background corner-position go-to" data-step="0" title="{% trans 'APP-EDITDSSELECTION-TEXT' %}"></a>
 
     <div class="row">
       <div class="title">{% trans 'APP-SELECTED-DATA-TEXT' %}</div>
@@ -478,7 +478,7 @@
 
   <div class="form-group">
     <label>{% trans 'APP-COLUMN-TEXT' %}</label>
-    <select class="form-control select-column">
+    <select class="form-control select-column" name="column">
         <option value="">{% trans 'APP-SELECT-TEXT' %}...</option>
         <% _(columns).each(function(column){ %>
           <option value="<%= column.index %>">{% trans 'APP-COLUMN-TEXT' %} <%= column.label %></option>
@@ -489,7 +489,7 @@
   <div class="row-operator hidden">
     <div class="form-group">
       <label>{% trans 'APP-OPERATION-TEXT' %}</label>
-      <select class="form-control select-operator">
+      <select class="form-control select-operator" name="operator">
           <option value="">{% trans 'APP-SELECT-TEXT' %}...</option>
           <option value="00">{% trans 'APP-EQUAL-TO-TEXT' %}</option>
           <option value="01">{% trans 'APP-NOT-EQUAL-TO-TEXT' %}</option>
@@ -503,7 +503,7 @@
   <div class="row-value-type hidden">
     <div class="form-group">
       <label>{% trans 'APP-OPERATOR-TEXT' %}</label>
-      <select class="form-control select-value-type">
+      <select class="form-control select-value-type" name="type">
           <option value="">{% trans 'APP-SELECT-TEXT' %}...</option>
           <option value="fixed">{% trans 'APP-FIXED-VALUE-TEXT' %}</option>
           <option value="parameter">{% trans 'APP-PARAMETER-TEXT' %}</option>
@@ -515,7 +515,7 @@
     <p><strong>{% trans 'APP-CONFIGURE-OPERATOR-TEXT' %}</strong></p>
     <div class="form-group">
       <label>{% trans 'APP-ENTER-A-FIXED-VALUE-TEXT' %}</label>
-      <input class="form-control" type="text" name="default">
+      <input class="form-control" type="text" name="default" name="default">
     </div>
   </div>
 
@@ -536,8 +536,8 @@
   </div>
 
   <div class="buttons center">
-    <button class="button small red btn-clear">{% trans 'APP-CLEAR-TEXT' %}</button>
-    <button class="button small primary btn-ok">{% trans 'APP-DONE-TEXT' %}</button>
+    <a class="button small red btn-clear">{% trans 'APP-CLEAR-TEXT' %}</a>
+    <a class="button small primary btn-ok">{% trans 'APP-DONE-TEXT' %}</a>
   </div>
 </script>
 
