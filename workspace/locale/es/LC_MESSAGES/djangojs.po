@@ -359,7 +359,7 @@ msgid "ADMIN-HOME-SECTION-RESOURCETITLE"
 msgstr "Sección de carrousel de recursos"
 
 msgid "ADMIN-HOME-SECTION-RESOURCEDESCRIPTION"
-msgstr "Comience a escribir el nombre de los recursos que se incluirán en el carrousel, y seleccionelos de la lista."
+msgstr "Busque y agregue recursos al carrousel."
 
 msgid "ADMIN-HOME-SECTION-LEFTBOTTOMTITLE"
 msgstr "Sección inferior izquierda"
