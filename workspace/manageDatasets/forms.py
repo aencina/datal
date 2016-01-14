@@ -276,6 +276,15 @@ class WebserviceForm(DatasetForm):
         })
     )
 
+    # Attributes as Headers
+    att_headers = forms.BooleanField(
+        required=False,
+        label=ugettext_lazy('APP-ATT-HEADERS-TEXT'),
+        widget=forms.CheckboxInput(attrs={
+            'data-bind':'checked:att_headers'
+        })
+    )
+
     # Username
     username = forms.CharField(
         required=False,
