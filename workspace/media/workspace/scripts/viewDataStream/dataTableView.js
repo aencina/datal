@@ -249,7 +249,7 @@ var dataTableView = Backbone.View.extend({
 
 		// Init Flexigrid
 		$('.dataTable .data .result').flexigrid({
-			url: '/rest/datastreams/' + dataStream.lastPublishRevisionId + '/data.grid',
+			url: '/rest/datastreams/' + dataStream.id + '/data.grid', // se le pasa el revision_id, de la revision actual.
 			dataType: 'json',
 			colModel: colModel,
 			searchitems : searchArray,
