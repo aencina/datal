@@ -1843,6 +1843,9 @@ msgstr "Define la ruta(xpath o json-path) a los datos de la tabla."
 msgid "WORKSPACE-CACHE-TIP"
 msgstr "Define si el resultado del webservice debe ser almacenado en memoria."
 
+msgid "WORKSPACE-ATT-HEADERS-TIP"
+msgstr "Define si los atributos son usados como encabezado."
+
 msgid "WEBSERVICE-STEP1-TITLE"
 msgstr "Filtra tu selección como necesites"
 
@@ -1896,6 +1899,9 @@ msgstr "Ruta a los datos"
 
 msgid "APP-CACHE-TEXT"
 msgstr "Usar cache"
+
+msgid "APP-ATT-HEADERS-TEXT"
+msgstr "Usar atributos como cabeceras"
 
 msgid "WORKSPACE-METHODNAME-TEXT"
 msgstr "Método"

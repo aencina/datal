@@ -100,6 +100,13 @@
 			<p class="tip">{% trans 'WORKSPACE-CACHE-TIP' %}</p>
 		</div>
 
+		{# attributes as headers #}
+		<div class="row checkbox clearfix">
+			{{ form.att_headers.label_tag }}
+			{{ form.att_headers }}
+			<p class="tip">{% trans 'WORKSPACE-ATT-HEADERS-TIP' %}</p>
+		</div>
+
 	</fieldset>
 
 	<hr class="separator">

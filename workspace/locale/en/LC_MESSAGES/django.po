@@ -1865,6 +1865,9 @@ msgstr "Defines the path(xpath or json-path) to table data."
 msgid "WORKSPACE-CACHE-TIP"
 msgstr "Defines if webservice result should be cached or not"
 
+msgid "WORKSPACE-ATT-HEADERS-TIP"
+msgstr "Defines if attributes are used as headers."
+
 msgid "WEBSERVICE-STEP1-TITLE"
 msgstr "Filter your selection as you need"
 
@@ -1927,6 +1930,9 @@ msgstr "Path to data"
 
 msgid "APP-CACHE-TEXT"
 msgstr "Use cache"
+
+msgid "APP-ATT-HEADERS-TEXT"
+msgstr "Use attributes as headers"
 
 msgid "WORKSPACE-METHODNAME-TEXT"
 msgstr "Method"
