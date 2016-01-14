@@ -82,8 +82,12 @@ charts.views.MapChart = charts.views.Chart.extend({
         // Find style by ID
 
         // Find style by row number
-        var style = _.find(styles, function (style) {
-            return style.rows.indexOf(pointIndex) !== -1;
+        var style;
+
+        _.each(styles, function (item) {
+            if (item.rows.indexOf(pointIndex) !== -1) {
+                style = item;
+            }
         });
         if (!_.isUndefined(style)) {
             result = style.styles;
@@ -124,8 +128,6 @@ charts.views.MapChart = charts.views.Chart.extend({
                     this.model.get('options').center.long
                     );
         }
-        
-        console.log('create_map',this.model.get('options'));
 
         if(this.model.get('options').bounds){
             var b = this.model.get('options').bounds;
@@ -365,8 +367,8 @@ charts.views.MapChart = charts.views.Chart.extend({
             "strokeColor": lineStyle.strokeColor,
             "strokeOpacity": lineStyle.strokeOpacity,
             "strokeWeight": lineStyle.strokeWeight,
-            "fillColor": this.getStyleFromKml(polyStyle, 'fill', 'color', defaultStyle.fillColor),
-            "fillOpacity": this.getStyleFromKml(polyStyle, 'fill', 'opacity', defaultStyle.fillOpacity)
+            "fillColor": this.getStyleFromKml(polyStyle, 'color', 'color', defaultStyle.fillColor),
+            "fillOpacity": this.getStyleFromKml(polyStyle, 'color', 'opacity', defaultStyle.fillOpacity)
         };
     },
 
@@ -388,6 +390,11 @@ charts.views.MapChart = charts.views.Chart.extend({
         //La opacidad se extrae del color y convierte de hexadecimal a entero
         if(type == 'opacity') {
             return parseInt(style.substring(0, 2), 16) / 256;
+        }
+
+        if(type == 'width') {
+            var value = parseFloat(style);
+            return (value === 0)? 1 : value;
         }
 
         return style;
