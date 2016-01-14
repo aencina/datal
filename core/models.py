@@ -410,7 +410,7 @@ class DataStreamRevision(RevisionModel):
 
     def add_sources(self, sources):
         self.sourcedatastream_set.clear()
-        
+
         for source_field in sources:
             source_with_name = Source.objects.filter(name=source_field.get('name', ''))
             if source_with_name.count():
@@ -431,7 +431,7 @@ class DataStreamRevision(RevisionModel):
 
     def add_parameters(self, parameters):
         self.datastreamparameter_set.clear()
-        
+
         for parameter in parameters:
             self.datastreamparameter_set.add(DataStreamParameter.objects.create(name=parameter['name']
                                                                                 , position=parameter['position']

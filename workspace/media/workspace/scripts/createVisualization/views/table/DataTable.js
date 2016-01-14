@@ -29,9 +29,9 @@ Handsontable.renderers.registerRenderer('selectedLinkRenderer', function () {
 
 var DataTableView = Backbone.View.extend({
 
-  // Holds available selection identifiers
-  // these are maped to classes 'hot-sel-1', 'hot-sel-2', ...
-  available: _.range(12, 0, -1),
+  events: {
+    'mousedown .ht_clone_top_left_corner.handsontable': 'onClickCorner'
+  },
 
   typeToRenderer: {
     TEXT: 'selectedTextRenderer',
@@ -42,49 +42,63 @@ var DataTableView = Backbone.View.extend({
 
   initialize: function (options) {
     var self = this,
-      invoke = options.datastream;
+      tableData = options.dataview,
+      enableFulllRowSelection = options.enableFulllRowSelection || false,
+      columns;
 
     this.utils = DataTableUtils;
 
-    var columns = _.map(_.first(invoke.fArray, invoke.fCols), function (col) {
-      return {
-        renderer: self.typeToRenderer[col.fType]
-      };
-    });
+    // Si el
+    if (tableData.columns) {
+      columns = _.map(tableData.columns, function (col) {
+        return {
+          renderer: self.typeToRenderer[col.fType]
+        };
+      });
+    } else {
+      columns = _.map(tableData.rows[0] || [], function (cell) {
+        return {
+          renderer: self.typeToRenderer['TEXT']
+        };
+      });
+    }
 
-    var rows = _.map(_.range(0, invoke.fRows), function (i) {
-      var row = invoke.fArray.slice(i*invoke.fCols, (i+1)*invoke.fCols);
-      return _.pluck(row, 'fStr');
-    });
-
-    this.data = rows;
+    this.data = tableData.rows;
+    if (columns.length === 0) {
+      return;
+    }
 
     this.table = new Handsontable(this.$('.table-view').get(0), {
       rowHeaders: true, colHeaders: true,
       readOnly: true,
       readOnlyCellClassName: 'htDimmed-datal', // the regular class paints text cells grey
       allowInsertRow: false, allowInsertColumn: false,
-      disableVisualSelection: ['current'],
+      disableVisualSelection: ['current', 'area'],
       colWidths: 80,
       columns: columns,
       manualColumnResize: true,
       manualRowResize: true,
+      stretchH: 'all'
     });
 
     // Selects a range
     this.table.addHook('afterSelection', function (r1, c1, r2, c2) {
+
       if (self._fullRowMode) {
-        self.cacheSelection({
-          from: {row: r1, col: c1},
-          to: {row: r2, col: c2}
-        });
-        // We are changing the selection behavior in the case of full columns because the engine
-        // does not currently support them (i.e. 6:6). The following is how one would re-enable
-        // full row selection in the same way as is done for columns.
-        // self.cacheSelection({
-        //   from: {row: r1, col: -1},
-        //   to: {row: r2, col: -1}
-        // });
+        if (enableFulllRowSelection) {
+          self.cacheSelection({
+            from: {row: r1, col: -1},
+            to: {row: r2, col: -1}
+          });
+        } else {
+          // We are changing the selection behavior in the case of full rows because the engine
+          // does not currently support them (i.e. 6:6). The following is how one would re-enable
+          // full row selection in the same way as is done for columns.
+          self.cacheSelection({
+            from: {row: r1, col: c1},
+            to: {row: r2, col: c2}
+          });
+        }
       } else if (self._fullColumnMode) {
         self.cacheSelection({
           from: {row: -1, col: c1},
@@ -105,21 +119,55 @@ var DataTableView = Backbone.View.extend({
       self.trigger('afterSelectionEnd');
     });
     this.table.addHook('afterOnCellMouseOver', function (event, coords, TD) {
-      self._fullColumnMode = (coords.row === -1);
-      self._fullRowMode = (coords.col === -1);
+      self._fullTableMode = false;
+      self._fullColumnMode = (coords.row === -1 && coords.col !== -1);
+      self._fullRowMode = (coords.col === -1 && coords.row !== -1);
+      self._fullTableMode = (coords.col === -1 && coords.row === -1);
     });
 
     this.listenTo(this.collection, 'add', this.onAddSelected, this);
     this.listenTo(this.collection, 'remove', this.onRmSelected, this);
+    this.listenTo(this.collection, 'reset', this.onReset, this);
     this.listenTo(this.collection, 'change', this.onChageSelected, this);
+
+    this.setTableHeight();
   },
 
   render: function () {
     var self = this;
+    if (_.isUndefined(this.table)) {
+      return;
+    }
     this.table.loadData(this.data);
     _.each(this.collection.models, function (model) {
-      self.onAddSelected(model);
+      self.onAddSelected(model, false);
     });
+    this.table.render();
+  },
+
+  setTableHeight: function(){
+
+    $(window).resize(function(){
+
+      var table = $('.handsontable'),
+          windowHeight = $(window).height();
+
+      if( table.length > 0){
+
+        var tableHeight =
+          windowHeight
+        - parseFloat( $('.global-navigation').height() )
+        - parseFloat( $('.context-menu').height() )
+        - parseFloat( table.parent().css('padding-top').split('px')[0] )
+        - 30 // As margin bottom
+        ;
+
+        table.css('height', tableHeight+'px');
+
+      }
+
+    }).resize();
+      
   },
 
   cacheSelection: function (coords) {
@@ -130,6 +178,15 @@ var DataTableView = Backbone.View.extend({
     this.trigger('afterSelection', {
       excelRange: this.utils.rangeToExcel(this._selectedCoordsCache)
     });
+  },
+
+  onClickCorner: function (e) {
+    this.cacheSelection({
+      from: {row: -1, col: -1},
+      to: {row: -1, col: -1}
+    });
+    this._fullTableMode = true;
+    this.triggerAfterSelection();
   },
 
   coordsToCells: function (coords) {
@@ -174,7 +231,7 @@ var DataTableView = Backbone.View.extend({
     var ids,
       rows = this.table.countRows(),
       cols = this.table.countCols(),
-      cells = this.coordsToCells({from:{row:0, col:0}, to:{row: rows, col: cols}}),
+      cells = this.coordsToCells({from:{row:0, col:0}, to:{row: rows-1, col: cols-1}}),
       at;
 
     for (var i = 0; i < cells.length; i++) {
@@ -186,53 +243,62 @@ var DataTableView = Backbone.View.extend({
     };
   },
 
-  getDataFromRange: function (range) {
-    var data;
+  _resetMeta: function (selId) {
+    var rows = this.table.countRows(),
+      cols = this.table.countCols(),
+      cells = this.coordsToCells({from:{row:0, col:0}, to:{row: rows-1, col: cols-1}});
 
-    if (range.from.row === -1) {
-      data = this.table.getDataAtCol(range.from.col);
-    } else {
-      data = this.table.getData(range.from.row, range.from.col, range.to.row, range.to.col);
-      // TODO: this takes only the first item from the selection. To support many column selection,
-      // it should do something else, like split the columns into separate series.
-      data = _.map(data, _.first);
-    }
-
-    return data;
-  },
-
-  getSelection: function () {
-    return {
-      excelRange: this.utils.rangeToExcel(this._selectedCoordsCache)
+    for (var i = 0; i < cells.length; i++) {
+      this.table.setCellMeta(cells[i].row, cells[i].col, 'classArray', []);
     };
   },
 
-  onAddSelected: function (model) {
+  getSelection: function () {
+    var mode;
+
+    if (this._fullTableMode) {
+      mode = 'table';
+    } else if (this._fullColumnMode) {
+      mode = 'col';
+    } else if (this._fullRowMode) {
+      mode = 'row';
+    } else {
+      mode = 'cell';
+    }
+
+    return {
+      excelRange: this.utils.rangeToExcel(this._selectedCoordsCache),
+      mode: mode
+    };
+  },
+
+  onAddSelected: function (model, render) {
     var range = model.getRange();
     if (!range) return;
     var cells = this.coordsToCells(range);
-    this._addCellsMeta(cells, model.get('id'));
-    this.table.render();
+    this._addCellsMeta(cells, model.get('classname'));
+    if (!_.isUndefined(render) && render) {
+      this.table.render();
+    }
   },
 
   onRmSelected: function (model) {
     var range = model.getRange();
     if (!range) return;
     var cells = this.coordsToCells(range);
-    this.available.push(model.get('id'));
-    this._rmCellsMeta(cells, model.get('id'));
+    this._rmCellsMeta(cells, model.get('classname'));
     this.table.render();
   },
 
   onChageSelected: function (model) {
-    var id = model.get('id');
+    var id = model.get('classname');
     var previousRange = model.getPreviousRange(),
       range = model.getRange(),
       previousCells = [],
       cells = [];
 
     if (previousRange === undefined) {
-      this._rmAllCellsMeta(id);
+      // this._rmAllCellsMeta(id);
     } else {
       previousCells = this.coordsToCells(previousRange);
     }
@@ -247,6 +313,11 @@ var DataTableView = Backbone.View.extend({
     }
     this._addCellsMeta(cells, id);
 
+    this.table.render();
+  },
+
+  onReset: function (what) {
+    this._resetMeta();
     this.table.render();
   },
 

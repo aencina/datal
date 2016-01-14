@@ -9,14 +9,14 @@ var ModalView = Backbone.View.extend({
         this.collection = new DataTableSelectedCollection();
         this.dataStreamModel = options.dataStreamModel;
 
-        this.rangeLatModel = new DataTableSelectionModel({id: 1, name: 'range_lat', notEmpty: true});
-        this.rangeLonModel = new DataTableSelectionModel({id: 2, name: 'range_lon', notEmpty: true});
-        this.rangeInfoModel = new DataTableSelectionModel({id: 3, name: 'range_data', notEmpty: true});
-        this.rangeTraceModel = new DataTableSelectionModel({id: 4, name: 'range_trace', notEmpty: true});
+        this.rangeLatModel = new DataTableSelectionModel({classname: 1, name: 'range_lat', notEmpty: true});
+        this.rangeLonModel = new DataTableSelectionModel({classname: 2, name: 'range_lon', notEmpty: true});
+        this.rangeInfoModel = new DataTableSelectionModel({classname: 3, name: 'range_data', notEmpty: true});
+        this.rangeTraceModel = new DataTableSelectionModel({classname: 4, name: 'range_trace', notEmpty: true});
 
-        this.rangeDataModel = new DataTableSelectionModel({id: 1, name: 'range_data', notEmpty: true});
-        this.rangeLabelsModel = new DataTableSelectionModel({id: 2, name: 'range_labels', notEmpty: true});
-        this.rangeHeadersModel = new DataTableSelectionModel({id: 3, name: 'range_headers', notEmpty: true});
+        this.rangeDataModel = new DataTableSelectionModel({classname: 1, name: 'range_data', notEmpty: true});
+        this.rangeLabelsModel = new DataTableSelectionModel({classname: 2, name: 'range_labels', notEmpty: true});
+        this.rangeHeadersModel = new DataTableSelectionModel({classname: 3, name: 'range_headers', notEmpty: true});
 
         // subviews
         this.selectedCellRangeView = new SelectedCellRangeView({
@@ -26,7 +26,7 @@ var ModalView = Backbone.View.extend({
 
         // events
         this.on('open', this.onOpen, this);
-        this.listenTo(this.dataStreamModel, 'change', this.onLoadDataStream, this);
+        this.listenTo(this.dataStreamModel.data, 'change:rows', this.onLoadDataStream, this);
         this.listenTo(this.model, 'change:type', this.onChangeType, this);
         this.listenTo(this.model, 'change:geoType', this.onChangeType, this);
         this.listenTo(this.collection, 'change remove reset', this.validate, this);
@@ -84,11 +84,11 @@ var ModalView = Backbone.View.extend({
         this.close();
     },
 
-    onLoadDataStream: function (model) {
+    onLoadDataStream: function (dataviewModel) {
         this.dataTableView = new DataTableView({
             el: this.$('.data-table-view'),
             collection: this.collection,
-            datastream: model.toJSON()
+            dataview: dataviewModel.toJSON()
         });
         this.dataTableView.render();
         this.collection.setMaxCols(this.dataTableView.table.countCols());

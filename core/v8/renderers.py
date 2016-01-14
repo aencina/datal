@@ -2,17 +2,26 @@ from rest_framework import renderers
 from babel import numbers, dates
 from rest_framework.renderers import JSONRenderer
 import json
+from lxml import html, etree
+from lxml.cssselect import CSSSelector
 import datetime
 import sys
 import re
+
+select_tables = CSSSelector(".ao-table-selectable")
+select_rows = CSSSelector(".ao-row-selectable")
+select_cells = CSSSelector(".ao-cell-selectable")
+
 
 class EngineRenderer(renderers.BaseRenderer):
     def render(self, data, media_type=None, renderer_context=None):
         return data
 
+
 class CSVEngineRenderer(EngineRenderer):
     media_type="text/csv"
     format = "csv"
+
 
 class TSVEngineRenderer(EngineRenderer):
     media_type="text/tab-separated-values"
@@ -21,23 +30,55 @@ class TSVEngineRenderer(EngineRenderer):
 class PJSONEngineRenderer(JSONRenderer):
     format = "pjson"
 
+
 class AJSONEngineRenderer(JSONRenderer):
     format = "ajson"
+
 
 class XLSEngineRenderer(EngineRenderer):
     media_type="application/vnd.ms-excel"
     format = "xls"
 
+
 class XLSNonRedirectEngineRenderer(JSONRenderer):
     format = "xls"
+
 
 class XMLEngineRenderer(EngineRenderer):
     media_type="text/xml"
     format = "xml"
 
+
 class HTMLEngineRenderer(EngineRenderer):
     media_type="text/html"
     format = "html"
+
+
+class JSONEngineRenderer(EngineRenderer):
+    media_type="application/json"
+    format = "json"
+
+    def render(self, data, media_type=None, renderer_context=None):
+        parser = etree.HTMLParser(encoding='utf-8')
+        x_tree = html.fromstring(data, parser=parser)
+
+        result = []
+
+        for x_table in select_tables(x_tree):
+            table = []
+            for x_row in select_rows(x_table):
+                row = []
+                for x_cell in x_row.xpath("*[self::td or self::th]"):
+                    etree.strip_elements(x_cell, 'form', 'select')
+                    text = "".join(x_cell.xpath("descendant::text()"))
+                    row.append(text.strip(" \n\t"))
+
+                table.append(row)
+
+            result.append(table)
+
+        return json.dumps(result)
+
 
 class GridEngineRenderer(EngineRenderer):
     media_type="application/json"

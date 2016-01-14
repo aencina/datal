@@ -145,7 +145,7 @@ msgstr "Crear categoría"
 msgid "WORKSPACE-CATEGORY-DESCRIPTION-LABEL"
 msgstr "Descripción"
 
-msgid "APP-NAME-TEXT"
+msgid "WEBSERVICE-NEW-NAME-LABEL"
 msgstr "Nombre"
 
 msgid "APP-DESCRIPTION-TEXT"
@@ -1550,13 +1550,13 @@ msgid "APP-KEEPINMIND-TEXT"
 msgstr "Por favor, lee la ayuda a continuación e intenta nuevamente"
 
 msgid "CREATE-STEP1-DISCLAIMER0"
-msgstr "El tamaño máximo permitido para los conjuntos de datos son:<ol><li><strong>- CSV:</strong> 500.000 filas y 100 columnas</li><li><strong>- XLSx / XLS:</strong> 100.000 filas y 50 columnas</li><li><strong>- KML:</strong> 100.000 marcadores</li><strong>- HTML, XML y otros formatos:</strong> 50.000 filas y 30 columnas</li></ol>"
+msgstr "El tamaño máximo permitido para los conjuntos de datos son:<ol><li><strong>- CSV:</strong> 1.000.000 filas y 100 columnas</li><li><strong>- XLSx / XLS:</strong> 100.000 filas y 50 columnas</li><li><strong>- KML:</strong> 100.000 marcadores</li><strong>- HTML, XML y otros formatos:</strong> 50.000 filas y 30 columnas</li></ol>"
 
 msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "Para que una URL sea una fuente de datos, debe ser una página web que contenga la etiqueta &lt;table&gt"
 
 msgid "CREATE-STEP1-DISCLAIMER2"
-msgstr "Los archivos CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML también pueden ser usados como fuentes"
+msgstr "Los archivos CSV, XLS, XLSX, KML, KMZ, TSV, XML también pueden ser usados como fuentes"
 
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "Por ahora, no se puede extraer datos desde una imagen o flash (.swf) "
@@ -1565,7 +1565,7 @@ msgid "CREATE-STEP1-DISCLAIMER4"
 msgstr "La página o archivo que contiene los datos debe tener una URL. Una URL es la dirección de Internet que ves en el navegador"
 
 msgid "CREATE-STEP1-DISCLAIMER5"
-msgstr "Si estás recolectando datos desde una &lt;table&gt; dentor de un &lt;iframe&gt; o &lt;frame&gt;, necesitas usar la URL del &lt;iframe&gt; o del &lt;frame&gt;"
+msgstr "Si estás recolectando datos desde una &lt;table&gt; dentro de un &lt;iframe&gt; o &lt;frame&gt;, necesitas usar la URL del &lt;iframe&gt; o del &lt;frame&gt;"
 
 msgid "CREATE-STEP1-DISCLAIMER6"
 msgstr "Los archivos deben estar encodeados en UTF-8"
@@ -1859,7 +1859,7 @@ msgid "WEBSERVICE-STEP1-HELPTEXT"
 msgstr "Estos parámetros ha venido de la conjunto de datos que está utilizando para crear esta vista de datos. Se utilizan para filtrar la información que este conjunto de datos puede traer<br/><br/>Si los parámetros no son editables, usted no será capaz de cambiar su valor original"
 
 msgid "APP-DSWEBSERVICE-TEXT"
-msgstr "Elija un nombre más apropiado para los parámetros <small>(si es necesario y si son editables)</small>"
+msgstr "Elija un nombre más apropiado para los parámetros <span>(si es necesario y si son editables)</span>"
 
 msgid "WEBSERVICE-HELP-TIP"
 msgstr "- El servicio web debe aceptar llamadas SOAP 1.2<br/>El elemento principal de la respuesta debe ser nombrado 'NewDataSet'. Puede tener uno o más hijos que representen filas. Las filas pueden tener uno o más hijos que representen celdas."
@@ -3240,8 +3240,182 @@ msgstr "Editar descripción"
 msgid "APP-EDIT-VISUALIZATION-TEXT"
 msgstr "Editar visualización"
 
+msgid "WEBSERVICE-ORIGINALARG-TEXT"
+msgstr "Nombre original"
+
+msgid "APP-DATA-SELECTION-TEXT"
+msgstr "Selección de datos"
+
+msgid "APP-REVISION-TEXT"
+msgstr "Revisión"
+
+msgid "APP-ADVANCED-MODE-TEXT"
+msgstr "Modo avanzado"
+
+msgid "APP-SELECT-TABLE-HEADERS-TEXT"
+msgstr "Seleccionar las cabeceras de la tabla"
+
+msgid "APP-FILTER-DATA-TEXT"
+msgstr "Filtrar los datos"
+
+msgid "APP-CONFIG-DATA-TYPE-AND-COLUMN-FORMAT-TEXT"
+msgstr "Configurar tipo de dato y formato de columnas"
+
+msgid "APP-COLUMN-TEXT"
+msgstr "Columna"
+
+msgid "APP-CREATE-DATAVIEW-DATA-SELECTION-TIP-TEXT"
+msgstr "Seleccione los intervalos que desea utilizar. Puede seleccionar toda la tabla, filas/columnas, o celdas individuales."
+
+msgid "APP-TABLE-HEADERS-TEXT"
+msgstr "Cabeceras de la tabla"
+
+msgid "APP-CREATE-DATAVIEW-TABLE-HEADERS-TIP-TEXT"
+msgstr "Seleccionar las filas de la tabla que representan cabeceras"
+
+msgid "APP-ADD-NEW-FILTER-TEXT"
+msgstr "Agregar nuevo filtro"
+
+msgid "APP-OPERATION-TEXT"
+msgstr "Operación"
+
+msgid "APP-EQUAL-TO-TEXT"
+msgstr "Es igual a"
+
+msgid "APP-NOT-EQUAL-TO-TEXT"
+msgstr "No es igual a"
+
+msgid "APP-HIGHER-THAN-TEXT"
+msgstr "Es mayor a"
+
+msgid "APP-LOWER-THAN-TEXT"
+msgstr "Es menor a"
+
+msgid "APP-CONTAINS-TEXT"
+msgstr "Contiene"
+
+msgid "APP-OPERATOR-TEXT"
+msgstr "Operador"
+
+msgid "APP-FIXED-VALUE-TEXT"
+msgstr "Valor fijo"
+
+msgid "APP-PARAMETER-TEXT"
+msgstr "Parámetro"
+
+msgid "APP-ENTER-A-FIXED-VALUE-TEXT"
+msgstr "Ingrese un valor fijo"
+
+msgid "APP-CONFIGURE-OPERATOR-TEXT"
+msgstr "Configure el operador"
+
+msgid "APP-PARAMETER-NAME-TEXT"
+msgstr "Nombre del parámetro"
+
+msgid "APP-OPTIONAL-TEXT"
+msgstr "Opcional"
+
+msgid "APP-CONFIGURE-A-COLUMN-TEXT"
+msgstr "Configurar una columna"
+
+msgid "APP-COLUMN-DATA-TYPE-TEXT"
+msgstr "Tipo de dato de la columna"
+
+msgid "APP-TEXT-TEXT"
+msgstr "Texto"
+
+msgid "APP-NUMBER-TEXT"
+msgstr "Número"
+
+msgid "APP-DATE-TEXT"
+msgstr "Fecha"
+
+msgid "APP-DATASET-PARAMETERS"
+msgstr "Parámetros del conjunto de datos"
+
+msgid "APP-SELECT-DATASET-TABLE"
+msgstr "Tablas"
+
+msgid "APP-COLS-TEXT"
+msgstr "Columnas"
+
+msgid "APP-FULL-TABLE-TEXT"
+msgstr "Tabla Completa"
+
+msgid "APP-COL-FORMAT-TEXT"
+msgstr "Formatos"
+
+msgid "APP-NAME-TEXT"
+msgstr "Nombre"
+
 msgid "ADMIN-HOME-THEMES-THEME7-TEXT"
 msgstr "Responsive"
 
 msgid "ADMIN-HOME-THEMES-THEME8-TEXT"
 msgstr "Catálogo"
+
+msgid "APP-THOUSAND-INDICATOR"
+msgstr "Indicador de miles"
+
+msgid "APP-DECIMAL-INDICATOR"
+msgstr "Indicador de decimales"
+
+msgid "APP-SYMBOLS"
+msgstr "Símbolos"
+
+msgid "APP-LOCALE"
+msgstr "Localización"
+
+msgid "APP-CUSTOM-PATTERN"
+msgstr "Patrón personalizado"
+
+msgid "APP-CONFIGURE-FORMAT"
+msgstr "Configurar formatos"
+
+msgid "APP-ORIGIN"
+msgstr "Origen"
+
+msgid "APP-OUTPUT"
+msgstr "Salida"
+
+msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
+msgstr "Indicadores de decimales / miles"
+
+msgid "APP-WHAT-IS-THE-ORIGINAL-PATTERN"
+msgstr "¿Cuál es el patrón del formato de origen?"
+
+msgid "APP-WHAT-IS-THE-OUTPUT-PATTERN"
+msgstr "¿Cuál es el patrón del formato de salida?"
+
+msgid "APP-DOT"
+msgstr "punto"
+
+msgid "APP-COMMA"
+msgstr "coma"
+
+msgid "APP-SELECTED-DATA-TEXT"
+msgstr "Datos seleccionados"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Usa el patrón de formateo de EEUU.<br><hr class='divider divider-xs'>0: Dígito <br>#: Dígito, cero ausente <br>. (punto): Separador decimal <br>, (coma): Separador de agrupación <br>-: Signo menos"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Seleccione indicadores de miles y decimales exactamente igual a como aparecen en esta columna"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Seleccione la localización que representa a los indicadores de miles y decimales en esta columna"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Seleccione la localización que se usará para representar el formato de salida de la vista"
+
+msgid "APP-DATE-ORIGIN-FORMAT-TIP"
+msgstr "Usa patrones de formateo de fecha y hora de <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Año completo (Ej: 2001)<br> yy: Año abreviado (Ej: 01)<br> MM: Mes empezado con 0 (Ej: Julio 07)<br> M: Mes sin 0 (Ej: Julio 7)<br> dd: Día empezado con 0 (Ej: Abril 04)<br> d: Día sin 0 (Ej: Abril 4)<br> - (guión) y / (barra) separa términos"
+
+msgid "APP-DATE-OUTPUT-FORMAT-TIP"
+msgstr "Usa patrones de formateo de fecha y hora de <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Día del mes (sin cero inicial) <br> dd: Día del mes (dos dígitos) <br> o: Día del año (sin ceros iniciales) <br> oo: Día del año (tres dígitos) <br> D: Nombre día corto <br> DD: Nombre día largo <br> m: Mes del año (sin cero inicial) <br> mm: Mes del año (dos dígitos) <br> M: Nombre mes corto <br> MM: Nombre mes largo <br> y: Año (dos dígitos) <br> yy: Año (cuatro dígitos) <br> @: Unix timestamp (mes desde 01/01/1970) <br> !: Windows ticks (100ns desde 01/01/0001) <br> '...': Texto literal <br> '': Comilla simple <br> Todo lo demás: Texto literal"
+
+msgid "APP-ERR-NO-TABLES-FOUND"
+msgstr "El parámetro no arroja resultados, intente con uno diferente."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Tabla"

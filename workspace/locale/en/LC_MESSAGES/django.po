@@ -145,9 +145,6 @@ msgstr "Create category"
 msgid "WORKSPACE-CATEGORY-DESCRIPTION-LABEL"
 msgstr "Description"
 
-msgid "APP-NAME-TEXT"
-msgstr "Name"
-
 msgid "APP-DESCRIPTION-TEXT"
 msgstr "Description"
 
@@ -1572,13 +1569,13 @@ msgid "APP-KEEPINMIND-TEXT"
 msgstr "Please, take a look at the following tips and try again"
 
 msgid "CREATE-STEP1-DISCLAIMER0"
-msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 500.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
+msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 1.000.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
 
 msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "For an URL to be a data source, it must be a HTML webpage that contains HTML &lt;table&gt; tags"
 
 msgid "CREATE-STEP1-DISCLAIMER2"
-msgstr "CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML files can also be used as data sources"
+msgstr "CSV, XLS, XLSX, KML, KMZ, TSV, XML files can also be used as data sources"
 
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "As of now, you cannot extract data from an image, flash (.swf)"
@@ -1881,7 +1878,7 @@ msgid "WEBSERVICE-STEP1-HELPTEXT"
 msgstr "These parameters has come from the Dataset that you are using to create this Data View. They are used to filter the information that this Dataset can bring.<br/><br/>If the parameters are not editable, you will not be able to change it's original value"
 
 msgid "APP-DSWEBSERVICE-TEXT"
-msgstr "Choose a better name for the parameters <small>(if needed and editable)</small>"
+msgstr "Choose a better name for the parameters <span>(if needed and editable)</span>"
 
 msgid "WEBSERVICE-HELP-TIP"
 msgstr "- The webservice must accept SOAP 1.2 calls<br/>- The response root element must be named 'NewDataSet'. It may have one or more childs representing rows. Rows may have one or more childs representing cells."
@@ -3253,8 +3250,179 @@ msgstr "Edit description"
 msgid "APP-EDIT-VISUALIZATION-TEXT"
 msgstr "Edit visualization"
 
+msgid "APP-DATA-SELECTION-TEXT"
+msgstr "Data selection"
+
+msgid "APP-REVISION-TEXT"
+msgstr "Revision"
+
+msgid "APP-ADVANCED-MODE-TEXT"
+msgstr "Modo avanzado"
+
+msgid "APP-SELECT-TABLE-HEADERS-TEXT"
+msgstr "Select table headers"
+
+msgid "APP-FILTER-DATA-TEXT"
+msgstr "Filter data"
+
+msgid "APP-CONFIG-DATA-TYPE-AND-COLUMN-FORMAT-TEXT"
+msgstr "Set datatype and columns format"
+
+msgid "APP-COLUMN-TEXT"
+msgstr "Column"
+
+msgid "APP-CREATE-DATAVIEW-DATA-SELECTION-TIP-TEXT"
+msgstr "Select intervals to use. You can select the entire table, rows/columns, or individual cells."
+
+msgid "APP-TABLE-HEADERS-TEXT"
+msgstr "Table headers"
+
+msgid "APP-CREATE-DATAVIEW-TABLE-HEADERS-TIP-TEXT"
+msgstr "Select the rows of the table that represent headers"
+
+msgid "APP-ADD-NEW-FILTER-TEXT"
+msgstr "Add new filter"
+
+msgid "APP-OPERATION-TEXT"
+msgstr "Operation"
+
+msgid "APP-EQUAL-TO-TEXT"
+msgstr "Equal to"
+
+msgid "APP-NOT-EQUAL-TO-TEXT"
+msgstr "Not equal to"
+
+msgid "APP-HIGHER-THAN-TEXT"
+msgstr "Higher than"
+
+msgid "APP-LOWER-THAN-TEXT"
+msgstr "Lower than"
+
+msgid "APP-CONTAINS-TEXT"
+msgstr "It contains"
+
+msgid "APP-OPERATOR-TEXT"
+msgstr "Operator"
+
+msgid "APP-FIXED-VALUE-TEXT"
+msgstr "Fixed value"
+
+msgid "APP-PARAMETER-TEXT"
+msgstr "Parameter"
+
+msgid "APP-ENTER-A-FIXED-VALUE-TEXT"
+msgstr "Enter a fixed value"
+
+msgid "APP-CONFIGURE-OPERATOR-TEXT"
+msgstr "Configure the operator"
+
+msgid "APP-PARAMETER-NAME-TEXT"
+msgstr "Parameter name"
+
+msgid "APP-OPTIONAL-TEXT"
+msgstr "Optional"
+
+msgid "APP-CONFIGURE-A-COLUMN-TEXT"
+msgstr "Configure column"
+
+msgid "APP-COLUMN-DATA-TYPE-TEXT"
+msgstr "Column data type"
+
+msgid "APP-TEXT-TEXT"
+msgstr "Text"
+
+msgid "APP-NUMBER-TEXT"
+msgstr "Number"
+
+msgid "APP-DATE-TEXT"
+msgstr "Date"
+
+msgid "APP-DATASET-PARAMETERS"
+msgstr "Dataset Parameters"
+
+msgid "APP-SELECT-DATASET-TABLE"
+msgstr "Tables"
+
+msgid "APP-COLS-TEXT"
+msgstr "Columns"
+
+msgid "APP-FULL-TABLE-TEXT"
+msgstr "Full Table"
+
+msgid "APP-COL-FORMAT-TEXT"
+msgstr "Formats"
+
+msgid "APP-NAME-TEXT"
+msgstr "Name"
+
 msgid "ADMIN-HOME-THEMES-THEME7-TEXT"
 msgstr "Responsive"
 
 msgid "ADMIN-HOME-THEMES-THEME8-TEXT"
 msgstr "Catalog"
+
+msgid "APP-THOUSAND-INDICATOR"
+msgstr "Thousand indicator"
+
+msgid "APP-DECIMAL-INDICATOR"
+msgstr "Decimal indicator"
+
+msgid "APP-SYMBOLS"
+msgstr "Symbols"
+
+msgid "APP-LOCALE"
+msgstr "Locale"
+
+msgid "APP-CUSTOM-PATTERN"
+msgstr "Custom pattern"
+
+msgid "APP-CONFIGURE-FORMAT"
+msgstr "Configure formats"
+
+msgid "APP-ORIGIN"
+msgstr "Origin"
+
+msgid "APP-OUTPUT"
+msgstr "Output"
+
+msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
+msgstr "Decimals / Thousands indicators"
+
+msgid "APP-WHAT-IS-THE-ORIGINAL-PATTERN"
+msgstr "What is the original pattern?"
+
+msgid "APP-WHAT-IS-THE-OUTPUT-PATTERN"
+msgstr "What is the output pattern?"
+
+msgid "APP-DOT"
+msgstr "dot"
+
+msgid "APP-COMMA"
+msgstr "comma"
+
+msgid "APP-SELECTED-DATA-TEXT"
+msgstr "Data selected"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Use the USA formatting pattern.<br><hr class='divider divider-xs'>0: Digit <br>#: Digit, zero absent <br>. (dot): Decimal separator <br>, (coma): Grouping separator <br>-: Minus symbol"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Select thousands and decimal indicators exactly as shown in this column"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Select the location indicators representing thousands and decimals in this column"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Select the location to be used to represent the output format of sight"
+
+msgid "APP-DATE-ORIGIN-FORMAT-TIP"
+msgstr "Use patterns formatting date and time from <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Whole year (Ej: 2001)<br> yy: Abbreviated year (Ej: 01)<br> MM: Month starting with 0 (Ej: July 07)<br> M: Month without 0 (Ej: July 7)<br> dd: Day start with 0 (Ej: April 04)<br> d: Day without 0 (Ej: April 4)<br> - (dash) y / (bar) separate terms"
+
+msgid "APP-DATE-OUTPUT-FORMAT-TIP"
+msgstr "Use patterns formatting date and time from <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Day of the month (without leading zero) <br> dd: Day of the month (two digits) <br> o: Day of the year (without leading zero) <br> oo: Day of the year (three digits) <br> D: Short day name <br> DD: Long day name <br> m: Month of the year (without leading zero) <br> mm:Month of the year (two digits) <br> M: Short month name <br> MM: Long month name <br> y: Year (two digits) <br> yy: Year (four digits) <br> @: Unix timestamp (month from 01/01/1970) <br> !: Windows ticks (100ns from 01/01/0001) <br> '...': Literal text <br> '': Single quote <br> Everything else: Literal text"
+
+msgid "APP-ERR-NO-TABLES-FOUND"
+msgstr "The parameter does not yield results, try a different one."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Table"
