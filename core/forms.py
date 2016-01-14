@@ -78,7 +78,7 @@ class MimeTypeForm(forms.Form):
                 status = 200
                 url = url
         except Exception as e:
-            logger.info("Error en parseo de mimetype de url: " % e.stack)
+            logger.exception("Error en parseo de mimetype de url")
             mimetype = ''
             status = ''
 

@@ -9,6 +9,7 @@ from microsites.daos.datasets import DatasetDAO
 from core.exceptions import *
 from microsites.exceptions import *
 from django.views.decorators.http import require_http_methods
+import urllib2
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +50,6 @@ def download(request, dataset_id, slug):
             response = HttpResponse(mimetype='application/force-download')
             response['Content-Disposition'] = 'attachment; filename="{}"'.format(dataset['filename'].encode('utf-8'))
             response.write(urllib2.urlopen(dataset['end_point_full_url']).read())
-        except Exception:
-            logger.error(dataset['end_point'])
+        except Exception as e:
+            logger.exception("Error en descarga de archivo %s" % dataset['end_point'])
         return response
