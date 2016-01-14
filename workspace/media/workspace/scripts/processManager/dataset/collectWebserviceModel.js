@@ -14,6 +14,7 @@ var CollectWebserviceModel = StepModel.extend({
 		method_name: "",
 		namespace: "",
 		use_cache: "",
+		att_headers: "",
 		params: [],
 		mbox: "",
 		license_url: "",
@@ -126,6 +127,7 @@ var CollectWebserviceModel = StepModel.extend({
 		output.method_name = $.trim( this.get('method_name') );
 		output.namespace = $.trim( this.get('namespace') );
 		output.use_cache = $.trim( this.get('use_cache') );
+		output.att_headers = $.trim( this.get('att_headers') );
 		output.spatial = $.trim( this.get('spatial') );
 		output.license_url = $.trim( this.get('license_url') );
 		output.frequency = $.trim( this.get('frequency') );
@@ -153,12 +155,18 @@ var CollectWebserviceModel = StepModel.extend({
 			$impl_details = $(_.unescape( this.get('impl_details') ) ),
 			$parsedXML = $($.parseXML( _.unescape( this.get('impl_details') ) ) ),
 			use_cache = false,
+			att_headers = false,
 			signature = '';	
 		
 		if($impl_details.attr('useCache') == "True") {
 			use_cache = true;
 		}
 		this.set('use_cache', use_cache);
+
+		if($impl_details.attr('useAttrAsHeaders') == "True") {
+			att_headers = true;
+		}
+		this.set('att_headers', att_headers);
 				
 		if( this.get('impl_type') == 1 ){
 			this.set('method_name', $impl_details.find('methodName').text());
