@@ -841,8 +841,8 @@ class Category(models.Model):
 class CategoryI18n(models.Model):
     language = models.CharField(max_length=2, choices=choices.LANGUAGE_CHOICES, verbose_name=ugettext_lazy('MODEL_LANGUAGE_LABEL'))
     category = models.ForeignKey('Category', verbose_name=ugettext_lazy('MODEL_CATEGORY_LABEL'))
-    name = models.CharField(max_length=30, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
-    slug = models.SlugField(max_length=30, verbose_name=ugettext_lazy('MODEL_SLUG_LABEL'))
+    name = models.CharField(max_length=80, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
+    slug = models.SlugField(max_length=80, verbose_name=ugettext_lazy('MODEL_SLUG_LABEL'))
     description = models.CharField(max_length=140, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
 
