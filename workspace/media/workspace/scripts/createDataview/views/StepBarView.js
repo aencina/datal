@@ -33,5 +33,4 @@ var StepBarView = Backbone.View.extend({
     enable: function (enabled) {
         this.$('.btn-next').toggleClass('disabled', !enabled);
     }
-
-})
+});

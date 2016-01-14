@@ -392,4 +392,4 @@ var DataviewModel = Backbone.Model.extend({
             columns: columns
         });
     }
-})
+});
