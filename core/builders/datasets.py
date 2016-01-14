@@ -53,8 +53,8 @@ class RESTImplBuilder(DefaultImplBuilder):
         algorithm = self.fields.get('algorithm')
         username = self.fields.get('username')
         password = self.fields.get('password')
-        useCache = self.fields.get('use_cache', False)
-        attHeaders = self.fields.get('att_headers', False)
+        useCache = str(self.fields.get('use_cache', False)).lower()
+        attHeaders = str(self.fields.get('att_headers', False)).lower()
         parameters = self.fields.get('parameters')
         signature = self.fields.get('signature')
 
@@ -104,8 +104,8 @@ class SOAPImplBuilder(DefaultImplBuilder):
 
         method_name = self.fields.get('method_name')
         namespace = self.fields.get('namespace')
-        useCache = self.fields.get('use_cache', False)
-        attHeaders = self.fields.get('att_headers', False)
+        useCache = str(self.fields.get('use_cache', False)).lower()
+        attHeaders = str(self.fields.get('att_headers', False)).lower()
         parameters = self.fields.get('parameters')
 
         if settings.DEBUG: logger.info('Building SOAP impl_details (%s) (%s) (%s) (%s) (%s)' % (method_name, namespace, str(useCache), str(attHeaders), str(parameters)))
