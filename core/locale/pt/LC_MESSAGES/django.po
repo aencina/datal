@@ -467,7 +467,7 @@ msgid "APP-FREEZE-TEXT"
 msgstr "Freeze"
 
 msgid "APP-ROWS-TEXT"
-msgstr "rows"
+msgstr "Rows"
 
 msgid "APP-COLUMNS-TEXT"
 msgstr "Comment"

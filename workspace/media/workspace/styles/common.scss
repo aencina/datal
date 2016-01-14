@@ -128,6 +128,9 @@ a.red:hover,
 a.green:hover,
 .button.green:hover{color:$green-hover !important;}
 
+/* Grey text */
+.grey{color:$font-color-light;}
+
 /* Context buttons */
 .context-buttons > *{
   margin:0 15px 0 0;
@@ -173,6 +176,10 @@ a.green:hover,
   &[data-step="4"] li.step3 a,
   &[data-step="4"] li.step3 a:hover{color:$green;cursor:pointer;}
 
+  li.step-done a {
+    color: #009245;
+    cursor: pointer;
+  }
 }
 
 
@@ -559,6 +566,14 @@ body{background:$color-base;height:100%;min-width:998px;}
   }
 }
 
+.tab-nav-sm{
+  ul{
+    li{
+      a{padding:5px 8px;font-size:$font-size-s;}
+    }
+  }
+}
+
 .tabs-list{padding:10px 3px 0;
   background:#e1e1e1;
   background:-moz-linear-gradient(top, #cfcfcf 0%, #e2e2e2 15%, #e1e1e1 100%);
@@ -598,6 +613,9 @@ body{background:$color-base;height:100%;min-width:998px;}
 }
 .tabs-list .tab.tab-selected a,
 .tabs-list .tab.tab-selected a:hover{background:#fff;font-weight:bold;color:#999;cursor:default;border-bottom:1px solid #fff;margin-bottom:0;font-size:12px;}
+
+/* Tables */
+.handsontable{width:100%;overflow:hidden;}
 
 /* Implementation Types Icons */
 i.icon{display:inline;padding:2px 0 2px 21px;background:url(/static/microsites/images/microsites/ic_implTypes.png) 0 0 no-repeat;width:inherit;height:inherit;}
@@ -810,9 +828,113 @@ border-color: #ccc;}
 /* Ajax loading */
 .ajaxLoadingOverlay{background:#fff url(#{$loader-url-light}) center center no-repeat;}
 
-.loading{background-color:#fff;background-position:center center;background-repeat:no-repeat;position:absolute;top:0;bottom:0;left:0;right:0;z-index:1;opacity:.75;}
+.loading{background-color:#fff;background-position:center center;background-repeat:no-repeat;position:absolute;top:0;bottom:0;left:0;right:0;z-index:200;opacity:.75;}
 .loading.semi-light{background-image:url(#{$loader-url-semi-light});}
 .loading.light{background-image:url(#{$loader-url-light});}
+
+/* Tooltip */
+.tooltip{
+  color: #FFF;
+  background-color: $nav-bg;
+  visibility: hidden;
+  @include border-radius(3px);
+  text-align: left; 
+  opacity: 0;
+  z-index: 300;
+  padding: 7px 11px;  
+  position: absolute;
+  cursor: default;
+  @include transition(all, 240ms, ease-in-out);
+  line-height: 19px;
+  top: auto;
+  left: 50%;
+}
+.tooltip:after,
+.tooltip.tooltip-top:after{
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  margin-left: -7px;
+  content: ' ';
+  height: 0px;
+  width: 0px;
+  border: 6px solid transparent;
+    border-top-color: $nav-bg;  
+}
+/* Tooltip top */
+.tooltip.tooltip-top{
+  bottom: 115%;
+  transform: translateX(-50%);
+}
+/* Tooltip right */
+.tooltip.tooltip-right{
+  top: 50%;
+  right: auto;
+  left: 106%;
+  transform: translateY(-50%);
+  margin-right: auto; 
+  margin-left: auto;
+}
+.tooltip.tooltip-right:after{
+  left: -5px;
+  top: 50%; 
+  margin-top: -6px;
+  bottom: auto;
+  border-top-color: transparent;  
+    border-right-color: $nav-bg;  
+}
+/* Tooltip left */
+.tooltip.tooltip-left{
+  top: 50%;
+  left: auto;
+  right: 105%;
+  transform: translateY(-50%);  
+  margin-left: auto;  
+}
+.tooltip.tooltip-left:after{
+  left: auto;
+  right: -12px;
+  top: 50%;
+  margin-top: -6px;
+  bottom: auto;
+  border-top-color: transparent;  
+    border-left-color: $nav-bg; 
+}
+/* Tooltip bottom */
+.tooltip.tooltip-bottom{
+  top: 115%;
+  bottom: auto;
+  transform: translateX(-50%);
+  margin-bottom: auto;  
+}
+.tooltip.tooltip-bottom:after{
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -7px;
+  content: ' ';
+  height: 0px;
+  width: 0px;
+  border: 6px solid transparent;
+    border-top-color: transparent;  
+    border-bottom-color: $nav-bg; 
+}
+
+/* Tooltip on focus */
+.on-focus > .tooltip{
+  display: block;
+}
+.on-focus .tooltip.tooltip-left,
+.on-focus .tooltip.tooltip-right{
+  margin-top: -19px;
+}
+/* Tooltip on hover of element containing tooltip default*/
+*:not(.on-focus):hover > .tooltip,
+.on-focus input:focus + .tooltip{
+  visibility: visible;
+  opacity: 1;
+  @include transition(all, 240ms, ease-in-out); 
+}
 
 /* Error Manager */
 .gritter-item{font-size: 14px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -833,3 +955,10 @@ border-color: #ccc;}
     li{padding-top:5px;padding-left:0;background:none;}
   }
 }
+
+/* Helpers */
+.divider{height:1px;overflow:hidden;width:100%;}
+.divider-xs{margin:5px 0;}
+.divider-sm{margin:10px 0;}
+.divider-md{margin:15px 0;}
+.divider-lg{margin:20px 0;}

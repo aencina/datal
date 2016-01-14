@@ -1,0 +1,60 @@
+<dataSource>
+    <% if (args.length > 0) {%>
+    <EndPointMappings>
+        <% _.each(args, function (arg) { %>
+            <Mapping>
+                <key><%= arg.name%></key>
+                <value>parameter<%= arg.position%></value>
+            </Mapping>
+        <% }); %>
+    </EndPointMappings>
+    <% } %>
+    <DataStructure>
+        <Field id="table<%= tableId %>">
+            <Headers>
+                <% _.each(headers, function (row) { %>
+                    <Row>row<%= row %></Row>
+                <% }); %>
+            </Headers>
+            <type/>
+            <format>
+                <languaje/>
+                <country/>
+                <style/>
+            </format>
+            <Table>
+                <% _.each(columns, function (column) { %>
+                <Field id="column<%= column.column %>">
+                    <alias/>
+                    <type><%= column.type %></type>
+                    <format>
+                        <Symbols>
+                            <decimals><%= column.thousandSeparator %></decimals>
+                            <thousands><%= column.decimalSeparator %></thousands>
+                        </Symbols>
+                        <languaje><%= column.inputLanguage %></languaje>
+                        <country><%= column.inputCountry || column.inputLanguage %></country>
+                        <% if (column.type === 'NUMBER') { %>
+                            <style/>
+                            <pattern><%= column.inputPattern %></pattern>
+                        <% } else if (column.type === 'DATE') { %>
+                            <style><%= column.inputPattern %></style>
+                            <pattern/>
+                        <% } %>
+                    </format>
+                    <% if (column.type !== 'TEXT') { %>
+                        <DisplayFormat>
+                            <pattern><%= column.outputPattern %></pattern>
+                            <% if (column.type === 'NUMBER') { %>
+                                <locale><%= column.numberDisplayLocale %></locale>
+                            <% } else if (column.type === 'DATE') { %>
+                                <locale><%= column.dateDisplayLocale %></locale>
+                            <% } %>
+                        </DisplayFormat>
+                    <% } %>
+                </Field>
+                <% }); %>
+            </Table>
+        </Field>
+    </DataStructure>
+</dataSource>

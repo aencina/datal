@@ -211,7 +211,7 @@ def create(request):
         form = CreateDataStreamForm(request.POST)
 
         if not form.is_valid():
-            raise DatastreamSaveException('Invalid form data: %s' % str(form.errors.as_text()))
+            raise DatastreamSaveException(form)
 
         dataset_revision = DatasetRevision.objects.get(pk=form.cleaned_data['dataset_revision_id'])
 
@@ -253,8 +253,15 @@ def create(request):
             impl_type = dataset_revision.impl_type
             impl_details = dataset_revision.impl_details
             bucket_name = request.bucket_name
+            categoriesQuery = CategoryI18n.objects\
+                                .filter(language=request.auth_manager.language,
+                                        category__account=request.auth_manager.account_id)\
+                                .values('category__id', 'name')
+            categories = [[category['category__id'], category['name']] for category in categoriesQuery]
+            sources = [source for source in dataset_revision.get_sources()]
+            tags = [tag for tag in dataset_revision.get_tags()]
 
-            return render_to_response('view_manager/insertForm.html', locals())
+            return render_to_response('createDataview/index.html', locals())
         else:
             raise Http404
 

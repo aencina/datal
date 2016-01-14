@@ -19,3 +19,5 @@ system_tools:
       - python-software-properties
       - gettext
       - git
+      - libxslt1-dev
+      - libxml2-dev

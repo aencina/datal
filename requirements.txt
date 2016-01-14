@@ -7,6 +7,7 @@ blessings==1.6
 boto==2.38.0
 bpython==0.14.1
 celery==3.1.18
+cssselect==0.9.1
 curtsies==0.1.19
 DateTime==4.0.1
 Django==1.6.11
@@ -22,6 +23,7 @@ greenlet==0.4.5
 jdcal==1.0.1
 kombu==3.0.26
 libsass==0.8.2
+lxml==3.5.0
 mailchimp==2.0.9
 mandrill==1.0.57
 MySQL-python==1.2.5

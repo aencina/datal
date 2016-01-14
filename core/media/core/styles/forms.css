@@ -70,6 +70,12 @@ div.errorFormValidation{color:#f45f64;padding-top:7px;font-size:12px;text-shadow
 /* Inputs with icons */
 .input-group-addon{float:left;margin-left:-27px;margin-top:2px;}
 
+/* Radio buttons & checkboxes */
+.checkbox, 
+.radio{display:block;position:relative;}
+.checkbox label,
+.radio label{color:#000 !important;}
+
 /* Forms inline */
 .form-inline{}
 .form-inline .form-group{float:left;margin-right:15px;}

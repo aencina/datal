@@ -23,5 +23,25 @@ var DataTableSelectedCollection = Backbone.Collection.extend({
 
     setMaxRows: function (maxRows) {
         this.maxRows = maxRows;
+    },
+
+    getItemsByMode: function (mode) {
+        return this.filter(function (model) {
+            return model.get('mode') === mode;
+        });
+    },
+
+    hasItemsByMode: function (mode) {
+        return this.getItemsByMode(mode).length !== 0;
+    },
+
+    removeItemsByMode: function (mode) {
+        return this.remove(this.getItemsByMode(mode));
+    },
+
+    filterByMode: function (mode) {
+        return this.filter(function (model) {
+            return model.get('mode') === mode;
+        });
     }
 });
