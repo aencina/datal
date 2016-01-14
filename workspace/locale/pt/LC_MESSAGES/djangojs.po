@@ -373,7 +373,7 @@ msgid "ADMIN-HOME-SECTION-RESOURCETITLE"
 msgstr "Resources Slider section"
 
 msgid "ADMIN-HOME-SECTION-RESOURCEDESCRIPTION"
-msgstr "Search and add resources to the carousel."
+msgstr "Procurar e adicionar recursos para o carrousel."
 
 msgid "ADMIN-HOME-SECTION-LEFTBOTTOMTITLE"
 msgstr "Left Bottom section"
@@ -418,7 +418,7 @@ msgid "ADMIN-HOME-SECTION-QUICKLINKSTITLE"
 msgstr "Quick Links section"
 
 msgid "ADMIN-HOME-SECTION-QUICKLINKSDESCRIPTION"
-msgstr "Start typing the the name of the resources that will be included in the Quick Links section, and select them from the list."
+msgstr "Start typing the name of the resources that will be included in the Quick Links section, and select them from the list."
 
 msgid "ADMIN-HOME-SECTION-NEWSLIDE"
 msgstr "Add new slide"
