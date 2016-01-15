@@ -3345,3 +3345,12 @@ msgstr "O parâmetro não produzir resultados, tente um diferente."
 
 msgid "APP-DATASET-SHEET"
 msgstr "Table"
+
+msgid "APP-ERROR-400-TEXT"
+msgstr "Houve um erro"
+
+msgid "APP-GO-HOME-TEXT"
+msgstr "Ir para a página inicial"
+
+msgid "APP-GO-PORTAL-TEXT"
+msgstr "Abrir o site de dados"
