@@ -9,11 +9,12 @@ from microsites.daos.datasets import DatasetDAO
 from core.exceptions import *
 from microsites.exceptions import *
 from django.views.decorators.http import require_http_methods
+import urllib2
 
+logger = logging.getLogger(__name__)
 
 def view(request, dataset_id, slug):
     """ Show dataset """
-    logger = logging.getLogger(__name__)
     account = request.account
     preferences = request.preferences
 
@@ -41,7 +42,7 @@ def view(request, dataset_id, slug):
 def download(request, dataset_id, slug):
     """ download internal dataset file """
     try:
-        dataset = DatasetDBDAO().get(request.auth_manager.language, dataset_id=id, published=True)
+        dataset = DatasetDBDAO().get(request.auth_manager.language, dataset_id=dataset_id, published=True)
     except:
         raise DatasetDoesNotExist
     else:
@@ -49,6 +50,6 @@ def download(request, dataset_id, slug):
             response = HttpResponse(mimetype='application/force-download')
             response['Content-Disposition'] = 'attachment; filename="{}"'.format(dataset['filename'].encode('utf-8'))
             response.write(urllib2.urlopen(dataset['end_point_full_url']).read())
-        except Exception:
-            logger.error(dataset['end_point'])
+        except Exception as e:
+            logger.exception("Error en descarga de archivo %s" % dataset['end_point'])
         return response

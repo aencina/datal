@@ -5,6 +5,8 @@ PROJECT_PATH, FILENAME = os.path.split(os.path.abspath(os.path.dirname(__file__)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['*']
+
 ADMINS = (
     ('Webmaster', 'webmaster@junar.com'),
 )
@@ -94,6 +96,7 @@ MEMCACHED_ENGINE_END_POINT = ['127.0.0.1:11211']
 MEMCACHED_API_END_POINT = ['127.0.0.1:11211']
 MEMCACHED_DEFAULT_TTL = 60 # seconds
 MEMCACHED_LONG_TTL = 86400 # one day
+REDIS_DB_DATASOURCES = 7
 
 VERSION_JS_CSS = 666
 

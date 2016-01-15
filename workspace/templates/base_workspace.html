@@ -28,11 +28,12 @@
 <script src="/js_core/plugins/jquery.twitter.like.alert.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/plugins/jquery.bgiframe.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/plugins/jquery.url.packed.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/plugins/jquery.gritter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+
 <script src="{% static 'underscore/underscore-min.js' %}"></script>
 <script src="{% static 'backbone/backbone.js' %}"></script>
-<script src="/js_core/libs/backbone_validation/backbone-validation-min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script src="/js_core/libs/epoxy/backbone.epoxy.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script src="/js_core/plugins/jquery.gritter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="{% static 'backbone-validation/dist/backbone-validation.js' %}"></script>
+<script src="{% static 'backbone.epoxy/backbone.epoxy.js' %}"></script>
 
 <!-- Backbone Grid -->
 <script type="text/javascript" src="/js_core/libs/backbone_paginator/backbone.paginator.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -47,23 +48,23 @@
 <script src="/js_core/base_modules/placeholder.js?id={{settings.VERSION_JS_CSS}}"></script>
 <![endif]-->
 
-<script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
-<script type="text/javascript" src="/js_core/base_modules/auth_manager.js"></script>
-<script type="text/javascript" src="/js_core/plugins/jquery.validate.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-{% if preference.account_language == 'es' %}
-<script type="text/javascript" src="/js_core/plugins/localization/messages_es.js?id={{settings.VERSION_JS_CSS}}"></script>
-{% elif preference.account_language == 'pt' %}
-<script type="text/javascript" src="/js_core/plugins/localization/messages_pt.js?id={{settings.VERSION_JS_CSS}}"></script>
-{% endif %}
-<script type="text/javascript" src="/js_core/plugins/jquery.validate.custom.methods.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+<script src="/js_core/base_modules/auth_manager.js"></script>
+<script src="/js_core/plugins/jquery.validate.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/plugins/jquery.validate.custom.methods.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-<!-- Workspace Common View -->
-<script type="text/javascript" src="{% static 'workspace/scripts/common.js' %}"></script>
+<script src="{% static 'workspace/scripts/common.js' %}"></script>
 
 <!-- Error Manager Module -->
-<script language="javascript" src="{% static 'workspace/scripts/errorManager/errorManagerModel.js' %}"></script>
-<script language="javascript" src="{% static 'workspace/scripts/errorManager/errorManagerView.js' %}"></script>
+<script src="{% static 'workspace/scripts/errorManager/errorManagerModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/errorManager/errorManagerView.js' %}"></script>
+
+{% if preference.account_language == 'es' %}
+<script src="/js_core/plugins/localization/messages_es.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% elif preference.account_language == 'pt' %}
+<script src="/js_core/plugins/localization/messages_pt.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% endif %}
 
 <!-- Add New Data View Overlay -->
 <script src="{% static 'workspace/scripts/addNewOverlays/dataview/datasetItemModel.js' %}"></script>
@@ -131,7 +132,7 @@
 									-->
 
 									<!-- ODS Button -->
-									<a id="id_openDataSiteButton" href="http://{{ preference.account_domain }}" target="_blank" class="button alpha FR" title="{% trans 'HEADER-ODS-BUTTON' %}">{% trans 'HEADER-ODS-BUTTON' %}<span class="icon icon-view-site icon-right"></span></a>
+									<a id="id_openDataSiteButton" href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}" target="_blank" class="button alpha FR" title="{% trans 'HEADER-ODS-BUTTON' %}">{% trans 'HEADER-ODS-BUTTON' %}<span class="icon icon-view-site icon-right"></span></a>
 
 									{% plugins_call 'workspace_header' %}
 

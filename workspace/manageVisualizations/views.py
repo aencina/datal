@@ -212,7 +212,7 @@ def change_status(request, visualization_revision_id=None):
         # Limpio un poco
         response['result'] = VisualizationDBDAO().get(request.user.language, visualization_revision_id=visualization_revision_id)
         account = request.account
-        msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('chart_manager.view', urlconf='microsites.urls', 
             kwargs={'id': response['result']['visualization_id'], 'slug': '-'})
         response['result'].pop('parameters')

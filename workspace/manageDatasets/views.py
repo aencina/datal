@@ -365,6 +365,7 @@ def edit(request, dataset_revision_id=None):
 
         return render_to_response(url, locals())
     elif request.method == 'POST':
+
         """ Update dataset """
         form = DatasetFormFactory(request.POST.get('collect_type')).create(
             request, account_id=account_id, language=language, status_choices=auth_manager.get_allowed_actions()
@@ -469,7 +470,7 @@ def change_status(request, dataset_revision_id=None):
         # Limpio un poco
         response['result'] = DatasetDBDAO().get(request.user.language, dataset_revision_id=dataset_revision_id)
         account = request.account
-        msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('manageDatasets.view', urlconf='microsites.urls', 
             kwargs={'dataset_id': response['result']['dataset_id'], 'slug': '-'})
         response['result'].pop('datastreams')

@@ -63,43 +63,6 @@ def workspace_open_data_metrics(auth_manager):
 register.inclusion_tag('viewLandingPage/workspace_data_metrics.html')(workspace_open_data_metrics)
 
 
-def dataStreamForm(is_update_selection, datastream_revision_id, dataset_revision_id, auth_manager, preferences = None, meta_data = None):
-    """ obtener los datos de un datastream para crear o editar uno"""
-    is_update = False
-    meta_form = ""
-    categories = None
-    datastream_form = None
-    datastream_revision = None
-    sources = []
-    choices = []
-
-    if dataset_revision_id: # es para una vista nueva basada en este dataset
-        if auth_manager.is_level('level_5'):
-            meta_data = Account.objects.get(pk = auth_manager.account_id).meta_data
-            if meta_data:
-                meta_form = MetaForm(metadata=meta_data)
-
-        dataset_revision = DatasetRevision.objects.get(pk= dataset_revision_id)
-        sources = dataset_revision.get_sources()
-        datastream_form = CreateDataStreamForm(initial={'dataset_revision_id' : dataset_revision_id}, prefix='datastream')
-        categories = CategoryI18n.objects.filter(language=auth_manager.language, category__account=auth_manager.account_id).values('category__id', 'name')
-        choices = STATUS_CHOICES
-
-    return {
-        'datastream_revision' : datastream_revision,
-        'datastream_form': datastream_form,
-        'auth_manager': auth_manager,
-        'meta_form' : meta_form,
-        'categories' : categories,
-        'is_update' : is_update,
-        'is_update_selection' : is_update_selection,
-        'choices': choices,
-        'sources': sources
-    }
-
-register.inclusion_tag('view_manager/dataStreamForm.html')(dataStreamForm)
-
-
 def get_activity_type(activity):
 
     from core.choices import ActionStreams

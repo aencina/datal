@@ -60,7 +60,7 @@ def add_domains_to_permalinks(resources):
         account_id = resource['account_id']
         if r.has_key(account_id):
             account = Account.objects.get(pk=account_id)
-            msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+            msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
             account_domain = r[account_id]['account.domain']
             resource['permalink'] = msprotocol + '://' + account_domain + resource['permalink']
             resource['account_name'] = r[account_id]['account.name']

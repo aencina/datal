@@ -249,7 +249,7 @@ var dataTableView = Backbone.View.extend({
 
 		// Init Flexigrid
 		$('.dataTable .data .result').flexigrid({
-			url: '/rest/datastreams/' + dataStream.lastPublishRevisionId + '/data.grid',
+			url: '/rest/datastreams/' + dataStream.id + '/data.grid', // se le pasa el revision_id, de la revision actual.
 			dataType: 'json',
 			colModel: colModel,
 			searchitems : searchArray,
@@ -282,6 +282,13 @@ var dataTableView = Backbone.View.extend({
 				
 				self.setFilterParams(settings);
 				settings.url = settings.url.replace(/(page=).*?(&)/, '$1' + (this.newp - 1).toString() + '$2')
+				sortname = settings.url.match(/sortname=\d+/)
+				sortorder = settings.url.match(/sortorder=\w+/)
+				if (!_.isEmpty(sortname) && !_.isEmpty(sortorder) && sortname.length == 1 && sortorder.length == 1) {
+					order_list = _.map(settings.url.match(/(orderBy\d+)/g), function(x){return parseInt(x.replace("orderBy", ""))})
+					order = _.isEmpty(order_list)? 0: _.max(order_list) + 1
+					settings.url += "&orderBy" + order + "=column" + sortname[0].split('=')[1] + "[" + sortorder[0].split('=')[1][0].toUpperCase() + "]"
+				}
 				return true;
 
 			},

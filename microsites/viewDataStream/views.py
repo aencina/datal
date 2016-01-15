@@ -40,14 +40,14 @@ def view(request, id, slug):
 def embed(request, guid):
     account = request.account
     preferences = request.preferences
-    msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+    msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
     base_uri = msprotocol + '://' + preferences['account_domain']
 
     try:
         datastream = DataStreamDBDAO().get(
             preferences['account_language'], guid=guid, published=True )
         parameters_query = RequestProcessor(request).get_arguments(datastream['parameters'])
-    except Http404:
+    except DataStreamRevision.DoesNotExist:
         return render_to_response('viewDataStream/embed404.html', {'settings': settings, 'request': request})
 
     DatastreamHitsDAO(datastream).add(ChannelTypes.WEB)

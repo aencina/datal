@@ -410,7 +410,7 @@ class DataStreamRevision(RevisionModel):
 
     def add_sources(self, sources):
         self.sourcedatastream_set.clear()
-        
+
         for source_field in sources:
             source_with_name = Source.objects.filter(name=source_field.get('name', ''))
             if source_with_name.count():
@@ -431,7 +431,7 @@ class DataStreamRevision(RevisionModel):
 
     def add_parameters(self, parameters):
         self.datastreamparameter_set.clear()
-        
+
         for parameter in parameters:
             self.datastreamparameter_set.add(DataStreamParameter.objects.create(name=parameter['name']
                                                                                 , position=parameter['position']
@@ -788,7 +788,7 @@ class VisualizationRevision(RevisionModel):
     def clone(self, status=choices.StatusChoices.DRAFT):
         visualization_revision = VisualizationRevision(
             visualization=self.visualization,
-            datastream_revision=self.datastream_revision,
+            datastream=self.datastream,
             user=self.user,
             lib=self.lib,
             impl_details=self.impl_details,
@@ -841,8 +841,8 @@ class Category(models.Model):
 class CategoryI18n(models.Model):
     language = models.CharField(max_length=2, choices=choices.LANGUAGE_CHOICES, verbose_name=ugettext_lazy('MODEL_LANGUAGE_LABEL'))
     category = models.ForeignKey('Category', verbose_name=ugettext_lazy('MODEL_CATEGORY_LABEL'))
-    name = models.CharField(max_length=30, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
-    slug = models.SlugField(max_length=30, verbose_name=ugettext_lazy('MODEL_SLUG_LABEL'))
+    name = models.CharField(max_length=80, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
+    slug = models.SlugField(max_length=80, verbose_name=ugettext_lazy('MODEL_SLUG_LABEL'))
     description = models.CharField(max_length=140, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
 

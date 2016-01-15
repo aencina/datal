@@ -211,7 +211,7 @@ def create(request):
         form = CreateDataStreamForm(request.POST)
 
         if not form.is_valid():
-            raise DatastreamSaveException('Invalid form data: %s' % str(form.errors.as_text()))
+            raise DatastreamSaveException(form)
 
         dataset_revision = DatasetRevision.objects.get(pk=form.cleaned_data['dataset_revision_id'])
 
@@ -253,8 +253,15 @@ def create(request):
             impl_type = dataset_revision.impl_type
             impl_details = dataset_revision.impl_details
             bucket_name = request.bucket_name
+            categoriesQuery = CategoryI18n.objects\
+                                .filter(language=request.auth_manager.language,
+                                        category__account=request.auth_manager.account_id)\
+                                .values('category__id', 'name')
+            categories = [[category['category__id'], category['name']] for category in categoriesQuery]
+            sources = [source for source in dataset_revision.get_sources()]
+            tags = [tag for tag in dataset_revision.get_tags()]
 
-            return render_to_response('view_manager/insertForm.html', locals())
+            return render_to_response('createDataview/index.html', locals())
         else:
             raise Http404
 
@@ -373,7 +380,7 @@ def change_status(request, datastream_revision_id=None):
         # Limpio un poco
         response['result'] = DataStreamDBDAO().get(request.user.language, datastream_revision_id=datastream_revision_id)
         account = request.account
-        msprotocol = 'https' if account.get_preference('account.microsite.https').lower() == 'true' else 'http'
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('viewDataStream.view', urlconf='microsites.urls', 
             kwargs={'id': response['result']['datastream_id'], 'slug': '-'})
         response['result'].pop('parameters')

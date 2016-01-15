@@ -5,9 +5,9 @@
         <!-- DATA STREAM CONTAINER -->
         <div class="dataStreamContainer clearfix">
             <!-- DATA STREAM BOX -->
-            <div id="id_dataservice_container_{{resource.datastream_id}}" class="dataStreamBox clearfix">
+            <div id="id_dataservice_container_{{resource.resource_id}}" class="dataStreamBox clearfix">
                 <h2>
-                    <a id="id_dataservice_link_{{resource.datastream_id}}" href="{% url "viewDataStream.view" resource.datastream_id %}" target="_blank" title="{{resource.description}}" class="clearfix">
+                    <a id="id_dataservice_link_{{resource.resource_id}}" href="{% url "chart_manager.view" resource.resource_id %}" target="_blank" title="{{resource.description}}" class="clearfix">
                         <span class="txt">
                             <span class="titleDS"><strong>{{resource.title}}</strong></span>
                             <span class="descriptionDS">{{resource.description|truncate:"50"}}</span>
@@ -22,12 +22,12 @@
                     </a>
                 </h2>
                 <div class="sliderContent">
-                    <div id="id_dataservice_{{resource.visualization_id}}"></div>
+                    <div id="id_dataservice_{{resource.resource_id}}"></div>
                 </div>
 
                 <script type="text/javascript">
 
-                    var chartModel_{{resource.visualization_id}} = new charts.models.Chart({
+                    var chartModel_{{resource.resource_id}} = new charts.models.Chart({
                         title: "{{resource.title}}", 
                         description: "{{resource.description|escapejs}}", 
                         visualizationJson : '{{result|escapejs}}',
@@ -45,13 +45,13 @@
 
                         // Revisar
                         id: "{{ resource.last_published_revision_id }}",
-                        visualization_id: "{{ resource.visualization_id }}",
+                        visualization_id: "{{ resource.resource_id }}",
                     });
 
 
-                    chartModel_{{resource.visualization_id}}.parse({
-                        id: {{ resource.visualization_id }},
-                        revision_id: {{ resource.visualization_revision_id }},
+                    chartModel_{{resource.resource_id}}.parse({
+                        id: {{ resource.resource_id }},
+                        revision_id: {{ resource.revision_id }},
 
                         title: '{{ resource.title }}',
                         description: '{{ resource.description }}',
@@ -64,8 +64,8 @@
                         chart: {{ resource.chart | jsonify }},
                     });
                     new ChartView({
-                        el: '#id_dataservice_{{resource.visualization_id}}',
-                        model: chartModel_{{resource.visualization_id}}
+                        el: '#id_dataservice_{{resource.resource_id}}',
+                        model: chartModel_{{resource.resource_id}}
                     }).render();
 
 

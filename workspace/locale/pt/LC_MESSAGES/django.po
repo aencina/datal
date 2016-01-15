@@ -145,9 +145,6 @@ msgstr "Create category"
 msgid "WORKSPACE-CATEGORY-DESCRIPTION-LABEL"
 msgstr "Description"
 
-msgid "APP-NAME-TEXT"
-msgstr "Name"
-
 msgid "APP-DESCRIPTION-TEXT"
 msgstr "Description"
 
@@ -1568,13 +1565,13 @@ msgid "APP-KEEPINMIND-TEXT"
 msgstr "Please, take a look at the following tips and try again"
 
 msgid "CREATE-STEP1-DISCLAIMER0"
-msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 500.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
+msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 1.000.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
 
 msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "For an URL to be a data source, it must be a HTML webpage that contains HTML &lt;table&gt; tags"
 
 msgid "CREATE-STEP1-DISCLAIMER2"
-msgstr "CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML files can also be used as data sources"
+msgstr "CSV, XLS, XLSX, KML, KMZ, TSV, XML files can also be used as data sources"
 
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "As of now, you cannot extract data from an image, flash (.swf)"
@@ -1861,6 +1858,9 @@ msgstr "Defines the path(xpath or json-path) to table data."
 msgid "WORKSPACE-CACHE-TIP"
 msgstr "Defines if webservice result should be cached or not"
 
+msgid "WORKSPACE-ATT-HEADERS-TIP"
+msgstr "Defines if attributes are used as headers."
+
 msgid "WEBSERVICE-STEP1-TITLE"
 msgstr "Filter your selection as you need"
 
@@ -1874,7 +1874,7 @@ msgid "WEBSERVICE-STEP1-HELPTEXT"
 msgstr "These parameters has come from the Dataset that you are using to create this Data View. They are used to filter the information that this Dataset can bring.<br/><br/>If the parameters are not editable, you will not be able to change it's original value"
 
 msgid "APP-DSWEBSERVICE-TEXT"
-msgstr "Choose a better name for the parameters <small>(if needed and editable)</small>"
+msgstr "Choose a better name for the parameters <span>(if needed and editable)</span>"
 
 msgid "WEBSERVICE-HELP-TIP"
 msgstr "- The webservice must accept SOAP 1.2 calls<br/>- The response root element must be named 'NewDataSet'. It may have one or more childs representing rows. Rows may have one or more childs representing cells."
@@ -1923,6 +1923,9 @@ msgstr "Path to data"
 
 msgid "APP-CACHE-TEXT"
 msgstr "Use cache"
+
+msgid "APP-ATT-HEADERS-TEXT"
+msgstr "Use attributes as headers"
 
 msgid "WORKSPACE-METHODNAME-TEXT"
 msgstr "Method"
@@ -3247,8 +3250,125 @@ msgstr "Edit description"
 msgid "APP-EDIT-VISUALIZATION-TEXT"
 msgstr "Edit visualization"
 
+msgid "APP-DATA-SELECTION-TEXT"
+msgstr "Data selection"
+
+msgid "APP-REVISION-TEXT"
+msgstr "Revision"
+
+msgid "APP-ADVANCED-MODE-TEXT"
+msgstr "Modo avanzado"
+
+msgid "APP-SELECT-TABLE-HEADERS-TEXT"
+msgstr "Select table headers"
+
+msgid "APP-FILTER-DATA-TEXT"
+msgstr "Filter data"
+
+msgid "APP-CONFIG-DATA-TYPE-AND-COLUMN-FORMAT-TEXT"
+msgstr "Set datatype and columns format"
+
+msgid "APP-COLUMN-TEXT"
+msgstr "Column"
+
+msgid "APP-CREATE-DATAVIEW-DATA-SELECTION-TIP-TEXT"
+msgstr "Select intervals to use. You can select the entire table, rows/columns, or individual cells."
+
+msgid "APP-TABLE-HEADERS-TEXT"
+msgstr "Table headers"
+
+msgid "APP-CREATE-DATAVIEW-TABLE-HEADERS-TIP-TEXT"
+msgstr "Select the rows of the table that represent headers"
+
+msgid "APP-ADD-NEW-FILTER-TEXT"
+msgstr "Add new filter"
+
+msgid "APP-OPERATION-TEXT"
+msgstr "Operation"
+
+msgid "APP-EQUAL-TO-TEXT"
+msgstr "Equal to"
+
+msgid "APP-NOT-EQUAL-TO-TEXT"
+msgstr "Not equal to"
+
+msgid "APP-HIGHER-THAN-TEXT"
+msgstr "Higher than"
+
+msgid "APP-LOWER-THAN-TEXT"
+msgstr "Lower than"
+
+msgid "APP-CONTAINS-TEXT"
+msgstr "It contains"
+
+msgid "APP-OPERATOR-TEXT"
+msgstr "Operator"
+
+msgid "APP-FIXED-VALUE-TEXT"
+msgstr "Fixed value"
+
+msgid "APP-PARAMETER-TEXT"
+msgstr "Parameter"
+
+msgid "APP-ENTER-A-FIXED-VALUE-TEXT"
+msgstr "Enter a fixed value"
+
+msgid "APP-CONFIGURE-OPERATOR-TEXT"
+msgstr "Configure the operator"
+
+msgid "APP-PARAMETER-NAME-TEXT"
+msgstr "Parameter name"
+
+msgid "APP-OPTIONAL-TEXT"
+msgstr "Optional"
+
+msgid "APP-CONFIGURE-A-COLUMN-TEXT"
+msgstr "Configure column"
+
+msgid "APP-COLUMN-DATA-TYPE-TEXT"
+msgstr "Column data type"
+
+msgid "APP-TEXT-TEXT"
+msgstr "Text"
+
+msgid "APP-NUMBER-TEXT"
+msgstr "Number"
+
+msgid "APP-DATE-TEXT"
+msgstr "Date"
+
+msgid "APP-NAME-TEXT"
+msgstr "Name"
+
 msgid "ADMIN-HOME-THEMES-THEME7-TEXT"
 msgstr "Responsive"
 
 msgid "ADMIN-HOME-THEMES-THEME8-TEXT"
 msgstr "Catalog"
+
+msgid "APP-SELECTED-DATA-TEXT"
+msgstr "Dados seleccionado"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Use a formatação padrão EUA.<br><hr class='divider divider-xs'>0: Dígito <br>#: Dígito, de zero ausente <br>. (ponto): Separador decimal <br>, (coma): Separador de agrupamento <br>-: Signo menos"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Selecione milhares e indicadores decimais exatamente como mostrado nesta coluna"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Selecione os indicadores de localização representam milhares e decimais nesta coluna"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Seleccionar o local para ser usado para representar o formato de saída de vista"
+
+msgid "APP-DATE-ORIGIN-FORMAT-TIP"
+msgstr "Use padrões de formatação de data e hora de <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Ano completo (Ej: 2001)<br> yy: Ano abreviado (Ej: 01)<br> MM: Mês começando com 0 (Ej: Julho 07)<br> M: Mês sem 0 (Ej: Julho 7)<br> dd: Dia começar com 0 (Ej: Abril 04)<br> d: Dia livre 0 (Ej: Abril 4)<br> - (guión) y / (bar) termos separados"
+
+msgid "APP-DATE-OUTPUT-FORMAT-TIP"
+msgstr "Use padrões de formatação de data e hora de <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Dia do mês (sem zeros à esquerda) <br> dd: Dia do mês (dois dígitos) <br> o: Dia do ano (sem zeros à esquerda) <br> oo: Dia do ano (três dígitos) <br> D: Nome curto dia <br> DD: Nome longo dia <br> m: Mês do ano (sem zeros à esquerda) <br> mm: Mês do ano (dois dígitos) <br> M: Nome do mês curta <br> MM: Nome do mês de longo <br> y: Ano (dois dígitos) <br> yy: Ano (quatro dígitos) <br> @: Unix timestamp (mês a partir da 01/01/1970) <br> !: Windows ticks (100ns mês a partir da 01/01/0001) <br> '...': Texto literal <br> '': apóstrofo <br> Tudo o resto: Texto literal"
+
+msgid "APP-ERR-NO-TABLES-FOUND"
+msgstr "O parâmetro não produzir resultados, tente um diferente."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Table"
