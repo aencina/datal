@@ -82,5 +82,14 @@ urlpatterns = patterns('',
     url(r'^sitemap', 'microsites.home_manager.views.sitemap', name='home_manager.sitemap'),
 )
 
-handler404 = 'core.views.action404'
-handler500 = 'core.views.action500'
+#handler404 = 'core.views.action404'
+#handler500 = 'core.views.action500'
+
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^404/$', 'django.views.defaults.page_not_found'),
+        (r'^403/$', 'django.views.defaults.permission_denied'),
+        (r'^400/$', 'django.views.defaults.bad_request'),
+        (r'^500/$', 'django.views.defaults.server_error'),
+    )
