@@ -638,3 +638,12 @@ msgstr "Export to Excel"
 
 msgid "APP-BACK-TEXT"
 msgstr "Back"
+
+msgid "APP-ERROR-400-TEXT"
+msgstr "There was an error"
+
+msgid "APP-GO-HOME-TEXT"
+msgstr "Go to the home page"
+
+msgid "APP-GO-PORTAL-TEXT"
+msgstr "Go to open data site"
