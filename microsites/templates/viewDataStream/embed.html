@@ -8,7 +8,7 @@
 <link rel="shortcut icon" href="{{preferences.account_favicon}}" />
 
 {% compress css %}
-    <!-- RESET -->
+<!-- RESET -->
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/reset.css' %}"/>
 <!-- DATA STREAM BOX -->
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
@@ -16,32 +16,24 @@
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/commonModules.css' %}"/>
 <!-- BUTTONS -->
 <link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/buttons.css' %}"/>
+<!-- OVERLAY -->
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/overlay.css' %}"/>
 <!-- COMPONENT -->
 <link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/embed.css' %}"/>
 {% endcompress %}
 
 {% if preferences.enable_embed_options %}
-    {% compress css %}
-    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
-	<!-- OVERLAY -->
-	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/overlay.css' %}"/>
-    {% endcompress %}
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 
-	<script type="text/javascript" src="/js_core/libs/underscore/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
-	<script type="text/javascript" src="/js_core/libs/backbone/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 {% endif %}
+
+<script type="text/javascript" src="/js_core/libs/underscore/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backbone/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
 <script type="text/javascript" src="/js_core/libs/jquery/jquery-1.7.2.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 {% if preferences.enable_embed_options %}
-<!--  <script type="text/javascript" src="/js_microsites/modules/share.js?id={{settings.VERSION_JS_CSS}}"></script> -->
-	<script type="text/javascript" src="/js_microsites/viewDataStream/embedActions.js?id={{settings.VERSION_JS_CSS}}"></script>
-<!--	<script type="text/javascript" charset="utf-8" src="https://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
-	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script> -->
-	<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<script type="text/javascript" src="/js_microsites/viewDataStream/embedActions.js?id={{settings.VERSION_JS_CSS}}"></script>
 {% endif %}
 
 <script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -66,6 +58,16 @@
 	   var areEmbedOptionsEnabled = false;
 	{% endif %}
 </script>
+
+<!-- BRANDED CSS -->
+{% compress css %}
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+{% endcompress %}
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+
+<!-- BRANDED JS -->
+<script type="text/javascript" src="{% url 'microsites.get_js' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
 
 </head>
 

@@ -9,13 +9,19 @@
     <script type="text/javascript" src="/js_core/base_modules/manageDeveloper/queryList.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script type="text/javascript" src="/js_microsites/manageDeveloper/queryList.js?id={{settings.VERSION_JS_CSS}}"></script>
     {% compress css %}
-    <!-- BRANDED -->
-    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
     <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/developers.css' %}"/>
     {% endcompress %}
-    <!-- COMPONENT -->
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+    
+    <!-- BRANDED CSS -->
+    {% compress css %}
+    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+    {% endcompress %}
+    <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+    <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+
+    <!-- BRANDED JS -->
+    <script type="text/javascript" src="{% url 'microsites.get_js' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
+    
 {% endblock %}
 
 

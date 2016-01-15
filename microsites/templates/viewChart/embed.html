@@ -16,24 +16,17 @@
     <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/commonModules.css' %}"/>
     <!-- BUTTONS -->
     <link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/buttons.css' %}"/>
+    <!-- C3 -->
+    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'c3/c3.min.css' %}"/>
     <!-- COMPONENT -->
     <link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/embed.css' %}"/>
-    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'c3/c3.min.css' %}"/>
-
+    
     {% endcompress %}
-    {% if preferences.enable_embed_options %}
-        {% compress css %}
-        <!-- BRANDED -->
-        <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
-        {% endcompress %}
-        <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-        <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-    {% endif %}
     
     {% include "js.html" %}
     {% block js_includes %}{% endblock %}
 
-<!-- Libraries -->
+    <!-- Libraries -->
     <script type="text/javascript"
           src="https://www.google.com/jsapi?autoload={
             'modules':[{
@@ -68,9 +61,16 @@
 
     <script type="text/javascript" src="/js_microsites/viewChart/viewEmbedChartView.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-    {% if preferences.enable_embed_options %}
-        <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-    {% endif %}
+    <!-- BRANDED CSS -->
+    {% compress css %}
+    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+    {% endcompress %}
+    <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+    <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+
+    <!-- BRANDED JS -->
+    <script type="text/javascript" src="{% url 'microsites.get_js' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
+
 </head>
 
 <body>
