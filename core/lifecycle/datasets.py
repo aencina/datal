@@ -417,7 +417,7 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             datastream_revisions = DataStreamRevision.objects.select_for_update().filter(
                 dataset=self.dataset.id,
                 id=F('datastream__last_revision__id'),
-                status=StatusChoices.PUBLISHED
+                status__in=[StatusChoices.PUBLISHED,StatusChoices.APPROVED]
             )
 
             for datastream_revision in datastream_revisions:
@@ -426,7 +426,7 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             visualization_revs = VisualizationRevision.objects.select_for_update().filter(
                 visualization__datastream__last_revision__dataset__id=self.dataset.id,
                 id=F('visualization__last_revision__id'),
-                status=StatusChoices.PUBLISHED
+                status__in=[StatusChoices.PUBLISHED,StatusChoices.APPROVED]
             )
 
             for revision in visualization_revs:
