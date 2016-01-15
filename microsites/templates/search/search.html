@@ -9,11 +9,11 @@
 {% block meta %}
 {% compress css %}
 <!-- COMPONENT -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/actions.css' %}"/>
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/tagsContainer.css' %}"/>
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/search.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/actions.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/tagsContainer.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/search.css' %}"/>
 <!-- BRANDED -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
 {% endcompress %}
 <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>

@@ -9,22 +9,22 @@
 
 {% compress css %}
     <!-- RESET -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/reset.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/reset.css' %}"/>
 <!-- DATA STREAM BOX -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/dataStreamBox.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
 <!-- COMMON MODULES -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/commonModules.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/commonModules.css' %}"/>
 <!-- BUTTONS -->
-<link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/buttons.css' %}"/>
+<link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/buttons.css' %}"/>
 <!-- COMPONENT -->
-<link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/embed.css' %}"/>
+<link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/embed.css' %}"/>
 {% endcompress %}
 
 {% if preferences.enable_embed_options %}
     {% compress css %}
-    <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
+    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
 	<!-- OVERLAY -->
-	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/overlay.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/overlay.css' %}"/>
     {% endcompress %}
     <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
     <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
