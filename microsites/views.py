@@ -24,19 +24,16 @@ def custom_pages(request, page):
         raise Http404()
 
 
-def get_css(request, id):
-    http_referer = request.META.get('HTTP_REFERER')
-    key = get_key(http_referer)
+def get_css(request, url_name, id):
+    key = get_key(url_name)
     try:
         css = Preference.objects.get_value_by_account_id_and_key(id, '%s.css' % key)
     except Preference.DoesNotExist:
         css = ''
     return HttpResponse(css, content_type='text/css')
 
-
-def get_js(request, id):
-    http_referer = request.META.get('HTTP_REFERER')
-    key = get_key(http_referer)
+def get_js(request, url_name, id):
+    key = get_key(url_name)
     try:
         javascript = Preference.objects.get_value_by_account_id_and_key(id, '%s.javascript' % key)
     except Preference.DoesNotExist:
@@ -44,38 +41,39 @@ def get_js(request, id):
     return HttpResponse(javascript, content_type='text/javascript')
 
 
-def get_key(http_referer):
+def get_key(url_name):
     logger = logging.getLogger(__name__)
     
-    if not http_referer:
-        logger.error('No http referer')
+    if not url_name:
+        logger.error('No url_name')
         raise Http404
 
-    if re.search('^.*/(datastreams|dataviews)/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
+    if url_name in ['microsites.viewDataStream.views.view']:
         key = 'ds.detail'
-    elif re.search('^.*/(datastreams|dataviews)/embed/[A-Z0-9\-]+.*$' , http_referer):
+    elif url_name in ['microsites.viewDataStream.views.embed']:
         key = 'ds.embed'
-    elif re.search('^.*/(datastreams|dataviews)/\d+/[A-Za-z0-9\-]+$' , http_referer):
-        key = 'ds.detail'
-    elif re.search('^.*/search/.*$' , http_referer):
+    #elif re.search('^.*/(datastreams|dataviews)/\d+/[A-Za-z0-9\-]+$' , http_referer):
+    #    key = 'ds.detail'
+    elif url_name in ['search.search_by_query_and_category', 'search.search', 'microsites.search.views.browse']:
         key = 'search'
-    elif re.search('^.*/visualizations/embed/[A-Z0-9\-]+.*$' , http_referer):
+    elif url_name in ['chart_manager.embed', 'viewChart.embed']:
         key = 'chart.embed'
-    elif re.search('^.*/home' , http_referer):
+    elif url_name in ['loadHome.load', 'loadHome.update_list', 'loadHome.update_categories']:
         key = 'home'
-    elif re.search('^.*/developers' , http_referer):
+    elif url_name in ['manageDeveloper.filter']:
         key = 'developers'
-    elif re.search('^.*/visualizations/\d+/[A-Za-z0-9\-]+$' , http_referer):
+    elif url_name in ['chart_manager.view']:
         key = 'chart.detail'
-    elif re.search('^.*/visualizations/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
-        key = 'chart.detail'
+    #elif re.search('^.*/visualizations/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
+    #    key = 'chart.detail'
 
     #TODO encontrar la forma de llevar esto al plugin
-    elif re.search('^.*/advanced_filtering/customDataViz/\d+/[A-Za-z0-9\-]+.*$' , http_referer):
+    elif url_name in ['viewCustomViz.list', 'viewCustomViz.save', 'viewCustomViz.view']:
         key = 'chart.detail'
-    elif re.search('^.*/advanced_filtering/customDataView/\d+/[A-Za-z0-9\-]+.*$' , http_referer):
+    elif url_name in ['viewCustomViews.list', 'viewCustomViews.save', 'viewCustomViews.view']:
         key = 'ds.detail'
-    
+    elif url_name in ['manageDatasets.view']:
+        key = 'dataset'
     else:
         #  http referer error http://microsites.dev:8080/dataviews/69620/iep-primer-trimestre-2012-ministerio-de-defensa-nacional
         logger.error('http referer error %s' % http_referer)
