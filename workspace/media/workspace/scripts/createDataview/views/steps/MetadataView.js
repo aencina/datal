@@ -25,6 +25,10 @@ var MetadataView = Backbone.Epoxy.View.extend({
             return category[2];
         });
 
+        if (_.isUndefined(default_category)) {
+            default_category = this.categories[0];
+        }
+
         if (!this.model.has('category')) {
             this.model.set('category', default_category[0]);
         };
