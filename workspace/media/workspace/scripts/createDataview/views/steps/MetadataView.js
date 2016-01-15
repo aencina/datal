@@ -26,7 +26,7 @@ var MetadataView = Backbone.Epoxy.View.extend({
         });
 
         if (!this.model.has('category')) {
-            this.$('select.category').val(default_category[0]);
+            this.model.set('category', default_category[0]);
         };
 
         Backbone.Validation.bind(this, {
