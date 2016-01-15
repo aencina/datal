@@ -64,17 +64,24 @@ charts.views.MapChart = charts.views.Chart.extend({
     },
 
     mergePointsAndStyles: function (points, styles) {
-        var self = this;
+        var self = this,
+            result;
 
-        _.each(styles, function (style) {
-            if (points[style.rows[0]]) {
-                points[style.rows[0]].styles = style.styles;
-            };
-        });
-        return _.map(points, function (point, index) {
-            point.styles = self.lookupStyle(point, index, styles);
-            return point;
-        });
+        // _.each(styles, function (style) {
+        //     if (points[style.rows[0]]) {
+        //         points[style.rows[0]].styles = style.styles;
+        //     };
+        // });
+        if (_.isUndefined(styles) || styles.length === 0) {
+            result = points;
+        } else {
+            result = _.map(points, function (point, index) {
+                point.styles = self.lookupStyle(point, index, styles);
+                return point;
+            });
+        }
+
+        return result;
     },
 
     lookupStyle: function (point, pointIndex, styles) {
@@ -184,7 +191,7 @@ charts.views.MapChart = charts.views.Chart.extend({
             if(point.trace){
                 this.createMapTrace(point, index);
             } else {
-                this.createMapMarker(point, index, styles);
+                this.createMapMarker(point, index);
             }
         }, this);
     },
@@ -236,13 +243,13 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @param  {int}    index   Indice del punto en el arreglo local de markers
      * @param  {object} styles  Estilos para dibujar el marker
      */
-    createMapMarker: function (point, index, styles) {
+    createMapMarker: function (point, index) {
         var self = this,
             markerIcon = this.stylesDefault.marker.icon;
 
         //Obtiene el estilo del marcador
-        if(styles && styles.iconStyle){
-            markerIcon = styles.iconStyle.href;
+        if(point.styles && point.styles.iconStyle){
+            markerIcon = point.styles.iconStyle.href;
         }
 
         this.mapMarkers[index] = new google.maps.Marker({
