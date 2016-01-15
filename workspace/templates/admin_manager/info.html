@@ -3,7 +3,7 @@
 
 {% block meta %}
 {% compress css %}
-<link href="{% sass_src 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/accountAdmin.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
 <script type="text/javascript" src="/js_core/plugins/jquery-file-upload/js/jquery.fileupload.js?id={{settings.VERSION_JS_CSS}}"></script>

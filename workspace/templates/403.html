@@ -1,0 +1,78 @@
+{% load i18n extra_tags compress staticfiles sass_tags core_components components plugins_tags %}
+
+{% block css_includes %}
+		{% compress css %}
+		<link href="/static/core/styles/base.css" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="/static/core/styles/reset.css" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="/static/core/styles/buttons.css" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="/static/core/styles/structure.css" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="/static/core/styles/commonModules.css" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="/static/core/styles/icons.css" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="{% sass_src 'workspace/styles/common.scss' %}" rel="stylesheet" type="text/css" />
+		{% endcompress %}
+		<link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block body %}
+	<div class="layout">
+
+	<!-- Header -->
+			<header class="header clearfix">
+				<div class="wrapper1">
+					<div class="wrapper2 clearfix">
+						<div class="wrapper3">
+
+							<!-- Logo -->
+							<a href="/welcome" title="{{ settings.APPLICATION_DETAILS.name }}" class="logo FL clearfix">
+								<div class="logo-header-brand"></div>
+							</a>
+
+							<div class="global-navigation" style="visibility:visible;">
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</header>
+
+	<!-- Workspace -->
+		<div class="workspace">
+			<div class="wrapper1">
+				<div class="wrapper2 clearfix">
+					<div class="wrapper3">
+
+					<nav class="main-navigation border-box collapsed"></nav>
+
+					<div class="main-section" style="visibility:visible;">
+
+					<div class="section-title clearfix">
+						<h1>{% trans 'APP-ERROR-400-TEXT' %}</h1>
+					</div>
+
+					<div class="section-content clearfix">
+
+						<section class="box error-container">
+
+						<div class="box-content clearfix">
+							<ul>
+								<li><a href="/welcome">{% trans 'APP-GO-HOME-TEXT' %}</a></li>
+								<li><a href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}" target="_blank">{% trans 'APP-GO-PORTAL-TEXT' %}</a></li>
+							</ul>
+						</div>
+
+						</section>
+
+						</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+{% endblock %}

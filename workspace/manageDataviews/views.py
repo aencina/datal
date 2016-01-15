@@ -253,11 +253,20 @@ def create(request):
             impl_type = dataset_revision.impl_type
             impl_details = dataset_revision.impl_details
             bucket_name = request.bucket_name
+
             categoriesQuery = CategoryI18n.objects\
                                 .filter(language=request.auth_manager.language,
                                         category__account=request.auth_manager.account_id)\
                                 .values('category__id', 'name')
             categories = [[category['category__id'], category['name']] for category in categoriesQuery]
+            preferences = auth_manager.get_account().get_preferences()
+            try:
+                default_category = int(preferences['account.default.category'])
+            except:
+                default_category = categories[0][0]
+            # Agregar categoria por defecto
+            categories = map(lambda x: x + [int(x[0]) == default_category], categories)
+
             sources = [source for source in dataset_revision.get_sources()]
             tags = [tag for tag in dataset_revision.get_tags()]
 
