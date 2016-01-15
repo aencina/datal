@@ -356,8 +356,8 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
 
         impl_details = DatasetImplBuilderWrapper(**fields).build()
 
-        if old_status == StatusChoices.PUBLISHED:
-            logger.info('[LifeCycle - Dataset - Edit] Rev. {} Creo nueva revision por estar PUBLISHED.'.format(
+        if old_status in [StatusChoices.PUBLISHED,StatusChoices.APPROVED]:
+            logger.info('[LifeCycle - Dataset - Edit] Rev. {} Creo nueva revision por estar en PUBLISHED or APPROVED.'.format(
                 self.dataset_revision.id
             ))
             self.dataset, self.dataset_revision = DatasetDBDAO().create(

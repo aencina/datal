@@ -322,7 +322,9 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         if fields['select_statement'] == "":
             fields['select_statement'] = self.datastream_revision.select_statement
 
-        if old_status == StatusChoices.PUBLISHED:
+        # si el status de la version anterior es publicado o aprobado
+        # genera revisiones de sus hijos
+        if old_status in [StatusChoices.PUBLISHED, StatusChoices.APPROVED]:
             self.datastream, self.datastream_revision = DataStreamDBDAO().create(
                 datastream=self.datastream,
                 dataset=self.datastream_revision.dataset,
