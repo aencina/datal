@@ -1549,12 +1549,6 @@ msgstr "If using filters, the parameters values should be exactly as the value i
 msgid "APP-CLICKTOLOAD-TEXT"
 msgstr "Click to load this Source"
 
-msgid "CREATE-STEP1-TITLE"
-msgstr "Where's the data"
-
-msgid "CREATE-STEP1-SUBTITLE"
-msgstr "Click on the data you want to use"
-
 msgid "APP-NEEDHELP-TEXT"
 msgstr "Need help"
 
@@ -1576,32 +1570,11 @@ msgstr "CSV, XLS, XLSX, KML, KMZ, TSV, XML files can also be used as data source
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "As of now, you cannot extract data from an image, flash (.swf)"
 
-msgid "CREATE-STEP1-DISCLAIMER4"
-msgstr "The webpage or file that contains the data should have an URL. An URL is the internet address you see in your web browser"
-
-msgid "CREATE-STEP1-DISCLAIMER5"
-msgstr "If you are collecting data from a &lt;table&gt; inside an &lt;iframe&gt; or &lt;frame&gt;, you need to provide the URL of the &lt;iframe&gt; or &lt;frame&gt;"
-
 msgid "CREATE-STEP1-DISCLAIMER6"
 msgstr "Files must be encoded in UTF-8"
 
 msgid "APP-RELATEDSOURCES-TEXT"
 msgstr "Related sources"
-
-msgid "CREATE-STEP1-THROUBLE-TITLE"
-msgstr "Troubleshooting & tips to take into account"
-
-msgid "CREATE-STEP1-THROUBLE1"
-msgstr "You can only collect data from a &lt;table&gt; that has at least one row of data. You cannot select a &lt;table&gt; that is used to organize the structure for a webpage"
-
-msgid "CREATE-STEP1-THROUBLE2"
-msgstr "You can only select one data &lt;table&gt; from a source at a time (at least for now!)"
-
-msgid "CREATE-STEP2-TITLE"
-msgstr "What do you need"
-
-msgid "CREATE-STEP2-SUBTITLE"
-msgstr "Let us know if you want to collect the entire table, specific columns, rows or just cells"
 
 msgid "CREATE-STEP3-TITLE"
 msgstr "Name it"

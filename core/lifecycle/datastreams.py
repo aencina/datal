@@ -322,7 +322,9 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         if fields['select_statement'] == "":
             fields['select_statement'] = self.datastream_revision.select_statement
 
-        if old_status == StatusChoices.PUBLISHED:
+        # si el status de la version anterior es publicado o aprobado
+        # genera revisiones de sus hijos
+        if old_status in [StatusChoices.PUBLISHED, StatusChoices.APPROVED]:
             self.datastream, self.datastream_revision = DataStreamDBDAO().create(
                 datastream=self.datastream,
                 dataset=self.datastream_revision.dataset,
@@ -368,7 +370,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             visualizations = VisualizationRevision.objects.select_for_update().filter(
                 visualization__datastream__id=self.datastream.id,
                 id=F('visualization__last_revision__id'),
-                status=StatusChoices.PUBLISHED)
+                status__in=[StatusChoices.PUBLISHED,StatusChoices.APPROVED])
 
             for visualization in visualizations:
                VisualizationLifeCycleManager(self.user, visualization_revision_id=visualization.id).save_as_status(status)

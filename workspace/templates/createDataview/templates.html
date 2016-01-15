@@ -99,7 +99,7 @@
             <label>{% trans 'APP-CATEGORY-TEXT' %}</label>
             <select class="category" name="category">
               <% _.each(categories, function (category, index) { %>
-                <option value="<%= category[0] %>" <% if(index == 0){ %> selected="selected" <% } %> ><%= category[1] %></option>
+                <option value="<%= category[0] %>"><%= category[1] %></option>
               <% }); %>
             </select>
           </div>

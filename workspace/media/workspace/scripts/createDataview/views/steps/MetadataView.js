@@ -21,6 +21,14 @@ var MetadataView = Backbone.Epoxy.View.extend({
         }));
         this.applyBindings();
 
+        var default_category = _.find(this.categories, function (category) {
+            return category[2];
+        });
+
+        if (!this.model.has('category')) {
+            this.$('select.category').val(default_category[0]);
+        };
+
         Backbone.Validation.bind(this, {
             attributes: function(view) {
                 return ['title', 'description'];

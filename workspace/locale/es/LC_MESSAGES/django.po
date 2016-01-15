@@ -1534,12 +1534,6 @@ msgstr "Si estás usando filtros, lo valores de los parámetros debieran ser exa
 msgid "APP-CLICKTOLOAD-TEXT"
 msgstr "Click para cargar esta Fuente"
 
-msgid "CREATE-STEP1-TITLE"
-msgstr "&iquest;Donde están los datos"
-
-msgid "CREATE-STEP1-SUBTITLE"
-msgstr "Hace click sobre los datos que deseas utilizar para seleccionarlos."
-
 msgid "APP-NEEDHELP-TEXT"
 msgstr "&iquest;Necesitas ayuda"
 
@@ -1561,32 +1555,11 @@ msgstr "Los archivos CSV, XLS, XLSX, KML, KMZ, TSV, XML también pueden ser usad
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "Por ahora, no se puede extraer datos desde una imagen o flash (.swf) "
 
-msgid "CREATE-STEP1-DISCLAIMER4"
-msgstr "La página o archivo que contiene los datos debe tener una URL. Una URL es la dirección de Internet que ves en el navegador"
-
-msgid "CREATE-STEP1-DISCLAIMER5"
-msgstr "Si estás recolectando datos desde una &lt;table&gt; dentro de un &lt;iframe&gt; o &lt;frame&gt;, necesitas usar la URL del &lt;iframe&gt; o del &lt;frame&gt;"
-
 msgid "CREATE-STEP1-DISCLAIMER6"
 msgstr "Los archivos deben estar encodeados en UTF-8"
 
 msgid "APP-RELATEDSOURCES-TEXT"
 msgstr "Fuentes relacionadas"
-
-msgid "CREATE-STEP1-THROUBLE-TITLE"
-msgstr "Resolución de problemas y consejos a tener en cuenta"
-
-msgid "CREATE-STEP1-THROUBLE1"
-msgstr "Solo puedes colectar datos desde &lt;table&gt; que contiene a lo menos una columna de datos. No puedes seleccionar &lt;table&gt; que se usa para organizar la estructura de la página"
-
-msgid "CREATE-STEP1-THROUBLE2"
-msgstr "Solo puedes seleccionar una &lt;table&gt; como fuente a la vez (por lo menos por ahora!)"
-
-msgid "CREATE-STEP2-TITLE"
-msgstr "&iquest;Que es lo que necesitas"
-
-msgid "CREATE-STEP2-SUBTITLE"
-msgstr "Indique las partes especificas de la tabla que necesitas"
 
 msgid "CREATE-STEP3-TITLE"
 msgstr "Nómbralo"
