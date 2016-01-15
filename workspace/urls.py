@@ -76,9 +76,20 @@ urlpatterns = patterns('',
     (r'^personalizeHome/', include('workspace.personalizeHome.urls')),
     (r'^js_core/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'core', 'js')}),
     (r'^js_workspace/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'workspace', 'js')}),
+)
+
+#handler404 = 'core.views.action404'
+#handler500 = 'core.views.action500'
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^404/$', 'django.views.defaults.page_not_found'),
+        (r'^403/$', 'django.views.defaults.permission_denied'),
+        (r'^400/$', 'django.views.defaults.bad_request'),
+        (r'^500/$', 'django.views.defaults.server_error'),
+    )
+
+urlpatterns += patterns('', 
     # Please leave me always as the last url pattern
     url(r'^(?P<admin_url>[A-Za-z0-9\-]+)/$', 'workspace.manageMyAccount.views.signin', name='accounts.account_signin'),
 )
-
-handler404 = 'core.views.action404'
-handler500 = 'core.views.action500'

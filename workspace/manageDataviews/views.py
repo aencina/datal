@@ -257,7 +257,15 @@ def create(request):
                                 .filter(language=request.auth_manager.language,
                                         category__account=request.auth_manager.account_id)\
                                 .values('category__id', 'name')
-            categories = [[category['category__id'], category['name']] for category in categoriesQuery]
+
+            account = auth_manager.get_account()
+            preferences = account.get_preferences()
+            try:
+                default_category = int(preferences['account.default.category'])
+            except:
+                default_category = None
+            categories = [[category['category__id'], category['name'], int(category['category__id']) == default_category ] for category in categoriesQuery]
+
             sources = [source for source in dataset_revision.get_sources()]
             tags = [tag for tag in dataset_revision.get_tags()]
 

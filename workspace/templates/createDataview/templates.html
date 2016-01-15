@@ -98,7 +98,7 @@
           <div class="row clearfix">
             <label>{% trans 'APP-CATEGORY-TEXT' %}</label>
             <select class="category" name="category">
-              <% _.each(categories, function (category) { %>
+              <% _.each(categories, function (category, index) { %>
                 <option value="<%= category[0] %>"><%= category[1] %></option>
               <% }); %>
             </select>
