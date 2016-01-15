@@ -7,11 +7,11 @@
 
 {% compress css %}
 <!-- RESET -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/reset.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/reset.css' %}"/>
 <!-- DATA STREAM BOX -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/dataStreamBox.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
 <!-- COMPONENT -->
-<link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/embed.css' %}"/>
+<link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/embed.css' %}"/>
 
 {% if not 'favicon'|inplugin %}
 <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />

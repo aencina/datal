@@ -1,6 +1,6 @@
 {% load i18n extra_tags components compress staticfiles sass_tags %}
 {% compress css %}
-<link href="{% sass_src 'workspace/styles/plugins/colorpicker.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'workspace/styles/plugins/colorpicker.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
 <script type="text/javascript" src="/js_core/plugins/jquery-file-upload/js/load-image.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery-file-upload/js/jquery.iframe-transport.js?id={{settings.VERSION_JS_CSS}}"></script>

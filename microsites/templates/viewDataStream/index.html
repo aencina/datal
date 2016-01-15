@@ -20,8 +20,8 @@
 {% block meta %}
 {% compress css %}
 <!-- CSS -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/plugins/jquery.gritter.css' %}" />
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/viewDataStream.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/plugins/jquery.gritter.css' %}" />
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewDataStream.css' %}"/>
 {% endcompress %}
 <link type="text/css" rel="stylesheet" media="screen" href="/js_core/plugins/flexigrid.4/styles/flexigrid.pack.css" />
 
@@ -75,7 +75,7 @@
 
 <!-- BRANDED CSS -->
 {% compress css %}
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
 {% endcompress %}
 <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
