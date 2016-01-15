@@ -117,7 +117,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
                 allowed_states=allowed_states
             )
 
-        if self.visualization_revision.status == StatusChoices.PUBLISHED:
+        if self.visualization_revision.status in [StatusChoices.PUBLISHED, StatusChoices.APPROVED]:
             self.visualization, self.visualization_revision = VisualizationDBDAO().create(
                 visualization=self.visualization,
                 datastream_rev=self.visualization_revision.datastream.last_revision,

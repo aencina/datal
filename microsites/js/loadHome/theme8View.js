@@ -29,8 +29,10 @@ var Theme8View = Backbone.Epoxy.View.extend({
 
 	onButtonClicked: function(event){
 
-		var titleUpgradeable = $(event.currentTarget).attr('data-button-title');
-		this.model.set('titleUpgradeable', titleUpgradeable);
+		//var titleUpgradeable = $(event.currentTarget).attr('data-button-title');
+		//this.model.set('titleUpgradeable', titleUpgradeable);
+		var titleResources = this.model.get('titleResources');
+		this.model.set('titleUpgradeable', titleResources);
 
 		this.$el.find('.section-title h3').fadeOut();
 		this.$el.find('.buttons a.back').css('opacity','1');
