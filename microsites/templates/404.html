@@ -1,1 +1,36 @@
-soyun 404
+{% load i18n local_tags %}
+<head>
+<title>{% trans 'APP-ERROR-TEXT' %}</title>
+<link rel="shortcut icon" href="http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/favicon" />
+<link href="/static/core/styles/base.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="/static/core/styles/reset.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="/static/core/styles/structure.css" type="text/css" rel="stylesheet" media="screen"/>
+<link type="text/css" rel="stylesheet" media="screen" href="/static/microsites/styles/viewDataStream.css"/>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.error{
+	width: 400px;
+	height: 150px;
+	background: #f5f5f5;
+	border-radius: 5px;
+	border: 1px solid #ededed;
+	text-align: center;
+	margin: 150px auto auto;
+	padding: 50px;
+}
+h1{
+	margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+<div class="error">
+	<h1>{% trans 'APP-ERROR-400-TEXT' %}</h1>
+	<ul>
+		<li><a href="/home">{% trans 'APP-GO-HOME-TEXT' %}</a></li>
+	</ul>
+</body>
