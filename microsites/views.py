@@ -48,7 +48,8 @@ def get_key(url_name):
         logger.error('No url_name')
         raise Http404
 
-    if url_name in ['microsites.viewDataStream.views.view']:
+    #TODO encontrar la forma de llevar esto al plugin en ds.detail y en chart.detail hay cosas de plugins.
+    if url_name in ['microsites.viewDataStream.views.view', 'viewCustomViews.list', 'viewCustomViews.save', 'viewCustomViews.view']:
         key = 'ds.detail'
     elif url_name in ['microsites.viewDataStream.views.embed']:
         key = 'ds.embed'
@@ -62,16 +63,12 @@ def get_key(url_name):
         key = 'home'
     elif url_name in ['manageDeveloper.filter']:
         key = 'developers'
-    elif url_name in ['chart_manager.view']:
+    elif url_name in ['chart_manager.view', 'viewCustomViz.list', 'viewCustomViz.save', 'viewCustomViz.view']:
         key = 'chart.detail'
     #elif re.search('^.*/visualizations/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
     #    key = 'chart.detail'
-
-    #TODO encontrar la forma de llevar esto al plugin
-    elif url_name in ['viewCustomViz.list', 'viewCustomViz.save', 'viewCustomViz.view']:
-        key = 'chart.detail'
-    elif url_name in ['viewCustomViews.list', 'viewCustomViews.save', 'viewCustomViews.view']:
-        key = 'ds.detail'
+    elif url_name in ['viewDashboards.view']:
+        key = 'db.detail'
     elif url_name in ['manageDatasets.view']:
         key = 'dataset'
     else:
