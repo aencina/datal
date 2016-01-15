@@ -49,13 +49,13 @@ def get_key(url_name):
         raise Http404
 
     #TODO encontrar la forma de llevar esto al plugin en ds.detail y en chart.detail hay cosas de plugins.
-    if url_name in ['microsites.viewDataStream.views.view', 'viewCustomViews.list', 'viewCustomViews.save', 'viewCustomViews.view']:
+    if url_name in ['viewDataStream.view', 'viewCustomViews.customviews_list', 'viewCustomViews.save', 'viewCustomViews.view']:
         key = 'ds.detail'
-    elif url_name in ['microsites.viewDataStream.views.embed']:
+    elif url_name in ['viewDataStream.embed']:
         key = 'ds.embed'
     #elif re.search('^.*/(datastreams|dataviews)/\d+/[A-Za-z0-9\-]+$' , http_referer):
     #    key = 'ds.detail'
-    elif url_name in ['search.search_by_query_and_category', 'search.search', 'microsites.search.views.browse']:
+    elif url_name in ['search.search_by_query_and_category', 'search.search', 'search.browse']:
         key = 'search'
     elif url_name in ['chart_manager.embed', 'viewChart.embed']:
         key = 'chart.embed'
@@ -73,7 +73,7 @@ def get_key(url_name):
         key = 'dataset'
     else:
         #  http referer error http://microsites.dev:8080/dataviews/69620/iep-primer-trimestre-2012-ministerio-de-defensa-nacional
-        logger.error('http referer error %s' % http_referer)
+        logger.error('Url_name sin macheo %s' % url_name)
         raise Http404
 
     return key + '.full'
