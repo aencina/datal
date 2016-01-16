@@ -320,7 +320,7 @@ LOGGING = {
         },
 
         'elasticsearch.trace': {
-            'level': 'INFO',
+            'level': 'ERROR',
             'handlers': ['file'],
             'propagate': False,
         },
