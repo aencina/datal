@@ -300,7 +300,9 @@ var dataTableView = Backbone.View.extend({
 				if (!_.isEmpty(filter_column) && !_.isEmpty(filter_text) && filter_column.length == 1 && filter_text.length == 1) {
 					filter_order_list = _.map(settings.url.match(/(filter\d+)/g), function(x){return parseInt(x.replace("filter", ""))})
 					filter_order = _.isEmpty(filter_order_list)? 0: _.max(filter_order_list) + 1
-					settings.url += "&filter" + filter_order + "=" + filter_column[0].split('=')[1] + "[contains]" + filter_text[0].split('=')[1]
+					if (filter_order == 0) {
+						settings.url += "&filter" + filter_order + "=" + filter_column[0].split('=')[1] + "[contains]" + filter_text[0].split('=')[1]
+					}
 				}
 				return true;
 
