@@ -340,6 +340,7 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('search.full.css', 'search.full.css')
     ,('home.full.css', 'home.full.css')
     ,('developers.full.css', 'developers.full.css')
+    ,('dataset.full.css', 'dataset.full.css')
 
     # STRING codigo JS ---------------------------
     ,('ds.detail.full.javascript', 'ds.detail.full.javascript') 
@@ -350,6 +351,7 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('search.full.javascript', 'search.full.javascript')
     ,('home.full.javascript', 'home.full.javascript')
     ,('developers.full.javascript', 'developers.full.javascript')
+    ,('dataset.full.javascript', 'dataset.full.javascript')
 
     
     ,('account.name', 'account.name') 
