@@ -328,7 +328,7 @@ class WebserviceForm(DatasetForm):
                     self._errors = ErrorDict(self._errors)
         self.cleaned_data['parameters'] = [form.cleaned_data for form in self.param_formset]
         if (self.cleaned_data['impl_type'] == choices.SourceImplementationChoices.REST and
-            settings.PUBLICSTUFF_DOMAIN in self.cleaned_data['end_point'])
+            settings.PUBLICSTUFF_DOMAIN in self.cleaned_data['end_point']):
             self.cleaned_data['impl_type'] = choices.SourceImplementationChoices.PUS
         return is_valid
 
