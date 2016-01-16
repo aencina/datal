@@ -14,7 +14,7 @@ class Command(BaseCommand):
                 res.status = StatusChoices.PENDING_REVIEW # 1
             elif res.status == 4:
                 res.status = StatusChoices.DRAFT # 0
-            elif res.status = 5:
+            elif res.status == 5:
                 res.status = StatusChoices.DRAFT # 0
             res.save()
 
