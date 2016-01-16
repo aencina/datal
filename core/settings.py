@@ -61,7 +61,8 @@ INSTALLED_APPS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     "core.context_processors.request_context",
     "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.i18n"
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.request",
 )
 
 MIDDLEWARE_CLASSES = ()
@@ -319,7 +320,7 @@ LOGGING = {
         },
 
         'elasticsearch.trace': {
-            'level': 'INFO',
+            'level': 'ERROR',
             'handlers': ['file'],
             'propagate': False,
         },

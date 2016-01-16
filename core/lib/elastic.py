@@ -197,7 +197,6 @@ class ElasticsearchIndex():
                     id=document['docid'])
 
 
-        logger.error(u"Elasticsearch: Ningún documento para indexar")
         return False
         
     def count(self, doc_type=None):

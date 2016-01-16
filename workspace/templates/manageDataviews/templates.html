@@ -78,8 +78,7 @@
 		{# Review #}
   	<% if( authManager.isPublisher() || authManager.isAdmin() ){ %>
     	<% 
-        // Status Pending Review = 1
-        if( status === 1 ){ 
+        if( status == StatusChoices.PENDING_REVIEW ){ 
       %>
       	<li class="review"><a href="<%=url%>" title=<%= gettext('APP-REVIEW-TEXT') %>><%= gettext('APP-REVIEW-TEXT')%></a></li>
       <% } %>
@@ -96,7 +95,7 @@
 
     {# Edit #}
 		<% 
-      if( [StatusChoices.DRAFT, StatusChoices.PUBLISHED].indexOf(status) >= 0) { 
+      if( status != StatusChoices.PENDING_REVIEW ) { 
     %>
     	<li class="edit">
     		<a data-id="<%=id%>" data-url="{% url 'manageDataviews.edit' %}" title=<%= gettext('APP-EDIT-TEXT') %>><%= gettext('APP-EDIT-TEXT') %></a>
@@ -105,8 +104,7 @@
 
     {# Delete #}
     <% 
-      // Status Pending Review = 1
-      if( status !== 1 ){ 
+      if( status != StatusChoices.PENDING_REVIEW ){ 
     %>
       <li class="delete"><a title=<%= gettext('APP-DELETE-TEXT') %> class="red"><%= gettext('APP-DELETE-TEXT') %></a></li>
     <% } %>
