@@ -79,7 +79,7 @@ def get_key(url_name):
     return key + '.full'
 
 
-def get_new_css(request, id):
+def get_new_css(request, url_name, id):
     try:
         account = request.account
         preferences = account.get_preferences()
