@@ -82,15 +82,18 @@ class Command(BaseCommand):
         for home in Preference.objects.filter(key="account.home"):
             config = json.loads(home.value)
 
-            if 'config' in config and 'sliderSection' in config['config'] and config['config']['sliderSection']:
-                sliderSection=[]
-                for slider in config['config']['sliderSection']:
-                    sliderSection.append({u'type': slider['type'].replace("chart","vz"), u'id': slider['id']})
-
-                config['config']['sliderSection']=sliderSection
-            home.value=json.dumps(config)
-            home.save()
-                
+            try:
+                if 'config' in config and 'sliderSection' in config['config'] and config['config']['sliderSection']:
+                    sliderSection=[]
+                    for slider in config['config']['sliderSection']:
+                        sliderSection.append({u'type': slider['type'].replace("chart","vz"), u'id': slider['id']})
+    
+                    config['config']['sliderSection']=sliderSection
+                home.value=json.dumps(config)
+                home.save()
+            except TypeError:
+                pass
+                    
             # actualizo estados
             self.changeStatus() 
         
