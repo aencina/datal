@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from core.models import *
+from core.models import DataStreamRevision, VisualizationRevision, Category
 from core.http import add_domains_to_permalinks
 from core.daos.datastreams import DataStreamDBDAO
 from core.daos.visualizations import VisualizationDBDAO
 import json
+import logging
+
 
 class ThemeBuilder(object):
     """docstring for ClassName"""
@@ -13,6 +15,7 @@ class ThemeBuilder(object):
         self.is_preview = is_preview
         self.language = language
         self.account = account
+        self.logger = logging.getLogger(__name__)
 
 
     def retrieve_resources_for_slider(self, resourceIds, language):
@@ -30,10 +33,16 @@ class ThemeBuilder(object):
 
         # usamos el DAO
         for i in datastreamIds:
+            try:
                 data.append(DataStreamDBDAO().get(language,datastream_id=i))
+            except DataStreamRevision.DoesNotExist:
+                self.logger.error("ThemeBuilder.slider: DataStream.id=%s no existe" % i)
 
         for i in visualizationIds:
+            try:
                 data.append(VisualizationDBDAO().get(language,visualization_id=i))
+            except VisualizationRevision.DoesNotExist:
+                self.logger.error("ThemeBuilder.slider: Visualization.id=%s no existe" % i)
  
         return data
 
