@@ -363,13 +363,26 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 				self.trigger('flexigrid-beforeSend', result);
 				
 				self.setFilterParams(settings);
+				
+				// Fix page
 				settings.url = settings.url.replace(/(page=).*?(&)/, '$1' + (this.newp - 1).toString() + '$2')
+				
+				// Fix sort
 				sortname = settings.url.match(/sortname=\d+/)
 				sortorder = settings.url.match(/sortorder=\w+/)
 				if (!_.isEmpty(sortname) && !_.isEmpty(sortorder) && sortname.length == 1 && sortorder.length == 1) {
 					order_list = _.map(settings.url.match(/(orderBy\d+)/g), function(x){return parseInt(x.replace("orderBy", ""))})
 					order = _.isEmpty(order_list)? 0: _.max(order_list) + 1
 					settings.url += "&orderBy" + order + "=column" + sortname[0].split('=')[1] + "[" + sortorder[0].split('=')[1][0].toUpperCase() + "]"
+				}
+
+				// Fix query
+				filter_column = settings.url.match(/qtype=\w+/)
+				filter_text = settings.url.match(/query=\w+/)
+				if (!_.isEmpty(filter_column) && !_.isEmpty(filter_text) && filter_column.length == 1 && filter_text.length == 1) {
+					filter_order_list = _.map(settings.url.match(/(filter\d+)/g), function(x){return parseInt(x.replace("filter", ""))})
+					filter_order = _.isEmpty(filter_order_list)? 0: _.max(filter_order_list) + 1
+					settings.url += "&filter" + filter_order + "=" + filter_column[0].split('=')[1] + "[contains]" + filter_text[0].split('=')[1]
 				}
 				return true;
 
