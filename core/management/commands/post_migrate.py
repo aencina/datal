@@ -6,6 +6,7 @@ from core.models import User, Grant, VisualizationRevision, Preference, DataStre
 from core.choices import StatusChoices
 import json
 
+
 class Command(BaseCommand):
 
     role_migration_dict = {
@@ -41,7 +42,6 @@ class Command(BaseCommand):
         self.chanageResourcesStatus(VisualizationRevision.objects.all())
         self.chanageResourcesStatus(DataStreamRevision.objects.all())
         self.chanageResourcesStatus(DatasetRevision.objects.all())
-    
 
     def migrateRoles(self):
         for key, value in self.role_migration_dict.items():
@@ -74,15 +74,8 @@ class Command(BaseCommand):
                     user.roles.add(role_dict[self.role_migration_dict[code]])
                     user.roles.remove(role_dict[code])
 
-
-
-        
-
     def handle(self, *args, **options):
-        print('FIXING USER GRANTS')
 
-        # TODO: Debemos buscar los usuarios con Roles que no usamos mas y cambiarlos por los nuevos
-        # TODO
         for rev in VisualizationRevision.objects.all():
             imp = json.loads(rev.impl_details)
 
