@@ -7,7 +7,7 @@
 
 {% compress css %}
 <!-- RESET -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/reset.css' %}"/>
+<link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <!-- DATA STREAM BOX -->
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
 <!-- COMPONENT -->
