@@ -116,6 +116,6 @@ var PreviewView = Backbone.View.extend({
     // TODO: Código portado de un template, necesita mejoras
     formatLINK: function (cell) {
         var value = '<a target="_blank" href="' + cell.fUri + '" rel="nofollow" title="' + cell.fStr + '">' + cell.fStr + '</a>';
-        return value;        
+        return value;
     }
 });
