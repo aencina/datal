@@ -1,6 +1,6 @@
 # DATAL's language pack.
 # Copyright (C) 2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -451,9 +451,6 @@ msgstr "Successfully approved a resource."
 msgid "APP-INSTITUTIONAL-TEXT"
 msgstr "Institutional"
 
-msgid "APP-ABOUTUS-TITLE"
-msgstr "See who is behind DATAL"
-
 msgid "APP-ABOUTUS-TEXT"
 msgstr "About us"
 
@@ -463,17 +460,8 @@ msgstr "Contact us"
 msgid "APP-WIKI-TEXT"
 msgstr "Wiki"
 
-msgid "APP-COMMUNITY-TEXT"
-msgstr "DATAL Community"
-
 msgid "APP-FOLLOWUSON-TEXT"
 msgstr "Follow us on"
-
-# msgid "HEADER-JUNAR-TITLE"
-# msgstr "DATAL is the Easiest-to-Use Open Data Platform"
-
-msgid "HEADER-JUNAR-TITLE-PRIVATE"
-msgstr "DATAL is the Easiest-to-Use Private Data Platform"
 
 msgid "APP-COLLECT-TEXT"
 msgstr "Collect"
@@ -501,12 +489,6 @@ msgstr "Account settings"
 
 msgid "APP-SIGNINTO-TEXT"
 msgstr "Sign in to"
-
-msgid "APP-SIGNINWELCOME-TEXT"
-msgstr "<h2>Welcome back! this is the private entrance for current DATAL customers.<br/>If you got here by accident, please <a href='http://www.junar.com'>go back</a>.</h2><p><strong>With DATAL you can:</strong></p><ul><li>Manage your Open Data projects end-to-end</li><li>Build visually compelling visualizations and tables with your data</li><li>Easily integrate your Open Data into your website or have us host it</li><li>Make your data social and track its usage</li></ul>"
-
-msgid "APP-SIGNINWELCOME-TEXT-PRIVATE"
-msgstr "<h2>Welcome back! this is the private entrance for current DATAL customers.<br/>If you got here by accident, please <a href='http://www.junar.com'>go back</a>.</h2><p><strong>With DATAL you can:</strong></p><ul><li>Manage your Private Data projects end-to-end</li><li>Build visually compelling visualizations and tables with your data</li>/ul>"
 
 msgid "MODEL-USERNAME-TEXT"
 msgstr "Username"
@@ -539,7 +521,7 @@ msgid "DSFIND-HELPTIP-TITLE"
 msgstr "Helpful Tips"
 
 msgid "USR-GRAVATAR-TIP1"
-msgstr "DATAL uses the power of"
+msgstr "uses the power of"
 
 msgid "USR-GRAVATAR-TIP2"
 msgstr "to show your picture. If you already have a Gravatar account, you can change "
@@ -561,9 +543,6 @@ msgstr "New password has been sent to you by e-mail"
 
 msgid "FORFOT-PASSWORD-SIGNIN"
 msgstr "Sign in with new password"
-
-msgid "OV-SIGINCREATE-SIGINSUBMIT"
-msgstr "Sign in to DATAL"
 
 msgid "APP-THEOPENDATAPLATFORM-TEXT"
 msgstr "The Open Data Platform"
@@ -591,9 +570,6 @@ msgstr "Sign In"
 
 msgid "APP-DATAECONOMY-TEXT"
 msgstr "Open Data"
-
-msgid "APP-WHYJUNAR-TEXT"
-msgstr "Why DATAL?"
 
 msgid "APP-HOWITWORKS-TEXT"
 msgstr "How it Works"
@@ -691,9 +667,6 @@ msgstr "Configure your picture"
 msgid "APP-DATASET-ABBR-TEXT"
 msgstr "Datasets"
 
-msgid "APP-ACTIVITYSTREAM-TITLE"
-msgstr "Welcome to DATAL!"
-
 msgid "APP-TOTAL-TEXT"
 msgstr "Total"
 
@@ -716,10 +689,7 @@ msgid "ACCOUNT-BRANDING-FOOTER-TIP"
 msgstr "Paste an URL reference here for the footer<br/>Example: http://www.my-organization.com/my-footer.html"
 
 msgid "BRANDED-OPEN-DATA-SITE-TIP"
-msgstr "<p>The DATAL Branded Open Data Site enables you to integrate your customized Open Data dashboards into your website. It includes the option to add a header and footer. The branded site mirrors your existing website and enables your audience full access to your published data.</p><br />"
-
-msgid "BRANDED-OPEN-DATA-SITE-TIP-PRIVATE"
-msgstr "<p>The DATAL Branded Private Data Site enables you to integrate your customized Private Data dashboards into your website. It includes the option to add a header and footer. The branded site mirrors your existing website and enables your audience full access to your published data.</p><br />"
+msgstr "<p>Branded Open Data Site enables you to integrate your customized Open Data dashboards into your website. It includes the option to add a header and footer. The branded site mirrors your existing website and enables your audience full access to your published data.</p><br />"
 
 msgid "WORKSPACE-CUSTOMIZE-SETTINGS"
 msgstr "Customize display"
@@ -767,10 +737,7 @@ msgid "ACCOUNT-DOMAIN-TIP"
 msgstr "Enter your domain here.<br/>You need first to configure a CNAME with your sysadmin and point it to cloud.junar.com"
 
 msgid "WRKSPCE-DOMAIN-TIP"
-msgstr "<p>DATAL lets you Open Data.</p><p>In order to define where data is opened, we offer 2 alternatives:</p><ul><li>DATAL can host your data in an Open Data Domain</li><li>You can integrate your data into your website by creating a subdomain and pointing it to our cloud</li></ul><p>Please contact us at <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> to help you set this up in a few minutes.</p>"
-
-msgid "WRKSPCE-DOMAIN-TIP-PRIVATE"
-msgstr "<ul><li>DATAL can host your data in an Private Data Domain</li><li>You can integrate your data into your website by creating a subdomain and pointing it to our cloud</li></ul><p>Please contact us at <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> to help you set this up in a few minutes.</p>"
+msgstr "<p>In order to define where data is opened, we offer 2 alternatives:</p><ul><li>You can host your data in an Open Data Domain</li><li>You can integrate your data into your website by creating a subdomain and pointing it to our cloud</li></ul><p>Please contact us at <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> to help you set this up in a few minutes.</p>"
 
 msgid "ACCOUNT-CONTACT-INFORMATION-TEXT"
 msgstr "Contact Information"
@@ -797,10 +764,7 @@ msgid "SOCIAL-NOTES-TIP"
 msgstr "Add more context to your Data Views by adding notes."
 
 msgid "WRKSPC-SOCIAL-TIP"
-msgstr "<p>Data must be opened to unleash its value!</p><br/><p>DATAL makes it easy to optimize your open data to be shareable via social network sites and searchable by search engines which helps to drive additional views and engagement.</p>"
-
-msgid "WRKSPC-SOCIAL-TIP-PRIVATE"
-msgstr ""
+msgstr "<p>Data must be opened to unleash its value!</p><br/><p>We make it easier to optimize your open data to be shareable via social network sites and searchable by search engines which helps to drive additional views and engagement.</p>"
 
 msgid "ACCOUNT-USERS-TAB"
 msgstr "Users"
@@ -828,9 +792,6 @@ msgstr "Last activity"
 
 msgid "APP-USER-TIP"
 msgstr "<h6>HELPFUL TIPS</h6><p>There are 3 types of roles:</p><p><strong>Editor:</strong><br> Can collect and transform datasets into Data Views and Visualizations, and use those in Dashboards.</p><p><strong>Publishers:</strong><br> Same privileges as Editor, plus the permition to publish the resources to the Branded Open Data Site.</p><p><strong>Account administrators:</strong><br> Same privileges as Editor and Publisher, plus management of account settings.</p>"
-
-msgid "APP-USER-TIP-PRIVATE"
-msgstr "<h6>HELPFUL TIPS</h6><p>There are 4 roles in the DATAL Private Data Platform:</p><p><strong>Editor:</strong><br> Collect and transform datasets into richer and more usable formats such as Data Views, Visualizations, and themed Dashboards</p><p><strong>Publishers:</strong><br> Collect and enhance datasets, and approve which data to publish in the Branded Private Data Site</p><p><strong>Administrators:</strong> Collect, Enhance, and Publish datasets and manageaccount settings</p><p><strong>Members:</strong><br>Chance to access to private resources</p>"
 
 msgid "CHRT-XAXISNAME-TEXT"
 msgstr "X axis name"
@@ -1685,10 +1646,10 @@ msgid "DATASET-NOT-PUBLISHED"
 msgstr "The dataset related to this Data View must be published"
 
 msgid "ACCOUNT-USERS-USERNAME-TIP"
-msgstr "The <em>username</em> must be unique.<br/>This validation applies across all DATAL accounts."
+msgstr "The <em>username</em> must be unique.<br/>This validation applies across all accounts."
 
 msgid "ACCOUNT-USERS-EMAIL-TIP"
-msgstr "The <em>e-mail</em> must be unique.<br/>This validation applies across all DATAL accounts."
+msgstr "The <em>e-mail</em> must be unique.<br/>This validation applies across all accounts."
 
 msgid "MISSING-TRACKING-ID"
 msgstr "To add any event, you need to set the property ID of your Google Analytics account."
@@ -1948,9 +1909,6 @@ msgstr "Left bottom content"
 msgid "ACCOUNT-HOME-RIGHT-FOOTER"
 msgstr "Right bottom content"
 
-msgid "ACCOUNT-HOME-FEATURED-TIP"
-msgstr "This content is displayed below the header and above the main content and the resources' slider. <br/>If you want to add an image slider here, please <a href='http://en.wiki.junar.com/index.php/Add_an_image_slider_to_your_Open_Data_site_home_page' title='DATAL Wiki' target='_blank'>refer to this documentation</a>."
-
 msgid "ACCOUNT-HOME-MAIN-TIP"
 msgstr "This content is displayed on the left side of the slider"
 
@@ -2088,10 +2046,6 @@ msgstr "Privacy Policy"
 
 
 
-
-msgid "HEADER-JUNAR-TITLE"
-msgstr "DATAL Open Data Platform"
-
 msgid "HEADER-SEARCH-TEXT"
 msgstr "Search resources"
 
@@ -2115,9 +2069,6 @@ msgstr "Online Support"
 
 msgid "FOOTER-INSTITUTIONAL-TEXT"
 msgstr "Institutional"
-
-msgid "FOOTER-ABOUTUS-TITLE"
-msgstr "See who is behind DATAL"
 
 msgid "FOOTER-ABOUTUS-TEXT"
 msgstr "About us"
@@ -2187,9 +2138,6 @@ msgstr "Yesterday"
 
 msgid "APP-DOWNLOAD-CSV-TEXT"
 msgstr "Download as CSV"
-
-msgid "APP-GOBACKTO-TEXT"
-msgstr "Go back to DATAL website"
 
 msgid "FORGOT-ACTIVATION-EMAIL"
 msgstr "An activation link for your new password has been sent to your e-mail."
@@ -2661,9 +2609,6 @@ msgstr "There are not associated resources to this Dataset."
 
 msgid "APP-START-FROM-HERE-TEXT"
 msgstr "You can start from here!"
-
-msgid "APP-CREATE-FIRST-DATASET-TEXT"
-msgstr "In order to start using DATAL, create your first dataset."
 
 msgid "CHILD_NOT_ACCEPTED-1"
 msgstr "It was not posible to publish this Dataset, because you have unapproved Data Views. Check a list of the associated Data Views "

@@ -1,6 +1,6 @@
 # DATAL's English language pack.
 # Copyright  2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-19 16:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Emilio Heck <emilio.heck@junar.com>\n"
+"Last-Translator: Ignacio Sans <ignacio.sans@junar.com>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -483,17 +483,6 @@ msgstr "Desarrollado por"
 msgid "DEV-PAGE-TITLE"
 msgstr "Página de Desarrolladores"
 
-msgid "DEV-PAGE-SUBTITLE"
-msgstr "Prueba la API de DATAL"
-
-msgid "DEV-DESCRIPTION-TEXT1"
-msgstr ""
-"La API de DATAL permite el acceso directo al catálogo de DATAL y a su motor "
-"desde tu aplicación, para propósitos de <strong>descubrir vistas y "
-"colecciones</strong>,  invocar vistas <strong> y pronto... recolectar y "
-"publicar datos como vistas</strong>. Usa una interfaz RESTful y retorna los "
-"datos en formato JSON."
-
 msgid "DEV-DESCRIPTION-TEXT2"
 msgstr ""
 "Las vistas invocadas a través de la API proveen un acceso estándar online a "
@@ -510,7 +499,7 @@ msgid "DEV-GETKEY-TITLE"
 msgstr "Obtén una Clave"
 
 msgid "DEV-GETKEY-SUBTITLE"
-msgstr "La API de DATAL requiere una <span class='br'>key para operar.</span>"
+msgstr "La API requiere una <span class='br'>key para operar.</span>"
 
 msgid "DEV-GETKEY-TEXT1"
 msgstr "Obtén una y accede a cualquier recurso a través de ella"
@@ -528,7 +517,7 @@ msgid "DEV-CREATEREQUEST-TITLE"
 msgstr "Crea un Request"
 
 msgid "DEV-CREATEREQUEST-SUBTITLE"
-msgstr "La API de DATAL acepta request RESTfuls"
+msgstr "La API acepta request RESTfuls"
 
 msgid "DEV-CREATEREQUEST-TEX1"
 msgstr "Un request típico luce así"
@@ -590,7 +579,7 @@ msgid "DEV-OV-TITLE"
 msgstr "Confirmación y Key"
 
 msgid "DEV-OV-SUBTITLE"
-msgstr "Gracias por probar la API de DATAL"
+msgstr "Gracias por probar nuestra API"
 
 msgid "DEV-OV-TEXT"
 msgstr "Esta es tu Auth key"
@@ -610,8 +599,11 @@ msgstr "Las nuevas contraseñas no coincide."
 msgid "EMAIL-EXISTS"
 msgstr "Este e-mail ya existe."
 
-msgid "HEADER-IE-MESSAGES"
-msgstr "<p><strong>Precaución:</strong> DATAL funciona correctamente en Internet Explorer 8 o superior y puede no funcionar correctamente en versiones antiguas de este navegador, o en modo <a href='http://blogs.msdn.com/b/ie/archive/2008/08/27/introducing-compatibility-view.aspx' title='vista de compatibilidad' target='_blank'>vista de compatibilidad</a>. Por favor <a href='http://windows.microsoft.com/en-us/internet-explorer/products/ie/home' title='Actualice su navegador a la última versión' target='_blank'>actualice su navegador a la última versión</a> o <a href='http://abetterbrowser.org/' title='Use otro navegador' target='_blank'>use otro navegador</a>.</p>"
+msgid "HEADER-IE-MESSAGES-1"
+msgstr "<p><strong>Precaución:</strong> "
+
+msgid "HEADER-IE-MESSAGES-2"
+msgstr " funciona correctamente en Internet Explorer 8 o superior y puede no funcionar correctamente en versiones antiguas de este navegador, o en modo <a href='http://blogs.msdn.com/b/ie/archive/2008/08/27/introducing-compatibility-view.aspx' title='vista de compatibilidad' target='_blank'>vista de compatibilidad</a>. Por favor <a href='http://windows.microsoft.com/en-us/internet-explorer/products/ie/home' title='Actualice su navegador a la última versión' target='_blank'>actualice su navegador a la última versión</a> o <a href='http://abetterbrowser.org/' title='Use otro navegador' target='_blank'>use otro navegador</a>.</p>"
 
 msgid "APP-HELP-TEXT"
 msgstr "Soporte en línea"
@@ -683,7 +675,7 @@ msgid "APP-LOGIN-TEXT"
 msgstr "Ingresar"
 
 msgid "APP-ACTIVATION-TITLE-TEXT"
-msgstr "Active su cuenta DATAL"
+msgstr "Active su cuenta"
 
 msgid "APP-ACTIVATION-SUBTITLE-TEXT"
 msgstr "Escriba una contraseña con el fin de terminar su activación de la cuenta"
