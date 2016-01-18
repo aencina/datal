@@ -210,9 +210,6 @@ msgstr "Configurar el Alias"
 msgid "COLLECT-LOADURL-ERROR"
 msgstr "No pudimos cargar la fuente. Tal vez se encuentra indisponible. Por favor vuelva a intentarlo mas tarde."
 
-msgid "OVREPAIR-TABLE-NOSELECTED"
-msgstr "¡Debes seleccionar por lo menos una tabla!"
-
 msgid "COLLECT-TWOTABLES-ERROR"
 msgstr "No puedes seleccionar dos tablas al mismo tiempo"
 

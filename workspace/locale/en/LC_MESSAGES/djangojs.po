@@ -207,9 +207,6 @@ msgstr "Set Alias"
 msgid "COLLECT-LOADURL-ERROR"
 msgstr "We couldn't load the source. Maybe it is unavailable. Please try again later."
 
-msgid "OVREPAIR-TABLE-NOSELECTED"
-msgstr "You must select at least one table!"
-
 msgid "COLLECT-TWOTABLES-ERROR"
 msgstr "You can't select two tables at the same time"
 

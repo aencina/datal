@@ -1294,9 +1294,6 @@ msgstr "Este mes"
 msgid "APP-ACTIONS-REVIEW"
 msgstr "Revisar"
 
-msgid "OVEDITDS-NAME-TIP"
-msgstr "¿De que se tratan los datos? Escribe un tema general que explique los datos que se muestran"
-
 msgid "EDITDS-SOURCE-TIP1"
 msgstr "Escribe las primeras 3 letras de la fuente y selecciona una de la lista. Si la fuente no aparece, por favor"
 
@@ -1339,20 +1336,11 @@ msgstr "para seleccionar toda la tabla."
 msgid "APP-CONTINUE-TEXT"
 msgstr "Continuar"
 
-msgid "APP-COLLECTDATA-TEXT"
-msgstr "Recolectar Datos"
-
 msgid "APP-SELECT-TEXT"
 msgstr "Seleccionar"
 
-msgid "APP-PICKDATA-TEXT"
-msgstr "Seleccionar Datos"
-
 msgid "DSCRE-SIDEBAR-COLLECTTITLE"
 msgstr "Resumen de la Recolección"
-
-msgid "DSCRE-SIDEBAR-COLLECTSUBTITLE"
-msgstr "Para empezar a recolectar datos, necesitas hacer selecciones en la tabla de al lado. Lee nuestros tips y ayuda para aprender las distintas combinaciones de selección"
 
 msgid "APP-SELECTION-TEXT"
 msgstr "Selección"
@@ -1377,15 +1365,6 @@ msgstr "Alias"
 
 msgid "APP-ADVANCEDOPTIONS-TEXT"
 msgstr "Opciones"
-
-msgid "CREATION-SIDEBAR-ADVANCEDTIP"
-msgstr "En el modo avanzado, hay varias funciones que puedes realizar, como: elegir las cabeceras de la tabla, agregar filtros, calcular promedios y totales. Si tu usas la API, también puedes definir aliases en este modo"
-
-msgid "CREATION-ENABLE-ADVANCE"
-msgstr "Habilitar el modo avanzado"
-
-msgid "CREATION-SIDEBAR-SELECTION"
-msgstr "Las opciones avanzadas solo funcionan con ciertas selecciones. Si tu selección no soporta una opción, esta aparecerá deshabilitada desde la lista"
 
 msgid "CREATION-SELECTTABLEHEADERS-TEXT"
 msgstr "Selecciona cabeceras de la tabla"
@@ -1456,51 +1435,6 @@ msgstr "Completa los campos para agregar alias a las columnas"
 msgid "CREATION-ALIASES-TIP2"
 msgstr "<strong>Esta es una opción para desarrolladores.</strong><br/> Úsalo para setear nombres para los pares de valores en la API JSON, cuando la opción prettyJSON está habilidata"
 
-msgid "CREATION-TIPS-ALLTABLETITLE"
-msgstr "Para seleccionar toda la tabla"
-
-msgid "CREATION-TIPS-ALLTABLETEXT"
-msgstr "Click en el botón &lt; &gt;, en la esquina superior izquierda de la tabla"
-
-msgid "CREATION-TIPS-COLUMSTITLE"
-msgstr "Para seleccionar columnas"
-
-msgid "CREATION-TIPS-COLUMSTEXT"
-msgstr "Click en una o más columnas con letras en la parte superior de la tabla"
-
-msgid "CREATION-TIPS-ROWSTITLE"
-msgstr "Para seleccionar filas"
-
-msgid "CREATION-TIPS-ROWSTEXT"
-msgstr "Click en una o mas  filas con letras en la parte izquierda de la tabla"
-
-msgid "CREATION-TIPS-CELLTITLE"
-msgstr "Para seleccionar celdas"
-
-msgid "CREATION-TIPS-CELLTEXT"
-msgstr "Click en una o mas celdas individuales o selecciona distintos grupos de filas y columnas"
-
-msgid "CREATION-TIPS-DIFFERENTTITLE"
-msgstr "Crea diferentes tipos de combinaciones"
-
-msgid "CREATION-TIPS-DIFFERENTTEXT"
-msgstr "Usa la misma fuente para publicar nuevas vistas. Puedes usar la misma fuente para seguir distintos datos"
-
-msgid "CREATION-DOUBTS-TIP"
-msgstr "Llámanos en Skype</a>. <br/>Por favor, no dudes en contactarnos <br/>por cualquier pregunta"
-
-msgid "APP-HINTS-TEXT"
-msgstr "Ayuda"
-
-msgid "CREATION-HINTS-HINT1"
-msgstr "Seleccionar filas y columnas de manera simultanea, producirá que la selección sea la intersección de ellas"
-
-msgid "CREATION-HINTS-HINT2"
-msgstr "Necesitas seleccionar celdas con una 'forma rectangular' para que aparezcan de igual manera en la &lt;tabla&gt; de tu funte. De otra manera, las celdas con datos que colectaste aparecerán una al lado de la otra"
-
-msgid "CREATION-HINTS-HINT3"
-msgstr "Si estás usando filtros, lo valores de los parámetros debieran ser exactamente iguales a los valores en la columna que estas filtrando"
-
 msgid "APP-CLICKTOLOAD-TEXT"
 msgstr "Click para cargar esta Fuente"
 
@@ -1531,17 +1465,8 @@ msgstr "Los archivos deben estar encodeados en UTF-8"
 msgid "APP-RELATEDSOURCES-TEXT"
 msgstr "Fuentes relacionadas"
 
-msgid "CREATE-STEP3-TITLE"
-msgstr "Nómbralo"
-
 msgid "CREATE-STEP3-SUBTITLE"
 msgstr "Cuéntanos sobre que se trata tu vista. <span>Los campos con (<span class='required'>*</span>) son obligatorios.</span>"
-
-msgid "CREATION-STEP3-HELPTITLE"
-msgstr "Nombres: Buenas prácticas y uso correcto"
-
-msgid "CREATION-STEP3-HELPTIP"
-msgstr "Una buena Vista comunica claramente sobre que trata."
 
 msgid "APP-PREVIEWANDSAVE-TEXT"
 msgstr "Asegurate que todo va bien con tu vista."
@@ -1551,12 +1476,6 @@ msgstr "Para archivos extensos mostramos aquí sólo hasta 100 filas. Podrás ve
 
 msgid "CREATE-STEP4-TAGTITLE"
 msgstr "Etiquetas para esta Vista"
-
-msgid "CREATE-STEP4-HELPTITLE"
-msgstr "Quieres editar esta Vista"
-
-msgid "CREATE-STEP4-HELPTEXT"
-msgstr "Siempre puedes volver atrás haciendo click en el link <strong>&quot;Anterior&quot;</strong> en la barra de progreso"
 
 msgid "ACCOUNT-SAVE-SUCCESS"
 msgstr "Información de cuenta guardada con éxito."
