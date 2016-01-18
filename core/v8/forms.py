@@ -47,10 +47,6 @@ class UpdateGridRequestForm(RequestForm):
     rp = forms.IntegerField(required=False)
     # se usa para luego armar un pFilter0
     query = forms.CharField(required=False)
-    # pOrderBy
-    sortname = forms.CharField(required=False)
-    # pOrderType
-    sortorder = forms.CharField(required=False)
 
 class RequestFormSet(BaseFormSet):
     _is_multi_argument=re.compile("(?P<argument>\D+)(?P<order>\d+)").match
