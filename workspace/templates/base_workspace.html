@@ -119,6 +119,7 @@
 										<a href="{% url 'accounts.my_account' %}">{% gravatar auth_manager "small" "" %} {{auth_manager.name}}<span class="icon icon-right icon-pulldown"></span></a>
 										<div class="submenu border-box" style="display:none;">
 												<ul>
+													{% plugins_call 'workspace_account_menu' %}
 													<li><a href="{% url 'accounts.my_account' %}" title="{% trans 'HEADER-ACCOUNTDETAILLS-TEXT' %}">{% trans "HEADER-ACCOUNTDETAILLS-TEXT" %}</a></li>
 													<li><a id="id_sign_out" href="/signout" title="{% trans 'HEADER-SIGNOUT-TEXT' %}">{% trans "HEADER-SIGNOUT-TEXT" %}</a></li>
 												</ul>
