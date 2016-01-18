@@ -26,7 +26,7 @@ var embedChartView = Backbone.View.extend({
         tmpl += 'frameborder="0" style="border:1px solid #E2E0E0;padding:0;margin:0;"></iframe>';
         tmpl += '<p style="padding:3px 0 15px 0;margin:0;font:11px arial, helvetica, sans-serif;color:#999;">';
         tmpl += gettext( "APP-POWEREDBY-TEXT" );
-        tmpl += ' <a href="' + Configuration.APPLICATION_DETAILS.website + '" title="' + gettext( "APP-POWEREDBY-TITLE" ) + '" style="color:#0862A2;">' + Configuration.APPLICATION_DETAILS.name + '</a></p>';
+        tmpl += ' <a href="' + Configuration.APPLICATION_DETAILS.website + '" title="' + Configuration.APPLICATION_DETAILS.name + gettext( "APP-POWEREDBY-TITLE" ) + '" style="color:#0862A2;">' + Configuration.APPLICATION_DETAILS.name + '</a></p>';
         
         this.template =  _.template(tmpl); 
         
