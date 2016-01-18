@@ -1,6 +1,6 @@
 # DATAL's English language pack.
 # Copyright  2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-19 16:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Emilio Heck <emilio.heck@junar.com>\n"
+"Last-Translator: Ignacio Sans <ignacio.sans@junar.com>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -207,9 +207,6 @@ msgstr "Set Alias"
 msgid "COLLECT-LOADURL-ERROR"
 msgstr "We couldn't load the source. Maybe it is unavailable. Please try again later."
 
-msgid "OVREPAIR-TABLE-NOSELECTED"
-msgstr "You must select at least one table!"
-
 msgid "COLLECT-TWOTABLES-ERROR"
 msgstr "You can't select two tables at the same time"
 
@@ -227,9 +224,6 @@ msgstr "There was a error proccessing your request, Please try again"
 
 msgid "APP-REMOVETAG-TEXT"
 msgstr "Remove Tag"
-
-msgid "NO-MOTD"
-msgstr "At DATAL, we are constantly working behind the scenes to provide you the best experience possible. We just completed a major update and hope you enjoy the added perks."
 
 msgid "VALIDATE-USERNAME"
 msgstr "The username already exist."

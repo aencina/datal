@@ -1,6 +1,6 @@
 # DATAL's English language pack.
 # Copyright  2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-19 16:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Emilio Heck <emilio.heck@junar.com>\n"
+"Last-Translator: Ignacio Sans <ignacio.sans@junar.com>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -485,17 +485,6 @@ msgstr "Powered by"
 msgid "DEV-PAGE-TITLE"
 msgstr "Developers page"
 
-msgid "DEV-PAGE-SUBTITLE"
-msgstr "Try the DATAL API"
-
-msgid "DEV-DESCRIPTION-TEXT1"
-msgstr ""
-"The DATAL API enables direct access to DATAL data catalog and engine from "
-"your application, for the purpose of <strong>discovering data streams and "
-"dashboards</strong>, invoking data streams, <strong>and soon... collecting "
-"data and publishing it as data streams</strong>. It uses a RESTful interface "
-"and returns data in JSON."
-
 msgid "DEV-DESCRIPTION-TEXT2"
 msgstr ""
 "Data streams invoked through the API provide online and standarized access "
@@ -518,7 +507,7 @@ msgid "DEV-GETKEY-TITLE"
 msgstr "Get an Auth Key"
 
 msgid "DEV-GETKEY-SUBTITLE"
-msgstr "The DATAL API requires a <span class='br'>key to operate.</span>"
+msgstr "The API requires a <span class='br'>key to operate.</span>"
 
 msgid "DEV-GETKEY-TEXT1"
 msgstr "Get one and access to any resource through it"
@@ -536,7 +525,7 @@ msgid "DEV-CREATEREQUEST-TITLE"
 msgstr "Create a Request"
 
 msgid "DEV-CREATEREQUEST-SUBTITLE"
-msgstr "The DATAL API accepts RESTful requests"
+msgstr "The API accepts RESTful requests"
 
 msgid "DEV-CREATEREQUEST-TEX1"
 msgstr "A typical request will look like this"
@@ -598,7 +587,7 @@ msgid "DEV-OV-TITLE"
 msgstr "Confirmation and Key"
 
 msgid "DEV-OV-SUBTITLE"
-msgstr "Thanks for trying out the DATAL API"
+msgstr "Thanks for trying out our API"
 
 msgid "DEV-OV-TEXT"
 msgstr "Here is your Auth key"
@@ -618,8 +607,11 @@ msgstr "New passwords do not match."
 msgid "EMAIL-EXISTS"
 msgstr "E-mail already exists."
 
-msgid "HEADER-IE-MESSAGES"
-msgstr "<p><strong>Warning:</strong> DATAL runs correctly in Internet Explorer versions 8 or higher and may not work properly in older versions of this browser, or in <a href='http://blogs.msdn.com/b/ie/archive/2008/08/27/introducing-compatibility-view.aspx' title='Compatibility view' target='_blank'>compatibility view</a> mode. Please <a href='http://windows.microsoft.com/en-us/internet-explorer/products/ie/home' title='Upgrade it' target='_blank'>upgrade it</a> or <a href='http://abetterbrowser.org/' title='Use another browser' target='_blank'>use another browser</a>.</p>"
+msgid "HEADER-IE-MESSAGES-1"
+msgstr "<p><strong>Warning:</strong> "
+
+msgid "HEADER-IE-MESSAGES-2"
+msgstr " runs correctly in Internet Explorer versions 8 or higher and may not work properly in older versions of this browser, or in <a href='http://blogs.msdn.com/b/ie/archive/2008/08/27/introducing-compatibility-view.aspx' title='Compatibility view' target='_blank'>compatibility view</a> mode. Please <a href='http://windows.microsoft.com/en-us/internet-explorer/products/ie/home' title='Upgrade it' target='_blank'>upgrade it</a> or <a href='http://abetterbrowser.org/' title='Use another browser' target='_blank'>use another browser</a>.</p>"
 
 msgid "APP-HELP-TEXT"
 msgstr "Online Support"
@@ -685,7 +677,7 @@ msgid "APP-LOGIN-TEXT"
 msgstr "Login"
 
 msgid "APP-ACTIVATION-TITLE-TEXT"
-msgstr "Activate your DATAL account"
+msgstr "Activate your account"
 
 msgid "APP-ACTIVATION-SUBTITLE-TEXT"
 msgstr "Enter a password in order to finish your account activation"

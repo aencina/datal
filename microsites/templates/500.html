@@ -1,36 +1,35 @@
-{% load i18n local_tags %}
+{% load i18n local_tags compress sass_tags staticfiles plugins_tags %}
+
+<!DOCTYPE html>
+<html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
 <head>
-<title>{% trans 'APP-ERROR-TEXT' %}</title>
-<link rel="shortcut icon" href="http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/favicon" />
-<link href="/static/core/styles/base.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="/static/core/styles/reset.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="/static/core/styles/structure.css" type="text/css" rel="stylesheet" media="screen"/>
-<link type="text/css" rel="stylesheet" media="screen" href="/static/microsites/styles/viewDataStream.css"/>
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-.error{
-	width: 400px;
-	height: 150px;
-	background: #f5f5f5;
-	border-radius: 5px;
-	border: 1px solid #ededed;
-	text-align: center;
-	margin: 150px auto auto;
-	padding: 50px;
-}
-h1{
-	margin-bottom: 20px;
-}
-</style>
+    <meta charset="utf-8">
+    <title>{% trans 'APP-ERROR-TEXT' %}</title>
+    <meta name="description" content="" />
+	<meta http-equiv="CACHE-CONTROL" content="max-age=0, no-store" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	{% block favicon %}
+	    {% if not 'favicon'|inplugin %}
+	    <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
+	    {% else %}
+	    {% plugins_call 'favicon' %}
+	    {% endif %}
+	{% endblock %}
+
+	<link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+	<link href="{% static 'core/styles/structure.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+	<link href="{% static 'microsites/styles/errorPages.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+
 </head>
 <body>
-<div class="error">
-	<h1>{% trans 'APP-ERROR-400-TEXT' %}</h1>
-	<ul>
-		<li><a href="/home">{% trans 'APP-GO-HOME-TEXT' %}</a></li>
-	</ul>
+	
+	<div class="error">
+		<h1>{% trans 'APP-ERROR-400-TEXT' %}</h1>
+		<ul>
+			<li><a href="/">{% trans 'APP-GO-HOME-TEXT' %}</a></li>
+		</ul>
+	</div>
+	
 </body>
+</html>

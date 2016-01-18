@@ -198,6 +198,8 @@ class GridEngineRenderer(EngineRenderer):
 
         try:
             p_response = data
+            if not 'fLength' in p_response:
+               raise Exception('no length') 
         except:
             return '{"page": 1, "rows": [], "total":1}'
 

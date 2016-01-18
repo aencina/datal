@@ -46,6 +46,8 @@ DEFAULT_CATEGORIES = {
     'es': [u'Educación', u'Entretenimiento', u'Mundo', u'Negocios', u'Economía', u'Tecnología', u'Cultura', u'Salud', u'Deportes', u'Clima', u'Planeta', u'Ciencia'],
 }
 
+PUBLICSTUFF_DOMAIN = "publicstuff.com"
+
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 

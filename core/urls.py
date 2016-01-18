@@ -28,9 +28,6 @@ urlpatterns = patterns('',
     url(r'^(?P<admin_url>[A-Za-z0-9\-]+)/$', 'workspace.manageMyAccount.views.signin', name='accounts.account_signin'),
 )
 
-handler404 = 'core.views.action404'
-handler500 = 'core.views.action500'
-
 urlpatterns += patterns('', (
     r'^static/(?P<path>.*)$',
     'django.views.static.serve',

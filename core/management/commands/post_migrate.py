@@ -2,11 +2,30 @@ from django.core.management.base import BaseCommand
 
 from optparse import make_option
 
-from core.models import User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision
+from core.models import User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision, Role, Grant
 from core.choices import StatusChoices
 import json
 
 class Command(BaseCommand):
+
+    role_migration_dict = {
+        'ao-editor': 'ao-editor',
+        'ao-user': '',
+        'ao-viewer': '',
+        'ao-member': '',
+        'ao-ops': '',
+        'ao-publisher-premier': 'ao-publisher',
+        'ao-publisher-plus': 'ao-publisher',
+        'ao-enhancer-premier': 'ao-editor',
+        'ao-enhancer-plus': 'ao-editor',
+        'ao-collector-premier': 'ao-editor',
+        'ao-collector-plus': 'ao-editor',
+        'ao-free-user': '',
+        'ao-publisher': 'ao-publisher',
+        'ao-enhancer': 'ao-editor',
+        'ao-collector': 'ao-editor',
+        'ao-account-admin': 'ao-account-admin',
+    }
 
     def chanageResourcesStatus(self, resources):
         for res in resources:
@@ -22,8 +41,42 @@ class Command(BaseCommand):
         self.chanageResourcesStatus(VisualizationRevision.objects.all())
         self.chanageResourcesStatus(DataStreamRevision.objects.all())
         self.chanageResourcesStatus(DatasetRevision.objects.all())
-             
+    
 
+    def migrateRoles(self):
+        for key, value in self.role_migration_dict.items():
+            if key != value:
+                try:
+                    key_role = Role.objects.get(code=key)
+                    value_role = Role.objects.get(code=key)
+                except Role.DoesNotExist:
+                    pass
+                else:
+                    for grant in key_role.grant_set.all():
+                            Grant.objects.get_or_create(
+                                user=grant.user, 
+                                role=value_role, 
+                                privilege=grant.privilege, 
+                                guest=grant.guest)
+
+    def migrateUserRoles(self):
+        role_dict = {}
+        for key, value in self.role_migration_dict.items():
+            try: 
+                role_dict[key]=Role.objects.get(code=key)
+            except Role.DoesNotExist:
+                pass
+
+        for user in User.objects.all():
+            user_codes=user.roles.all.values_list('code', flat=True):
+            for code in user_codes:
+                if self.role_migration_dict[code] and code != self.role_migration_dict[code]:
+                    user.roles.add(role_dict[self.role_migration_dict[code]])
+                    user.roles.remove(role_dict[code])
+
+
+
+        
 
     def handle(self, *args, **options):
         print('FIXING USER GRANTS')
@@ -82,15 +135,19 @@ class Command(BaseCommand):
         for home in Preference.objects.filter(key="account.home"):
             config = json.loads(home.value)
 
-            if 'config' in config and 'sliderSection' in config['config'] and config['config']['sliderSection']:
-                sliderSection=[]
-                for slider in config['config']['sliderSection']:
-                    sliderSection.append({u'type': slider['type'].replace("chart","vz"), u'id': slider['id']})
+            try:
+                if 'config' in config and 'sliderSection' in config['config'] and config['config']['sliderSection']:
+                    sliderSection=[]
+                    for slider in config['config']['sliderSection']:
+                        sliderSection.append({u'type': slider['type'].replace("chart","vz"), u'id': slider['id']})
 
-                config['config']['sliderSection']=sliderSection
-            home.value=json.dumps(config)
-            home.save()
+                    config['config']['sliderSection']=sliderSection
+                home.value=json.dumps(config)
+                home.save()
+            except TypeError:
+                pass
                 
             # actualizo estados
             self.changeStatus() 
-        
+            self.migrateRoles()
+            self.migrateUserRoles()

@@ -145,7 +145,6 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
         :param allowed_states:
         """
         logger.info('[LifeCycle - Dataset - Publish] Publico Rev. {}.'.format(self.dataset_revision.id))
-
         if self.dataset_revision.status not in allowed_states:
             logger.info('[LifeCycle - Dataset - Edit] Rev. {} El estado {} no esta entre los estados de edicion permitidos.'.format(
                 self.dataset_revision.id, self.dataset_revision.status
@@ -176,6 +175,7 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             datastream_revisions = DataStreamRevision.objects.select_for_update().filter(
                 dataset=self.dataset.id,
                 id=F('datastream__last_revision__id'),
+                status__in=[StatusChoices.APPROVED, StatusChoices.PENDING_REVIEW]
             )
             publish_fail = list()
             for datastream_revision in datastream_revisions:
@@ -355,6 +355,7 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
                 fields['end_point'] = self.dataset_revision.end_point
 
         impl_details = DatasetImplBuilderWrapper(**fields).build()
+        old_end_point = self.dataset_revision.end_point
 
         if old_status in [StatusChoices.PUBLISHED,StatusChoices.APPROVED]:
             logger.info('[LifeCycle - Dataset - Edit] Rev. {} Creo nueva revision por estar en PUBLISHED or APPROVED.'.format(
@@ -368,7 +369,8 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             logger.info('[LifeCycle - Dataset - Edit] Rev. {} Muevo sus hijos a PENDING_REVISION.'.format(
                 self.dataset_revision.id
             ))
-            self._move_childs_to_status()
+            if 'end_point' in fields and fields['end_point'] and fields['end_point'] != old_end_point:
+                self._move_childs_to_status()
             self._update_last_revisions()
         else:
             logger.info('[LifeCycle - Dataset - Edit] Rev. {} Actualizo sin crear nueva revision por su estado {}.'.format(

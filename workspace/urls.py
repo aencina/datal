@@ -78,8 +78,6 @@ urlpatterns = patterns('',
     (r'^js_workspace/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'workspace', 'js')}),
 )
 
-#handler404 = 'core.views.action404'
-#handler500 = 'core.views.action500'
 
 if settings.DEBUG:
     urlpatterns += patterns('',

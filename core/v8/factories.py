@@ -35,6 +35,7 @@ class CommandFactory(object):
         'lat':'pLatitudSelection',
         'lon':'pLongitudSelection',
         'whereExpr':'pWhereExpr',
+        'where':'pWhereExpr',
         'ifModified':'pIfModified',
         'format':'pTableFormat',
 

@@ -1,6 +1,6 @@
 # DATAL's language pack.
 # Copyright (C) 2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -454,9 +454,6 @@ msgstr "Recurso aprobado exitosamente"
 msgid "APP-INSTITUTIONAL-TEXT"
 msgstr "Institucional"
 
-msgid "APP-ABOUTUS-TITLE"
-msgstr "Ve quienes están detrás de DATAL"
-
 msgid "APP-ABOUTUS-TEXT"
 msgstr "Sobre nosotros"
 
@@ -466,17 +463,8 @@ msgstr "Contacto"
 msgid "APP-WIKI-TEXT"
 msgstr "Wiki"
 
-msgid "APP-COMMUNITY-TEXT"
-msgstr "Comunidad DATAL"
-
 msgid "APP-FOLLOWUSON-TEXT"
 msgstr "Síguenos en"
-
-# msgid "HEADER-JUNAR-TITLE"
-# msgstr "DATAL es la plataforma de Datos Abiertos más fácil de usar"
-
-msgid "HEADER-JUNAR-TITLE-PRIVATE"
-msgstr "DATAL es la plataforma de distribución de Datos más fácil de usar"
 
 msgid "APP-COLLECT-TEXT"
 msgstr "Recolectar"
@@ -501,9 +489,6 @@ msgstr "Salir"
 
 msgid "APP-ACCOUNTADMIN-TEXT"
 msgstr "Configuración de la cuenta"
-
-msgid "APP-SIGNINWELCOME-TEXT"
-msgstr "<h2>Bienvenido de nuevo! Ésta es la entrada privada para los clientes actuales de DATAL.<br/>Si has llegado aquí por casualidad, por favor <a href='http://www.junar.com'>regrese</a>.</h2><p><strong>Con esta plataforma de datos abiertos, usted puede:</strong></p><ul><li>Administrar sus proyectos de Datos Abiertos de extremo a extremo</li><li>Abrir datos curados a tu audiencia</li><li>Integrar facilmente los datos abiertos a su sitio web</li></ul>"
 
 msgid "MODEL-USERNAME-TEXT"
 msgstr "Usuario"
@@ -536,7 +521,7 @@ msgid "DSFIND-HELPTIP-TITLE"
 msgstr "Tips Útiles"
 
 msgid "USR-GRAVATAR-TIP1"
-msgstr "DATAL usa el poder de"
+msgstr "usa el poder de"
 
 msgid "USR-GRAVATAR-TIP2"
 msgstr "para mostrar tu imagen. Si ya tienes una cuenta en Gravatar, puedes cambiar "
@@ -558,9 +543,6 @@ msgstr "La nueva contraseña ha sido enviada a tu correo"
 
 msgid "FORFOT-PASSWORD-SIGNIN"
 msgstr "Ingresa con la nueva contraseña"
-
-msgid "OV-SIGINCREATE-SIGINSUBMIT"
-msgstr "Ingresa a DATAL"
 
 msgid "APP-THEOPENDATAPLATFORM-TEXT"
 msgstr "Plataforma de Datos Abiertos"
@@ -588,9 +570,6 @@ msgstr "Iniciar sesión"
 
 msgid "APP-DATAECONOMY-TEXT"
 msgstr "Datos Abiertos"
-
-msgid "APP-WHYJUNAR-TEXT"
-msgstr "¿Por qué DATAL?"
 
 msgid "APP-HOWITWORKS-TEXT"
 msgstr "Cómo Funciona"
@@ -688,9 +667,6 @@ msgstr "Configure su foto"
 msgid "APP-DATASET-ABBR-TEXT"
 msgstr "<abbr title='Conjuntos'>Conj.</abbr> datos"
 
-msgid "APP-ACTIVITYSTREAM-TITLE"
-msgstr "¡Bienvenido a DATAL!"
-
 msgid "APP-TOTAL-TEXT"
 msgstr "Total"
 
@@ -710,10 +686,7 @@ msgid "ACCOUNT-BRANDING-FOOTER-TIP"
 msgstr "Pegue una URL para el pie<br/>Example: http://www.my-organization.com/my-footer.html"
 
 msgid "BRANDED-OPEN-DATA-SITE-TIP"
-msgstr "<p>Los sitios de datos abiertos de DATAL te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El sitio de datos abiertos refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
-
-msgid "BRANDED-OPEN-DATA-SITE-TIP-PRIVATE"
-msgstr "<p>Los sitios de datos privados de DATAL te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El sitio de datos privados refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
+msgstr "<p>Los sitios de datos abiertos te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El sitio de datos abiertos refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
 
 msgid "WORKSPACE-CUSTOMIZE-SETTINGS"
 msgstr "Personalizar la visualización"
@@ -761,7 +734,7 @@ msgid "ACCOUNT-DOMAIN-TIP"
 msgstr "Introduzca su dominio aquí.<br/>Es necesario primero configurar un CNAME con tu administrador de sistemas y el apuntarlo a cloud.junar.com"
 
 msgid "WRKSPCE-DOMAIN-TIP"
-msgstr "<p>DATAL le permite abrir datos.</p><p>Con el fin de definir en donde se abren los datos, le ofrecemos 2 alternativas:</p><ul><li>DATAL puede alojar sus datos en un dominio de datos abiertos</li><li>Usted puede integrar sus datos en su sitio web mediante la creación de un subdominio y apuntarlo a nuestra nube</li></ul><p>Por favor, póngase en contacto con nosotros en <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> para ayudarle a configurar esto en pocos minutos.</p>"
+msgstr "<p>Con el fin de definir en donde se abren los datos, le ofrecemos 2 alternativas:</p><ul><li>Puede alojar sus datos en un dominio de datos abiertos</li><li>Usted puede integrar sus datos en su sitio web mediante la creación de un subdominio y apuntarlo a nuestra nube</li></ul><p>Por favor, póngase en contacto con nosotros en <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> para ayudarle a configurar esto en pocos minutos.</p>"
 
 msgid "ACCOUNT-CONTACT-INFORMATION-TEXT"
 msgstr "Información de contacto"
@@ -785,7 +758,7 @@ msgid "SOCIAL-NOTES-TIP"
 msgstr "Añade mas contexto a tus Vistas añadiendo notas."
 
 msgid "WRKSPC-SOCIAL-TIP"
-msgstr "<p>Los datos deben ser abiertos para aumentar su valor!</p><br/><p>DATAL facilita la optimizacion de tus datos para que sean compartidos en redes sociales e indexados en motores de busqueda mas facilmente.</p>"
+msgstr "<p>¡Los datos deben ser abiertos para aumentar su valor!</p><br/><p>Le facilitamos la optimización de sus datos para que sean compartidos en redes sociales e indexados en motores de búsqueda facilmente.</p>"
 
 msgid "ACCOUNT-USERS-TAB"
 msgstr "Usuarios"
@@ -813,9 +786,6 @@ msgstr "Última actividad"
 
 msgid "APP-USER-TIP"
 msgstr "<h6>TIPS ÚTILES</h6><p>Hay 3 tipos de roles:</p><p><strong>Editores:</strong><br> Recolectar y transformar datos en vistas y visualizaciones, y usarlas en colecciones.</p><p><strong>Publicadores:</strong><br> Mismos privilegios que Editores, más el permiso de publicar el recurso en el sitio de datos abiertos.</p><p><strong>Administradores:</strong><br> Mismos permisos que Editores y Publicadores, más ajustes de la cuenta.</p>"
-
-msgid "APP-USER-TIP-PRIVATE"
-msgstr "<h6>TIPS ÚTILES</h6><p>Hay 4 roles en la plataforma Privada Data DATAL:</p><p><strong>Editores:</strong><br> Recolectar y transformar datos en vistas, visualizaciones y colecciones.</p><p><strong>Publicadores:</strong><br> Recolectar y mejorar los conjuntos de datos, y aprobar los datos que se publicarán en el sitio de datos privados.</p><p><strong>Administradores:</strong><br> Recolectar, mejorar, y publicar conjuntos de datos y definir las funciones y ajustes de la cuenta</p><p><strong>Miembros:</strong> Posibilidad de acceder a recursos privados.</p>"
 
 msgid "CHRT-XAXISNAME-TEXT"
 msgstr "Nombre eje X"
@@ -1324,9 +1294,6 @@ msgstr "Este mes"
 msgid "APP-ACTIONS-REVIEW"
 msgstr "Revisar"
 
-msgid "OVEDITDS-NAME-TIP"
-msgstr "¿De que se tratan los datos? Escribe un tema general que explique los datos que se muestran"
-
 msgid "EDITDS-SOURCE-TIP1"
 msgstr "Escribe las primeras 3 letras de la fuente y selecciona una de la lista. Si la fuente no aparece, por favor"
 
@@ -1369,20 +1336,11 @@ msgstr "para seleccionar toda la tabla."
 msgid "APP-CONTINUE-TEXT"
 msgstr "Continuar"
 
-msgid "APP-COLLECTDATA-TEXT"
-msgstr "Recolectar Datos"
-
 msgid "APP-SELECT-TEXT"
 msgstr "Seleccionar"
 
-msgid "APP-PICKDATA-TEXT"
-msgstr "Seleccionar Datos"
-
 msgid "DSCRE-SIDEBAR-COLLECTTITLE"
 msgstr "Resumen de la Recolección"
-
-msgid "DSCRE-SIDEBAR-COLLECTSUBTITLE"
-msgstr "Para empezar a recolectar datos, necesitas hacer selecciones en la tabla de al lado. Lee nuestros tips y ayuda para aprender las distintas combinaciones de selección"
 
 msgid "APP-SELECTION-TEXT"
 msgstr "Selección"
@@ -1407,15 +1365,6 @@ msgstr "Alias"
 
 msgid "APP-ADVANCEDOPTIONS-TEXT"
 msgstr "Opciones"
-
-msgid "CREATION-SIDEBAR-ADVANCEDTIP"
-msgstr "En el modo avanzado, hay varias funciones que puedes realizar, como: elegir las cabeceras de la tabla, agregar filtros, calcular promedios y totales. Si tu usas la API, también puedes definir aliases en este modo"
-
-msgid "CREATION-ENABLE-ADVANCE"
-msgstr "Habilitar el modo avanzado"
-
-msgid "CREATION-SIDEBAR-SELECTION"
-msgstr "Las opciones avanzadas solo funcionan con ciertas selecciones. Si tu selección no soporta una opción, esta aparecerá deshabilitada desde la lista"
 
 msgid "CREATION-SELECTTABLEHEADERS-TEXT"
 msgstr "Selecciona cabeceras de la tabla"
@@ -1486,51 +1435,6 @@ msgstr "Completa los campos para agregar alias a las columnas"
 msgid "CREATION-ALIASES-TIP2"
 msgstr "<strong>Esta es una opción para desarrolladores.</strong><br/> Úsalo para setear nombres para los pares de valores en la API JSON, cuando la opción prettyJSON está habilidata"
 
-msgid "CREATION-TIPS-ALLTABLETITLE"
-msgstr "Para seleccionar toda la tabla"
-
-msgid "CREATION-TIPS-ALLTABLETEXT"
-msgstr "Click en el botón &lt; &gt;, en la esquina superior izquierda de la tabla"
-
-msgid "CREATION-TIPS-COLUMSTITLE"
-msgstr "Para seleccionar columnas"
-
-msgid "CREATION-TIPS-COLUMSTEXT"
-msgstr "Click en una o más columnas con letras en la parte superior de la tabla"
-
-msgid "CREATION-TIPS-ROWSTITLE"
-msgstr "Para seleccionar filas"
-
-msgid "CREATION-TIPS-ROWSTEXT"
-msgstr "Click en una o mas  filas con letras en la parte izquierda de la tabla"
-
-msgid "CREATION-TIPS-CELLTITLE"
-msgstr "Para seleccionar celdas"
-
-msgid "CREATION-TIPS-CELLTEXT"
-msgstr "Click en una o mas celdas individuales o selecciona distintos grupos de filas y columnas"
-
-msgid "CREATION-TIPS-DIFFERENTTITLE"
-msgstr "Crea diferentes tipos de combinaciones"
-
-msgid "CREATION-TIPS-DIFFERENTTEXT"
-msgstr "Usa la misma fuente para publicar nuevas vistas. Puedes usar la misma fuente para seguir distintos datos"
-
-msgid "CREATION-DOUBTS-TIP"
-msgstr "Llámanos en Skype</a>. <br/>Por favor, no dudes en contactarnos <br/>por cualquier pregunta"
-
-msgid "APP-HINTS-TEXT"
-msgstr "Ayuda"
-
-msgid "CREATION-HINTS-HINT1"
-msgstr "Seleccionar filas y columnas de manera simultanea, producirá que la selección sea la intersección de ellas"
-
-msgid "CREATION-HINTS-HINT2"
-msgstr "Necesitas seleccionar celdas con una 'forma rectangular' para que aparezcan de igual manera en la &lt;tabla&gt; de tu funte. De otra manera, las celdas con datos que colectaste aparecerán una al lado de la otra"
-
-msgid "CREATION-HINTS-HINT3"
-msgstr "Si estás usando filtros, lo valores de los parámetros debieran ser exactamente iguales a los valores en la columna que estas filtrando"
-
 msgid "APP-CLICKTOLOAD-TEXT"
 msgstr "Click para cargar esta Fuente"
 
@@ -1561,17 +1465,8 @@ msgstr "Los archivos deben estar encodeados en UTF-8"
 msgid "APP-RELATEDSOURCES-TEXT"
 msgstr "Fuentes relacionadas"
 
-msgid "CREATE-STEP3-TITLE"
-msgstr "Nómbralo"
-
 msgid "CREATE-STEP3-SUBTITLE"
 msgstr "Cuéntanos sobre que se trata tu vista. <span>Los campos con (<span class='required'>*</span>) son obligatorios.</span>"
-
-msgid "CREATION-STEP3-HELPTITLE"
-msgstr "Nombres: Buenas prácticas y uso correcto"
-
-msgid "CREATION-STEP3-HELPTIP"
-msgstr "Una buena Vista comunica claramente sobre que trata."
 
 msgid "APP-PREVIEWANDSAVE-TEXT"
 msgstr "Asegurate que todo va bien con tu vista."
@@ -1581,12 +1476,6 @@ msgstr "Para archivos extensos mostramos aquí sólo hasta 100 filas. Podrás ve
 
 msgid "CREATE-STEP4-TAGTITLE"
 msgstr "Etiquetas para esta Vista"
-
-msgid "CREATE-STEP4-HELPTITLE"
-msgstr "Quieres editar esta Vista"
-
-msgid "CREATE-STEP4-HELPTEXT"
-msgstr "Siempre puedes volver atrás haciendo click en el link <strong>&quot;Anterior&quot;</strong> en la barra de progreso"
 
 msgid "ACCOUNT-SAVE-SUCCESS"
 msgstr "Información de cuenta guardada con éxito."
@@ -1670,10 +1559,10 @@ msgid "DATASET-NOT-PUBLISHED"
 msgstr "El Conjunto de Datos relacionado a esta Vista de Datos debe estar publicado"
 
 msgid "ACCOUNT-USERS-USERNAME-TIP"
-msgstr "El <em>usuario</em> debe ser único.<br/>Esta validación se realiza entre todos los usuarios de DATAL."
+msgstr "El <em>usuario</em> debe ser único.<br/>Esta validación se realiza entre todas las cuentas."
 
 msgid "ACCOUNT-USERS-EMAIL-TIP"
-msgstr "El <em>e-mail</em> debe ser único.<br/>Esta validación se realiza entre todos los usuarios de DATAL."
+msgstr "El <em>e-mail</em> debe ser único.<br/>Esta validación se realiza entre todas las cuentas."
 
 msgid "MISSING-TRACKING-ID"
 msgstr "Para agregar cualquier evento, es necesario especificar el ID de propiedad de la cuenta de Google Analytics."
@@ -1921,9 +1810,6 @@ msgstr "Las colecciones destacadas aparecerán como pestañas en el sitio de dat
 msgid "BRANDED-BRANDINGS-TIP-PRIVATE"
 msgstr "Use el seleccionador de colores para personalizar los colores del sitio de datos privado con sus colores corporativos."
 
-msgid "WRKSPCE-DOMAIN-TIP-PRIVATE"
-msgstr "<ul><li>DATAL puede hospedar sus datos en un dominio de datos privado</li><li>Usted puede integrar sus datos en su sitio web creando un subdominio y apuntandolo a nuestra nuve</li></ul><p>Por favor contactenos en <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> para ayudarlo a configurar esto en pocos minutos.</p>"
-
 msgid "ACCOUNT-HOME-TAB"
 msgstr "Página de inicio"
 
@@ -1944,9 +1830,6 @@ msgstr "Contenido abajo a la izquierda"
 
 msgid "ACCOUNT-HOME-RIGHT-FOOTER"
 msgstr "Contenido abajo a la derecha"
-
-msgid "ACCOUNT-HOME-FEATURED-TIP"
-msgstr "Este contenido se muestra debajo del encabezado y por encima del contenido principal y la calesita de recursos.<br/>Si desea agregar una calesita de imagenes en este espacio <a href='http://es.wiki.junar.com/index.php/Agregar_calesita_de_imagenes_en_la_pagina_de_inicio_de_mi_sitio_de_datos_abiertos' title='DATAL Wiki' target='_blank'>siga estas instrucciones</a>."
 
 msgid "ACCOUNT-HOME-MAIN-TIP"
 msgstr "Este contenido se muestra en el lado izquierdo de la calesita"
@@ -2084,10 +1967,6 @@ msgstr "Política de privacidad"
 
 
 
-
-msgid "HEADER-JUNAR-TITLE"
-msgstr "Plataforma de Datos Abiertos DATAL"
-
 msgid "HEADER-SEARCH-TEXT"
 msgstr "Buscar recursos"
 
@@ -2111,9 +1990,6 @@ msgstr "Soporte en línea"
 
 msgid "FOOTER-INSTITUTIONAL-TEXT"
 msgstr "Institucional"
-
-msgid "FOOTER-ABOUTUS-TITLE"
-msgstr "Ver quien está detrás de DATAL"
 
 msgid "FOOTER-ABOUTUS-TEXT"
 msgstr "Sobre nosotros"
@@ -2183,9 +2059,6 @@ msgstr "Ayer"
 
 msgid "APP-DOWNLOAD-CSV-TEXT"
 msgstr "Descargar como CSV"
-
-msgid "APP-GOBACKTO-TEXT"
-msgstr "Volver al sitio web de DATAL"
 
 msgid "FORGOT-ACTIVATION-EMAIL"
 msgstr "Un enlace para activar su nueva contraseña ha sido enviado a su correo electrónico."
@@ -2657,9 +2530,6 @@ msgstr "Aún no hay recursos asociados a este Dataset."
 
 msgid "APP-START-FROM-HERE-TEXT"
 msgstr "Puede comenzar desde aquí!"
-
-msgid "APP-CREATE-FIRST-DATASET-TEXT"
-msgstr "Para empezar a utilizar DATAL, cree su primer conjunto de datos."
 
 msgid "CHILD_NOT_ACCEPTED-1"
 msgstr "No es posible publicar este conjunto de datos, debido a que tiene vistas asociadas sin aprobar. Revise la lista de vistas asociadas "

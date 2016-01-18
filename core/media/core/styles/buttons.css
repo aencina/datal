@@ -1,5 +1,5 @@
 /* Button */
-.button{height:48px;line-height:44px;font-size:15px;padding:0 15px;display:inline-block;border:1px solid transparent;font-family:'robotoregular',arial,helvetica,sans-serif;text-align:center;cursor:pointer;
+.button{height:48px;line-height:44px;font-size:15px;padding:0 15px;display:inline-block;border:1px solid transparent;font-family:'robotoregular',arial,helvetica,sans-serif;text-align:center;cursor:pointer;white-space:nowrap;
   -webkit-box-sizing:border-box;
      -moz-box-sizing:border-box;
           box-sizing:border-box;
