@@ -82,9 +82,6 @@ urlpatterns = patterns('',
     url(r'^sitemap', 'microsites.home_manager.views.sitemap', name='home_manager.sitemap'),
 )
 
-#handler404 = 'core.views.action404'
-#handler500 = 'core.views.action500'
-
 
 if settings.DEBUG:
     urlpatterns += patterns('',

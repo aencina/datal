@@ -1,3 +1,14 @@
+@import "_variables";
+
+/* Traído de bootstap por Gaston */
+.form-control {
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {background-color: $input-bg-disabled;opacity: 1;}
+  &[disabled],
+  fieldset[disabled] & {cursor: $cursor-disabled;}
+}
+
 /*FORMS*/
 .form{vertical-align:middle;position:relative;}
 
