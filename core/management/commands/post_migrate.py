@@ -68,7 +68,7 @@ class Command(BaseCommand):
                 pass
 
         for user in User.objects.all():
-            user_codes=user.roles.all.values_list('code', flat=True):
+            user_codes=user.roles.all.values_list('code', flat=True)
             for code in user_codes:
                 if self.role_migration_dict[code] and code != self.role_migration_dict[code]:
                     user.roles.add(role_dict[self.role_migration_dict[code]])
