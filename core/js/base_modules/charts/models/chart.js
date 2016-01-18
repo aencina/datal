@@ -171,7 +171,6 @@ charts.models.Chart = Backbone.Model.extend({
         }
 
         var filters = {
-            revision_id: this.get('datastream_revision_id'),
             data: this.serializeServerExcelRange(this.get('range_data')),
             headers: this.serializeServerExcelRange(this.get('range_headers')),
             labels: this.serializeServerExcelRange(this.get('range_labels')),
@@ -179,6 +178,11 @@ charts.models.Chart = Backbone.Model.extend({
             nullValuePreset:  this.get('nullValuePreset') || '',
             type: this.get('type')
         };
+
+        var revision_id = this.get('datastream_revision_id');
+        if (!_.isUndefined(revision_id)) {
+            filters['revision_id'] = revision_id
+        }
 
         if(this.get('invertData')===true){
             filters['invertData'] = true;
@@ -194,7 +198,6 @@ charts.models.Chart = Backbone.Model.extend({
         var id = this.get('id');
 
         var filters = {
-                revision_id: id,
                 zoom: this.get('options').zoom,
                 bounds: (this.get('options').bounds)? this.get('options').bounds.join(';'): undefined,
                 type: 'mapchart'
@@ -202,14 +205,20 @@ charts.models.Chart = Backbone.Model.extend({
 
         if(_.isUndefined(id)){
             filters = _.extend(filters,{
-                revision_id: this.get('datastream_revision_id'),
                 nullValueAction: this.get('nullValueAction'),
                 data: this.serializeServerExcelRange(this.get('range_data')),
                 lat: this.serializeServerExcelRange(this.get('range_lat')),
                 lon: this.serializeServerExcelRange(this.get('range_lon')),
                 traces: this.serializeServerExcelRange(this.get('range_trace'))
             });
+            var revision_id = this.get('datastream_revision_id');
+            if (!_.isUndefined(revision_id)) {
+                filters['revision_id'] = revision_id
+            }
+        } else {
+            filters['revision_id'] = id
         }
+
 
         if (this.has('nullValuePreset')) {
             filters.nullValuePreset = this.get('nullValuePreset');
