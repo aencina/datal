@@ -158,12 +158,12 @@ var CollectWebserviceModel = StepModel.extend({
 			att_headers = false,
 			signature = '';	
 		
-		if($impl_details.attr('useCache') == "True") {
+		if($impl_details.attr('useCache') == "true") {
 			use_cache = true;
 		}
 		this.set('use_cache', use_cache);
 
-		if($impl_details.attr('useAttrAsHeaders') == "True") {
+		if($impl_details.attr('useAttrAsHeaders') == "true") {
 			att_headers = true;
 		}
 		this.set('att_headers', att_headers);

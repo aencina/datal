@@ -87,7 +87,15 @@ def update_list(request):
         query = form.cleaned_data.get('search')
         page = form.cleaned_data.get('page')
         order = form.cleaned_data.get('order')
+        order_elastic = None
+        if order == "0":
+            order_elastic = "title"
+        elif order == "1":
+            order_elastic = "last"
+
         order_type = form.cleaned_data.get('order_type')
+        reverse = order_type.lower() == 'ascending'
+
 
         resources = ['ds', 'db', 'vz', 'dt']
         category_filters = form.cleaned_data.get('category_filters')
@@ -115,8 +123,8 @@ def update_list(request):
                 account_id = accounts_ids,
                 resource = resources,
                 category_filters=category_filters,
-                order = order,
-                order_type = order_type
+                order = order_elastic,
+                reverse = reverse
             ) 
 
         else:
@@ -132,8 +140,8 @@ def update_list(request):
                 query=query,
                 resource=resources,
                 max_results=250,
-                order=order,
-                order_type=order_type,
+                order=order_elastic,
+                reverse = reverse,
                 account_id=account.id
             )
 

@@ -34,6 +34,8 @@ class ElasticsearchFinder(Finder):
             self.sort = "api_hits:%s" % ("asc" if reverse else "desc")
         elif self.order and self.order=='last':
             self.sort =  "timestamp:%s" % ("asc" if reverse else "desc")
+        elif self.order and self.order=='title':
+            self.sort = "title_lower_sort:%s" % ("asc" if reverse else "desc")
         elif self.order:
             self.sort=self.order
         else:
