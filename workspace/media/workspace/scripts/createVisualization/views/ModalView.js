@@ -7,6 +7,7 @@ var ModalView = Backbone.View.extend({
 	initialize: function(options){
         // models
         this.collection = new DataTableSelectedCollection();
+        this.newCollection = new DataTableSelectedCollection();
         this.dataStreamModel = options.dataStreamModel;
 
         this.rangeLatModel = new DataTableSelectionModel({classname: 1, name: 'range_lat', notEmpty: true});
@@ -53,6 +54,27 @@ var ModalView = Backbone.View.extend({
         this.collection.setCache();
         this.setHeights();
         this.setAxisTitles();
+
+        // this.newCollection.parse(this.model.toJSON());
+
+        this.newCollection.add([{
+            excelRange: 'A1:B5',
+            mode: 'cell',
+            name: 'range_data'
+        },{
+            excelRange: 'A1:B5',
+            mode: 'cell',
+            name: 'range_lat'
+        },{
+            excelRange: 'A1:B5',
+            mode: 'cell',
+            name: 'range_lon'
+        },{
+            excelRange: 'A1:B5',
+            mode: 'cell',
+            name: 'range_trace'
+        }]);
+
     },
 
     onChangeType: function () {
@@ -107,6 +129,9 @@ var ModalView = Backbone.View.extend({
                 return model.get('name') === name;
             });
         model.set(selection);
+        var mode = [selection.mode, this._cacheFocusedInput].join('_');
+        console.log(selection, mode);
+
         this.validate();
     },
 
