@@ -72,13 +72,15 @@ var DataTableView = Backbone.View.extend({
       rowHeaders: true, colHeaders: true,
       readOnly: true,
       readOnlyCellClassName: 'htDimmed-datal', // the regular class paints text cells grey
+      // renderAllRows: true, // Turns off virtual rendering
       allowInsertRow: false, allowInsertColumn: false,
       disableVisualSelection: ['current', 'area'],
       colWidths: 80,
       columns: columns,
       manualColumnResize: true,
       manualRowResize: true,
-      stretchH: 'all'
+      stretchH: 'all',
+      viewportRowRenderingOffset: 60
     });
 
     // Selects a range
