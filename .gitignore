@@ -76,9 +76,6 @@ docs/_build/
 
 # SASS Cache
 .sass-cache/
-workspace/media/workspace/styles/*.css
-core/media/core/styles/reset.css
-core/media/core/styles/forms.css
 
 node_modules/
 components/bower_components/
