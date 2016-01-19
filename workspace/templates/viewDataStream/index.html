@@ -111,7 +111,7 @@ $(document).ready(function(){
     createVizUrl: "{% url 'manageVisualizations.create' %}?datastream_revision_id={{datastream.datastream_revision_id}}",
     editUrl: "{% url 'manageDataviews.edit' %}/{{datastream.datastream_revision_id}}/",
     lastPublishDate: "{{datastream.last_published_date|date:'F d, Y, h:i A'|capfirst }}",
-    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{{ datastream.datastream_id|permalink:'datastream' }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'datastream' datastream.datastream_id datastream.slug %}",
     createdAt: "{{ datastream.created_at|date:'F d, Y, h:i A'|capfirst  }}",
     modifiedAt: "{{ datastream.modified_at|date:'F d, Y, h:i A'|capfirst  }}"
   });

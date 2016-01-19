@@ -3,37 +3,37 @@ from django.forms.formsets import formset_factory
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from core.plugins_point import DatalPluginPoint
-
+from core.utils import slugify
 
 from core.auth import forms as auth_forms
 from core.models import ObjectGrant
 
 register = template.Library()
 
-@register.filter(name="permalink")
-def permalink(pk, obj_type):
+@register.simple_tag(takes_context=True)
+def permalink(context, obj_type, pk, slug):
     if obj_type == 'dataset':
         return reverse(
             'manageDatasets.view',
             'microsites.urls',
-            kwargs={'dataset_id': pk, 'slug': '-'}
+            kwargs={'dataset_id': pk, 'slug': slug}
         )
     elif obj_type == 'datastream':
         return reverse(
             'viewDataStream.view',
             'microsites.urls',
-            kwargs={'id': pk, 'slug': '-'}
+            kwargs={'id': pk, 'slug': slug}
         )
     elif obj_type == 'visualization':
         return reverse(
             'chart_manager.view',
             'microsites.urls',
-            kwargs={'id': pk, 'slug': '-'}
+            kwargs={'id': pk, 'slug': slug}
         )
 
     for permalink in DatalPluginPoint.get_active_with_att('permalink'):
             if permalink.doc_type == obj_type:
-                return permalink.permalink(pk)
+                return permalink.permalink(pk, slug)
 
 
     return None
