@@ -153,26 +153,27 @@ class Command(BaseCommand):
         # VisualizationI18n
         visualization_revisions = VisualizationRevision.objects.exclude(user__account__id__in=[5990, 5991])
         for visualization_revision in visualization_revisions:
-            try:
-                datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
-                title = datastreami18n.title
-                description = datastreami18n.description
-                notes = datastreami18n.notes
-            except:
-                if visualization_revision.user.language == 'es':
-                    title = 'Nombre'
-                    description = 'Descripcion'
-                    notes = ''
-                else:
-                    title = 'Name'
-                    description = 'Description'
-                    notes = ''
+            if not VisualizationI18n.objects.filter(visualization_revision=visualization_revision):
+                try:
+                    datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
+                    title = datastreami18n.title
+                    description = datastreami18n.description
+                    notes = datastreami18n.notes
+                except:
+                    if visualization_revision.user.language == 'es':
+                        title = 'Nombre'
+                        description = 'Descripcion'
+                        notes = ''
+                    else:
+                        title = 'Name'
+                        description = 'Description'
+                        notes = ''
 
-            obj, created = VisualizationI18n.objects.get_or_create(
-                language=visualization_revision.user.language,
-                visualization_revision=visualization_revision,
-                created_at=visualization_revision.created_at,
-                title=title,
-                description=description,
-                notes=notes
-            )
+                obj, created = VisualizationI18n.objects.get_or_create(
+                    language=visualization_revision.user.language,
+                    visualization_revision=visualization_revision,
+                    created_at=visualization_revision.created_at,
+                    title=title,
+                    description=description,
+                    notes=notes
+                )
