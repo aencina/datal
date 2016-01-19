@@ -168,7 +168,7 @@ class Command(BaseCommand):
 
             obj, created = VisualizationI18n.objects.get_or_create(
                 language=visualization_revision.user.language,
-                visualization_revision=visualization_revision.id,
+                visualization_revision=visualization_revision,
                 created_at=visualization_revision.created_at,
                 title=title,
                 description=description,
