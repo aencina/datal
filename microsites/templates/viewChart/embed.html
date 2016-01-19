@@ -77,7 +77,7 @@
 
 <div id="id_chartBox" class="chartBox">
     <h2 class="chartTitle">
-        <a target="_blank" class="clearfix" title="{{visualization_revision.title}}" href="{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{{ visualization_revision.visualization_id|permalink:'visualization' }}">
+        <a target="_blank" class="clearfix" title="{{visualization_revision.title}}" href="{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}">
             <img src="{{preferences.account_logo}}" alt="{{preferences.account_name}}" title="{{preferences.account_name}}" class="FL" style="width:45px; !important"/>
             <span class="txt"><strong>{{ visualization_revision.title }}</strong></span>
         </a>
@@ -104,7 +104,7 @@ var viewVisualizationModel = {
     createdAt: "{{ visualization_revision.created_at|date:'F d, Y, h:i A'|capfirst }}",
     modifiedAt: "{{ visualization_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}",
     lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-    publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{{ visualization_revision.visualization_id|permalink:'visualization' }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
     lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
     guid: "{{visualization_revision.guid}}",
 

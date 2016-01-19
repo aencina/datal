@@ -90,7 +90,7 @@ _.extend(BaseView.prototype, Backbone.View.prototype, {
 
 		// If is admin, change message
 		if( authManager.isAdmin() ){
-			message = gettext('APP-INEXISTENT-DOMAIN-ADMIN-1') + '<a href="https://' + Configuration.baseUri + '/admin/domain" title="' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '">' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '</a>.';			
+			message = gettext('APP-INEXISTENT-DOMAIN-ADMIN-1') + '<a href="' + Configuration.microsite_protocol + Configuration.baseUri + '/admin/domain" title="' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '">' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '</a>.';			
 		}
 
 		$.gritter.add({
