@@ -6,6 +6,8 @@ from core.models import (User, Grant, VisualizationRevision, Preference, DataStr
                          VisualizationI18n, DatastreamI18n)
 from core.choices import StatusChoices
 import json
+from django.db.models import Q
+
 
 
 class Command(BaseCommand):
@@ -126,7 +128,7 @@ class Command(BaseCommand):
 ## Preferencias
 ## del account.home.config.sliderSection cambiamos los type:chart a type:vz
 
-        for home in Preference.objects.filter(key="account.home"):
+        for home in Preference.objects.filter(Q(key="account.home")| Q(key="account.preview")):
             config = json.loads(home.value)
 
             try:
