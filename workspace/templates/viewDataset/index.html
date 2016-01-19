@@ -80,7 +80,7 @@ $(document).ready(function(){
     lastPublishRevisionId: "{{ dataset.last_published_revision_id }}",
     editUrl: "{% url 'manageDatasets.edit' %}/{{dataset.dataset_revision_id}}/",
     lastPublishDate: "{{dataset.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{{ dataset.dataset_id|permalink:'dataset' }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'dataset' dataset.dataset_id dataset.slug %}",
     createdAt: "{{ dataset.created_at|date:'F d, Y, h:i A'|capfirst }}",
     modifiedAt: "{{ dataset.modified_at|date:'F d, Y, h:i A'|capfirst }}"
   });

@@ -14,7 +14,7 @@ body,
 .homeColumns .searchContainer{background:url(/static/core/images/homeManager/sh_sliderWrapper.png) center bottom no-repeat;padding-bottom:6px;}
 .homeColumns .searchContainer .FR{float:none;}
 .homeColumns .searchContainer .search{background-color:#fff;}
-.homeColumns .searchContainer .search .field{width:327px;padding:11px 11px 11px 48px;font-size:14px;height:auto;background:url(/static/core/images/homeManager/ic_searchHome.png) 14px center no-repeat;}
+.homeColumns .searchContainer .search .field{width:327px;padding:11px 11px 11px 48px;font-size:14px;height:auto;background:url(/static/microsites/images/homeManager/ic_searchHome.png) 14px center no-repeat;}
 .homeColumns .homeMainContent{padding-right:30px;}
 
 /*SLIDER CONTAINER*/
@@ -253,7 +253,7 @@ body .theme2 .caroufredsel_wrapper{border:0 !important;}
 
     /* Search Box */
     .theme5 .topSection .searchBox{height:34px;border:1px solid #bdbdbd;padding:0 15px;}
-    .theme5 .topSection .searchBox form{background:url(/static/core/images/homeManager/ic_searchTheme5.png) right center no-repeat;}
+    .theme5 .topSection .searchBox form{background:url(/static/microsites/images/homeManager/ic_searchHome.png) right center no-repeat;}
     .theme5 .topSection .searchBox input[type=text]{padding:0;height:34px;line-height:34px;border:0;width:470px;background:transparent;}
     .theme5 .topSection .searchBox input[type=text]:focus,
     .theme5 .topSection .searchBox input[type=text]:active{border:0;

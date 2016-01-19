@@ -4,7 +4,7 @@
 {% block SEO %}
 	<title>{{datastream.title}} &middot; {{preferences.account_page_titles}}</title>
 	<meta name="description" content="{{ datastream.description }}" />
-	<link rel="canonical" href="{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{{datastream.datastream_id|permalink:'datastream'}}" />
+	<link rel="canonical" href="{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{% permalink 'datastream' datastream.datastream_id datastream.slug %}" />
 {% endblock %}
 
 {% if preferences.account_enable_sharing %}
@@ -150,7 +150,7 @@ $(document).ready(function(){
     {% for parameter in datastream.parameters %}
     parameter{{forloop.counter0}}: {name: "{{parameter.name}}", value: "{{parameter.default}}"},
     {% endfor %}
-    permaLink: "{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{{datastream.datastream_id|permalink:'datastream'}}{%if url_query%}?{{url_query}}{%endif%}",
+    permaLink: "{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{% permalink 'datastream' datastream.datastream_id datastream.slug %}{%if url_query%}?{{url_query}}{%endif%}",
     embedUrl: "{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{{ datastream.guid|embedlink:'datastream' }}?header_row=0&fixed_column=0{%if url_query%}&{{url_query}}{%endif%}" ,
     createdAt: "{{datastream.created_at|date:'c'}}",
     filter: "",
