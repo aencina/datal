@@ -2,7 +2,8 @@ from django.core.management.base import BaseCommand
 
 from optparse import make_option
 
-from core.models import User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision, Role, Grant
+from core.models import (User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision, Role,
+                         VisualizationI18n, DatastreamI18n)
 from core.choices import StatusChoices
 import json
 
@@ -144,3 +145,32 @@ class Command(BaseCommand):
             self.changeStatus() 
             self.migrateRoles()
             self.migrateUserRoles()
+
+
+
+        # VisualizationI18n
+        visualization_revisions = VisualizationRevision.objects.all()
+        for visualization_revision in visualization_revisions:
+            try:
+                datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
+                title = datastreami18n.title
+                description = datastreami18n.description
+                notes = datastreami18n.notes
+            except:
+                if visualization_revision.user.language == 'es':
+                    title = 'Nombre'
+                    description = 'Descripcion'
+                    notes = ''
+                else:
+                    title = 'Name'
+                    description = 'Description'
+                    notes = ''
+
+            obj, created = VisualizationI18n.objects.get_or_create(
+                language=visualization_revision.user.language,
+                visualization_revision=visualization_revision.id,
+                created_at=visualization_revision.created_at,
+                title=title,
+                description=description,
+                notes=notes
+            )
