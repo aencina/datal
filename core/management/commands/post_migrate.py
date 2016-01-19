@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from optparse import make_option
 
 from core.models import (User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision, Role,
-                         VisualizationI18n, DatastreamI18n)
+                         VisualizationI18n, DatastreamI18n, Account)
 from core.choices import StatusChoices
 import json
 from django.db.models import Q
@@ -31,6 +31,14 @@ class Command(BaseCommand):
         'ao-account-admin': 'ao-account-admin',
     }
 
+    option_list = BaseCommand.option_list + (
+        make_option('-a', '--account',
+            dest='account',
+            type="string",
+            help='Reindex resources'),
+        )
+
+
     def chanageResourcesStatus(self, resources):
         for res in resources:
             if res.status == 2:
@@ -42,9 +50,9 @@ class Command(BaseCommand):
             res.save()
 
     def changeStatus(self):
-        self.chanageResourcesStatus(VisualizationRevision.objects.all())
-        self.chanageResourcesStatus(DataStreamRevision.objects.all())
-        self.chanageResourcesStatus(DatasetRevision.objects.all())
+        self.chanageResourcesStatus(self.dataset_revision_all)
+        self.chanageResourcesStatus(self.datasstream_revision_all)
+        self.chanageResourcesStatus(self.visualization_revision_all)
 
     def migrateRoles(self):
         for key, value in self.role_migration_dict.items():
@@ -78,8 +86,19 @@ class Command(BaseCommand):
                     user.roles.remove(role_dict[code])
 
     def handle(self, *args, **options):
+        self.account=None
+        if options['account']:
+            self.account = Account.objects.get(pk=int(options['account']))
 
-        for rev in VisualizationRevision.objects.all():
+            self.visualization_revision_all=VisualizationRevision.objects.filter(user__account=self.account)
+            self.dataset_revision_all=DatasetRevision.objects.filter(user__account=self.account)
+            self.datasstream_revision_all=DataStreamRevision.objects.filter(user__account=self.account)
+        else:
+            self.visualization_revision_all=VisualizationRevision.objects.all()
+            self.dataset_revision_all=DatasetRevision.objects.all()
+            self.datasstream_revision_all=DataStreamRevision.objects.all()
+
+        for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
 
             if 'labelSelection' in imp['chart']:
@@ -151,7 +170,7 @@ class Command(BaseCommand):
 
 
         # VisualizationI18n
-        visualization_revisions = VisualizationRevision.objects.exclude(user__account__id__in=[5990, 5991])
+        visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991])
         for visualization_revision in visualization_revisions:
             try:
                 datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
