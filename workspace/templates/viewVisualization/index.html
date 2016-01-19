@@ -97,7 +97,7 @@ var chartModel = new charts.models.Chart({
     createdAt: "{{ visualization_revision.created_at|date:'F d, Y, h:i A'|capfirst }}",
     modifiedAt: "{{ visualization_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}",
     lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{{ visualization_revision.visualization_id|permalink:'visualization' }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
     changeStatusUrl: "{% url 'manageVisualizations.change_status' visualization_revision.visualization_revision_id %}",
     lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
     editUrl: "{% url 'manageVisualizations.edit' visualization_revision.last_revision_id %}",

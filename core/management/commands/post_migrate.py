@@ -2,9 +2,11 @@ from django.core.management.base import BaseCommand
 
 from optparse import make_option
 
-from core.models import User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision, Role, Grant
+from core.models import (User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision, Role,
+                         VisualizationI18n, DatastreamI18n)
 from core.choices import StatusChoices
 import json
+
 
 class Command(BaseCommand):
 
@@ -41,7 +43,6 @@ class Command(BaseCommand):
         self.chanageResourcesStatus(VisualizationRevision.objects.all())
         self.chanageResourcesStatus(DataStreamRevision.objects.all())
         self.chanageResourcesStatus(DatasetRevision.objects.all())
-    
 
     def migrateRoles(self):
         for key, value in self.role_migration_dict.items():
@@ -68,21 +69,14 @@ class Command(BaseCommand):
                 pass
 
         for user in User.objects.all():
-            user_codes=user.roles.all.values_list('code', flat=True):
+            user_codes=user.roles.all().values_list('code', flat=True)
             for code in user_codes:
                 if self.role_migration_dict[code] and code != self.role_migration_dict[code]:
                     user.roles.add(role_dict[self.role_migration_dict[code]])
                     user.roles.remove(role_dict[code])
 
-
-
-        
-
     def handle(self, *args, **options):
-        print('FIXING USER GRANTS')
 
-        # TODO: Debemos buscar los usuarios con Roles que no usamos mas y cambiarlos por los nuevos
-        # TODO
         for rev in VisualizationRevision.objects.all():
             imp = json.loads(rev.impl_details)
 
@@ -151,3 +145,32 @@ class Command(BaseCommand):
             self.changeStatus() 
             self.migrateRoles()
             self.migrateUserRoles()
+
+
+
+        # VisualizationI18n
+        visualization_revisions = VisualizationRevision.objects.exclude(user__account__id__in=[5990, 5991])
+        for visualization_revision in visualization_revisions:
+            try:
+                datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
+                title = datastreami18n.title
+                description = datastreami18n.description
+                notes = datastreami18n.notes
+            except:
+                if visualization_revision.user.language == 'es':
+                    title = 'Nombre'
+                    description = 'Descripcion'
+                    notes = ''
+                else:
+                    title = 'Name'
+                    description = 'Description'
+                    notes = ''
+
+            obj, created = VisualizationI18n.objects.get_or_create(
+                language=visualization_revision.user.language,
+                visualization_revision=visualization_revision,
+                created_at=visualization_revision.created_at,
+                title=title,
+                description=description,
+                notes=notes
+            )

@@ -15,18 +15,25 @@ class Command(BaseCommand):
         # OH SI, Hardcodeo el idioma
         # en realidad deberia cambiar el loc
 
-
         for dataset_rev in DatasetRevision.objects.all():
-            translation.activate(dataset_rev.user.language)
-            lifecycle = DatasetLifeCycleManager(dataset_rev.user, dataset_revision_id=dataset_rev.id)
-            lifecycle._log_activity(ActionStreams.CREATE)
-            translation.deactivate()
+            try:
+                translation.activate(dataset_rev.user.language)
+                lifecycle = DatasetLifeCycleManager(dataset_rev.user, dataset_revision_id=dataset_rev.id)
+                lifecycle._log_activity(ActionStreams.CREATE)
+            except:
+                pass
+            finally:
+                translation.deactivate()
 
         for datastream_rev in DataStreamRevision.objects.all():
-            translation.activate(datastream_rev.user.language)
-            lifecycle = DatastreamLifeCycleManager(datastream_rev.user, datastream_revision_id=datastream_rev.id)
-            lifecycle._log_activity(ActionStreams.CREATE)
-            translation.deactivate()
+            try:
+                translation.activate(datastream_rev.user.language)
+                lifecycle = DatastreamLifeCycleManager(datastream_rev.user, datastream_revision_id=datastream_rev.id)
+                lifecycle._log_activity(ActionStreams.CREATE)
+            except:
+                pass
+            finally:
+                translation.deactivate()
 
         #for visualization_rev in VisualizationRevision.objects.all():
         #    translation.activate(visualization_rev.user.language)
