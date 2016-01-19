@@ -171,7 +171,7 @@
         "spatial": "",
         "dataset": 72540,
         "mbox": "",
-        "impl_details": "<wsOperation useCache=\"False\"><pathToHeaders></pathToHeaders><pathToData>$..data</pathToData><uriSignatures/><args/><authentication/></wsOperation>",
+        "impl_details": "<wsOperation useCache=\"false\"><pathToHeaders></pathToHeaders><pathToData>$..data</pathToData><uriSignatures/><args/><authentication/></wsOperation>",
         "size": 0
     }
 },
