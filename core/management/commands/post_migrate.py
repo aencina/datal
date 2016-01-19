@@ -149,7 +149,7 @@ class Command(BaseCommand):
 
 
         # VisualizationI18n
-        visualization_revisions = VisualizationRevision.objects.exclude(user__account__id=5990)
+        visualization_revisions = VisualizationRevision.objects.exclude(user__account__id__in=[5990, 5991])
         for visualization_revision in visualization_revisions:
             try:
                 datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
