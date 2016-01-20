@@ -203,6 +203,9 @@ class Command(BaseCommand):
                 rev.status = StatusChoices.PENDING_REVIEW
                 rev.save()
 
+                rev.visualization.last_published_revision = None
+                rev.visualization.save()
+
         # Fix de usuarios sin Name
         for user in self.users_all:
             if not user.name:
