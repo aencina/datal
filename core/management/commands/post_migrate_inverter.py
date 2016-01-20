@@ -34,8 +34,6 @@ class Command(BaseCommand):
 
             if 'invertedAxis' in imp['format']:
                 if imp['format']['invertedAxis'] == 'checked':
-                    print "----------------------------------------------->"
-                    print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
                     aux = imp['chart']['headerSelection']
 
                     if imp['chart']['labelSelection'] == ":":
@@ -48,8 +46,9 @@ class Command(BaseCommand):
                     else:
                         imp['chart']['labelSelection'] = ":"
 
-                    print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
                     rev.impl_details = json.dumps(imp)
-
-                    rev.save()
+                
+                    if imp['chart']['headerSelection'] and  imp['chart']['labelSelection'] != ":":
+                        print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
+                        rev.save()
 
