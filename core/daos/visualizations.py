@@ -72,6 +72,8 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
     def get(self, language, visualization_id=None, visualization_revision_id=None, guid=None, published=True):
         """ Get full data """
 
+        # selecciona el field que va a usar como pk para traer publicados o no
+        # solo si guid o visualization_id != None
         fld_revision_to_get = 'visualization__last_published_revision' if published else 'visualization__last_revision'
 
         if guid:

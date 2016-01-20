@@ -90,8 +90,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			parseFloat( $('.dataTable header').height() )
 			+ parseFloat( $('.dataTable header').css('padding-top').split('px')[0] )
 			+ parseFloat( $('.dataTable header').css('padding-bottom').split('px')[0] )
-			+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] )
-			+ 2;// Fix to perfection;
+			+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] );
+			//+ 2;// Fix to perfection;
 
 			this.setHeights(this.chartContainer + ' .loading', otherHeights);
 			$(this.chartContainer).html('<div class="result"><div class="loading">'+ gettext('APP-LOADING-TEXT') + '</div></div>');
@@ -276,8 +276,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 				parseFloat( $(window).height() )
 				- parseFloat( otherHeight )
 				- parseFloat( $('.brandingHeader').height() )
-				- parseFloat( $('.content').css('padding-top').split('px')[0] )
-				- parseFloat( $('.content').css('padding-bottom').split('px')[0] )
+				//- parseFloat( $('.content').css('padding-top').split('px')[0] )
+				//- parseFloat( $('.content').css('padding-bottom').split('px')[0] )
 				// - parseFloat( $('.brandingFooter').height() )
 				- parseFloat( $('.miniFooterJunar').height() );
 
@@ -412,9 +412,10 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			overflowY =  'hidden',
 			$mainHeader = $('.brandingHeader'),
 			$chartHeader = $('.dataTable header');
+			$miniFooterJunar = $('.miniFooterJunar');
 
 		//Calcula el alto de los headers
-		var otherHeights = $mainHeader.outerHeight(true) + $chartHeader.outerHeight(true);
+		var otherHeights = $mainHeader.outerHeight(true) + $chartHeader.outerHeight(true) + $miniFooterJunar.height();
 
 		//Ajusta overflow si se está mostrando el sidebar		
 		if( $('#id_columns').hasClass('showSidebar') ){
@@ -422,7 +423,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		}
 
 		//Calcula el alto que deberá tener el contenedor del chart
-		var height = this.$window.height() - otherHeights - 65, // fix. 65 ajusta el alto del chart
+		var height = this.$window.height() - otherHeights,
 			tabsHeight = this.$el.find('#id_wrapper .tabs').height() - $chartHeader.outerHeight(true);
 
 		// Min height para que no sea mas chico que las tabs
