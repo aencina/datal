@@ -10,16 +10,21 @@ body{
 
 	h1{
 		font-family: $font-titles-family;
-		margin: 40px 0 30px;
+		margin: 30px 0 15px;
+		line-height: 29px;
 	}
 
 	p{
+		font-size: $font-size-m;
 		color: #666;
-		line-height: 19px;
-		margin-bottom: 20px;
+		line-height: 21px;
+		margin-bottom: 8px;
 
-		span{
+		span.error-code{
+			font-size: $font-size-base;
 			color: $font-color-light;
+			margin-top: 20px;
+    		display: inline-block;
 		}
 	}
 

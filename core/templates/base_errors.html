@@ -29,7 +29,43 @@
 
 <body>
 
-	{% block body %}{% endblock %}
+    <div class="container">
+
+        <div class="error-pages">
+
+            <div class="row">
+
+                <div class="col-md-8 col-md-offset-2">
+
+                    {% block errorContent %}{% endblock %}
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12 center">
+                    <ul class="list-item">
+                        <li><a href="/">{% trans 'APP-WORKSPACE-TEXT' %}</a></li>
+                        <li><a href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}">{% trans 'APP-MICROSITE-TEXT' %}</a></li>
+                        <li><a href="mailto:support@junar.com">{% trans 'APP-CONTACTUS-TEXT' %}</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12 center">
+                    <img src="/static/core/images/errorPages/error-datal-logo.png">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 

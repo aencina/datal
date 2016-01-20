@@ -1,54 +1,17 @@
 {% extends 'base_errors.html' %}
-{% load i18n staticfiles %}
+{% load i18n %}
 
-{% block body %}
+{% block errorContent %}
 
-<div class="container">
+<img class="error-graphic" src="/static/core/images/errorPages/error-not-found.png">
 
-	<div class="error-pages">
+<h1>{% trans 'APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT' %}</h1>
+<p>
+    {% trans 'APP-ERROR-400-DESCRIPTION' %}
+    <a href="/">{% trans 'APP-HOMEPAGE-LOWERCASE-TEXT' %}</a>
+    {% trans 'APP-OF-THE-WORKSPACE-TEXT' %}.
+</p>
 
-		<div class="row">
-
-			<div class="col-md-8 col-md-offset-2">
-
-				<img class="error-graphic" src="/static/core/images/errorPages/error-not-found.png">
-
-				<h1>{% trans 'APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT' %}</h1>
-				<p>
-					{% trans 'APP-ERROR-400-DESCRIPTION' %}
-					<a href="/">{% trans 'APP-HOMEPAGE-LOWERCASE-TEXT' %}</a>
-					{% trans 'APP-OF-THE-WORKSPACE-TEXT' %}
-					.
-				</p>
-
-				<p><span>{% trans 'APP-ERROR-CODE-TEXT' %}: 400</span></p>
-
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="col-xs-12 center">
-				<ul class="list-item">
-					<li><a href="/">{% trans 'APP-WORKSPACE-TEXT' %}</a></li>
-					<li><a href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}">{% trans 'APP-MICROSITE-TEXT' %}</a></li>
-					<li><a href="mailto:support@junar.com">{% trans 'APP-CONTACTUS-TEXT' %}</a></li>
-				</ul>
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="col-xs-12 center">
-				<img src="/static/core/images/errorPages/error-datal-logo.png">
-			</div>
-
-		</div>
-
-	</div>
-
-</div>
+<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 400</span></p>
 
 {% endblock %}
