@@ -9,7 +9,6 @@ import json
 from django.db.models import Q
 
 
-
 class Command(BaseCommand):
 
     role_migration_dict = {
@@ -86,17 +85,20 @@ class Command(BaseCommand):
                     user.roles.remove(role_dict[code])
 
     def handle(self, *args, **options):
-        self.account=None
+        self.account = None
+
         if options['account']:
             self.account = Account.objects.get(pk=int(options['account']))
 
-            self.visualization_revision_all=VisualizationRevision.objects.filter(user__account=self.account)
-            self.dataset_revision_all=DatasetRevision.objects.filter(user__account=self.account)
-            self.datasstream_revision_all=DataStreamRevision.objects.filter(user__account=self.account)
+            self.visualization_revision_all = VisualizationRevision.objects.filter(user__account=self.account)
+            self.dataset_revision_all = DatasetRevision.objects.filter(user__account=self.account)
+            self.datasstream_revision_all = DataStreamRevision.objects.filter(user__account=self.account)
+            self.users_all = User.objects.filter(account=self.account)
         else:
-            self.visualization_revision_all=VisualizationRevision.objects.all()
-            self.dataset_revision_all=DatasetRevision.objects.all()
-            self.datasstream_revision_all=DataStreamRevision.objects.all()
+            self.visualization_revision_all = VisualizationRevision.objects.all()
+            self.dataset_revision_all = DatasetRevision.objects.all()
+            self.datasstream_revision_all = DataStreamRevision.objects.all()
+            self.users_all = User.objects.all()
 
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
@@ -146,11 +148,7 @@ class Command(BaseCommand):
             rev.impl_details = json.dumps(imp)
             rev.save()
 
-
-#############################
-## Preferencias
-## del account.home.config.sliderSection cambiamos los type:chart a type:vz
-
+        # Preferencias del account.home.config.sliderSection cambiamos los type:chart a type:vz
         for home in Preference.objects.filter(Q(key="account.home")| Q(key="account.preview")):
             config = json.loads(home.value)
 
@@ -171,9 +169,7 @@ class Command(BaseCommand):
             self.migrateRoles()
             self.migrateUserRoles()
 
-
-
-        # VisualizationI18n
+        # Creamos I18N que no existian en Junar 1
         visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991])
         for visualization_revision in visualization_revisions:
             if not VisualizationI18n.objects.filter(visualization_revision=visualization_revision):
@@ -200,3 +196,19 @@ class Command(BaseCommand):
                     description=description,
                     notes=notes
                 )
+
+        # Fix de las vistas publicadas de datastreams no publicados
+        visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991]).filter(
+                status=StatusChoices.PUBLISHED
+        )
+
+        for rev in visualization_revisions:
+            if not rev.visualization.datastream.last_published_revision:
+                rev.status = StatusChoices.PENDING_REVIEW
+                rev.save()
+
+        # Fix de usuarios sin Name
+        for user in self.users_all:
+            if not user.name:
+                user.name = user.nick
+                user.save()
