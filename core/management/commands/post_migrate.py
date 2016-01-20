@@ -196,3 +196,12 @@ class Command(BaseCommand):
                     description=description,
                     notes=notes
                 )
+
+        visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991]).filter(
+                status=StatusChoices.PUBLISHED
+        )
+
+        for rev in visualization_revisions:
+            if not rev.visualization.datastream.last_published_revision:
+                rev.status = StatusChoices.PENDING_REVIEW
+                rev.save()
