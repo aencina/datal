@@ -29,6 +29,7 @@ body .brandingFooter{display:none !important;}
 }
 
 /* Box */
+/*
 .box{background:#fff;border:1px solid #dadada;background:#fff;
 	-webkit-border-radius:5px;
 	   -moz-border-radius:5px;
@@ -36,11 +37,11 @@ body .brandingFooter{display:none !important;}
 	-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,.10);
 		 -moz-box-shadow:0 0 3px 0 rgba(0,0,0,.10);
 		      box-shadow:0 0 3px 0 rgba(0,0,0,.10);
-}
+}*/
 .box .title{background:#f6f5f5;border-bottom:1px solid #dadada;height:30px;
-	-webkit-border-radius:5px 5px 0 0;
+	/*-webkit-border-radius:5px 5px 0 0;
 	   -moz-border-radius:5px 5px 0 0;
-	        border-radius:5px 5px 0 0;
+	        border-radius:5px 5px 0 0;*/
 }
 .box .title h1{height:30px;line-height:30px;font-size:14px;font-weight:bold;color:#666;padding:0 12px;text-shadow:0 1px 0 #fff;}
 .box .title .close{width:31px;height:30px;border-left:1px solid #dadada;display:block;background:url(/static/microsites/images/microsites/ic_buttons.png) no-repeat center 0;text-indent:-10000px;cursor:pointer;}
@@ -48,24 +49,25 @@ body .brandingFooter{display:none !important;}
 .box .boxContent{padding:0 12px;}
 
 /* Layout */
-.content{padding:10px;}
-.contentInner{padding-left:75px;}
+.content{/*padding:10px;*/}
+.contentInner{padding-left:85px;}
 .wrapper{width:100%;}
-.wrapperInner{width:100%;float:left;margin:0 0 0 -75px;}
-.tabs{width:75px;float:left;padding-right:10px;}
-.columns{width:100%;float:right;margin:0 -75px 0 0;}
+.wrapperInner{width:100%;float:left;margin:0 0 0 -85px;}
+.tabs{width:85px;float:left;}
+.columns{width:100%;float:right;margin:0 -85px 0 0;background:#fff;}
 .sidebar{overflow:hidden;width:0;}
 .section{padding-left:0;}
 	
 	/* Show Sidebar */
+	.showSidebar .section .dataTable{border-left:1px solid #dadada;}
 	.showSidebar .sidebar{width:310px;}
 	.showSidebar .section{padding-left:310px;}
 
 	/* Tabs in ES need to be wider */
-	html[lang=es-ES] .contentInner{padding-left:85px;}
-	html[lang=es-ES] .wrapperInner{margin:0 0 0 -85px;}
-	html[lang=es-ES] .tabs{width:85px;}
-	html[lang=es-ES] .columns{margin:0 -85px 0 0;}
+	/*html[lang=es-ES] .contentInner{padding-left:80px;}
+	html[lang=es-ES] .wrapperInner{margin:0 0 0 -80px;}
+	html[lang=es-ES] .tabs{width:80px;}
+	html[lang=es-ES] .columns{margin:0 -80px 0 0;}*/
 	
 /* Background */
 html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repeat;}
@@ -94,9 +96,9 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 	.tooltip.pulldown:after{border:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #343434;border-bottom-color:rgba(30,30,30,.9);left:50%;margin-left:-10px;top:-10px;margin-top:0;}
 
 /* Tabs */
-.tabs{position:relative;z-index:3;}
+.tabs{position:relative;z-index:3;padding:0;}
 .tabs .icons{}
-.tabs .icons > li{border-bottom:1px solid #d1cfd0;border-top:1px solid #ededee;padding:6px 0;}
+.tabs .icons > li{border-bottom:1px solid #d1cfd0;border-top:1px solid #ededee;padding:0;}
 .tabs .icons > li:first-child{border-top:0;padding-top:0;}
 .tabs .icons > li:last-child{border-bottom:0;padding-bottom:0;}
 .tabs .icon{height:auto;width:auto;display:block;color:#8e8f91;text-shadow:0 1px 0 rgba(255,255,255,.75);font-size:11px;text-transform:uppercase;text-align:center;font-weight:bold;padding-top:9px;background:none;}
@@ -111,9 +113,9 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 	.tabs .icon:hover{text-decoration:none;cursor:pointer;}
 	.tabs .icon:hover,
 	.tabs .icon.active{background:#d4d4d4;color:#444;
-		-webkit-border-radius:3px;
+		/*-webkit-border-radius:3px;
 		   -moz-border-radius:3px;
-		        border-radius:3px;
+		        border-radius:3px;*/
 		-webkit-box-shadow:inset 0 0 5px 0 rgba(0,0,0,.25);
 		   -moz-box-shadow:inset 0 0 5px 0 rgba(0,0,0,.25);
 		        box-shadow:inset 0 0 5px 0 rgba(0,0,0,.25);
@@ -161,7 +163,7 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 	.tabs .related.active > i{background-position:center -803px;}
 
 /* Sidebar */
-.sidebar .box{width:300px;display:none;}
+.sidebar .box{width:310px;display:none;}
 .sidebar .boxContent{overflow:auto;overflow-x:hidden;overflow-y:auto;}
 
 	/* Common */
@@ -278,8 +280,8 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 .dataTable{}
 	
 	/* Header */
-	.dataTable header{min-height:72px;border-bottom:1px solid #e4e4e4;padding:17px 17px 12px;
-		background:#f0f0f0;
+	.dataTable header{min-height:58px;border-bottom:1px solid #e4e4e4;padding:17px;
+		/*background:#f0f0f0;
 	  background:-webkit-gradient(linear, 0 0, 0 100%, from(#f0f0f0), to(#ffffff));
 	  background:-webkit-linear-gradient(#f0f0f0 0%, #ffffff 100%);
 	  background:-moz-linear-gradient(#f0f0f0 0%, #ffffff 100%);
@@ -288,7 +290,7 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 	  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f0f0',endColorstr='#ffffff',GradientType=0);
 	  -webkit-border-radius:4px 4px 0 0;
 		   -moz-border-radius:4px 4px 0 0;
-			      border-radius:4px 4px 0 0;
+			      border-radius:4px 4px 0 0;*/
 	}
 	.dataTable header hgroup{text-shadow:0 1px 0 #fff;margin-top:-4px;}
 	.dataTable header h1{font-size:18px;line-height:normal;width:100%;overflow:hidden;}
@@ -306,10 +308,10 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 		.dataTable header h1 .parameters.isDisabled a:hover{cursor:default;text-decoration:none;}
 	
 	/* Social */
-	.dataTable .socialBox{border:1px solid #e0e0e0;background:#f4f4f4;padding-left:5px;height:44px;display:none;position:relative;top:-3px;
-		-webkit-border-radius:4px;
+	.dataTable .socialBox{/*border:1px solid #e0e0e0;background:#f4f4f4;padding-left:5px;height:44px;*/display:none;position:relative;top:-1px;left:5px;
+		/*-webkit-border-radius:4px;
 		   -moz-border-radius:4px;
-		        border-radius:4px;
+		        border-radius:4px;*/
 	}
 	.dataTable .socialBox > span{margin:5px 5px 0 0;float:left;display:block;}
 	.dataTable .socialBox .stButton{padding:0 !important;margin:0 !important;width:32px !important;height:32px !important;}
@@ -355,6 +357,8 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 	body .dataTable #id_datastreamResult .flexigrid > div.gBlock{background:#fff url(/static/core/images/common/loader_light.gif) no-repeat center center!important;background-color:rgba(255,255,255,0.5) !important;text-indent:-10000px;overflow:hidden;position:absolute !important;height:100% !important;width:100% !important;}
 	
 	/* Flexigrid - Adjustments*/
+	.flexigrid div.hDiv th, 
+	.flexigrid div.bDiv td{border-left:0 !important;}
 	.flexigrid{color:#4D4D4D;font:normal 11px arial, helvetica, sans-serif;text-shadow:0 1px 0 #fff;}
 	.flexigrid div.hDiv,
 	.flexigrid div.bDiv{border:0 !important;}
@@ -404,17 +408,21 @@ html, body{background:url(/static/microsites/images/microsites/bg_body.gif) repe
 	
 		/* Pagination */
 		.flexigrid div.vGrip{position:relative;top:-32px;border:1px solid #dbdbdb !important;border-left:0 !important;border-right:0 !important;height:7px;}
-		.flexigrid div.pDiv{position:relative;top:7px;border:1px solid #fff !important;
-			background:#ffffff;
+		.flexigrid div.pDiv{position:relative;top:7px;/*border:1px solid #fff !important;*/border:0 !important;
+			/*background:#ffffff;
 			background:-webkit-gradient(linear,0 0,0 100%,from(#ffffff),to(#dbdbdb));
 			background:-webkit-linear-gradient(#ffffff 0%,#dbdbdb 100%);
 			background:-moz-linear-gradient(#ffffff 0%,#dbdbdb 100%);
 			background:-o-linear-gradient(#ffffff 0%,#dbdbdb 100%);
 			background:linear-gradient(#ffffff 0%,#dbdbdb 100%);	
-			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dbdbdb',GradientType=0);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dbdbdb',GradientType=0);*/
+			background:#fcfcfc !important;
+			border-top:1px solid #e4e4e4 !important;
+			/*
 			-webkit-border-radius:0 0 4px 4px;
 			   -moz-border-radius:0 0 4px 4px;
 				      border-radius:0 0 4px 4px;
+			*/
 		}
 		.flexigrid div.pDiv input{top:-4px;font-size:11px;height:18px;}
 		.flexigrid div.pDiv select{top:1px;font-size:11px;position:relative;height:22px;}

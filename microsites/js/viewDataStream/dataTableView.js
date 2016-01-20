@@ -209,8 +209,8 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 				parseFloat( $('.dataTable header').height() )
 				+ parseFloat( $('.dataTable header').css('padding-top').split('px')[0] ) 
 				+ parseFloat( $('.dataTable header').css('padding-bottom').split('px')[0] )
-				+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] )
-				+ 2;// Fix to perfection;
+				+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] );
+				//+ 2;// Fix to perfection;
 
 			self.parentView.setHeights('#id_datastreamResult .loading', otherHeights);
 
@@ -229,8 +229,8 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	  		parseFloat( $('.dataTable header').height() )
 	    	+ parseFloat( $('.dataTable header').css('padding-top').split('px')[0] )
 	    	+ parseFloat( $('.dataTable header').css('padding-bottom').split('px')[0] )
-	    	+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] )
-				+ 2;// Fix to perfection;
+	    	+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] );
+			//+ 2;// Fix to perfection;
 
 		  self.parentView.setHeights( '#id_datastreamResult .result table', otherHeights );
 
@@ -253,7 +253,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 				+ parseFloat( $('.flexigrid .pDiv').height() )
 				+ parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
 				+ parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] )
-				+ 2;// Fix to perfection;
+				//+ 2;// Fix to perfection;
 
 			self.parentView.setHeights( '.flexigrid div.bDiv', otherHeights );
 
