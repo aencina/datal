@@ -210,10 +210,10 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 
 			var height =
 				parseFloat( $(window).height() )
-				- parseFloat( otherHeight	)
+				- parseFloat( otherHeight )
 				- parseFloat( $('.brandingHeader').height() )
-				- parseFloat( $('.content').css('padding-top').split('px')[0] )
-				- parseFloat( $('.content').css('padding-bottom').split('px')[0] )
+				//- parseFloat( $('.content').css('padding-top').split('px')[0] )
+				//- parseFloat( $('.content').css('padding-bottom').split('px')[0] )
 				// - parseFloat( $('.brandingFooter').height() )
 				- parseFloat( $('.miniFooterJunar').height() );
 

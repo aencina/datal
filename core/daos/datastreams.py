@@ -97,6 +97,9 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
 
     def get(self, language, datastream_id=None, datastream_revision_id=None, guid=None, published=True):
         """ Get full data """
+
+        # selecciona el field que va a usar como pk para traer publicados o no
+        # solo si guid o datastream_id != None
         fld_revision_to_get = 'datastream__last_published_revision' if published else 'datastream__last_revision'
 
         if guid:
