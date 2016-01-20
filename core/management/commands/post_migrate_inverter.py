@@ -37,15 +37,16 @@ class Command(BaseCommand):
                     print "----------------------------------------------->"
                     print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
                     aux = imp['chart']['headerSelection']
-                    if imp['chart']['labelSelection'] == "":
-                        imp['chart']['headerSelection'] = ":"
+
+                    if imp['chart']['labelSelection'] == ":":
+                        imp['chart']['headerSelection'] = ""
                     else:
                         imp['chart']['headerSelection'] = imp['chart']['labelSelection']
 
-                    if aux == ":":
-                        imp['chart']['labelSelection'] = ""
-                    else:
+                    if aux:
                         imp['chart']['labelSelection'] = aux
+                    else:
+                        imp['chart']['labelSelection'] = ":"
 
                     print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
                     rev.impl_details = json.dumps(imp)
