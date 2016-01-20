@@ -159,6 +159,9 @@ class Command(BaseCommand):
                 except DatastreamI18n.MultipleObjectsReturned:
                     print "[ERROR ds] DatastreamI18n.MultipleObjectsReturned (ds.id= %s)" % datastream.id
                     continue
+                except AttributeError:
+                    print "[ERROR ds] self.datastream.last_published_revision == None (ds= %s)" % datastream.id
+                    continue
 
                 h = DatastreamHitsDAO(datastream_rev)
 
