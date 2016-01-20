@@ -100,6 +100,8 @@ class Command(BaseCommand):
 
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
+            print "----------------------------------------------------->"
+            print imp
 
             if 'labelSelection' in imp['chart']:
                 header = imp['chart']['labelSelection'].replace(' ', '')
@@ -139,6 +141,8 @@ class Command(BaseCommand):
             if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection'] == ":":
                 imp['chart']['headerSelection'] = ''
 
+            print imp
+            print "<-----------------------------------------------------"
             rev.impl_details = json.dumps(imp)
             rev.save()
 
