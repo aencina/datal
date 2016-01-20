@@ -1045,3 +1045,42 @@ msgstr "Your account has no access to the visualization"
 
 msgid "EXCEPTION-DESCRIPTION-VIZUALIZATION-PARENT-NOT-PUBLISHED"
 msgstr "You must publish the associated view"
+
+msgid "APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT"
+msgstr "We do not find what you are looking for"
+
+msgid "APP-SORRY-YOU-DONT-HAVE-PERMISSION-TO-ACCESS-THIS-PAGE-TEXT"
+msgstr "Sorry, you don't have permission to access this page"
+
+msgid "APP-SORRY-SOMETHING-IS-WRONG-TEXT"
+msgstr "We are sorry, something is wrong"
+
+msgid "APP-ERROR-400-DESCRIPTION"
+msgstr "There may be a typo in the page link, check it and try again, or go to the"
+
+msgid "APP-ERROR-404-DESCRIPTION"
+msgstr "There may be a typo in the page link or the page has moved."
+
+msgid "APP-ERROR-500-DESCRIPTION"
+msgstr "We are working to solve this problem as soon as possible. If the problem continues please send an e-mail to <a href='mailto:support@junar.com' target='_blank'>support@junar.com</a>, meanwhile try <a href='location.reload();'>refreshing</a> the page."
+
+msgid "APP-OF-THE-WORKSPACE-TEXT"
+msgstr "of the workspace"
+
+msgid "APP-OF-THE-MICROSITE-TEXT"
+msgstr "of the microsite"
+
+msgid "APP-HOMEPAGE-LOWERCASE-TEXT"
+msgstr "homepage"
+
+msgid "APP-GO-TO-HOMEPAGE-TEXT"
+msgstr "Go to the homepage"
+
+msgid "APP-ERROR-CODE-TEXT"
+msgstr "Error code"
+
+msgid "APP-WORKSPACE-TEXT"
+msgstr "Workspace"
+
+msgid "APP-MICROSITE-TEXT"
+msgstr "Microsite"

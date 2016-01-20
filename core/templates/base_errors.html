@@ -1,0 +1,35 @@
+{% load i18n compress sass_tags staticfiles %}
+<!DOCTYPE html>
+<html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
+<head>
+    <meta charset="utf-8">
+
+    {% block SEO %}
+    <title>{% block title %}{% trans 'APP-ERROR-TEXT' %}{% endblock %}</title>
+    {% endblock %}
+
+	<meta http-equiv="CACHE-CONTROL" content="max-age=0, no-store" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	{% block head %}{% endblock %}
+
+    {% block favicon %}{% endblock %}
+
+    {% block css_includes %}
+    <link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+    <link href="{% static 'core/styles/structure.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+    <link href="{% sass_src 'workspace/styles/common.scss' %}" rel="stylesheet" type="text/css" />
+    {% endblock %}
+
+    {% block js_includes %}{% endblock %}
+
+	{% block meta %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+	{% block body %}{% endblock %}
+
+</body>
+
+</html>

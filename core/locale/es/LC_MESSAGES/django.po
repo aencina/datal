@@ -1042,3 +1042,42 @@ msgstr "No tiene acceso a la visualización"
 
 msgid "EXCEPTION-DESCRIPTION-VISUALIZATION-NOT-ACCESS"
 msgstr "Su cuenta no tiene acceso a la visualziación"
+
+msgid "APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT"
+msgstr "No encontramos lo que está buscando"
+
+msgid "APP-SORRY-YOU-DONT-HAVE-PERMISSION-TO-ACCESS-THIS-PAGE-TEXT"
+msgstr "Lo sentimos, no posee permisos para acceder a esta página"
+
+msgid "APP-SORRY-SOMETHING-IS-WRONG-TEXT"
+msgstr "Lo sentimos, algo anda mal"
+
+msgid "APP-ERROR-400-DESCRIPTION"
+msgstr "Puede que haya tipeado mal la dirección, revísela y vuelva a intentarlo, o vaya a la"
+
+msgid "APP-ERROR-404-DESCRIPTION"
+msgstr "Puede que haya tipeado mal la dirección o que la página se haya movido."
+
+msgid "APP-ERROR-500-DESCRIPTION"
+msgstr "Estamos trabajando para solucionar este problema lo antes posible. Si el problema continúa escríbanos a <a href='mailto:support@junar.com' target='_blank'>support@junar.com</a>, mientras tanto intente <a href='location.reload();'>actualizando</a> la página."
+
+msgid "APP-OF-THE-WORKSPACE-TEXT"
+msgstr "del espacio de trabajo"
+
+msgid "APP-OF-THE-MICROSITE-TEXT"
+msgstr "del sitio de datos"
+
+msgid "APP-HOMEPAGE-LOWERCASE-TEXT"
+msgstr "página de inicio"
+
+msgid "APP-GO-TO-HOMEPAGE-TEXT"
+msgstr "Ir a la página de inicio"
+
+msgid "APP-ERROR-CODE-TEXT"
+msgstr "Código de error"
+
+msgid "APP-WORKSPACE-TEXT"
+msgstr "Espacio de trabajo"
+
+msgid "APP-MICROSITE-TEXT"
+msgstr "Sitio de datos"
