@@ -307,9 +307,6 @@ msgstr "Account limit reached for creating Users, upgrade your account to create
 msgid "APP-ERROR-TEXT"
 msgstr "Error"
 
-msgid "APP-PAGENOTFOUND-TEXT"
-msgstr "Page not found"
-
 msgid "APP-DISCOVERINGDATA-TEXT"
 msgstr "Discovering Data"
 
@@ -328,29 +325,14 @@ msgstr "years ago"
 msgid "APP-OOPS-TEXT"
 msgstr "Oops!"
 
-msgid "APP-404-ERROR"
-msgstr "The page that you are looking for does not exists anymore, <br/>or maybe it did not load properly"
-
 msgid "APP-PLEASE-TEXT"
 msgstr "Please"
 
 msgid "APP-TRYAGAIN-TEXT"
 msgstr "try again"
 
-msgid "APP-ORGOTOTHE-TEXT"
-msgstr "Or go to the"
-
 msgid "APP-SOURCE-TEXT"
 msgstr "Source"
-
-msgid "APP-INTERNALERROR-TEXT"
-msgstr "Internal server error"
-
-msgid "APP-500-ERROR"
-msgstr "Our server explode! Or maybe it went down for maintenance"
-
-msgid "APP-INAFEWMINUTES-TEXT"
-msgstr "in a few minutes"
 
 msgid "APP-ACTIONS-TEXT"
 msgstr "Actions"

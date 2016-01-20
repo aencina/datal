@@ -306,9 +306,6 @@ msgstr "La cuenta ha alcanzado el límite de Usuarios, actualiza tu cuenta para 
 msgid "APP-ERROR-TEXT"
 msgstr "Error"
 
-msgid "APP-PAGENOTFOUND-TEXT"
-msgstr "Página no encontrada"
-
 msgid "APP-DISCOVERINGDATA-TEXT"
 msgstr "Datos Abiertos"
 
@@ -327,29 +324,14 @@ msgstr "años atras"
 msgid "APP-OOPS-TEXT"
 msgstr "Oops!"
 
-msgid "APP-404-ERROR"
-msgstr "La página que estas buscando ya no existe, <br/> o tal vez no cargó correctamente"
-
 msgid "APP-PLEASE-TEXT"
 msgstr "Por favor"
 
 msgid "APP-TRYAGAIN-TEXT"
 msgstr "inténtalo nuevamente"
 
-msgid "APP-ORGOTOTHE-TEXT"
-msgstr "O anda a la"
-
 msgid "APP-SOURCE-TEXT"
 msgstr "Fuente"
-
-msgid "APP-INTERNALERROR-TEXT"
-msgstr "Error interno del servidor"
-
-msgid "APP-500-ERROR"
-msgstr "¡Nuestro servidor exploto! O quizas está abajo por mantenimiento"
-
-msgid "APP-INAFEWMINUTES-TEXT"
-msgstr "en unos pocos minutos"
 
 msgid "APP-ACTIONS-TEXT"
 msgstr "Acciones"
