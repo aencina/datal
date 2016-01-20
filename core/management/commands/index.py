@@ -40,7 +40,7 @@ class Command(BaseCommand):
             dest='datastreams',
             default=False,
             help='reindex datastreams'),
-         make_option('--only-visualization',
+         make_option('--only-visualizations',
             action='store_true',
             dest='visualizations',
             default=False,
@@ -63,10 +63,10 @@ class Command(BaseCommand):
             print "\nUse: "
             print "\n\treindex --<all|datasets|datastreams|visualizations|dashboards> [--flush] [--debug]\n\n"
             print "\t--all\t\t\treindex all resourses"
-            print "\t--datasets\t\treindex datasets resourses"
-            print "\t--datastreams\t\treindex datastreams resourses"
-            print "\t--visualizations\treindex visualizations resourses"
-            print "\t--dashboards\t\treindex dashboards resourses"
+            print "\t--only-datasets\t\treindex datasets resourses"
+            print "\t--only-datastreams\t\treindex datastreams resourses"
+            print "\t--only-visualizations\treindex visualizations resourses"
+            print "\t--only-dashboards\t\treindex dashboards resourses"
             print "\t--flush\t\t\tflush index"
             print "\t--debug\t\t\tdebug|verbose"
             print "\n"
@@ -120,6 +120,9 @@ class Command(BaseCommand):
                     search_dao.add()
                 except VisualizationI18n.MultipleObjectsReturned:
                     print "[ERROR vz] VisualizationI18n.MultipleObjectsReturned (vz.id= %s)" % vz.id
+                    continue
+                except AttributeError:
+                    print "[ERROR vz] self.visualization_revision.visualization.datastream.last_published_revision == None (vz.id= %s, ds= %s)" % (vz.id, vz.datastream.id)
                     continue
 
                 h = VisualizationHitsDAO(vz_revision)
