@@ -28,11 +28,24 @@ body{
 		}
 	}
 
-	img.error-graphic{
+	/* Error images */
+	.error-graphic{
 		float: left;
 		margin-right: 40px;
+		width: 219px;
+		height: 249px;
+		background-repeat: no-repeat;
 	}
 
+	.error-graphic-not-found{
+		background-image: url( $img-not-found );
+	}
+
+	.error-graphic-internal{
+		background-image: url( $img-error-internal );
+	}
+
+	/* List items */
 	ul.list-item{
 		margin: 80px 0 10px;
 
@@ -60,5 +73,13 @@ body{
 			}
 		}
 
+	}
+
+	/* Brand logo */
+	.error-pages-logo{
+		background: url( $img-error-pages-logo ) no-repeat;
+		width: 100px;
+		height: 24px;
+		margin: 0 auto;
 	}
 }

@@ -1062,7 +1062,7 @@ msgid "APP-ERROR-404-DESCRIPTION"
 msgstr "There may be a typo in the page link or the page has moved."
 
 msgid "APP-ERROR-500-DESCRIPTION"
-msgstr "We are working to solve this problem as soon as possible. If the problem continues please send an e-mail to <a href='mailto:support@junar.com' target='_blank'>support@junar.com</a>, meanwhile try <a href='location.reload();'>refreshing</a> the page."
+msgstr "We are working to solve this problem as soon as possible. If the problem continues please send an e-mail to <a href='mailto:support@junar.com'>support@junar.com</a>, meanwhile try <a href='location.reload();'>refreshing</a> the page."
 
 msgid "APP-OF-THE-WORKSPACE-TEXT"
 msgstr "of the workspace"
