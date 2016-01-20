@@ -6,15 +6,11 @@
     <meta charset="utf-8">
 
     {% block SEO %}
-    <title>{% block title %}{% trans 'APP-ERROR-TEXT' %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     {% endblock %}
 
 	<meta http-equiv="CACHE-CONTROL" content="max-age=0, no-store" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-	{% block head %}{% endblock %}
-
-    {% block favicon %}{% endblock %}
 
     {% block css_includes %}
     <link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
@@ -22,10 +18,6 @@
     <link href="{% sass_src 'workspace/styles/common.scss' %}" rel="stylesheet" type="text/css" />
     <link href="{% sass_src 'core/styles/errorPages.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
     {% endblock %}
-
-    {% block js_includes %}{% endblock %}
-
-	{% block meta %}{% endblock %}
 </head>
 
 <body>
@@ -48,9 +40,9 @@
 
                 <div class="col-xs-12 center">
                     <ul class="list-item">
-                        <li><a href="/">{% trans 'APP-WORKSPACE-TEXT' %}</a></li>
-                        <!-- TODO: crear variables python
-                            <li><a href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}">{% trans 'APP-MICROSITE-TEXT' %}</a></li>
+                        <!-- TODO: crear variables python con URL's de páginas de inicio en WS y MS. Ticket Pivotal #112057759
+                            <li><a href="">{% trans 'APP-WORKSPACE-TEXT' %}</a></li>
+                            <li><a href="">{% trans 'APP-MICROSITE-TEXT' %}</a></li>
                         -->
                         <li><a href="mailto:support@junar.com">{% trans 'APP-CONTACTUS-TEXT' %}</a></li>
                     </ul>

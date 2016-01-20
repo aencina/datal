@@ -1946,9 +1946,6 @@ msgstr "Share"
 msgid "APP-ANALYZE-TEXT"
 msgstr "Analyze"
 
-msgid "APP-CONTACTUS-TEXT"
-msgstr "Contact us"
-
 msgid "APP-PRESS-TEXT"
 msgstr "News"
 

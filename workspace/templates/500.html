@@ -1,6 +1,10 @@
 {% extends 'base_errors.html' %}
 {% load i18n %}
 
+{% block title %}
+	{% trans 'APP-ERROR-TEXT' %} 500
+{% endblock %}
+
 {% block errorContent %}
 
 <div class="error-graphic error-graphic-internal"></div>
@@ -14,6 +18,6 @@
     {% trans 'APP-OF-THE-WORKSPACE-TEXT' %}.
 </p>
 
-<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 404</span></p>
+<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 500</span></p>
 
 {% endblock %}

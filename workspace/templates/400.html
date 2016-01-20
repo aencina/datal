@@ -1,6 +1,10 @@
 {% extends 'base_errors.html' %}
 {% load i18n %}
 
+{% block title %}
+	{% trans 'APP-ERROR-TEXT' %} 400
+{% endblock %}
+
 {% block errorContent %}
 
 <div class="error-graphic error-graphic-not-found"></div>
