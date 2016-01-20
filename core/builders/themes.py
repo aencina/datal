@@ -34,13 +34,13 @@ class ThemeBuilder(object):
         # usamos el DAO
         for i in datastreamIds:
             try:
-                data.append(DataStreamDBDAO().get(language,datastream_id=i))
+                data.append(DataStreamDBDAO().get(language,datastream_id=i, published=True))
             except DataStreamRevision.DoesNotExist:
                 self.logger.error("ThemeBuilder.slider: DataStream.id=%s no existe" % i)
 
         for i in visualizationIds:
             try:
-                data.append(VisualizationDBDAO().get(language,visualization_id=i))
+                data.append(VisualizationDBDAO().get(language,visualization_id=i, published=True))
             except VisualizationRevision.DoesNotExist:
                 self.logger.error("ThemeBuilder.slider: Visualization.id=%s no existe" % i)
  
