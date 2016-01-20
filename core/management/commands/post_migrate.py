@@ -9,7 +9,6 @@ import json
 from django.db.models import Q
 
 
-
 class Command(BaseCommand):
 
     role_migration_dict = {
@@ -145,11 +144,7 @@ class Command(BaseCommand):
             rev.impl_details = json.dumps(imp)
             rev.save()
 
-
-#############################
-## Preferencias
-## del account.home.config.sliderSection cambiamos los type:chart a type:vz
-
+        # Preferencias del account.home.config.sliderSection cambiamos los type:chart a type:vz
         for home in Preference.objects.filter(Q(key="account.home")| Q(key="account.preview")):
             config = json.loads(home.value)
 
@@ -170,9 +165,7 @@ class Command(BaseCommand):
             self.migrateRoles()
             self.migrateUserRoles()
 
-
-
-        # VisualizationI18n
+        # Creamos I18N que no existian en Junar 1
         visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991])
         for visualization_revision in visualization_revisions:
             if not VisualizationI18n.objects.filter(visualization_revision=visualization_revision):
