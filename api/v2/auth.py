@@ -27,7 +27,7 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
         if not account:
             raise exceptions.AuthenticationFailed('Invalid Account.')
 
-        application = self.resolve_application(self.request, auth_key)
+        application = self.resolve_application(self.request, auth_key, account)
         if not application:
             raise exceptions.AuthenticationFailed('Auth Key does not exist.')
         if application.is_public_auth_key(auth_key):
@@ -80,10 +80,11 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
         from core.models import Account
         return Account.get_by_domain(domain)
 
-    def resolve_application(self, request, auth_key):
+    def resolve_application(self, request, auth_key, account):
         try:
             return Application.objects.filter(
                 Q(auth_key = auth_key) | Q(public_auth_key = auth_key), 
+                account=account,
                 valid=True
             ).first()
         except Application.DoesNotExist:
