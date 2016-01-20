@@ -86,17 +86,20 @@ class Command(BaseCommand):
                     user.roles.remove(role_dict[code])
 
     def handle(self, *args, **options):
-        self.account=None
+        self.account = None
+
         if options['account']:
             self.account = Account.objects.get(pk=int(options['account']))
 
-            self.visualization_revision_all=VisualizationRevision.objects.filter(user__account=self.account)
-            self.dataset_revision_all=DatasetRevision.objects.filter(user__account=self.account)
-            self.datasstream_revision_all=DataStreamRevision.objects.filter(user__account=self.account)
+            self.visualization_revision_all = VisualizationRevision.objects.filter(user__account=self.account)
+            self.dataset_revision_all = DatasetRevision.objects.filter(user__account=self.account)
+            self.datasstream_revision_all = DataStreamRevision.objects.filter(user__account=self.account)
+            self.users_all = User.objects.filter(account=self.account)
         else:
-            self.visualization_revision_all=VisualizationRevision.objects.all()
-            self.dataset_revision_all=DatasetRevision.objects.all()
-            self.datasstream_revision_all=DataStreamRevision.objects.all()
+            self.visualization_revision_all = VisualizationRevision.objects.all()
+            self.dataset_revision_all = DatasetRevision.objects.all()
+            self.datasstream_revision_all = DataStreamRevision.objects.all()
+            self.users_all = User.objects.all()
 
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
@@ -197,6 +200,7 @@ class Command(BaseCommand):
                     notes=notes
                 )
 
+        # Fix de las vistas publicadas de datastreams no publicados
         visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991]).filter(
                 status=StatusChoices.PUBLISHED
         )
@@ -205,3 +209,9 @@ class Command(BaseCommand):
             if not rev.visualization.datastream.last_published_revision:
                 rev.status = StatusChoices.PENDING_REVIEW
                 rev.save()
+
+        # Fix de usuarios sin Name
+        for user in self.users_all:
+            if not user.name:
+                user.name = user.nick
+                user.save()
