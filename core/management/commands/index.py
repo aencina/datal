@@ -149,7 +149,7 @@ class Command(BaseCommand):
             for datastream in DataStream.objects.filter(last_published_revision__status=StatusChoices.PUBLISHED):
                 datastreamrevision=datastream.last_published_revision
                 datastream_rev = DataStreamDBDAO().get(
-                    datastreamrevision.user.language,
+                    datastreamrevision.user,
                     datastream_revision_id=datastreamrevision.id,
                     published=True
                 )

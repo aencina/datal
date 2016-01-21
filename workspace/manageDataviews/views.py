@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 def view(request, revision_id):
     language = request.auth_manager.language
     try:
-        datastream = DataStreamDBDAO().get(language, datastream_revision_id=revision_id)
+        datastream = DataStreamDBDAO().get(request.user, datastream_revision_id=revision_id)
     except DataStreamRevision.DoesNotExist:
         raise DataStreamNotFoundException()
 
@@ -387,7 +387,7 @@ def change_status(request, datastream_revision_id=None):
         )
 
         # Limpio un poco
-        response['result'] = DataStreamDBDAO().get(request.user.language, datastream_revision_id=datastream_revision_id)
+        response['result'] = DataStreamDBDAO().get(request.user, datastream_revision_id=datastream_revision_id)
         account = request.account
         msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('viewDataStream.view', urlconf='microsites.urls', 

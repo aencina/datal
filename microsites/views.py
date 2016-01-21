@@ -134,7 +134,7 @@ def get_catalog_xml(request):
     resources = []
     for datastream_revision_id, in datastreams_revision_ids:
         try:
-            ds = DataStreamDBDAO().get(language, datastream_revision_id=datastream_revision_id)
+            ds = DataStreamDBDAO().get(request.user, datastream_revision_id=datastream_revision_id)
         except:
             logger.error('catalog ERROR %s %s' % (datastream_revision_id, language))
             continue
@@ -151,7 +151,7 @@ def get_catalog_xml(request):
         )
         for visualization_revision_id, in visualization_revision_ids:
             try:
-                vz = VisualizationDBDAO().get(language, visualization_revision_id=visualization_revision_id)
+                vz = VisualizationDBDAO().get(request.user, visualization_revision_id=visualization_revision_id)
             except:
                 logger.error('catalog VIZ ERROR %s %s' % (visualization_revision_id, language))
                 continue

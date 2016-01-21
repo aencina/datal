@@ -5,14 +5,17 @@ from rest_framework import authentication
 
 class RestAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
+
         if hasattr(request, 'account') and request.account:
             account = request.account
+            print dir(request.auth_manager)
 
             return (
                 AccountAnonymousUser(account), {
                     'account': account,
                     'preferences': None,
                     'language': request.auth_manager.language,
+                    'user': request.auth_manager,
                     'microsite_domain': get_domain(account.id),
                 }
             )

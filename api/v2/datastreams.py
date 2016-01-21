@@ -91,7 +91,7 @@ class DataStreamSerializer(ResourceSerializer):
     def getDao(self, datastream_revision):
         return DataStreamDBDAO().get(
             datastream_revision_id=datastream_revision.id,
-            language=self.context['request'].auth['language'],
+            user=self.context['request'].user,
             published=False)
 
     def create(self, validated_data):

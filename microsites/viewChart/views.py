@@ -25,9 +25,13 @@ def view(request, id, slug=None):
 
     preferences = request.preferences
 
+    # parche horrible para usar account_language en vez del language del user
+    user = request.user
+    user.language=preferences['account_language']
+
+
     try:
-        visualization_revision = VisualizationDBDAO().get(
-            preferences['account_language'],
+        visualization_revision = VisualizationDBDAO().get(user,
             visualization_id=id,
             published=True
         )
@@ -38,8 +42,7 @@ def view(request, id, slug=None):
             raise NotAccesVisualization
 
         #for datastream sidebar functions (downloads and others)
-        datastream = DataStreamDBDAO().get(
-            preferences['account_language'],
+        datastream = DataStreamDBDAO().get(user,
             datastream_revision_id=visualization_revision["datastream_revision_id"]
         )
         
@@ -69,12 +72,15 @@ def embed(request, guid):
     msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
     base_uri = msprotocol + '://' + preferences['account_domain']
 
-    try:
-        visualization_revision = VisualizationDBDAO().get(
-            preferences['account_language'], published=True, guid=guid )
+    # parche horrible para usar account_language en vez del language del user
+    user = request.user
+    user.language=preferences['account_language']
 
-        datastream = DataStreamDBDAO().get(
-            preferences['account_language'],
+    try:
+        visualization_revision = VisualizationDBDAO().get(user,
+            published=True, guid=guid )
+
+        datastream = DataStreamDBDAO().get(user,
             datastream_revision_id=visualization_revision["datastream_revision_id"]
         )
     except:

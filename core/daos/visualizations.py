@@ -69,33 +69,45 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
 
         return visualization, visualization_rev
 
-    def get(self, language, visualization_id=None, visualization_revision_id=None, guid=None, published=True):
-        """ Get full data """
+    def get(self, user, visualization_id=None, visualization_revision_id=None, guid=None, published=True):
+        """get all data of visualization 
+        :param user: mandatory
+        :param visualization_id:
+        :param visualization_revision_id:
+        :param guid:
+        :param published: boolean
+        :return: JSON Object
+        """
 
-        # selecciona el field que va a usar como pk para traer publicados o no
-        # solo si guid o visualization_id != None
-        fld_revision_to_get = 'visualization__last_published_revision' if published else 'visualization__last_revision'
+        if settings.DEBUG: logger.info('Getting Visualization %s' % str(locals()))
+
+        resource_language = Q(visualizationi18n__language=user.language)
+        user_language = Q(user__language=user.language)
 
         if guid:
-            visualization_revision = VisualizationRevision.objects.select_related().get(
-                visualization__guid=guid,
-                pk=F(fld_revision_to_get),
-                user__language=language,
-                visualizationi18n__language=language
-            )
-        elif not visualization_id:
-            visualization_revision = VisualizationRevision.objects.select_related().get(
-                pk=visualization_revision_id,
-                user__language=language,
-                visualizationi18n__language=language
-            )
+            condition = Q(visualization__guid=guid)
+        elif visualization_id:
+            condition = Q(visualization__id=visualization_id)
+        elif visualization_revision_id:
+            condition = Q(pk=visualization_revision_id)
         else:
-            visualization_revision = VisualizationRevision.objects.select_related().get(
-                pk=F(fld_revision_to_get),
-                user__language=language,
-                visualizationi18n__language=language,
-                visualization__id=visualization_id
-            )
+            logger.error('[ERROR] VisualizationDBDAO.get: no guid, resource id or revision id')
+            raise
+
+        # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
+        if published:
+            status_condition = Q(status=StatusChoices.PUBLISHED)
+        else:
+            status_condition = Q(status__in=StatusChoices.ALL)
+
+        # aca la magia
+        account_condition = Q(user__account=user.account)
+
+        try:
+            visualization_revision = VisualizationRevision.objects.select_related().get(condition & resource_language & user_language & status_condition & account_condition)
+        except VisualizationRevision.DoesNotExist:
+            logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s)'% (condition, resource_language, user_language))
+            raise
 
         tags = visualization_revision.datastream.last_revision.tagdatastream_set.all().values(
             'tag__name',
@@ -110,10 +122,10 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         parameters = []
 
         # Get category name
-        category = visualization_revision.datastream.last_revision.category.categoryi18n_set.get(language=language)
+        category = visualization_revision.datastream.last_revision.category.categoryi18n_set.get(language=user.language)
         visualizationi18n = VisualizationI18n.objects.get(
             visualization_revision=visualization_revision,
-            language=language
+            language=user.language
         )
 
         visualization = dict(

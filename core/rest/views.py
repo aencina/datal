@@ -77,7 +77,13 @@ class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin,
         return answer
 
     def get_queryset(self):
-        params = {'language': self.request.auth['language'] }
+
+        # deberiamos revisar bien esto
+        user=self.request.auth['user']
+        user.account=self.request.auth['account']
+        params = {'user': user}
+        # endreview
+
         params['published'] = self.published
         params[self.dao_get_param] = self.kwargs[self.lookup_field]
         try:

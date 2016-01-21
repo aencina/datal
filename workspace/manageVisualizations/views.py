@@ -210,7 +210,7 @@ def change_status(request, visualization_revision_id=None):
         )
 
         # Limpio un poco
-        response['result'] = VisualizationDBDAO().get(request.user.language, visualization_revision_id=visualization_revision_id)
+        response['result'] = VisualizationDBDAO().get(request.user, visualization_revision_id=visualization_revision_id)
         account = request.account
         msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('chart_manager.view', urlconf='microsites.urls', 
@@ -233,7 +233,7 @@ def create(request):
         datastream_revision_id = request.GET.get('datastream_revision_id', None)
         try:
             datastream_rev = DataStreamDBDAO().get(
-                request.user.language,
+                request.user,
                 datastream_revision_id=datastream_revision_id,
                 published=False
             )
@@ -284,7 +284,7 @@ def view(request, revision_id):
 
     try:
         visualization_revision = VisualizationDBDAO().get(
-            request.auth_manager.language,
+            request.user,
             visualization_revision_id=revision_id
         )
     except VisualizationRevision.DoesNotExist:
@@ -303,11 +303,11 @@ def view(request, revision_id):
 def edit(request, revision_id=None):
     if request.method == 'GET':
         visualization_rev = VisualizationDBDAO().get(
-            request.auth_manager.language,
+            request.user,
             visualization_revision_id=revision_id
         )
         datastream_rev = DataStreamDBDAO().get(
-            request.auth_manager.language,
+            request.user,
             datastream_revision_id=visualization_rev['datastream_revision_id'])
         return render_to_response('createVisualization/index.html', dict(
             request=request,
@@ -324,7 +324,7 @@ def edit(request, revision_id=None):
             raise VisualizationSaveException('Invalid form data: %s' % str(form.errors.as_text()))
 
         visualization_rev = VisualizationDBDAO().get(
-            request.auth_manager.language,
+            request.user,
             visualization_revision_id=revision_id
         )
         response = form.save(request, visualization_rev=visualization_rev)
