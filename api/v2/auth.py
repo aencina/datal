@@ -34,9 +34,10 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
             if not self.check_referer(self.request, application):
                 raise exceptions.AuthenticationFailed('Invalid referer')
 
-        user = self.resolve_user(application, account)
 
         preferences = account.get_preferences()
+        
+        user = self.resolve_user(application, account, preferences['account.language'])
 
         return (
             user, {
@@ -90,10 +91,10 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
         except Application.DoesNotExist:
             return None
 
-    def resolve_user(self, application, account):
+    def resolve_user(self, application, account, language):
         if application.user_id:
             try:
                 return User.objects.get(pk=application.user_id)
             except User.DoesNotExist:
-                return AccountAnonymousUser(account)
-        return AccountAnonymousUser(account)
+                return AccountAnonymousUser(account, language)
+        return AccountAnonymousUser(account, language)

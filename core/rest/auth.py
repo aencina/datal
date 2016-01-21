@@ -10,11 +10,10 @@ class RestAuthentication(authentication.BaseAuthentication):
             account = request.account
 
             return (
-                AccountAnonymousUser(account), {
+                AccountAnonymousUser(account, request.auth_manager.language), {
                     'account': account,
                     'preferences': None,
                     'language': request.auth_manager.language,
-                    'user': request.auth_manager,
                     'microsite_domain': get_domain(account.id),
                 }
             )

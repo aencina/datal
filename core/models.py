@@ -236,9 +236,10 @@ class Account(models.Model):
 
 class AccountAnonymousUser(AnonymousUser):
 
-    def __init__(self, account):
+    def __init__(self, account, language):
         super(AccountAnonymousUser, self).__init__()
         self.account = account
+        self.language = language
 
     def is_authenticated(self):
         return True
