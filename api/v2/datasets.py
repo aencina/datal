@@ -53,8 +53,6 @@ class DataSetSerializer(ResourceSerializer):
         help_text=_(u'Correo electronico de quien administra el conjunto de datos'))
 
     def __init__(self, *args, **kwargs):
-        print args
-        print kwargs
         super(DataSetSerializer, self).__init__(*args, **kwargs)
 
         self.fields['category']= serializers.ChoiceField(

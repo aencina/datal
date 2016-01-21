@@ -34,9 +34,15 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
         pass
 
     def get(self, user, dataset_id=None, dataset_revision_id=None, guid=None, published=False):
-        """ Get full data """
+        """get all data of dataset
+        :param user: mandatory
+        :param dataset_id:
+        :param dataset_revision_id:
+        :param guid:
+        :param published: boolean
+        :return: JSON Object
+        """
 
-        fld_revision_to_get = 'dataset__last_published_revision' if published else 'dataset__last_revision'
         if settings.DEBUG: logger.info('Getting Dataset %s' % str(locals()))
 
         dataset_language = Q(dataseti18n__language=user.language)
