@@ -232,8 +232,7 @@ def create(request):
     if request.method == 'GET':
         datastream_revision_id = request.GET.get('datastream_revision_id', None)
         try:
-            datastream_rev = DataStreamDBDAO().get(
-                request.user,
+            datastream_rev = DataStreamDBDAO().get(request.user,
                 datastream_revision_id=datastream_revision_id,
                 published=False
             )
@@ -283,8 +282,7 @@ def retrieve_childs(request):
 def view(request, revision_id):
 
     try:
-        visualization_revision = VisualizationDBDAO().get(
-            request.user,
+        visualization_revision = VisualizationDBDAO().get(request.user,
             visualization_revision_id=revision_id
         )
     except VisualizationRevision.DoesNotExist:
@@ -302,12 +300,10 @@ def view(request, revision_id):
 @transaction.commit_on_success
 def edit(request, revision_id=None):
     if request.method == 'GET':
-        visualization_rev = VisualizationDBDAO().get(
-            request.user,
+        visualization_rev = VisualizationDBDAO().get(request.user,
             visualization_revision_id=revision_id
         )
-        datastream_rev = DataStreamDBDAO().get(
-            request.user,
+        datastream_rev = DataStreamDBDAO().get(request.user,
             datastream_revision_id=visualization_rev['datastream_revision_id'])
         return render_to_response('createVisualization/index.html', dict(
             request=request,
@@ -323,8 +319,7 @@ def edit(request, revision_id=None):
             logger.info(form.errors)
             raise VisualizationSaveException('Invalid form data: %s' % str(form.errors.as_text()))
 
-        visualization_rev = VisualizationDBDAO().get(
-            request.user,
+        visualization_rev = VisualizationDBDAO().get(request.user,
             visualization_revision_id=revision_id
         )
         response = form.save(request, visualization_rev=visualization_rev)

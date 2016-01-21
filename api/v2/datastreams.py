@@ -61,8 +61,7 @@ class DataStreamSerializer(ResourceSerializer):
         guid = data.pop('dataset', None)
         if guid:
             try:
-                self.dataset = DatasetDBDAO().get(
-                    self.context['request'].user,
+                self.dataset = DatasetDBDAO().get(self.context['request'].user,
                     guid=guid, published=False)
                 data['dataset']=Dataset.objects.get(id=self.dataset['dataset_id'])
             except ObjectDoesNotExist:
@@ -89,9 +88,8 @@ class DataStreamSerializer(ResourceSerializer):
         return data
 
     def getDao(self, datastream_revision):
-        return DataStreamDBDAO().get(
+        return DataStreamDBDAO().get(user=self.context['request'].user,
             datastream_revision_id=datastream_revision.id,
-            user=self.context['request'].user,
             published=False)
 
     def create(self, validated_data):

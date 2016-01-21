@@ -35,7 +35,7 @@ class ThemeBuilder(object):
         # usamos el DAO
         for i in datastreamIds:
             try:
-                data.append(DataStreamDBDAO().get(self.user,datastream_id=i, published=True))
+                data.append(DataStreamDBDAO().get(self.user, datastream_id=i, published=True))
             except DataStreamRevision.DoesNotExist:
                 self.logger.error("ThemeBuilder.slider: DataStream.id=%s no existe o no esta publicado" % i)
 

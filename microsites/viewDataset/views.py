@@ -5,7 +5,6 @@ from core.shortcuts import render_to_response
 from core.models import Dataset, DatasetRevision
 from core.daos.datasets import DatasetDBDAO
 from core.templatetags.core_components import permalink as get_permalink
-from microsites.daos.datasets import DatasetDAO
 from core.exceptions import *
 from microsites.exceptions import *
 from django.views.decorators.http import require_http_methods
@@ -31,8 +30,7 @@ def view(request, dataset_id, slug):
         logger.error('Dataset {} has no published revision'.format(dataset_id))
         raise Http404
 
-    dataset = DatasetDBDAO().get(
-        request.user,
+    dataset = DatasetDBDAO().get(request.user,
         dataset_revision_id=dataset_orig.last_published_revision.id
     )
 

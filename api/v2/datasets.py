@@ -99,9 +99,8 @@ class DataSetSerializer(ResourceSerializer):
         return data
 
     def getDao(self, dataset_revision):
-        return DatasetDBDAO().get(
+        return DatasetDBDAO().get(user=self.context['request'].user,
             dataset_revision_id=dataset_revision.id,
-            user=self.context['request'].user,
             published=False)
 
     def create(self, validated_data):

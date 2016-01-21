@@ -10,6 +10,7 @@ from core.http import get_domain_by_request
 from core.http import get_domain_with_protocol
 from core.exceptions import *
 from microsites.exceptions import *
+from core.models import AccountAnonymousUser
 
 class DependencyInjector(object):
     """ Gets the current site & account """
@@ -49,5 +50,9 @@ class DependencyInjector(object):
         if settings.DOMAINS['microsites'] == domain:
             if request.META.get('REQUEST_URI') == '/':
                 return redirect(get_domain_with_protocol('microsites') + "/home")
+
+        # hacemos que el User sea un AccountAnonymousUser
+        # lo creamos con el account y el lenguaje que tenga el account_language
+        request.user = AccountAnonymousUser(request.account, preferences['account_language'])
 
         return None
