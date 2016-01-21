@@ -8,7 +8,6 @@ class RestAuthentication(authentication.BaseAuthentication):
 
         if hasattr(request, 'account') and request.account:
             account = request.account
-            print dir(request.auth_manager)
 
             return (
                 AccountAnonymousUser(account), {
