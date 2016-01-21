@@ -286,6 +286,13 @@ charts.models.Chart = Backbone.Model.extend({
                 valid = true;
                 console.log('valid',valid);
 
+            } else if (this.get('type') === 'piechart') {
+
+                // TODO: agregar validacion 
+                // tenemos piechart que traen 'series' con unv alor y piecharts que no.
+                valid = true;
+                console.log('valid',valid);
+            
             } else {
 
                 //General validation
