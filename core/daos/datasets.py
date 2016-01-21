@@ -33,53 +33,46 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
     def __init__(self):
         pass
 
-    def get(self, language, dataset_id=None, dataset_revision_id=None, guid=None, published=True):
+    def get(self, user, dataset_id=None, dataset_revision_id=None, guid=None, published=False):
         """ Get full data """
-        logger = logging.getLogger(__name__)
+
         fld_revision_to_get = 'dataset__last_published_revision' if published else 'dataset__last_revision'
         if settings.DEBUG: logger.info('Getting Dataset %s' % str(locals()))
-        
+
+        dataset_language = Q(dataseti18n__language=user.language)
+        category_language = Q(category__categoryi18n__language=user.language)
+
         if guid:
-            try:
-                dataset_revision = DatasetRevision.objects.select_related().get(
-                    dataset__guid=guid,
-                    pk=F(fld_revision_to_get),
-                    category__categoryi18n__language=language,
-                    dataseti18n__language=language
-                )
-            except DatasetRevision.DoesNotExist:
-                logger.error('Dataset Not exist GUID %s' % guid)
-                raise
-        elif not dataset_id:
-            try:
-                dataset_revision = DatasetRevision.objects.select_related().get(
-                    pk=dataset_revision_id,
-                    category__categoryi18n__language=language,
-                    dataseti18n__language=language
-                )
-            except DatasetRevision.DoesNotExist:
-                logger.error('DatasetRev Not exist Revision %s' % dataset_revision_id)
-                raise
+            condition = Q(dataset__guid=guid)
+        elif dataset_id:
+            condition = Q(dataset__id=dataset_id)
+        elif dataset_revision_id:
+            condition = Q(pk=dataset_revision_id)
         else:
-            try:
-                dataset_revision = DatasetRevision.objects.select_related().get(
-                    dataset__id=dataset_id,
-                    pk=F(fld_revision_to_get),
-                    category__categoryi18n__language=language,
-                    dataseti18n__language=language
-                )
-            except DatasetRevision.DoesNotExist:
-                logger.error('DatasetRev Not exist dataset_id=%d' % dataset_id)
-                raise
+            logger.error('[ERROR] DatasetDBDAO.get: no guid, resource id or revision id')
+            raise
+
+        # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
+        if published:
+            status_condition = Q(status=StatusChoices.PUBLISHED)
+        else:
+            status_condition = Q(status__in=StatusChoices.ALL)
+
+        # aca la magia
+        account_condition = Q(user__account=user.account)
+            
+        try:
+            dataset_revision = DatasetRevision.objects.select_related().get(condition & dataset_language & category_language & status_condition & account_condition)
+        except DatasetRevision.DoesNotExist:
+            logger.error('[ERROR] DatasetRev Not exist Revision (query: %s %s %s)'% (condition, dataset_language, category_language))
+            raise
 
         tags = dataset_revision.get_tags()
         sources = dataset_revision.get_sources()
 
-
         # Get category name
-        category = dataset_revision.category.categoryi18n_set.get(language=language)
-        dataseti18n = DatasetI18n.objects.get(dataset_revision=dataset_revision, language=language)
-
+        category = dataset_revision.category.categoryi18n_set.get(language=user.language)
+        dataseti18n = DatasetI18n.objects.get(dataset_revision=dataset_revision, language=user.language)
 
         dataset = dict(
             revision_id=dataset_revision.id,
@@ -119,7 +112,7 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
             slug=slugify(dataseti18n.title),
             cant=DatasetRevision.objects.filter(dataset__id=dataset_revision.dataset.id).count(),
         )
-        dataset.update(self.query_childs(dataset_revision.dataset.id, language))
+        dataset.update(self.query_childs(dataset_revision.dataset.id, user.language))
 
         return dataset
         

@@ -73,6 +73,8 @@ class StatusChoices():
     REJECTED = 5
     APPROVED = 6
 
+    ALL=(DRAFT, PENDING_REVIEW, UNDER_REVIEW, PUBLISHED, UNPUBLISHED, REJECTED, APPROVED)
+
 CHANNEL_TYPES = (
     (ChannelTypes.WEB, ugettext_lazy('CHANNEL_TYPE_WEB')),
     (ChannelTypes.API, ugettext_lazy('CHANNEL_TYPE_API'))

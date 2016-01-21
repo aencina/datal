@@ -32,7 +32,7 @@ def view(request, dataset_id, slug):
         raise Http404
 
     dataset = DatasetDBDAO().get(
-        request.auth_manager.language,
+        request.user,
         dataset_revision_id=dataset_orig.last_published_revision.id
     )
 
@@ -42,7 +42,7 @@ def view(request, dataset_id, slug):
 def download(request, dataset_id, slug):
     """ download internal dataset file """
     try:
-        dataset = DatasetDBDAO().get(request.auth_manager.language, dataset_id=dataset_id, published=True)
+        dataset = DatasetDBDAO().get(request.user, dataset_id=dataset_id, published=True)
     except:
         raise DatasetDoesNotExist
     else:

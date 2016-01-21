@@ -53,6 +53,8 @@ class DataSetSerializer(ResourceSerializer):
         help_text=_(u'Correo electronico de quien administra el conjunto de datos'))
 
     def __init__(self, *args, **kwargs):
+        print args
+        print kwargs
         super(DataSetSerializer, self).__init__(*args, **kwargs)
 
         self.fields['category']= serializers.ChoiceField(
@@ -101,7 +103,7 @@ class DataSetSerializer(ResourceSerializer):
     def getDao(self, dataset_revision):
         return DatasetDBDAO().get(
             dataset_revision_id=dataset_revision.id,
-            language=self.context['request'].auth['language'],
+            user=self.context['request'].user,
             published=False)
 
     def create(self, validated_data):

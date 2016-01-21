@@ -62,7 +62,7 @@ class DataStreamSerializer(ResourceSerializer):
         if guid:
             try:
                 self.dataset = DatasetDBDAO().get(
-                    self.context['request'].auth['language'],
+                    self.context['request'].user,
                     guid=guid, published=False)
                 data['dataset']=Dataset.objects.get(id=self.dataset['dataset_id'])
             except ObjectDoesNotExist:
