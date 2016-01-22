@@ -86,6 +86,7 @@ class GridEngineRenderer(EngineRenderer):
 
     def format_datetime(self, seconds, strformat="dd/mm/yyyy", strlocale="en_US"):
         try:
+            strlocale=strlocale.split("_")
             # We need MILISECONDS but sometimes we receive seconds
             if seconds > 1000000000000: #ejemplos 1.399.488.910 | 1.399.047.696.818
                 seconds = seconds/1000
@@ -99,7 +100,7 @@ class GridEngineRenderer(EngineRenderer):
                 strformat = strformat.replace("M", "MMM")
             else:
                 strformat = strformat.replace("m", "L")
-            res = dates.format_datetime(myutc, format=strformat, locale=strlocale)
+            res = dates.format_datetime(myutc, format=strformat, locale="%s_%s" %(strlocale[0], strlocale[1].upper()))
         except:
             #maybe TODO datetime.datetime.utcfromtimestamp(seconds/1000).strftime(strformat)
             err = str(sys.exc_info())
