@@ -7,6 +7,10 @@ from lxml.cssselect import CSSSelector
 import datetime
 import sys
 import re
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 select_tables = CSSSelector(".ao-table-selectable")
 select_rows = CSSSelector(".ao-row-selectable")
@@ -102,9 +106,9 @@ class GridEngineRenderer(EngineRenderer):
                 strformat = strformat.replace("m", "L")
             res = dates.format_datetime(myutc, format=strformat, locale="%s_%s" %(strlocale[0], strlocale[1].upper()))
         except:
-            #maybe TODO datetime.datetime.utcfromtimestamp(seconds/1000).strftime(strformat)
+            res = "%s (e)" % datetime.datetime.utcfromtimestamp(seconds)
             err = str(sys.exc_info())
-            res = str(seconds) + " error " + err
+            logger.error("[ERROR]: Render error: %s seconds, format: %s, strlocale: %s, error: %s " %(str(seconds),strformat, strlocale, err)
 
         return res
 
