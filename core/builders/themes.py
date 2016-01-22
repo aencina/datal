@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from core.models import DataStreamRevision, VisualizationRevision, Category
+from core.models import DataStreamRevision, VisualizationRevision, Category, Account
 from core.http import add_domains_to_permalinks
 from core.daos.datastreams import DataStreamDBDAO
 from core.daos.visualizations import VisualizationDBDAO
