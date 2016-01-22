@@ -69,50 +69,54 @@ charts.models.ChartData = Backbone.Model.extend({
             filters = this.get('filters'),
             invertedAxis = filters.invertedAxis;
 
-        // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
-        if( 
-            _.isUndefined( response.labels ) || 
-            _.isEmpty(response.labels) || 
-            response.labels == '' 
-        ){
+        if (filters.type !== 'mapchart') {
 
-            response.labels = [];
+            // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
+            if( 
+                _.isUndefined( response.labels ) || 
+                _.isEmpty(response.labels) || 
+                response.labels == '' 
+            ){
 
-            // Labels length = cantidad de filas
-            var labelsLength = response.values[0].length;
+                response.labels = [];
 
-            // Si viene invertedAxis, uso la cantidad de columnas como length
-            if( !_.isUndefined( invertedAxis ) ){
-                labelsLength = response.values.length;
+                // Labels length = cantidad de filas
+                var labelsLength = response.values[0].length;
+
+                // Si viene invertedAxis, uso la cantidad de columnas como length
+                if( !_.isUndefined( invertedAxis ) ){
+                    labelsLength = response.values.length;
+                }
+
+                for(var i=0;i<labelsLength;i++){
+                    response.labels.push(''); 
+                }
+
             }
 
-            for(var i=0;i<labelsLength;i++){
-                response.labels.push(''); 
-            }
+            // Si series no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
+            if( 
+                _.isUndefined( response.series ) || 
+                _.isEmpty(response.series) || 
+                response.series == ''
+            ){
 
-        }
+                response.series = [];
 
-        // Si series no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
-        if( 
-            _.isUndefined( response.series ) || 
-            _.isEmpty(response.series) || 
-            response.series == ''
-        ){
+                // Series length = cantidad de columnas
+                var seriesLength = response.values.length;
 
-            response.series = [];
+                // Si viene invertedAxis, uso la cantidad de filas como length
+                if( !_.isUndefined( invertedAxis ) ){
+                    seriesLength = response.values[0].length;
+                }
 
-            // Series length = cantidad de columnas
-            var seriesLength = response.values.length;
+                for(var i=0;i<seriesLength;i++){
+                    response.series.push({
+                        'name': ''
+                    }); 
+                }
 
-            // Si viene invertedAxis, uso la cantidad de filas como length
-            if( !_.isUndefined( invertedAxis ) ){
-                seriesLength = response.values[0].length;
-            }
-
-            for(var i=0;i<seriesLength;i++){
-                response.series.push({
-                    'name': ''
-                }); 
             }
 
         }
