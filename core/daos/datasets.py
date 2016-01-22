@@ -61,14 +61,16 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
         # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
         if published:
             status_condition = Q(status=StatusChoices.PUBLISHED)
+            last_revision_condition = Q(pk=F("dataset__last_published_revision"))
         else:
             status_condition = Q(status__in=StatusChoices.ALL)
+            last_revision_condition = Q(pk=F("dataset__last_revision"))
 
         # aca la magia
         account_condition = Q(user__account=user.account)
             
         try:
-            dataset_revision = DatasetRevision.objects.select_related().get(condition & dataset_language & category_language & status_condition & account_condition)
+            dataset_revision = DatasetRevision.objects.select_related().get(condition & dataset_language & category_language & status_condition & account_condition & last_revision_condition)
         except DatasetRevision.DoesNotExist:
             logger.error('[ERROR] DatasetRev Not exist Revision (query: %s %s %s)'% (condition, dataset_language, category_language))
             raise

@@ -102,14 +102,16 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
         if published:
             status_condition = Q(status=StatusChoices.PUBLISHED)
+            last_revision_condition = Q(pk=F("visualization__last_published_revision"))
         else:
             status_condition = Q(status__in=StatusChoices.ALL)
+            last_revision_condition = Q(pk=F("visualization__last_revision"))
 
         # aca la magia
         account_condition = Q(user__account=user.account)
 
         try:
-            visualization_revision = VisualizationRevision.objects.select_related().get(condition & resource_language & user_language & status_condition & account_condition)
+            visualization_revision = VisualizationRevision.objects.select_related().get(condition & resource_language & user_language & status_condition & account_condition & last_revision_condition)
         except VisualizationRevision.DoesNotExist:
             logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s)'% (condition, resource_language, user_language))
             raise
