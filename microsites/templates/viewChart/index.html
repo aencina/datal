@@ -178,7 +178,8 @@ var visualizationModel = new charts.models.Chart( viewVisualizationModel );
 visualizationModel.parse({
     id: {{ visualization_revision.visualization_id }},
     revision_id: {{ visualization_revision.visualization_revision_id }},
-
+    datastream_revision_id: {{datastream.datastream_revision_id}},
+    
     title: '{{ visualization_revision.title }}',
     description: '{{ visualization_revision.description }}',
     notes: '{{ visualization_revision.notes }}',

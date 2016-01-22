@@ -4,7 +4,7 @@ from optparse import make_option
 from core.lib.elastic import ElasticsearchIndex
 
 from core.choices import CollectTypeChoices, SourceImplementationChoices, StatusChoices
-from core.models import Dataset, DatasetRevision, DataStream, DataStreamRevision, Visualization, VisualizationRevision
+from core.models import Dataset, DatasetRevision, DataStream, DataStreamRevision, DatastreamI18n,Visualization, VisualizationRevision
 from core.lifecycle.datasets import DatasetLifeCycleManager
 from core.lifecycle.datasets import DatasetSearchDAOFactory
 from core.lifecycle.visualizations import VisualizationSearchDAOFactory
@@ -158,6 +158,9 @@ class Command(BaseCommand):
                     search_dao.add()
                 except DatastreamI18n.MultipleObjectsReturned:
                     print "[ERROR ds] DatastreamI18n.MultipleObjectsReturned (ds.id= %s)" % datastream.id
+                    continue
+                except AttributeError:
+                    print "[ERROR ds] self.datastream.last_published_revision == None (ds= %s)" % datastream.id
                     continue
 
                 h = DatastreamHitsDAO(datastream_rev)

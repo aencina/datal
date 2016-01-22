@@ -142,7 +142,12 @@ class Command(BaseCommand):
                 imp['chart']['headerSelection'] = ''
 
             rev.impl_details = json.dumps(imp)
+
             rev.save()
+
+            if 'invertedAxis' in imp['format']:
+                if imp['format']['invertedAxis'] == 'checked':
+                    print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
 
         # Preferencias del account.home.config.sliderSection cambiamos los type:chart a type:vz
         for home in Preference.objects.filter(Q(key="account.home")| Q(key="account.preview")):
@@ -202,6 +207,9 @@ class Command(BaseCommand):
             if not rev.visualization.datastream.last_published_revision:
                 rev.status = StatusChoices.PENDING_REVIEW
                 rev.save()
+
+                rev.visualization.last_published_revision = None
+                rev.visualization.save()
 
         # Fix de usuarios sin Name
         for user in self.users_all:
