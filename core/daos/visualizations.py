@@ -74,7 +74,7 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
 
         return visualization, visualization_rev
 
-    def get(self, user, visualization_id=None, visualization_revision_id=None, guid=None, published=True):
+    def get(self, user, visualization_id=None, visualization_revision_id=None, guid=None, published=False):
         """get all data of visualization 
         :param user: mandatory
         :param visualization_id:

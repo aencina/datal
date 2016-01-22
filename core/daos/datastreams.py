@@ -95,7 +95,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
 
         return datastream_revision
 
-    def get(self, user, datastream_id=None, datastream_revision_id=None, guid=None, published=True):
+    def get(self, user, datastream_id=None, datastream_revision_id=None, guid=None, published=False):
         """get all data of datastream 
         :param user: mandatory
         :param datastream_id:

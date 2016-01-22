@@ -13,10 +13,12 @@ logger = logging.getLogger(__name__)
 class DatalApiAuthentication(authentication.TokenAuthentication):
     def authenticate(self, request):
         self.request = request
-        auth_key = request.query_params.get("auth_key", 
-            None)
+        auth_key = request.query_params.get("auth_key", None)
         if not auth_key:
-            return super(DatalApiAuthentication, self).authenticate(request)
+            # TODO: Esto es para soportar la api v1 lo deberiamos sacar
+            auth_key = request.data.get('auth_key', None)
+            if not auth_key:
+                return super(DatalApiAuthentication, self).authenticate(request)
         return self.authenticate_credentials(auth_key)
 
     def authenticate_credentials(self, auth_key):
