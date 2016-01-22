@@ -31,7 +31,7 @@
         "email": "administrator@test.com",
         "nick": "administrator",
         "roles": [
-            1
+            1, 99
         ],
         "password": "200ceb26807d6bf99fd6f4f0d1ca54d4",
         "ocupation": "04"
@@ -69,7 +69,7 @@
         "email": "administrador@test.com", 
         "nick": "administrador", 
         "roles": [
-            1
+            1, 99
         ], 
         "password": "91f5167c34c400758115c2a6826ec2e3", 
         "ocupation": "04"

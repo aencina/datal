@@ -8,6 +8,9 @@ def request_context(request):
         path = request.path
         obj = {'tracking_id': account.get_preference('account.ga.tracking')}
         ga_obj = account.get_preference('account.ga')
+
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+
         if ga_obj == '':
             ga_obj = '{}'
         if 'visualizations' in path and 'embed' not in path:
@@ -27,6 +30,9 @@ def request_context(request):
                 obj.update({'ga': json.dumps(final)})
         else:
             obj = {}
+    else:
+        msprotocol = 'http'
 
-    obj['DOMAINS']='DOMAINS': settings.DOMAINS
+    obj['microsite_domain']=settings.DOMAINS['microsites']
+    obj['microsite_uri']=msprotocol
     return obj

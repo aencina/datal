@@ -28,5 +28,15 @@
         "name": "Publicador",
         "description": ""
     }
+},{
+    "pk": 99,
+    "model": "core.role", 
+    "fields": {
+        "created_at": "2012-06-19T17:21:46", 
+        "code": "ao-ops", 
+        "name": "Darth Vader",
+        "description": ""
+    }
 }
+
 ]
