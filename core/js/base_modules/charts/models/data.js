@@ -64,10 +64,7 @@ charts.models.ChartData = Backbone.Model.extend({
     parse: function (response) {
 
         var response = response,
-            columns = [],
-            fields =[],
-            filters = this.get('filters'),
-            invertedAxis = filters.invertedAxis;
+            filters = this.get('filters');
 
         if (filters.type !== 'mapchart') {
 
@@ -80,15 +77,7 @@ charts.models.ChartData = Backbone.Model.extend({
 
                 response.labels = [];
 
-                // Labels length = cantidad de filas
-                var labelsLength = response.values[0].length;
-
-                // Si viene invertedAxis, uso la cantidad de columnas como length
-                if( !_.isUndefined( invertedAxis ) ){
-                    labelsLength = response.values.length;
-                }
-
-                for(var i=0;i<labelsLength;i++){
+                for(var i=0;i<response.values[0].length;i++){
                     response.labels.push(''); 
                 }
 
@@ -103,15 +92,7 @@ charts.models.ChartData = Backbone.Model.extend({
 
                 response.series = [];
 
-                // Series length = cantidad de columnas
-                var seriesLength = response.values.length;
-
-                // Si viene invertedAxis, uso la cantidad de filas como length
-                if( !_.isUndefined( invertedAxis ) ){
-                    seriesLength = response.values[0].length;
-                }
-
-                for(var i=0;i<seriesLength;i++){
+                for(var i=0;i<response.values.length;i++){
                     response.series.push({
                         'name': ''
                     }); 
@@ -121,7 +102,9 @@ charts.models.ChartData = Backbone.Model.extend({
 
         }
 
-        var labels = response.labels;
+        var labels = response.labels,
+            columns = [],
+            fields =[];
 
         if (filters.type === 'mapchart') {
             return response;
