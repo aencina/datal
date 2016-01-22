@@ -58,5 +58,39 @@ var DataTableUtils = {
     }
 
     return number;    
-  }
+  },
+
+  toServerExcelRange: function(excelRange){
+    if (_.isUndefined(excelRange) || excelRange === '') return '';
+    var range = DataTableUtils.excelToRange(excelRange);
+
+    if (range.from.row === -1 && range.to.row === -1) {
+      excelRange = _.map(_.range(range.from.col, range.to.col + 1), function (col) {
+        return 'Column:' + DataTableUtils.intToExcelCol(col + 1);
+      }).join(',');
+    }
+
+    return excelRange;
+  },
+
+  parseEngineExcelRange: function (serverRange) {
+    var col;
+    if (_.isUndefined(serverRange)) {
+        return serverRange;
+    };
+
+    if (serverRange.indexOf('Column:') !== -1) {
+      cols = serverRange.split(',').map(function (item) {
+          return item.replace('Column:', '');
+      });
+      serverRange = [cols[0], ':', cols[cols.length - 1]].join('');
+    }
+    return serverRange;
+  },
+
 };
+
+
+// Tests
+
+console.log(DataTableUtils)

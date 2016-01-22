@@ -123,20 +123,20 @@ charts.models.Chart = Backbone.Model.extend({
         //edit
         if (res.revision_id && this.editMode) {
             data = _.extend(data,{
-                range_data: this.parseColumnFormat(res.data),
-                range_headers: this.parseColumnFormat(res.chart.headerSelection),
-                range_labels: this.parseColumnFormat(res.chart.labelSelection),
+                data: res.data,
+                headerSelection: res.chart.headerSelection,
+                labelSelection: res.chart.labelSelection,
 
-                range_lat: this.parseColumnFormat(res.chart.latitudSelection),
-                range_lon: this.parseColumnFormat(res.chart.longitudSelection)
+                latitudSelection: res.chart.latitudSelection,
+                longitudSelection: res.chart.longitudSelection
 
             });
 
             if (data.type === 'mapchart') {
                 data = _.extend(data,{
-                    range_lat: this.parseColumnFormat(res.chart.latitudSelection),
-                    range_lon: this.parseColumnFormat(res.chart.longitudSelection),
-                    range_trace: this.parseColumnFormat(res.chart.traceSelection),
+                    latitudSelection: res.chart.latitudSelection,
+                    longitudSelection: res.chart.longitudSelection,
+                    traceSelection: res.chart.traceSelection,
                     mapType: res.chart.mapType? res.chart.mapType.toUpperCase(): undefined,
                     geoType: res.chart.geoType,
                     options:{
@@ -171,9 +171,9 @@ charts.models.Chart = Backbone.Model.extend({
         }
 
         var filters = {
-            data: this.serializeServerExcelRange(this.get('range_data')),
-            headers: this.serializeServerExcelRange(this.get('range_headers')),
-            labels: this.serializeServerExcelRange(this.get('range_labels')),
+            data: this.get('data'),
+            headers: this.get('headerSelection'),
+            labels: this.get('labelSelection'),
             nullValueAction: this.get('nullValueAction'),
             nullValuePreset:  this.get('nullValuePreset') || '',
             type: this.get('type')
@@ -206,10 +206,10 @@ charts.models.Chart = Backbone.Model.extend({
         if(_.isUndefined(id)){
             filters = _.extend(filters,{
                 nullValueAction: this.get('nullValueAction'),
-                data: this.serializeServerExcelRange(this.get('range_data')),
-                lat: this.serializeServerExcelRange(this.get('range_lat')),
-                lon: this.serializeServerExcelRange(this.get('range_lon')),
-                traces: this.serializeServerExcelRange(this.get('range_trace'))
+                data: this.get('data'),
+                lat: this.get('latitudSelection'),
+                lon: this.get('longitudSelection'),
+                traces: this.get('traceSelection')
             });
             var revision_id = this.get('datastream_revision_id');
             if (!_.isUndefined(revision_id)) {
@@ -240,37 +240,6 @@ charts.models.Chart = Backbone.Model.extend({
      */
     fetchData: function () {
         return this.data.fetch();
-    },
-
-    serializeServerExcelRange: function(selection){
-        if (_.isUndefined(selection) || selection === '') return '';
-        var range = DataTableUtils.excelToRange(selection);
-
-        if (range.from.row === -1 && range.to.row === -1) {
-            selection = _.map(_.range(range.from.col, range.to.col + 1), function (col) {
-                return 'Column:' + DataTableUtils.intToExcelCol(col + 1);
-            }).join(',');
-        }
-
-        return selection;
-    },
-
-    parseColumnFormat: function (serverExcelRange) {
-        var col;
-        if (_.isUndefined(serverExcelRange)) {
-            return serverExcelRange;
-        };
-
-        // Parseo del formato "Column:D,Column:E,Column:F,Column:G" a "D:G".
-        // Notese que solo se asume que el formato de origen contiene columnas consecutivas y 
-        // ordenadas.
-        if (serverExcelRange.indexOf('Column:') !== -1) {
-            cols = serverExcelRange.split(',').map(function (item) {
-                return item.replace('Column:', '');
-            });
-            serverExcelRange = [cols[0], ':', cols[cols.length - 1]].join('');
-        }
-        return serverExcelRange;
     },
 
     valid: function(){
@@ -351,17 +320,17 @@ charts.models.Chart = Backbone.Model.extend({
             invertedAxis: this.get('invertedAxis'),
 
             //data selection
-            headerSelection: this.serializeServerExcelRange(this.get('range_headers')),
-            data: this.serializeServerExcelRange(this.get('range_data')),
-            labelSelection: this.serializeServerExcelRange(this.get('range_labels'))
+            headerSelection: this.get('headerSelection'),
+            data: this.get('data'),
+            labelSelection: this.get('range_labels')
 
         };
 
         if (this.get('type') === 'mapchart') {
             settings = _.extend( settings, {
-                latitudSelection: this.serializeServerExcelRange(this.get('range_lat')),
-                longitudSelection: this.serializeServerExcelRange(this.get('range_lon')),
-                traceSelection: this.serializeServerExcelRange(this.get('range_trace')),
+                latitudSelection: this.get('latitudSelection'),
+                longitudSelection: this.get('longitudSelection'),
+                traceSelection: this.get('traceSelection'),
                 mapType: this.get('mapType').toLowerCase(),
                 geoType: this.get('geoType'),
                 zoom: this.get('options').zoom,

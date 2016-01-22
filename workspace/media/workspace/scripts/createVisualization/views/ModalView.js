@@ -9,6 +9,15 @@ var ModalView = Backbone.View.extend({
         this.collection = new DataTableSelectedCollection();
         this.dataStreamModel = options.dataStreamModel;
 
+        this.rangeLatModel = new DataTableSelectionModel({classname: 1, mode: 'lat', name: 'latitudSelection', notEmpty: true});
+        this.rangeLonModel = new DataTableSelectionModel({classname: 2, mode: 'lon', name: 'longitudSelection', notEmpty: true});
+        this.rangeInfoModel = new DataTableSelectionModel({classname: 3, mode: 'data', name: 'data', notEmpty: true});
+        this.rangeTraceModel = new DataTableSelectionModel({classname: 4, mode: 'trace', name: 'traceSelection', notEmpty: true});
+
+        this.rangeDataModel = new DataTableSelectionModel({classname: 1, mode: 'data', name: 'data', notEmpty: true});
+        this.rangeLabelsModel = new DataTableSelectionModel({classname: 2, mode: 'labels', name: 'labelSelection', notEmpty: true});
+        this.rangeHeadersModel = new DataTableSelectionModel({classname: 3, mode: 'headers', name: 'headerSelection', notEmpty: true});
+
         // subviews
         this.selectedCellRangeView = new SelectedCellRangeView({
             el: this.$('.selected-ranges-view'),
@@ -26,35 +35,24 @@ var ModalView = Backbone.View.extend({
         });
 
         // initialization
+        this.onChangeType();
         return this;
     },
 
     onOpen: function () {
         this.selectedCellRangeView.render();
 
-        this.rangeLatModel = new DataTableSelectionModel({classname: 1, mode: 'lat', name: 'range_lat', notEmpty: true});
-        this.rangeLonModel = new DataTableSelectionModel({classname: 2, mode: 'lon', name: 'range_lon', notEmpty: true});
-        this.rangeInfoModel = new DataTableSelectionModel({classname: 3, mode: 'data', name: 'range_data', notEmpty: true});
-        this.rangeTraceModel = new DataTableSelectionModel({classname: 4, mode: 'trace', name: 'range_trace', notEmpty: true});
-
-        this.rangeDataModel = new DataTableSelectionModel({classname: 1, mode: 'data', name: 'range_data', notEmpty: true});
-        this.rangeLabelsModel = new DataTableSelectionModel({classname: 2, mode: 'labels', name: 'range_labels', notEmpty: true});
-        this.rangeHeadersModel = new DataTableSelectionModel({classname: 3, mode: 'headers', name: 'range_headers', notEmpty: true});
-        this.onChangeType();
-
-        this.rangeLatModel.set('excelRange', this.model.get('range_lat'));
-        this.rangeLonModel.set('excelRange', this.model.get('range_lon'));
-        this.rangeInfoModel.set('excelRange', this.model.get('range_data'));
-        this.rangeTraceModel.set('excelRange', this.model.get('range_trace'));
-        this.rangeDataModel.set('excelRange', this.model.get('range_data'));
-        this.rangeLabelsModel.set('excelRange', this.model.get('range_labels'));
-        this.rangeHeadersModel.set('excelRange', this.model.get('range_headers'));
+        this.rangeLatModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('latitudSelection')));
+        this.rangeLonModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('longitudSelection')));
+        this.rangeInfoModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
+        this.rangeTraceModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('traceSelection')));
+        this.rangeDataModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
+        this.rangeLabelsModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('labelSelection')));
+        this.rangeHeadersModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('headerSelection')));
 
         this.collection.setCache();
         this.setHeights();
         this.setAxisTitles();
-
-        console.log('usual collection', this.collection.toJSON());
     },
 
     onChangeType: function () {
@@ -73,7 +71,7 @@ var ModalView = Backbone.View.extend({
 
     onClickDone: function (e) {
         var result = this.collection.reduce(function (memo, m) {
-            memo[m.get('name')] = m.get('excelRange');
+            memo[m.get('name')] = DataTableUtils.toServerExcelRange(m.get('excelRange'));
             return memo;
         }, {});
         this.model.set(result);
@@ -110,7 +108,7 @@ var ModalView = Backbone.View.extend({
             });
         model.set(selection);
         var mode = [this._cacheFocusedInput, selection.mode].join('_');
-        console.log(selection, mode);
+        // console.log(selection, mode);
 
         this.validate();
     },
