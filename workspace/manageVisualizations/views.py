@@ -301,10 +301,10 @@ def view(request, revision_id):
 def edit(request, revision_id=None):
     if request.method == 'GET':
         visualization_rev = VisualizationDBDAO().get(request.user,
-            visualization_revision_id=revision_id
-        )
+            visualization_revision_id=revision_id, published=False)
+
         datastream_rev = DataStreamDBDAO().get(request.user,
-            datastream_revision_id=visualization_rev['datastream_revision_id'])
+            datastream_revision_id=visualization_rev['datastream_revision_id'], published=False)
         return render_to_response('createVisualization/index.html', dict(
             request=request,
             datastream_revision=datastream_rev,

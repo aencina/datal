@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 def view(request, revision_id):
     language = request.auth_manager.language
     try:
-        datastream = DataStreamDBDAO().get(request.user, datastream_revision_id=revision_id)
+        datastream = DataStreamDBDAO().get(request.user, datastream_revision_id=revision_id, published=False)
     except DataStreamRevision.DoesNotExist:
         raise DataStreamNotFoundException()
 
