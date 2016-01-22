@@ -120,11 +120,10 @@ body,
 /* REFERENCES */
 .columns .sidebar .sidebarPadding{padding-bottom:110px;}
 .filters strong{line-height:25px;display:block;color:#918989;}
-.filters span.type{line-height:21px;padding-left:22px !important;padding-right:0 !important;display:block;background-image: url(/static/workspace/images/common/ic_resources.png);background-repeat:no-repeat;margin-left:8px;}
-.filters span.DST{}
-.filters span.DS{background-position:0 -20px;}
-.filters span.VZ{background-position:0 -40px;}
-.filters span.DB{background-position:0 -59px;}
+.filters span.type{line-height:21px;padding-left:30px !important;padding-right:0 !important;display:block;background-image: url(/static/workspace/images/common/ic_resources.png);background-repeat:no-repeat;}
+.filters span.DST{background-position:8px 0;}
+.filters span.DS{background-position:8px -20px;}
+.filters span.VZ{background-position:8px -40px;}
 
 /*PLACEHOLDERS*/
 .placeholder{line-height:21px;font-size:14px;color:#666;}
