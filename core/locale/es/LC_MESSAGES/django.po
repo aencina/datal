@@ -1041,7 +1041,7 @@ msgid "APP-ERROR-404-DESCRIPTION"
 msgstr "Puede que haya tipeado mal la dirección o que la página se haya movido."
 
 msgid "APP-ERROR-500-DESCRIPTION"
-msgstr "Estamos trabajando para solucionar este problema lo antes posible. Si el problema continúa escríbanos a <a href='mailto:support@junar.com'>support@junar.com</a>, mientras tanto intente <a href='.'>actualizando</a> la página."
+msgstr "Estamos trabajando para solucionar este problema lo antes posible. Si el problema continúa escríbanos a <a href='mailto:support@junar.com'>support@junar.com</a>."
 
 msgid "APP-OF-THE-WORKSPACE-TEXT"
 msgstr "del espacio de trabajo"
