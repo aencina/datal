@@ -9,18 +9,19 @@ var ModalView = Backbone.View.extend({
         this.collection = new DataTableSelectedCollection();
         this.dataStreamModel = options.dataStreamModel;
 
-        this.rangeLatModel = new DataTableSelectionModel({classname: 1, name: 'range_lat', notEmpty: true});
-        this.rangeLonModel = new DataTableSelectionModel({classname: 2, name: 'range_lon', notEmpty: true});
-        this.rangeInfoModel = new DataTableSelectionModel({classname: 3, name: 'range_data', notEmpty: true});
-        this.rangeTraceModel = new DataTableSelectionModel({classname: 4, name: 'range_trace', notEmpty: true});
+        this.rangeLatModel = new DataTableSelectionModel({classname: 1, mode: 'lat', name: 'latitudSelection', notEmpty: true});
+        this.rangeLonModel = new DataTableSelectionModel({classname: 2, mode: 'lon', name: 'longitudSelection', notEmpty: true});
+        this.rangeInfoModel = new DataTableSelectionModel({classname: 3, mode: 'data', name: 'data', notEmpty: true});
+        this.rangeTraceModel = new DataTableSelectionModel({classname: 4, mode: 'trace', name: 'traceSelection', notEmpty: true});
 
-        this.rangeDataModel = new DataTableSelectionModel({classname: 1, name: 'range_data', notEmpty: true});
-        this.rangeLabelsModel = new DataTableSelectionModel({classname: 2, name: 'range_labels', notEmpty: true});
-        this.rangeHeadersModel = new DataTableSelectionModel({classname: 3, name: 'range_headers', notEmpty: true});
+        this.rangeDataModel = new DataTableSelectionModel({classname: 1, mode: 'data', name: 'data', notEmpty: true});
+        this.rangeLabelsModel = new DataTableSelectionModel({classname: 2, mode: 'labels', name: 'labelSelection', notEmpty: true});
+        this.rangeHeadersModel = new DataTableSelectionModel({classname: 3, mode: 'headers', name: 'headerSelection', notEmpty: true});
 
         // subviews
         this.selectedCellRangeView = new SelectedCellRangeView({
             el: this.$('.selected-ranges-view'),
+            model: this.model,
             collection: this.collection
         });
 
@@ -42,13 +43,13 @@ var ModalView = Backbone.View.extend({
     onOpen: function () {
         this.selectedCellRangeView.render();
 
-        this.rangeLatModel.set('excelRange', this.model.get('range_lat'));
-        this.rangeLonModel.set('excelRange', this.model.get('range_lon'));
-        this.rangeInfoModel.set('excelRange', this.model.get('range_data'));
-        this.rangeTraceModel.set('excelRange', this.model.get('range_trace'));
-        this.rangeDataModel.set('excelRange', this.model.get('range_data'));
-        this.rangeLabelsModel.set('excelRange', this.model.get('range_labels'));
-        this.rangeHeadersModel.set('excelRange', this.model.get('range_headers'));
+        this.rangeLatModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('latitudSelection')));
+        this.rangeLonModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('longitudSelection')));
+        this.rangeInfoModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
+        this.rangeTraceModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('traceSelection')));
+        this.rangeDataModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
+        this.rangeLabelsModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('labelSelection')));
+        this.rangeHeadersModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('headerSelection')));
 
         this.collection.setCache();
         this.setHeights();
@@ -58,6 +59,7 @@ var ModalView = Backbone.View.extend({
     onChangeType: function () {
         var type = this.model.get('type'),
             geoType = this.model.get('geoType');
+
         if (type === 'mapchart') {
             if (geoType === 'points') {
                 this.collection.reset([this.rangeLatModel, this.rangeLonModel, this.rangeInfoModel]);
@@ -71,7 +73,7 @@ var ModalView = Backbone.View.extend({
 
     onClickDone: function (e) {
         var result = this.collection.reduce(function (memo, m) {
-            memo[m.get('name')] = m.get('excelRange');
+            memo[m.get('name')] = DataTableUtils.toServerExcelRange(m.get('excelRange'));
             return memo;
         }, {});
         this.model.set(result);
@@ -107,21 +109,31 @@ var ModalView = Backbone.View.extend({
                 return model.get('name') === name;
             });
         model.set(selection);
+        var mode = [this._cacheFocusedInput, selection.mode].join('_');
+        // console.log(selection, mode);
+
         this.validate();
     },
 
     validate: function () {
         var type = this.model.get('type'),
-            geoType = this.model.get('geoType');
+            geoType = this.model.get('geoType'),
+            valid = false;
 
         if (type === 'mapchart') {
             if (geoType === 'points') {
-                this.validateLatLon();
+                valid = this.validateLatLon();
             } else if (geoType === 'traces') {
-                this.validateTrace();
+                valid = this.validateTrace();
             }
         } else {
-            this.validateData();
+            valid = this.validateData();
+        }
+
+        if (valid) {
+            this.enable();
+        } else {
+            this.disable();
         }
     },
 
@@ -133,11 +145,7 @@ var ModalView = Backbone.View.extend({
             validLon = this.rangeLonModel.isValid(),
             validInfo = this.rangeInfoModel.isValid();
 
-        if (hasLat && hasLon && hasInfo && validLat && validLon && validInfo) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+        return hasLat && hasLon && hasInfo && validLat && validLon && validInfo;
     },
 
     validateTrace: function () {
@@ -146,11 +154,7 @@ var ModalView = Backbone.View.extend({
             validTrace = this.rangeTraceModel.isValid(),
             validInfo = this.rangeInfoModel.isValid();
 
-        if (hasTrace && hasInfo && validTrace && validInfo) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+        return hasTrace && hasInfo && validTrace && validInfo;
     },
 
     validateData: function () {
@@ -161,12 +165,8 @@ var ModalView = Backbone.View.extend({
             validLabels = this.rangeLabelsModel.isValid(),
             validHeaders = this.rangeHeadersModel.isValid();
 
-        if (hasData && hasLabels && hasHeaders && validData && validLabels && validHeaders &&
-            this.validateDataHeaders(this.rangeDataModel, this.rangeHeadersModel)) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+        return hasData && hasLabels && hasHeaders && validData && validLabels && validHeaders 
+            && this.validateDataHeaders(this.rangeDataModel, this.rangeHeadersModel);
     },
 
     validateDataHeaders: function(validData, validHeaders) {
