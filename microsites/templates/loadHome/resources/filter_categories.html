@@ -6,13 +6,13 @@
             <span title="{% trans 'APP-ALL-TEXT' %}">{% trans 'APP-ALL-TEXT' %}</span>
         </dd>
         <dd class="filter_type" data="dt">
-            <span title="{% trans 'APP-DATASETS-TEXT' %}">{% trans 'APP-DATASETS-TEXT' %}</span>
+            <span class="type DST" title="{% trans 'APP-DATASETS-TEXT' %}">{% trans 'APP-DATASETS-TEXT' %}</span>
         </dd>
         <dd class="filter_type" data="ds">
-            <span title="{% trans 'APP-DATAVIEWS-TEXT' %}">{% trans 'APP-DATAVIEWS-TEXT' %}</span>
+            <span class="type DS" title="{% trans 'APP-DATAVIEWS-TEXT' %}">{% trans 'APP-DATAVIEWS-TEXT' %}</span>
         </dd>
         <dd class="filter_type" data="vz">
-            <span title="{% trans 'APP-CHARTS-TEXT' %}">{% trans 'APP-CHARTS-TEXT' %}</span>
+            <span class="type VZ" title="{% trans 'APP-CHARTS-TEXT' %}">{% trans 'APP-CHARTS-TEXT' %}</span>
         </dd>
         <!-- filter categories from plugins -->
         {% plugins_call 'microsites_home_filter_categories' %}

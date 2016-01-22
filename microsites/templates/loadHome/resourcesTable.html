@@ -9,13 +9,6 @@
                     {% else %}
                         {% include "loadHome/resources/filter_categories.html" %}
                     {% endif %}
-                    <div class="references">
-                        <strong>{% trans "HOME-REFENCES-TEXT" %}</strong> 
-                        <span class="DST">{% trans "HOME-DATASET-TEXT" %}</span> 
-                        <span class="DS">{% trans "HOME-DS-TEXT" %}</span> 
-                        <span class="VZ">{% trans "HOME-VZ-TEXT" %}</span>
-                        {% plugins_call 'microsites_home_resources_table' %}
-                    </div>
                 </div>
             </div>
             <div class="CR grid">
