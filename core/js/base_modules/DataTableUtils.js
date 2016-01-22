@@ -58,5 +58,53 @@ var DataTableUtils = {
     }
 
     return number;    
-  }
+  },
+
+  toServerExcelRange: function(excelRange){
+    if (_.isUndefined(excelRange) || excelRange === '') return '';
+    var range = DataTableUtils.excelToRange(excelRange);
+
+    if (range.from.row === -1 && range.to.row === -1) {
+      excelRange = _.map(_.range(range.from.col, range.to.col + 1), function (col) {
+        return 'Column:' + DataTableUtils.intToExcelCol(col + 1);
+      }).join(',');
+    }
+
+    return excelRange;
+  },
+
+  parseEngineExcelRange: function (serverRange) {
+    var self = this,
+      col,
+      accum;
+
+    if (_.isUndefined(serverRange)) {
+        return serverRange;
+    };
+
+    if (serverRange.indexOf('Column:') !== -1) {
+      // Computes column numbers
+      cols = serverRange.split(',').map(function (item) {
+          return self.excelColToInt(item.replace('Column:', ''));
+      });
+
+      // Accumulates column numbers into ranges of consecutive columns
+      accum = _.reduce(cols, function(memo, item) {
+        if (memo.length !== 0 && memo[memo.length-1][1] + 1 === item) {
+          memo[memo.length-1][1] = item;
+        } else {
+          memo.push([item,item]);
+        }
+        return memo;
+      }, []);
+
+      // Maps array of ranges into excel formated range
+      serverRange = _.map(accum, function (range) {
+        return DataTableUtils.intToExcelCol(range[0]) + ':' + DataTableUtils.intToExcelCol(range[1]);
+      }).join(',');
+
+    }
+    return serverRange;
+  },
+
 };

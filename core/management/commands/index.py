@@ -148,8 +148,7 @@ class Command(BaseCommand):
             if self.options['debug']: print "[Iniciando datastreams]"
             for datastream in DataStream.objects.filter(last_published_revision__status=StatusChoices.PUBLISHED):
                 datastreamrevision=datastream.last_published_revision
-                datastream_rev = DataStreamDBDAO().get(
-                    datastreamrevision.user.language,
+                datastream_rev = DataStreamDBDAO().get(datastreamrevision.user,
                     datastream_revision_id=datastreamrevision.id,
                     published=True
                 )

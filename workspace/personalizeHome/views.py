@@ -90,7 +90,7 @@ def suggest(request):
     preferences = account.get_preferences()
     language = request.auth_manager.language
 
-    builder = ThemeBuilder(preferences, False, language, account)
+    builder = ThemeBuilder(preferences, False, language, request.user)
     data = builder.parse()
 
     if data['federated_accounts_ids']:

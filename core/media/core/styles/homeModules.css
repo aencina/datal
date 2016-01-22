@@ -18,10 +18,10 @@
 .sidebar .filters dt span{font-weight:bold;font-size:12px;color:#918989;padding-bottom:4px;}
 .sidebar .filters dd{word-break:break-word;}
 .sidebar .filters dd span{color:#2875bb;padding-right:15px;}
-.sidebar .filters dd span:hover{background:#eee;}
+.sidebar .filters dd span:hover{background-color:#eee;}
 .sidebar .filters .filter-active,
 .sidebar .filters dd.filter-active span,
-.sidebar .filters dd.filter-active span:hover{background:#eee url(/static/workspace/images/_workspace/ic_filtersArrow.gif) no-repeat right 7px;font-weight:bold;color:#333;}
+.sidebar .filters dd.filter-active span:hover{font-weight:bold;color:#333;}
 .sidebar .filters dd.filter-active{background:none;}
 
 /*RESOURCE ICONS*/

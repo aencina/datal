@@ -8,13 +8,27 @@ var SelectedCellRangeView = Backbone.View.extend({
 
 	initialize: function (options) {
         this.listenTo(this.collection, 'change:excelRange', this.onChangeExcelRange, this);
-        this.listenTo(this.collection, 'add reset', this.render, this);
+        this.listenTo(this.model, 'change:type', this.render, this);
 	},
 
 	render: function  () {
+        var type = this.model.get('type'),
+            geoType = this.model.get('geoType'),
+            inputs = [];
+
+        if (type === 'mapchart') {
+            if (geoType === 'points') {
+                inputs = ['latitudSelection', 'longitudSelection', 'data'];
+            } else if (geoType === 'traces') {
+                inputs = ['traceSelection', 'data'];
+            }
+        } else {
+            inputs = ['data', 'labelSelection', 'headerSelection'];
+        }
+
 		this.$('.input-row').addClass('hidden');
-		this.collection.each(function (model) {
-			this.$('[data-name="' + model.get('name')+ '"].input-row ').removeClass('hidden');
+		_.each(inputs, function (name) {
+			this.$('[data-name="' + name + '"].input-row ').removeClass('hidden');
 		});
 		this.$('.input-row:not(.hidden) input[type="text"]').first().focus();
 	},

@@ -67,10 +67,10 @@ body,
   .sidebar .filters dt span{font-weight:bold;font-size:12px;color:#918989;padding-bottom:4px;}
   .sidebar .filters dd{word-break:break-word;}
   .sidebar .filters dd span{color:#2875bb;padding-right:15px;}
-  .sidebar .filters dd span:hover{background:#eee;}
+  .sidebar .filters dd span:hover{background-color:#eee;}
   .sidebar .filters .filter-active,
   .sidebar .filters dd.filter-active span,
-  .sidebar .filters dd.filter-active span:hover{background:#eee url(/static/workspace/images/_workspace/ic_filtersArrow.gif) no-repeat right 7px;font-weight:bold;color:#333;}
+  .sidebar .filters dd.filter-active span:hover{font-weight:bold;color:#333;}
   .sidebar .filters dd.filter-active{background:none;}  
 
   /*PAGINATION - ITEMS PER PAGE*/
@@ -119,13 +119,12 @@ body,
 
 /* REFERENCES */
 .columns .sidebar .sidebarPadding{padding-bottom:110px;}
-.references{position:absolute;font-size:11px;bottom:0;left:0;padding:0 19px 15px;text-shadow:0 1px 0 #fff;}
-.references strong{line-height:25px;display:block;color:#918989;}
-.references span{line-height:21px;padding-left:20px;display:block;background: url(/static/workspace/images/common/ic_resources.png) no-repeat;}
-.references span.DST{}
-.references span.DS{background-position:0 -20px;}
-.references span.VZ{background-position:0 -40px;}
-.references span.DB{background-position:0 -59px;}
+.filters strong{line-height:25px;display:block;color:#918989;}
+.filters span.type{line-height:21px;padding-left:22px !important;padding-right:0 !important;display:block;background-image: url(/static/workspace/images/common/ic_resources.png);background-repeat:no-repeat;margin-left:8px;}
+.filters span.DST{}
+.filters span.DS{background-position:0 -20px;}
+.filters span.VZ{background-position:0 -40px;}
+.filters span.DB{background-position:0 -59px;}
 
 /*PLACEHOLDERS*/
 .placeholder{line-height:21px;font-size:14px;color:#666;}

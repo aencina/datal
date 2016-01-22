@@ -23,17 +23,17 @@
 
 				<div class="selected-ranges-view">
 					<form class="form" novalidate>
-						<div class="row input-row" data-name="range_data">
+						<div class="row input-row" data-name="data">
 							<label>{% trans "APP-CUSTOMIZE-VISUALIZATION-SELECT-RANGE-TEXT" %}</label>
 							<div class="hot-sel-1">
 								<span class="color"></span>
-								<input name="range_data" type="text" />
+								<input name="data" type="text" />
 								<p class="validation-not-empty hidden">{% trans "APP-INVALID-REQUIRED" %}</p>
 								<p class="validation-invalid-range hidden">{% trans "APP-INVALID-RANGE" %}</p>
 							</div>
 						</div>
 
-						<div class="row input-row" data-name="range_labels">
+						<div class="row input-row" data-name="labelSelection">
 							<div class="invertedAxisLabel invertedAxis-false">
 								<label>{% trans "APP-CUSTOMIZE-VISUALIZATION-SELECT-LABEL-TEXT" %}</label>
 							</div>
@@ -42,13 +42,13 @@
 							</div>
 							<div class="hot-sel-2">
 								<span class="color"></span>
-								<input name="range_labels" type="text" />
+								<input name="labelSelection" type="text" />
 								<p class="validation-not-empty hidden">{% trans "APP-INVALID-REQUIRED" %}</p>
 								<p class="validation-invalid-range hidden">{% trans "APP-INVALID-RANGE" %}</p>
 							</div>
 						</div>
 
-						<div class="row input-row" data-name="range_headers">
+						<div class="row input-row" data-name="headerSelection">
 							<div class="invertedAxisLabel invertedAxis-false">
 								<label>{% trans "APP-CUSTOMIZE-VISUALIZATION-SELECT-HEADERS-TEXT" %}</label>
 							</div>
@@ -58,7 +58,7 @@
 							</div>
 							<div class="hot-sel-3">
 								<span class="color"></span>
-								<input name="range_headers" type="text" />
+								<input name="headerSelection" type="text" />
 								<p class="validation-not-empty hidden">{% trans "APP-INVALID-REQUIRED" %}</p>
 								<p class="validation-invalid-range hidden">{% trans "APP-INVALID-RANGE" %}</p>
 							</div>

@@ -29,4 +29,5 @@ def request_context(request):
     if hasattr(request, 'stats'):
         d['stats'] = request.stats
 
+    print d
     return d
