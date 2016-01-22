@@ -158,7 +158,10 @@ class GridEngineRenderer(EngineRenderer):
                 fPattern = l_cell['fDisplayFormat']['fPattern']
             if l_cell['fDisplayFormat'].get('fLocale',False):
                 #sometimes locale come as en,us and it's wrong. We need en_US
-                fLocale = l_cell['fDisplayFormat']['fLocale'].replace(",","_")
+                if len(l_cell['fDisplayFormat']['fLocale']) == 2:
+                    fLocale = "%s_%s" % (l_cell['fDisplayFormat']['fLang'],l_cell['fDisplayFormat']['fLocale'].upper())
+                else:
+                    fLocale = l_cell['fDisplayFormat']['fLocale'].replace(",","_")
             if l_cell['fDisplayFormat'].get('fCurrency',False):
                 fCurrency = l_cell['fDisplayFormat']['fCurrency']
 
