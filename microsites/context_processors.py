@@ -1,4 +1,5 @@
 import json
+from django.conf import settings
 
 def request_context(request):
     obj = {}
@@ -26,4 +27,6 @@ def request_context(request):
                 obj.update({'ga': json.dumps(final)})
         else:
             obj = {}
+
+    obj['DOMAINS']='DOMAINS': settings.DOMAINS
     return obj
