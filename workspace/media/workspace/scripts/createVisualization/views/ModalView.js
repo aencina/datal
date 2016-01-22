@@ -21,6 +21,7 @@ var ModalView = Backbone.View.extend({
         // subviews
         this.selectedCellRangeView = new SelectedCellRangeView({
             el: this.$('.selected-ranges-view'),
+            model: this.model,
             collection: this.collection
         });
 
@@ -58,6 +59,7 @@ var ModalView = Backbone.View.extend({
     onChangeType: function () {
         var type = this.model.get('type'),
             geoType = this.model.get('geoType');
+
         if (type === 'mapchart') {
             if (geoType === 'points') {
                 this.collection.reset([this.rangeLatModel, this.rangeLonModel, this.rangeInfoModel]);
