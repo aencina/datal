@@ -40,7 +40,12 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         pass
 
     def create(self, visualization=None, datastream_rev=None, user=None, language=None, **fields):
-        """create a new visualization if needed and a visualization_revision"""
+        """create a new visualization if needed and a visualization_revision
+        :param language:
+        :param user:
+        :param datastream_rev:
+        :param visualization:
+        """
 
         if not visualization:
             # Create a new datastream (TITLE is for automatic GUID creation)
@@ -168,7 +173,10 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         return visualization
 
     def query_childs(self, visualization_id, language):
-        """ Devuelve la jerarquia completa para medir el impacto """
+        """ Devuelve la jerarquia completa para medir el impacto
+        :param language:
+        :param visualization_id:
+        """
 
         return dict()
 
@@ -224,7 +232,21 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
     def query(self, account_id=None, language=None, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE,
           sort_by='-id', filters_dict=None, filter_name=None, exclude=None, filter_status=None,
           filter_category=None, filter_text=None, filter_user=None, full=False):
-        """ Consulta y filtra las visualizaciones por diversos campos """
+        """ Consulta y filtra las visualizaciones por diversos campos
+        :param full:
+        :param filter_user:
+        :param filter_text:
+        :param filter_category:
+        :param filter_status:
+        :param exclude:
+        :param filter_name:
+        :param filters_dict:
+        :param sort_by:
+        :param itemsxpage:
+        :param page:
+        :param language:
+        :param account_id:
+        """
         """ filter_category existe para poder llamar a todos los daos con la misma firma """
         query = VisualizationRevision.objects.filter(
             id=F('visualization__last_revision'),
@@ -298,7 +320,6 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
     def __add_cant(self, item):
             item['cant']=VisualizationRevision.objects.filter(visualization__id=item['visualization__id']).count()
 
-
     def query_hot_n(self, lang, hot = None):
 
         if not hot:
@@ -362,6 +383,8 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         """
         Reads available filters from a resource array. Returns an array with objects and their
         i18n names when available.
+        :param language:
+        :param account_id:
         """
         query = VisualizationRevision.objects.filter(
             id=F('visualization__last_revision'),
@@ -413,7 +436,9 @@ class VisualizationHitsDAO():
         self.cache=Cache()
 
     def add(self,  channel_type):
-        """agrega un hit al datastream. """
+        """agrega un hit al datastream.
+        :param channel_type:
+        """
 
         # TODO: Fix temporal por el paso de DT a DAO.
         # Es problema es que por momentos el datastream viene de un queryset y otras veces de un DAO y son objetos
@@ -455,8 +480,10 @@ class VisualizationHitsDAO():
 
         return query.count()
 
-    def count_by_day(self,day):
-        """retorna los hits de un día determinado"""
+    def count_by_day(self, day):
+        """retorna los hits de un día determinado
+        :param day:
+        """
 
         # si es datetime, usar solo date
         if type(day) == type(datetime.today()):
@@ -476,7 +503,10 @@ class VisualizationHitsDAO():
         return (date,hits)
 
     def count_by_days(self, day=30, channel_type=None):
-        """trae un dict con los hits totales de los ultimos day y los hits particulares de los días desde day hasta today"""
+        """trae un dict con los hits totales de los ultimos day y los hits particulares de los días desde day hasta today
+        :param channel_type:
+        :param day:
+        """
 
         # no sé si es necesario esto
         if day < 1:
@@ -545,12 +575,14 @@ class VisualizationSearchDAO():
     """ class for manage access to datasets' searchify documents """
 
     TYPE="vz"
+
     def __init__(self, visualization_revision):
         self.visualization_revision=visualization_revision
         self.search_index = SearchifyIndex()
 
     def _get_type(self):
         return self.TYPE
+    
     def _get_id(self):
         """ Get Tags """
         return "%s::%s" %(self.TYPE.upper(),self.visualization_revision.visualization.guid)
