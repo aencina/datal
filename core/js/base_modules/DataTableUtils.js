@@ -74,23 +74,37 @@ var DataTableUtils = {
   },
 
   parseEngineExcelRange: function (serverRange) {
-    var col;
+    var self = this,
+      col,
+      accum;
+
     if (_.isUndefined(serverRange)) {
         return serverRange;
     };
 
     if (serverRange.indexOf('Column:') !== -1) {
+      // Computes column numbers
       cols = serverRange.split(',').map(function (item) {
-          return item.replace('Column:', '');
+          return self.excelColToInt(item.replace('Column:', ''));
       });
-      serverRange = [cols[0], ':', cols[cols.length - 1]].join('');
+
+      // Accumulates column numbers into ranges of consecutive columns
+      accum = _.reduce(cols, function(memo, item) {
+        if (memo.length !== 0 && memo[memo.length-1][1] + 1 === item) {
+          memo[memo.length-1][1] = item;
+        } else {
+          memo.push([item,item]);
+        }
+        return memo;
+      }, []);
+
+      // Maps array of ranges into excel formated range
+      serverRange = _.map(accum, function (range) {
+        return DataTableUtils.intToExcelCol(range[0]) + ':' + DataTableUtils.intToExcelCol(range[1]);
+      }).join(',');
+
     }
     return serverRange;
   },
 
 };
-
-
-// Tests
-
-console.log(DataTableUtils)
