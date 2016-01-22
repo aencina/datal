@@ -322,7 +322,7 @@ charts.models.Chart = Backbone.Model.extend({
             //data selection
             headerSelection: this.get('headerSelection'),
             data: this.get('data'),
-            labelSelection: this.get('range_labels')
+            labelSelection: this.get('labelSelection')
 
         };
 
