@@ -122,8 +122,6 @@ class ElasticsearchFinder(Finder):
             filters.append({"terms": {
                 "resource_id": filter(None,self.ids.split(","))
             }})
-            print self.resource
-            print filters
 
         query = {
             "query": {
