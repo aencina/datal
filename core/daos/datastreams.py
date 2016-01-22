@@ -39,7 +39,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
     def __init__(self):
         pass
 
-    def create(self, datastream=None, user=None, **fields):
+    def create(self, user, datastream=None, **fields):
         """create a new datastream if needed and a datastream_revision"""
 
         if datastream is None:
@@ -95,30 +95,46 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
 
         return datastream_revision
 
-    def get(self, language, datastream_id=None, datastream_revision_id=None, guid=None, published=True):
-        """ Get full data """
-        fld_revision_to_get = 'datastream__last_published_revision' if published else 'datastream__last_revision'
+    def get(self, user, datastream_id=None, datastream_revision_id=None, guid=None, published=False):
+        """get all data of datastream 
+        :param user: mandatory
+        :param datastream_id:
+        :param datastream_revision_id:
+        :param guid:
+        :param published: boolean
+        :return: JSON Object
+        """
+
+        if settings.DEBUG: logger.info('Getting Datasstream %s' % str(locals()))
+
+        resource_language = Q(datastreami18n__language=user.language)
+        category_language = Q(category__categoryi18n__language=user.language)
 
         if guid:
-            datastream_revision = DataStreamRevision.objects.select_related().get(
-                datastream__guid=guid,
-                pk=F(fld_revision_to_get),
-                category__categoryi18n__language=language,
-                datastreami18n__language=language
-            )
-        elif not datastream_id:
-            datastream_revision = DataStreamRevision.objects.select_related().get(
-                pk=datastream_revision_id,
-                category__categoryi18n__language=language,
-                datastreami18n__language=language
-            )
+            condition = Q(datastream__guid=guid)
+        elif datastream_id:
+            condition = Q(datastream__id=datastream_id)
+        elif datastream_revision_id:
+            condition = Q(pk=datastream_revision_id)
         else:
-            datastream_revision = DataStreamRevision.objects.select_related().get(
-                pk=F(fld_revision_to_get),
-                category__categoryi18n__language=language,
-                datastreami18n__language=language,
-                datastream__id=datastream_id
-            )
+            logger.error('[ERROR] DataStreamDBDAO.get: no guid, resource id or revision id')
+            raise
+
+        # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
+        if published:
+            status_condition = Q(status=StatusChoices.PUBLISHED)
+        else:
+            status_condition = Q(status__in=StatusChoices.ALL)
+
+        # aca la magia
+        account_condition = Q(user__account=user.account)
+
+        try:
+            datastream_revision = DataStreamRevision.objects.select_related().get(condition & resource_language & category_language & status_condition & account_condition)
+        except DataStreamRevision.DoesNotExist:
+            logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s)'% (condition, resource_language, category_language))
+            raise
+
 
         tags = datastream_revision.tagdatastream_set.all().values('tag__name', 'tag__status', 'tag__id')
         sources = datastream_revision.sourcedatastream_set.all().values('source__name', 'source__url', 'source__id')
@@ -129,8 +145,8 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             parameters = []
 
         # Get category name
-        category = datastream_revision.category.categoryi18n_set.get(language=language)
-        datastreami18n = DatastreamI18n.objects.get(datastream_revision=datastream_revision, language=language)
+        category = datastream_revision.category.categoryi18n_set.get(language=user.language)
+        datastreami18n = DatastreamI18n.objects.get(datastream_revision=datastream_revision, language=user.language)
         dataset_revision = datastream_revision.dataset.last_revision
 
         datastream = dict(

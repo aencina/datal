@@ -3,9 +3,10 @@ from django.core.management.base import BaseCommand
 from optparse import make_option
 
 from core.models import (User, Grant, VisualizationRevision, Preference, DataStreamRevision, DatasetRevision, Role,
-                         VisualizationI18n, DatastreamI18n)
+                         VisualizationI18n, DatastreamI18n, Account)
 from core.choices import StatusChoices
 import json
+from django.db.models import Q
 
 
 class Command(BaseCommand):
@@ -29,6 +30,14 @@ class Command(BaseCommand):
         'ao-account-admin': 'ao-account-admin',
     }
 
+    option_list = BaseCommand.option_list + (
+        make_option('-a', '--account',
+            dest='account',
+            type="string",
+            help='Reindex resources'),
+        )
+
+
     def chanageResourcesStatus(self, resources):
         for res in resources:
             if res.status == 2:
@@ -40,9 +49,9 @@ class Command(BaseCommand):
             res.save()
 
     def changeStatus(self):
-        self.chanageResourcesStatus(VisualizationRevision.objects.all())
-        self.chanageResourcesStatus(DataStreamRevision.objects.all())
-        self.chanageResourcesStatus(DatasetRevision.objects.all())
+        self.chanageResourcesStatus(self.dataset_revision_all)
+        self.chanageResourcesStatus(self.datasstream_revision_all)
+        self.chanageResourcesStatus(self.visualization_revision_all)
 
     def migrateRoles(self):
         for key, value in self.role_migration_dict.items():
@@ -76,8 +85,22 @@ class Command(BaseCommand):
                     user.roles.remove(role_dict[code])
 
     def handle(self, *args, **options):
+        self.account = None
 
-        for rev in VisualizationRevision.objects.all():
+        if options['account']:
+            self.account = Account.objects.get(pk=int(options['account']))
+
+            self.visualization_revision_all = VisualizationRevision.objects.filter(user__account=self.account)
+            self.dataset_revision_all = DatasetRevision.objects.filter(user__account=self.account)
+            self.datasstream_revision_all = DataStreamRevision.objects.filter(user__account=self.account)
+            self.users_all = User.objects.filter(account=self.account)
+        else:
+            self.visualization_revision_all = VisualizationRevision.objects.all()
+            self.dataset_revision_all = DatasetRevision.objects.all()
+            self.datasstream_revision_all = DataStreamRevision.objects.all()
+            self.users_all = User.objects.all()
+
+        for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
 
             if 'labelSelection' in imp['chart']:
@@ -119,14 +142,15 @@ class Command(BaseCommand):
                 imp['chart']['headerSelection'] = ''
 
             rev.impl_details = json.dumps(imp)
+
             rev.save()
 
+            if 'invertedAxis' in imp['format']:
+                if imp['format']['invertedAxis'] == 'checked':
+                    print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
 
-#############################
-## Preferencias
-## del account.home.config.sliderSection cambiamos los type:chart a type:vz
-
-        for home in Preference.objects.filter(key="account.home"):
+        # Preferencias del account.home.config.sliderSection cambiamos los type:chart a type:vz
+        for home in Preference.objects.filter(Q(key="account.home")| Q(key="account.preview")):
             config = json.loads(home.value)
 
             try:
@@ -146,31 +170,49 @@ class Command(BaseCommand):
             self.migrateRoles()
             self.migrateUserRoles()
 
-
-
-        # VisualizationI18n
-        visualization_revisions = VisualizationRevision.objects.exclude(user__account__id__in=[5990, 5991])
+        # Creamos I18N que no existian en Junar 1
+        visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991])
         for visualization_revision in visualization_revisions:
-            try:
-                datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
-                title = datastreami18n.title
-                description = datastreami18n.description
-                notes = datastreami18n.notes
-            except:
-                if visualization_revision.user.language == 'es':
-                    title = 'Nombre'
-                    description = 'Descripcion'
-                    notes = ''
-                else:
-                    title = 'Name'
-                    description = 'Description'
-                    notes = ''
+            if not VisualizationI18n.objects.filter(visualization_revision=visualization_revision):
+                try:
+                    datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
+                    title = datastreami18n.title
+                    description = datastreami18n.description
+                    notes = datastreami18n.notes
+                except:
+                    if visualization_revision.user.language == 'es':
+                        title = 'Nombre'
+                        description = 'Descripcion'
+                        notes = ''
+                    else:
+                        title = 'Name'
+                        description = 'Description'
+                        notes = ''
 
-            obj, created = VisualizationI18n.objects.get_or_create(
-                language=visualization_revision.user.language,
-                visualization_revision=visualization_revision,
-                created_at=visualization_revision.created_at,
-                title=title,
-                description=description,
-                notes=notes
-            )
+                obj, created = VisualizationI18n.objects.get_or_create(
+                    language=visualization_revision.user.language,
+                    visualization_revision=visualization_revision,
+                    created_at=visualization_revision.created_at,
+                    title=title,
+                    description=description,
+                    notes=notes
+                )
+
+        # Fix de las vistas publicadas de datastreams no publicados
+        visualization_revisions = self.visualization_revision_all.exclude(user__account__id__in=[5990, 5991]).filter(
+                status=StatusChoices.PUBLISHED
+        )
+
+        for rev in visualization_revisions:
+            if not rev.visualization.datastream.last_published_revision:
+                rev.status = StatusChoices.PENDING_REVIEW
+                rev.save()
+
+                rev.visualization.last_published_revision = None
+                rev.visualization.save()
+
+        # Fix de usuarios sin Name
+        for user in self.users_all:
+            if not user.name:
+                user.name = user.nick
+                user.save()

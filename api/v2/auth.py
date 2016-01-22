@@ -13,10 +13,12 @@ logger = logging.getLogger(__name__)
 class DatalApiAuthentication(authentication.TokenAuthentication):
     def authenticate(self, request):
         self.request = request
-        auth_key = request.query_params.get("auth_key", 
-            None)
+        auth_key = request.query_params.get("auth_key", None)
         if not auth_key:
-            return super(DatalApiAuthentication, self).authenticate(request)
+            # TODO: Esto es para soportar la api v1 lo deberiamos sacar
+            auth_key = request.data.get('auth_key', None)
+            if not auth_key:
+                return super(DatalApiAuthentication, self).authenticate(request)
         return self.authenticate_credentials(auth_key)
 
     def authenticate_credentials(self, auth_key):
@@ -27,16 +29,17 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
         if not account:
             raise exceptions.AuthenticationFailed('Invalid Account.')
 
-        application = self.resolve_application(self.request, auth_key)
+        application = self.resolve_application(self.request, auth_key, account)
         if not application:
             raise exceptions.AuthenticationFailed('Auth Key does not exist.')
         if application.is_public_auth_key(auth_key):
             if not self.check_referer(self.request, application):
                 raise exceptions.AuthenticationFailed('Invalid referer')
 
-        user = self.resolve_user(application, account)
 
         preferences = account.get_preferences()
+        
+        user = self.resolve_user(application, account, preferences['account.language'])
 
         return (
             user, {
@@ -80,19 +83,20 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
         from core.models import Account
         return Account.get_by_domain(domain)
 
-    def resolve_application(self, request, auth_key):
+    def resolve_application(self, request, auth_key, account):
         try:
             return Application.objects.filter(
                 Q(auth_key = auth_key) | Q(public_auth_key = auth_key), 
+                account=account,
                 valid=True
             ).first()
         except Application.DoesNotExist:
             return None
 
-    def resolve_user(self, application, account):
+    def resolve_user(self, application, account, language):
         if application.user_id:
             try:
                 return User.objects.get(pk=application.user_id)
             except User.DoesNotExist:
-                return AccountAnonymousUser(account)
-        return AccountAnonymousUser(account)
+                return AccountAnonymousUser(account, language)
+        return AccountAnonymousUser(account, language)

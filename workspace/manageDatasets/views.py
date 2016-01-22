@@ -41,7 +41,7 @@ def download(request, dataset_id, slug):
     # get public url for datastream id
     try:
         dataset_revision_id = Dataset.objects.get(pk=dataset_id).last_published_revision.id
-        dataset = DatasetDBDAO().get(request.auth_manager.language, dataset_revision_id=dataset_revision_id)
+        dataset = DatasetDBDAO().get(request.user, dataset_revision_id=dataset_revision_id)
     except Exception, e:
         logger.info("Can't find the dataset: %s [%s]" % (dataset_id, str(e)))
         raise Http404
@@ -115,12 +115,13 @@ def index(request):
 @login_required
 @require_GET
 def view(request, revision_id):
+
     account_id = request.auth_manager.account_id
     credentials = request.auth_manager
     user_id = request.auth_manager.id
     language = request.auth_manager.language
     try:
-        dataset = DatasetDBDAO().get(language=language, dataset_revision_id=revision_id)
+        dataset = DatasetDBDAO().get(user=request.user, dataset_revision_id=revision_id)
     except DatasetRevision.DoesNotExist:
         raise DatasetNotFoundException()
 
@@ -332,7 +333,7 @@ def edit(request, dataset_revision_id=None):
     category_choices = [[category['category__id'], category['name']] for category in CategoryI18n.objects.filter(language=language, category__account=account_id).values('category__id', 'name')]
 
     # Get data set and the right template depending on the collected type
-    dataset = DatasetDBDAO().get(language=language, dataset_revision_id=dataset_revision_id)
+    dataset = DatasetDBDAO().get(user=request.user, dataset_revision_id=dataset_revision_id)
 
     initial_values = dict(
         # Dataset Form
@@ -468,7 +469,7 @@ def change_status(request, dataset_revision_id=None):
         )
 
         # Limpio un poco
-        response['result'] = DatasetDBDAO().get(request.user.language, dataset_revision_id=dataset_revision_id)
+        response['result'] = DatasetDBDAO().get(request.user, dataset_revision_id=dataset_revision_id)
         account = request.account
         msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('manageDatasets.view', urlconf='microsites.urls', 

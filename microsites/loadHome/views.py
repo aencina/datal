@@ -19,6 +19,7 @@ from core.builders.themes import ThemeBuilder
 import json
 import logging
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -34,8 +35,7 @@ def load(request):
     preferences = request.preferences
     is_preview = 'preview' in request.GET and request.GET['preview'] == 'true'
 
-    
-    builder = ThemeBuilder(preferences, is_preview, language, account)
+    builder = ThemeBuilder(preferences, is_preview, language, request.user)
 
     if is_preview or preferences["account_home"]:
         """ shows the home page new version"""
@@ -102,7 +102,7 @@ def update_list(request):
         if category_filters:
             category_filters=category_filters.split(",")
 
-        builder = ThemeBuilder(preferences, False, language, account)
+        builder = ThemeBuilder(preferences, False, language, request.user)
         data = builder.parse()
 
         if data['federated_accounts_ids']:
@@ -173,7 +173,8 @@ def update_categories(request):
     if account_id == '':
         account = request.account
         preferences = request.preferences
-        builder = ThemeBuilder(preferences, False, language, account)
+
+        builder = ThemeBuilder(preferences, False, language, request.user)
         data = builder.parse()
 
         if data['federated_accounts_ids']:

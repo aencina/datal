@@ -26,5 +26,7 @@ class AccessManager(object):
                 request.session['django_language'] = user_language
 
         request.auth_manager = AuthManager(language = request.session['django_language'])
+
+        # el user se arma en middlerware.ioc ya que necesitamos el account para completar el user
         request.user = None
         return None

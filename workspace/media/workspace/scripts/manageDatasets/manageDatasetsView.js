@@ -176,9 +176,8 @@ var ManageDatasetsView = Backbone.View.extend({
 		// Init Backbone PageableCollection
 		this.listResources = new ListResources();
 
-		this.filtersCollection = new Backbone.Collection(filters, {
-			url: 'filters.json'
-		});
+		this.filtersCollection = new Backbone.Collection(filters)
+		this.filtersCollection.url = 'filters.json';
 
 		this.listResources.on('remove', function (event) {
 			this.listResources.queryParams.filters = null;
@@ -192,6 +191,9 @@ var ManageDatasetsView = Backbone.View.extend({
 
 		this.listenTo(this.filtersView, 'change', function (queryDict) {
 			this.listResources.queryParams.filters = JSON.stringify(queryDict);
+			// Hack no recomendado por backbone paginator, pero tira error  (v 2.0.0) quizás en nueva version se arregla
+			// Si estas en una pagina que el resultdo del fetch le queda chico el backbone paginator se rompe
+			this.listResources.state.currentPage = 0
 			this.listResources.fetch({reset: true});
 		});
 

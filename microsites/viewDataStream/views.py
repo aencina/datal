@@ -26,7 +26,11 @@ def view(request, id, slug):
 
     preferences = request.preferences
 
-    datastream = DataStreamDBDAO().get(language= preferences['account_language'], datastream_id=id, published=True)
+    # parche horrible para usar account_language en vez del language del user
+    user = request.user
+    user.language=preferences['account_language']
+
+    datastream = DataStreamDBDAO().get(user, datastream_id=id, published=True)
 
     url_query = urllib.urlencode(RequestProcessor(request).get_arguments(datastream['parameters']))
 
@@ -44,8 +48,11 @@ def embed(request, guid):
     base_uri = msprotocol + '://' + preferences['account_domain']
 
     try:
-        datastream = DataStreamDBDAO().get(
-            preferences['account_language'], guid=guid, published=True )
+        # parche horrible para usar account_language en vez del language del user
+        user = request.user
+        user.language=preferences['account_language']
+
+        datastream = DataStreamDBDAO().get(user, guid=guid, published=True )
         parameters_query = RequestProcessor(request).get_arguments(datastream['parameters'])
     except DataStreamRevision.DoesNotExist:
         return render_to_response('viewDataStream/embed404.html', {'settings': settings, 'request': request})

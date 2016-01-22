@@ -12,6 +12,7 @@ from core.daos.visualizations import VisualizationDBDAO
 from core.choices import StatusChoices
 from core.http import get_domain_by_request
 from core.shortcuts import render_to_response
+from core.models import AccountAnonymousUser
 
 
 def custom_pages(request, page):
@@ -131,32 +132,40 @@ def get_catalog_xml(request):
     datastreams_revision_ids = DataStreamRevision.objects.values_list('id').filter(
         datastream__user__account_id=account_id, status=StatusChoices.PUBLISHED
     )
+
+
+    # necesario, porque el DAO.get requiere un usuario para obtener el language y el account
+    user = AccountAnonymousUser(account, request.auth_manager.language)
+
     resources = []
     for datastream_revision_id, in datastreams_revision_ids:
         try:
-            ds = DataStreamDBDAO().get(language, datastream_revision_id=datastream_revision_id)
+            ds = DataStreamDBDAO().get(user, datastream_revision_id=datastream_revision_id)
         except:
             logger.error('catalog ERROR %s %s' % (datastream_revision_id, language))
             continue
 
-        ds.link = '{}://{}{}'.format(msprotocol, domain, ds.permalink())
-        ds.export_csv_link = '{}://{}{}'.format(msprotocol, domain,reverse('viewDataStream.csv', kwargs={'id': ds.datastream_id, 'slug': ds.slug}))
-        ds.export_html_link = '{}://{}{}'.format(msprotocol, domain, reverse('viewDataStream.html', kwargs={'id': ds.datastream_id, 'slug': ds.slug}) )
-        ds.api_link = apiprotocol + '://' + api_domain + '/datastreams/' + ds.guid + '/data/?auth_key=your_authkey'
+        print ds
+        permalink = reverse('viewDataStream.view', urlconf='microsites.urls', kwargs={'id': ds['resource_id'], 'slug': ds['slug']}) 
+        ds['link'] = '{}://{}{}'.format(msprotocol, domain, permalink)
+        ds['export_csv_link'] = '{}://{}{}'.format(msprotocol, domain,reverse('datastreams-data', kwargs={'id': ds['resource_id'],'format':'csv'}))
+        ds['export_html_link'] = '{}://{}{}'.format(msprotocol, domain, reverse('datastreams-data', kwargs={'id': ds['resource_id'], 'format': 'html'}) )
+        ds['api_link'] = apiprotocol + '://' + api_domain + '/datastreams/' + ds['guid'] + '/data/?auth_key=your_authkey'
 
-        ds.visualizations = []
+        ds['visualizations'] = []
         visualization_revision_ids = VisualizationRevision.objects.values_list('id').filter(
-            visualization__datastream_id=ds.datastream_id,
+            visualization__datastream_id=ds['resource_id'],
             status=StatusChoices.PUBLISHED
         )
         for visualization_revision_id, in visualization_revision_ids:
             try:
-                vz = VisualizationDBDAO().get(language, visualization_revision_id=visualization_revision_id)
+                vz = VisualizationDBDAO().get(user, visualization_revision_id=visualization_revision_id)
             except:
                 logger.error('catalog VIZ ERROR %s %s' % (visualization_revision_id, language))
                 continue
-            vz['link'] = msprotocol + '://' + domain + vz.permalink()
-            ds.visualizations.append(vz)
+            permalink = reverse('chart_manager.view', urlconf='microsites.urls', kwargs={'id': vz['resource_id'], 'slug': vz['slug']})
+            vz['link'] = msprotocol + '://' + domain + permalink
+            ds['visualizations'].append(vz)
         resources.append(ds)
 
     return render_to_response('catalog.xml', locals(), mimetype='application/xml')

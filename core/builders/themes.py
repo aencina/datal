@@ -10,11 +10,12 @@ import logging
 
 class ThemeBuilder(object):
     """docstring for ClassName"""
-    def __init__(self, preferences, is_preview, language, account):
+    def __init__(self, preferences, is_preview, language, user):
         self.preferences = preferences
         self.is_preview = is_preview
         self.language = language
-        self.account = account
+        self.user= user 
+        self.account = user.account
         self.logger = logging.getLogger(__name__)
 
 
@@ -34,15 +35,15 @@ class ThemeBuilder(object):
         # usamos el DAO
         for i in datastreamIds:
             try:
-                data.append(DataStreamDBDAO().get(language,datastream_id=i))
+                data.append(DataStreamDBDAO().get(self.user, datastream_id=i, published=True))
             except DataStreamRevision.DoesNotExist:
-                self.logger.error("ThemeBuilder.slider: DataStream.id=%s no existe" % i)
+                self.logger.error("ThemeBuilder.slider: DataStream.id=%s no existe o no esta publicado" % i)
 
         for i in visualizationIds:
             try:
-                data.append(VisualizationDBDAO().get(language,visualization_id=i))
+                data.append(VisualizationDBDAO().get(self.user,visualization_id=i, published=True))
             except VisualizationRevision.DoesNotExist:
-                self.logger.error("ThemeBuilder.slider: Visualization.id=%s no existe" % i)
+                self.logger.error("ThemeBuilder.slider: Visualization.id=%s no existe o no esta publicado" % i)
  
         return data
 

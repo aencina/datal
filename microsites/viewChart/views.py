@@ -14,6 +14,7 @@ from core.v8.factories import AbstractCommandFactory
 from core.exceptions import *
 from microsites.exceptions import *
 
+
 import urllib
 import json
 
@@ -26,8 +27,7 @@ def view(request, id, slug=None):
     preferences = request.preferences
 
     try:
-        visualization_revision = VisualizationDBDAO().get(
-            preferences['account_language'],
+        visualization_revision = VisualizationDBDAO().get(request.user,
             visualization_id=id,
             published=True
         )
@@ -38,8 +38,7 @@ def view(request, id, slug=None):
             raise NotAccesVisualization
 
         #for datastream sidebar functions (downloads and others)
-        datastream = DataStreamDBDAO().get(
-            preferences['account_language'],
+        datastream = DataStreamDBDAO().get(request.user,
             datastream_revision_id=visualization_revision["datastream_revision_id"]
         )
         
@@ -70,11 +69,10 @@ def embed(request, guid):
     base_uri = msprotocol + '://' + preferences['account_domain']
 
     try:
-        visualization_revision = VisualizationDBDAO().get(
-            preferences['account_language'], published=True, guid=guid )
+        visualization_revision = VisualizationDBDAO().get(request.user,
+            published=True, guid=guid )
 
-        datastream = DataStreamDBDAO().get(
-            preferences['account_language'],
+        datastream = DataStreamDBDAO().get(request.user,
             datastream_revision_id=visualization_revision["datastream_revision_id"]
         )
     except:

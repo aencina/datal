@@ -62,10 +62,62 @@ charts.models.ChartData = Backbone.Model.extend({
     },
 
     parse: function (response) {
-        var columns = [],
+
+        var response = response,
+            columns = [],
             fields =[],
-            labels = response.labels,
-            filters = this.get('filters');
+            filters = this.get('filters'),
+            invertedAxis = filters.invertedAxis;
+
+        // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
+        if( 
+            _.isUndefined( response.labels ) || 
+            _.isEmpty(response.labels) || 
+            response.labels == '' 
+        ){
+
+            response.labels = [];
+
+            // Labels length = cantidad de filas
+            var labelsLength = response.values[0].length;
+
+            // Si viene invertedAxis, uso la cantidad de columnas como length
+            if( !_.isUndefined( invertedAxis ) ){
+                labelsLength = response.values.length;
+            }
+
+            for(var i=0;i<labelsLength;i++){
+                response.labels.push(''); 
+            }
+
+        }
+
+        // Si series no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
+        if( 
+            _.isUndefined( response.series ) || 
+            _.isEmpty(response.series) || 
+            response.series == ''
+        ){
+
+            response.series = [];
+
+            // Series length = cantidad de columnas
+            var seriesLength = response.values.length;
+
+            // Si viene invertedAxis, uso la cantidad de filas como length
+            if( !_.isUndefined( invertedAxis ) ){
+                seriesLength = response.values[0].length;
+            }
+
+            for(var i=0;i<seriesLength;i++){
+                response.series.push({
+                    'name': ''
+                }); 
+            }
+
+        }
+
+        var labels = response.labels;
 
         if (filters.type === 'mapchart') {
             return response;

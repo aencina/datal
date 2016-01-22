@@ -3095,7 +3095,7 @@ msgid "APP-REVISION-TEXT"
 msgstr "Revision"
 
 msgid "APP-ADVANCED-MODE-TEXT"
-msgstr "Modo avanzado"
+msgstr "Advanced mode"
 
 msgid "APP-SELECT-TABLE-HEADERS-TEXT"
 msgstr "Select table headers"
