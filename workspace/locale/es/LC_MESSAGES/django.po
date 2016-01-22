@@ -1945,9 +1945,6 @@ msgstr "Socializar"
 msgid "APP-ANALYZE-TEXT"
 msgstr "Analisis"
 
-msgid "APP-CONTACTUS-TEXT"
-msgstr "Contáctenos"
-
 msgid "APP-PRESS-TEXT"
 msgstr "Prensa"
 

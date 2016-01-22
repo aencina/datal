@@ -1,3 +1,5 @@
+@import '../../../../core/media/core/styles/variables';
+
 /*** Variables ***/
 
 /* Logo */
@@ -42,33 +44,6 @@ $nav-secondary-no-link-text:#666 !default;
 	$color-base-light:#999 !default;
 	$color-base-extra-light:#e6e6e6 !default;
 
-
-/* Fonts */
-
-	/* Family */
-	$font-primary-family:Arial,Helvetica,sans-serif !default;							/* For fonts in general */
-	$font-secondary-family:robotoregular,arial,helvetica,sans-serif !default;					/* For some subtitles */
-	$font-titles-family:robotolight,Helvetica,sans-serif !default;							/* For titles in general */
-	$font-extra-family:robotoregular,arial,helvetica,sans-serif !default;						/* For table titles */
-
-	/* Size */
-	$font-size-base:12px !important !default;											/* For body paragraphs and text in general */
-	$font-size-s:11px !important !default;												/* For some descriptions and tips */
-	$font-size-m:15px !important !default;												/* For subtitles */
-	$font-size-l:20px !important !default;												/* For content titles */
-	$font-size-xl:25px !important !default;												/* For section titles and overlay titles */
-
-	/* Color */
-	$font-color-base:#000 !default;													/* For body paragraphs and titles */
-	$font-color-supreme:#FFF !default;													/* For titles in general */
-	$font-color-semi-light:#333 !default;												/* For subtitles and tips */
-	$font-color-light:#999 !default;														/* For descriptions */
-	$font-color-highlight:#000 !default;												/* For titles on highlighted boxes */
-
-	/* Links */
-	$link-color:#0066cc !default;														/* Color for links */
-	$link-hover-color:#0066ff !default;														/* Hover Color for links */
-	$link-black-color-hover:#0066cc !default;											/* Hover Color for black links */
 
 /* Nav icons */
 $nav-icon-color:#d3d3d3 !default;														/* Color for nav icons */
