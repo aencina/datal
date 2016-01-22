@@ -108,7 +108,7 @@ class GridEngineRenderer(EngineRenderer):
         except:
             res = "%s (e)" % datetime.datetime.utcfromtimestamp(seconds)
             err = str(sys.exc_info())
-            logger.error("[ERROR]: Render error: %s seconds, format: %s, strlocale: %s, error: %s " %(str(seconds),strformat, strlocale, err)
+            logger.error("[ERROR]: Render error: %s seconds, format: %s, strlocale: %s, error: %s " %(str(seconds),strformat, strlocale, err))
 
         return res
 
