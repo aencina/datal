@@ -123,14 +123,16 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
         if published:
             status_condition = Q(status=StatusChoices.PUBLISHED)
+            last_revision_condition = Q(pk=F("datastream__last_published_revision"))
         else:
             status_condition = Q(status__in=StatusChoices.ALL)
+            last_revision_condition = Q(pk=F("datastream__last_revision"))
 
         # aca la magia
         account_condition = Q(user__account=user.account)
 
         try:
-            datastream_revision = DataStreamRevision.objects.select_related().get(condition & resource_language & category_language & status_condition & account_condition)
+            datastream_revision = DataStreamRevision.objects.select_related().get(condition & resource_language & category_language & status_condition & account_condition & last_revision_condition)
         except DataStreamRevision.DoesNotExist:
             logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s)'% (condition, resource_language, category_language))
             raise
