@@ -1,4 +1,4 @@
-{% load i18n compress sass_tags staticfiles %}
+{% load i18n compress sass_tags staticfiles plugins_tags %}
 <!DOCTYPE html>
 <html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
 
@@ -53,7 +53,11 @@
             <div class="row">
 
                 <div class="col-xs-12 center">
-                    <div class="error-pages-logo"></div>
+                    {% if 'error_pages_logo'|inplugin %}
+                        {% plugins_call 'error_pages_logo' %}
+                    {% else %}
+                        <div class="error-pages-logo"></div>
+                    {% endif %}
                 </div>
 
             </div>
