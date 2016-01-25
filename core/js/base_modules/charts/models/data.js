@@ -68,21 +68,6 @@ charts.models.ChartData = Backbone.Model.extend({
 
         if (filters.type !== 'mapchart') {
 
-            // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
-            if( 
-                _.isUndefined( response.labels ) || 
-                _.isEmpty(response.labels) || 
-                response.labels == '' 
-            ){
-
-                response.labels = [];
-
-                for(var i=0;i<response.values[0].length;i++){
-                    response.labels.push(''); 
-                }
-
-            }
-
             // Si series no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
             if( 
                 _.isUndefined( response.series ) || 
@@ -96,6 +81,29 @@ charts.models.ChartData = Backbone.Model.extend({
                     response.series.push({
                         'name': ''
                     }); 
+                }
+
+            // Si el length de series == 1 y el length de values es > 1, concateno los values.
+            }else if(
+                response.series.length == 1 &&
+                response.values.length > 1 
+            ){
+                var values = _.flatten(response.values);
+                response.values = [];
+                response.values.push(values);
+            }
+
+            // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
+            if( 
+                _.isUndefined( response.labels ) || 
+                _.isEmpty(response.labels) || 
+                response.labels == '' 
+            ){
+
+                response.labels = [];
+
+                for(var i=0;i<response.values[0].length;i++){
+                    response.labels.push(''); 
                 }
 
             }
