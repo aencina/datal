@@ -84,6 +84,12 @@ class Command(BaseCommand):
                     user.roles.add(role_dict[self.role_migration_dict[code]])
                     user.roles.remove(role_dict[code])
 
+    def dataset_preferences(self):
+
+        Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="True")
+        Preference.objects.get_or_create(account=self.account, key="account.dataset.showhome", value="True")
+        
+
     def handle(self, *args, **options):
         self.account = None
 
@@ -94,6 +100,8 @@ class Command(BaseCommand):
             self.dataset_revision_all = DatasetRevision.objects.filter(user__account=self.account)
             self.datasstream_revision_all = DataStreamRevision.objects.filter(user__account=self.account)
             self.users_all = User.objects.filter(account=self.account)
+
+            self.dataset_preferences()
         else:
             self.visualization_revision_all = VisualizationRevision.objects.all()
             self.dataset_revision_all = DatasetRevision.objects.all()
