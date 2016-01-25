@@ -103,7 +103,13 @@ class Command(BaseCommand):
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
 
-            if 'labelSelection' in imp['chart']:
+            if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection'] == ",":
+                imp['chart']['headerSelection'] = ''
+
+            if 'labelSelection' in imp['chart'] and imp['chart']['labelSelection'] == ",":
+                imp['chart']['labelSelection'] = ''
+
+            if 'labelSelection' in imp['chart'] and imp['chart']['labelSelection']:
                 header = imp['chart']['labelSelection'].replace(' ', '')
                 answer = []
                 for mh in header.split(','):
@@ -112,7 +118,7 @@ class Command(BaseCommand):
                     else:
                         answer.append(mh)
                 imp['chart']['labelSelection'] = ','.join(answer)
-            if 'headerSelection' in imp['chart']:
+            if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection']:
                 header = imp['chart']['headerSelection'].replace(' ', '')
                 answer = []
                 for mh in header.split(','):
@@ -140,6 +146,9 @@ class Command(BaseCommand):
 
             if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection'] == ":":
                 imp['chart']['headerSelection'] = ''
+
+            if 'labelSelection' in imp['chart'] and imp['chart']['labelSelection'] == ":":
+                imp['chart']['labelSelection'] = ''
 
             rev.impl_details = json.dumps(imp)
 
