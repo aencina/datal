@@ -106,6 +106,15 @@
 	}
 }
 
+.list-radio-content{
+	background: #f6f6f6;
+	padding: 10px 15px;
+
+	.form-group{
+		margin: 0 !important;
+	}
+}
+
 /* Handsontable version */
 .handsontable td.area{
 	background:$modal-table-selected-color;

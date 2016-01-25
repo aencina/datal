@@ -35,7 +35,7 @@
 
 .DataBox .panel{position:relative;background:url(/static/core/images/common/bd_Item_Finder.gif) center bottom no-repeat;padding:12px 0 9px;}
 .DataBox .panel .tagsContainer{padding-right:60px;padding-top:5px;}
-.DataBox .panel h2{font-size:11px;vertical-align:baseline;}
+.DataBox .panel h2{font-size:11px;vertical-align:baseline;display:inline-block;}
 .DataBox .panel h2 a{font-size:14px;vertical-align:baseline;text-decoration:none;color:#000;}
 .DataBox .panel h2 span{vertical-align:baseline;}
 .DataBox .panel h2 a strong{color:#0862A2;}
