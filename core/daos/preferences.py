@@ -6,6 +6,7 @@ from django.conf import settings
 from core import choices
 from core.models import Preference
 
+logger = logging.getLogger(__name__)
 
 class Preferences():
     """ 
@@ -23,7 +24,6 @@ class Preferences():
                 self.engine_cache = memcache.Client(self.memcached, debug=0)
             except:
                 #TODO raise an memcache error (?)
-                logger = logging.getLogger(__name__)
                 logger.error('No memcached client could be created')
 
     def __getitem__(self, key):
@@ -33,7 +33,6 @@ class Preferences():
         if not self.data.has_key(key):
             # try from memcache
             value = self.get_from_cache(key)
-            logger = logging.getLogger(__name__)
             if value is not None:
                 self.data[key] = value
             else:
@@ -73,7 +72,10 @@ class Preferences():
                     preference['value'] = False
                 
             self.data[key.replace('_', '.')] = preference['value']
-            keys.remove(key)
+            try:
+                keys.remove(key)
+            except ValueError:
+                logger.error("[load preferences] error key %s no esta en keys" % key)
 
         for key in keys:
             self.data[key.replace('_', '.')] = ''
@@ -108,7 +110,6 @@ class Preferences():
         if self.engine_cache:
             key = 'preference_%s_%s' % (str(self.data['account.id']), key)
             value = self.engine_cache.get(str(key))
-            logger = logging.getLogger(__name__)
             if settings.DEBUG: logger.info('Get from cache %s=%s' % (key, value))
             return value
 
@@ -117,7 +118,6 @@ class Preferences():
     def save_on_cache(self, key, value):
         key = key.replace('_', '.')
         if self.engine_cache:
-            logger = logging.getLogger(__name__)
             try:
                 key = 'preference_%s_%s' % (str(self.data['account.id']), key)
                 self.engine_cache.set(key, value, settings.MEMCACHED_DEFAULT_TTL)    
