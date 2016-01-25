@@ -34,21 +34,22 @@ class Command(BaseCommand):
 
             if 'invertedAxis' in imp['format']:
                 if imp['format']['invertedAxis'] == 'checked':
-                    aux = imp['chart']['headerSelection']
+
+                    print "[InvertedAxis Pre] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
 
                     if imp['chart']['labelSelection'] == ":":
-                        imp['chart']['headerSelection'] = ""
-                    else:
-                        imp['chart']['headerSelection'] = imp['chart']['labelSelection']
+                        imp['chart']['labelSelection'] = ""
 
-                    if aux:
-                        imp['chart']['labelSelection'] = aux
-                    else:
-                        imp['chart']['labelSelection'] = ":"
+                    if imp['chart']['headerSelection'] == ":":
+                        imp['chart']['headerSelection'] = ""
+
+                    aux = imp['chart']['headerSelection']
+
+                    imp['chart']['headerSelection'] = imp['chart']['labelSelection']
+                    imp['chart']['labelSelection'] = aux
 
                     rev.impl_details = json.dumps(imp)
                 
-                    if imp['chart']['headerSelection'] and  imp['chart']['labelSelection'] != ":":
-                        print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
-                        rev.save()
+                    print "[InvertedAxis Post] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
+                    rev.save()
 
