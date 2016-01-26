@@ -165,7 +165,7 @@ var DataTableView = Backbone.View.extend({
         ;
 
         table.css('height', tableHeight+'px');
-        $('.sidebar').css('height', tableHeight+'px');
+        // $('.sidebar').css('height', tableHeight+'px');
 
       }
 
