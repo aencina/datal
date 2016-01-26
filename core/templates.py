@@ -12,15 +12,19 @@ class DataStreamOutputBigDataTemplate(Template):
         template = "%s\n%s\n" % ("{% load mint_tags %}", template)
         super(DataStreamOutputBigDataTemplate, self).__init__(template)
 
-    def render(self, contents, request):
-
+    def render(self, contents, request, metadata={}):
+        headers = {}
         rows = []
+        rows_array = [] = []
+        summ = {} # all  columns added
+        
         result = json.loads(contents)
         if result['fType']=='ARRAY':
             array = result['fArray']
             index = 0
             for row_number in range(0, result['fRows']):
                 row  = {}
+                row_array = []
                 header = False
                 for column_number in range(0, result['fCols']):
                     # take the string value, date or number and just send that
@@ -38,15 +42,42 @@ class DataStreamOutputBigDataTemplate(Template):
                             raise
 
                     header = dat.get("fHeader", False)
-
+                    
+                    if header:
+                        headers['column%s' % column_number] = val
+                        summ['column%s' % column_number] = 0.0
+                    else:
+                        #summ function for all fields
+                        try:
+                            if not summ.get('column%s' % column_number, False): summ['column%s' % column_number] = 0.0
+                            summ['column%s' % column_number] = summ['column%s' % column_number] + float(val)
+                        except:
+                            pass
+                        
                     row['column%s' % column_number] = val
-                    # row['data%s' % column_number] = dat # add extra data in case we need it.
+                    row['data%s' % column_number] = dat # add extra data in case we need it.
+                    row_array.append(val)
+                    
+                    
                     index = index + 1
-
-                if not header: # Remove or check if header
+                    
+                if not header:
                     rows.append(row)
-
-
+                    rows_array.append(row_array)
+                    
+        else: # not an ARRAY (?)
+            # error ?
+            metadata['error'] = 'Result is (%s)' % str(result)            
+            result['fRows'] = -1
+            result['fCols'] = -1
+            
+        # extra data
+        metadata['summ'] = summ
+        metadata['total_rows'] = result.get('fRows', -1)
+        metadata['total_cols'] = result.get('fCols', -1)
+        metadata['rows_array'] = rows_array
+        
+        
         # define extra values required
         owner = request.owner
         publisher = request.publisher
@@ -57,9 +88,13 @@ class DataStreamOutputBigDataTemplate(Template):
         # Pass the KeyError exception as an argument to the constructor.
 
         try:
-            res = super(DataStreamOutputBigDataTemplate, self).render(Context({"rows": rows, "owner": owner, "publisher": publisher, "author" : author}))
-        except Exception, e:
-            self.render_errors = str(e)
+            res = super(DataStreamOutputBigDataTemplate, self).render(Context({"rows": rows, "owner": owner, 
+                                                                               "publisher": publisher, "author" : author, 
+                                                                               "metadata": metadata, "headers": headers}))
+        except Exception,e:
+            import traceback
+            tb = traceback.format_exc()
+            self.render_errors = 'ERROR: %s -- TRACE %s' % ( str(e), tb )
             res = False
 
         return res
