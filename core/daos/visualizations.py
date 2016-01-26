@@ -172,6 +172,9 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         )
         visualization.update(VisualizationImplBuilder().parse(visualization_revision.impl_details))
 
+        # para que el title del impl_details no pise el de la VZ
+        visualization['title']=visualizationi18n.title
+
         return visualization
 
     def query_childs(self, visualization_id, language):
