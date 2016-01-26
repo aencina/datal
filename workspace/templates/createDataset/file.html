@@ -72,7 +72,7 @@ $(document).ready(function(){
 	var finishModel = new FinishFileModel({
 		name: 'finish',
 		saveUrl: "{% url 'manageDatasets.create_type' 'file' %}",
-        sourceUrl: '/rest/sources.json',
+        sourceUrl: '/rest/sources.json/',
         tagUrl: '/rest/tags.json',
         category: {{form.initial.category}}
 	});

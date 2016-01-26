@@ -89,7 +89,7 @@ var SharePrivateOverlay = Backbone.Model.extend({
         var $collaborator = att.$ColaboratorsContainer.find('#' + this.computeCollaboratorId(email));
         if ($collaborator.size() == 0) {
             $.ajax({
-                url: '/auth/get_email_info'
+                url: '/auth/get_email_info/'
                 , data: { email: email }
                 , success: _.bind(function(response) {
                     var att = this.attributes;

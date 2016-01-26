@@ -115,7 +115,7 @@ var dashboardTabManager = Backbone.Model.extend({
 	},
 	loadNewTab : function(){
 		var $lButton     = $('#id_editFavouriteDashboardsButton');
-	    var lUrl         = Configuration.baseUri + "/portal/DashboardsManager/actionAddTab";
+	    var lUrl         = Configuration.baseUri + "/portal/DashboardsManager/actionAddTab/";
 	
 	    $fEditFavouriteDashboardsContainer.show();
 	    $fEditDashboardDataServicesContainer.hide();
@@ -138,7 +138,7 @@ var dashboardTabManager = Backbone.Model.extend({
 	},
 	loadTab : function(pDashboardId){
 		fDashboardId = pDashboardId;
-        var lUrl 	= '/portal/DashboardsManager/actionSwitchDashboard';
+        var lUrl 	= '/portal/DashboardsManager/actionSwitchDashboard/';
         var lData 	= "dashboard_id=" + pDashboardId;
 		var $Container = this.attributes.container;
 		
@@ -204,7 +204,7 @@ var dashboardTabManager = Backbone.Model.extend({
         this.updateTabPosition(lId, lFrom, lTo);
 	},
 	updateTabPosition : function(pId, pFrom, pTo){
-		var lUrl 	= Configuration.baseUri + '/portal/DashboardsManager/actionMoveFavouriteDashboard';
+		var lUrl 	= Configuration.baseUri + '/portal/DashboardsManager/actionMoveFavouriteDashboard/';
         var lData 	= "id=" + pId
                         + "&from=" + pFrom
                         + "&to=" + pTo;
@@ -220,7 +220,7 @@ var dashboardTabManager = Backbone.Model.extend({
 		// callback in case updating tab method fails
 	},
 	removeTab : function(pFavouriteId, pTab){
-		var lUrl 	= Configuration.baseUri + '/portal/DashboardsManager/actionRemoveFavouriteDashboard';
+		var lUrl 	= Configuration.baseUri + '/portal/DashboardsManager/actionRemoveFavouriteDashboard/';
         var lData 	= "favourite_dashboard_id=" + pFavouriteId;
 		
         $.ajax({ url: lUrl
@@ -289,7 +289,7 @@ var dashboardTabManager = Backbone.Model.extend({
 		}
 	},
 	resetTabs : function(){
-		var lUrl  = Configuration.baseUri + "/portal/DashboardsManager/actionSearchFavouriteDashboard";
+		var lUrl  = Configuration.baseUri + "/portal/DashboardsManager/actionSearchFavouriteDashboard/";
 	
 	    $.ajax({ url: lUrl
 	            , type:'GET'
@@ -303,7 +303,7 @@ var dashboardTabManager = Backbone.Model.extend({
 		this.setSelectedTab(null, this.attributes.currentSelectedId);
 	},
 	addTab : function(pDashboardId){
-		var lUrl 	= Configuration.baseUri + '/portal/DashboardsManager/actionAddDashboard';
+		var lUrl 	= Configuration.baseUri + '/portal/DashboardsManager/actionAddDashboard/';
 		var lIndex 	= this.attributes.$Tabs.size();
 	    var lData 	= 'dashboard_id=' + pDashboardId + '&index=' + lIndex;
 	

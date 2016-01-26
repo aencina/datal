@@ -454,7 +454,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 	setUploadable: function(input, section) {
 
 		input.fileupload({
-				url: '/personalizeHome/upload',
+				url: '/personalizeHome/upload/',
 				dataType: 'json',
 				timeout: 60000,
 				acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -633,7 +633,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_middleBottomImage').fileupload({
-			url : '/personalizeHome/upload',
+			url : '/personalizeHome/upload/',
 			dataType : 'json',
 			acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
 			timeout : 60000,
@@ -721,7 +721,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_leftBottomImage').fileupload({
-			url : '/personalizeHome/upload',
+			url : '/personalizeHome/upload/',
 			dataType : 'json',
 			acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
 			timeout : 60000,
@@ -809,7 +809,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_rightBottomImage').fileupload({
-			url : '/personalizeHome/upload',
+			url : '/personalizeHome/upload/',
 			dataType : 'json',
 			acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
 			timeout : 60000,
