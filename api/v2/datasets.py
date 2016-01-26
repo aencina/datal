@@ -51,6 +51,10 @@ class DataSetSerializer(ResourceSerializer):
         allow_null=True, 
         required=False,
         help_text=_(u'Correo electronico de quien administra el conjunto de datos'))
+    tags = serializers.CharField(
+        required=False,
+        allow_null=True,
+        help_text=_(u'Tags separados por coma'))
 
     def __init__(self, *args, **kwargs):
         super(DataSetSerializer, self).__init__(*args, **kwargs)
@@ -91,6 +95,9 @@ class DataSetSerializer(ResourceSerializer):
 
         if 'license' in data:
             data['license_url'] = data.pop('license')
+
+        if 'tags' in data and data['tags']:
+            data['tags'] = map(lambda x: {'name':x}, data['tags'].split(','))
 
         data['status'] = StatusChoices.PENDING_REVIEW
 
