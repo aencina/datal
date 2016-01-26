@@ -193,11 +193,7 @@ class Command(BaseCommand):
             if not VisualizationI18n.objects.filter(visualization_revision=visualization_revision):
                 try:
                     datastreami18n = DatastreamI18n.objects.filter(datastream_revision__datastream=visualization_revision.visualization.datastream.pk).latest('id')
-                    impl_details = json.loads(visualization_revision.impl_details)
-                    if 'title' in impl_details.keys() and impl_details['title']:
-                        title = impl_details['title']
-                    else:
-                        title = datastreami18n.title
+                    title = datastreami18n.title
                     description = datastreami18n.description
                     notes = datastreami18n.notes
                 except:
