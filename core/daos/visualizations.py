@@ -113,7 +113,7 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         try:
             visualization_revision = VisualizationRevision.objects.select_related().get(condition & resource_language & user_language & status_condition & account_condition & last_revision_condition)
         except VisualizationRevision.DoesNotExist:
-            logger.error('[ERROR] Visualization Not exist Revision (query: %s %s %s %s %s %s %s)'% (condition, resource_language, user_language, status_condition, account_condition, last_revision_condition))
+            logger.error('[ERROR] Visualization Not exist Revision (query: %s %s %s %s %s %s)'% (condition, resource_language, user_language, status_condition, account_condition, last_revision_condition))
             raise
 
         tags = visualization_revision.datastream.last_revision.tagdatastream_set.all().values(

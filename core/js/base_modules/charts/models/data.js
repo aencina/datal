@@ -76,12 +76,21 @@ charts.models.ChartData = Backbone.Model.extend({
             ){
 
                 response.series = [];
+                var values = [];
 
                 for(var i=0;i<response.values.length;i++){
-                    response.series.push({
-                        'name': ''
-                    }); 
+
+                    // Solo uso los valores que no son vacios
+                    if( response.values[i].length > 0 ){
+                        response.series.push({
+                            'name': ''
+                        }); 
+                        values.push( response.values[i] );
+                    }
+
                 }
+
+                response.values = values;
 
             // Si el length de series == 1 y el length de values es > 1, concateno los values.
             }else if(
@@ -91,6 +100,25 @@ charts.models.ChartData = Backbone.Model.extend({
                 var values = _.flatten(response.values);
                 response.values = [];
                 response.values.push(values);
+            
+            // Si values tiene un array vacio lo remuevo y lo remuevo de series tambien.
+            }else if( 
+                response.series.length == response.values.length 
+            ){
+
+                var series = [],
+                    values = [];
+
+                for(var i=0;i<response.values.length;i++){
+                    if( response.values[i].length > 0 ){
+                        series.push( response.series[i] ); 
+                        values.push( response.values[i] );
+                    }
+                }
+
+                response.series = series;
+                response.values = values;                
+
             }
 
             // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.

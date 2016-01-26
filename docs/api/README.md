@@ -268,6 +268,7 @@ PUT/PATCH /api/v2/datasets/:guid
 - **spatial**: Opcional. Zona geográfica a la cual aplica el conjunto de datos
 - **frequency**: Opcional. Tipo de licencia que aplica sobre el conjunto de datos
 - **mbox**: Opcional. Correo electronico de quien administra el conjunto de datos
+- **tags**: Opcional. Tags separados por coma.
 
 
 ### Datastreams
@@ -282,6 +283,7 @@ POST /api/v2/datastreams
 - **table_id**: Opcional. Indice de la tabla en el conjunto de datos, comenzando de cero.
 - **header_row**: Opcional. Indice de la fila a usar como cabecera de la tabla comenzando de cero. Por defecto es vacio
 - **dataset**: GUID del conjunto de datos asociado a la vista
+- **tags**: Opcional. Tags separados por coma.
 
 Ejemplo de llamada para crear un datastream 
 

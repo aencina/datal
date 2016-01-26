@@ -51,7 +51,7 @@ urlpatterns = patterns('',
     url(r'^a/(\w+)$', 'microsites.views.custom_pages'),
 
     (r'^visualizations/', include('microsites.viewChart.urls')),
-    url(r'^visualizations/embed/(?P<guid>[A-Z0-9\-]+)$', 'microsites.viewChart.views.embed', name='chart_manager.embed'),
+    url(r'^visualizations/embed/(?P<guid>[A-Z0-9\-]+)/$', 'microsites.viewChart.views.embed', name='chart_manager.embed'),
 
     # dejamos datastreams para no romper,
     # dataviews como deberia quedar definitivamente
@@ -63,23 +63,23 @@ urlpatterns = patterns('',
     #(r'^search$', include('microsites.search.urls')),
     url(r'^developers/$', 'core.manageDeveloper.views.filter', name='manageDeveloper.filter'),
     url(r'^developers$', 'core.manageDeveloper.views.filter', name='manageDeveloper.filter'),
-    url(r'^manageDeveloper/create$', 'core.manageDeveloper.views.create', name='manageDeveloper.create'),
-    url(r'^branded/css/(?P<url_name>[\w.]+)/(?P<id>\d+).css$', 'microsites.views.get_css', name='microsites.get_css'),
-    url(r'^branded/js/(?P<url_name>[\w.]+)/(?P<id>\d+).js$', 'microsites.views.get_js', name='microsites.get_js'),
-    url(r'^branded/newcss/(?P<url_name>[\w.]+)/(?P<id>\d+).css$', 'microsites.views.get_new_css', name='microsites.get_new_css'),
+    url(r'^manageDeveloper/create/$', 'core.manageDeveloper.views.create', name='manageDeveloper.create'),
+    url(r'^branded/css/(?P<url_name>[\w.]+)/(?P<id>\d+).css/$', 'microsites.views.get_css', name='microsites.get_css'),
+    url(r'^branded/js/(?P<url_name>[\w.]+)/(?P<id>\d+).js/$', 'microsites.views.get_js', name='microsites.get_js'),
+    url(r'^branded/newcss/(?P<url_name>[\w.]+)/(?P<id>\d+).css/$', 'microsites.views.get_new_css', name='microsites.get_new_css'),
 
 #    url(r'^portal/DataServicesManager/actionEmbed/$', 'microsites.viewDataStream.views.legacy_embed', name='datastream_manager.legacy_embed'),
-    url(r'^is_live$', 'microsites.views.is_live', name='microsites.is_live'),
+    url(r'^is_live/$', 'microsites.views.is_live', name='microsites.is_live'),
     (r'^home/', include('microsites.loadHome.urls')),
     (r'^home', include('microsites.loadHome.urls')),
-    url(r'^catalog.xml$', 'microsites.views.get_catalog_xml'),
+    url(r'^catalog.xml/$', 'microsites.views.get_catalog_xml'),
     (r'^auth/', include('core.auth.urls')),
 
     
-    (r'^js_core/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'core', 'js')}),
-    (r'^js_microsites/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'microsites', 'js')}),
+    (r'^js_core/(?P<path>.*)/$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'core', 'js')}),
+    (r'^js_microsites/(?P<path>.*)/$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'microsites', 'js')}),
 
-    url(r'^sitemap', 'microsites.home_manager.views.sitemap', name='home_manager.sitemap'),
+    url(r'^sitemap/$', 'microsites.home_manager.views.sitemap', name='home_manager.sitemap'),
 )
 
 

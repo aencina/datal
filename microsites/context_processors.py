@@ -10,6 +10,7 @@ def request_context(request):
         ga_obj = account.get_preference('account.ga')
 
         msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+        msdomain = account.get_preference('account.domain')
 
         if ga_obj == '':
             ga_obj = '{}'
@@ -32,7 +33,8 @@ def request_context(request):
             obj = {}
     else:
         msprotocol = 'http'
+        msdomain=settings.DOMAINS['microsites']
 
-    obj['microsite_domain']=settings.DOMAINS['microsites']
+    obj['microsite_domain']=msdomain
     obj['microsite_uri']=msprotocol
     return obj
