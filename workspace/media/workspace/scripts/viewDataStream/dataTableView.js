@@ -141,7 +141,7 @@ var dataTableView = Backbone.View.extend({
 	setLoading: function(){
 
 		// Loading Template
-		this.$el.find('#id_datastreamResult').html('<div class="result"><div class="loading">'+ gettext( 'APP-LOADING-TEXT' ) + '</div></div>');
+		this.$el.find('#id_datastreamResult').html('<div class="result"><div class="loading light">'+ gettext( 'APP-LOADING-TEXT' ) + '</div></div>');
 
 		// Set Loading Height
 		this.setLoadingHeight();
@@ -149,15 +149,23 @@ var dataTableView = Backbone.View.extend({
 	},
 
 	setLoadingHeight: function(){
-		var self = this;
 
-		$(document).ready(function(){
-			
-			var otherHeights = 0;
+	    $(window).resize(function(){
 
-			self.parentView.setHeights('#id_datastreamResult .loading', otherHeights);
+	      var table = $('.resource-detail'),
+	          windowHeight = $(window).height();
 
-		});
+	        var tableHeight =
+	          windowHeight
+	        - parseFloat( $('.global-navigation').height() )
+	        - parseFloat( $('.context-menu').height() )
+        	- parseFloat( $('.section-content').css('padding-top').split('px')[0] )
+	        - 40 // As margin bottom
+	        ;
+
+	        table.css('height', tableHeight+'px');
+
+	    }).resize();
 	},
 
 	setTableHeight:function(){
@@ -339,18 +347,21 @@ var dataTableView = Backbone.View.extend({
 		});
 	
 		// Set Flexigrid Height
-	  $(document).ready(function(){
+	    $(window).resize(function(){
 
-	  	var otherHeights = 
-	  		+ parseFloat( $('.section-content').css('padding-top').split('px')[0] )
-	  		+ parseFloat( $('.flexigrid .hDiv').height() )
-		    + parseFloat( $('.flexigrid .pDiv').height() )
-		    + parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
-		    + parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] );
+		  	var otherHeights = 
+		  		  parseFloat( $('.resource-detail').height() )
+		  		- parseFloat( $('.flexigrid .hDiv').height() )
+			    - parseFloat( $('.flexigrid .pDiv').height() )
+			    - parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
+			    - parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] );
 
-		  self.parentView.setHeights( '.flexigrid div.bDiv', otherHeights );
+			  $( '.flexigrid div.bDiv').css({ 'height': otherHeights });
 
-		});	
+			  console.log( $('.resource-detail').height() );
+			  console.log(otherHeights);
+
+	    }).resize();
 
 	},
 
