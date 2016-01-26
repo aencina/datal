@@ -64,7 +64,7 @@
                 <div class="boxInner">
                     {% for item in facets %}
                         <h5 class="minnorPaddingBottom">
-                            <a href="{% url "search.search" %}/category/{{item.term}}?q={{query}}">{{ item.term|title}}</a> ({{ item.count }})
+                            <a href="{% url "search.search" %}category/{{item.term}}?q={{query}}">{{ item.term|title}}</a> ({{ item.count }})
                             </h5>
                     {% endfor %}
                 </div>
