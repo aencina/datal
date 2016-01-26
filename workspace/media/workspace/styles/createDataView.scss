@@ -6,6 +6,9 @@
 /* Sidebar (then merge this with common.scss) */
 .sidebar{
 	width: 100% !important;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding-right: 10px;
 
 	.form-group{
 		margin-left: 10px;
