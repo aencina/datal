@@ -17,7 +17,6 @@ class VisualizationImplBuilder:
         field['format']['correlativeData'] = self.fields['correlativeData'] if self.fields['correlativeData'] else 'false'
         field['format']['nullValueAction'] = self.fields['nullValueAction'] if self.fields['nullValueAction'] else 'exclude'
         field['format']['nullValuePreset'] = self.fields['nullValuePreset']
-        field['title'] = self.fields['title']
         field['data'] = self.fields['data']
         field['chart'] = dict()
         field['chart']['labelSelection'] = self.fields['labelSelection']
@@ -30,7 +29,8 @@ class VisualizationImplBuilder:
         field['chart']['zoom'] = self.fields['zoom']
         field['chart']['bounds'] = self.fields['bounds']
         field['chart']['is3D'] = self.fields['is3D'] if self.fields['is3D'] else 'false'
-
+        if 'title' in self.fields and self.fields['title']:
+            field['title'] = self.fields['title']
         return json.dumps(field)
 
     def parse(self, impl_details):
