@@ -587,26 +587,8 @@
 
   <div class="input-output-view<%= (!_.isUndefined(column.type) && column.type === 'TEXT')? ' hidden': '' %>">
 
-    <p><strong>{% trans 'APP-CONFIGURE-FORMAT' %}</strong></p>
+    <p><strong>{% trans 'APP-CONFIGURE-ORIGIN-FORMAT' %}</strong></p>
     <div role="separator" class="divider divider-xs"></div>
-
-    <div class="tabs hash-tabs">
-      <article class="tab-container">
-
-        <nav class="tab-nav tab-nav-sm" role="tablist">
-          <ul>
-            <li>
-              <a href="#formatorigin" id="0" role="tab" aria-selected="true" aria-expanded="true" aria-controls="#formatorigin" tab-index="0">{% trans 'APP-ORIGIN' %}</a>
-            </li>
-            <li>
-              <a href="#formatoutput" id="1" role="tab" aria-selected="false" aria-expanded="false" aria-controls="#formatoutput" tab-index="-1">{% trans 'APP-OUTPUT' %}</a>
-            </li>
-          </ul>
-        </nav>
-
-        <div role="separator" class="divider divider-xs"></div>
-
-        <div class="tab-pane-container">
 
           <section id="formatorigin" role="tabpanel" aria-labeledby="0" style="display: block;">
 
@@ -824,7 +806,12 @@
 
           </section>
 
-          <section id="formatoutput" role="tabpanel" aria-labeledby="1" style="display:none;">
+    <div role="separator" class="divider divider-sm"></div>
+
+    <p><strong>{% trans 'APP-CONFIGURE-OUTPUT-FORMAT' %}</strong></p>
+    <div role="separator" class="divider divider-xs"></div>
+
+          <section id="formatoutput" role="tabpanel" aria-labeledby="1">
 
             <div class="row-value-type">
               <div class="form-group">
@@ -921,11 +908,6 @@
             </div>
 
           </section>
-
-        </div>
-
-      </article>
-    </div>
 
   </div>
 

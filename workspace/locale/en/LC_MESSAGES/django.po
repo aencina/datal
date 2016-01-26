@@ -3211,14 +3211,11 @@ msgstr "Locale"
 msgid "APP-CUSTOM-PATTERN"
 msgstr "Custom pattern"
 
-msgid "APP-CONFIGURE-FORMAT"
-msgstr "Configure formats"
+msgid "APP-CONFIGURE-ORIGIN-FORMAT"
+msgstr "Configure origin format"
 
-msgid "APP-ORIGIN"
-msgstr "Origin"
-
-msgid "APP-OUTPUT"
-msgstr "Output"
+msgid "APP-CONFIGURE-OUTPUT-FORMAT"
+msgstr "Configure output format"
 
 msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
 msgstr "Decimals / Thousands indicators"
