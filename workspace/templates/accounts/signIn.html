@@ -25,7 +25,7 @@
     
     {# Hide sign up link if method of plugin is activated #}
     {% if not 'hide_signup_link'|inplugin %}
-    <a href="/signup" title="{% trans 'APP-SIGNUP-TITLE-TEXT' %}" class="signInLink link absolute">{% trans 'APP-SIGNUP-TITLE-TEXT' %}</a>
+    <a href="/signup/" title="{% trans 'APP-SIGNUP-TITLE-TEXT' %}" class="signInLink link absolute">{% trans 'APP-SIGNUP-TITLE-TEXT' %}</a>
     {% endif %}
 
     <form action="{{form.action}}" method="post" novalidate>

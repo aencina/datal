@@ -264,7 +264,7 @@ var theme3View = Backbone.Epoxy.View.extend({
 	setUploadable: function(input){
 		
 		$(input).fileupload({
-            url: '/personalizeHome/upload',
+            url: '/personalizeHome/upload/',
             dataType: 'json',
             timeout:60000,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,

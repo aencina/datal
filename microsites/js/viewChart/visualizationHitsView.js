@@ -35,7 +35,7 @@ var visualizationHitsView = Backbone.View.extend({
 
     var visualization = this.options.visualization.attributes;
       
-    var url  = '/rest/charts/'+ visualization.revision_id + '/hits.json';
+    var url  = '/rest/charts/'+ visualization.revision_id + '/hits.json/';
             
     var ajax = $.ajax({ 
       url: url,

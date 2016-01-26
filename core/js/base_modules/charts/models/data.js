@@ -181,7 +181,7 @@ charts.models.ChartData = Backbone.Model.extend({
         }
 
         if (_.isUndefined(id)) {
-            url = '/rest/' + endpoint + 'sample.json' + '?' + $.param(filters);
+            url = '/rest/' + endpoint + 'sample.json/' + '?' + $.param(filters);
         } else {
             filters = _.omit(filters, 'data')
             filters = _.omit(filters, 'headers')
@@ -191,7 +191,7 @@ charts.models.ChartData = Backbone.Model.extend({
             filters = _.omit(filters, 'type')
             filters = _.omit(filters, 'invertedAxis')
             filters = _.omit(filters, 'revision_id')
-            url = '/rest/' + endpoint + id + '/data.json' + '?' + $.param(filters);
+            url = '/rest/' + endpoint + id + '/data.json/' + '?' + $.param(filters);
         }
 
         return url;

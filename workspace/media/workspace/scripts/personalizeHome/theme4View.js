@@ -66,7 +66,7 @@ var theme4View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_cover').fileupload({
-            url: '/personalizeHome/upload',
+            url: '/personalizeHome/upload/',
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             timeout:60000,

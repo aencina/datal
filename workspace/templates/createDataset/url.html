@@ -68,7 +68,7 @@ $(document).ready(function(){
 		name: 'finish',
 		saveUrl: "{% url 'manageDatasets.create_type' 'url' %}",
 	    sourceUrl: '/rest/sources.json',
-	    tagUrl: '/rest/tags.json',
+	    tagUrl: '/rest/tags.json/',
 	    category: {{form.initial.category}}
 	});
 	var finishView = new FinishView({model: finishModel});

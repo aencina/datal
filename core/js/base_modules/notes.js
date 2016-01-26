@@ -77,7 +77,7 @@ var Notes = Backbone.Model.extend({
         if (pResponse.status == 'ok') {
 			if(this.attributes.is_datastream){
 				if(pResponse.datastream_revision_id != $('#id_datastream-datastream_revision_id').val()){
-					window.location.replace('/dataviews/view?datastream_revision_id=' + pResponse.datastream_revision_id);
+					window.location.replace('/dataviews/view/?datastream_revision_id=' + pResponse.datastream_revision_id);
 					jQuery.TwitterMessage({ 'type': 'success', 'message': pResponse.messages });
 				}else{
 					

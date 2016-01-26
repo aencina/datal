@@ -109,7 +109,7 @@ var dataTableView = Backbone.View.extend({
 		}
 	    
 	  var ajax = $.ajax({ 
-			url: '/rest/datastreams/' + dataStream.id + '/data.json', 
+			url: '/rest/datastreams/' + dataStream.id + '/data.json/', 
 		  type:'GET', 
 		  data: data, 
 		  dataType: 'json', 
@@ -249,7 +249,7 @@ var dataTableView = Backbone.View.extend({
 
 		// Init Flexigrid
 		$('.dataTable .data .result').flexigrid({
-			url: '/rest/datastreams/' + dataStream.id + '/data.grid', // se le pasa el revision_id, de la revision actual.
+			url: '/rest/datastreams/' + dataStream.id + '/data.grid/', // se le pasa el revision_id, de la revision actual.
 			dataType: 'json',
 			colModel: colModel,
 			searchitems : searchArray,

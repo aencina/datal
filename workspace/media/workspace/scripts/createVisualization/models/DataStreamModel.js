@@ -4,7 +4,7 @@ var DataStreamModel = Backbone.Model.extend({
     url: function () {
         return ['/rest/datastreams/',
             this.get('datastream_revision_id'),
-            '/data.json?limit=50&page=0'].join('');
+            '/data.json/?limit=50&page=0'].join('');
     },
 
     initialize: function () {
