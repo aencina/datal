@@ -129,13 +129,13 @@ $(document).ready(function(){
     notes: "{{datastream.notes}}",
     sourceUrl: '/rest/sources.json/',
     tagUrl: '/rest/tags.json/',
-    editUrl: "{% url 'manageDataviews.edit' %}/{{datastream.datastream_revision_id}}",
+    editUrl: "{% url 'manageDataviews.edit' %}/{{datastream.datastream_revision_id}}/",
   });
 
   var viewDataStreamView = new ViewDataStreamView({
     model: viewDataStreamModel,
-    sourceUrl: '/rest/sources.json',
-    tagUrl: '/rest/tags.json',
+    sourceUrl: '/rest/sources.json/',
+    tagUrl: '/rest/tags.json/',
     datastreamEditItemModel: datastreamEditItemModel
   });
 });
