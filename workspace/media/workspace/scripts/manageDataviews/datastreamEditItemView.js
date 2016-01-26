@@ -92,7 +92,7 @@ var DatastreamEditItemView = Backbone.Epoxy.View.extend({
 
             // NOT WORKING. Need to be done with data and select what is sent to server.
             $.ajax({ 
-                url: '/dataviews/edit/'+ this.model.get('datastream_revision_id'), 
+                url: '/dataviews/edit/'+ this.model.get('datastream_revision_id') + '/', 
                 type:'POST', 
                 data: data, 
                 dataType: 'json',
