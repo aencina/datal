@@ -28,7 +28,8 @@ for plugin in plugins:
         for router_list in plugin.microsites_routers:
             router.register(router_list[0], router_list[1], base_name=router_list[2])
 
-def jsi18n(request, packages = None, domain = None):
+
+def jsi18n(request, packages=None, domain=None):
     if not domain:
         domain = 'djangojs'
     from django.views.i18n import javascript_catalog
@@ -68,7 +69,7 @@ urlpatterns = patterns('',
     url(r'^branded/js/(?P<url_name>[\w.]+)/(?P<id>\d+).js/$', 'microsites.views.get_js', name='microsites.get_js'),
     url(r'^branded/newcss/(?P<url_name>[\w.]+)/(?P<id>\d+).css/$', 'microsites.views.get_new_css', name='microsites.get_new_css'),
 
-#    url(r'^portal/DataServicesManager/actionEmbed/$', 'microsites.viewDataStream.views.legacy_embed', name='datastream_manager.legacy_embed'),
+    # url(r'^portal/DataServicesManager/actionEmbed/$', 'microsites.viewDataStream.views.legacy_embed', name='datastream_manager.legacy_embed'),
     url(r'^is_live/$', 'microsites.views.is_live', name='microsites.is_live'),
     (r'^home/', include('microsites.loadHome.urls')),
     (r'^home', include('microsites.loadHome.urls')),
