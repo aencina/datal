@@ -2,7 +2,7 @@
 from django import template
 from datetime import datetime
 import re
-
+import logging
 
 register = template.Library()
 
