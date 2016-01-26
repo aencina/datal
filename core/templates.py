@@ -66,12 +66,15 @@ class DataStreamOutputBigDataTemplate(Template):
 
 class MintTemplateResponse(Template):
 
-    def __init__(self, template="{% include 'mint_response.html' %}"):
-        super(MintTemplateResponse, self).__init__(template)
+    def __init__(self, template='json'): # json or HTML
+        tpl = "{% include 'mint_response." + template + "' %}" # . and %s fails (?)
+        super(MintTemplateResponse, self).__init__(tpl)
 
-    def render(self, rdf, template, errors, result, fail_type):
-        return super(MintTemplateResponse, self).render(Context({"rdf": rdf, "template": template, "errors": errors, "result": result, "fail_type": fail_type}))
-
+    def render(self, rdf, template, errors, result, message, results_length=0, contents=''):
+        return super(MintTemplateResponse, self).render(Context({"rdf": rdf, "template": template, "errors": errors, 
+                                                                 "result": result, "message": message, 
+                                                                 "results_length": results_length, 
+                                                                 "contents": contents}))
 
 class DefaultCoreError(Template):
 
