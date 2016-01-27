@@ -55,8 +55,10 @@ var MapView = StepViewSPA.extend({
     fetchPreviewData: function(){
         this.$('.visualizationContainer .loading').removeClass('hidden');
 
+        var self = this;
+
         this.model.fetchData().always(function(){
-        this.$('.visualizationContainer .loading').addClass('hidden');
+            self.$('.visualizationContainer .loading').addClass('hidden');
         });;
     },
 
