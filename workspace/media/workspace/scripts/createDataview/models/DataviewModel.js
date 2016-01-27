@@ -132,7 +132,7 @@ var DataviewModel = Backbone.Model.extend({
         this.formats = new ColumnsCollection();
     },
 
-    url: '/rest/datastreams/sample.json',
+    url: '/rest/datastreams/sample.json/',
 
     attachDataset: function (attributes) {
         this.dataset = new DatasetModel(attributes);
@@ -288,7 +288,7 @@ var DataviewModel = Backbone.Model.extend({
 
         return $.ajax({
                 type: 'POST',
-                url: '/dataviews/create',
+                url: '/dataviews/create/',
                 data: params,
                 dataType: 'json'
             });

@@ -1,5 +1,5 @@
 var DatastreamEditItemModel = Backbone.Epoxy.Model.extend({
-    urlRoot:'/dataviews/edit',
+    urlRoot:'/dataviews/edit/',
 
     defaults: function() {
         return {

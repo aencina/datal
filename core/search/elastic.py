@@ -26,6 +26,10 @@ class ElasticsearchFinder(Finder):
         reverse = kwargs.get('reverse', False)
         self.order =  kwargs.get('order')
 
+        # comodin, % = *
+        if self.query == "%":
+            self.query=""
+
         if self.order and self.order == 'top':
             self.sort = "hits:%s" % ("asc" if reverse else "desc")
         elif self.order and self.order=='web_top':

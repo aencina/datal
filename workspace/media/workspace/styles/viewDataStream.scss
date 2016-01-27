@@ -3,7 +3,7 @@
 @import 'functions';
 
 /* Detail Container */
-.detail-container .resource-detail.box{padding:0;}
+.detail-container .resource-detail.box{padding:0;position:relative;}
 
 /* Data Table */
 .dataTable{}
@@ -71,7 +71,7 @@
 		.dataTable .data #id_datastreamResult > .result >table.array td{padding:2px 5px;border:1px solid #EFEFEF;border-top:0;}
 
 	/* Loading */
-	.dataTable .data .loading{background:url(#{$loader-url-light}) no-repeat center center;height:400px;text-indent:-10000px;overflow:hidden;}
+	.dataTable .data .loading{text-indent:-10000px;}
 	body .dataTable #id_datastreamResult .flexigrid > div.gBlock{background:#fff url(#{$loader-url-light}) no-repeat center center!important;background-color:rgba(255,255,255,0.5) !important;text-indent:-10000px;overflow:hidden;position:absolute !important;height:100% !important;width:100% !important;}
 
 	/* Pivot Table */

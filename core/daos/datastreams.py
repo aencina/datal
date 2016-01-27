@@ -134,7 +134,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         try:
             datastream_revision = DataStreamRevision.objects.select_related().get(condition & resource_language & category_language & status_condition & account_condition & last_revision_condition)
         except DataStreamRevision.DoesNotExist:
-            logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s)'% (condition, resource_language, category_language))
+            logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s %s %s %s)'% (condition, resource_language, category_language, status_condition, account_condition, last_revision_condition))
             raise
 
 

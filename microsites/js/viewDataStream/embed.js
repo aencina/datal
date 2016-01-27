@@ -151,7 +151,7 @@ function startWaitMessage(pHTMLElement){
 
 function invokeDataService(pEndPoint){
 
-    var lUrl     = '/rest/datastreams/' + fDataStreamRevisionId + '/data.json';
+    var lUrl     = '/rest/datastreams/' + fDataStreamRevisionId + '/data.json/';
     var lData    = '&limit=50'
     			+ pEndPoint;
 

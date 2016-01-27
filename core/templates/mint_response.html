@@ -3,14 +3,17 @@
     <body>
         <h3>RDF insertion details</h3>
         <div>
-            <p>RESULT: <b>{{result}}</b> {{fail_type}}</p>
-
+            <p>RESULT: <b>{{result}}</b> {{message}}</p>
+            <p>RESULT'S LENGTH: <b>{{results_length|default:"NO DATA"}}</b> </p>
             <h2>Final RDF</h2>
             <textarea style="height: 250px; width: 98%; overflow: auto;backgroud-color:rgb(229, 237, 243)">{{rdf|safe}}</textarea>
 
 
             <h2>TEMPLATE</h2>
             <textarea style="height: 250px; width: 98%; overflow: auto; backgroud-color:rgb(229, 237, 243)">{{template|safe}}</textarea>
+
+            <h2>Contents</h2>
+            <textarea style="height: 250px; width: 98%; overflow: auto; backgroud-color:rgb(229, 237, 243)">{{contents}}</textarea>
 
             <h2>Errors</h2>
             <iframe style="height: 250px; width: 98%; overflow: auto" srcdoc="{{errors}}"></iframe>

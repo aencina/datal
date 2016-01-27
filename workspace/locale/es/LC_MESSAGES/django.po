@@ -3209,14 +3209,11 @@ msgstr "Localización"
 msgid "APP-CUSTOM-PATTERN"
 msgstr "Patrón personalizado"
 
-msgid "APP-CONFIGURE-FORMAT"
-msgstr "Configurar formatos"
+msgid "APP-CONFIGURE-ORIGIN-FORMAT"
+msgstr "Configurar formato de origen"
 
-msgid "APP-ORIGIN"
-msgstr "Origen"
-
-msgid "APP-OUTPUT"
-msgstr "Salida"
+msgid "APP-CONFIGURE-OUTPUT-FORMAT"
+msgstr "Configurar formato de salida"
 
 msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
 msgstr "Indicadores de decimales / miles"

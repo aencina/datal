@@ -132,7 +132,7 @@ var DataTableView = Backbone.View.extend({
     this.listenTo(this.collection, 'reset', this.onReset, this);
     this.listenTo(this.collection, 'change', this.onChageSelected, this);
 
-    this.setTableHeight();
+    this.setHeights();
   },
 
   render: function () {
@@ -147,7 +147,7 @@ var DataTableView = Backbone.View.extend({
     this.table.render();
   },
 
-  setTableHeight: function(){
+  setHeights: function(){
 
     $(window).resize(function(){
 
@@ -165,6 +165,7 @@ var DataTableView = Backbone.View.extend({
         ;
 
         table.css('height', tableHeight+'px');
+        // $('.sidebar').css('height', tableHeight+'px');
 
       }
 

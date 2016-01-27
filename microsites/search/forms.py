@@ -3,9 +3,7 @@ from django.conf import settings
 from django.utils.html import escape as html_escape
 
 
-
 class SearchForm(forms.Form):
-    #q = forms.RegexField(label='Query', max_length=512, required=False, regex = r'[a-zA-Z0-9]+|%')
     q = forms.CharField(label='Query', max_length=512, required=False)
     page = forms.IntegerField(label='Page', required=False)
     tag = forms.RegexField(label='Tag', required=False, regex = r'[a-zA-Z0-9]+')
@@ -44,7 +42,6 @@ class SearchForm(forms.Form):
     def _replace(self, r):
         """devuelve q sin el char r"""
         self.cleaned_data['q']=self.cleaned_data['q'].replace(r, "")
-
 
     def get_query(self):
         query = self.cleaned_data['q']

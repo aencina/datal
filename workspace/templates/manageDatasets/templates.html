@@ -135,7 +135,7 @@
 				// If FILE
 				if(collect_type == 0){
 			%>
-				<a rel="nofollow" href="/datasets/download_file?dataset_revision_id=<%=id%>" id="id_downloadLink" title="{% trans 'APP-DOWNLOAD-TEXT' %}"><span class="icon icon-download FL"></span>{% trans 'APP-DOWNLOAD-TEXT' %}</a> <span class="type">(.<%= type_nice %>, <%= size = Math.floor(size / 1024) %> KB)</span>
+				<a rel="nofollow" href="/datasets/download_file/?dataset_revision_id=<%=id%>" id="id_downloadLink" title="{% trans 'APP-DOWNLOAD-TEXT' %}"><span class="icon icon-download FL"></span>{% trans 'APP-DOWNLOAD-TEXT' %}</a> <span class="type">(.<%= type_nice %>, <%= size = Math.floor(size / 1024) %> KB)</span>
 			<% 
 				// Else, if URL or WEBSERVICE
 				} else if( collect_type == 1 || collect_type == 2 ){

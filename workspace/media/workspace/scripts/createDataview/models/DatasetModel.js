@@ -12,7 +12,7 @@ var DatasetModel = Backbone.Model.extend({
         });
         return ['/rest/datasets/',
                 this.get('dataset_revision_id'),
-                '/tables.json?',
+                '/tables.json/?',
                 $.param({
                     limit: 100,
                     wargs: JSON.stringify(wargs)

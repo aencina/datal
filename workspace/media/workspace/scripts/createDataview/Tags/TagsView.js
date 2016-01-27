@@ -11,7 +11,7 @@ var TagsView = Backbone.View.extend({
     render: function () {
         this.$el.html(this.template());
         this.$('.input-tag').autocomplete({
-            source: '/rest/tags.json',
+            source: '/rest/tags.json/',
             minLength: 3,
             select: function (e, ui) {
                 e.preventDefault();

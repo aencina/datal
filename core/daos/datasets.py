@@ -72,7 +72,7 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
         try:
             dataset_revision = DatasetRevision.objects.select_related().get(condition & dataset_language & category_language & status_condition & account_condition & last_revision_condition)
         except DatasetRevision.DoesNotExist:
-            logger.error('[ERROR] DatasetRev Not exist Revision (query: %s %s %s)'% (condition, dataset_language, category_language))
+            logger.error('[ERROR] DatasetRev Not exist Revision (query: %s %s %s %s %s %s)'% (condition, dataset_language, category_language, status_condition, account_condition, last_revision_condition))
             raise
 
         tags = dataset_revision.get_tags()

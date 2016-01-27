@@ -30,7 +30,7 @@ var AddSourceModel = Backbone.Model.extend({
 	},
 
 	validateSourceNameAlreadyExist: function() {
-		var url = '/rest/sources.json	',
+		var url = '/rest/sources.json/',
 			data = {},
 			msg = false;
 		data['name'] = this.get('name');
@@ -50,7 +50,7 @@ var AddSourceModel = Backbone.Model.extend({
 	},
 
 	validateSourceUrlAlreadyExist: function() {
-		var url = '/rest/sources.json',
+		var url = '/rest/sources.json/',
 			data = {},
 			msg = false;
 		data['url'] = this.get('url');

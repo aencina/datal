@@ -74,8 +74,8 @@ urlpatterns = patterns('',
     (r'^admin/', include('workspace.manageAccount.urls')),
     (r'^auth/', include('core.auth.urls')),
     (r'^personalizeHome/', include('workspace.personalizeHome.urls')),
-    (r'^js_core/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'core', 'js')}),
-    (r'^js_workspace/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'workspace', 'js')}),
+    (r'^js_core/(?P<path>.*)/$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'core', 'js')}),
+    (r'^js_workspace/(?P<path>.*)/$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'workspace', 'js')}),
 )
 
 
