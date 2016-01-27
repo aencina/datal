@@ -53,10 +53,10 @@ var MapView = StepViewSPA.extend({
     }, 
 
     fetchPreviewData: function(){
-        $("#ajax_loading_overlay").show();
+        this.$('.visualizationContainer .loading').removeClass('hidden');
 
         this.model.fetchData().always(function(){
-            $("#ajax_loading_overlay").hide();
+        this.$('.visualizationContainer .loading').addClass('hidden');
         });;
     },
 
@@ -163,7 +163,7 @@ var MapView = StepViewSPA.extend({
                 this.nextBtn.addClass('disabled');
                 this.vizContent.removeClass('dataSelected');
             }
-            $("#ajax_loading_overlay").hide();
+            this.$('.visualizationContainer .loading').removeClass('hidden');
         }
     },
 
