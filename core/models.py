@@ -167,11 +167,11 @@ class Account(models.Model):
         total_datasets = c.get('account_total_datasets_' + str(self.id))
         if not total_datasets:
             total_datasets =  Dataset.objects.filter(user__in=users).count()
-            if settings.DEBUG: logger.info('get_total_datasets from database %d' % total_datasets)
+            #if settings.DEBUG: logger.info('get_total_datasets from database %d' % total_datasets)
             if total_datasets > 0:
                 c.set('account_total_datasets_' + str(self.id), total_datasets, settings.REDIS_STATS_TTL)
-        else:
-            if settings.DEBUG: logger.info('get_total_datasets from cache %s' % total_datasets)
+        #else:
+        #    if settings.DEBUG: logger.info('get_total_datasets from cache %s' % total_datasets)
             
         return total_datasets
 
@@ -209,7 +209,7 @@ class Account(models.Model):
                 status = status)
         except Account.DoesNotExist:
             # generalmente usamos algo.dev:port
-            if settings.DEBUG: logger.info('NO domain (%s)' % domain)
+            #if settings.DEBUG: logger.info('NO domain (%s)' % domain)
 
             try:
                 if domain.find('.site.demo.junar.com') > -1:
@@ -220,7 +220,7 @@ class Account(models.Model):
                     # obtenemos la primer parte, que en las demos/ambiente de dev
                     # es el ID del Account
                     dom = domain.split(".")[0]
-                    if settings.DEBUG: logger.info('API Test domain (%s)' % dom)
+                    #if settings.DEBUG: logger.info('API Test domain (%s)' % dom)
     
                     if dom in ("microsites", "api"):
                         return Account.objects.get(pk=1) 

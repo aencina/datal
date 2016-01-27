@@ -42,7 +42,7 @@ class Preferences():
                         self.data['account.id'],
                         key=key
                     )
-                    if settings.DEBUG: logger.info('Get from DB %s=%s' % (key, self.data[key]))
+                    #if settings.DEBUG: logger.info('Get from DB %s=%s' % (key, self.data[key]))
                 except Preference.DoesNotExist:
                     self.data[key] = ''
                 else:
@@ -110,7 +110,7 @@ class Preferences():
         if self.engine_cache:
             key = 'preference_%s_%s' % (str(self.data['account.id']), key)
             value = self.engine_cache.get(str(key))
-            if settings.DEBUG: logger.info('Get from cache %s=%s' % (key, value))
+            #if settings.DEBUG: logger.info('Get from cache %s=%s' % (key, value))
             return value
 
         return None
@@ -121,7 +121,7 @@ class Preferences():
             try:
                 key = 'preference_%s_%s' % (str(self.data['account.id']), key)
                 self.engine_cache.set(key, value, settings.MEMCACHED_DEFAULT_TTL)    
-                if settings.DEBUG: logger.info('Save on cache %s=%s' % (key, value))
+                #if settings.DEBUG: logger.info('Save on cache %s=%s' % (key, value))
                 return True
             except Exception, e:
                 logger.error('No se grabo la preferencia (%s) en cache: %s' % (str(key), str(e)))
