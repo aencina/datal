@@ -140,14 +140,14 @@ var MainView = Backbone.View.extend({
 			},
 			error:function(response){
 				datalEvents.trigger('datal:application-error', response);
-				this.$('.visualizationContainer .loading').addClass('hidden');
+				self.$('.visualizationContainer .loading').addClass('hidden');
 			},
 			complete:function(response){
 				// Hide Loading
-				this.$('.visualizationContainer .loading').addClass('hidden');
+				self.$('.visualizationContainer .loading').addClass('hidden');
 			}
 		}).fail(function () {
-			this.$('.visualizationContainer .loading').addClass('hidden');
+			self.$('.visualizationContainer .loading').addClass('hidden');
 		});
 
 	},
