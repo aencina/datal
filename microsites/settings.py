@@ -14,13 +14,15 @@ MIDDLEWARE_CLASSES += (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'microsites.middlewares.auth.AccessManager',
     'microsites.middlewares.ioc.DependencyInjector',
     'microsites.middlewares.catch.ExceptionManager',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware'
 )
+
+X_FRAME_OPTIONS = 'ALLOW'
 
 ROOT_URLCONF = 'microsites.urls'
 

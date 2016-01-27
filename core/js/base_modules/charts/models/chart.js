@@ -93,6 +93,8 @@ charts.models.Chart = Backbone.Model.extend({
             data = _.extend(data,{
                 type: res.format.type,
 
+                data: res.data,
+                
                 select_data:true,
                 notes: _.unescape(res.notes),
                 title: res.title,
@@ -123,7 +125,6 @@ charts.models.Chart = Backbone.Model.extend({
         //edit
         if (res.revision_id && this.editMode) {
             data = _.extend(data,{
-                data: res.data,
                 headerSelection: res.chart.headerSelection,
                 labelSelection: res.chart.labelSelection,
 
