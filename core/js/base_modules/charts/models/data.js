@@ -97,11 +97,12 @@ charts.models.ChartData = Backbone.Model.extend({
                 response.series.length == 1 &&
                 response.values.length > 1 
             ){
+
                 var values = _.flatten(response.values);
                 response.values = [];
                 response.values.push(values);
             
-            // Si values tiene un array vacio lo remuevo y lo remuevo de series tambien.
+            // Si values tiene un array vacio lo mando como null
             }else if( 
                 response.series.length == response.values.length 
             ){
@@ -110,14 +111,60 @@ charts.models.ChartData = Backbone.Model.extend({
                     values = [];
 
                 for(var i=0;i<response.values.length;i++){
-                    if( response.values[i].length > 0 ){
-                        series.push( response.series[i] ); 
+                    if( response.values[i].length == 0 ){ 
+                        values.push( null );
+                    }else{
                         values.push( response.values[i] );
                     }
+                    series.push( response.series[i] );
                 }
 
                 response.series = series;
                 response.values = values;                
+
+            // Si hay mas de 1 serie, mas de 1 array de valores, y el length de series es distinto al length de values
+            }else if(
+                response.series.length > 1 &&
+                response.values.length > 1 && 
+                response.series.length != response.values.length 
+            ){
+
+                var count = 0,
+                    values = [];
+
+                // Por cada serie creo un array vacio en values
+                for(var s=0;s<response.series.length;s++){
+                    values.push([]);
+                }
+
+                // Itero por los valores de response.values ciclicamente
+                for(var i=0;i<response.values.length;i++){
+
+                    // Uso count hasta que llegue a ser igual a la cantidad de series, ahi la reseteo a 0 y vuelvo a empezar (para hacerlo ciclico)
+                    if( count == response.series.length ){
+                        count = 0;
+                    }                   
+
+                    // Cada array de response.values puede tener N valores. Todos esos valores del array en cuestion pertenecen a la misma columna, por lo mismo los agrego en el mismo array.
+                    if( response.values[i].length == 0 ){
+
+                        values[count].push( null );                       
+
+                    }else{
+
+                        for(var j=0;j<response.values[i].length;j++){
+
+                            values[count].push( response.values[i][j] );
+                        }
+
+                    }
+
+                    count++;
+
+                }
+
+                // Asigno los nuevos values a response.values
+                response.values = values;
 
             }
 
