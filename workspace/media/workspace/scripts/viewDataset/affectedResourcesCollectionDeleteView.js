@@ -109,7 +109,7 @@ var AffectedResourcesCollectionDeleteItemView = Backbone.View.extend({
 
                     var location = window.location.href,
                         splitURL = location.split("/"),
-                        cutURL = splitURL.slice(0, -1),
+                        cutURL = splitURL.slice(0, -2),
                         joinURL = cutURL.join("/");
 
                     setTimeout(function () {
