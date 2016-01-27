@@ -199,8 +199,8 @@ SOURCE_IMPLEMENTATION_CHOICES = (
     ,(SourceImplementationChoices.IMAGE, 'IMAGE')
     ,(SourceImplementationChoices.ZIP, 'ZIP')
     ,(SourceImplementationChoices.TSV, 'TSV')
-    ,(SourceImplementationChoices.TXT, 'TXT')
     ,(SourceImplementationChoices.PUS, 'PublicStuff')
+    ,(SourceImplementationChoices.TXT, 'TXT')
 )
 
 SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
