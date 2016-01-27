@@ -96,6 +96,8 @@ var MainView = Backbone.View.extend({
 			data.killemall = killemall;
 		}
 
+		var self = this;
+
 		$.ajax({
 			url: url,
 			type: 'POST',
@@ -105,7 +107,7 @@ var MainView = Backbone.View.extend({
 				// Prevent override of global beforeSend
 				$.ajaxSettings.beforeSend(xhr, settings);
 				// Show Loading
-				this.$('.visualizationContainer .loading').removeClass('hidden');
+				self.$('.visualizationContainer .loading').removeClass('hidden');
 			},
 			success: function(response){
 
@@ -138,14 +140,14 @@ var MainView = Backbone.View.extend({
 			},
 			error:function(response){
 				datalEvents.trigger('datal:application-error', response);
-				this.$('.visualizationContainer .loading').addClass('hidden');
+				self.$('.visualizationContainer .loading').addClass('hidden');
 			},
 			complete:function(response){
 				// Hide Loading
-				this.$('.visualizationContainer .loading').addClass('hidden');
+				self.$('.visualizationContainer .loading').addClass('hidden');
 			}
 		}).fail(function () {
-			this.$('.visualizationContainer .loading').addClass('hidden');
+			self.$('.visualizationContainer .loading').addClass('hidden');
 		});
 
 	},
