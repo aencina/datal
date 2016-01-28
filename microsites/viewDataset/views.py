@@ -6,7 +6,7 @@ from core.models import Dataset, DatasetRevision
 from core.daos.datasets import DatasetDBDAO
 from core.templatetags.core_components import permalink as get_permalink
 from core.exceptions import *
-from microsites.exceptions import *
+from microsites.exceptions import DatasetDoesNotExist
 from django.views.decorators.http import require_http_methods
 import urllib2
 
@@ -17,11 +17,7 @@ def view(request, dataset_id, slug):
     account = request.account
     preferences = request.preferences
 
-    try:
-        dataset = DatasetDBDAO().get(request.user, dataset_id=dataset_id, published=True)
-    except Dataset.DoesNotExist, DatasetRevision.DoesNotExist:
-        logger.error('Dataset doesn\'t exists [%s|%s]' % (str(dataset_id), str(account.id)))
-        raise DatasetDoesNotExist
+    dataset = DatasetDBDAO().get(request.user, dataset_id=dataset_id, published=True)
 
     return render_to_response('viewDataset/index.html', locals())
 
