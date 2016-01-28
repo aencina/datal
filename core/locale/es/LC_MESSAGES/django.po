@@ -975,7 +975,7 @@ msgstr "Error desconocido"
 msgid "EXCEPTION-DESCRIPTION-UNKNOWN"
 msgstr "Error desconocido con nombre %(exception_name)s y trace '%(exception_trace)s'"
 
-# —————————— Exceptions Microsites
+# —————————— Exceptions Open data portals
 
 msgid "EXCEPTION-TITLE-REVISION-NOT-EXIST"
 msgstr "La visualización no existe"
@@ -1047,7 +1047,7 @@ msgid "APP-OF-THE-WORKSPACE-TEXT"
 msgstr "del espacio de trabajo"
 
 msgid "APP-OF-THE-MICROSITE-TEXT"
-msgstr "del sitio de datos"
+msgstr "del portal de datos abiertos"
 
 msgid "APP-HOMEPAGE-LOWERCASE-TEXT"
 msgstr "página de inicio"
@@ -1062,7 +1062,7 @@ msgid "APP-WORKSPACE-TEXT"
 msgstr "Espacio de trabajo"
 
 msgid "APP-MICROSITE-TEXT"
-msgstr "Sitio de datos"
+msgstr "Portal de datos abiertos"
 
 msgid "APP-CONTACTUS-TEXT"
 msgstr "Contáctenos"
