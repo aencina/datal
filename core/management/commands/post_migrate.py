@@ -88,14 +88,13 @@ class Command(BaseCommand):
 
         Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="True")
         Preference.objects.get_or_create(account=self.account, key="account.dataset.showhome", value="True")
-        
 
     def handle(self, *args, **options):
         self.account = None
 
         if options['account']:
             self.account = Account.objects.get(pk=int(options['account']))
-
+            
             self.visualization_revision_all = VisualizationRevision.objects.filter(user__account=self.account)
             self.dataset_revision_all = DatasetRevision.objects.filter(user__account=self.account)
             self.datasstream_revision_all = DataStreamRevision.objects.filter(user__account=self.account)
@@ -110,6 +109,12 @@ class Command(BaseCommand):
 
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
+
+            if 'traceSelection' in imp['chart'] and imp['chart']['traceSelection']:
+                imp['chart']['getType'] = 'traces'
+
+            if 'latitudSelection' in imp['chart'] and 'longitudSelection' in imp['chart'] and imp['chart']['latitudSelection'] and imp['chart']['longitudSelection']:
+                imp['chart']['geoType'] = 'points'
 
             if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection'] == ",":
                 imp['chart']['headerSelection'] = ''
