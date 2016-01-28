@@ -129,9 +129,6 @@ msgstr "User Grants"
 msgid "MODEL_USER_LABEL"
 msgstr "User"
 
-msgid "MODEL_IS_PRIVATE_LABEL"
-msgstr "Is private"
-
 msgid "MODEL_DATASTREAM_LABEL"
 msgstr "Data View"
 

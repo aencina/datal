@@ -309,9 +309,6 @@ msgstr "Última modificación"
 msgid "APP-OPEN-RESOURCES"
 msgstr "Recursos de datos abiertos"
 
-msgid "APP-OPEN-RESOURCES-PRIVATE"
-msgstr "Recursos de datos privados"
-
 msgid "APP-SEARCH-TEXT"
 msgstr "Buscar"
 

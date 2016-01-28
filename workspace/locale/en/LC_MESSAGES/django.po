@@ -709,9 +709,6 @@ msgstr "(*) in Dashboards and Data Views embeds"
 msgid "BRANDED-BRANDINGS-TIP"
 msgstr "Use the color pickers to customize the colors of the Branded Open Data Site with the ones of your brand."
 
-msgid "BRANDED-BRANDINGS-TIP-PRIVATE"
-msgstr "Use the color pickers to customize the colors of the Branded Private Data Site with the ones of your brand."
-
 msgid "APP-CATEGORIES-TEXT"
 msgstr "Categories"
 
@@ -1289,9 +1286,6 @@ msgstr "Arrange in the right box the dashboards that will be set as featured."
 msgid "APP-FEATURED-HELPTIP"
 msgstr "The featured dashboards will appear as tabs in the Branded Open Data Site, and they will be arranged in the same order as they appear in the right box."
 
-msgid "APP-FEATURED-HELPTIP-PRIVATE"
-msgstr "The featured dashboards will appear as tabs in the Branded Private Data Site, and they will be arranged in the same order as they appear in the right box."
-
 msgid "APP-TIME-ALL"
 msgstr "All time"
 
@@ -1765,9 +1759,6 @@ msgstr "Image size must be 136 x 80 px, otherwise image could appear distorted"
 
 msgid "ACCOUNT-OPENDATASITE-TAB"
 msgstr "Go to my Open Data site"
-
-msgid "ACCOUNT-OPENDATASITE-TAB-PRIVATE"
-msgstr "Go to my Private Data site"
 
 msgid "WORKSPACE-COLLECT-SELECTCATEGORY"
 msgstr "Select a category"

@@ -129,9 +129,6 @@ msgstr ""
 msgid "MODEL_USER_LABEL"
 msgstr "Usuario"
 
-msgid "MODEL_IS_PRIVATE_LABEL"
-msgstr "Es privado"
-
 msgid "MODEL_DATASTREAM_LABEL"
 msgstr "Vista"
 

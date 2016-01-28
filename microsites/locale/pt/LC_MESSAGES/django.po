@@ -312,9 +312,6 @@ msgstr "Last modified"
 msgid "APP-OPEN-RESOURCES"
 msgstr "Open Data Resources"
 
-msgid "APP-OPEN-RESOURCES-PRIVATE"
-msgstr "Private Data Resources"
-
 msgid "APP-SEARCH-TEXT"
 msgstr "Search"
 
