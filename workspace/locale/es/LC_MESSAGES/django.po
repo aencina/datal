@@ -677,7 +677,7 @@ msgid "APP-DATASET-TEXT"
 msgstr "Conjunto de datos"
 
 msgid "WORKSPACE-MICROSITE-SETTINGS"
-msgstr "Configuración del portal de datos abiertos abiertos"
+msgstr "Configuración del portal de datos abiertos"
 
 msgid "ACCOUNT-BRANDING-HEADER-TIP"
 msgstr "Pegue una URL para la cabecera<br/>Ejemplo: http://www.my-organization.com/my-header.html"
@@ -686,13 +686,13 @@ msgid "ACCOUNT-BRANDING-FOOTER-TIP"
 msgstr "Pegue una URL para el pie<br/>Example: http://www.my-organization.com/my-footer.html"
 
 msgid "BRANDED-OPEN-DATA-SITE-TIP"
-msgstr "<p>Los sitios de datos abiertos te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El portal de datos abiertos abiertos refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
+msgstr "<p>Los sitios de datos abiertos te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El portal de datos abiertos refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
 
 msgid "WORKSPACE-CUSTOMIZE-SETTINGS"
 msgstr "Personalizar la visualización"
 
 msgid "ACCOUNT-MICROSITE-TITLES"
-msgstr "Títulos del portal de datos abiertos abiertos"
+msgstr "Títulos del portal de datos abiertos"
 
 msgid "ACCOUNT-MICROSITE-TITLES-PRIVATE"
 msgstr "Títulos del portal de datos abiertos privados"
@@ -707,7 +707,7 @@ msgid "ACCOUNT-MOUSEOVER-TIP"
 msgstr "(*) dentro de las colecciones y las vistas incrustadas"
 
 msgid "BRANDED-BRANDINGS-TIP"
-msgstr "Utilice los selectores de color para personalizar los colores del portal de datos abiertos abiertos con los de su marca."
+msgstr "Utilice los selectores de color para personalizar los colores del portal de datos abiertos con los de su marca."
 
 msgid "APP-CATEGORIES-TEXT"
 msgstr "Categorías"
@@ -785,7 +785,7 @@ msgid "APP-LAST-ACTIVITY-TEXT"
 msgstr "Última actividad"
 
 msgid "APP-USER-TIP"
-msgstr "<h6>TIPS ÚTILES</h6><p>Hay 3 tipos de roles:</p><p><strong>Editores:</strong><br> Recolectar y transformar datos en vistas y visualizaciones, y usarlas en colecciones.</p><p><strong>Publicadores:</strong><br> Mismos privilegios que Editores, más el permiso de publicar el recurso en el portal de datos abiertos abiertos.</p><p><strong>Administradores:</strong><br> Mismos permisos que Editores y Publicadores, más ajustes de la cuenta.</p>"
+msgstr "<h6>TIPS ÚTILES</h6><p>Hay 3 tipos de roles:</p><p><strong>Editores:</strong><br> Recolectar y transformar datos en vistas y visualizaciones, y usarlas en colecciones.</p><p><strong>Publicadores:</strong><br> Mismos privilegios que Editores, más el permiso de publicar el recurso en el portal de datos abiertos.</p><p><strong>Administradores:</strong><br> Mismos permisos que Editores y Publicadores, más ajustes de la cuenta.</p>"
 
 msgid "CHRT-XAXISNAME-TEXT"
 msgstr "Nombre eje X"
@@ -1280,7 +1280,7 @@ msgid "APP-FEATURED-SUBTITLE"
 msgstr "Organize en la caja derecha las colecciones que quiere seleccionar como destacados."
 
 msgid "APP-FEATURED-HELPTIP"
-msgstr "Las colecciones destacadas apareceran como pestañas en el portal de datos abiertos abiertos, y ellas se organizarán en el mismo orden que aparecen en el cuadro de la derecha."
+msgstr "Las colecciones destacadas apareceran como pestañas en el portal de datos abiertos, y ellas se organizarán en el mismo orden que aparecen en el cuadro de la derecha."
 
 msgid "APP-TIME-ALL"
 msgstr "Cualquier fecha"
@@ -1727,13 +1727,13 @@ msgid "WEBSERVICE-HELP-TIP"
 msgstr "- El servicio web debe aceptar llamadas SOAP 1.2<br/>El elemento principal de la respuesta debe ser nombrado 'NewDataSet'. Puede tener uno o más hijos que representen filas. Las filas pueden tener uno o más hijos que representen celdas."
 
 msgid "COLLECTORS-DATASET-HELP-TIP"
-msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Envíe a revisión' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos abiertos."
+msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Envíe a revisión' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos."
 
 msgid "ENHANCERS-DATASET-HELP-TIP"
-msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Apruebe' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos abiertos."
+msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Apruebe' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos."
 
 msgid "PUBLISHERS-DATASET-HELP-TIP"
-msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Publique' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos abiertos."
+msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Publique' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos."
 
 msgid "APP-HEADER-TEXT"
 msgstr "Encabezado *"
@@ -1745,7 +1745,7 @@ msgid "ACCOUNT-LOGO-TIP"
 msgstr "El tamaño de la imagen debe ser de 136 x 80 px, de otro modo la imagen puede aparecer deformada"
 
 msgid "ACCOUNT-OPENDATASITE-TAB"
-msgstr "Ir a mi portal de datos abiertos abiertos"
+msgstr "Ir a mi portal de datos abiertos"
 
 msgid "ACCOUNT-OPENDATASITE-TAB-PRIVATE"
 msgstr "Ir a mi portal de datos abiertos privados"

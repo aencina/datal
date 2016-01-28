@@ -292,7 +292,7 @@ msgid "DBMAN-PERSONALIZEDB-NOFOUDERROR1"
 msgstr "Lo sentimos, pero no hubo resultados."
 
 msgid "DEV-MS-DESCRIPTION-TEXT1"
-msgstr "La API permite el acceso directo a los datos publicados en el portal de datos abiertos abiertos de "
+msgstr "La API permite el acceso directo a los datos publicados en el portal de datos abiertos de "
 
 msgid "DEV-MS-DESCRIPTION-TEXT2"
 msgstr "desde tu aplicación. Usa una interfaz RESTful y retorna los datos en formato JSON."
