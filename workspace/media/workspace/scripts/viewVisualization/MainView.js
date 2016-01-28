@@ -22,11 +22,34 @@ var MainView = Backbone.View.extend({
 			el: '#id_visualizationResult',
 			model: this.model
 		});
-		this.setChartContainerSize();
+		
+		// Render context menu
 		this.render();
+        
         this.listenTo(this.model.data, 'fetch:start', this.onFetchStart, this);
         this.listenTo(this.model.data, 'fetch:end', this.onFetchEnd, this);
-        this.chartView.render();
+        
+        // Render visualiztion
+        this.renderVisualization();
+
+        // Handle Visualization Resize
+		this.bindVisualizationResize();
+		this.handleVisualizationResize();
+
+	},
+
+	bindVisualizationResize: function () {
+
+		var self = this;
+		this.$window = $(window);
+
+		this.$window.on('resize', function () {
+			if(this.resizeTo) clearTimeout(this.resizeTo);
+			this.resizeTo = setTimeout(function() {
+				self.handleVisualizationResize.call(self);
+			}, 500);
+		});
+
 	},
 
 	render: function () {
@@ -34,47 +57,25 @@ var MainView = Backbone.View.extend({
 		return this;
 	},
 
-	setLoading: function () {
-		
-		var height = this.$el.find('#id_visualizationResult').height();
-
-		this.$el.find('#id_visualizationResult .loading').height(height);
-
+	renderVisualization: function(){
+		this.setLoading();
+        this.chartView.render();
 	},
 
-	setChartContainerSize:function(){
-		var chartInstance = this.chartView.chartInstance,
-			container = $(this.chartContainer),
-			$window = $(window),
-			$mainHeader = $('header.header'),
-			$title = $('.main-section .section-title'),
-			$chartHeader = $('header.header'),
-			self = this;
+	setLoading: function () {
+		
+		if( this.chartView.model.get('type') === 'mapchart' ){
 
-		var handleResizeEnd = function () {
-			//Calcula el alto de los headers
-			var otherHeights = $mainHeader.outerHeight(true) 
-							 + $title.outerHeight(true)
-							 + $chartHeader.outerHeight(true);
-			//Calucla el alto que deberá tener el contenedor del chart
-			var minHeight = $window.height() - otherHeights - 30;
-			container.css({
-				height: minHeight + 'px'
-			});
-			//chartInstance.render();
-			self.setLoading();
+			// Set mini loading
+
+		}else{
+
+			var height = this.$el.find('#id_visualizationResult').height();
+
+			this.$el.find('#id_visualizationResult .loading').height(height);
+
 		}
 
-		//Calcula el tamaño inicial
-		handleResizeEnd();
-
-		//Asigna listener al resize de la ventana para ajustar tamaño del chart
-		$window.on('resize', function () {
-			if(this.resizeTo) clearTimeout(this.resizeTo);
-			this.resizeTO = setTimeout(function() {
-				handleResizeEnd();
-			}, 500);
-		});
 	},
 
 	changeStatus: function(event, killemall){
@@ -175,5 +176,38 @@ var MainView = Backbone.View.extend({
 
     onFetchEnd: function () {
         this.$('.visualizationContainer .loading').addClass('hidden');
-    }
+    },
+
+    handleVisualizationResize: function() {
+		var $mainHeader = $('header.header'),
+			$sectionTitle = $('.main-section .section-title'),
+			$sectionContent = $('.main-section .section-content'),
+			$detail = $('.section-content > .detail');
+
+		//Calcula el alto de los headers
+		var otherHeights = 
+			$mainHeader.outerHeight(true) + 
+			$sectionTitle.outerHeight(true) +
+			parseFloat( $sectionContent.css('padding-top').split('px')[0] ) +
+			parseFloat( $sectionContent.css('padding-bottom').split('px')[0] ) +
+			parseFloat( $detail.css('padding-top').split('px')[0] ) +
+			parseFloat( $detail.css('padding-bottom').split('px')[0] ) + 
+			15; // 15 redondea el espacio que quiero mantener abajo
+
+		//Calcula el alto que deberá tener el contenedor del chart
+		var height = this.$window.height() - otherHeights;
+
+		// Aplico nueva altura al contenedor de la visualizacion
+		this.chartView.$el.css({
+			height: height + 'px',
+			maxHeight: height + 'px',
+			minHeight: height + 'px',
+			overflowX: 'hidden',
+			overflowY: 'hidden'
+		});
+
+		// Rendereo la visualizacion a la nueva altura
+		this.renderVisualization();
+	}
+
 });
