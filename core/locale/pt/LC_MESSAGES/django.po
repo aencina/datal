@@ -778,7 +778,7 @@ msgstr "Copy &amp; Paste the code below anywhere you want to show this Visualiza
 msgid "ERROR-DUPLICATED-CATEGORY"
 msgstr "Duplicated category"
 
-# —————————— Exceptions Microsites
+# —————————— Exceptions Open data portals
 msgid "EXCEPTION-TITLE-REVISION-NOT-EXIST"
 msgstr "A exibição não existe"
 
@@ -852,7 +852,7 @@ msgid "APP-OF-THE-WORKSPACE-TEXT"
 msgstr "of the workspace"
 
 msgid "APP-OF-THE-MICROSITE-TEXT"
-msgstr "of the microsite"
+msgstr "of the open data portal"
 
 msgid "APP-HOMEPAGE-LOWERCASE-TEXT"
 msgstr "homepage"
@@ -867,7 +867,7 @@ msgid "APP-WORKSPACE-TEXT"
 msgstr "Workspace"
 
 msgid "APP-MICROSITE-TEXT"
-msgstr "Microsite"
+msgstr "Open data portal"
 
 msgid "APP-CONTACTUS-TEXT"
 msgstr "Contact us"
