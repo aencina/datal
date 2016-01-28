@@ -18,21 +18,10 @@ def view(request, dataset_id, slug):
     preferences = request.preferences
 
     try:
-        dataset_orig = Dataset.objects.get(pk=dataset_id)
+        dataset = DatasetDBDAO().get(request.user, dataset_id=dataset_id, published=True)
     except Dataset.DoesNotExist, DatasetRevision.DoesNotExist:
         logger.error('Dataset doesn\'t exists [%s|%s]' % (str(dataset_id), str(account.id)))
         raise DatasetDoesNotExist
-    except Exception, e:
-        logger.error('Dataset error [%s|%s]=%s' % (str(dataset_id), str(account.id), repr(e)))
-        raise DatasetError
-
-    if not dataset_orig.last_published_revision:
-        logger.error('Dataset {} has no published revision'.format(dataset_id))
-        raise Http404
-
-    dataset = DatasetDBDAO().get(request.user,
-        dataset_revision_id=dataset_orig.last_published_revision.id
-    )
 
     return render_to_response('viewDataset/index.html', locals())
 
