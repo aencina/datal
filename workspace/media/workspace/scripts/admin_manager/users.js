@@ -47,7 +47,7 @@ $(document).ready(function(){
                     regex: /^[a-zA-Z0-9\_\.\-]+$/,
                     maxlength: 30,
                     remote: { 
-                        url: '/admin/check_username',
+                        url: '/admin/check_username/',
                         type: 'post',
                         data: {
                                 csrfmiddlewaretoken: csrfmiddlewaretoken,
@@ -60,7 +60,7 @@ $(document).ready(function(){
                     email: true,
                     maxlength: 75,
                     remote: {
-                        url: '/admin/check_email',
+                        url: '/admin/check_email/',
                         type: 'post',
                         data: {
                                 csrfmiddlewaretoken: csrfmiddlewaretoken,
