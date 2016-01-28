@@ -111,7 +111,7 @@ class Command(BaseCommand):
             imp = json.loads(rev.impl_details)
 
             if 'traceSelection' in imp['chart'] and imp['chart']['traceSelection']:
-                imp['chart']['getType'] = 'traces'
+                imp['chart']['geoType'] = 'traces'
 
             if 'latitudSelection' in imp['chart'] and 'longitudSelection' in imp['chart'] and imp['chart']['latitudSelection'] and imp['chart']['longitudSelection']:
                 imp['chart']['geoType'] = 'points'

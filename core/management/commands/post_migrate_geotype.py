@@ -31,8 +31,13 @@ class Command(BaseCommand):
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
 
+            # FAIL
+            if 'getType' in imp['chart']:
+                imp['chart']['geoType'] = 'traces'
+                imp.pop("getType", None)
+
             if 'traceSelection' in imp['chart'] and imp['chart']['traceSelection']:
-                imp['chart']['getType'] = 'traces'
+                imp['chart']['geoType'] = 'traces'
 
             if 'latitudSelection' in imp['chart'] and 'longitudSelection' in imp['chart'] and imp['chart']['latitudSelection'] and imp['chart']['longitudSelection']:
                 imp['chart']['geoType'] = 'points'
