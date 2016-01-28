@@ -3252,4 +3252,4 @@ msgid "APP-GO-HOME-TEXT"
 msgstr "Ir a la página de inicio"
 
 msgid "APP-GO-PORTAL-TEXT"
-msgstr "Ir a portal de datos abiertos"
+msgstr "Ir al portal de datos abiertos"
