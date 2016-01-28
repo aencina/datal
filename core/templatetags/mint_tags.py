@@ -2,7 +2,7 @@
 from django import template
 from datetime import datetime
 import re
-
+import logging
 
 register = template.Library()
 
@@ -155,3 +155,96 @@ def date(value, format="%d/%m/%Y"):
 def strip(value):
     return value.strip()
 
+@register.assignment_tag(name='set_value')
+def set_value(value):
+    return value
+
+@register.assignment_tag(name='add_value', takes_context=True)
+def add_value(context, value, addvalue):
+    val = context[value]
+    orig = [val, addvalue]
+    errors = False
+    error_log = ''
+    if not addvalue:
+        addvalue = 0
+    if type(val) == str or type(val) == unicode:        
+        try:
+            val = float(val)
+        except:
+            errors = True
+            error_log = 'Error parsing context value'
+            val = 0
+            
+    if type(addvalue) == str or type(addvalue) == unicode:
+        try:
+            addvalue = float(addvalue)
+        except:
+            errors = True
+            error_log = 'Error parsing added value'
+            addvalue = 0
+
+    if errors:
+        logger = logging.getLogger(__name__)
+        err_detail = u'WITH ERRORS: {} => ({} + {})'.format(error_log, orig[0], orig[1])
+        logger.error(err_detail)
+        res = context[value] # return unmodified files
+    else:
+        res = val + addvalue
+    
+        
+    return res
+    
+@register.filter(name='exist_day')
+def exist_day(arg):
+    from datetime import date
+        
+    vals = arg.split("|")
+    day = int(vals[0])
+    month = int(vals[1])
+    if len(vals) > 2:
+        year = int(vals[2])
+    else:
+        year = date.today().year + 1 
+
+    try:
+        d = date(year, month, day)
+        res = True
+        details = d.strftime("%d/%m/%y")
+    except Exception, e:
+        details = 'NO: %d %d %d [%s]' % (year, month, day, str(e))
+        res = False
+
+    return res
+
+@register.filter(name='has_31')
+def has_31(month):
+    if type(month) == str or type(month) == unicode: month = int(month)
+    res = month in [1, 3, 5, 7, 8, 10, 12]
+    return res
+
+@register.simple_tag(name='my_dict_add', takes_context=True)
+def my_dict_add(context, dict_name, idx, val_to_add):
+    """ dict of numeric values """
+    logger = logging.getLogger(__name__)
+    if not context.get(dict_name, None):
+        context[dict_name]={}
+
+    errors = False        
+    if type(val_to_add) != float:        
+        try:
+            val_to_add = float(val_to_add)
+        except:
+            errors = True
+            error_log = 'Error parsing context value'
+            val_to_add = 0.0
+
+    if errors:    
+        err_detail = 'TPL WITH ERRORS: %s => %s - %s - %s' % (error_log, dict_name, idx, str(val_to_add))
+        logger.error(err_detail)
+    else:            
+        if not context[dict_name].get(idx, None): # create if not exists
+            context[dict_name][idx] = val_to_add
+        else:
+            context[dict_name][idx] = context[dict_name][idx] + val_to_add
+
+    return ''

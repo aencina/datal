@@ -64,60 +64,130 @@ charts.models.ChartData = Backbone.Model.extend({
     parse: function (response) {
 
         var response = response,
+            filters = this.get('filters');
+
+        if (filters.type !== 'mapchart') {
+
+            // Si series no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
+            if( 
+                _.isUndefined( response.series ) || 
+                _.isEmpty(response.series) || 
+                response.series == ''
+            ){
+
+                response.series = [];
+                var values = [];
+
+                for(var i=0;i<response.values.length;i++){
+
+                    // Solo uso los valores que no son vacios
+                    if( response.values[i].length > 0 ){
+                        response.series.push({
+                            'name': ''
+                        }); 
+                        values.push( response.values[i] );
+                    }
+
+                }
+
+                response.values = values;
+
+            // Si el length de series == 1 y el length de values es > 1, concateno los values.
+            }else if(
+                response.series.length == 1 &&
+                response.values.length > 1 
+            ){
+
+                var values = _.flatten(response.values);
+                response.values = [];
+                response.values.push(values);
+            
+            // Si values tiene un array vacio lo mando como null
+            }else if( 
+                response.series.length == response.values.length 
+            ){
+
+                var series = [],
+                    values = [];
+
+                for(var i=0;i<response.values.length;i++){
+                    if( response.values[i].length == 0 ){ 
+                        values.push( null );
+                    }else{
+                        values.push( response.values[i] );
+                    }
+                    series.push( response.series[i] );
+                }
+
+                response.series = series;
+                response.values = values;                
+
+            // Si hay mas de 1 serie, mas de 1 array de valores, y el length de series es distinto al length de values
+            }else if(
+                response.series.length > 1 &&
+                response.values.length > 1 && 
+                response.series.length != response.values.length 
+            ){
+
+                var count = 0,
+                    values = [];
+
+                // Por cada serie creo un array vacio en values
+                for(var s=0;s<response.series.length;s++){
+                    values.push([]);
+                }
+
+                // Itero por los valores de response.values ciclicamente
+                for(var i=0;i<response.values.length;i++){
+
+                    // Uso count hasta que llegue a ser igual a la cantidad de series, ahi la reseteo a 0 y vuelvo a empezar (para hacerlo ciclico)
+                    if( count == response.series.length ){
+                        count = 0;
+                    }                   
+
+                    // Cada array de response.values puede tener N valores. Todos esos valores del array en cuestion pertenecen a la misma columna, por lo mismo los agrego en el mismo array.
+                    if( response.values[i].length == 0 ){
+
+                        values[count].push( null );                       
+
+                    }else{
+
+                        for(var j=0;j<response.values[i].length;j++){
+
+                            values[count].push( response.values[i][j] );
+                        }
+
+                    }
+
+                    count++;
+
+                }
+
+                // Asigno los nuevos values a response.values
+                response.values = values;
+
+            }
+
+            // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
+            if( 
+                _.isUndefined( response.labels ) || 
+                _.isEmpty(response.labels) || 
+                response.labels == '' 
+            ){
+
+                response.labels = [];
+
+                for(var i=0;i<response.values[0].length;i++){
+                    response.labels.push(''); 
+                }
+
+            }
+
+        }
+
+        var labels = response.labels,
             columns = [],
-            fields =[],
-            filters = this.get('filters'),
-            invertedAxis = filters.invertedAxis;
-
-        // Si labels no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
-        if( 
-            _.isUndefined( response.labels ) || 
-            _.isEmpty(response.labels) || 
-            response.labels == '' 
-        ){
-
-            response.labels = [];
-
-            // Labels length = cantidad de filas
-            var labelsLength = response.values[0].length;
-
-            // Si viene invertedAxis, uso la cantidad de columnas como length
-            if( !_.isUndefined( invertedAxis ) ){
-                labelsLength = response.values.length;
-            }
-
-            for(var i=0;i<labelsLength;i++){
-                response.labels.push(''); 
-            }
-
-        }
-
-        // Si series no viene en la respuesta, o viene vacio, procedo a crearlo vacío.
-        if( 
-            _.isUndefined( response.series ) || 
-            _.isEmpty(response.series) || 
-            response.series == ''
-        ){
-
-            response.series = [];
-
-            // Series length = cantidad de columnas
-            var seriesLength = response.values.length;
-
-            // Si viene invertedAxis, uso la cantidad de filas como length
-            if( !_.isUndefined( invertedAxis ) ){
-                seriesLength = response.values[0].length;
-            }
-
-            for(var i=0;i<seriesLength;i++){
-                response.series.push({
-                    'name': ''
-                }); 
-            }
-
-        }
-
-        var labels = response.labels;
+            fields =[];
 
         if (filters.type === 'mapchart') {
             return response;
@@ -158,7 +228,7 @@ charts.models.ChartData = Backbone.Model.extend({
         }
 
         if (_.isUndefined(id)) {
-            url = '/rest/' + endpoint + 'sample.json' + '?' + $.param(filters);
+            url = '/rest/' + endpoint + 'sample.json/' + '?' + $.param(filters);
         } else {
             filters = _.omit(filters, 'data')
             filters = _.omit(filters, 'headers')
@@ -168,7 +238,7 @@ charts.models.ChartData = Backbone.Model.extend({
             filters = _.omit(filters, 'type')
             filters = _.omit(filters, 'invertedAxis')
             filters = _.omit(filters, 'revision_id')
-            url = '/rest/' + endpoint + id + '/data.json' + '?' + $.param(filters);
+            url = '/rest/' + endpoint + id + '/data.json/' + '?' + $.param(filters);
         }
 
         return url;

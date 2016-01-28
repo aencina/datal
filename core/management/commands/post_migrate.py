@@ -84,6 +84,12 @@ class Command(BaseCommand):
                     user.roles.add(role_dict[self.role_migration_dict[code]])
                     user.roles.remove(role_dict[code])
 
+    def dataset_preferences(self):
+
+        Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="True")
+        Preference.objects.get_or_create(account=self.account, key="account.dataset.showhome", value="True")
+        
+
     def handle(self, *args, **options):
         self.account = None
 
@@ -94,6 +100,8 @@ class Command(BaseCommand):
             self.dataset_revision_all = DatasetRevision.objects.filter(user__account=self.account)
             self.datasstream_revision_all = DataStreamRevision.objects.filter(user__account=self.account)
             self.users_all = User.objects.filter(account=self.account)
+
+            self.dataset_preferences()
         else:
             self.visualization_revision_all = VisualizationRevision.objects.all()
             self.dataset_revision_all = DatasetRevision.objects.all()
@@ -103,7 +111,13 @@ class Command(BaseCommand):
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
 
-            if 'labelSelection' in imp['chart']:
+            if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection'] == ",":
+                imp['chart']['headerSelection'] = ''
+
+            if 'labelSelection' in imp['chart'] and imp['chart']['labelSelection'] == ",":
+                imp['chart']['labelSelection'] = ''
+
+            if 'labelSelection' in imp['chart'] and imp['chart']['labelSelection']:
                 header = imp['chart']['labelSelection'].replace(' ', '')
                 answer = []
                 for mh in header.split(','):
@@ -112,7 +126,7 @@ class Command(BaseCommand):
                     else:
                         answer.append(mh)
                 imp['chart']['labelSelection'] = ','.join(answer)
-            if 'headerSelection' in imp['chart']:
+            if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection']:
                 header = imp['chart']['headerSelection'].replace(' ', '')
                 answer = []
                 for mh in header.split(','):
@@ -140,6 +154,9 @@ class Command(BaseCommand):
 
             if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection'] == ":":
                 imp['chart']['headerSelection'] = ''
+
+            if 'labelSelection' in imp['chart'] and imp['chart']['labelSelection'] == ":":
+                imp['chart']['labelSelection'] = ''
 
             rev.impl_details = json.dumps(imp)
 

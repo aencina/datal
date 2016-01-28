@@ -22,6 +22,8 @@ MIDDLEWARE_CLASSES += (
     'django.contrib.messages.middleware.MessageMiddleware'
 )
 
+X_FRAME_OPTIONS = 'ALLOW'
+
 ROOT_URLCONF = 'microsites.urls'
 
 TEMPLATE_DIRS = (

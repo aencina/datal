@@ -42,6 +42,14 @@ class DataStreamSerializer(ResourceSerializer):
     dataset = serializers.CharField(
         required=False,
         help_text=_(u'GUID del conjunto de datos asociado a la vista'))
+    meta_text = serializers.CharField(
+        required=False,
+        allow_null=True,
+        help_text=_(u'Meta text del recurso.'))
+    tags = serializers.CharField(
+        required=False,
+        allow_null=True,
+        help_text=_(u'Tags separados por coma'))
 
     def __init__(self, *args, **kwargs):
         super(DataStreamSerializer, self).__init__(*args, **kwargs)
@@ -80,6 +88,10 @@ class DataStreamSerializer(ResourceSerializer):
 
         if 'category' in data and data['category']:
             data['category'] = self.getCategory(data['category']).id
+
+
+        if 'tags' in data and data['tags']:
+            data['tags'] = map(lambda x: {'name':x}, data['tags'].split(','))
 
         data['status'] = StatusChoices.PENDING_REVIEW
 

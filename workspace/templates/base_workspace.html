@@ -102,7 +102,7 @@
 						<div class="wrapper3">
 
 							<!-- Logo -->
-							<a href="/welcome" title="{{ settings.APPLICATION_DETAILS.name }}" class="logo FL clearfix">
+							<a href="/welcome/" title="{{ settings.APPLICATION_DETAILS.name }}" class="logo FL clearfix">
 								<div class="logo-header-brand"></div>
 							</a>
 
@@ -121,7 +121,7 @@
 												<ul>
 													{% plugins_call 'workspace_account_menu' %}
 													<li><a href="{% url 'accounts.my_account' %}" title="{% trans 'HEADER-ACCOUNTDETAILLS-TEXT' %}">{% trans "HEADER-ACCOUNTDETAILLS-TEXT" %}</a></li>
-													<li><a id="id_sign_out" href="/signout" title="{% trans 'HEADER-SIGNOUT-TEXT' %}">{% trans "HEADER-SIGNOUT-TEXT" %}</a></li>
+													<li><a id="id_sign_out" href="/signout/" title="{% trans 'HEADER-SIGNOUT-TEXT' %}">{% trans "HEADER-SIGNOUT-TEXT" %}</a></li>
 												</ul>
 										</div>
 									</div>

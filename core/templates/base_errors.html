@@ -1,0 +1,71 @@
+{% load i18n compress sass_tags staticfiles plugins_tags %}
+<!DOCTYPE html>
+<html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
+
+<head>
+    <meta charset="utf-8">
+
+    {% block SEO %}
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+
+	<meta http-equiv="CACHE-CONTROL" content="max-age=0, no-store" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {% block css_includes %}
+    <link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+    <link href="{% static 'core/styles/structure.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+    <link href="{% sass_src 'workspace/styles/common.scss' %}" rel="stylesheet" type="text/css" />
+    <link href="{% sass_src 'core/styles/errorPages.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+    {% endblock %}
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="error-pages">
+
+            <div class="row">
+
+                <div class="col-md-8 col-md-offset-2">
+
+                    {% block errorContent %}{% endblock %}
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12 center">
+                    <ul class="list-item">
+                        <!-- TODO: crear variables python con URL's de páginas de inicio en WS y MS. Ticket Pivotal #112057759
+                            <li><a href="">{% trans 'APP-WORKSPACE-TEXT' %}</a></li>
+                            <li><a href="">{% trans 'APP-MICROSITE-TEXT' %}</a></li>
+                        -->
+                        <li><a href="mailto:support@junar.com">{% trans 'APP-CONTACTUS-TEXT' %}</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12 center">
+                    {% if 'error_pages_logo'|inplugin %}
+                        {% plugins_call 'error_pages_logo' %}
+                    {% else %}
+                        <div class="error-pages-logo"></div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

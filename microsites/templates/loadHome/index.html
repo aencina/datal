@@ -1,5 +1,5 @@
 {% extends "base_microsites.html" %}
-{% load i18n humanize extra_tags core_components compress staticfiles sass_tags %}
+{% load i18n humanize extra_tags core_components compress staticfiles sass_tags plugins_tags %}
 
 {% block SEO %}
 	<title>{% if is_preview %}{% trans "APP-PREVIEWWINDOW-TITLE" %}{% else %}{{preferences.account_page_titles}}{% endif %}</title>
@@ -13,6 +13,8 @@
 	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/loadHome.css' %}" />
 	<link href="{% static 'c3/c3.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
     {% endcompress %}
+
+    {% plugins_call 'microsites_home_css' %}
             
 	<!-- BRANDED CSS -->
 	{% compress css %}

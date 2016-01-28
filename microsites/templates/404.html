@@ -1,35 +1,23 @@
-{% load i18n local_tags compress sass_tags staticfiles plugins_tags %}
+{% extends 'base_errors.html' %}
+{% load i18n %}
 
-<!DOCTYPE html>
-<html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
-<head>
-    <meta charset="utf-8">
-    <title>{% trans 'APP-ERROR-TEXT' %}</title>
-    <meta name="description" content="" />
-	<meta http-equiv="CACHE-CONTROL" content="max-age=0, no-store" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+{% block title %}
+	{% trans 'APP-ERROR-TEXT' %} 404
+{% endblock %}
 
-	{% block favicon %}
-	    {% if not 'favicon'|inplugin %}
-	    <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
-	    {% else %}
-	    {% plugins_call 'favicon' %}
-	    {% endif %}
-	{% endblock %}
+{% block errorContent %}
 
-	<link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
-	<link href="{% static 'core/styles/structure.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-	<link href="{% static 'microsites/styles/errorPages.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<div class="error-graphic error-graphic-not-found"></div>
 
-</head>
-<body>
-	
-	<div class="error">
-		<h1>{% trans 'APP-ERROR-400-TEXT' %}</h1>
-		<ul>
-			<li><a href="/">{% trans 'APP-GO-HOME-TEXT' %}</a></li>
-		</ul>
-	</div>
-	
-</body>
-</html>
+<h1>{% trans 'APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT' %}</h1>
+<p>
+    {% trans 'APP-ERROR-404-DESCRIPTION' %}
+</p>
+<p>
+    <a href="{{ microsite_uri }}://{{ microsite_domain }}/home/">{% trans 'APP-GO-TO-HOMEPAGE-TEXT' %}</a>
+    {% trans 'APP-OF-THE-MICROSITE-TEXT' %}.
+</p>
+
+<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 404</span></p>
+
+{% endblock %}

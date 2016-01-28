@@ -49,7 +49,6 @@ var FormatsView = Backbone.Epoxy.View.extend({
             columns: columns,
             column: this.model.toJSON()
         }));
-        this.$(".tabs").hashTabs();
         this.attachPatternViews(this.model.get('type'));
         this.applyBindings();
 

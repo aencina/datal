@@ -180,7 +180,7 @@ var CollectFileView = StepView.extend({
 	initFileUpload: function(){
 		
 		$( this.model.get('inputFileId') ).fileupload({
-			url: '/datasets/upload',
+			url: '/datasets/upload/',
 			acceptFileTypes: '/(\.|\/)(doc|docx|docm|dotx|dotm|xls|xlsx|xlsm|xltx|xltm|xlsb|xlam|xll|odt|ods|csv|txt|pdf|html|htm|xml|kml|kmz)$/i',
 			autoUpload: false,
 			maxNumberOfFiles: 1,

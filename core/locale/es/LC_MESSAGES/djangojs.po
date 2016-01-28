@@ -36,9 +36,6 @@ msgstr "Inténtalo Nuevamente"
 msgid "APP-TRYAGAIN-TEXT"
 msgstr "inténtalo nuevamente"
 
-msgid "APP-ORGOTOTHE-TEXT"
-msgstr "O puedes ir a la"
-
 msgid "APP-SOURCE-TEXT"
 msgstr "fuente"
 

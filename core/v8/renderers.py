@@ -7,6 +7,10 @@ from lxml.cssselect import CSSSelector
 import datetime
 import sys
 import re
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 select_tables = CSSSelector(".ao-table-selectable")
 select_rows = CSSSelector(".ao-row-selectable")
@@ -86,6 +90,7 @@ class GridEngineRenderer(EngineRenderer):
 
     def format_datetime(self, seconds, strformat="dd/mm/yyyy", strlocale="en_US"):
         try:
+            strlocale=strlocale.split("_")
             # We need MILISECONDS but sometimes we receive seconds
             if seconds > 1000000000000: #ejemplos 1.399.488.910 | 1.399.047.696.818
                 seconds = seconds/1000
@@ -99,11 +104,11 @@ class GridEngineRenderer(EngineRenderer):
                 strformat = strformat.replace("M", "MMM")
             else:
                 strformat = strformat.replace("m", "L")
-            res = dates.format_datetime(myutc, format=strformat, locale=strlocale)
+            res = dates.format_datetime(myutc, format=strformat, locale="%s_%s" %(strlocale[0], strlocale[1].upper()))
         except:
-            #maybe TODO datetime.datetime.utcfromtimestamp(seconds/1000).strftime(strformat)
+            res = "%s (e)" % datetime.datetime.utcfromtimestamp(seconds)
             err = str(sys.exc_info())
-            res = str(seconds) + " error " + err
+            logger.error("[ERROR]: Render error: %s seconds, format: %s, strlocale: %s, error: %s " %(str(seconds),strformat, strlocale, err))
 
         return res
 
@@ -153,7 +158,10 @@ class GridEngineRenderer(EngineRenderer):
                 fPattern = l_cell['fDisplayFormat']['fPattern']
             if l_cell['fDisplayFormat'].get('fLocale',False):
                 #sometimes locale come as en,us and it's wrong. We need en_US
-                fLocale = l_cell['fDisplayFormat']['fLocale'].replace(",","_")
+                if len(l_cell['fDisplayFormat']['fLocale']) == 2:
+                    fLocale = "%s_%s" % (l_cell['fDisplayFormat']['fLang'],l_cell['fDisplayFormat']['fLocale'].upper())
+                else:
+                    fLocale = l_cell['fDisplayFormat']['fLocale'].replace(",","_")
             if l_cell['fDisplayFormat'].get('fCurrency',False):
                 fCurrency = l_cell['fDisplayFormat']['fCurrency']
 

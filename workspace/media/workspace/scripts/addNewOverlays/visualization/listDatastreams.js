@@ -1,7 +1,7 @@
 var ListDatastreams = Backbone.PageableCollection.extend({
 
 	model: DatastreamItemModel,
-	url: "/visualizations/filter_datastream",
+	url: "/visualizations/filter_datastream/",
 
 	// Any `state` or `queryParam` you override in a subclass will be merged with
 	// the defaults in `Backbone.PageableCollection` 's prototype.

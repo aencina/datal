@@ -78,7 +78,7 @@ var MainView = Backbone.View.extend({
 
     onClickSave: function () {
         this.dataviewModel.save().then(function (response) {
-            window.location.replace('/dataviews/' + response.datastream_revision_id);
+            window.location.replace('/dataviews/' + response.datastream_revision_id + '/');
         }).fail(function (response) {
             this.stateModel.set('step', 2);
         });

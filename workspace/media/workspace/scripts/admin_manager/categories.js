@@ -23,7 +23,7 @@ $(document).ready(function(){
             $form.find('#id_is_default').removeAttr('checked');
         }
 
-        $form.attr('action', '/admin/edit_category');
+        $form.attr('action', '/admin/edit_category/');
         $formContainer.data('overlay').load();
     });
 
@@ -121,7 +121,7 @@ $(document).ready(function(){
         if(confirm(gettext('CATEGORY-DELETE-CONFIRMATION'))) {
             $('#ajax_loading_overlay').show();
             $.ajax({
-                url: '/admin/delete_category',
+                url: '/admin/delete_category/',
                 data: {'id': id, 'csrfmiddlewaretoken': $form.find('[name=csrfmiddlewaretoken]').val()},
                 type: 'POST',
                 success: function(response) {

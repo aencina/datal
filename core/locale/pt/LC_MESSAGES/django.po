@@ -307,9 +307,6 @@ msgstr "Account limit reached for creating Users, upgrade your account to create
 msgid "APP-ERROR-TEXT"
 msgstr "Error"
 
-msgid "APP-PAGENOTFOUND-TEXT"
-msgstr "Page not found"
-
 msgid "APP-DISCOVERINGDATA-TEXT"
 msgstr "Discovering Data"
 
@@ -328,29 +325,14 @@ msgstr "years ago"
 msgid "APP-OOPS-TEXT"
 msgstr "Oops!"
 
-msgid "APP-404-ERROR"
-msgstr "The page that you are looking for does not exists anymore, <br/>or maybe it did not load properly"
-
 msgid "APP-PLEASE-TEXT"
 msgstr "Please"
 
 msgid "APP-TRYAGAIN-TEXT"
 msgstr "try again"
 
-msgid "APP-ORGOTOTHE-TEXT"
-msgstr "Or go to the"
-
 msgid "APP-SOURCE-TEXT"
 msgstr "Source"
-
-msgid "APP-INTERNALERROR-TEXT"
-msgstr "Internal server error"
-
-msgid "APP-500-ERROR"
-msgstr "Our server explode! Or maybe it went down for maintenance"
-
-msgid "APP-INAFEWMINUTES-TEXT"
-msgstr "in a few minutes"
 
 msgid "APP-ACTIONS-TEXT"
 msgstr "Actions"
@@ -847,3 +829,45 @@ msgstr "Sua conta não tem acesso à visualização"
 
 msgid "EXCEPTION-DESCRIPTION-VIZUALIZATION-PARENT-NOT-PUBLISHED"
 msgstr "Você deve publicar a vista associada"
+
+msgid "APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT"
+msgstr "We do not find what you are looking for"
+
+msgid "APP-SORRY-YOU-DONT-HAVE-PERMISSION-TO-ACCESS-THIS-PAGE-TEXT"
+msgstr "Sorry, you don't have permission to access this page"
+
+msgid "APP-SORRY-SOMETHING-IS-WRONG-TEXT"
+msgstr "We are sorry, something is wrong"
+
+msgid "APP-ERROR-400-DESCRIPTION"
+msgstr "There may be a typo in the page link, check it and try again, or go to the"
+
+msgid "APP-ERROR-404-DESCRIPTION"
+msgstr "There may be a typo in the page link or the page has moved."
+
+msgid "APP-ERROR-500-DESCRIPTION"
+msgstr "We are working to solve this problem as soon as possible. If the problem continues please send an e-mail to <a href='mailto:support@junar.com'>support@junar.com</a>."
+
+msgid "APP-OF-THE-WORKSPACE-TEXT"
+msgstr "of the workspace"
+
+msgid "APP-OF-THE-MICROSITE-TEXT"
+msgstr "of the microsite"
+
+msgid "APP-HOMEPAGE-LOWERCASE-TEXT"
+msgstr "homepage"
+
+msgid "APP-GO-TO-HOMEPAGE-TEXT"
+msgstr "Go to the homepage"
+
+msgid "APP-ERROR-CODE-TEXT"
+msgstr "Error code"
+
+msgid "APP-WORKSPACE-TEXT"
+msgstr "Workspace"
+
+msgid "APP-MICROSITE-TEXT"
+msgstr "Microsite"
+
+msgid "APP-CONTACTUS-TEXT"
+msgstr "Contact us"

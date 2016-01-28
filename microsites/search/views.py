@@ -16,8 +16,8 @@ def action_browse(request, category_slug=None, page=1):
     logger = logging.getLogger(__name__)
     logger.error('action_browse')
 
-def browse(request, category_slug=None, page=1):
 
+def browse(request, category_slug=None, page=1):
     account = request.account
     preferences = request.preferences
     category = Category.objects.get_for_browse(category_slug, account.id, preferences['account_language'])
@@ -36,7 +36,6 @@ def browse(request, category_slug=None, page=1):
 
 
 def do_search(request, category_filters=None, datasets=None):
-
     account = request.account
     preferences = request.preferences
     form = forms.SearchForm(request.GET)
@@ -47,7 +46,7 @@ def do_search(request, category_filters=None, datasets=None):
         order = form.cleaned_data.get('order')
         reverse = form.cleaned_data.get('reverse')
 
-        accounts_ids =  [x['id'] for x in account.account_set.values('id').all()] + [account.id]
+        accounts_ids = [x['id'] for x in account.account_set.values('id').all()] + [account.id]
 
         try:
             resources = ["ds", "db", "vz", "dt"]
@@ -57,7 +56,6 @@ def do_search(request, category_filters=None, datasets=None):
             )
         except InvalidPage:
             raise InvalidPage
-
 
         paginator = Paginator(results, settings.PAGINATION_RESULTS_PER_PAGE)
         page_results = paginator.page(page).object_list
@@ -71,6 +69,7 @@ def do_search(request, category_filters=None, datasets=None):
         return render_to_response('search/search.html', locals())
     else:
         raise Http404
+
 
 def search(request):
     return do_search(request)

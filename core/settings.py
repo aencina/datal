@@ -86,6 +86,7 @@ CACHE_DATABASES = {
     # 6 & 7 used by the engine
     # 10 used by Marco (backups)
     'activity_resources': 5,
+    'bigdata': 11,
 }
 
 REDIS_READER_HOST = 'localhost'

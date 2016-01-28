@@ -14,7 +14,7 @@ var MainView = Backbone.View.extend({
 
 		this.template = _.template( $("#context-menu-template").html() );
 
-		$("#ajax_loading_overlay").show();
+		this.$('.visualizationContainer .loading').removeClass('hidden');
 
 		this.listenTo(this.model, "change", this.render);
 
@@ -96,6 +96,8 @@ var MainView = Backbone.View.extend({
 			data.killemall = killemall;
 		}
 
+		var self = this;
+
 		$.ajax({
 			url: url,
 			type: 'POST',
@@ -105,7 +107,7 @@ var MainView = Backbone.View.extend({
 				// Prevent override of global beforeSend
 				$.ajaxSettings.beforeSend(xhr, settings);
 				// Show Loading
-				$("#ajax_loading_overlay").show();
+				self.$('.visualizationContainer .loading').removeClass('hidden');
 			},
 			success: function(response){
 
@@ -138,14 +140,14 @@ var MainView = Backbone.View.extend({
 			},
 			error:function(response){
 				datalEvents.trigger('datal:application-error', response);
-				$("#ajax_loading_overlay").hide();
+				self.$('.visualizationContainer .loading').addClass('hidden');
 			},
 			complete:function(response){
 				// Hide Loading
-				$("#ajax_loading_overlay").hide();
+				self.$('.visualizationContainer .loading').addClass('hidden');
 			}
 		}).fail(function () {
-			$("#ajax_loading_overlay").hide();
+			self.$('.visualizationContainer .loading').addClass('hidden');
 		});
 
 	},
@@ -173,6 +175,5 @@ var MainView = Backbone.View.extend({
 
     onFetchEnd: function () {
         this.$('.visualizationContainer .loading').addClass('hidden');
-        $("#ajax_loading_overlay").hide();
     }
 });

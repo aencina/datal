@@ -1,95 +1,20 @@
-{% load i18n extra_tags compress staticfiles sass_tags core_components components plugins_tags %}
+{% extends 'base_errors.html' %}
+{% load i18n %}
 
-<!DOCTYPE html>
-<html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
-<head>
-    <meta charset="utf-8">
-    <title>{% trans 'APP-ERROR-TEXT' %} &middot; {{ settings.APPLICATION_DETAILS.name }}</title>
-    <meta name="description" content="" />
-	<meta http-equiv="CACHE-CONTROL" content="max-age=0, no-store" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+{% block title %}
+	{% trans 'APP-ERROR-TEXT' %} 403
+{% endblock %}
 
-    {% block favicon %}
-        {% if not 'favicon'|inplugin %}
-        <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
-        {% else %}
-        {% plugins_call 'favicon' %}
-        {% endif %}
-    {% endblock %}
+{% block errorContent %}
 
-    {% compress css %}
-	<link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
-	<link href="/static/core/styles/buttons.css" type="text/css" rel="stylesheet" media="screen"/>
-	<link href="/static/core/styles/structure.css" type="text/css" rel="stylesheet" media="screen"/>
-	<link href="/static/core/styles/commonModules.css" type="text/css" rel="stylesheet" media="screen"/>
-	<link href="/static/core/styles/icons.css" type="text/css" rel="stylesheet" media="screen"/>
-	<link href="{% sass_src 'workspace/styles/common.scss' %}" rel="stylesheet" type="text/css" />
-	{% endcompress %}
-	<link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+<div class="error-graphic error-graphic-not-found"></div>
 
-</head>
-<body>
+<h1>{% trans 'APP-SORRY-YOU-DONT-HAVE-PERMISSION-TO-ACCESS-THIS-PAGE-TEXT' %}</h1>
+<p>
+    <a href="/">{% trans 'APP-GO-TO-HOMEPAGE-TEXT' %}</a>
+    {% trans 'APP-OF-THE-WORKSPACE-TEXT' %}.
+</p>
 
-	<div class="layout">
+<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 403</span></p>
 
-		<!-- Header -->
-		<header class="header clearfix">
-			<div class="wrapper1">
-				<div class="wrapper2 clearfix">
-					<div class="wrapper3">
-
-						<!-- Logo -->
-						<a href="/" title="{{ settings.APPLICATION_DETAILS.name }}" class="logo FL clearfix">
-							<div class="logo-header-brand"></div>
-						</a>
-
-						<div class="global-navigation" style="visibility:visible;">
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</header>
-
-		<!-- Workspace -->
-		<div class="workspace">
-			<div class="wrapper1">
-				<div class="wrapper2 clearfix">
-					<div class="wrapper3">
-
-					<nav class="main-navigation border-box collapsed"></nav>
-
-					<div class="main-section" style="visibility:visible;">
-
-					<div class="section-title clearfix">
-						<h1>{% trans 'APP-ERROR-400-TEXT' %}</h1>
-					</div>
-
-					<div class="section-content clearfix">
-
-						<section class="box error-container">
-
-						<div class="box-content clearfix">
-							<ul>
-								<li><a href="/">{% trans 'APP-GO-HOME-TEXT' %}</a></li>
-								<!-- <li><a href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}" target="_blank">{% trans 'APP-GO-PORTAL-TEXT' %}</a></li> -->
-							</ul>
-						</div>
-
-						</section>
-
-						</div>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-</div>
-
-</body>
-</html>
+{% endblock %}

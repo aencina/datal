@@ -16,6 +16,7 @@ ROOT_URLCONF = 'api.urls'
 INSTALLED_APPS += (
     'api',
     'corsheaders',
+    'jsonify',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

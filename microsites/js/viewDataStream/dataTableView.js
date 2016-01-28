@@ -171,7 +171,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 		$.merge( params, this.setPOSTParams() );
 			
 		var ajax = $.ajax({
-			url: '/rest/datastreams/' + this.dataStream.get('datastream_revision_id') + '/data.json', 
+			url: '/rest/datastreams/' + this.dataStream.get('datastream_revision_id') + '/data.json/', 
 		  type:'GET', 
 		  data: params, 
 		  dataType: 'json', 
@@ -329,7 +329,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 
 		// Init Flexigrid
 		$('.dataTable .data .result').flexigrid({
-			url: '/rest/datastreams/' + dataStream.datastream_revision_id + '/data.grid',
+			url: '/rest/datastreams/' + dataStream.datastream_revision_id + '/data.grid/',
 			dataType: 'json',
 			colModel: colModel,
 			searchitems : searchArray,

@@ -151,7 +151,7 @@ var DataTableView = Backbone.View.extend({
 
     $(window).resize(function(){
 
-      var table = $('.handsontable'),
+      var table = $('.table-view'),
           windowHeight = $(window).height();
 
       if( table.length > 0){

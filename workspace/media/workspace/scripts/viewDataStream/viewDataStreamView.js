@@ -56,7 +56,7 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 			var sectionContentHeight =
 				windowHeight
 				- parseFloat( otherHeight	)
-				- $('.header').height()
+				- $('.global-navigation').height()
 				- $('.main-section .section-title').height()
 				- parseFloat( $('.main-section .section-content').css('padding-top').split('px')[0] );
 				- parseInt($('.main-section .section-content .detail').css('padding-top').split('px')[0])

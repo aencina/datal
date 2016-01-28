@@ -248,11 +248,11 @@ var ChartView = StepViewSPA.extend({
 	},
 
 	showLoading: function () {
-		$("#ajax_loading_overlay").show();
+        this.$('.visualizationContainer .loading').removeClass('hidden');
 	},
 
 	hideLoading: function () {
-		$("#ajax_loading_overlay").hide();
+        this.$('.visualizationContainer .loading').addClass('hidden');
 	},
 
 	start: function(){
