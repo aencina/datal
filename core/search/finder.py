@@ -17,13 +17,13 @@ class FinderManager:
 
     def __init__(self):
         self.finder = None
-        logger.info('FinderManager start in %s (index: %s)' % (str(settings.SEARCH_INDEX['url']), settings.SEARCH_INDEX['index']))
+        if settings.DEBUG: logger.info('FinderManager start in %s (index: %s)' % (str(settings.SEARCH_INDEX['url']), settings.SEARCH_INDEX['index']))
 
     def get_finder(self):
         if not self.finder:
             self.finder = self.finder_class()
 
-        logger.info('FinderManager return %s finder' % self.finder)
+        if settings.DEBUG: logger.info('FinderManager return %s finder' % self.finder)
         return self.finder
 
     def get_failback_finder(self):
@@ -74,7 +74,7 @@ class Finder:
 
     def __init__(self):
 
-        logger.info('New %sIndex INIT' % settings.USE_SEARCHINDEX)
+        if settings.DEBUG: logger.info('New %sIndex INIT' % settings.USE_SEARCHINDEX)
         if settings.USE_SEARCHINDEX == 'searchify':
             self.index = SearchifyIndex()
         elif settings.USE_SEARCHINDEX == 'elasticsearch':
