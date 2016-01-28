@@ -75,7 +75,7 @@ class Preferences():
             try:
                 keys.remove(key)
             except ValueError:
-                logger.error("[load preferences] error key '%s' no esta en keys" % key)
+                logger.error("[load preferences] Account_id: %s: error key '%s' no esta en keys" % (self.data['account.id'],key))
 
         for key in keys:
             self.data[key.replace('_', '.')] = ''
