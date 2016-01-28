@@ -64,7 +64,7 @@ var DeleteItemView = Backbone.View.extend({
 
                 var location = window.location.href,
                     splitURL = location.split("/"),
-                    cutURL = splitURL.slice(0, -1),
+                    cutURL = splitURL.slice(0, -2),
                     joinURL = cutURL.join("/");
 
                 setTimeout(function () {
@@ -118,7 +118,7 @@ var DeleteItemView = Backbone.View.extend({
                     var deleteRevisionID = a['revision_id'],
                         location = window.location.href,
                         splitURL = location.split("/"),
-                        cutURL = splitURL.slice(0, -1),
+                        cutURL = splitURL.slice(0, -2),
                         joinURL = cutURL.join("/");
 
                     if(deleteRevisionID == -1){

@@ -26,7 +26,7 @@ $(document).ready(function(){
             regex: domain_regex,
             prevent_api_internal: true,
             remote: {
-                  url: '/admin/check_domain',
+                  url: '/admin/check_domain/',
                   type: 'post',
                   data: {
                           csrfmiddlewaretoken: csrfmiddlewaretoken,
@@ -40,7 +40,7 @@ $(document).ready(function(){
             regex: domain_regex,
             prevent_api_external: true,
             remote: {
-                  url: '/admin/check_domain',
+                  url: '/admin/check_domain/',
                   type: 'post',
                   data: {
                           csrfmiddlewaretoken: csrfmiddlewaretoken,

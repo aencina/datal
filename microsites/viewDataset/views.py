@@ -49,5 +49,5 @@ def download(request, dataset_id, slug):
             response['Content-Disposition'] = 'attachment; filename="{}"'.format(dataset['filename'].encode('utf-8'))
             response.write(urllib2.urlopen(dataset['end_point_full_url']).read())
         except Exception as e:
-            logger.exception("Error en descarga de archivo %s" % dataset['end_point'])
+            logger.exception("Error en descarga de archivo %s" % dataset['end_point_full_url'])
         return response

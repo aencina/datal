@@ -13,11 +13,15 @@ application:
     pagination_results_per_page: 10
 
     domains:
-      engine: 'workspace.dev:8080'
       microsites: 'microsites.dev:8080'
       workspace: 'workspace.dev:8080'
       api: 'api.dev:8080'
       datastore: 'datastore.dev:8888'
+
+    domains_engine:
+      microsites: 'microsites.dev:8080'
+      workspace: 'workspace.dev:8080'
+      api: 'api.dev:8080'
       
 
 virtualenv:

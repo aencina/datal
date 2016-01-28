@@ -1,0 +1,14 @@
+[
+{
+    "pk": 1, 
+    "model": "redisboard.redisserver", 
+    "fields": {
+        "hostname": "localhost", 
+        "label": "localhost", 
+        "sampling_threshold": 1000, 
+        "sampling_size": 200, 
+        "password": "", 
+        "port": 6379
+    }
+}
+]
