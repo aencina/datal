@@ -2057,6 +2057,9 @@ msgstr "Autor"
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Descargar"
 
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Ir a la fuente"
+
 msgid "APP-ADDNEW-TEXT"
 msgstr "Agregar nuevo"
 

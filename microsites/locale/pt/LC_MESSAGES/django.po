@@ -567,6 +567,9 @@ msgstr "View more"
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Download"
 
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Go to source"
+
 msgid "APP-RESOURCESCREATED-TEXT"
 msgstr "Resources created using this Dataset"
 
