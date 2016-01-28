@@ -34,7 +34,7 @@ class Command(BaseCommand):
             # FAIL
             if 'getType' in imp['chart']:
                 imp['chart']['geoType'] = 'traces'
-                imp.pop("getType", None)
+                imp['chart'].pop("getType", None)
 
             if 'traceSelection' in imp['chart'] and imp['chart']['traceSelection']:
                 imp['chart']['geoType'] = 'traces'
