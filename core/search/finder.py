@@ -44,7 +44,7 @@ from core.lib.elastic import ElasticsearchIndex
 try:
     from core.lib.searchify import SearchifyIndex
 except ImportError:
-    logger.warning("ImportError: No module named indextank.client.")
+    pass
 
 class FinderQuerySet(object):
     def __init__(self, finder, *args, **kwargs):

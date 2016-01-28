@@ -25,7 +25,8 @@ logger = logging.getLogger(__name__)
 try:
     from core.lib.searchify import SearchifyIndex
 except ImportError:
-    logger.warning("ImportError: No module named indextank.client.")
+#    logger.warning("ImportError: No module named indextank.client.")
+    pass
 
 
 
