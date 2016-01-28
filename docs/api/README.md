@@ -28,7 +28,7 @@ Todos los recursos de la api salvo que aparezca alguna excepción retornan una o
 - **tags**: Tags correspondientes a la vista.
 - **created_at**: Fecha de creacón.
 - **endpoint**: Fuente de los datos de la vista.
-- **link**: Link a la vista en el sitio de datos.
+- **link**: Link a la vista en el portal de datos abiertos.
 - **category_name**: Nombre de la categoría de la vista.
 - **parameters (solo en datastreams)** : parametros dinámicos para el contenido de un datastream
 - **result (solo en datastreams)** : cuando se llama al metodo data de un datastream

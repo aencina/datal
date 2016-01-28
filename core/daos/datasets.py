@@ -11,6 +11,7 @@ from core.utils import slugify
 from django.conf import settings
 from core.models import DatasetI18n, Dataset, DatasetRevision, Category
 from core.exceptions import SearchIndexNotFoundException
+from microsites.exceptions import DatasetDoesNotExist
 from core.lib.elastic import ElasticsearchIndex
 from core.daos.resource import AbstractDatasetDBDAO
 from core.builders.datasets import DatasetImplBuilderWrapper
@@ -73,7 +74,7 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
             dataset_revision = DatasetRevision.objects.select_related().get(condition & dataset_language & category_language & status_condition & account_condition & last_revision_condition)
         except DatasetRevision.DoesNotExist:
             logger.error('[ERROR] DatasetRev Not exist Revision (query: %s %s %s %s %s %s)'% (condition, dataset_language, category_language, status_condition, account_condition, last_revision_condition))
-            raise
+            raise DatasetDoesNotExist
 
         tags = dataset_revision.get_tags()
         sources = dataset_revision.get_sources()

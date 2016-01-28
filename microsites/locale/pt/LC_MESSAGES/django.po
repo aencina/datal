@@ -312,9 +312,6 @@ msgstr "Last modified"
 msgid "APP-OPEN-RESOURCES"
 msgstr "Open Data Resources"
 
-msgid "APP-OPEN-RESOURCES-PRIVATE"
-msgstr "Private Data Resources"
-
 msgid "APP-SEARCH-TEXT"
 msgstr "Search"
 
@@ -569,6 +566,9 @@ msgstr "View more"
 
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Download"
+
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Go to source"
 
 msgid "APP-RESOURCESCREATED-TEXT"
 msgstr "Resources created using this Dataset"

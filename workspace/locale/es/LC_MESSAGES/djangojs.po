@@ -271,7 +271,7 @@ msgid "NOTIF-SAVED-DESC-3"
 msgstr "La vista de datos se ha guardado correctamente. Ahora, usted puede agregarla en colecciones."
 
 msgid "NOTIF-SAVED-DESC-4"
-msgstr "La colección se ha guardado correctamente. Ahora, usted puede publicarla con el fin de proporcionar los cambios a su sitio de datos abiertos."
+msgstr "La colección se ha guardado correctamente. Ahora, usted puede publicarla con el fin de proporcionar los cambios a su portal de datos abiertos."
 
 msgid "NOTIF-REMEMBER-TITLE"
 msgstr "Recuerde"
@@ -280,25 +280,25 @@ msgid "NOTIF-REMEMBER-DESC-1"
 msgstr "Este conjunto de datos está ahora disponible para que los editores creen vistas de datos del mismo."
 
 msgid "NOTIF-REMEMBER-DESC-2"
-msgstr "Usted puede publicar o aprobar este conjunto de datos con el fin de proporcionar los cambios a su sitio de datos abiertos."
+msgstr "Usted puede publicar o aprobar este conjunto de datos con el fin de proporcionar los cambios a su portal de datos abiertos."
 
 msgid "NOTIF-REMEMBER-DESC-3"
-msgstr "Con el fin de proporcionar cambios a su sitio de datos abiertos, usted debe enviar esta vista de datos a revisión."
+msgstr "Con el fin de proporcionar cambios a su portal de datos abiertos, usted debe enviar esta vista de datos a revisión."
 
 msgid "NOTIF-REMEMBER-DESC-4"
-msgstr "Usted puede publicar o aprobar esta vista de datos con el fin de proporcionar los cambios a su sitio de datos abiertos."
+msgstr "Usted puede publicar o aprobar esta vista de datos con el fin de proporcionar los cambios a su portal de datos abiertos."
 
 msgid "NOTIF-APPROVED-TITLE"
 msgstr "Aprobado"
 
 msgid "NOTIF-APPROVED-DESC-1"
-msgstr "La colección se ha aprobado correctamente. Ahora, usted puede publicarla con el fin de proporcionar los cambios a su sitio de datos abiertos."
+msgstr "La colección se ha aprobado correctamente. Ahora, usted puede publicarla con el fin de proporcionar los cambios a su portal de datos abiertos."
 
 msgid "NOTIF-PUBLISHED-TITLE"
 msgstr "Publicado"
 
 msgid "NOTIF-PUBLISHED-DESC-1"
-msgstr "La colección se ha publicado correctamente. Ahora, usted puede destacarla con el fin de mostrarla en su sitio de datos abiertos."
+msgstr "La colección se ha publicado correctamente. Ahora, usted puede destacarla con el fin de mostrarla en su portal de datos abiertos."
 
 msgid "NOTIF-WARNING"
 msgstr "Atención"
@@ -313,7 +313,7 @@ msgid "CATEGORY-DELETE-INFO"
 msgstr "recurso/s fueron movidos a la categoría por defecto"
 
 msgid "ADMIN-HOME-DESCRIPTION-NOTHEME"
-msgstr "Al seleccionar esta opción, el sitio de datos abiertos no tendrá una página de inicio personalizada. Al ingresar al sitio, el usuario será redirigido a la página de búsqueda."
+msgstr "Al seleccionar esta opción, el portal de datos abiertos no tendrá una página de inicio personalizada. Al ingresar al sitio, el usuario será redirigido a la página de búsqueda."
 
 msgid "ADMIN-HOME-DESCRIPTION-THEME0"
 msgstr "El tema <em>Clasico</em> proporciona una diseño de dos columnas que incluye varios campos de texto, un carrousel de recursos y una lista de recursos."
@@ -431,7 +431,7 @@ msgid "ADMIN-HOME-SECTION-SUCCESS-TITLE"
 msgstr "Página de inicio guardada"
 
 msgid "ADMIN-HOME-SECTION-SUCCESS-TEXT"
-msgstr "Sus cambios se pueden ver reflejados en su sitio de datos abiertos."
+msgstr "Sus cambios se pueden ver reflejados en su portal de datos abiertos."
 
 msgid "ADMIN-HOME-SECTION-ERROR-TITLE"
 msgstr "Ha ocurrido un error"

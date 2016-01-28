@@ -26,8 +26,12 @@ SEARCH_MAX_RESULTS = 100
 DOMAINS = {'api': '{{  pillar["application"]["settings"]["domains"]["api"] }}',
            'microsites': '{{  pillar["application"]["settings"]["domains"]["microsites"] }}',
            'workspace': '{{  pillar["application"]["settings"]["domains"]["workspace"] }}',
-           'engine': '{{  pillar["application"]["settings"]["domains"]["engine"] }}',
            'cdn': '{{  pillar["application"]["cdn"] }}',
+}
+
+DOMAINS = {'api': '{{  pillar["application"]["settings"]["domains_engine"]["api"] }}',
+           'microsites': '{{  pillar["application"]["settings"]["domains_engine"]["microsites"] }}',
+           'workspace': '{{  pillar["application"]["settings"]["domains_engine"]["workspace"] }}',
 }
 
 WORKSPACE_URI = '{{pillar["application"]["settings"]["workspace_protocol"]}}://{{  pillar["application"]["settings"]["domains"]["workspace"] }}'

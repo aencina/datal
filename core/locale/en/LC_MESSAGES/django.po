@@ -129,9 +129,6 @@ msgstr "User Grants"
 msgid "MODEL_USER_LABEL"
 msgstr "User"
 
-msgid "MODEL_IS_PRIVATE_LABEL"
-msgstr "Is private"
-
 msgid "MODEL_DATASTREAM_LABEL"
 msgstr "Data View"
 
@@ -976,7 +973,7 @@ msgstr "Unknown Error"
 msgid "EXCEPTION-DESCRIPTION-UNKNOWN"
 msgstr "Unknown Error of name %(exception_name)s and trace '%(exception_trace)s'"
 
-# —————————— Exceptions Microsites
+# —————————— Exceptions Open data portals
 msgid "EXCEPTION-TITLE-REVISION-NOT-EXIST"
 msgstr "Visualization does not exist"
 
@@ -1050,7 +1047,7 @@ msgid "APP-OF-THE-WORKSPACE-TEXT"
 msgstr "of the workspace"
 
 msgid "APP-OF-THE-MICROSITE-TEXT"
-msgstr "of the microsite"
+msgstr "of the open data portal"
 
 msgid "APP-HOMEPAGE-LOWERCASE-TEXT"
 msgstr "homepage"
@@ -1065,7 +1062,7 @@ msgid "APP-WORKSPACE-TEXT"
 msgstr "Workspace"
 
 msgid "APP-MICROSITE-TEXT"
-msgstr "Microsite"
+msgstr "Open data portal"
 
 msgid "APP-CONTACTUS-TEXT"
 msgstr "Contact us"
