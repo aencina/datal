@@ -94,7 +94,7 @@ class Command(BaseCommand):
 
         if options['account']:
             self.account = Account.objects.get(pk=int(options['account']))
-            
+
             self.visualization_revision_all = VisualizationRevision.objects.filter(user__account=self.account)
             self.dataset_revision_all = DatasetRevision.objects.filter(user__account=self.account)
             self.datasstream_revision_all = DataStreamRevision.objects.filter(user__account=self.account)
@@ -131,6 +131,7 @@ class Command(BaseCommand):
                     else:
                         answer.append(mh)
                 imp['chart']['labelSelection'] = ','.join(answer)
+
             if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection']:
                 header = imp['chart']['headerSelection'].replace(' ', '')
                 answer = []
@@ -141,7 +142,7 @@ class Command(BaseCommand):
                         answer.append(mh)
                 imp['chart']['headerSelection'] = ','.join(answer)
 
-            spaces=('latitudSelection', 'longitudSelection', 'traceSelection', 'data')
+            spaces = ('latitudSelection', 'longitudSelection', 'traceSelection', 'data')
 
             for s in spaces:
                 if s in imp['chart']:
@@ -152,6 +153,7 @@ class Command(BaseCommand):
             renames=( ("zoomLevel", "zoom"),
                 ("mapCenter","center"),
             )
+
             for rename in renames:
                 if rename[0] in imp['chart']:
                     imp['chart'][rename[1]]=imp['chart'][rename[0]]
