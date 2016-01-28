@@ -292,7 +292,7 @@ msgid "DBMAN-PERSONALIZEDB-NOFOUDERROR1"
 msgstr "Lo sentimos, pero no hubo resultados."
 
 msgid "DEV-MS-DESCRIPTION-TEXT1"
-msgstr "La API permite el acceso directo a los datos publicados en el sitio de datos abiertos de "
+msgstr "La API permite el acceso directo a los datos publicados en el portal de datos abiertos de "
 
 msgid "DEV-MS-DESCRIPTION-TEXT2"
 msgstr "desde tu aplicación. Usa una interfaz RESTful y retorna los datos en formato JSON."
@@ -308,9 +308,6 @@ msgstr "Última modificación"
 
 msgid "APP-OPEN-RESOURCES"
 msgstr "Recursos de datos abiertos"
-
-msgid "APP-OPEN-RESOURCES-PRIVATE"
-msgstr "Recursos de datos privados"
 
 msgid "APP-SEARCH-TEXT"
 msgstr "Buscar"
@@ -564,6 +561,9 @@ msgstr "Ver más"
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Descargar"
 
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Ir a la fuente"
+
 msgid "APP-RESOURCESCREATED-TEXT"
 msgstr "Recursos creados con este conjunto de datos"
 
@@ -640,4 +640,4 @@ msgid "APP-GO-HOME-TEXT"
 msgstr "Ir a la página de inicio"
 
 msgid "APP-GO-PORTAL-TEXT"
-msgstr "Ir a sitio de datos"
+msgstr "Ir a portal de datos abiertos"
