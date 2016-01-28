@@ -8,6 +8,15 @@
 			<span>{% trans 'VIEWDS-TABS-INFO' %}</span>
 		</a>
 	</li>
+	{% if dataset.collect_type == choices.CollectTypeChoices.URL %}
+	<li>
+		<a href="{{ dataset|download }}" target="_blank" class="icon download border-box sidebarIcon" id="id_openDownloadButton"
+		   rel="id_downloadSidebar">
+			<i></i> 
+			<span>{% trans 'APP-GOTO-PAGE-TEXT' %}</span>
+		</a>
+	</li>
+	{% elif dataset.collect_type == choices.CollectTypeChoices.SELF_PUBLISH %}
 	<li>
 		<a href="{{ dataset|download }}" class="icon download border-box sidebarIcon" id="id_openDownloadButton"
 		   rel="id_downloadSidebar">
@@ -15,6 +24,8 @@
 			<span>{% trans 'APP-DOWNLOAD-TEXT' %}</span>
 		</a>
 	</li>
+	
+	{% endif %}
 
     {% if dataset.notes and preferences.account_enable_notes %}
 	<li>

@@ -305,6 +305,11 @@ COLLECT_TYPE_FILTERABLES = [
     ,CollectTypeChoices.URL
 ]
 
+COLLECT_TYPE_DOWNLOADABLE = [
+     CollectTypeChoices.SELF_PUBLISH
+    ,CollectTypeChoices.URL
+]
+
 COUNTRY_CHOICES = (
     ('US', ugettext_lazy( 'MODEL-COUNTRY-US'))
     ,('AR', ugettext_lazy( 'MODEL-COUNTRY-AR' ))

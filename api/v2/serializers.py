@@ -16,6 +16,7 @@ class ResourceSerializer(serializers.Serializer):
     def getCategory(self, category_slug):
         return CategoryI18n.objects.get(
             slug=category_slug,
+            category__account=self.context['request'].auth['account'],
             language=self.context['request'].auth['language']).category
 
     def tryKeysOnDict(self, toDict, toKey, fromDict, fromKeys):
