@@ -309,9 +309,6 @@ msgstr "Última modificación"
 msgid "APP-OPEN-RESOURCES"
 msgstr "Recursos de datos abiertos"
 
-msgid "APP-OPEN-RESOURCES-PRIVATE"
-msgstr "Recursos de datos privados"
-
 msgid "APP-SEARCH-TEXT"
 msgstr "Buscar"
 
@@ -563,6 +560,9 @@ msgstr "Ver más"
 
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Descargar"
+
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Ir a la fuente"
 
 msgid "APP-RESOURCESCREATED-TEXT"
 msgstr "Recursos creados con este conjunto de datos"

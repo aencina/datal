@@ -6,8 +6,12 @@ from core.models import Dataset, DatasetRevision
 from core.daos.datasets import DatasetDBDAO
 from core.templatetags.core_components import permalink as get_permalink
 from core.exceptions import *
-from microsites.exceptions import DatasetDoesNotExist
+from microsites.exceptions import *
+from core import choices
+from django.shortcuts import redirect
 from django.views.decorators.http import require_http_methods
+from django.core.exceptions import PermissionDenied
+
 import urllib2
 
 logger = logging.getLogger(__name__)
@@ -29,10 +33,17 @@ def download(request, dataset_id, slug):
     except:
         raise DatasetDoesNotExist
     else:
-        try:
-            response = HttpResponse(mimetype='application/force-download')
-            response['Content-Disposition'] = 'attachment; filename="{}"'.format(dataset['filename'].encode('utf-8'))
-            response.write(urllib2.urlopen(dataset['end_point_full_url']).read())
-        except Exception as e:
-            logger.exception("Error en descarga de archivo %s" % dataset['end_point_full_url'])
-        return response
+        if dataset['collect_type'] == choices.CollectTypeChoices.SELF_PUBLISH:
+            try:
+                response = HttpResponse(mimetype='application/force-download')
+                response['Content-Disposition'] = 'attachment; filename="{}"'.format(dataset['filename'].encode('utf-8'))
+                response.write(urllib2.urlopen(dataset['end_point_full_url']).read())
+                return response
+            except Exception as e:
+                logger.exception("Error en descarga de archivo %s" % dataset['end_point_full_url'])
+        elif dataset['collect_type'] == choices.CollectTypeChoices.URL:
+            try:
+                return redirect(dataset['end_point'])
+            except Exception as e:
+                logger.exception("Error en descarga de archivo %s" % dataset['end_point_full_url'])
+        raise PermissionDenied 

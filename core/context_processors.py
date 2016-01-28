@@ -1,4 +1,5 @@
 from django.conf import settings
+from core import choices
 
 
 def request_context(request):
@@ -15,6 +16,11 @@ def request_context(request):
         'APPLICATION_DETAILS': settings.APPLICATION_DETAILS,
         'MSPROTOCOL': 'http',
         'APIPROTOCOL': 'http',
+        'COLLECT_TYPE_DOWNLOADABLE': choices.COLLECT_TYPE_DOWNLOADABLE,
+    }
+
+    my_choices = {
+        'CollectTypeChoices': choices.CollectTypeChoices,
     }
 
     if hasattr(request, 'account'):
@@ -26,6 +32,7 @@ def request_context(request):
         
     d['settings'] = my_settings
     d['preference'] = request.preferences
+    d['choices'] = my_choices
     if hasattr(request, 'stats'):
         d['stats'] = request.stats
 

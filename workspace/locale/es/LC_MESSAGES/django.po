@@ -694,9 +694,6 @@ msgstr "Personalizar la visualización"
 msgid "ACCOUNT-MICROSITE-TITLES"
 msgstr "Títulos del portal de datos abiertos"
 
-msgid "ACCOUNT-MICROSITE-TITLES-PRIVATE"
-msgstr "Títulos del portal de datos abiertos privados"
-
 msgid "APP-BUTTONS-TEXT"
 msgstr "Botones"
 
@@ -1747,9 +1744,6 @@ msgstr "El tamaño de la imagen debe ser de 136 x 80 px, de otro modo la imagen 
 msgid "ACCOUNT-OPENDATASITE-TAB"
 msgstr "Ir a mi portal de datos abiertos"
 
-msgid "ACCOUNT-OPENDATASITE-TAB-PRIVATE"
-msgstr "Ir a mi portal de datos abiertos privados"
-
 msgid "WORKSPACE-COLLECT-SELECTCATEGORY"
 msgstr "Seleccione una categoría"
 
@@ -1792,9 +1786,6 @@ msgstr "Alguna de sus propiedades debera contener information como un arreglo de
 msgid "WORKSPACE-SIGNATURE-TEXT"
 msgstr "Nombre de la Firma"
 
-msgid "APP-ACTIVITYSTREAM-TXT8-PRIVATE"
-msgstr "Transforme sus conjuntos de datos en <a href='/resource/action_query' title='Crear vistas'>Vistas</a> y <a href='/resource/action_query' title='Crear visualizaciones vivas'>visualizaciones vivas</a>, y finalmente <a href='/review/action_query' title='Publique sus recursos'>publiquelos</a> en su <a href='/admin/domain' title='Configuración de dominio'>portal de datos abiertos privado</a>."
-
 msgid "PUBLISHERS-DATASET-HELP-TIP-PRIVATE"
 msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Publicar' si consideras que el conjunto de datos está listo para ser usado en el portal de datos abiertos."
 
@@ -1803,12 +1794,6 @@ msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión e
 
 msgid "COLLECTORS-DATASET-HELP-TIP-PRIVATE"
 msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Enviar a revisión' si consideras que el conjunto de datos está listo para ser usado en el portal de datos abiertos."
-
-msgid "APP-FEATURED-HELPTIP-PRIVATE"
-msgstr "Las colecciones destacadas aparecerán como pestañas en el portal de datos abiertos privados, y estarán ordenadas tal como aparecen en la caja de la derecha."
-
-msgid "BRANDED-BRANDINGS-TIP-PRIVATE"
-msgstr "Use el seleccionador de colores para personalizar los colores del portal de datos abiertos privado con sus colores corporativos."
 
 msgid "ACCOUNT-HOME-TAB"
 msgstr "Página de inicio"
@@ -2071,6 +2056,9 @@ msgstr "Autor"
 
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Descargar"
+
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Ir a la fuente"
 
 msgid "APP-ADDNEW-TEXT"
 msgstr "Agregar nuevo"
