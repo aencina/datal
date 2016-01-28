@@ -41,7 +41,7 @@ class EngineCommand(object):
         return ":".join([type(self).__name__, params]) 
 
     def _get_url(self):
-        return get_domain_with_protocol(self.app) + self.endpoint
+        return get_domain_with_protocol(self.app, engine=True) + self.endpoint
 
     def _request(self, query):
         url = self._get_url()

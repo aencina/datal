@@ -15,8 +15,12 @@ class JSONHttpResponse(HttpResponse):
         HttpResponse.__init__(self, content)
         self['Content-Type'] = 'application/json;charset=utf-8'
 
-def get_domain_with_protocol(app, protocol = 'http'):
-    return protocol + '://' + settings.DOMAINS[app]
+def get_domain_with_protocol(app, protocol = 'http', engine=False):
+    if engine:
+        return protocol + '://' + settings.DOMAINS_ENGINE[app]
+    else:
+        return protocol + '://' + settings.DOMAINS[app]
+
 
 def get_domain(account_id):
     account = Account.objects.get(pk=account_id)
