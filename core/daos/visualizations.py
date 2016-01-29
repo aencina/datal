@@ -93,11 +93,11 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         if guid:
             condition = Q(visualization__guid=guid)
         elif visualization_id:
-            condition = Q(visualization__id=visualization_id)
+            condition = Q(visualization__id=int(visualization_id))
         elif visualization_revision_id:
-            condition = Q(pk=visualization_revision_id)
+            condition = Q(pk=int(visualization_revision_id))
         else:
-            logger.error('[ERROR] VisualizationDBDAO.get: no guid, resource id or revision id')
+            logger.error('[ERROR] VisualizationDBDAO.get: no guid, resource id or revision id %s' % locals())
             raise
 
         # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
@@ -114,8 +114,8 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         try:
             visualization_revision = VisualizationRevision.objects.select_related().get(condition & resource_language & user_language & status_condition & account_condition & last_revision_condition)
         except VisualizationRevision.DoesNotExist:
-            logger.error('[ERROR] Visualization Not exist Revision (query: %s %s %s %s %s %s)'% (condition, resource_language, user_language, status_condition, account_condition, last_revision_condition))
-            raise
+            logger.error('[ERROR] Visualization Not exist Revision (query: %s\n\t%s\n\t %s\n\t %s\n\t %s\n\t %s)'% (condition, resource_language, user_language, status_condition, account_condition, last_revision_condition.children[0][1].__dict__['name']))
+            raise VisualizationRevision.DoesNotExist("Visualization Not exist Revision")
 
         tags = visualization_revision.datastream.last_revision.tagdatastream_set.all().values(
             'tag__name',
