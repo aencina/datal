@@ -22,7 +22,6 @@
 			<span>{% trans 'VIEWDS-TABS-REFRESH' %}</span>
 		</a>
 	</li>
-	{% comment %}
 	{% if chart_type == "mapchart" %}
 	<li>
 		<a class="icon heatmap border-box" id="id_heatmapButton">
@@ -31,7 +30,6 @@
 		</a>
 	</li>
 	{% endif %}
-	{% endcomment %}
 	
 	<!-- Tabs from plugins -->
 	{% plugins_call 'microsites_view_visualization_tabs' %}
