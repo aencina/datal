@@ -90,7 +90,7 @@ var chartModel = new charts.models.Chart({
     title: "{{visualization_revision.title}}", 
     description: "{{visualization_revision.description|escapejs}}", 
     visualizationJson : '{{result|escapejs}}',
-    chartJson : '{% autoescape off %}{{visualization_revision.impl_details }}{% endautoescape %}',
+    chartJson : '{{visualization_revision.impl_details|escapejs }}',
     chartLib: "{{visualization_revision.lib}}",
     status : '{{visualization_revision.status}}',
     status_str: "{{ visualization_revision.status|status_str|capfirst }}",
