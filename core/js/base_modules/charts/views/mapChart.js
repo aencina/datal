@@ -148,6 +148,9 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.mapInstance.setOptions(this.googleMapOptions);
         this.mapInstance.setOptions({minZoom: 1});
 
+        // crear instancia del heatmap vacia
+        this.heatMapInstance = new google.maps.visualization.HeatmapLayer({data: new google.maps.MVCArray() , radius: 20, opacity: 0.8});
+
         this.infoWindow = new google.maps.InfoWindow();
         this.bindMapEvents();
     },
@@ -162,6 +165,8 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.mapClusters = this.clearOverlay(this.mapClusters);
         //Traces
         this.mapTraces = this.clearOverlay(this.mapTraces);
+        // limpiar el heatmap asociado
+        this.heatMapInstance = new google.maps.visualization.HeatmapLayer({data: new google.maps.MVCArray() , radius: 20, opacity: 0.8});
     },
 
     /**
@@ -218,7 +223,7 @@ charts.views.MapChart = charts.views.Chart.extend({
     },
 
     createMapPolygon: function (paths, styles) {
-        return new google.maps.Polygon({
+        var poly = new google.maps.Polygon({
             paths: paths,
             strokeColor: styles.strokeColor,
             strokeOpacity: styles.strokeOpacity,
@@ -226,15 +231,23 @@ charts.views.MapChart = charts.views.Chart.extend({
             fillColor: styles.fillColor,
             fillOpacity: styles.fillOpacity
         });
+
+        poly.weight = 1;
+        this.heatMapInstance.getData().push(poly);
+        return poly;
     },
 
     createMapPolyline: function (path, styles) {
-        return new google.maps.Polyline({
+        var line = new google.maps.Polyline({
             path: path,
             strokeColor: styles.strokeColor,
             strokeOpacity: styles.strokeOpacity,
             strokeWeight: styles.strokeWeight
         });
+        
+        line.weight = 1;
+        this.heatMapInstance.getData().push(line);
+        return line;
     },
 
     /**
@@ -244,8 +257,11 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @param  {object} styles  Estilos para dibujar el marker
      */
     createMapMarker: function (point, index) {
-        var self = this,
-            markerIcon = this.stylesDefault.marker.icon;
+        var self = this, markerIcon = this.stylesDefault.marker.icon;
+
+        //agregar al heatmap
+        point.weight = 1;
+        this.heatMapInstance.getData().push(point);
 
         //Obtiene el estilo del marcador
         if(point.styles && point.styles.iconStyle){
