@@ -93,7 +93,7 @@ var MainView = Backbone.View.extend({
 
 		if(action == 'unpublish'){
 			var lastPublishRevisionId = this.model.get('lastPublishRevisionId');
-			url = 'change_status/'+lastPublishRevisionId+'/';
+			url = '/visualizations/change_status/'+lastPublishRevisionId+'/';
 			data.killemall = killemall;
 		}
 
