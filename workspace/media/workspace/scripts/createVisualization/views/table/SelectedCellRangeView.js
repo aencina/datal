@@ -30,10 +30,9 @@ var SelectedCellRangeView = Backbone.View.extend({
 		_.each(inputs, function (name) {
 			this.$('[data-name="' + name + '"].input-row ').removeClass('hidden');
 		});
-		this.$('.input-row:not(.hidden) input[type="text"]').first().focus();
+		//this.$('.input-row:not(.hidden) input[type="text"]').first().focus();
 	},
 	focus: function () {
-
 	},
 	clear: function () {
 		this.$('input[type="text"]').val('');
@@ -65,7 +64,7 @@ var SelectedCellRangeView = Backbone.View.extend({
 		if (value === '') {
 			model.unset('excelRange');
 		} else {
-			model.set('excelRange', value);
+			model.set('excelRange', value? value.split(','): []);
 		}
 		this.validate(model);
 	},
