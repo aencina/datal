@@ -19,7 +19,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		'click #id_permalink, #id_GUID' : 'onInputClicked',
 		'click #id_downloadLink, #id_exportToXLSButton, #id_exportToCSVButton' : 'setWaitingMessage',
 		'click #id_refreshButton, #id_retryButton' : 'onRefreshButtonClicked',
-
+        'click #id_heatmapButton': 'onHeatmapClicked'
 	},
 
 	events: function() {
@@ -123,6 +123,22 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		});
 	},
 
+    onHeatmapClicked: function(event){
+        var button = event.currentTarget;
+
+        if ( $(button).hasClass('active') ) {
+            $(button).removeClass('active');
+        } else {
+            $(button).addClass('active');
+        }
+
+        this.toggleHeatMap();
+    },
+        
+    toggleHeatMap: function(){
+        this.chartView.chartInstance.toggleHeatMap();
+    },
+    
 	onViewMoreDescriptionLinkClicked: function(event){
 		this.onOpenSidebarButtonClicked(event);
 		this.toggleDescriptionLink();
