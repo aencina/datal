@@ -1767,10 +1767,10 @@ var theme7View = Backbone.Epoxy.View.extend({
 		var btn_id = $(event.currentTarget).attr("id");
 		var ob = {};
 		if (btn_id === 'id_save') {
-			this.options.currentModel.attributes.config = this.model.toJSON();
-			this.options.currentModel.attributes.themeID = '7';
-			ob['config'] = this.options.currentModel.attributes.config;
-			ob['theme'] = this.options.currentModel.attributes.themeID;
+			this.currentModel.attributes.config = this.model.toJSON();
+			this.currentModel.attributes.themeID = '7';
+			ob['config'] = this.currentModel.attributes.config;
+			ob['theme'] = this.currentModel.attributes.themeID;
 			ob['type'] = 'save';
 		} else {
 			ob['config'] = this.model.toJSON();
