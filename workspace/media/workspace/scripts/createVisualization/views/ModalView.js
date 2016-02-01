@@ -33,6 +33,15 @@ var ModalView = Backbone.View.extend({
         this.listenTo(this.collection, 'change remove reset', this.validate, this);
         this.listenTo(this.selectedCellRangeView, 'focus-input', function (name) {
             this._cacheFocusedInput = name;
+            if (this.dataTableView) {
+                model = this.collection.find(function (model) {
+                    return model.get('name') === name;
+                });
+                if (model) {
+                    this.dataTableView.setClassId(model.get('classname'))
+                }
+                this.dataTableView.cacheSelection()
+            }
         });
 
         // initialization
@@ -43,13 +52,34 @@ var ModalView = Backbone.View.extend({
     onOpen: function () {
         this.selectedCellRangeView.render();
 
-        this.rangeLatModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('latitudSelection')));
-        this.rangeLonModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('longitudSelection')));
-        this.rangeInfoModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
-        this.rangeTraceModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('traceSelection')));
-        this.rangeDataModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
-        this.rangeLabelsModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('labelSelection')));
-        this.rangeHeadersModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('headerSelection')));
+        if (this.model.get('latitudSelection') && !_.isEmpty(this.model.get('latitudSelection'))) {
+            this.rangeLatModel.set('excelRange', _.compact(_.map(this.model.get('latitudSelection').split(','), 
+                function(ele) {return DataTableUtils.parseEngineExcelRange(ele);})));
+        }
+        if (this.model.get('longitudSelection') && !_.isEmpty(this.model.get('longitudSelection'))) {
+            this.rangeLonModel.set('excelRange', _.compact(_.map(this.model.get('longitudSelection').split(','), 
+                function(ele) {return DataTableUtils.parseEngineExcelRange(ele);})));
+        }
+        if (this.model.get('data') && !_.isEmpty(this.model.get('data'))) {
+            this.rangeInfoModel.set('excelRange', _.compact(_.map(this.model.get('data').split(','), 
+                function(ele) {return DataTableUtils.parseEngineExcelRange(ele);})));
+        }
+        if (this.model.get('traceSelection') && !_.isEmpty(this.model.get('traceSelection'))) {
+            this.rangeTraceModel.set('excelRange', _.compact(_.map(this.model.get('traceSelection').split(','), 
+                function(ele) {return DataTableUtils.parseEngineExcelRange(ele);})));
+        }
+        if (this.model.get('data') && !_.isEmpty(this.model.get('data'))) {
+            this.rangeDataModel.set('excelRange', _.compact(_.map(this.model.get('data').split(','), 
+                function(ele) {return DataTableUtils.parseEngineExcelRange(ele);})));
+        }
+        if (this.model.get('labelSelection') && !_.isEmpty(this.model.get('labelSelection'))) {
+            this.rangeLabelsModel.set('excelRange', _.compact(_.map(this.model.get('labelSelection').split(','), 
+                function(ele) {return DataTableUtils.parseEngineExcelRange(ele);})));
+        }
+        if (this.model.get('headerSelection') && !_.isEmpty(this.model.get('headerSelection'))) {
+            this.rangeHeadersModel.set('excelRange', _.compact(_.map(this.model.get('headerSelection').split(','), 
+                function(ele) {return DataTableUtils.parseEngineExcelRange(ele);})));
+        }
 
         this.collection.setCache();
         this.setHeights();
@@ -73,7 +103,7 @@ var ModalView = Backbone.View.extend({
 
     onClickDone: function (e) {
         var result = this.collection.reduce(function (memo, m) {
-            memo[m.get('name')] = DataTableUtils.toServerExcelRange(m.get('excelRange'));
+            memo[m.get('name')] = _.compact(_.map(m.get('excelRange'), function(ele) { return DataTableUtils.toServerExcelRange(ele)})).join(',');
             return memo;
         }, {});
         this.model.set(result);
@@ -104,15 +134,17 @@ var ModalView = Backbone.View.extend({
     },
 
     addSelection: function (name) {
-        var selection = this.dataTableView.getSelection(),
-            model = this.collection.find(function (model) {
-                return model.get('name') === name;
-            });
-        model.set(selection);
-        var mode = [this._cacheFocusedInput, selection.mode].join('_');
-        // console.log(selection, mode);
+        if (name) {
+            var selection = this.dataTableView.getSelection(),
+                model = this.collection.find(function (model) {
+                    return model.get('name') === name;
+                });
+            model.set(selection);
+            var mode = [name, selection.mode].join('_');
+            // console.log(selection, mode);
 
-        this.validate();
+            this.validate();
+        }
     },
 
     validate: function () {
@@ -171,13 +203,16 @@ var ModalView = Backbone.View.extend({
 
     validateDataHeaders: function(validData, validHeaders) {
         if (validData && validHeaders) {
-            var dataCols = validData.getRange().to.col - validData.getRange().from.col + 1;
+            return true;    
+            // Comentamos la validacion a espera de definiciones
+            /*var dataCols = validData.getRange().to.col - validData.getRange().from.col + 1;
             var headersRows = validHeaders.getRange().to.row - validHeaders.getRange().from.row + 1;
             if (validHeaders.getRange().to.row == -1 || validHeaders.getRange().from.row == -1) {
                 headersRows = 0;
             }
             var headersCols = validHeaders.getRange().to.col - validHeaders.getRange().from.col + 1;
             return dataCols == headersCols * headersRows
+            */
         }
         return false
     },

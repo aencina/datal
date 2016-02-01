@@ -124,6 +124,9 @@ class Command(BaseCommand):
                 except AttributeError:
                     print "[ERROR vz] self.visualization_revision.visualization.datastream.last_published_revision == None (vz.id= %s, ds= %s)" % (vz.id, vz.datastream.id)
                     continue
+                except:
+                    print "[ERROR vz] Probablemente VisualizationI18n.MultipleObjectsReturned (vz.id= %s)" % vz.id
+                    continue
 
                 h = VisualizationHitsDAO(vz_revision)
 

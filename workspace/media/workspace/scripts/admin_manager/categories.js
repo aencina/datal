@@ -34,7 +34,7 @@ $(document).ready(function(){
         $form.find('#id_name').val('');
         $form.find('#id_description').val('');
         $form.find('#id_is_default').removeAttr('checked');
-        $form.attr('action', '/admin/create_category');
+        $form.attr('action', '/admin/create_category/');
         $formContainer.data('overlay').load();
     });
 

@@ -88,7 +88,6 @@ class Command(BaseCommand):
 
         Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="True")
         Preference.objects.get_or_create(account=self.account, key="account.dataset.showhome", value="True")
-        
 
     def handle(self, *args, **options):
         self.account = None
@@ -111,6 +110,12 @@ class Command(BaseCommand):
         for rev in self.visualization_revision_all:
             imp = json.loads(rev.impl_details)
 
+            if 'traceSelection' in imp['chart'] and imp['chart']['traceSelection']:
+                imp['chart']['geoType'] = 'traces'
+
+            if 'latitudSelection' in imp['chart'] and 'longitudSelection' in imp['chart'] and imp['chart']['latitudSelection'] and imp['chart']['longitudSelection']:
+                imp['chart']['geoType'] = 'points'
+
             if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection'] == ",":
                 imp['chart']['headerSelection'] = ''
 
@@ -126,6 +131,7 @@ class Command(BaseCommand):
                     else:
                         answer.append(mh)
                 imp['chart']['labelSelection'] = ','.join(answer)
+
             if 'headerSelection' in imp['chart'] and imp['chart']['headerSelection']:
                 header = imp['chart']['headerSelection'].replace(' ', '')
                 answer = []
@@ -136,7 +142,7 @@ class Command(BaseCommand):
                         answer.append(mh)
                 imp['chart']['headerSelection'] = ','.join(answer)
 
-            spaces=('latitudSelection', 'longitudSelection', 'traceSelection', 'data')
+            spaces = ('latitudSelection', 'longitudSelection', 'traceSelection', 'data')
 
             for s in spaces:
                 if s in imp['chart']:
@@ -147,6 +153,7 @@ class Command(BaseCommand):
             renames=( ("zoomLevel", "zoom"),
                 ("mapCenter","center"),
             )
+
             for rename in renames:
                 if rename[0] in imp['chart']:
                     imp['chart'][rename[1]]=imp['chart'][rename[0]]

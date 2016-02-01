@@ -78,19 +78,69 @@ charts.models.ChartData = Backbone.Model.extend({
                 response.series = [];
                 var values = [];
 
-                for(var i=0;i<response.values.length;i++){
+                // Si es piechart, concateno los values y dejo 1 serie
+                if( filters.type === 'piechart' ){
 
-                    // Solo uso los valores que no son vacios
-                    if( response.values[i].length > 0 ){
-                        response.series.push({
-                            'name': ''
-                        }); 
-                        values.push( response.values[i] );
+                    // Creo 1 serie
+                    response.series.push({
+                        'name': ''
+                    }); 
+
+                    // Concateno los values
+                    var values = _.flatten(response.values);
+
+                    // Si vienen labels
+                    if(
+                        !_.isUndefined( response.labels ) || 
+                        !_.isEmpty(response.labels) || 
+                        response.labels != ''
+                    ){
+
+                        // Si el length de los values concatenados es distinto al length de labels
+                        if( values.length != response.labels.length ){
+
+                            // Chequeo si el primer array de values es todo null, entonces lo descarto. 
+                            // Es algo muy comun que surgió con la migración de datos
+                            var check = false;
+
+                            for( var i=0;i<response.values[0].length;i++ ){
+
+                                if( _.isNull( response.values[0][i] ) ){
+                                    check = true;
+                                }
+
+                            }
+
+                            if( check ){
+                                response.values.shift();
+                                values = _.flatten(response.values);
+                            }   
+
+                        }
+                        
                     }
 
-                }
+                    response.values = [];
+                    response.values.push(values);
 
-                response.values = values;
+                // Itero por el length de values y creo las series segun eso
+                }else{
+
+                    for(var i=0;i<response.values.length;i++){
+
+                        // Solo uso los valores que no son vacios
+                        if( response.values[i].length > 0 ){
+                            response.series.push({
+                                'name': ''
+                            }); 
+                            values.push( response.values[i] );
+                        }
+
+                    }
+
+                    response.values = values;
+
+                }
 
             // Si el length de series == 1 y el length de values es > 1, concateno los values.
             }else if(
