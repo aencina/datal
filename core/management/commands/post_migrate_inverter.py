@@ -35,12 +35,15 @@ class Command(BaseCommand):
             if 'invertedAxis' in imp['format']:
                 if imp['format']['invertedAxis'] == 'checked':
 
-                    print "[InvertedAxis Pre] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
+                    if 'headerSelection' in imp['chart'].keys():
+                        print "[InvertedAxis Pre] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
+                    else:
+                        print "[InvertedAxis Pre] Account ID: %s; Revision ID: %s; headerSelection: Empty; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['labelSelection'])
 
                     if imp['chart']['labelSelection'] == ":":
                         imp['chart']['labelSelection'] = ""
 
-                    if imp['chart']['headerSelection'] == ":":
+                    if 'headerSelection' in imp['chart'].keys() and imp['chart']['headerSelection'] == ":":
                         imp['chart']['headerSelection'] = ""
 
                     aux = imp['chart']['headerSelection']
