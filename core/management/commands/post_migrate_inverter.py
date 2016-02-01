@@ -45,6 +45,8 @@ class Command(BaseCommand):
 
                     if 'headerSelection' in imp['chart'].keys() and imp['chart']['headerSelection'] == ":":
                         imp['chart']['headerSelection'] = ""
+                    elif 'headerSelection' not in imp['chart'].keys():
+                        imp['chart']['headerSelection'] = ""
 
                     aux = imp['chart']['headerSelection']
 
