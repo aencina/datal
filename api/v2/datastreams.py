@@ -90,8 +90,11 @@ class DataStreamSerializer(ResourceSerializer):
             data['category'] = self.getCategory(data['category']).id
 
 
-        if 'tags' in data and data['tags']:
-            data['tags'] = map(lambda x: {'name':x}, data['tags'].split(','))
+        if 'tags' in data:
+            if data['tags']:
+                data['tags'] = map(lambda x: {'name':x}, data['tags'].split(','))
+            else:
+                data.pop('tags')
 
         data['status'] = StatusChoices.PENDING_REVIEW
 

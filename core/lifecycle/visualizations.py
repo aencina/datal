@@ -309,7 +309,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             if revcount == 1:
                 self._unpublish_all()
             else:
-                self.visualization_revision.status = tu_status
+                self.visualization_revision.status = to_status
                 self.visualization_revision.save()
 
         search_dao = VisualizationSearchDAOFactory().create(self.visualization_revision)

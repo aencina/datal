@@ -177,6 +177,7 @@ def change_status(request, visualization_revision_id=None):
         action = 'accept' if action == 'approve'else action # fix para poder llamar dinamicamente al metodo de lifecycle
         killemall = True if request.POST.get('killemall', False) == 'true' else False
 
+
         if action not in ['accept', 'reject', 'publish', 'unpublish', 'send_to_review']:
             raise NoStatusProvidedException()
 
@@ -210,7 +211,7 @@ def change_status(request, visualization_revision_id=None):
         )
 
         # Limpio un poco
-        response['result'] = VisualizationDBDAO().get(request.user, visualization_revision_id=visualization_revision_id)
+        response['result'] = VisualizationDBDAO().get(request.user, visualization_revision_id=int(visualization_revision_id))
         account = request.account
         msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
         response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('chart_manager.view', urlconf='microsites.urls', 
