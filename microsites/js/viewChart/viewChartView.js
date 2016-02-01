@@ -136,25 +136,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
     },
         
     toggleHeatMap: function(){
-
-        var att = this.model.attributes;
-
-        if(!att.heatMap.getMap()){
-            att.heatMap.setMap(att.map);
-            att.onHeatMap = true;
-            att.map.hideOverlays();
-        }
-        else{
-            att.heatMap.setMap(null);
-            att.onHeatMap = false;
-            //sometimes I need to reload the data.
-            if (att.needToReloadData)
-                 {
-                 att.needToReloadData = false;
-                 this.reloadMapData();
-                }
-            else { att.map.showOverlays(); }
-        }
+        this.chartView.chartInstance.toggleHeatMap();
     },
     
 	onViewMoreDescriptionLinkClicked: function(event){
