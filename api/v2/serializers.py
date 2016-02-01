@@ -48,7 +48,7 @@ class ResourceSerializer(serializers.Serializer):
             pass
 
         if answer['tags']:
-            answer['tags'] = map(lambda x: x['tag__name'], answer['tags'])
+            answer['tags'] = map(lambda x: x['tag__name'] if type(x) == dict else x, answer['tags'])
 
         if answer['link']:
             domain = self.context['request'].auth['microsite_domain']
