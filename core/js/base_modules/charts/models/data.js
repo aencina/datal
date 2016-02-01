@@ -36,8 +36,11 @@ charts.models.ChartData = Backbone.Model.extend({
     /**
      * Se actualiza la data mediante el metodo fetch cada vez que se escucha un cambio en los filtros
      */
-    onFiltersChange: function (model, value) {
-        this.fetch();
+    onFiltersChange: function (model, filters) {
+        var has_id = !_.isUndefined(this.get('id'));
+        if (has_id || ('data' in filters && 'type' in filters && filters['data'] && filters['type'])) {
+            this.fetch();
+        }
     },
 
     /**
