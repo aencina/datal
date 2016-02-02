@@ -416,7 +416,7 @@ body{background:$color-base;height:100%;min-width:998px;}
     /* Context menu */
     .context-menu{min-height:100px;
 
-      h1{padding:20px 0 0;
+      h1{padding:18px 0 0;
         &.sub-heading{font-size:15px !important;text-transform:uppercase;padding:0;}
         .total-resources{color:#808080;}
       }
@@ -430,7 +430,7 @@ body{background:$color-base;height:100%;min-width:998px;}
       .context-buttons > *{margin-top:10px;}
 
       /* Status row */
-      .status-row{padding:8px 0 0;
+      .status-row{
         & > span{float:left;}
         & > span:before{content:"|";padding:0 5px;color:#333;float:left;}
         & > span:first-child:before{content:"";padding:0;display:none;}
