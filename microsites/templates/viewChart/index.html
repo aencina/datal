@@ -173,6 +173,10 @@ var viewVisualizationModel = {
 // Plugins - Extend Main Model
 {% plugins_call 'microsites_view_visualization_js_extend_main_model' %}
 
+// Los mapchart necesitan que el bind se haga después del parse porque las llamadas se hacen en el resize.
+var format = {{ visualization_revision.format | jsonify }};
+viewVisualizationModel.skipBind = format.type === 'mapchart';
+
 var visualizationModel = new charts.models.Chart( viewVisualizationModel );
 
 visualizationModel.parse({
@@ -197,6 +201,10 @@ visualizationModel.parse({
 var visualizationView = new viewVisualizationView({
     model: visualizationModel
 });
+
+if (viewVisualizationModel.skipBind) {
+  visualizationModel.bindEvents()
+}
 
 </script>
 {% endblock %}

@@ -62,7 +62,10 @@ charts.models.Chart = Backbone.Model.extend({
             type: this.get('type')
         });
         this.editMode = false;
-        this.bindEvents();
+
+        if (!options.skipBind) {
+            this.bindEvents();
+        }
     },
 
     bindEvents: function () {
