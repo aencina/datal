@@ -2547,7 +2547,7 @@ msgid "APP-LASTPUBLISHDATE-TEXT"
 msgstr "Última versión publicada:"
 
 msgid "APP-VIEWONSITE-TEXT"
-msgstr "Ver en sitio"
+msgstr "Ver en portal de datos abiertos"
 
 msgid "APP-SENDREJECTEDNOTE-TEXT"
 msgstr "¿Motivo del rechazo?"
