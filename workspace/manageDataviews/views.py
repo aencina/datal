@@ -397,10 +397,3 @@ def change_status(request, datastream_revision_id=None):
         response['result'].pop('sources')
 
         return JSONHttpResponse(json.dumps(response, cls=DateTimeEncoder))
-
-@login_required
-def custom_views(request):
-
-    return render_to_response('manageDataviews/custom_views.html', {"request": request})
-
-

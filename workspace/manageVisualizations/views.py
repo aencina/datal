@@ -340,8 +340,3 @@ def get_filters_json(request):
     """
     filters = VisualizationDBDAO().query_filters(account_id=request.user.account.id, language=request.user.language)
     return JSONHttpResponse(json.dumps(filters))
-
-@login_required
-def custom_views(request):
-
-    return render_to_response('manageVisualizations/custom_views.html', {"request": request})

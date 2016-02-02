@@ -16,5 +16,4 @@ urlpatterns = patterns(
     url(r'^edit/(?P<datastream_revision_id>\d+)/$', edit, name='manageDataviews.edit'),
     url(r'^retrieve_childs/$', retrieve_childs, name='manageDataviews.retrieve_childs'),
     url(r'^change_status/(?P<datastream_revision_id>\d+)/$', change_status, name='manageDataviews.change_status'),
-    url(r'^custom_views/$', custom_views, name='manageDataviews.custom_views'),
 )
