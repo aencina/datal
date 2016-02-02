@@ -62,6 +62,7 @@ charts.models.Chart = Backbone.Model.extend({
             type: this.get('type')
         });
         this.editMode = false;
+
         this.bindEvents();
     },
 
@@ -148,8 +149,12 @@ charts.models.Chart = Backbone.Model.extend({
                 });
             };
         }
+        var options = {
+            silent: res.silent
+        }
 
-        this.set(data);
+
+        this.set(data, options);
     },
 
     bindDataModel: function () {

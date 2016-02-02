@@ -22,7 +22,8 @@
 			<span>{% trans 'VIEWDS-TABS-REFRESH' %}</span>
 		</a>
 	</li>
-	{% if chart_type == "mapchart" %}
+	
+	{% if chart_type == "mapchart"  and geo_type == "points" %}
 	<li>
 		<a class="icon heatmap border-box" id="id_heatmapButton">
 			<i></i> 

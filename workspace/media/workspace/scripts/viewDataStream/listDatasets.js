@@ -1,7 +1,7 @@
 var ListDatasets = Backbone.PageableCollection.extend({
 	
 	model: DatasetItemModel,
-	url: "filter_dataset",
+	url: "/dataviews/filter_dataset/",
 
 	// Any `state` or `queryParam` you override in a subclass will be merged with
 	// the defaults in `Backbone.PageableCollection` 's prototype.
