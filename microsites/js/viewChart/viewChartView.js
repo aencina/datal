@@ -58,9 +58,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		// Init Sidebars
 		this.initSidebars();
 
-		// Render
-		this.render();
-
 		// Handle Visualization Resize
 		this.bindVisualizationResize();
 		this.handleVisualizationResize();
@@ -72,12 +69,14 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		var self = this;
 		this.$window = $(window);
 
-		this.$window.on('resize', function () {
-			if(this.resizeTo) clearTimeout(this.resizeTo);
-			this.resizeTo = setTimeout(function() {
-				self.handleVisualizationResize.call(self);
-			}, 500);
-		});
+		this.$window.on('load', function(){
+			self.$window.on('resize', function () {
+				if(self.resizeTo) clearTimeout(self.resizeTo);
+				self.resizeTo = setTimeout(function() {
+					self.handleVisualizationResize.call(self);
+				}, 500);
+			});	
+		})
 
 	},
 
