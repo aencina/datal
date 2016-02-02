@@ -21,6 +21,9 @@ $(document).ready(function(){
 });
 
 function stripColumns(pColumns) {
+
+    // MEJORAR, esto tiene ahora un thead, y no funciona bien.
+
     // pull out first column:
     var nt = $('<table id="nameTable" cellpadding="3" cellspacing="0"></table>');
     $('#ladderTable tr').each(function(i)
@@ -193,7 +196,8 @@ function onSuccessDataServiceExecute(pResponse){
         lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje">' + lValue +'</div></div>';
     } else {
         i = 0;
-        lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><div id="id_fixedColumn" style="float:left;"></div><div id="id_mainTable" style="width:100%;"><table id="ladderTable" class="Tabla" >';
+        var headerCells = [];
+        lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><div id="id_fixedColumn" style="float:left;"></div><div id="id_mainTable" style="width:100%;"><table id="ladderTable" class="Tabla" ><tbody>';
         for(var lRow=1;lRow<=pResponse.fRows;lRow++){
             lHtml  = lHtml + '<tr>';
             for(var lColumns=1;lColumns <= pResponse.fCols;lColumns++){
@@ -219,7 +223,7 @@ function onSuccessDataServiceExecute(pResponse){
                 }
 
                 if (typeof lCell.fHeader !== "undefined" && lCell.fHeader == true) {
-                    lHtml  = lHtml + '<th><div>' + lValue + '</div></th>';
+                    headerCells.push(lValue);
                 }else{
                     lHtml  = lHtml + '<td><div>' + lValue + '</div></td>';
                 }
@@ -227,6 +231,12 @@ function onSuccessDataServiceExecute(pResponse){
             }
             lHtml  = lHtml +'</tr>';
         }
+
+        lHtml  = lHtml +'</tbody><thead><tr>';
+        _.each(headerCells, function(cell) {
+            lHtml  = lHtml + '<th><div>' + cell + '</div></th>';
+        });
+        lHtml  = lHtml +'</tr></thead>';
 
         if(pResponse.fLength > 50){
             var lURL = $fDataServiceContainer.data("permalink");

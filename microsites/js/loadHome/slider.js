@@ -138,7 +138,8 @@ function onSuccessDataServiceExecute(pResponse){
         // si no es array
         }else {
             i = 0;
-            lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><table class="Tabla">';
+            var headerCells = [];
+            lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><table class="Tabla"><tbody>';
             for(var lRow=1;lRow<=pResponse.fRows;lRow++){
                 lHtml  = lHtml + '<tr>';
                 for(var lColumns=1;lColumns <= pResponse.fCols;lColumns++){
@@ -193,12 +194,20 @@ function onSuccessDataServiceExecute(pResponse){
 
                         lValue = '<a target="_blank" href="' + lCell.fUri + '" rel="nofollow" title="' + lCell.fStr + '">' + cellStr + '</a>';
                     }
-                    lHtml  = lHtml + '<td><div>' + lValue + '</div></td>';
+                    if(typeof lCell.fHeader !== "undefined" && lCell.fHeader == true){
+                        headerCells.push(lValue);
+                    }else{
+                        lHtml  = lHtml + '<td><div>' + lValue + '</div></td>';
+                    }
                     i++;
                 }
                 lHtml  = lHtml +'</tr>';
             }
-            lHtml  = lHtml +'</table></div></div></div>';
+            lHtml  = lHtml +'</tbody><thead><tr>';
+            _.each(headerCells, function(cell) {
+                lHtml  = lHtml + '<th><div>' + cell + '</div></th>';
+            });
+            lHtml  = lHtml +'</tr></thead></table></div></div></div>';
         }
         $lDataServiceContainer.find('#id_dataservice_' + lDataserviceId).html(lHtml);
         $lDataServiceContainer.removeClass('DN');
