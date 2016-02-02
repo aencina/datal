@@ -1,0 +1,83 @@
+{% extends 'base_workspace.html' %}
+{% load i18n extra_tags core_components components compress staticfiles sass_tags %}
+
+{% block meta %}
+
+{# CSS #}
+{% compress css %}
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% sass_src 'workspace/styles/manageCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% sass_src 'workspace/styles/manageVisualizations.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endcompress %}
+
+{# JS Libs and Plugins #}
+<script type="text/javascript" src="/js_core/plugins/jquery.client.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/imagesPreLoader.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/nicEdit/nicEdit-2014.js"></script>
+
+{# JS for this screen #}
+<script src="{% static 'workspace/scripts/manageDataviews/resourceItemModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/listResources.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/titleCellView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datasetCellView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/deleteItemView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/affectedResourcesModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/affectedResourcesView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/affectedResourcesCollection.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/affectedResourcesCollectionView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemModel.js' %}"></script>
+
+{# JS for Edit #}
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemSourceModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemSourceView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemSourcesCollection.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemSourcesView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemAddSourceModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemAddSourceView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemTagModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemTagView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemTagsCollection.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemTagsView.js' %}"></script>
+<script src="/js_core/plugins/tagging.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/plugins/taggingSources.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/filtersView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/manageDataviewsModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageDataviews/manageDataviewsView.js' %}"></script>
+
+{# Left Navigation Selected Option #}
+<meta name="main-option" content="id_dataviews_option"/>
+
+{% endblock %}
+
+{% block sectionTitle %}
+
+<div class="context-menu clearfix">
+  
+  <!-- Column Left -->
+  <div class="col-xs-7">    
+    
+    <h1>{% trans "APP-DATAVIEWS-TEXT" %} <span class="total-resources"></span></h1>
+  </div>
+
+  <!-- Column Right -->
+  <div class="col-xs-5 context-buttons clearfix">
+    
+    <a id="id_addNewButton" class="button primary FR" title="{% trans 'APP-ADDNEWDATAVIEW-TEXT' %}">{% trans 'APP-ADDNEWDATAVIEW-TEXT' %}</a>
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+Custom Views vieja!!!
+
+{% endblock %}
+
+{% block bottom_js %}
+{% endblock %}

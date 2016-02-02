@@ -1,0 +1,70 @@
+{% extends 'base_workspace.html' %}
+{% load i18n extra_tags core_components components compress staticfiles sass_tags %}
+
+{% block meta %}
+
+{# CSS #}
+{% compress css %}
+<link href="{% static 'core/styles/visualizationForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% sass_src 'workspace/styles/manageCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% sass_src 'workspace/styles/manageVisualizations.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endcompress %}
+
+{# JS Libs and Plugins #}
+<script type="text/javascript" src="/js_core/plugins/jquery.client.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/imagesPreLoader.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/nicEdit/nicEdit-2014.js"></script>
+
+{# JS for this screen #}
+<script src="{% static 'workspace/scripts/manageVisualizations/resourceItemModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/manageVisualizationsModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/manageVisualizationsView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/datastreamCellView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/titleCellView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/visualizationCellView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/filtersView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/listResources.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/deleteItemView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/affectedResourcesModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/affectedResourcesCollectionView.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/affectedResourcesCollection.js' %}"></script>
+<script src="{% static 'workspace/scripts/manageVisualizations/affectedResourcesView.js' %}"></script>
+
+{# Left Navigation Selected Option #}
+<meta name="main-option" content="id_visualizations_option"/>
+{% endblock %}
+
+{% block sectionTitle %}
+
+<div class="context-menu clearfix">
+  
+  <!-- Column Left -->
+  <div class="col-xs-7">    
+    
+    <h1>{% trans "APP-VISUALIZATIONS-TEXT" %} <span class="total-resources"></span></h1>
+
+  </div>
+
+  <!-- Column Right -->
+  <div class="col-xs-5 context-buttons clearfix">
+    
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+custom views, mami!
+
+{% endblock %}
+
+{% block bottom_js %}
+{% endblock %}
+
+{% block popupsOverlay %}
+{% endblock %}
