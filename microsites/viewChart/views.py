@@ -50,7 +50,11 @@ def view(request, id, slug=None):
         visualization_revision_parameters = RequestProcessor(request).get_arguments(visualization_revision["parameters"])
 
         chart_type = json.loads(visualization_revision["impl_details"]).get('format').get('type')
-
+        if chart_type == 'mapchart':
+            geo_type = json.loads(visualization_revision["impl_details"]).get('chart').get('geoType')
+        else:
+            geo_type = ''
+            
         visualization_revision_parameters = urllib.urlencode(visualization_revision_parameters)
 
         notes = visualization_revision['notes']
