@@ -76,8 +76,51 @@ var ModalView = Backbone.View.extend({
             memo[m.get('name')] = DataTableUtils.toServerExcelRange(m.get('excelRange'));
             return memo;
         }, {});
+        // Revisar los filtros para pedir el mejor mapa posible
+        result = this.fixMapInitialData(result);
         this.model.set(result);
         this.close();
+    },
+
+    // al aplicar estos resultados se llamará al motor para traer los datos.
+    // si es un mapa, tomar los datos (el primer punto), definirlo como centro 
+    // y definir un zoom menor    
+    fixMapInitialData: function(result) {
+        var type = this.model.get('type'), geoType = this.model.get('geoType');
+
+        if (type === 'mapchart') {
+            data = this.dataStreamModel.data;
+            // defs
+            row = data.attributes.rows[1]; //tomo la primera fila
+            center = {lat: 0, long: 0};
+            bounds = [85,180,-85,-180];
+            if (geoType === 'points') {
+                latRange = result.latitudSelection;
+                lonRange = result.longitudSelection;
+                lars = latRange.split(':');
+                lors = lonRange.split(':');
+                if (lars[0] == 'Column') { // Column:F por ejemplo
+                    center.lat = parseFloat(row[lars[1].charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    center.long = parseFloat(row[lors[1].charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                else { // F3:F28 por ejemplo
+                    // separar numeros de letras
+                    letter1 = lars[0].split('')[0];
+                    letter2 = lors[0].split('')[0];
+                    rown = parseInt(lars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    row = data.attributes.rows[rown]; 
+                    center.lat = parseFloat(row[letter1.charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    center.long = parseFloat(row[letter2.charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                result.options = {zoom: 9, center: center, bounds: bounds};
+                    
+            } else if (geoType === 'traces') {
+                // TODO
+            }
+        }
+    return result;
     },
 
     onClickCancel: function (e) {
