@@ -48,6 +48,9 @@
 				<li>
 					<a id="id_navNewDataview">{% trans 'APP-NEWFEMALE-TEXT' %}</a>
 				</li>
+				<li>
+					{% plugins_call 'workspace_custom_dataviews_nav' %}
+				</li>
 			</ul>
 		</li>
 
@@ -63,6 +66,9 @@
 				</li>
 				<li>
 					<a id="id_navNewVisualization">{% trans 'APP-NEWFEMALE-TEXT' %}</a>
+				</li>
+				<li>
+					{% plugins_call 'workspace_custom_visualizations_nav' %}
 				</li>
 			</ul>
 		</li>

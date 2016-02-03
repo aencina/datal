@@ -1063,3 +1063,9 @@ msgstr "Portal de datos abiertos"
 
 msgid "APP-CONTACTUS-TEXT"
 msgstr "Contáctenos"
+
+msgid "APP-RESOURCE-TEXT"
+msgstr "Recurso"
+
+msgid "APP-ALL-S-TEXT"
+msgstr "Todos"
