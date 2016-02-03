@@ -140,7 +140,8 @@ charts.views.MapChart = charts.views.Chart.extend({
         var mapInitialOptions = {
             zoom: this.model.get('options').zoom,
             mapTypeId: google.maps.MapTypeId[this.model.get('mapType')],
-            backgroundColor:'#FFFFFF'
+            backgroundColor:'#FFFFFF',
+            zoomControl: true,
         };
 
         if(this.model.get('options').center){
