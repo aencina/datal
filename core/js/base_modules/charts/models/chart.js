@@ -7,7 +7,6 @@ charts.models.Chart = Backbone.Model.extend({
     urlRoot: '/api/charts/',
     defaults: {
         lib: 'google',
-
         showLegend: true,
         invertData: undefined,
         invertedAxis: undefined,
@@ -153,8 +152,8 @@ charts.models.Chart = Backbone.Model.extend({
             silent: res.silent
         }
 
-
         this.set(data, options);
+
     },
 
     bindDataModel: function () {
@@ -404,5 +403,27 @@ charts.models.Chart = Backbone.Model.extend({
         var opts = _.extend({url: '/visualizations/remove/revision/' + this.id}, options || {});
 
         return Backbone.Model.prototype.destroy.call(this, opts);
+    },
+
+    checkLegend: function(){
+        var legend = this.get('showLegend');
+
+        // Checkeo que no haya series vacia. Si las hay genere una propiedad showLegend = false en el response.
+        if( this.get('type') !== 'mapchart' ){
+
+            if( !_.isUndefined( this.data.get('response') ) ){
+
+                var response = this.data.get('response');
+                var showLegend = response.showLegend;
+
+                if( !_.isUndefined( showLegend ) ){
+                    legend = showLegend;
+                }
+
+            }
+            
+        }        
+
+        return legend;
     }
 });

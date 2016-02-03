@@ -89,6 +89,9 @@ charts.models.ChartData = Backbone.Model.extend({
                         'name': ''
                     }); 
 
+                    // genero showlegend false que desp usaré
+                    response.showLegend = false;
+
                     // Concateno los values
                     var values = _.flatten(response.values);
 
@@ -140,6 +143,9 @@ charts.models.ChartData = Backbone.Model.extend({
                         }
 
                     }
+
+                    // genero showlegend false que desp usaré
+                    response.showLegend = false;
 
                     response.values = values;
 
@@ -263,6 +269,7 @@ charts.models.ChartData = Backbone.Model.extend({
 
             this.set('fields', fields);
             this.set('rows', _.clone(_.unzip(columns)));
+            this.set('response', response);
 
         }
     },
