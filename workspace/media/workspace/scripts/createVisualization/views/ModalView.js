@@ -86,6 +86,7 @@ var ModalView = Backbone.View.extend({
         this.close();
     },
 
+    /* se cargaron los datos del datastream, estan en dataviewModel.toJSON() */
     onLoadDataStream: function (dataviewModel) {
         this.dataTableView = new DataTableView({
             el: this.$('.data-table-view'),
