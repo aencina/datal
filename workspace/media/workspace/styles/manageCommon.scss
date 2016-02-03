@@ -55,6 +55,8 @@
     .filters-container .filters li{padding:0 0 15px 15px;background:none;}
     .filters-container .filters li a{word-break:break-word;}
 
+.filters-container select{max-width:100%;}
+
 /* List */
 .list-container{}
 .list-container table{width:100%;text-shadow:0 1px 0 #fff;}

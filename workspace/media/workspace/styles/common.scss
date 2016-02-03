@@ -316,7 +316,7 @@ body{background:$color-base;height:100%;min-width:998px;}
 
             /* Submenu list */
             &:hover ul.submenu{
-              position:absolute;display:block !important;background:$nav-secondary-bg;width:145px;top:0;left:54px;padding:10px 20px;z-index:400;
+              position:absolute;display:block !important;background:$nav-secondary-bg;width:175px;top:0;left:54px;padding:10px 20px;z-index:400;
               @include media-query(min-width, $break-lg){left:200px;}
 
               /* Submenu list item */
