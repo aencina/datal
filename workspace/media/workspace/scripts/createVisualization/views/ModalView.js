@@ -197,7 +197,7 @@ var ModalView = Backbone.View.extend({
             validLabels = this.rangeLabelsModel.isValid(),
             validHeaders = this.rangeHeadersModel.isValid();
 
-        return hasData && hasLabels && hasHeaders && validData && validLabels && validHeaders 
+        return hasData && validData && (!hasLabels || validLabels) && (!hasHeaders || validHeaders) 
             && this.validateDataHeaders(this.rangeDataModel, this.rangeHeadersModel);
     },
 
