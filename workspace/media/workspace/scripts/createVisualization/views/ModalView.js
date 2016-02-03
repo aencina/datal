@@ -91,7 +91,7 @@ var ModalView = Backbone.View.extend({
         if (type === 'mapchart') {
             data = this.dataStreamModel.data;
             // defs
-            row = data.attributes.rows[1]; //tomo una fila cualquiera
+            row = data.attributes.rows[1]; //tomo la primera fila
             center = {lat: 0, long: 0};
             bounds = [85,180,-85,-180];
             if (geoType === 'points') {
@@ -108,8 +108,8 @@ var ModalView = Backbone.View.extend({
                     // separar numeros de letras
                     letter1 = lars[0].split('')[0];
                     letter2 = lors[0].split('')[0];
-                    rown = parseInt(lars[0].split('').slice(1).join('')) + 1;
-                    row = data.attributes.rows[rown]; // evitar header
+                    rown = parseInt(lars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    row = data.attributes.rows[rown]; 
                     center.lat = parseFloat(row[letter1.charCodeAt(0) - 65]); // A = 0, B = 1, etc
                     center.long = parseFloat(row[letter2.charCodeAt(0) - 65]); // A = 0, B = 1, etc
                     bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
