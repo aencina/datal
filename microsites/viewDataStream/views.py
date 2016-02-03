@@ -63,3 +63,7 @@ def embed(request, guid):
     fixed_column = request.REQUEST.get('fixed_column', False)
 
     return render_to_response('viewDataStream/embed.html', locals())
+
+# se agrega por reverses traidos de Junar 1 aun sin aplicar
+def download(request, id, slug):
+    pass

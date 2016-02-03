@@ -9,4 +9,9 @@ urlpatterns = patterns('',
         name='search.browse'),
     url(r'^category/(?P<category_slug>[A-Za-z0-9\-]+)/page/(?P<page>\d+)/$', 'microsites.search.views.browse',
         name='search.browse'),
+
+    # se agrega por reverses traidos de Junar 1 aun sin aplicar
+    url(r'^(?P<id>\d+)-(?P<slug>[A-Za-z0-9\-]+).download$', 'microsites.viewDataStream.views.download', 
+        name='viewDataStream.download'),    
+    
 )
