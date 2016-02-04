@@ -64,6 +64,3 @@ def embed(request, guid):
 
     return render_to_response('viewDataStream/embed.html', locals())
 
-# se agrega por reverses traidos de Junar 1 aun sin aplicar
-def download(request, id, slug):
-    pass

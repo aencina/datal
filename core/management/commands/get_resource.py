@@ -6,9 +6,6 @@ from optparse import make_option
 
 from core.choices import CollectTypeChoices, SourceImplementationChoices, StatusChoices
 from core.models import User,Visualization, VisualizationRevision
-from core.daos.visualizations import VisualizationDBDAO
-from core.daos.datasets import DatasetDBDAO
-from core.daos.datastreams import DataStreamDBDAO
 
 
 class Command(BaseCommand):
@@ -47,16 +44,25 @@ class Command(BaseCommand):
             dest='visualization',
             default=False,
             help='buscar visualization'),
+        make_option('-D', '--dashboard',
+            action='store_true',
+            dest='dashboard',
+            default=False,
+            help='buscar dashboard'),
 
     )
 
     def handle(self, *args, **options):
 
+        print "\n"
+        print options
+        print "\n"
+
         if not options['resource_id'] and not options['revision_id']:
             self.help()
             raise CommandError("--resource/-r or --revision/-e obligatorios")
 
-        if not options['dataset'] and not options['datastream'] and not options['visualization']:
+        if not options['dataset'] and not options['datastream'] and not options['visualization'] and not options['dashboard']:
             self.help()
             raise CommandError("-T/--dataset|-S/--datastream|-V/--visualization son obligatorios")
 
@@ -68,14 +74,20 @@ class Command(BaseCommand):
         try:
             self.user = User.objects.get(pk=options['user_id'])
 
-            if options['resource_id']:
-                self.resource = VisualizationDBDAO().get(self.user, visualization_id=options['resource_id'],published=options['published'])
-            else:
-                self.resource = VisualizationDBDAO().get(self.user, visualization_revision_id=options['revision_id'],published=options['published'])
+            if options['dataset']:
+                self.resource = self.get_dataset(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
+            elif options['datastream']:
+                self.resource = self.get_datastream(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
+            elif options['visualization']:
+                self.resource = self.get_visualization(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
+            elif options['dashboard']:
+                self.resource = self.get_dashboard(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
 
         except User.DoesNotExist:
             raise CommandError(u"Usuario inexistente (administrador: 1647, administrator: 1)")
-        except VisualizationRevision.DoesNotExist:
+
+        # muy basico
+        except: 
             raise CommandError(u"Revisión inexistente")
 
         self.print_resource()
@@ -93,3 +105,19 @@ class Command(BaseCommand):
         import pprint
         pp = pprint.PrettyPrinter(indent=2)
         pp.pprint(self.resource)
+
+    def get_dataset(self,resource_id=None, revision_id=None, published=True):
+        from core.daos.datasets import DatasetDBDAO
+        return DatasetDBDAO().get(self.user, dataset_id=resource_id, dataset_revision_id=revision_id, published=published)
+
+    def get_datastream(self,resource_id=None, revision_id=None, published=True):
+        from core.daos.datastreams import DataStreamDBDAO
+        return DataStreamDBDAO().get(self.user, datastream_id=resource_id, datastream_revision_id=revision_id, published=published)
+
+    def get_visualization(self,resource_id=None, revision_id=None, published=True):
+        from core.daos.visualizations import VisualizationDBDAO
+        return VisualizationDBDAO().get(self.user, visualization_id=resource_id, visualization_revision_id=revision_id, published=published)
+
+    def get_dashboard(self,resource_id=None, revision_id=None, published=True):
+        from plugins.dashboards.daos.dashboards import DashboardDBDAO
+        return DashboardDBDAO().get(self.user, dashboard_id=resource_id, dashboard_revision_id=revision_id, published=published)
