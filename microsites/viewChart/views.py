@@ -100,7 +100,3 @@ def embed(request, guid):
 
 def visualization_error_404(request,id):
     raise VisualizationRevisionDoesNotExist
-
-# se agrega por reverses traidos de Junar 1 aun sin aplicar
-def download(request, id, slug):
-    pass
