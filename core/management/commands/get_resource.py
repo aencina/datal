@@ -5,7 +5,9 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 
 from core.choices import CollectTypeChoices, SourceImplementationChoices, StatusChoices
-from core.models import User,Visualization, VisualizationRevision
+from core.models import User,Visualization, VisualizationRevision, Account
+
+from core.models import AccountAnonymousUser
 
 
 class Command(BaseCommand):
@@ -16,6 +18,10 @@ class Command(BaseCommand):
             dest='user_id',
             type="int",
             help='User ID'),
+        make_option('-a', '--account',
+            dest='account_id',
+            type="int",
+            help='Account ID'),
         make_option('-r', '--resource',
             dest='resource_id',
             type="int",
@@ -54,10 +60,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        print "\n"
-        print options
-        print "\n"
-
         if not options['resource_id'] and not options['revision_id']:
             self.help()
             raise CommandError("--resource/-r or --revision/-e obligatorios")
@@ -66,13 +68,19 @@ class Command(BaseCommand):
             self.help()
             raise CommandError("-T/--dataset|-S/--datastream|-V/--visualization son obligatorios")
 
-        if not options['user_id']:
+        if not options['user_id'] and not options['account_id']:
             self.help()
-            raise CommandError("--user/-u obligatorios")
+            raise CommandError("--user/-u|--account/-a obligatorios")
 
 
         try:
-            self.user = User.objects.get(pk=options['user_id'])
+            if options['user_id']:
+                self.user = User.objects.get(pk=options['user_id'])
+            else:
+                account=Account.objects.get(pk=options['account_id'])
+                preferences = account.get_preferences()
+                self.user = AccountAnonymousUser(account, preferences['account_language'])
+                print account
 
             if options['dataset']:
                 self.resource = self.get_dataset(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
@@ -85,6 +93,8 @@ class Command(BaseCommand):
 
         except User.DoesNotExist:
             raise CommandError(u"Usuario inexistente (administrador: 1647, administrator: 1)")
+        except Account.DoesNotExist:
+            raise CommandError(u"Account inexistente")
 
         # muy basico
         except: 
