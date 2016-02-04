@@ -5,7 +5,6 @@ BeautifulSoup==3.2.1
 billiard==3.3.0.20
 blessings==1.6
 boto==2.38.0
-bpython==0.14.1
 celery==3.1.18
 cssselect==0.9.1
 curtsies==0.1.19
