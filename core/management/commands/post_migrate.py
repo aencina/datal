@@ -85,9 +85,7 @@ class Command(BaseCommand):
                     user.roles.remove(role_dict[code])
 
     def dataset_preferences(self):
-
         Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="on")
-        Preference.objects.get_or_create(account=self.account, key="account.dataset.showhome", value="on")
 
     def handle(self, *args, **options):
         self.account = None
