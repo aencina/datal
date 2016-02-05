@@ -65,7 +65,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             language=fields['language'],
             title=fields['title'].strip().replace('\n', ' '),
             description=fields['description'].strip().replace('\n', ' '),
-            notes=fields['notes'].strip() if 'notes' in fields else ''
+            notes=fields['notes'].strip() if 'notes' in fields and fields['notes'] else ''
         )
 
         if 'tags' in fields:

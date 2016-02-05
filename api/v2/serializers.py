@@ -6,13 +6,6 @@ from core.models import CategoryI18n, Category
 import json
 
 class ResourceSerializer(serializers.Serializer):
-    def getAccountCategoriesChoices(self):
-        return (map(lambda x: (x.slug, x.name),
-            CategoryI18n.objects.filter(
-                language=self.context['request'].auth['language'],
-                category__account=self.context['request'].auth['account']
-            )))
-
     def getCategory(self, category_slug):
         return CategoryI18n.objects.get(
             slug=category_slug,
