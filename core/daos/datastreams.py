@@ -80,7 +80,8 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
     def update(self, datastream_revision, changed_fields, **fields):
         fields['title'] = fields['title'].strip().replace('\n', ' ')
         fields['description'] = fields['description'].strip().replace('\n', ' ')
-        fields['notes'] = fields['notes'].strip()
+        if 'notes' in fields and fields['notes']:
+            fields['notes'] = fields['notes'].strip()
 
         datastream_revision.update(changed_fields, **fields)
 
