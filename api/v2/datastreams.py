@@ -142,8 +142,8 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
     def data(self, request, pk=None, format=None,  *args, **kwargs):
         instance = self.get_object()
         DatastreamHitsDAO(instance).add(1)
-        if format == 'json' or not format:
-            return self.engine_call(request, 'invoke')
+        if format in ['json', 'pjson', 'ajson'] or not format:
+            return self.engine_call(request, 'invoke', format)
         return self.engine_call(request, 'invoke', format, 
             serialize=False, form_class=DatastreamRequestForm,
             download=False)
