@@ -18,7 +18,12 @@
     .pageTitleContainer h2,
 
     /*TRANSPARENCY PAGE*/
-    .transparencyPage .title{color:{{preferences.account_title_color|default:"#000"}} !important;}
+    .transparencyPage .title,
+
+    /*HOME - THEME 5*/
+    .theme5 .topSection .featuredSection a,
+    .theme5 .topSection .featuredSection span,
+    #id_welcomePopup .In h4{color:{{preferences.account_title_color|default:"#000"}} !important;}
 
 /*MOUSE OVER FOR DASHBOARDS VIEWS / EMBEDS / CHARTS / CHARTS EMBEDS*/
     
@@ -42,13 +47,22 @@
 /*BUTTON*/
     
     /*BACKGROUND COLOR*/
-    .button{background:{{preferences.account_button_bg_color|default:"#ccc"}} !important;}
+    a.genericButton,
+    a.genericButton.moreButton,
+    .theme6 .buttonsSection li a.buttonContent{background:{{preferences.account_button_bg_color|default:"#ccc"}} !important;}
 
     /*BORDER COLOR*/
-    .button{border-color:{{preferences.account_button_border_color|default:"#999"}} !important;}
+    a.genericButton,
+    a.genericButton.moreButton,
+    .theme6 .buttonsSection li a.buttonContent,
+    .theme6 .searchForm input[type=text]{border-color:{{preferences.account_button_border_color|default:"#999"}} !important;}
 
     /*FONT COLOR*/
-    .button{color:{{preferences.account_button_font_color|default:"#fff"}} !important;}
+    a.genericButton,
+    a.genericButton.moreButton
+    a.genericButton span,
+    a.genericButton.moreButton span,
+    .theme6 .buttonsSection li a.buttonContent span{color:{{preferences.account_button_font_color|default:"#fff"}} !important;}
 
 /*HEADER*/
     
@@ -57,3 +71,11 @@
 
     /*BORDER COLOR*/
     .headerAuto{border-color:{{preferences.account_header_border_color|default:"#ccc"}} !important;}
+
+/* DASHBOARD DETAIL */
+
+    /*BACKGROUND COLOR*/
+    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover{background:{{preferences.account_mouseover_bg_color|default:"#ccc"}} !important;}
+    
+    /*TITLE COLOR*/
+    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover .title{color:{{preferences.account_mouseover_title_color|default:"#fff"}} !important;}

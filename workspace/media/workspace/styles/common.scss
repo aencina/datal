@@ -90,7 +90,9 @@ a:hover{color:$link-hover-color;}
 }
 
 /* Links */
-.link{font-size:12px;@include transition(all, .1s, ease-in-out);
+.link{font-size:12px;@include transition(all, .1s, ease-in-out);color:$link-color;
+  
+  &:hover{color:$link-hover-color;}
 
   /* Link Back */
   &.back:before{content:"< ";}
