@@ -49,7 +49,7 @@ def do_search(request, category_filters=None, datasets=None):
         accounts_ids = [x['id'] for x in account.account_set.values('id').all()] + [account.id]
 
         try:
-            resources = ["ds", "db", "vz", "dt"]
+            resources = "all"
             results, search_time, facets = FinderManager().search(
                 query=query, account_id=accounts_ids, category_filters=category_filters, order=order,
                 resource=resources, reverse=reverse
