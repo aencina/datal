@@ -284,7 +284,14 @@ charts.views.MapChart = charts.views.Chart.extend({
 
         //Obtiene el estilo del marcador
         if(point.styles && point.styles.iconStyle){
-            markerIcon = point.styles.iconStyle.href;
+            //TODO For now personalized KMLFile-included markers files are not readable for us
+            if (undefined !== point.styles.iconStyle.href) {
+                //just if it's a external link
+                if (point.styles.iconStyle.href.indexOf("http") > -1) {
+                    markerIcon = point.styles.iconStyle.href;
+                    }
+                }
+            
         }
 
         this.mapMarkers[index] = new google.maps.Marker({

@@ -81,7 +81,7 @@ $(document).ready(function(){
 		description: '{{ dataset.description }}',
 		category: '{{ dataset.category_id }}',
 		status: '{{ dataset.status }}',
-		notes: '{{ dataset.notes }}',
+		notes: '{{ dataset.notes|escapejs }}',
 		tags: [{% for tag in dataset.tags %}{"name":"{{ tag.tag__name }}"},{% endfor %}],
 		sources: [{% for source in dataset.sources %}{"name":"{{ source.source__name }}"},{% endfor %}]
 		
