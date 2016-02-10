@@ -89,7 +89,7 @@ class ElasticsearchFinder(Finder):
         if settings.DEBUG: logger.info("El query es: %s" % self.query)
 
         # comodin, % = *
-        if self.query == "%":
+        if self.query in ("%",""):
             self.query="*"
 
         # decide que conjunto de recursos va a filtrar
