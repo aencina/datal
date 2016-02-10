@@ -175,6 +175,8 @@ var viewVisualizationModel = {
 
 var visualizationModel = new charts.models.Chart( viewVisualizationModel );
 
+var formatDict = {{ visualization_revision.format | jsonify }};
+
 visualizationModel.parse({
     id: {{ visualization_revision.visualization_id }},
     revision_id: {{ visualization_revision.visualization_revision_id }},
@@ -187,8 +189,10 @@ visualizationModel.parse({
 
     data: '{{ visualization_revision.data }}',
 
-    format: {{ visualization_revision.format | jsonify }},
+    format: formatDict,
     chart: {{ visualization_revision.chart | jsonify }},
+
+    silent: formatDict.type === 'mapchart',
 }); 
 
 // Plugins- Extend Main Model After Parse

@@ -129,56 +129,13 @@
 {# Context Menu #}
 <script type="text/template" id="context-menu-template">
 	
-	<!-- Column Left -->
-	<div class="col-xs-7">    
+	<div class="col-xs-6">    
 		
 		<h1><%= title %></h1>
 
-		<div class="status-row clearfix">
-
-			<span class="status">
-
-				<% if(status == StatusChoices.PUBLISHED){ %> 
-					<span class="icon icon-inline icon-published"></span>
-				<% } %>
-
-				<em id="id_status" class="<% if(status == StatusChoices.REJECTED){ %> red <% }else if(status == StatusChoices.APPROVED){ %> green <% } %>"><%= status_str %></em>
-
-			</span>
-
-			<span class="publish-version">
-
-				<% if(lastPublishRevisionId != ''){ %> 
-
-					<% if(status != StatusChoices.PUBLISHED){ %> 
-						{% trans 'APP-LASTPUBLISHDATE-TEXT' %}
-					<% } %>
-
-					<%= lastPublishDate %>, 
-
-					<a href="<%= publicUrl %>" class="link black" title="{% trans 'APP-VIEWONSITE-TEXT' %}" target="_blank">{% trans 'APP-VIEWONSITE-TEXT' %}<span class="icon icon-inline icon-new-tab icon-right"></span></a>
-
-				<% }else{ %>
-
-					<%= modifiedAt %>
-
-				<% } %>
-
-			</span>
-
-			{% if auth_manager.is_publisher or auth_manager.is_admin %}
-				<% if(lastPublishRevisionId != ''){ %>
-				<span class="row-actions"><a class="link black" title="{% trans 'APP-ACTIONS-UNPUBLISH' %}" id="id_unpublish">{% trans 'APP-ACTIONS-UNPUBLISH' %}</a></span>
-				<% } %>
-			{% endif %}
-
-
-		</div>
-
 	</div>
 
-	<!-- Column Right -->
-	<div class="col-xs-5 context-buttons clearfix">
+	<div class="col-xs-6 context-buttons clearfix">
 
 		<% if( status != StatusChoices.REJECTED ){ %>
 
@@ -254,6 +211,51 @@
 		<% } %> 
 
 		{% endcomment %}
+
+	</div>
+
+	<div class="col-xs-12">
+
+		<div class="status-row clearfix">
+
+			<span class="status">
+
+				<% if(status == StatusChoices.PUBLISHED){ %> 
+					<span class="icon icon-inline icon-published"></span>
+				<% } %>
+
+				<em id="id_status" class="<% if(status == StatusChoices.REJECTED){ %> red <% }else if(status == StatusChoices.APPROVED){ %> green <% } %>"><%= status_str %></em>
+
+			</span>
+
+			<span class="publish-version">
+
+				<% if(lastPublishRevisionId != ''){ %> 
+
+					<% if(status != StatusChoices.PUBLISHED){ %> 
+						{% trans 'APP-LASTPUBLISHDATE-TEXT' %}
+					<% } %>
+
+					<%= lastPublishDate %>, 
+
+					<a href="<%= publicUrl %>" class="link black" title="{% trans 'APP-VIEWONSITE-TEXT' %}" target="_blank">{% trans 'APP-VIEWONSITE-TEXT' %}<span class="icon icon-inline icon-new-tab icon-right"></span></a>
+
+				<% }else{ %>
+
+					<%= modifiedAt %>
+
+				<% } %>
+
+			</span>
+
+			{% if auth_manager.is_publisher or auth_manager.is_admin %}
+				<% if(lastPublishRevisionId != ''){ %>
+				<span class="row-actions"><a class="link black" title="{% trans 'APP-ACTIONS-UNPUBLISH' %}" id="id_unpublish">{% trans 'APP-ACTIONS-UNPUBLISH' %}</a></span>
+				<% } %>
+			{% endif %}
+
+
+		</div>
 
 	</div>
 </script>

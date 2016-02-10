@@ -23,8 +23,9 @@ class DataStreamSerializer(ResourceSerializer):
     title = serializers.CharField(
         help_text=_(u'Título del conjunto de datos'))
     description = serializers.CharField(
+
         help_text=_(u'Descripción del conjunto de datos'))
-    category = serializers.ChoiceField(tuple(),
+    category = serializers.CharField(
         help_text=_(u'Nombre de la categoría para clasificar los recursos. Debe coincidir con alguna de las categorías de la cuenta'))
     notes = serializers.CharField(
         required=False,
@@ -50,15 +51,6 @@ class DataStreamSerializer(ResourceSerializer):
         required=False,
         allow_null=True,
         help_text=_(u'Tags separados por coma'))
-
-    def __init__(self, *args, **kwargs):
-        super(DataStreamSerializer, self).__init__(*args, **kwargs)
-
-        self.fields['category']= serializers.ChoiceField(
-            self.getAccountCategoriesChoices(),
-            help_text=self.fields['category'].help_text
-        )
-        
 
     def to_representation(self, obj):
         answer= super(DataStreamSerializer, self).to_representation(obj)
@@ -90,8 +82,11 @@ class DataStreamSerializer(ResourceSerializer):
             data['category'] = self.getCategory(data['category']).id
 
 
-        if 'tags' in data and data['tags']:
-            data['tags'] = map(lambda x: {'name':x}, data['tags'].split(','))
+        if 'tags' in data:
+            if data['tags']:
+                data['tags'] = map(lambda x: {'name':x}, data['tags'].split(','))
+            else:
+                data.pop('tags')
 
         data['status'] = StatusChoices.PENDING_REVIEW
 
@@ -147,8 +142,8 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
     def data(self, request, pk=None, format=None,  *args, **kwargs):
         instance = self.get_object()
         DatastreamHitsDAO(instance).add(1)
-        if format == 'json' or not format:
-            return self.engine_call(request, 'invoke')
+        if format in ['json', 'pjson', 'ajson'] or not format:
+            return self.engine_call(request, 'invoke', format)
         return self.engine_call(request, 'invoke', format, 
             serialize=False, form_class=DatastreamRequestForm,
             download=False)

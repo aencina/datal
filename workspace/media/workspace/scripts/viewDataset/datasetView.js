@@ -67,7 +67,7 @@ var datasetView = Backbone.Epoxy.View.extend({
 
 		if(action == 'unpublish'){
 			var lastPublishRevisionId = this.model.get('lastPublishRevisionId');
-			url = 'change_status/'+lastPublishRevisionId+'/';
+			url = '/datasets/change_status/'+lastPublishRevisionId+'/';
 			data.killemall = killemall;
 		}
 

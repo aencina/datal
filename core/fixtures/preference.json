@@ -252,15 +252,6 @@
     }
 },
 {
-    "pk": 42, 
-    "model": "core.preference", 
-    "fields": {
-        "account": 1, 
-        "value": "True", 
-        "key": "account.dataset.showhome"
-    }
-},
-{
     "pk": 43, 
     "model": "core.preference", 
     "fields": {
@@ -501,15 +492,6 @@
         "account": 5754, 
         "value": "1", 
         "key": "account.transparency.createdcategories"
-    }
-},
-{
-    "pk": 72, 
-    "model": "core.preference", 
-    "fields": {
-        "account": 5754, 
-        "value": "True", 
-        "key": "account.dataset.showhome"
     }
 },
 {

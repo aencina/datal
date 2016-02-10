@@ -20,7 +20,7 @@ class DataSetSerializer(ResourceSerializer):
         help_text=_(u'Título del conjunto de datos'))
     description = serializers.CharField(
         help_text=_(u'Descripción del conjunto de datos'))
-    category = serializers.ChoiceField(tuple(),
+    category = serializers.CharField(
         help_text=_(u'Nombre de la categoría para clasificar los recursos. Debe coincidir con alguna de las categorías de la cuenta'))
     notes = serializers.CharField(
         required=False, 
@@ -61,14 +61,6 @@ class DataSetSerializer(ResourceSerializer):
         required=False,
         allow_null=True,
         help_text=_(u'Tags separados por coma'))
-
-    def __init__(self, *args, **kwargs):
-        super(DataSetSerializer, self).__init__(*args, **kwargs)
-
-        self.fields['category']= serializers.ChoiceField(
-            self.getAccountCategoriesChoices(),
-            help_text=self.fields['category'].help_text
-        )
 
     def validate(self, data):
         for key, value in data.items():

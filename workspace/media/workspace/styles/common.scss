@@ -316,7 +316,7 @@ body{background:$color-base;height:100%;min-width:998px;}
 
             /* Submenu list */
             &:hover ul.submenu{
-              position:absolute;display:block !important;background:$nav-secondary-bg;width:145px;top:0;left:54px;padding:10px 20px;z-index:400;
+              position:absolute;display:block !important;background:$nav-secondary-bg;width:175px;top:0;left:54px;padding:10px 20px;z-index:400;
               @include media-query(min-width, $break-lg){left:200px;}
 
               /* Submenu list item */
@@ -416,7 +416,7 @@ body{background:$color-base;height:100%;min-width:998px;}
     /* Context menu */
     .context-menu{min-height:100px;
 
-      h1{padding:20px 0 0;
+      h1{padding:18px 0 0;
         &.sub-heading{font-size:15px !important;text-transform:uppercase;padding:0;}
         .total-resources{color:#808080;}
       }
@@ -430,7 +430,7 @@ body{background:$color-base;height:100%;min-width:998px;}
       .context-buttons > *{margin-top:10px;}
 
       /* Status row */
-      .status-row{padding:8px 0 0;
+      .status-row{
         & > span{float:left;}
         & > span:before{content:"|";padding:0 5px;color:#333;float:left;}
         & > span:first-child:before{content:"";padding:0;display:none;}
@@ -640,7 +640,8 @@ i.icon.REST-JSON{background-position:0 -320px;}
 i.icon.JSON{background-position:0 -340px;}
 i.icon.IMAGE{background-position:0 -360px;}
 i.icon.ZIP{background-position:0 -380px;}
-i.icon.DALLAS{}
+i.icon.ZIP{background-position:0 -380px;}
+i.icon.PublicStuff{background-position:0 -400px;}
 i.icon.TNCLIMA{}
 
 /* Alerts */

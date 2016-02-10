@@ -41,6 +41,7 @@ charts.views.Chart = Backbone.View.extend({
                 google.maps.event.clearInstanceListeners(document);
                 google.maps.event.clearInstanceListeners(this.el);
                 delete this.mapInstance;
+                delete this.heatMapLayer;
             }
 
         }else{

@@ -32,7 +32,8 @@ logger = logging.getLogger(__name__)
 try:
     from core.lib.searchify import SearchifyIndex
 except ImportError:
-    logger.warning("ImportError: No module named indextank.client.")
+#    logger.warning("ImportError: No module named indextank.client.")
+    pass
 
 class DataStreamDBDAO(AbstractDataStreamDBDAO):
     """ class for manage access to datastreams' database tables """
@@ -64,7 +65,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             language=fields['language'],
             title=fields['title'].strip().replace('\n', ' '),
             description=fields['description'].strip().replace('\n', ' '),
-            notes=fields['notes'].strip() if 'notes' in fields else ''
+            notes=fields['notes'].strip() if 'notes' in fields and fields['notes'] else ''
         )
 
         if 'tags' in fields:
@@ -79,7 +80,8 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
     def update(self, datastream_revision, changed_fields, **fields):
         fields['title'] = fields['title'].strip().replace('\n', ' ')
         fields['description'] = fields['description'].strip().replace('\n', ' ')
-        fields['notes'] = fields['notes'].strip()
+        if 'notes' in fields and fields['notes']:
+            fields['notes'] = fields['notes'].strip()
 
         datastream_revision.update(changed_fields, **fields)
 

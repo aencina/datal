@@ -63,3 +63,4 @@ def embed(request, guid):
     fixed_column = request.REQUEST.get('fixed_column', False)
 
     return render_to_response('viewDataStream/embed.html', locals())
+

@@ -34,7 +34,7 @@ class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin,
         order = order and order.strip('-')
         page_num = int(offset)/int(limit) + 1 if limit else 0
         categories= request.query_params.get('categories', None)
-        category_filters = map(lambda x: str(urllib.unquote(x)), categories.split(',')) if categories else None
+        category_filters = map(lambda x: urllib.unquote(x), categories.split(',')) if categories else None
 
         if order == 'viewed': order = 'web_top'
         elif order == 'downloaded': order = 'api_top'
