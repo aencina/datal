@@ -237,23 +237,6 @@ MAIL_LIST = {'LIST_COMPANY' : '', 'LIST_DESCRIPTION': '',
              'WELCOME_TEMPLATE_ES': 'template_name',
              'WELCOME_TEMPLATE_EN': 'template_name'}
 
-#EMAIL_SERVICE = 'core.lib.mail.mailchimp_backend.MailchimpMailService'
-EMAIL_SERVICE = 'core.lib.mail.django_backend.DjangoMailService'
-
-# solo si usas mailchimp/mandrill para enviar emails
-MAILCHIMP = {
-            'uri': 'https://us2.api.mailchimp.com/2.0/',
-            'api_key': '',
-            'lists': {'workspace_users_list': # listas a la cual suscribir a los usuarios del sistema
-                            {
-                             'es': {'id': ''},
-                             'en': {'id': ''}
-                             }
-                     }
-            }
-
-MANDRILL = {'api_key': ''}
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
@@ -354,6 +337,7 @@ SASS_PROCESSOR_INCLUDE_DIRS = (
     os.path.join(PROJECT_PATH, 'workspace/media/styles'),
 )
 
+# Email Backend Settings
 EMAIL_BACKEND = 'post_office.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/datal-emails'
 POST_OFFICE = {
@@ -362,13 +346,25 @@ POST_OFFICE = {
 SOUTH_MIGRATION_MODULES = {
     "post_office": "post_office.south_migrations",
 }
-
 DEFAULT_FROM_EMAIL = 'noreply@datal.org'
+EMAIL_SERVICE = 'core.lib.mail.django_backend.DjangoMailService'
+MANDRILL = {'api_key': ''}
+MAILCHIMP = {
+    'uri': 'https://us2.api.mailchimp.com/2.0/',
+    'api_key': '',
+    'lists': {
+        'workspace_users_list': {
+            'es': {'id': ''},
+            'en': {'id': ''}
+        }
+    }
+}
+
 
 SUBSCRIBE_NEW_USERS_TO_MAIL_LIST = False
 
+# Bower
 BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
-
 BOWER_INSTALLED_APPS = (
     'jquery#>=2.1.4',
     'underscore#>= 1.8.3',
