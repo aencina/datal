@@ -35,6 +35,12 @@ class DataSetSerializer(ResourceSerializer):
         allow_null=True,
         required=False,
         help_text=_(u'Archivo a subir a la plataforma'))
+    # Soportamos file_data porque es muy complejo cambiar el request de file_data a file
+    # TODO: Sacar cuando se termine la api v1 y dejar solo 'file'
+    file_data = serializers.FileField(
+        allow_null=True,
+        required=False,
+        help_text=_(u'Archivo a subir a la plataforma'))
     license = serializers.ChoiceField(ODATA_LICENSES,
         allow_null=True, 
         required=False,
@@ -80,8 +86,15 @@ class DataSetSerializer(ResourceSerializer):
             data['collect_type'] = CollectTypeChoices.URL
             data['file_name'] = data['end_point']
 
-        if 'file' in data:
+        # Soportamos file_data porque es muy complejo cambiar el request de file_data a file
+        # TODO: Sacar cuando se termine la api v1 y dejar solo 'file'
+        file_data = None
+        if 'file_data' in data:
+            file_data = data.pop('file_data')
+        elif 'file' in data:
             file_data = data.pop('file')
+
+        if file_data:
             file_data.name = urllib.unquote(file_data.name)
             data['file_data'] = file_data
             data['impl_type'] = get_impl_type(file_data.content_type, file_data.name)
