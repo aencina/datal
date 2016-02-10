@@ -166,6 +166,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             account_id=datastream_revision.user.account.id,
             category_id=datastream_revision.category.id,
             category_name=category.name,
+            category_slug=category.slug,
             end_point=dataset_revision.end_point,
             filename=dataset_revision.filename,
             collect_type=dataset_revision.dataset.type,
