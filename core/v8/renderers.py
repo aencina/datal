@@ -106,7 +106,7 @@ class GridEngineRenderer(EngineRenderer):
                 strformat = strformat.replace("m", "L")
             res = dates.format_datetime(myutc, format=strformat, locale="%s_%s" %(strlocale[0], strlocale[1].upper()))
         except:
-            res = "%s (e)" % datetime.datetime.utcfromtimestamp(seconds)
+            res = "%s (e)" % str(seconds)
             err = str(sys.exc_info())
             logger.error("[ERROR]: Render error: %s seconds, format: %s, strlocale: %s, error: %s " %(str(seconds),strformat, strlocale, err))
 
