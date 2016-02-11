@@ -9,7 +9,7 @@ class DataStreamOutputBigDataTemplate(Template):
 
     def __init__(self, template):
         # add my filters
-        template = "%s\n%s\n%s\n" % ("{% load mint_tags %}", "{% load semantic %}`", template)
+        template = "%s\n%s\n%s\n" % ("{% load mint_tags %}", "{% load semantic %}", template)
         super(DataStreamOutputBigDataTemplate, self).__init__(template)
 
     def render(self, contents, request, metadata={}):
