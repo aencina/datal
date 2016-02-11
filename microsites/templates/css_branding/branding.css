@@ -30,7 +30,8 @@
     /*BACKGROUND COLOR*/
     .dataStreamBox h2 a:hover,
     .chartBox .chartTitle a:hover,
-    .transparencyPage .box:hover h3{background:{{preferences.account_mouseover_bg_color|default:"#ccc"}} !important;}
+    .transparencyPage .box:hover h3,
+    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover{background:{{preferences.account_mouseover_bg_color|default:"#ccc"}} !important;}
 
     /*BORDER COLOR*/
     .dataStreamBox h2 a:hover,
@@ -39,10 +40,13 @@
     /*TITLE COLOR*/
     .dataStreamBox h2 a:hover .txt .titleDS strong,
     .chartBox .chartTitle a:hover,
-    .transparencyPage .box:hover h3{color:{{preferences.account_mouseover_title_color|default:"#fff"}} !important;}
+    .transparencyPage .box:hover h3,
+    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover .title,
+    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover .paramsContainer .param .grid-stack-item-edit{color:{{preferences.account_mouseover_title_color|default:"#fff"}} !important;}
 
     /*TEXT COLOR*/
-    .dataStreamBox h2 a:hover .txt .infoDS .categoryDS{color:{{preferences.account_mouseover_text_color|default:"#333"}} !important;}
+    .dataStreamBox h2 a:hover .txt .infoDS .categoryDS,
+    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover .paramsContainer .param{color:{{preferences.account_mouseover_text_color|default:"#333"}} !important;}
 
 /*BUTTON*/
     
@@ -71,11 +75,3 @@
 
     /*BORDER COLOR*/
     .headerAuto{border-color:{{preferences.account_header_border_color|default:"#ccc"}} !important;}
-
-/* DASHBOARD DETAIL */
-
-    /*BACKGROUND COLOR*/
-    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover{background:{{preferences.account_mouseover_bg_color|default:"#ccc"}} !important;}
-    
-    /*TITLE COLOR*/
-    #id_dashboardContainer .grid-stack-item-content .section-title .inner:hover .title{color:{{preferences.account_mouseover_title_color|default:"#fff"}} !important;}
