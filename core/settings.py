@@ -400,6 +400,7 @@ CACHES = {
     }
 }
 
+
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 APPLICATION_DETAILS = {

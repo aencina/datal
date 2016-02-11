@@ -379,6 +379,24 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self.datastream_revision.clone(status)
         self._update_last_revisions()
 
+    def _clone_childs(self):
+        with transaction.atomic():
+            visualizations = VisualizationRevision.objects.select_for_update().filter(
+                visualization__datastream__id=self.datastream.id,
+                id=F('visualization__last_revision__id'))
+
+            for visualization in visualizations:
+               VisualizationLifeCycleManager(self.user, visualization_revision_id=visualization.id).clone()
+
+
+    def clone(self):
+        dsr = self.datastream_revision.clone(self.datastream_revision.status)
+        self._update_last_revisions()
+        self._clone_childs()
+        return dsr
+
+
+
     def _log_activity(self, action_id):
         title = self.datastreami18n.title if self.datastreami18n else ''
         resource_category = self.datastream_revision.category.categoryi18n_set.all()[0].name

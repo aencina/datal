@@ -147,3 +147,12 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
         return self.engine_call(request, 'invoke', format, 
             serialize=False, form_class=DatastreamRequestForm,
             download=False)
+
+    @detail_route(methods=['post'])
+    def clone(self, request,  *args, **kwargs):
+        instance = self.get_object()
+        dsr = DatastreamLifeCycleManager(request.user, datastream_id=instance['datastream_id']).clone()
+        dsdao = DataStreamDBDAO().get(user=request.user, datastream_revision_id=dsr.id, published=False)
+        serializer = self.get_serializer(dsdao)
+        return Response(serializer.data)
+
