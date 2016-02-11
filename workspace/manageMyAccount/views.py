@@ -2,15 +2,12 @@ import hashlib
 import string
 import datetime
 
-from django.core.mail import send_mail
 from django.db.models import Q
-from django.http import Http404, HttpResponse
-from django.shortcuts import redirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.utils.translation import ugettext
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 
 from uuid import uuid4
@@ -247,7 +244,7 @@ def forgot_password(request):
 
         if user:
             uuid = uuid4()
-            pass_ticket = UserPassTickets.objects.create(uuid=uuid, user_id=user.id, type='PASS')
+            pass_ticket = UserPassTickets.objects.create(uuid=uuid, user=user, type='PASS')
             url = get_domain_with_protocol('workspace') + "/recovery?id=" + str(uuid)
             DjangoMailService().send_forgot_password_mail(user, url)
             message = ugettext('FORGOT-ACTIVATION-EMAIL')
