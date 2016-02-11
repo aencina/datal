@@ -92,6 +92,9 @@ class ElasticsearchFinder(Finder):
         if self.query in ("%",""):
             self.query="*"
 
+        # en caso de usar el +, el default operador debe ser AND
+        self.query = self.query.replace("+"," AND ")
+
         # decide que conjunto de recursos va a filtrar
         if self.resource == "all":
             self.resource = ["ds", "dt", "vz"]

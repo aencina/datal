@@ -35,7 +35,7 @@ class SearchForm(forms.Form):
 
         # eliminamos los chars especiales
         # https://lucene.apache.org/core/2_9_4/queryparsersyntax.html#Escaping%20Special%20Characters
-        map(self._replace, ("-","&&","||","!","(",")","{","}","[","]","^","~","*","?",":","\\", "/"))
+        map(self._replace, ("-","&&","||","!","(",")","{","}","[","]","^","~","*",":","\\", "/"))
 
         if self.cleaned_data['q'] in ("-","&","||","!","(",")","{","}","[","]","^","~","*","?",":","\\", "/","\""):
             self.cleaned_data['q']="%"
