@@ -20,8 +20,8 @@ def action_browse(request, category_slug=None, page=1):
 def browse(request, category_slug=None, page=1):
     account = request.account
     preferences = request.preferences
-    category = Category.objects.get_for_browse(category_slug, account.id, preferences['account_language'])
 
+    category = Category.objects.get_for_browse(category_slug, account.id, preferences['account_language'])
     accounts_ids =  [x['id'] for x in account.account_set.values('id').all()] + [account.id]
 
     try:
@@ -35,7 +35,7 @@ def browse(request, category_slug=None, page=1):
     return render_to_response('search/search.html', locals())
 
 
-def do_search(request, category_filters=None, datasets=None):
+def search(request, category=None):
     account = request.account
     preferences = request.preferences
     form = forms.SearchForm(request.GET)
@@ -51,7 +51,7 @@ def do_search(request, category_filters=None, datasets=None):
         try:
             resources = "all"
             results, search_time, facets = FinderManager().search(
-                query=query, account_id=accounts_ids, category_filters=category_filters, order=order,
+                query=query, account_id=accounts_ids, category_filters=category, order=order,
                 resource=resources, reverse=reverse
             )
         except InvalidPage:
@@ -69,15 +69,3 @@ def do_search(request, category_filters=None, datasets=None):
         return render_to_response('search/search.html', locals())
     else:
         raise Http404
-
-
-def search(request):
-    return do_search(request)
-
-
-def search_by_query_and_category(request, category):
-    try:
-        datasets = request.GET.get("datasets", None)
-        return do_search(request, category_filters=[category], datasets=datasets)
-    except:
-        return do_search(request)

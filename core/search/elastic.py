@@ -121,6 +121,11 @@ class ElasticsearchFinder(Finder):
         ]
 
         if self.category_filters:
+    
+            # previene errores de pasar un string en el category_filters
+            if type(self.category_filters) not in (type(tuple()), type(list())):
+                self.category_filters=[self.category_filters]
+
             filters.append({"terms": {
                 "categories.name": self.category_filters
             }})
