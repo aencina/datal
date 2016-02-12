@@ -208,6 +208,8 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
 
     def clone(self):
         vzr = self.visualization_revision.clone(self.visualization_revision.status)
+        if vzr.status == StatusChoices.PUBLISHED:
+            VisualizationSearchDAOFactory().create(vzr).add()
         self._update_last_revisions()
         return vzr
 
