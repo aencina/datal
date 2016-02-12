@@ -28,7 +28,6 @@ var DataStreamModel = Backbone.Model.extend({
         }, this);
     },
 
-    // TODO: Código portado de un template, necesita mejoras
     formatCell: function (cell) {
         var value;
 
@@ -45,7 +44,6 @@ var DataStreamModel = Backbone.Model.extend({
         return value;
     },
 
-    // TODO: Código portado de un template, necesita mejoras
     formatTEXT: function (cell) {
         var value;
         value = (cell.fStr.length !== 1)? cell.fStr: cell.fStr.replace('-', '&nbsp;');
@@ -53,7 +51,6 @@ var DataStreamModel = Backbone.Model.extend({
         return value;
     },
 
-    // TODO: Código portado de un template, necesita mejoras
     formatDATE: function (cell) {
         var value;
         var format = cell.fDisplayFormat;
@@ -72,7 +69,10 @@ var DataStreamModel = Backbone.Model.extend({
                 locale = "es";
             }
 
-            value = $.datepicker.formatDate(format.fPattern, new Date(timestamp), {
+            var dt = new Date(timestamp);
+            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+
+            value = $.datepicker.formatDate(format.fPattern, dt, {
                 dayNamesShort: $.datepicker.regional[locale].dayNamesShort,
                 dayNames: $.datepicker.regional[locale].dayNames,
                 monthNamesShort: $.datepicker.regional[locale].monthNamesShort,
@@ -84,14 +84,12 @@ var DataStreamModel = Backbone.Model.extend({
         return value;
     },
 
-    // TODO: Código portado de un template, necesita mejoras
     formatNUMBER: function (cell) {
         var format = cell.fDisplayFormat,
             number = ( _.isUndefined(format) ) ? cell.fNum : $.formatNumber( cell.fNum, {format:format.fPattern, locale:format.fLocale} );
         return String(number);
     },
 
-    // TODO: Código portado de un template, necesita mejoras
     formatLINK: function (cell) {
         var value = '<a target="_blank" href="' + cell.fUri + '" rel="nofollow" title="' + cell.fStr + '">' + cell.fStr + '</a>';
         return value;        

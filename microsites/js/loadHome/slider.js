@@ -107,6 +107,7 @@ function onSuccessDataServiceExecute(pResponse){
                     // sometimes are seconds, sometimes miliseconds
                     if (number < 100000000000) number = number * 1000;
                     var dt = new Date(number);
+                    dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
                     var local = format.fLocale;
                     //(?) if I use "en" doesn't work, I must use "" for "en"
                     if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
@@ -163,6 +164,7 @@ function onSuccessDataServiceExecute(pResponse){
                             // sometimes are seconds, sometimes miliseconds
                             if (number < 100000000000) number = number * 1000;
                             var dt = new Date(number);
+                            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
                             var local = format.fLocale;
                             //(?) if I use "en" doesn't work, I must use "" for "en"
                             if (undefined === local || local === "en" || local.indexOf("en_")) local = "";

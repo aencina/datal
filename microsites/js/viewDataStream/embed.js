@@ -180,7 +180,31 @@ function onSuccessDataServiceExecute(pResponse){
             var str = String(pResponse.fStr);
             str = str.replace(/(<([^>]+)>)/ig," ");
             lValue = '<table class="Texto"><tr><td>' + str + '</td></tr></table>';
-        } else if(pResponse.fType == 'NUMBER'){
+        }else if(pResponse.fType == 'DATE'){
+                var format = pResponse.fDisplayFormat;
+                var number = pResponse.fNum;
+                var str = '';
+                if (! _.isUndefined(format)){
+                    // sometimes are seconds, sometimes miliseconds
+                    if (number < 100000000000) number = number * 1000;
+                    var dt = new Date(number);
+                    dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+                    var local = format.fLocale;
+                    //(?) if I use "en" doesn't work, I must use "" for "en"
+                    if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+                    if (local === "es" || local.indexOf("es_")) local = "es";
+                    str = $.datepicker.formatDate(format.fPattern, dt, {
+                        dayNamesShort: $.datepicker.regional[local].dayNamesShort,
+                        dayNames: $.datepicker.regional[local].dayNames,
+                        monthNamesShort: $.datepicker.regional[local].monthNamesShort,
+                        monthNames: $.datepicker.regional[local].monthNames
+                    });
+                }else{
+                    str = String(number);
+                }
+
+                lValue = '<table class="Numero"><tr><td>' + str + '</td></tr></table>';
+            } else if(pResponse.fType == 'NUMBER'){
             var displayFormat = pResponse.fDisplayFormat;
             if (displayFormat != undefined) {
                 var number = $.formatNumber(pResponse.fNum, {format:displayFormat.fPattern, locale:displayFormat.fLocale});
@@ -210,7 +234,28 @@ function onSuccessDataServiceExecute(pResponse){
                             lValue = String(lCell.fStr);
                             lValue = lValue.replace(/(<([^>]+)>)/ig," ");
                         }
-                } else if(lCell.fType == 'NUMBER'){
+                }else if(lCell.fType == 'DATE'){
+                        var format = lCell.fDisplayFormat;
+                        var number = lCell.fNum;
+                        if (! _.isUndefined(format)){
+                            // sometimes are seconds, sometimes miliseconds
+                            if (number < 100000000000) number = number * 1000;
+                            var dt = new Date(number);
+                            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+                            var local = format.fLocale;
+                            //(?) if I use "en" doesn't work, I must use "" for "en"
+                            if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+                            if (local === "es" || local.indexOf("es_")) local = "es";
+                            lValue = $.datepicker.formatDate(format.fPattern, dt, {
+                                dayNamesShort: $.datepicker.regional[local].dayNamesShort,
+                                dayNames: $.datepicker.regional[local].dayNames,
+                                monthNamesShort: $.datepicker.regional[local].monthNamesShort,
+                                monthNames: $.datepicker.regional[local].monthNames
+                            });
+                        }else{
+                            lValue = String(number);
+                        }
+                    } else if(lCell.fType == 'NUMBER'){
                     var displayFormat = lCell.fDisplayFormat;
                     if (displayFormat != undefined) {
                         var number = $.formatNumber(lCell.fNum, {format:displayFormat.fPattern, locale:displayFormat.fLocale});

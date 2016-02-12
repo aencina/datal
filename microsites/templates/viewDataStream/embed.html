@@ -38,6 +38,11 @@
 
 <script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+{% ifequal LANGUAGE_CODE 'es'%}
+<script type="text/javascript" src="/js_core/libs/jquery_ui/jquery.ui.datepicker-es.js?id={{settings.VERSION_JS_CSS}}"></script>
+{%endifequal%}
+
 <script type="text/javascript" src="/js_microsites/viewDataStream/embed.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 

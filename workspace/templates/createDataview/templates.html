@@ -230,9 +230,6 @@
 </script>
 
 <script type="text/template" id="preview_dataview_template">
-  <% if (rows.length === 0) { %>
-    <div class="loading light"></div>
-  <% } %>
 
   <div class="row">
 
@@ -307,7 +304,33 @@
         </div>
 
         <div class="preview-datastream">
-          <table>
+
+
+
+        <% if(fType != 'ARRAY'){ %>
+
+          <table class="<%= className %>">
+            <tbody>
+              <tr>
+              <td>
+                <% if( fType != 'ERROR'){ %>
+
+                  <%= rows %>
+
+                <% }else{ %>
+
+                  <%= gettext( "APP-NODATAFOUD-TEXT" ) %>.
+
+                <% } %>
+
+              </td>
+              </tr>
+            </tbody>
+          </table>
+
+        <% }else{ %> 
+
+          <table class="array">
             <thead>
               <tr>
                 <% _.each(headers, function(cell) { %>
@@ -325,7 +348,12 @@
               <% }); %>
             </tbody>
           </table>
-          </div>
+
+        <% } %>
+
+
+
+
         </div>
 
       </div>
