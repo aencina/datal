@@ -391,6 +391,8 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
     def clone(self):
         dsr = self.datastream_revision.clone(self.datastream_revision.status)
+        if dsr.status == StatusChoices.PUBLISHED:
+            DatastreamSearchDAOFactory().create(dsr).add()
         self._update_last_revisions()
         self._clone_childs()
         return dsr

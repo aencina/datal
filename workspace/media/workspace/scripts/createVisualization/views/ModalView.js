@@ -156,7 +156,11 @@ var ModalView = Backbone.View.extend({
         });
         this.dataTableView.render();
         this.collection.setMaxCols(this.dataTableView.table.countCols());
-        this.collection.setMaxRows(this.dataTableView.table.countSourceRows());
+        var totalRows = this.dataStreamModel.response.fLength;
+        if (!totalRows){ // sometimes it's zero
+            totalRows = this.dataTableView.table.countSourceRows(); //probably always 50 by limit)
+            }
+        this.collection.setMaxRows(totalRows);
         this.listenTo(this.dataTableView, 'afterSelection', function (range) {
             this.addSelection(this._cacheFocusedInput);
         }, this);
