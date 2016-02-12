@@ -12,6 +12,7 @@ var DataStreamModel = Backbone.Model.extend({
     },
 
     parse: function (response) {
+        this.response = response;
         var columns = _.first(response.fArray, response.fCols),
             rows = _.map(_.range(0, response.fRows), function (i) {
               var row = response.fArray.slice(i*response.fCols, (i+1)*response.fCols);
