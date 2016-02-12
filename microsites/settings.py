@@ -78,4 +78,5 @@ else:
     # disable cache_page
     CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
 
-
+#queda deshabilitado hasta nuevo aviso
+CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
