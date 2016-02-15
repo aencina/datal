@@ -62,6 +62,19 @@ REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
     'rest_framework.renderers.BrowsableAPIRenderer',
 )
 
+# Agregamos la config para usar cache por pagina
+if not DEBUG:
+    CACHES['pages']={
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+else:
+    # disable cache_page
+    CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
+
+#queda deshabilitado hasta nuevo aviso
+CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
+
 try:
     from api.local_settings import *
 except ImportError:
