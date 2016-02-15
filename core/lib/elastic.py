@@ -27,6 +27,15 @@ class ElasticsearchIndex():
                     "english_possessive_stemmer": {
                       "type":       "stemmer",
                       "language":   "english"
+                    },
+ 
+                    "light_spanish_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "light_spanish"
+                    },
+                    "spanish_possessive_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "spanish"
                     }
                   },
                     "analyzer": {
@@ -43,7 +52,16 @@ class ElasticsearchIndex():
                             "light_english_stemmer",
                             "asciifolding"
                           ]
+                        },
+                        "spanish": {
+                          "tokenizer":  "standard",
+                          "filter": [
+                            "spanish_possessive_stemmer",
+                            "lowercase",
+                            "light_spanish_stemmer",
+                          ]
                         }
+ 
                     }
                 }               
             } }
@@ -104,9 +122,13 @@ class ElasticsearchIndex():
                         "type" : "string",
                         "fields": {
                                 "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
-                                "text_stemmer": {"type":"string", "analyzer": "english"}
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
                                 },
-                        "properties": { "text": {"type":"string", "analyzer": "english"}},
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
@@ -149,9 +171,13 @@ class ElasticsearchIndex():
                         "type" : "string",
                         "fields": {
                                 "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
-                                "text_stemmer": {"type":"string", "analyzer": "english"}
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
                                 },
-                        "properties": { "text": {"type":"string", "analyzer": "english"}},
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
  
                       "timestamp" : { "type" : "long" },
@@ -195,9 +221,13 @@ class ElasticsearchIndex():
                         "type" : "string",
                         "fields": {
                                 "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
-                                "text_stemmer": {"type":"string", "analyzer": "english"}
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
                                 },
-                        "properties": { "text": {"type":"string", "analyzer": "english"}},
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
  
                       "hits" : { "type" : "integer" },
