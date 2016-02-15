@@ -188,8 +188,7 @@ def remove(request, datastream_revision_id, type="resource"):
         lifecycle.remove(killemall=True)
 
         # Send signal
-        datastream_removed.send_robust(sender='remove_view', id=lifecycle.datastream.id,
-                                rev_id=lifecycle.datastream_revision.id)
+        datastream_removed.send_robust(sender='remove_view', id=lifecycle.datastream.id, rev_id=-1)
 
         return HttpResponse(json.dumps({
             'status': True,

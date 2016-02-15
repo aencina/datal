@@ -259,7 +259,7 @@ def remove(request, dataset_revision_id, type="resource"):
         lifecycle.remove(killemall=True)
 
         # Send signal
-        dataset_removed.send_robust(sender='remove_view', id=lifecycle.dataset.id, rev_id=lifecycle.dataset_revision.id)
+        dataset_removed.send_robust(sender='remove_view', id=lifecycle.dataset.id, rev_id=-1)
 
         response = DefaultAnswer().render(
             status=True,
