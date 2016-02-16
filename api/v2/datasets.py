@@ -132,7 +132,7 @@ class DataSetSerializer(ResourceSerializer):
             instance.update(validated_data)
             if 'impl_details' in instance: instance.pop('impl_details')
             return self.getDao(lcycle.edit(changed_fields=validated_data.keys(),
-                **instance))
+                **validated_data))
 
 class DataSetViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, ResourceViewSet):
     queryset = DatasetDBDAO()
