@@ -546,8 +546,6 @@ class DatastreamHitsDAO():
             # esta correcto esta excepcion?
             raise DataStreamNotFoundException()
 
-        logger.info("DatastreamHitsDAO hit! (guid: %s)" % ( guid))
-
         # armo el documento para actualizar el index.
         doc={'docid':"DS::%s" % guid,
                 "type": "ds",
