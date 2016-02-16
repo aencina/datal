@@ -120,7 +120,7 @@ var ModalView = Backbone.View.extend({
                 tars = traceRange.split(':');
                 if (tars[0] == 'Column') { // Column:F por ejemplo
                     trace = row[tars[1].charCodeAt(0) - 65]; // A = 0, B = 1, etc
-                    // al parecer son una serie de puntos LONG, LAT, ...
+                    // al parecer son una serie de puntos LAT, LONG ...
                     center.lat = parseFloat(trace.split(',')[1]); 
                     center.long = parseFloat(trace.split(',')[0]); 
                     bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];

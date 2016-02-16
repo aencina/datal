@@ -234,11 +234,25 @@ charts.views.MapChart = charts.views.Chart.extend({
 
         var isPolygon = (paths[0].lat == paths[paths.length-1].lat && paths[0].lng == paths[paths.length-1].lng);
         if(isPolygon){
-            this.mapTraces.push(this.createMapPolygon(paths, styles.polyStyle));
+            var obj = this.createMapPolygon(paths, styles.polyStyle);
         } else {
-            this.mapTraces.push(this.createMapPolyline(paths, styles.lineStyle))
+            var obj = this.createMapPolyline(paths, styles.lineStyle);    
         }
-        this.mapTraces[index].setMap(this.mapInstance);
+        this.mapTraces.push(obj)
+
+        var self = this;
+        if(point.info){
+            var clickHandler = google.maps.event.addListener(obj, 'click', (function (marker, info) {
+                return function(event) {
+                    self.infoWindow.setContent("<div class='junarinfowindow'>" + String(info) + "</div>");
+                    self.infoWindow.setPosition(event.latLng);
+                    self.infoWindow.open(self.mapInstance, marker);
+                }
+            })(obj, point.info));
+            obj.events = {click: clickHandler};
+        }
+        
+        obj.setMap(this.mapInstance);
     },
 
     createMapPolygon: function (paths, styles) {
@@ -253,6 +267,7 @@ charts.views.MapChart = charts.views.Chart.extend({
 
         poly.weight = 1;
         this.addWeightLocation(poly);
+
         return poly;
     },
 
