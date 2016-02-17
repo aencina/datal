@@ -297,14 +297,18 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self._delete_cache(cache_key='account_total_datastreams_%d' % self.datastream.user.account.id)
 
     def edit(self, allowed_states=EDIT_ALLOWED_STATES, changed_fields=None, **fields):
-        """ Create new revision or update it """
+        """ Create new revision or update it
+        :param allowed_states:
+        :param changed_fields:
+        :param fields:
+        :return:
+        """
         form_status = None
 
         if 'status' in fields.keys():
             form_status = int(fields.pop('status', None))
         else:
             form_status = StatusChoices.DRAFT
-
 
         old_status = self.datastream_revision.status
 

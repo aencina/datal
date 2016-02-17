@@ -52,12 +52,14 @@ RESOURCES_CHOICES = (
     (settings.TYPE_VISUALIZATION, ugettext_lazy('MODEL_VISUALIZATION_LABEL')),
 )
 
+
 class AccountRoles():
     PUBLISHER='ao-publisher'
     EDITOR='ao-editor'
     ADMIN='ao-account-admin'
 
     ALL=(PUBLISHER, EDITOR, ADMIN)
+
 
 class ChannelTypes():
     WEB = 0
