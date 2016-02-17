@@ -83,7 +83,7 @@ var MetadataView = Backbone.Epoxy.View.extend({
     initNotes: function(){
 
         this.notesInstance = new nicEditor({
-            buttonList : ['bold','italic','underline','ul', 'ol', 'link', 'hr'],
+            buttonList : ['bold','italic','underline','ul', 'ol', 'link', 'hr','xhtml'],
             iconsPath: '/js_core/plugins/nicEdit/nicEditorIcons-2014.gif'
         }).panelInstance('id_notes_2');
 
