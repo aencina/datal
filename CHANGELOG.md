@@ -1,4 +1,4 @@
-## [Unreleased] - 2016-02-15
+## [Unreleased] - 2016-02-16
 ### Fixes
     - Changelog
     - Mapa de tipo trazado no muestra el zoom de los datos cargados
