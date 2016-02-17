@@ -26,6 +26,7 @@
         , "dataset_url": "{{resource.dataset_url}}"
         , "dataset_title": "{{resource.dataset__last_revision__dataseti18n__title|capfirst}}"
         , "dataset_impl_type": "{{resource.dataset__last_revision__impl_type}}"
+        , "cant": "{{resource.cant }}"
     }
     {% if not forloop.last %}, {% endif%}
     {% endfor %}

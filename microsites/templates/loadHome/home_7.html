@@ -1,0 +1,466 @@
+{% extends "loadHome/index.html" %}
+{% load i18n humanize extra_tags core_components compress staticfiles sass_tags %}
+
+{% block themeMeta %}
+<script type="text/javascript" src="/js_core/plugins/jquery.easing.1.3.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jquery.carouFredSel-5.5.0-packed.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_microsites/loadHome/sliderTheme7.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_microsites/loadHome/imgLiquid-min.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% if preferences.account_enable_sharing %}
+  <script type="text/javascript" charset="utf-8" src="{{settings.MSPROTOCOL}}://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
+  <script type="text/javascript" src="{{settings.MSPROTOCOL}}://w.sharethis.com/button/buttons.js"></script>
+  <script type="text/javascript">stLight.options({publisher: "b6aba428-3562-4003-b6a8-018086ce7af4", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+{% endif%}
+<link type="text/css" rel="stylesheet" media="screen" href="/static/microsites/styles/components/theme7.css?id={{settings.VERSION_JS_CSS}}"/>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+{% endblock %}
+
+{% block themeContent %}
+{% with number=paginator.count|intcomma %}
+
+<div class="homeContent theme7">
+
+    <!-- Top section -->
+    <div class="top">
+
+        <div class="container">
+
+            <div class="row">
+                
+                <!-- Welcome -->
+                <div class="col-xs-12 col-sm-7">
+
+                    {% if config.welcomeSectionLink or config.welcomeSectionTitle or config.welcomeSectionImageUrl or config.welcomeSectionDescription %}
+                    <div class="welcome">
+
+                        {% if config.welcomeSectionLink %}
+                        <a href="{{ config.welcomeSectionLink }}">
+                        {% endif %}
+
+                            {% if config.welcomeSectionImageUrl %}
+                            <div class="pic">
+                                <img src="{{ config.welcomeSectionImageUrl }}">
+                            </div>
+                            {% endif %}
+
+                            {% if config.welcomeSectionTitle or config.welcomeSectionDescription or config.welcomeSectionLink %}
+                            <div class="screen" style="
+                                background:-webkit-linear-gradient(bottom, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
+                                background:-o-linear-gradient(top, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
+                                background:-moz-linear-gradient(top, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
+                                background:linear-gradient(to top, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
+                                -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                            ">
+                            </div>
+                            <div class="caption">
+                                
+                                {% if config.welcomeSectionTitle %}
+                                <div class="title">{{ config.welcomeSectionTitle }}</div>
+                                <hr>
+                                {% endif %}
+
+                                {% if config.welcomeSectionDescription %}
+                                <div class="description">{{ config.welcomeSectionDescription }}</div>
+                                {% endif %}
+
+                                {% if config.welcomeSectionLink and config.welcomeSectionLinkLabel %}
+                                <a href="{{ config.welcomeSectionLink }}" class="button">{{ config.welcomeSectionLinkLabel }}</a>
+                                {% endif %}
+
+                            </div>
+                            {% endif %}
+
+                        {% if config.welcomeSectionLink %}
+                        </a>
+                        {% endif %}
+
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <!-- Featured slider -->
+                <div class="col-xs-12 col-sm-5">
+                    
+                    {% if config.imageSliderSection %}
+                    <div class="featuredContent placeholder">
+                        <div class="featuredSlider slider">
+
+                            <a class="btn izq" title="{% trans 'APP-PREVIOUS-TEXT' %}"><span class="DN">{% trans 'APP-PREVIOUS-TEXT' %}</span></a>
+                            <a class="btn der" title="{% trans 'APP-NEXT-TEXT' %}"><span class="DN">{% trans 'APP-NEXT-TEXT' %}</span></a>
+
+                            <div class="sliderHome">
+                                {% for source in config.imageSliderSection %}
+                                <div class="panel{% if source.radio == 'videoSection' %} cursor videoSection{% endif %}" id="id_panel_slider_{{forloop.counter}}">
+                                    <article>
+
+                                        {% if source.href %}
+                                            <a href="{{source.href}}" class="readMore" target="_blank">
+                                        {% endif %}
+
+                                        {% if source.title %}
+                                        <div class="bottomTitle" style="
+                                        background:-webkit-linear-gradient(bottom, rgba({{ config.featuredSliderSectionBackgroundColor }},0), rgba({{ config.featuredSliderSectionBackgroundColor }},0.9) 100%);
+                                        background:-o-linear-gradient(top, rgba({{ config.featuredSliderSectionBackgroundColor }},0), rgba({{ config.featuredSliderSectionBackgroundColor }},0.9) 100%);
+                                        background:-moz-linear-gradient(top, rgba({{ config.featuredSliderSectionBackgroundColor }},0), rgba({{ config.featuredSliderSectionBackgroundColor }},0.9) 100%);
+                                        background:linear-gradient(to top, rgba({{ config.featuredSliderSectionBackgroundColor }},0), rgba({{ config.featuredSliderSectionBackgroundColor }},0.9) 100%);
+                                        -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                                        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                                        ">
+                                            <div class="title">
+                                                    {{source.title}}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if source.image %}
+                                        <div class="pic">
+                                            <img id="id_slider_img_{{forloop.counter}}" src="{{source.image}}" alt=""/>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if source.href %}
+                                            </a>
+                                        {% endif %}
+
+                                    </article>
+                                </div>
+                                {%endfor%}
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="priorities">
+
+        <div class="container">
+
+            {% if config.prioritiesSectionTitle or config.prioritiesSectionDescription %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="head">
+                        {% if config.prioritiesSectionTitle %}
+                            <h2>{{ config.prioritiesSectionTitle }}</h2>
+                        {% endif %}
+                        {% if config.prioritiesSectionDescription %}
+                            <p>{{ config.prioritiesSectionDescription }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Priorities slider -->
+            <div class="row">
+                
+                <div class="col-xs-12">
+                    {% if config.prioritiesSliderSection %}
+                    <div class="prioritiesContent placeholder">
+                        <div class="prioritiesSlider slider">
+
+                            <a class="btn izq" title="{% trans 'APP-PREVIOUS-TEXT' %}"><span class="DN">{% trans 'APP-PREVIOUS-TEXT' %}</span></a>
+                            <a class="btn der" title="{% trans 'APP-NEXT-TEXT' %}"><span class="DN">{% trans 'APP-NEXT-TEXT' %}</span></a>
+
+                            <div class="sliderHome">
+                                {% for source in config.prioritiesSliderSection %}
+                                <div class="panel{% if source.radio == 'videoSection' %} cursor videoSection{% endif %}" id="id_panel_slider_{{forloop.counter}}">
+                                    <article>
+                                        <div class="item">
+
+                                        {% if source.href %}
+                                            <a href="{{source.href}}" class="readMore" target="_blank">
+                                        {% endif %}
+
+                                        {% if source.title or source.description %}
+                                        <span class="screen" style="
+                                        background:-webkit-linear-gradient(top, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                        background:-o-linear-gradient(bottom, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                        background:-moz-linear-gradient(bottom, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                        background:linear-gradient(to bottom, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                        -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000,endColorstr=#E5000000);
+                                        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000,endColorstr=#E5000000);
+                                        "></span>
+
+                                        {% if source.title %}
+                                         <span class="screen-title" style="
+                                            background:-webkit-linear-gradient(top, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                            background:-o-linear-gradient(bottom, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                            background:-moz-linear-gradient(bottom, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                            background:linear-gradient(to bottom, rgba({{ config.prioritiesSliderSectionBackgroundColor }},0), rgba({{ config.prioritiesSliderSectionBackgroundColor }},0.9) 90%);
+                                            -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000,endColorstr=#E5000000);
+                                            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000,endColorstr=#E5000000);
+                                            "></span>
+                                        {% endif %}
+                                        
+                                        <div class="caption">
+
+                                            {% if source.title %}
+                                            <div class="title">
+                                                {{source.title}}
+                                            </div>
+                                            {% endif %}
+
+                                            {% if source.description %}
+                                            <div class="description">
+                                                {{source.description}}
+                                            </div>
+                                            {% endif %}
+
+                                        </div>
+                                        {% endif %}
+
+                                        {% if source.image %}
+                                        <div class="pic">
+                                            <img id="id_slider_img_{{forloop.counter}}" src="{{source.image}}" alt=""/>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if source.href %}
+                                            </a>
+                                        {% endif %}
+
+                                        </div>
+                                    </article>
+                                </div>
+                                {%endfor%}
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Buttons section -->
+    {% if config.buttonSection %}
+    <div class="buttons">
+
+        <div class="container">
+
+            {% if config.buttonsSectionTitle or config.buttonsSectionDescription %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="head">
+                        {% if config.buttonsSectionTitle %}
+                            <h2>{{ config.buttonsSectionTitle }}</h2>
+                        {% endif %}
+                        {% if config.buttonsSectionDescription %}
+                            <p>{{ config.buttonsSectionDescription }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="row">
+                
+                <div class="col-xs-12">
+                    <ul class="buttons-grid">      
+                        {% for button in config.buttonSection %}      
+                        <li class="col-xs-6 col-sm-4 col-md-3">
+
+                            {% if button.href %}
+                            <a href="{{button.href}}" title="{{ button.description|format:number|safe }}" target="_blank">
+                            {% endif %}
+
+                            {% if button.image %}
+                            <div class="pic">
+                                <img src="{{button.image}}" alt="{{ button.description|format:number|safe }}"/>
+                            </div>
+                            {% endif %}
+
+                            {% if button.title %}
+                            <div class="title">{{button.title}}</div>
+                            {% endif %}
+                            
+                            {% if button.title or button.description %}
+                            <span class="screen" style="background-color:rgba({{ config.buttonSectionBackgroundColor }},1) !important;">
+                                <div class="caption">
+
+                                    {% if button.title %}
+                                    <div class="title">{{button.title}}</div>
+                                    {% endif %}
+
+                                    {% if button.description %}
+                                    <p>{{button.description}}</p>
+                                    {% endif %}
+
+                                </div>
+                            </span>
+                            {% endif %}
+
+                            {% if button.href %}
+                            </a>
+                            {% endif %}
+
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    {% endif %}
+
+    <!-- Bottom section -->
+    <div class="bottom">
+
+        <div class="container">
+
+            <div class="row">
+                
+                <div class="col-xs-12 col-sm-4">
+                    {% if config.leftBottomSectionLink or config.leftBottomSectionTitle or config.leftBottomSectionImageUrl %}
+                    <article>
+                        {% if config.leftBottomSectionLink %}
+                        <a href="{{ config.leftBottomSectionLink }}" title="{{ config.leftBottomSectionTitle|format:number|safe }}" target="_blank">
+                        {% endif %}
+
+                            {% if config.leftBottomSectionTitle %}
+                            <div class="bottomTitle" style="
+                                background:-webkit-linear-gradient(bottom, rgba({{ config.leftBottomSectionBackgroundColor }},0), rgba({{ config.leftBottomSectionBackgroundColor }},0.9) 100%);
+                                background:-o-linear-gradient(top, rgba({{ config.leftBottomSectionBackgroundColor }},0), rgba({{ config.leftBottomSectionBackgroundColor }},0.9) 100%);
+                                background:-moz-linear-gradient(top, rgba({{ config.leftBottomSectionBackgroundColor }},0), rgba({{ config.leftBottomSectionBackgroundColor }},0.9) 100%);
+                                background:linear-gradient(to top, rgba({{ config.leftBottomSectionBackgroundColor }},0), rgba({{ config.leftBottomSectionBackgroundColor }},0.9) 100%);
+                                -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                            ">
+                                <div class="title">{{ config.leftBottomSectionTitle|format:number|safe }}</div>
+                            </div>
+                            {% endif %}
+
+                            {% if config.leftBottomSectionImageUrl %}
+                            <img src="{{ config.leftBottomSectionImageUrl }}" alt="{{ config.leftBottomSectionTitle|format:number|safe }}" class="FL"/>
+                            {% endif %}
+
+                        {% if config.leftBottomSectionLink %}
+                        </a>
+                        {% endif %}
+                    </article>
+                    {% endif %}
+                </div>
+                
+                <div class="col-xs-12 col-sm-4">
+                    {% if config.middleBottomSectionLink or config.middleBottomSectionTitle or config.middleBottomSectionImageUrl %}
+                    <article>
+
+                        {% if config.middleBottomSectionLink %}
+                        <a href="{{ config.middleBottomSectionLink }}" title="{{ config.middleBottomSectionTitle|format:number|safe }}" target="_blank">
+                        {% endif %}
+
+                            {% if config.middleBottomSectionTitle %}
+                            <div class="bottomTitle" style="
+                                background:-webkit-linear-gradient(bottom, rgba({{ config.middleBottomSectionBackgroundColor }},0), rgba({{ config.middleBottomSectionBackgroundColor }},0.9) 100%);
+                                background:-o-linear-gradient(top, rgba({{ config.middleBottomSectionBackgroundColor }},0), rgba({{ config.middleBottomSectionBackgroundColor }},0.9) 100%);
+                                background:-moz-linear-gradient(top, rgba({{ config.middleBottomSectionBackgroundColor }},0), rgba({{ config.middleBottomSectionBackgroundColor }},0.9) 100%);
+                                background:linear-gradient(to top, rgba({{ config.middleBottomSectionBackgroundColor }},0), rgba({{ config.middleBottomSectionBackgroundColor }},0.9) 100%);
+                                -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                            ">
+                                <div class="title">{{ config.middleBottomSectionTitle|format:number|safe }}</div>
+                            </div>
+                            {% endif %}
+
+                            {% if config.middleBottomSectionImageUrl %}
+                            <img src="{{ config.middleBottomSectionImageUrl }}" alt="{{ config.middleBottomSectionTitle|format:number|safe }}" class="FL"/>
+                            {% endif %}
+
+                        {% if config.middleBottomSectionLink %}
+                        </a>
+                        {% endif %}
+
+                    </article>
+                    {% endif %}
+                </div>
+                
+                <div class="col-xs-12 col-sm-4">
+                    {% if config.rightBottomSectionLink or config.rightBottomSectionTitle or config.rightBottomSectionImageUrl %}
+                    <article>
+
+                        {% if config.rightBottomSectionLink %}
+                        <a href="{{ config.rightBottomSectionLink }}" title="{{ config.rightBottomSectionTitle|format:number|safe }}" target="_blank">
+                        {% endif %}
+
+                            {% if config.rightBottomSectionTitle %}
+                            <div class="bottomTitle" style="
+                                background:-webkit-linear-gradient(bottom, rgba({{ config.rightBottomSectionBackgroundColor }},0), rgba({{ config.rightBottomSectionBackgroundColor }},0.9) 100%);
+                                background:-o-linear-gradient(top, rgba({{ config.rightBottomSectionBackgroundColor }},0), rgba({{ config.rightBottomSectionBackgroundColor }},0.9) 100%);
+                                background:-moz-linear-gradient(top, rgba({{ config.rightBottomSectionBackgroundColor }},0), rgba({{ config.rightBottomSectionBackgroundColor }},0.9) 100%);
+                                background:linear-gradient(to top, rgba({{ config.rightBottomSectionBackgroundColor }},0), rgba({{ config.rightBottomSectionBackgroundColor }},0.9) 100%);
+                                -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
+                            ">
+                                <div class="title">{{ config.rightBottomSectionTitle|format:number|safe }}</div>
+                            </div>
+                            {% endif %}
+
+
+                            {% if config.rightBottomSectionImageUrl %}
+                            <img src="{{ config.rightBottomSectionImageUrl }}" alt="{{ config.rightBottomSectionTitle|format:number|safe }}" class="FL"/>
+                            {% endif %}
+
+                        {% if config.rightBottomSectionLink %}
+                        </a>
+                        {% endif %}
+
+                    </article>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer section -->
+    {% if config.links %}
+    <div class="links">
+        <div class="container">
+
+            <div class="links-list">
+                <ul>
+                    {% for link in config.links %}
+                        <li><a href="{{ link.linkURL }}" title="{{ link.linkText|format:number|safe }}" target="_blank">{{ link.linkText|format:number|safe }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="socialButtons">
+                {% if preferences.account_enable_sharing %}
+                <div class="socialBox clearfix">
+                  <span class='st_facebook_large' displayText='Facebook'></span>
+                  <span class='st_twitter_large' displayText='Tweet'></span>
+                  <span class='st_googleplus_large' displayText='Google +'></span>
+                  <span class='st_linkedin_large' displayText='LinkedIn'></span>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endwith %}
+{% endblock %}

@@ -17,7 +17,7 @@
 .dataStreamBox h2 label:hover{text-decoration:underline;}
 .dataStreamBox h2 input[type=text]{background:#fff;width:50px;vertical-align:middle;height:17px;line-height:17px;padding:0 3px;border:1px solid #ccc;font:12px Arial, Helvetica, sans-serif;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}
 
-.dataStreamBox h2 a{display:block;background:#fff url(/static/core/images/homeManager/dg_DS.gif) repeat-x 0 10px;height:57px;border:1px solid #e2e0e0;padding:8px 10px 0;color:#4d4d4d;overflow:hidden;-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0;border-radius:5px 5px 0 0;}
+.dataStreamBox h2 a{display:block;background:#fff url(/static/core/images/homeManager/dg_DS.gif) repeat-x 0 10px;height:68px;border:1px solid #e2e0e0;padding:8px 10px;color:#4d4d4d;overflow:hidden;-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0;border-radius:5px 5px 0 0;}
 .dataStreamBox h2 img{width:45px;height:45px;border:1px solid #e8e8e7;background:url(/static/core/images/homeManager/im_defaultAvatar45x45.gif) no-repeat center center;overflow:hidden;text-indent:10000px;margin-right:10px;text-shadow:0 1px 0 #fff;}
 .dataStreamBox h2 .txt{/*width:10000px;*/display:block;}
 .dataStreamBox h2 .txt .titleDS{color:#290302;font-size:14px;display:block;line-height:18px;overflow:hidden;height:36px;text-shadow:0 0 0 transparent;white-space:nowrap;}
@@ -33,7 +33,6 @@
 
 .dataStreamBox h2 a:hover{background:#ef7f10 url(/static/core/images/common/dg_Servicio.gif) repeat-x 0 -53px;color:#fff;text-decoration:none;border-color:#c87629;}
 .dataStreamBox h2 a:hover img{border-color:#e0ab4e;}
-.dataStreamBox h2 a:hover .txt{text-shadow:0 1px 0 #C56B12;}
 .dataStreamBox h2 a:hover .txt .titleDS{color:#fff;}
 .dataStreamBox h2 a:hover .txt .titleDS strong{/*color:#290302;*/}
 .dataStreamBox h2 a:hover .txt .titleDS .sep{color:#a75e1c;}
@@ -46,7 +45,7 @@
 
 /*DATA STREAM RESULT*/
 .dataStreamBox .dataStreamResult{border:1px solid #e2e0e0;border-top:0;-moz-border-radius:0 0 5px 5px;-webkit-border-radius:0 0 5px 5px;border-radius:0 0 5px 5px;overflow:hidden;}
-.dataStreamBox .Mensaje{height:124px;width:100%;float:left;background:#fff;overflow:hidden;}
+.dataStreamBox .Mensaje{width:100%;float:left;background:#fff;overflow:hidden;}
 .dataStreamBox:hover .Mensaje{overflow:auto;}
 .dataStreamBox .Mensaje,
 .dataStreamBox .Mensaje table,
@@ -55,7 +54,7 @@
 .dataStreamBox .Mensaje table th{border-collapse:collapse;}
 .dataStreamBox .Mensaje .Texto,
 .dataStreamBox .Mensaje .Numero, 
-.dataStreamBox .Mensaje .Nulo{height:123px;width:100%;vertical-align:center;}
+.dataStreamBox .Mensaje .Nulo{height:123px;width:100%;vertical-align:middle;}
 .dataStreamBox .Mensaje .Texto td,
 .dataStreamBox .Mensaje .Numero td,
 .dataStreamBox .Mensaje .Nulo td{font-size:22px;text-align:center;font-weight:bold;color:#4d4d4d;padding:0;margin:0;vertical-align:middle;line-height:normal;}

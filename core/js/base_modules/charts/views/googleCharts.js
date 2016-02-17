@@ -10,6 +10,9 @@ charts.views.GoogleLineChart = charts.views.LineChart.extend({
 
     formatData: function (data) {
         var dataTable = new google.visualization.DataTable();
+        if (data.fields.length === 0) {
+            return;
+        }
         _.each(data.fields, function (field) {
             dataTable.addColumn(field[0], field[1]);
         });
@@ -19,8 +22,17 @@ charts.views.GoogleLineChart = charts.views.LineChart.extend({
 
     render: function () {
         var dataTable = this.formatData(this.model.data.toJSON());
-
+        if (_.isUndefined(dataTable)) {
+            return;
+        }
         var options = this.model.get('options');
+
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
 
         this.chart = new google.visualization.LineChart(this.el);
 
@@ -37,6 +49,9 @@ charts.views.GoogleAreaChart = charts.views.AreaChart.extend({
 
     formatData: function (data) {
         var dataTable = new google.visualization.DataTable();
+        if (data.fields.length === 0) {
+            return;
+        }
         _.each(data.fields, function (field) {
             dataTable.addColumn(field[0], field[1]);
         });
@@ -46,10 +61,19 @@ charts.views.GoogleAreaChart = charts.views.AreaChart.extend({
 
     render: function () {
         var dataTable = this.formatData(this.model.data.toJSON());
-
+        if (_.isUndefined(dataTable)) {
+            return;
+        }
         var options = this.model.get('options');
 
         options.isStacked = true;
+
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
 
         this.chart = new google.visualization.AreaChart(this.el);
 
@@ -67,6 +91,9 @@ charts.views.GoogleBarChart = charts.views.BarChart.extend({
 
     formatData: function (data) {
         var dataTable = new google.visualization.DataTable();
+        if (data.fields.length === 0) {
+            return;
+        }
         _.each(data.fields, function (field) {
             dataTable.addColumn(field[0], field[1]);
         });
@@ -76,10 +103,19 @@ charts.views.GoogleBarChart = charts.views.BarChart.extend({
 
     render: function () {
         var dataTable = this.formatData(this.model.data.toJSON());
-
+        if (_.isUndefined(dataTable)) {
+            return;
+        }
         var options = this.model.get('options');
 
         options.isStacked = false;
+
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
 
         this.chart = new google.visualization.BarChart(this.el);
 
@@ -97,6 +133,9 @@ charts.views.GoogleColumnChart = charts.views.ColumnChart.extend({
 
     formatData: function (data) {
         var dataTable = new google.visualization.DataTable();
+        if (data.fields.length === 0) {
+            return;
+        }
         _.each(data.fields, function (field) {
             dataTable.addColumn(field[0], field[1]);
         });
@@ -106,10 +145,19 @@ charts.views.GoogleColumnChart = charts.views.ColumnChart.extend({
 
     render: function () {
         var dataTable = this.formatData(this.model.data.toJSON());
-
+        if (_.isUndefined(dataTable)) {
+            return;
+        }
         var options = this.model.get('options');
 
         options.isStacked = false;
+
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
 
         this.chart = new google.visualization.ColumnChart(this.el);
 

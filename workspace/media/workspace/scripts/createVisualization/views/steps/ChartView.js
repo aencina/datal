@@ -73,6 +73,8 @@ var ChartView = StepViewSPA.extend({
 
 			this.showLoading();
 
+			this.$el.find('a.backButton').hide();
+
 			//this.renderChart();
 		} else {
 			this.optionsView.hide();
@@ -150,9 +152,7 @@ var ChartView = StepViewSPA.extend({
 
 	updatePreviewClass: function(type){
 		this.clearClassesChartBg();
-		if(!this.ChartViewClass){
-			this.chartContent.addClass(this.bgClasses[type]);
-		}
+		this.chartContent.addClass(this.bgClasses[type]);
 	},
 
 	clearClassesChartBg: function(){
@@ -246,11 +246,11 @@ var ChartView = StepViewSPA.extend({
 	},
 
 	showLoading: function () {
-		$("#ajax_loading_overlay").show();
+        this.$('.visualizationContainer .loading').removeClass('hidden');
 	},
 
 	hideLoading: function () {
-		$("#ajax_loading_overlay").hide();
+        this.$('.visualizationContainer .loading').addClass('hidden');
 	},
 
 	start: function(){
@@ -270,9 +270,6 @@ var ChartView = StepViewSPA.extend({
 		this.selectGraphType(initial);
 
 		this.setupChart();
-
-		console.log(initial);
-		console.log(this.model.data.get('rows'));
 
 		if(this.model.data.get('rows').length){
 			this.onChartChanged();

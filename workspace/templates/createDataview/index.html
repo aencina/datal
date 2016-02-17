@@ -1,0 +1,121 @@
+{% extends "base_workspace.html" %}
+{% load i18n extra_tags core_components components compress staticfiles sass_tags %}
+
+{% block title %}
+	{% trans "APP-ACTIONS-CREATEVIEW" %}
+{% endblock %}
+
+{% block meta %}
+    {% compress css %}
+	<link href="{% static 'handsontable/dist/handsontable.full.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/actions.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataTable.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamForm.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/tagsContainer.css' %}"/>
+	<!-- COMMON -->
+	<link href="{% sass_src 'workspace/styles/createCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+	<!-- COMPONENT -->
+	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'workspace/styles/createDataView.scss' %}"/>
+	{% endcompress %}
+
+    <script src="/js_core/plugins/jquery.url.packed.js?id={{settings.VERSION_JS_CSS}}"></script>
+    <script src="/js_core/plugins/tagging.js?id={{settings.VERSION_JS_CSS}}"></script>
+    <script src="/js_core/plugins/taggingSources.js?id={{settings.VERSION_JS_CSS}}"></script>
+    <script src="/js_core/plugins/jquery.ba-bbq.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+    <script src="/js_core/plugins/customSelectable.js?id={{settings.VERSION_JS_CSS}}"></script>
+    <script src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
+    <script src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+<meta name="main-option" content="id_dataviews_option"/>
+{% endblock %}
+
+{% block header_navigation %}
+<!-- Back Link -->
+<a href="{% url 'manageDataviews.index' %}" id="id_backLink" class="button alpha back FL" title="{% trans 'APP-BACK-TEXT' %}">{% trans 'APP-BACK-TEXT' %}</a>
+{% endblock %}
+
+{% block sectionTitle %}
+  <div class="context-menu clearfix"></div>
+{% endblock %}
+
+{% block content %}
+    
+    <div class="create">
+        <div class="row current-step">
+            <div class="loading light initial-loading"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block popupsOverlay %}
+    {% include "createDataview/overlays.html" %}
+{% endblock %}
+
+{% block bottom_js %}
+
+    {# templates backbone #}
+    {% include "createDataview/templates.html" %}
+
+    <script src="/js_core/plugins/nicEdit/nicEdit-2014.js?id={{settings.VERSION_JS_CSS}}"></script>
+    <script src="/js_core/libs/jquery_ui/jquery.ui.datepicker-es.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+    <script src="{% static 'handsontable/dist/handsontable.full.min.js' %}"></script>
+
+    <script src="{% static 'workspace/scripts/createDataview/models/DataTableSelectionModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/collections/DataTableSelectedCollection.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/table/DataTable.js' %}"></script>
+    <script src="/js_core/base_modules/DataTableUtils.js"></script>
+
+    <script src="{% static 'workspace/scripts/createDataview/models/ArgumentModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/models/StateModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/models/DatasetModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/models/DataviewModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/models/ColumnModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/models/FilterModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/collections/ArgumentsCollection.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/collections/ColumnsCollection.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/collections/FiltersCollection.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Tags/TagsModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Tags/TagsCollection.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Tags/TagsCollectionView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Tags/TagsView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Sources/SourceModel.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Sources/SourcesCollection.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Sources/SourcesView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Sources/EditSourceView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/Params/ParamsView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/DisclamerView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/EditArgumentOverlayView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/FiltersOptionsView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/FormatsView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/HeadersOptionsView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/PatternView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/SelectionView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/StepBarView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/steps/SelectDataView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/steps/MetadataView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/steps/PreviewView.js' %}"></script>
+    <script src="{% static 'workspace/scripts/createDataview/views/MainView.js' %}"></script>
+    <script>
+        var dataviewModel = new DataviewModel();
+
+        dataviewModel.attachDataset({
+            dataset_revision_id: {{dataset_revision.id}},
+            end_point: '{{dataset_revision.end_point}}',
+            impl_type: {{dataset_revision.impl_type}},
+            impl_details: '{{dataset_revision.impl_details|default_if_none:""|safe}}',
+            sources: {{sources|jsonify}},
+            tags: {{tags|jsonify}}
+        });
+
+        var mainView = new MainView({
+            el: '.main-section',
+            dataviewModel: dataviewModel,
+            categories: {{categories|jsonify}}
+        });
+    </script>
+
+{% endblock %}

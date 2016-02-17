@@ -108,14 +108,6 @@ class Command(BaseCommand):
                     if options['delete']:
                         userpasstickets.delete()
 
-                # Remove DashboardComment
-                for dashboardcomment in DashboardComment.objects.filter(user=user):
-                    self.stdout.write('\tDashboardComment ID {}.'.format(dashboardcomment.id))
-
-                    if options['delete']:
-                        dashboardcomment.delete()
-
-
                 # Remove DataStreamComment
                 for datastreamcomment in DataStreamComment.objects.filter(user=user):
                     self.stdout.write('\tDataStreamComment ID {}.'.format(datastreamcomment.id))
@@ -231,42 +223,6 @@ class Command(BaseCommand):
 
                         if options['delete']:
                             datastreami18n.delete()
-
-                # Remove Dashboard
-                for dashboard in Dashboard.objects.filter(user=user):
-
-                    # Remove DashboardHits
-                    for dashboardhits in DashboardHits.objects.filter(dashboard=dashboard):
-                        self.stdout.write('\tDashboardHits ID {}.'.format(dashboardhits.id))
-
-                        if options['delete']:
-                            dashboardhits.delete()
-
-                    # Remove ObjectGrant
-                    for objectgrant in ObjectGrant.objects.filter(dashboard=dashboard):
-                        self.stdout.write('\tObjectGrant ID {}.'.format(objectgrant.id))
-
-                        if options['delete']:
-                            objectgrant.delete()
-
-                    # Remove DashboardRank
-                    for dashboardrank in DashboardRank.objects.filter(dashboard=dashboard):
-                        self.stdout.write('\tDashboardRank ID {}.'.format(dashboardrank.id))
-
-                        if options['delete']:
-                            dashboardrank.delete()
-
-                    # Remove Log
-                    for log in Log.objects.filter(dashboard=dashboard):
-                        self.stdout.write('\tLog ID {}.'.format(log.id))
-
-                        if options['delete']:
-                            log.delete()
-
-                    self.stdout.write('\tDashboard ID {}.'.format(dashboard.id))
-
-                    if options['delete']:
-                        dashboard.delete()
 
                 # Remove Log
                 for log in Log.objects.filter(user=user):

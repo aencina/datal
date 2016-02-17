@@ -1,17 +1,22 @@
 import logging
 
+from django.conf import settings
+
 from post_office import mail
 
-from core.lib.mail.mail import MailService
-from core import settings
 
+class DjangoMailService:
 
-class DjangoMailService(MailService):
+    def __init__(self):
+        pass
 
     @staticmethod
     def send_password_recovered_mail(user, password):
         """
         Envio correo con nueva clave
+
+        :param user: User object
+        :param password: Password string
         """
         email_data = dict(nick=user.nick, password=password)
         to = [user.email]
@@ -31,6 +36,9 @@ class DjangoMailService(MailService):
     def send_forgot_password_mail(user, link):
         """
         Envio correo de cambio de clave
+
+        :param user: User object
+        :param link: URL String
         """
         email_data = dict(url=link)
         to = [user.email]

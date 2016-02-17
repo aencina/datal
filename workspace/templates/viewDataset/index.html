@@ -1,5 +1,5 @@
 {% extends 'base_workspace.html' %}
-{% load i18n extra_tags components dataset_tags compress staticfiles sass_tags %}
+{% load i18n extra_tags core_components components dataset_tags compress staticfiles sass_tags %}
 
 {% block meta %}
 {% compress css %}
@@ -34,7 +34,7 @@
   <div class="detail hash-tabs" id="id_viewDataset">
     <article class="tab-container">
       <div class="col-xs-12">
-        <nav class="tab-nav" role="tablist">
+        <nav class="tab-nav tab-nav-lg" role="tablist">
           <ul>
           <li>
                   <a href="#description" id="0" role="tab" aria-selected="true" aria-expanded="true" aria-controls="#description" tab-index="0">{% trans 'APP-DESCRIPTION-TEXT' %}</a>
@@ -66,7 +66,7 @@
 {% endblock %}
 
 {% block bottom_js %}
-<script type="text/javascript" src="/js_core/plugins/jquery.hash-tabs.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="{% static 'hash-tabs/dist/jquery.hash-tabs.min.js' %}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   var Dataset = new DatasetModel({
@@ -78,9 +78,9 @@ $(document).ready(function(){
     createDataViewUrl: "{% url 'manageDataviews.create' %}?dataset_revision_id={{ dataset.dataset_revision_id }}",
     changeStatusUrl: "{% url 'manageDatasets.change_status' dataset.dataset_revision_id %}",
     lastPublishRevisionId: "{{ dataset.last_published_revision_id }}",
-    editUrl: "{% url 'manageDatasets.edit' %}/{{dataset.dataset_revision_id}}/",
+    editUrl: "{% url 'manageDatasets.edit' %}{{dataset.dataset_revision_id}}/",
     lastPublishDate: "{{dataset.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-    publicUrl: "{{ dataset.public_url }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'dataset' dataset.dataset_id dataset.slug %}",
     createdAt: "{{ dataset.created_at|date:'F d, Y, h:i A'|capfirst }}",
     modifiedAt: "{{ dataset.modified_at|date:'F d, Y, h:i A'|capfirst }}"
   });

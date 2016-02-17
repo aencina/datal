@@ -1,114 +1,96 @@
+@import '../../../../core/media/core/styles/variables';
+
 /*** Variables ***/
 
 /* Logo */
 
 	/* Signin logo */
-	$logo-signin-url:"../images/common/logo_datal_signin_color.png";			/* URL of logo for Sign in page. Recommended size: 132x70 px */
-	$logo-signin-svg-url:"../images/common/logo_datal_signin_color.svg";			/* URL of logo for Sign in page. Recommended size: 132x70 px */
-	$logo-signin-height:100px;													/* Height of image */
+	$logo-signin-url:"../images/common/logo_datal_signin_color.png" !default;			/* URL of logo for Sign in page. Recommended size: 132x70 px */
+	$logo-signin-svg-url:"../images/common/logo_datal_signin_color.svg" !default;			/* URL of logo for Sign in page. Recommended size: 132x70 px */
+	$logo-signin-height:100px !default;													/* Height of image */
 
 	/* Header bar logo */
-	$logo-header-url:"../images/common/lg_datal.png";			/* PNG - URL of logo for Workspace header. Area to work: 200x46 px */
-	$logo-header-svg-url:"../images/common/lg_datal.svg";     /* SVG - URL of logo for Workspace header. Area to work: 200x46 px */
-	$header-height: 46px;
+	$logo-header-url:"../images/common/lg_datal.png" !default;			/* PNG - URL of logo for Workspace header. Area to work: 200x46 px */
+	$logo-header-svg-url:"../images/common/lg_datal.svg" !default;     /* SVG - URL of logo for Workspace header. Area to work: 200x46 px */
+	$header-height: 46px !default;
+
+/* Account backgrounds */
+$account-bg:#232831 !default;
 
 /* Nav */
-$nav-width: 200px;
-$nav-bg: #232831;
-$nav-text: #fff;
-$nav-hover-text: #fff;
-$nav-hover-bg: #0766cc;
-$nav-active-text: #232831;
-$nav-active-bg: #fff;
-$nav-collapsed-width: 54px;
+$nav-width:200px !default;
+$nav-bg:#232831 !default;
+$nav-text:#fff !default;
+$nav-hover-text:#fff !default;
+$nav-hover-bg:#0766cc !default;
+$nav-active-text:#232831 !default;
+$nav-active-bg:#fff !default;
+$nav-collapsed-width:54px !default;
+$nav-secondary-bg:#16191f !default;
+$nav-secondary-text:#999 !default;
+$nav-secondary-no-link-text:#666 !default;
 
 /* Branding */
 
 	/* Brand color */
-	$brand-color:#fbfaf5;														/* Brand primary color */
+	$brand-color:#fbfaf5 !default;														/* Brand primary color */
 
 	/* Accent color */
-	$accent-color:#0066cc;														/* Brand secondary color */
-	$accent-shine:#0066ff;														/* Brand secondary color :hover */
+	$accent-color:#0066cc !default;														/* Brand secondary color */
+	$accent-shine:#0066ff !default;														/* Brand secondary color :hover */
 
 	/* Base color */
-	$color-base:#fff;														/* Color for backgrounds */
-	$color-base-light:#999;
-	$color-base-extra-light:#e6e6e6;
+	$color-base:#fff !default;														/* Color for backgrounds */
+	$color-base-light:#999 !default;
+	$color-base-extra-light:#e6e6e6 !default;
 
-
-/* Fonts */
-
-	/* Family */
-	$font-primary-family:Arial,Helvetica,sans-serif;							/* For fonts in general */
-	$font-secondary-family:robotoregular,arial,helvetica,sans-serif;					/* For some subtitles */
-	$font-titles-family:robotolight,Helvetica,sans-serif;							/* For titles in general */
-	$font-extra-family:robotoregular,arial,helvetica,sans-serif;						/* For table titles */
-
-	/* Size */
-	$font-size-base:12px !important;											/* For body paragraphs and text in general */
-	$font-size-s:11px !important;												/* For some descriptions and tips */
-	$font-size-m:15px !important;												/* For subtitles */
-	$font-size-l:20px !important;												/* For content titles */
-	$font-size-xl:25px !important;												/* For section titles and overlay titles */
-
-	/* Color */
-	$font-color-base:#000;													/* For body paragraphs and titles */
-	$font-color-supreme:#FFF;													/* For titles in general */
-	$font-color-semi-light:#333;												/* For subtitles and tips */
-	$font-color-light:#999;														/* For descriptions */
-	$font-color-highlight:#000;												/* For titles on highlighted boxes */
-
-	/* Links */
-	$link-color:#0066cc;														/* Color for links */
-	$link-hover-color:#0066ff;														/* Hover Color for links */
 
 /* Nav icons */
-$nav-icon-color:#d3d3d3;														/* Color for nav icons */
-$nav-icon-color-hover:#00d67e;													/* Color for nav icons on :hover */
+$nav-icon-color:#d3d3d3 !default;														/* Color for nav icons */
+$nav-icon-color-hover:#00d67e !default;													/* Color for nav icons on :hover */
 
 
 /* Buttons */
 
 	/* Primary button */
-	$button-primary-color:#0066cc;												/* Primary button color */
-	$button-primary-hover-color:#0066ff;										/* Primary button Hover color */
-	$button-primary-text-color: #fff; 											/* Primary button text color */
+	$button-primary-color:#0066cc !default;												/* Primary button color */
+	$button-primary-hover-color:#0066ff !default;										/* Primary button Hover color */
+	$button-primary-text-color: #fff !default; 											/* Primary button text color */
 
 
 /* Buttons bar */																/* Buttons bar for create resources sections */
-$buttons-bar-color-text:#FFF;													/* Font color of button */
+$buttons-bar-color-text:#FFF !default;													/* Font color of button */
 
 
 /* Backgrounds */
-$background-color-highlight:#e5e9ec;											/* Color for backgrounds on highlighted boxes */
-$background-color-remember-me:#dae0e5;											/* Color for backgrounds on remember tips */
-$background-color-list:#f2f2f2;													/* Color for backgrounds on tables */
+$background-color-highlight:#e5e9ec !default;											/* Color for backgrounds on highlighted boxes */
+$background-color-remember-me:#dae0e5 !default;											/* Color for backgrounds on remember tips */
+$background-color-list:#f2f2f2 !default;													/* Color for backgrounds on tables */
+$background-color-danger:#fff1e3 !default;												/* Color for backgrounds danger messages */
 
 
 /* Forms */
-$form-label-color:#3a3a3a;														/* Color for form labels */
-$form-label-size:12px;															/* Size for form labels */
+$form-label-color:#3a3a3a !default;														/* Color for form labels */
+$form-label-size:12px !default;															/* Size for form labels */
 
 
 /* Loader */
-$loader-url-dark:"../images/common/loader_datal_dark.gif";						/* URL of loader image. Background must be #393939. For sections with dark backgrounds. */
-$loader-url-semi-light:"../images/common/loader_datal_semi_light.gif";			/* URL of loader image. Background must be #F6F4F4. For sections with light backgrounds. */
-$loader-url-light:"../images/common/loader_datal_light.gif";					/* URL of loader image. Background must be #FFFFFF. For sections with light backgrounds. */
+$loader-url-semi-light:"../images/common/loader_datal_semi_light.gif" !default;			/* URL of loader image. Background must be #F6F4F4. For sections with light backgrounds. */
+$loader-url-light:"../images/common/loader_datal_light.gif" !default;					/* URL of loader image. Background must be #FFFFFF. For sections with light backgrounds. */
 
 
 /* Media queries */
-$break-sm:768px;
-$break-md:992px;
-$break-lg:1200px;
+$break-sm:768px !default;
+$break-md:992px !default;
+$break-lg:1200px !default;
 
 
 /* Colors accept / reject */
-$red:#c1272d;
-$red-hover:#ea3442;
-$green:#009245;
-$green-hover:#02c159;
+$red:#c1272d !default;
+$red-hover:#ea3442 !default;
+$green:#009245 !default;
+$green-hover:#02c159 !default;
 
 
 /* Modal */
-$modal-table-selected-color: rgba(227, 250, 41, 0.24);							/* Background color for selected data in tables */
+$modal-table-selected-color: rgba(227, 250, 41, 0.24) !default;							/* Background color for selected data in tables */

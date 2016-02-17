@@ -1,0 +1,85 @@
+/* Import SASS variables */
+@import 'variables';
+
+body{
+	background-color: #fbfbfb;
+}
+
+.error-pages{
+	padding: 140px 0;
+
+	h1{
+		font-family: $font-titles-family;
+		margin: 30px 0 15px;
+		line-height: 29px;
+	}
+
+	p{
+		font-size: $font-size-m;
+		color: #666;
+		line-height: 21px;
+		margin-bottom: 8px;
+
+		span.error-code{
+			font-size: $font-size-base;
+			color: $font-color-light;
+			margin-top: 20px;
+    		display: inline-block;
+		}
+	}
+
+	/* Error images */
+	.error-graphic{
+		float: left;
+		margin-right: 40px;
+		width: 219px;
+		height: 249px;
+		background-repeat: no-repeat;
+	}
+
+	.error-graphic-not-found{
+		background-image: url( $img-not-found );
+	}
+
+	.error-graphic-internal{
+		background-image: url( $img-error-internal );
+	}
+
+	/* List items */
+	ul.list-item{
+		margin: 80px 0 10px;
+
+		li{
+			display: inline;
+
+			a{
+				color: #666;
+				
+				&:hover{
+					color: $font-color-base;
+				}
+			}
+			a:after{
+				content: "-";
+				margin: 0 15px;
+			}
+		}
+
+		li:last-child{
+
+			a:after{
+				content: "";
+				margin: 0;
+			}
+		}
+
+	}
+
+	/* Brand logo */
+	.error-pages-logo{
+		background: url( $img-error-pages-logo ) no-repeat;
+		width: 100px;
+		height: 24px;
+		margin: 0 auto;
+	}
+}

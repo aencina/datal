@@ -78,22 +78,24 @@
 		{# Review #}
   	<% if( authManager.isPublisher() || authManager.isAdmin() ){ %>
     	<% 
-        // Status Pending Review = 1
-        if( status === 1 ){ 
+        if( status == StatusChoices.PENDING_REVIEW ){ 
       %>
       	<li class="review"><a href="<%=url%>" title=<%= gettext('APP-REVIEW-TEXT') %>><%= gettext('APP-REVIEW-TEXT')%></a></li>
       <% } %>
     <% } %>
 
     {# Create Visualization #}
-    <li class="create">
-    	<a href="{% url 'manageVisualizations.create' %}?datastream_revision_id=<%=id%>" title="{% trans 'APP-ACTIONS-CREATE_VISUALIZATION' %}">{% trans 'APP-ACTIONS-CREATE_VISUALIZATION' %}</a>
-    </li>
+    <% 
+      if( status != StatusChoices.PENDING_REVIEW ){ 
+    %>
+      <li class="create">
+      	<a href="{% url 'manageVisualizations.create' %}?datastream_revision_id=<%=id%>" title="{% trans 'APP-ACTIONS-CREATE_VISUALIZATION' %}">{% trans 'APP-ACTIONS-CREATE_VISUALIZATION' %}</a>
+      </li>
+    <% } %>
 
     {# Edit #}
 		<% 
-      // Status Pending Review = 1
-      if( status !== 1 ){ 
+      if( status != StatusChoices.PENDING_REVIEW ) { 
     %>
     	<li class="edit">
     		<a data-id="<%=id%>" data-url="{% url 'manageDataviews.edit' %}" title=<%= gettext('APP-EDIT-TEXT') %>><%= gettext('APP-EDIT-TEXT') %></a>
@@ -102,8 +104,7 @@
 
     {# Delete #}
     <% 
-      // Status Pending Review = 1
-      if( status !== 1 ){ 
+      if( status != StatusChoices.PENDING_REVIEW ){ 
     %>
       <li class="delete"><a title=<%= gettext('APP-DELETE-TEXT') %> class="red"><%= gettext('APP-DELETE-TEXT') %></a></li>
     <% } %>

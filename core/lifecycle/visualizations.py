@@ -108,6 +108,8 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
         :param fields:
         :return: VisualizationRevision Model Object
         """
+        old_status = self.visualization_revision.status
+        
         if self.visualization_revision.status not in allowed_states:
             raise IllegalStateException(
                 from_state=self.visualization_revision.status,
@@ -115,12 +117,12 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
                 allowed_states=allowed_states
             )
 
-        if self.visualization_revision.status == StatusChoices.PUBLISHED:
+        if self.visualization_revision.status in [StatusChoices.PUBLISHED, StatusChoices.APPROVED]:
             self.visualization, self.visualization_revision = VisualizationDBDAO().create(
                 visualization=self.visualization,
-                datastream_rev=self.visualization_revision.datastream_revision,
+                datastream_rev=self.visualization_revision.datastream.last_revision,
                 user=self.visualization_revision.user,
-                status=StatusChoices.DRAFT,
+                status=fields.pop('status', StatusChoices.DRAFT),
                 **fields
             )
             self._update_last_revisions()
@@ -128,6 +130,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             # Actualizo sin el estado
             self.visualization_revision = VisualizationDBDAO().update(
                 self.visualization_revision,
+                status=fields.pop('status', old_status), 
                 changed_fields=changed_fields,
                 **fields
             )
@@ -203,6 +206,13 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
         self.visualization_revision.clone(status)
         self._update_last_revisions()
 
+    def clone(self):
+        vzr = self.visualization_revision.clone(self.visualization_revision.status)
+        if vzr.status == StatusChoices.PUBLISHED:
+            VisualizationSearchDAOFactory().create(vzr).add()
+        self._update_last_revisions()
+        return vzr
+
     def _remove_all(self):
         self.visualization.delete()
         self._log_activity(ActionStreams.DELETE)
@@ -215,7 +225,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             self.visualizationi18n = self.visualization_revision.visualizationi18n_set.all()[0] # TODO at at DAO
 
         title = self.visualizationi18n.title
-        resource_category = self.visualization_revision.datastream_revision.category.categoryi18n_set.all()[0] # todo add language
+        resource_category = self.visualization_revision.datastream.last_revision.category.categoryi18n_set.all()[0] # todo add language
         
         return super(VisualizationLifeCycleManager, self)._log_activity(
             action_id,
@@ -242,7 +252,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
 
     def _unpublish_all(self, to_status=StatusChoices.DRAFT):
         """
-        Despublica todas las revisiones de la visualizacion y la de todos sus dashboards hijos en cascada
+        Despublica todas las revisiones de la visualizacion y la de todos sus hijos en cascada
         No se implementa ya que visualizaciones no tiene modelos hijo
         """
         VisualizationRevision.objects.filter(
@@ -306,7 +316,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             if revcount == 1:
                 self._unpublish_all()
             else:
-                self.visualization_revision.status = tu_status
+                self.visualization_revision.status = to_status
                 self.visualization_revision.save()
 
         search_dao = VisualizationSearchDAOFactory().create(self.visualization_revision)
@@ -336,7 +346,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
                 self.visualization_revision.status = StatusChoices.APPROVED
                 self.visualization_revision.save()
                 transaction.commit()
-                raise VisualizationParentNotPublishedException()
+                raise VisualizationParentNotPublishedException(self.visualization_revision.visualization.datastream.last_revision)
 
         self._publish_childs()
         self.visualization_revision.status = StatusChoices.PUBLISHED

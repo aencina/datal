@@ -10,6 +10,7 @@ from functools import wraps
 from core.models import Dataset, Threshold, User
 from core.exceptions import ApplicationNotAdmin
 from core.models import Application
+# from django.utils.encoding import smart_str
 
 
 def public_keys_forbidden(view_func):
@@ -34,7 +35,7 @@ def datal_make_key(key, key_prefix, version):
     """
         sobre escribe el metodo make_key del cache para generar la key, ignorando key
     """
-
+    # en junar return smart_str(':'.join([key_prefix, str(version), key]))
     return ":".join([str(version), key_prefix])
 
 

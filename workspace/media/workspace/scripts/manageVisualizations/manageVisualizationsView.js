@@ -25,7 +25,6 @@ var ManageVisualizationsView = Backbone.View.extend({
 
 		this.sourceUrl = options.sourceUrl;
 		this.tagUrl = options.tagUrl;
-		this.visualizationCreationStepsUrl = options.visualizationCreationStepsUrl;
 
 		// Init template
 		this.template = _.template($("#total-resources-template").html());
@@ -58,7 +57,7 @@ var ManageVisualizationsView = Backbone.View.extend({
 	},
 
 	updateTotalResources: function(models, response){
-		this.model.set('total_resources',response.total_resources);
+		this.model.set('total_resources',response.total_entries);
 	},
 
 	onTotalResourcesChange: function(){
@@ -176,18 +175,15 @@ var ManageVisualizationsView = Backbone.View.extend({
 	},
 
 	onAddNewButtonClicked: function() {
-		var manageDatastreamsOverlayView = new ManageDatastreamsOverlayView({
-			visualizationCreationStepsUrl: this.visualizationCreationStepsUrl,
-		});
+		var manageDatastreamsOverlayView = new ManageDatastreamsOverlayView();
 	},
 
 	initFilters: function(filters){
 
 		this.listResources = new ListResources();
 
-		this.filtersCollection = new Backbone.Collection(filters, {
-			url: 'filters.json'
-		});
+		this.filtersCollection = new Backbone.Collection(filters);
+		this.filtersCollection.url = 'filters.json';
 
 		this.listResources.on('remove', function (event) {
 			this.listResources.queryParams.filters = null;
@@ -201,6 +197,9 @@ var ManageVisualizationsView = Backbone.View.extend({
 
 		this.listenTo(this.filtersView, 'change', function (queryDict) {
 			this.listResources.queryParams.filters = JSON.stringify(queryDict);
+			// Hack no recomendado por backbone paginator, pero tira error  (v 2.0.0) quizás en nueva version se arregla
+			// Si estas en una pagina que el resultdo del fetch le queda chico el backbone paginator se rompe
+			this.listResources.state.currentPage = 0
 			this.listResources.fetch({reset: true});
 		});
 

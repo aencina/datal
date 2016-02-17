@@ -14,56 +14,20 @@ from core.v8.factories import AbstractCommandFactory
 from core.exceptions import *
 from microsites.exceptions import *
 
+
 import urllib
 import json
-
-
-def hits_stats(request, vz_id, channel_type=None):
-    """
-    hits stats for chart visualization
-    """
-
-    try:
-        vz = Visualization.objects.get(pk=int(vz_id))
-    except Visualization.DoesNotExist:
-        raise VisualizationDoesNotExist
-
-
-    dao=VisualizationHitsDAO(vz)
-    hits=dao.count_by_days(30, channel_type)
-
-    field_names=[unicode(ugettext_lazy('REPORT-CHART-DATE')),unicode(ugettext_lazy('REPORT-CHART-TOTAL_HITS'))]
-
-
-    t = loader.get_template('viewChart/hits_stats.json') 
-    c = Context({'data': list(hits), 'field_names': field_names, "request": request, "cache": dao.from_cache})
-    return HttpResponse(t.render(c), content_type="application/json")
-
 
 def view(request, id, slug=None):
     """
     Show a microsite view
     """
-    try:
-        account = request.account
-        is_free = False
-    except AttributeError:
-        try:
-            account_id = Visualization.objects.values('user__account_id').get(pk=id)['user__account_id']
-            account = Account.objects.get(pk=account_id)
-            is_free = True
-        except (Visualization.DoesNotExist, Account.DoesNotExist), e:
-            raise VisualizationDoesNotExist
+    account = request.account
 
     preferences = request.preferences
-    if not is_free:
-        base_uri = 'http://' + preferences['account_domain']
-    else:
-        base_uri = get_domain_with_protocol('microsites')
 
     try:
-        visualization_revision = VisualizationDBDAO().get(
-            preferences['account_language'],
+        visualization_revision = VisualizationDBDAO().get(request.user,
             visualization_id=id,
             published=True
         )
@@ -74,29 +38,26 @@ def view(request, id, slug=None):
             raise NotAccesVisualization
 
         #for datastream sidebar functions (downloads and others)
-        datastream = DataStreamDBDAO().get(
-            preferences['account_language'],
+        datastream = DataStreamDBDAO().get(request.user,
             datastream_revision_id=visualization_revision["datastream_revision_id"]
         )
         
     except VisualizationRevision.DoesNotExist:
         raise VisualizationRevisionDoesNotExist
     else:
-
-        # url_query = urllib.urlencode(RequestProcessor(request).get_arguments(datastream.parameters))
-        chartSizes = settings.DEFAULT_MICROSITE_CHART_SIZES
-        chartWidth = chartSizes["embed"]["width"]
-        chartHeight = chartSizes["embed"]["height"]
-        url_query = "width=%d&height=%d" % (chartWidth, chartHeight)
-
-
-        # VisualizationHitsDAO(visualization_revision["visualization"]).add(ChannelTypes.WEB)
+        VisualizationHitsDAO(visualization_revision).add(ChannelTypes.WEB)
 
         visualization_revision_parameters = RequestProcessor(request).get_arguments(visualization_revision["parameters"])
 
         chart_type = json.loads(visualization_revision["impl_details"]).get('format').get('type')
-
+        if chart_type == 'mapchart':
+            geo_type = json.loads(visualization_revision["impl_details"]).get('chart').get('geoType')
+        else:
+            geo_type = ''
+            
         visualization_revision_parameters = urllib.urlencode(visualization_revision_parameters)
+
+        notes = visualization_revision['notes']
 
         return render_to_response('viewChart/index.html', locals())
 
@@ -108,30 +69,29 @@ def embed(request, guid):
     """
     account = request.account
     preferences = request.preferences
-    base_uri = 'http://' + preferences['account_domain']
+    msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+    base_uri = msprotocol + '://' + preferences['account_domain']
 
     try:
-        visualizationrevision_id = VisualizationRevision.objects.get_last_published_by_guid(guid)
-        visualization_revision = VisualizationDBDAO().get(
-            preferences['account_language'],
-            visualization_revision_id=visualizationrevision_id
-        )
+        visualization_revision = VisualizationDBDAO().get(request.user,
+            published=True, guid=guid )
 
-        datastream = DataStreamDBDAO().get(
-            preferences['account_language'],
+        datastream = DataStreamDBDAO().get(request.user,
             datastream_revision_id=visualization_revision["datastream_revision_id"]
         )
     except:
         return render_to_response('viewChart/embed404.html',{'settings': settings, 'request' : request})
 
-    # VisualizationHitsDAO(visualization_revision.visualization).add(ChannelTypes.WEB)
+    #VisualizationHitsDAO(visualization_revision.visualization).add(ChannelTypes.WEB)
+    VisualizationHitsDAO(visualization_revision).add(ChannelTypes.WEB)
+
     width = request.REQUEST.get('width', False) # TODO get default value from somewhere
     height = request.REQUEST.get('height', False) # TODO get default value from somewhere
 
     visualization_revision_parameters = RequestProcessor(request).get_arguments(visualization_revision["parameters"])
     visualization_revision_parameters['pId'] = visualization_revision["datastream_revision_id"]
     
-    command = AbstractCommandFactory().create("invoke", 
+    command = AbstractCommandFactory('microsites').create("invoke", 
             "vz", (visualization_revision_parameters,))
     json, type = command.run()
     visualization_revision_parameters = urllib.urlencode(visualization_revision_parameters)

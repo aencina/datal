@@ -9,24 +9,25 @@ var ModalView = Backbone.View.extend({
         this.collection = new DataTableSelectedCollection();
         this.dataStreamModel = options.dataStreamModel;
 
-        this.rangeLatModel = new DataTableSelectionModel({id: 1, name: 'range_lat', notEmpty: true});
-        this.rangeLonModel = new DataTableSelectionModel({id: 2, name: 'range_lon', notEmpty: true});
-        this.rangeInfoModel = new DataTableSelectionModel({id: 3, name: 'range_data', notEmpty: true});
-        this.rangeTraceModel = new DataTableSelectionModel({id: 4, name: 'range_trace', notEmpty: true});
+        this.rangeLatModel = new DataTableSelectionModel({classname: 1, mode: 'lat', name: 'latitudSelection', notEmpty: true});
+        this.rangeLonModel = new DataTableSelectionModel({classname: 2, mode: 'lon', name: 'longitudSelection', notEmpty: true});
+        this.rangeInfoModel = new DataTableSelectionModel({classname: 3, mode: 'data', name: 'data', notEmpty: true});
+        this.rangeTraceModel = new DataTableSelectionModel({classname: 4, mode: 'trace', name: 'traceSelection', notEmpty: true});
 
-        this.rangeDataModel = new DataTableSelectionModel({id: 1, name: 'range_data', notEmpty: true});
-        this.rangeLabelsModel = new DataTableSelectionModel({id: 2, name: 'range_labels', notEmpty: true});
-        this.rangeHeadersModel = new DataTableSelectionModel({id: 3, name: 'range_headers', notEmpty: true});
+        this.rangeDataModel = new DataTableSelectionModel({classname: 1, mode: 'data', name: 'data', notEmpty: true});
+        this.rangeLabelsModel = new DataTableSelectionModel({classname: 2, mode: 'labels', name: 'labelSelection', notEmpty: true});
+        this.rangeHeadersModel = new DataTableSelectionModel({classname: 3, mode: 'headers', name: 'headerSelection', notEmpty: true});
 
         // subviews
         this.selectedCellRangeView = new SelectedCellRangeView({
             el: this.$('.selected-ranges-view'),
+            model: this.model,
             collection: this.collection
         });
 
         // events
         this.on('open', this.onOpen, this);
-        this.listenTo(this.dataStreamModel, 'change', this.onLoadDataStream, this);
+        this.listenTo(this.dataStreamModel.data, 'change:rows', this.onLoadDataStream, this);
         this.listenTo(this.model, 'change:type', this.onChangeType, this);
         this.listenTo(this.model, 'change:geoType', this.onChangeType, this);
         this.listenTo(this.collection, 'change remove reset', this.validate, this);
@@ -42,13 +43,13 @@ var ModalView = Backbone.View.extend({
     onOpen: function () {
         this.selectedCellRangeView.render();
 
-        this.rangeLatModel.set('excelRange', this.model.get('range_lat'));
-        this.rangeLonModel.set('excelRange', this.model.get('range_lon'));
-        this.rangeInfoModel.set('excelRange', this.model.get('range_data'));
-        this.rangeTraceModel.set('excelRange', this.model.get('range_trace'));
-        this.rangeDataModel.set('excelRange', this.model.get('range_data'));
-        this.rangeLabelsModel.set('excelRange', this.model.get('range_labels'));
-        this.rangeHeadersModel.set('excelRange', this.model.get('range_headers'));
+        this.rangeLatModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('latitudSelection')));
+        this.rangeLonModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('longitudSelection')));
+        this.rangeInfoModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
+        this.rangeTraceModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('traceSelection')));
+        this.rangeDataModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('data')));
+        this.rangeLabelsModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('labelSelection')));
+        this.rangeHeadersModel.set('excelRange', DataTableUtils.parseEngineExcelRange(this.model.get('headerSelection')));
 
         this.collection.setCache();
         this.setHeights();
@@ -58,6 +59,7 @@ var ModalView = Backbone.View.extend({
     onChangeType: function () {
         var type = this.model.get('type'),
             geoType = this.model.get('geoType');
+
         if (type === 'mapchart') {
             if (geoType === 'points') {
                 this.collection.reset([this.rangeLatModel, this.rangeLonModel, this.rangeInfoModel]);
@@ -71,11 +73,72 @@ var ModalView = Backbone.View.extend({
 
     onClickDone: function (e) {
         var result = this.collection.reduce(function (memo, m) {
-            memo[m.get('name')] = m.get('excelRange');
+            memo[m.get('name')] = DataTableUtils.toServerExcelRange(m.get('excelRange'));
             return memo;
         }, {});
+        // Revisar los filtros para pedir el mejor mapa posible
+        result = this.fixMapInitialData(result);
         this.model.set(result);
         this.close();
+    },
+
+    // al aplicar estos resultados se llamará al motor para traer los datos.
+    // si es un mapa, tomar los datos (el primer punto), definirlo como centro 
+    // y definir un zoom menor    
+    fixMapInitialData: function(result) {
+        var type = this.model.get('type'), geoType = this.model.get('geoType');
+
+        if (type === 'mapchart') {
+            data = this.dataStreamModel.data;
+            // defs
+            row = data.attributes.rows[1]; //tomo la primera fila
+            center = {lat: 0, long: 0};
+            bounds = [85,180,-85,-180];
+            if (geoType === 'points') {
+                latRange = result.latitudSelection;
+                lonRange = result.longitudSelection;
+                lars = latRange.split(':');
+                lors = lonRange.split(':');
+                if (lars[0] == 'Column') { // Column:F por ejemplo
+                    center.lat = parseFloat(row[lars[1].charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    center.long = parseFloat(row[lors[1].charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                else { // F3:F28 por ejemplo
+                    // separar numeros de letras
+                    letter1 = lars[0].split('')[0];
+                    letter2 = lors[0].split('')[0];
+                    rown = parseInt(lars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    row = data.attributes.rows[rown]; 
+                    center.lat = parseFloat(row[letter1.charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    center.long = parseFloat(row[letter2.charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                        
+            } else if (geoType === 'traces') {
+                traceRange = result.traceSelection
+                tars = traceRange.split(':');
+                if (tars[0] == 'Column') { // Column:F por ejemplo
+                    trace = row[tars[1].charCodeAt(0) - 65]; // A = 0, B = 1, etc
+                    // al parecer son una serie de puntos LAT, LONG ...
+                    center.lat = parseFloat(trace.split(',')[1]); 
+                    center.long = parseFloat(trace.split(',')[0]); 
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                else { // F3:F28 por ejemplo
+                    // separar numeros de letras
+                    letter = tars[0].split('')[0];
+                    rown = parseInt(tars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    row = data.attributes.rows[rown]; 
+                    trace = row[letter.charCodeAt(0) - 65]; // A = 0, B = 1, etc
+                    center.lat = parseFloat(trace.split(',')[1]); 
+                    center.long = parseFloat(trace.split(',')[0]);
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+            }
+            result.options = {zoom: 13, center: center, bounds: bounds};
+        }
+    return result;
     },
 
     onClickCancel: function (e) {
@@ -84,15 +147,20 @@ var ModalView = Backbone.View.extend({
         this.close();
     },
 
-    onLoadDataStream: function (model) {
+    /* se cargaron los datos del datastream, estan en dataviewModel.toJSON() */
+    onLoadDataStream: function (dataviewModel) {
         this.dataTableView = new DataTableView({
             el: this.$('.data-table-view'),
             collection: this.collection,
-            datastream: model.toJSON()
+            dataview: dataviewModel.toJSON()
         });
         this.dataTableView.render();
         this.collection.setMaxCols(this.dataTableView.table.countCols());
-        this.collection.setMaxRows(this.dataTableView.table.countSourceRows());
+        var totalRows = this.dataStreamModel.response.fLength;
+        if (!totalRows){ // sometimes it's zero
+            totalRows = this.dataTableView.table.countSourceRows(); //probably always 50 by limit)
+            }
+        this.collection.setMaxRows(totalRows);
         this.listenTo(this.dataTableView, 'afterSelection', function (range) {
             this.addSelection(this._cacheFocusedInput);
         }, this);
@@ -107,21 +175,31 @@ var ModalView = Backbone.View.extend({
                 return model.get('name') === name;
             });
         model.set(selection);
+        var mode = [this._cacheFocusedInput, selection.mode].join('_');
+        // console.log(selection, mode);
+
         this.validate();
     },
 
     validate: function () {
         var type = this.model.get('type'),
-            geoType = this.model.get('geoType');
+            geoType = this.model.get('geoType'),
+            valid = false;
 
         if (type === 'mapchart') {
             if (geoType === 'points') {
-                this.validateLatLon();
+                valid = this.validateLatLon();
             } else if (geoType === 'traces') {
-                this.validateTrace();
+                valid = this.validateTrace();
             }
         } else {
-            this.validateData();
+            valid = this.validateData();
+        }
+
+        if (valid) {
+            this.enable();
+        } else {
+            this.disable();
         }
     },
 
@@ -133,11 +211,7 @@ var ModalView = Backbone.View.extend({
             validLon = this.rangeLonModel.isValid(),
             validInfo = this.rangeInfoModel.isValid();
 
-        if (hasLat && hasLon && hasInfo && validLat && validLon && validInfo) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+        return hasLat && hasLon && hasInfo && validLat && validLon && validInfo;
     },
 
     validateTrace: function () {
@@ -146,11 +220,7 @@ var ModalView = Backbone.View.extend({
             validTrace = this.rangeTraceModel.isValid(),
             validInfo = this.rangeInfoModel.isValid();
 
-        if (hasTrace && hasInfo && validTrace && validInfo) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+        return hasTrace && hasInfo && validTrace && validInfo;
     },
 
     validateData: function () {
@@ -161,12 +231,8 @@ var ModalView = Backbone.View.extend({
             validLabels = this.rangeLabelsModel.isValid(),
             validHeaders = this.rangeHeadersModel.isValid();
 
-        if (hasData && hasLabels && hasHeaders && validData && validLabels && validHeaders &&
-            this.validateDataHeaders(this.rangeDataModel, this.rangeHeadersModel)) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+        return hasData && hasLabels && hasHeaders && validData && validLabels && validHeaders 
+            && this.validateDataHeaders(this.rangeDataModel, this.rangeHeadersModel);
     },
 
     validateDataHeaders: function(validData, validHeaders) {

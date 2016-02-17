@@ -9,10 +9,11 @@
 
 {% block themeContent %}
 {% with number=paginator.count|intcomma %}
+
 <div class="homeContent w960 theme6">
 
-	<!-- Slider section -->
-	{% if config.imageSliderSection %}
+    <!-- Slider section -->
+    {% if config.imageSliderSection %}
     <div class="featuredContent placeholder">
         <div class="featuredSlider slider">
 
@@ -20,41 +21,56 @@
             <a class="btn der" title="{% trans 'APP-NEXT-TEXT' %}"><span class="DN">{% trans 'APP-NEXT-TEXT' %}</span></a>
 
             <div class="sliderHome">
-              	{% for source in config.imageSliderSection %}
-                <div class="panel">
+                {% for source in config.imageSliderSection %}
+                <div class="panel{% if source.radio == 'videoSection' %} cursor videoSection{% endif %}" id="id_panel_slider_{{forloop.counter}}">
                     <article>
                         <div class="sliderInfo">
                             {% if source.description %}
                                 <h1>{{source.description}}</h1>
                             {% endif %}
-                            {% if source.href %}
-                                <a href="{{source.href}}" class="readMore" target="_blank">{% trans 'APP-READ-MORE-TEXT' %}</a>
+                            
+                            {% if source.radio == "linkSection" %}
+                                {% if source.href %}
+                                    <a href="{{source.href}}" class="readMore" target="_blank">{% trans 'APP-READ-MORE-TEXT' %}</a>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if source.radio == "videoSection" %}
+                                {% if source.video %}
+                                    <div id="dialog_{{forloop.counter}}" style="display:none;">
+                                        {{source.video|safe|escape}}
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         </div>
 
                         {% if source.image %}
-                            <img src="{{source.image}}" alt=""/>
+                            <img id="id_slider_img_{{forloop.counter}}" src="{{source.image}}" alt=""/>
                         {% endif %}
                     </article>
                 </div>
-              	{%endfor%}
+
+                
+
+                {%endfor%}
             </div>
         </div>
     </div>
+
     {% endif %}
 
     <!-- Search box -->
-    <div class="searchBox roundedBox10 border-box" novalidate>
+    <div class="searchBox roundedBox10 border-box">
         <form class="clearfix searchForm" action="/search/">
             <input type="text" name="q" placeholder="{% if config.searchboxHintText %}{{ config.searchboxHintText|format:number|safe }}{% else %}{% trans 'APP-SEARCH-TEXT' %}{% endif %}" class="FL"/>
-            <input type="image" value="" title="{% trans 'APP-SEARCH-TEXT' %}" src="{% static 'core/images/common/im_transparentPixel.png' %}" class="image"/>
+            <input type="image" value="" title="{% trans 'APP-SEARCH-TEXT' %}" src="/media_core/images/common/im_transparentPixel.png" class="image"/> 
         </form>
     </div>
 
     <!-- Buttons section -->
     {% if config.buttonSection %}
     <ul class="buttonsSection clearfix">         
-    	{% for button in config.buttonSection %}      
+        {% for button in config.buttonSection %}      
         <li style="width:{{ config.buttonsPerRowWidth }}%;" class="border-box">
             <a href="{{button.href}}" title="{{ button.description|format:number|safe }}" class="buttonContent" target="_blank">
                 <img src="{{button.image}}" alt="{{ button.description|format:number|safe }}"/>
@@ -127,5 +143,18 @@
 
 
 </div>
+{% endwith %}
+{% endblock %}
+
+{% block popupsOverlay %}
+{% with number=paginator.count|intcomma %}
+
+        <!-- Video popup -->
+        {% overlay id_videoPopup %}
+          <div class="In clearfix">
+            <div class="videoContent clearfix"></div>
+          </div>
+        {% endoverlay %}
+
 {% endwith %}
 {% endblock %}

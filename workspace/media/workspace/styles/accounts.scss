@@ -4,15 +4,11 @@
 @import 'functions';
 
 html,
-body{background:$nav-bg;}
+body{background:$account-bg;}
 
 .account-box{width:390px;margin:0 auto;padding-top:30px;}
-.account-box .logo-signin-brand{background:url(#{$logo-signin-url}) no-repeat center center;background-image:url(#{$logo-signin-svg-url});height:$logo-signin-height;margin-bottom:30px;}
-.account-box .account-box-content{background:#fff;padding:20px;border:1px solid $brand-color-bold;
-  -webkit-border-radius:3px;
-     -moz-border-radius:3px;
-          border-radius:3px;
-}
+.account-box .logo-signin-brand{background:url(#{$logo-signin-url}) no-repeat center center;height:$logo-signin-height;margin-bottom:30px;}
+.account-box .account-box-content{background:#fff;padding:20px;}
 .account-box .row{padding-top:15px;}
 .account-box .row:first-child{padding-top:0;}
 .account-box .row label,
@@ -44,10 +40,7 @@ body{background:$nav-bg;}
 .account-box-content fieldset legend{font-family:$font-titles-family;font-size:$font-size-xl;margin-bottom:20px;}
 
   /* Validation Messages */
-  .account-box .account-box-message{background:rgba(66,52,45,.9) url(/static/workspace/images/common/ic_validationInfo32.png) no-repeat 13px center;border:1px solid #000;margin-bottom:20px;padding:19px 15px 19px 56px;color:#fff;text-shadow:0 1px 0 #000;min-height:60px;
-    -webkit-border-radius:3px;
-       -moz-border-radius:3px;
-            border-radius:3px;
+  .account-box .account-box-message{background:rgba(66,52,45,.9) url(/static/workspace/images/common/ic_validationInfo32.png) no-repeat 13px center;border:1px solid #000;margin-bottom:20px;padding:19px 15px 19px 56px;color:#fff;min-height:60px;
   }
   .account-box .account-box-message p{line-height:16px;padding:2px 0;}
   .account-box .account-box-error{background-image:url(/static/workspace/images/common/ic_validationError32.png);}

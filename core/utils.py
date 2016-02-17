@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify as django_slugify
 from django.template.defaultfilters import date as _date
 from django.db.models.base import ModelState
+from django.conf.urls import include, patterns
 
 from core.choices import SOURCE_IMPLEMENTATION_CHOICES
 from core.choices import SourceImplementationChoices
@@ -16,6 +17,17 @@ validate_comma_separated_word_list = RegexValidator(
     re.compile('^[\w,]+$'), _(u'Enter only words separated by commas.'), 
     'invalid')
 
+
+
+def include_notroot_plugins(point, pattern=r'{plugin}/', urls='urls'):
+    pluginurls = []
+    for plugin in point.get_plugins():
+        if hasattr(plugin, urls) and hasattr(plugin, 'name'):
+            _urls = getattr(plugin, urls)
+            for url in _urls:
+                url.default_args['plugin'] = plugin.name
+            pluginurls.append(('', include(_urls) ))
+    return include(patterns('', *pluginurls))
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):

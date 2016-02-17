@@ -1,12 +1,12 @@
-{% load i18n compress staticfiles %}
+{% load i18n compress staticfiles plugins_tags %}
 <!DOCTYPE html>
 <html lang="{% if auth_manager.language == 'en' %}en-US{% endif %}{% if auth_manager.language == 'es' %}es-ES{% endif %}{% if auth_manager.language == 'pt' %}pt-BR{% endif %}">
 <head>
     <meta charset="utf-8">
 
     {% block SEO %}
-    <title>{% block title %}DATAL &middot; {% trans 'APP-THEOPENDATAPLATFORM-TEXT' %}{% endblock %}</title>
-    <meta name="description" content="DATAL delivers the easiest to use, cloud-based, Open Data Platform that enables data-rich organizations to achieve greater transparency, citizen engagement, efficiencies and innovation." />
+    <title>{% block title %}{{ settings.APPLICATION_DETAILS.name }} &middot; {% trans 'APP-THEOPENDATAPLATFORM-TEXT' %}{% endblock %}</title>
+    <meta name="description" content="{{ settings.APPLICATION_DETAILS.name }} delivers the easiest to use, cloud-based, Open Data Platform that enables data-rich organizations to achieve greater transparency, citizen engagement, efficiencies and innovation." />
     {% endblock %}
 
 	<meta http-equiv="CACHE-CONTROL" content="max-age=0, no-store" />
@@ -15,7 +15,11 @@
 	{% block head %}{% endblock %}
 
     {% block favicon %}
+        {% if not 'favicon'|inplugin %}
         <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
+        {% else %}
+        {% plugins_call 'favicon' %}
+        {% endif %}
     {% endblock %}
 
 	{% include "css.html" %}

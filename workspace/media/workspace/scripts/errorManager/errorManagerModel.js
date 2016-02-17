@@ -43,6 +43,9 @@
             //Validate the format of the error message
             if(typeof errorMessage['description'] !== 'undefined' && typeof errorMessage['error'] !== 'undefined'){
                 // changed to fire change every time it is set
+                if (errorSource.hasOwnProperty('onClose')) {
+                    errorMessage['responseOnClose'] = errorSource.onClose
+                }
                 this.set(errorMessage, {silent: true}).trigger('change');
             }
             else{

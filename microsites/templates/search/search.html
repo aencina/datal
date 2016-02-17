@@ -9,16 +9,21 @@
 {% block meta %}
 {% compress css %}
 <!-- COMPONENT -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/actions.css' %}"/>
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/tagsContainer.css' %}"/>
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/search.css' %}"/>
-<!-- BRANDED -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/actions.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/tagsContainer.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/search.css' %}"/>
 {% endcompress %}
-<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 <script type="text/javascript" src="/js_microsites/search/searchList.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="{% url "microsites.get_js" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
+
+{% compress css %}
+<!-- BRANDED CSS -->
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+{% endcompress %}
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<!-- BRANDED JS -->
+<script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -59,7 +64,7 @@
                 <div class="boxInner">
                     {% for item in facets %}
                         <h5 class="minnorPaddingBottom">
-                            <a href="{% url "search.search" %}/category/{{item.term}}?q={{query}}">{{ item.term|title}}</a> ({{ item.count }})
+                            <a href="{% url "search.search" %}category/{{item.term}}?q={{query}}">{{ item.term|title}}</a> ({{ item.count }})
                             </h5>
                     {% endfor %}
                 </div>
@@ -76,11 +81,55 @@
                     <dl>
                         <dt>{% trans "DSFIND-HELPTIP-TIP1TITLE" %}:</dt>
                         <dd>{% trans "DSFIND-HELPTIP-TIP1TEXT" %}.</dd>
+                        <dd class="viewMoreLink clearfix">
+                            <span class="VM">{% trans "APP-EXAMPLE-TEXT" %}: 
+                                
+                                {% if preferences.account_search_tips %}
+                                    <a href="{{search_url}}?q={{search_tips.tip1}}" title="{{search_tips.tip1}}" rel="nofollow">
+                                    {{search_tips.tip1}}
+                                    </a>
+                                {% else %}
+                                    <a href="{{search_url}}?q=apple stock" title="apple stock" rel="nofollow">
+                                    apple stock
+                                    </a>
+                                {% endif %}
+
+                            </span>
+                        </dd>
                         <dt>{% trans "DSFIND-HELPTIP-TIP2TITLE" %}:</dt>
                         <dd>{% trans "DSFIND-HELPTIP-TIP2TEXT" %}.</dd>
+                        <dd class="viewMoreLink clearfix">
+                            <span class="VM">{% trans "APP-EXAMPLE-TEXT" %}:
+
+                                {% if preferences.account_search_tips %}
+                                    <a href="{{search_url}}?q={{search_tips.tip2}}" title="{{search_tips.tip2}}" rel="nofollow">
+                                    {{search_tips.tip2}}
+                                    </a>
+                                {% else %} 
+                                <a href="{{search_url}}?q=GDP%2BUS" title="GDP+US" rel="nofollow">
+                                    GDP+US
+                                </a>
+                                {% endif %}
+
+                            </span>
+                        </dd>
                         <dt>{% trans "DSFIND-HELPTIP-TIP3TITLE" %}:</dt>
                         <dd>{% trans "DSFIND-HELPTIP-TIP3TEXT" %}.</dd>
-                    </dt>
+                        <dd class="viewMoreLink clearfix">
+                            <span class="VM">{% trans "APP-EXAMPLE-TEXT" %}: 
+
+                                {% if preferences.account_search_tips %}
+                                    <a href="{{search_url}}?q={{search_tips.tip3}}" title="{{search_tips.tip3}}" rel="nofollow">
+                                    {{search_tips.tip3}}
+                                    </a>
+                                {% else %} 
+                                    <a href="{{search_url}}?q=&quot;NBA Standings&quot;" title="NBA Standings" rel="nofollow">&quot;NBA Standings&quot;
+                                    </a>
+                                {% endif %}
+
+                            </span>
+                        </dd>
+                    </dl>
                 </div>
             </div>
 

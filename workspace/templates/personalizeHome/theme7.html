@@ -1,0 +1,318 @@
+{% load i18n extra_tags components %}
+<script type="text/html" id="id_theme7Template">
+
+<!-- Welcome section -->
+  <div class="formBox welcomeSection">
+    <header class="clearfix">
+      <div class="num">1</div>
+      <hgroup>
+        <h1><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOXTITLE') %></h1>
+        <h2><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOXDESCRIPTION') %></h2>
+      </hgroup>
+    </header>
+    <fieldset class="imageComponent theme7">
+      <div id="welcome_image" class="row borderForRow">
+        <label for="id_welcomeImage"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-IMAGE-LABEL') %></label>
+        <div class="clearfix tr">
+          <div class="crop relative clearfix FL">
+            <button class="button small"><%= gettext('ADMIN-HOME-SECTION-BUTTONTEXT') %></button>
+            <input type="file" id="id_welcomeImage" class="file FL" tabindex="-1"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme7WelcomeTitle"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-TITLE-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="text" class="field" id="id_theme7WelcomeTitle" name="id_theme7WelcomeTitle" value="<%=welcomeSectionTitle%>" data-bind="value:welcomeSectionTitle,events:['keyup']" maxlength="36" />
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme7WelcomeDescription"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-DESCRIPTION-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="text" class="field" id="id_theme7WelcomeDescription" name="id_theme7WelcomeDescription" value="<%=welcomeSectionDescription%>" data-bind="value:welcomeSectionDescription,events:['keyup']" maxlength="125" />
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme7WelcomeLinkLabel"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-LINK-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="text" class="field" id="id_theme7WelcomeLinkLabel" name="id_theme7WelcomeLinkLabel" value="<%=welcomeSectionLinkLabel%>" data-bind="value:welcomeSectionLinkLabel,events:['keyup']" maxlength="80" />
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme7WelcomeLink"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-URL-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="url" class="field FL urlLink complete_url" id="id_theme7WelcomeLink" name="id_theme7WelcomeLink" value="<%=welcomeSectionLink%>" data-bind="value:welcomeSectionLink,events:['keyup']"/>
+        </div>
+      </div>
+      <div class="row FL">
+        <label for="id_theme7WelcomeBackgroundColor"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <div id="welcome_background_color" class="colorPicker"><div></div></div>
+          <input type="hidden" name="welcome_background_color" id="id_welcome_background_color">
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+<!-- Featured section -->
+<div class="formBox featuredSection">
+	<header class="clearfix">
+		<div class="num">2</div>
+		<hgroup>
+			<h1><%= gettext('ADMIN-HOME-SECTION-SLIDERTHEME7-TITLE') %></h1>
+			<h2><%= gettext('ADMIN-HOME-SECTION-SLIDERTHEME7-DESCRIPTION') %></h2>
+		</hgroup>
+	</header>
+	<fieldset class="imageComponent theme7">
+		<div id="carrousel_image" class="row">    
+			<table id="image_table"></table>
+			<table id="image_saved"></table>
+		</div>
+		<div class="row clearfix bottomRow">
+			<a id="id_new_slide" class="button primary small"><span><%= gettext('ADMIN-HOME-SECTION-NEWSLIDE') %></span></a>    
+      <div class="buttonSideContent">
+        <label for="id_theme7FeaturedBackgroundColor"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL') %></label>
+        <div class="formErrorMessageContainer FL">
+          <div id="featured_background_color" class="colorPicker"><div></div></div>
+          <input type="hidden" name="featured_background_color" id="id_featured_background_color">
+        </div>
+      </div>
+		</div>
+	</fieldset>
+</div>
+
+<!-- Priorities section -->
+<div class="formBox prioritiesSection">
+  <header class="clearfix">
+    <div class="num">3</div>
+    <hgroup>
+      <h1><%= gettext('ADMIN-HOME-SECTION-PIORITIES-TITLE') %></h1>
+      <h2><%= gettext('ADMIN-HOME-SECTION-PIORITIES-DESCRIPTION') %></h2>
+    </hgroup>
+  </header>
+  <fieldset class="imageComponent theme7">
+    <div class="row">
+      <label for="id_theme7PrioritiesSectionTitle"><%= gettext('ADMIN-HOME-SECTION-SECTION-TITLE-LABEL') %></label>
+      <div class="formErrorMessageContainer">
+        <input type="text" class="field" id="id_theme7PrioritiesSectionTitle" name="id_theme7PrioritiesSectionTitle" value="<%=prioritiesSectionTitle%>" data-bind="value:prioritiesSectionTitle,events:['keyup']" maxlength="300" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="id_theme7PrioritiesSectionDescription"><%= gettext('ADMIN-HOME-SECTION-SECTION-DESCRIPTION-LABEL') %></label>
+      <div class="formErrorMessageContainer">
+        <input type="text" class="field" id="id_theme7PrioritiesSectionDescription" name="id_theme7PrioritiesSectionDescription" value="<%=prioritiesSectionDescription%>" data-bind="value:prioritiesSectionDescription,events:['keyup']" />
+      </div>
+    </div>
+  </fieldset>
+  <header class="clearfix">
+    <hgroup>
+      <h3><%= gettext('ADMIN-HOME-SECTION-PIORITIES-ADD-SLIDES-TEXT') %></h3>
+    </hgroup>
+  </header>
+  <fieldset class="imageComponent theme7">
+    <div id="carrousel_image" class="row">    
+      <table id="image_table"></table>
+      <table id="image_saved"></table>
+    </div>
+    <div class="row clearfix bottomRow">
+      <a id="id_new_slide" class="button primary small"><span><%= gettext('ADMIN-HOME-SECTION-NEWSLIDE') %></span></a> 
+      <div class="buttonSideContent">
+        <label for="id_theme7WelcomeBackgroundColor"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL') %></label>
+        <div class="formErrorMessageContainer FL">
+          <div id="priorities_background_color" class="colorPicker"><div></div></div>
+          <input type="hidden" name="priorities_background_color" id="id_priorities_background_color">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<!-- Navigation section -->
+<div class="formBox buttonsSection section3">
+	<header class="clearfix">
+		<div class="num">4</div>
+		<hgroup>
+			<h1><%= gettext('ADMIN-HOME-SECTION-NAVIGATION-TITLE') %></h1>
+			<h2><%= gettext('ADMIN-HOME-SECTION-NAVIGATION7-DESCRIPTION') %></h2>
+		</hgroup>
+	</header>
+  <fieldset class="imageComponent theme7">
+    <div class="row">
+      <label for="id_theme7ButtonsSectionTitle"><%= gettext('ADMIN-HOME-SECTION-SECTION-TITLE-LABEL') %></label>
+      <div class="formErrorMessageContainer">
+        <input type="text" class="field" id="id_theme7ButtonsSectionTitle" name="id_theme7ButtonsSectionTitle" value="<%=buttonsSectionTitle%>" data-bind="value:buttonsSectionTitle,events:['keyup']" maxlength="300" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="id_theme7ButtonsSectionDescription"><%= gettext('ADMIN-HOME-SECTION-SECTION-DESCRIPTION-LABEL') %></label>
+      <div class="formErrorMessageContainer">
+        <input type="text" class="field" id="id_theme7ButtonsSectionDescription" name="id_theme7ButtonsSectionDescription" value="<%=buttonsSectionDescription%>" data-bind="value:buttonsSectionDescription,events:['keyup']" />
+      </div>
+    </div>
+  </fieldset>
+  <header class="clearfix">
+    <hgroup>
+      <h3><%= gettext('ADMIN-HOME-SECTION-PIORITIES-ADD-BUTTONS-TEXT') %></h3>
+    </hgroup>
+  </header>
+	<fieldset class="imageComponent theme7">
+		<div id="button_section" class="row">    
+			<table id="nav_button_table"></table>
+			<table id="nav_button_saved"></table>
+		</div>
+		<div class="row clearfix bottomRow">
+			<a id="id_new_button" class="button primary small"><span><%= gettext('ADMIN-HOME-SECTION-NEWBUTTON') %></span></a>
+      <div class="buttonSideContent">
+        <label for="id_theme7ButtonsBackgroundColor"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL') %></label>
+        <div class="formErrorMessageContainer FL">
+          <div id="buttons_background_color" class="colorPicker"><div></div></div>
+          <input type="hidden" name="buttons_background_color" id="id_buttons_background_color">
+        </div>
+      </div>
+		</div>
+	</fieldset>
+</div>
+
+  <!-- Left Bottom section -->
+  <div class="formBox bottomSection leftBottomSection">
+    <header class="clearfix">
+      <div class="num">5</div>
+      <hgroup>
+        <h1><%= gettext('ADMIN-HOME-SECTION-LEFTBOTTOMBOXTITLE') %></h1>
+        <h2><%= gettext('ADMIN-HOME-SECTION-LEFTBOTTOMBOXDESCRIPTION') %></h2>
+      </hgroup>
+    </header>
+    <fieldset class="imageComponent theme7">
+      <div id="leftBottom_image" class="row borderForRow">
+        <label for="id_leftBottomImage"><%= gettext('ADMIN-HOME-SECTION-LEFTBOTTOMBOXLABEL') %></label>
+        <div class="clearfix tr">
+          <div class="crop relative clearfix FL">
+            <button class="button small"><%= gettext('ADMIN-HOME-SECTION-BUTTONTEXT') %></button>
+            <input type="file" id="id_leftBottomImage" class="file FL" tabindex="-1"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme5LeftBottomTitle"><%= gettext('ADMIN-HOME-SECTION-LEFTBOTTOMBOXFIRSTLABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="text" class="field" id="id_theme5LeftBottomTitle" name="id_theme5LeftBottomTitle"  value="<%=leftBottomSectionTitle%>" data-bind="value:leftBottomSectionTitle,events:['keyup']" maxlength="30" />
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme5LeftBottomLink"><%= gettext('ADMIN-HOME-SECTION-LEFTBOTTOMBOXLINKLABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="url" class="field FL urlLink complete_url" id="id_theme5LeftBottomLink" name="id_theme5LeftBottomLink" value="<%=leftBottomSectionLink%>" data-bind="value:leftBottomSectionLink,events:['keyup']"/>
+        </div>
+      </div>
+      <div class="row FL">
+        <label for="id_theme7LeftBottomBackgroundColor"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <div id="left_bottom_background_color" class="colorPicker"><div></div></div>
+          <input type="hidden" name="left_bottom_background_color" id="id_left_bottom_background_color">
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Middle Bottom section -->
+  <div class="formBox bottomSection middleBottomSection">
+    <header class="clearfix">
+      <div class="num">6</div>
+      <hgroup>
+        <h1><%= gettext('ADMIN-HOME-SECTION-MIDDLEBOTTOMBOXTITLE') %></h1>
+        <h2><%= gettext('ADMIN-HOME-SECTION-MIDDLEBOTTOMBOXDESCRIPTION') %></h2>
+      </hgroup>
+    </header>
+    <fieldset class="imageComponent theme7">
+      <div id="middleBottom_image" class="row borderForRow">
+        <label for="id_middleBottomImage"><%= gettext('ADMIN-HOME-SECTION-MIDDLEBOTTOMBOXLABEL') %></label>
+        <div class="clearfix tr">
+          <div class="crop relative clearfix FL">
+            <button class="button small"><%= gettext('ADMIN-HOME-SECTION-BUTTONTEXT') %></button>
+            <input type="file" id="id_middleBottomImage" class="file FL" tabindex="-1"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme5MiddleBottomTitle"><%= gettext('ADMIN-HOME-SECTION-MIDDLEBOTTOMBOXFIRSTLABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="text" class="field" id="id_theme5MiddleBottomTitle" name="id_theme5MiddleBottomTitle" value="<%=middleBottomSectionTitle%>" data-bind="value:middleBottomSectionTitle,events:['keyup']" maxlength="30" />
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme5MiddleBottomLink"><%= gettext('ADMIN-HOME-SECTION-MIDDLEBOTTOMBOXLINKLABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="url" class="field FL urlLink complete_url" id="id_theme5MiddleBottomLink" name="id_theme5MiddleBottomLink" value="<%=middleBottomSectionLink%>" data-bind="value:middleBottomSectionLink,events:['keyup']"/>
+        </div>
+      </div>
+      <div class="row FL">
+        <label for="id_theme7MiddleBottomBackgroundColor"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <div id="middle_bottom_background_color" class="colorPicker"><div></div></div>
+          <input type="hidden" name="middle_bottom_background_color" id="id_middle_bottom_background_color">
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Right Bottom section -->
+  <div class="formBox bottomSection rightBottomSection">
+    <header class="clearfix">
+      <div class="num">7</div>
+      <hgroup>
+        <h1><%= gettext('ADMIN-HOME-SECTION-RIGHTBOTTOMBOXTITLE') %></h1>
+        <h2><%= gettext('ADMIN-HOME-SECTION-RIGHTBOTTOMBOXDESCRIPTION') %></h2>
+      </hgroup>
+    </header>
+    <fieldset class="imageComponent theme7">
+      <div id="rightBottom_image" class="row borderForRow">
+        <label for="id_rightBottomImage"><%= gettext('ADMIN-HOME-SECTION-RIGHTBOTTOMBOXLABEL') %></label>
+        <div class="clearfix tr">
+          <div class="crop relative clearfix FL">
+            <button class="button small"><%= gettext('ADMIN-HOME-SECTION-BUTTONTEXT') %></button>
+            <input type="file" id="id_rightBottomImage" class="file FL" tabindex="-1"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme5RightBottomTitle"><%= gettext('ADMIN-HOME-SECTION-RIGHTBOTTOMBOXFIRSTLABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="text" class="field" id="id_theme5RightBottomTitle" name="id_theme5RightBottomTitle" value="<%=rightBottomSectionTitle%>" data-bind="value:rightBottomSectionTitle,events:['keyup']" maxlength="30" />
+        </div>
+      </div>
+      <div class="row">
+        <label for="id_theme5RightBottomLink"><%= gettext('ADMIN-HOME-SECTION-RIGHTBOTTOMBOXLINKLABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <input type="url" class="field FL urlLink complete_url" id="id_theme5RightBottomLink" name="id_theme5RightBottomLink" value="<%=rightBottomSectionLink%>" data-bind="value:rightBottomSectionLink,events:['keyup']"/>
+        </div>
+      </div>
+      <div class="row FL">
+        <label for="id_theme7RightBottomBackgroundColor"><%= gettext('ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL') %></label>
+        <div class="formErrorMessageContainer">
+          <div id="right_bottom_background_color" class="colorPicker"><div></div></div>
+          <input type="hidden" name="right_bottom_background_color" id="id_right_bottom_background_color">
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Links section -->
+  <div class="formBox linksSection">
+    <header class="clearfix">
+      <div class="num">8</div>
+      <hgroup>
+        <h1><%= gettext('ADMIN-HOME-SECTION-LINKSTITLE') %></h1>
+        <h2><%= gettext('ADMIN-HOME-SECTION-LINKSDESCRIPTION') %></h2>
+      </hgroup>
+    </header>
+    <fieldset class="imageComponent theme7">
+     <div id="links_section" class="row">
+        <table id="links_table"></table>
+      </div>
+      <div class="row clearfix">
+        <a id="id_new_link" class="button primary small"><span><%= gettext('ADMIN-HOME-SECTION-NEWLINK') %></span></a>
+      </div>
+    </fieldset>
+  </div>
+
+</script>

@@ -78,7 +78,7 @@ var DatastreamEditItemView = Backbone.Epoxy.View.extend({
 
     initNotes: function(){
         this.notesInstance = new nicEditor({
-             buttonList : ['bold','italic','underline','ul', 'ol', 'link', 'hr'], 
+             buttonList : ['bold','italic','underline','ul', 'ol', 'link', 'hr','xhtml'], 
              iconsPath: '/js_core/plugins/nicEdit/nicEditorIcons-2014.gif'
         }).panelInstance('id_notes');
     },
@@ -117,11 +117,7 @@ var DatastreamEditItemView = Backbone.Epoxy.View.extend({
                     self.closeOverlay();
 
                     var newRevisionID = response['datastream_revision_id'],
-                        location = window.location.href,
-                        splitURL = location.split("/"),
-                        cutURL = splitURL.slice(0, -1),
-                        joinURL = cutURL.join("/"),
-                        setURL = joinURL + "/" + newRevisionID;
+                        setURL = "/dataviews/" + newRevisionID + '/';
 
                     setTimeout(function () {
                            window.location = setURL;

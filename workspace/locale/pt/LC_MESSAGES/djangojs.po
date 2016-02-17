@@ -1,6 +1,6 @@
 # DATAL's English language pack.
 # Copyright  2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-19 16:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Emilio Heck <emilio.heck@junar.com>\n"
+"Last-Translator: Ignacio Sans <ignacio.sans@junar.com>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -207,9 +207,6 @@ msgstr "Set Alias"
 msgid "COLLECT-LOADURL-ERROR"
 msgstr "We couldn't load the source. Maybe it is unavailable. Please try again later."
 
-msgid "OVREPAIR-TABLE-NOSELECTED"
-msgstr "You must select at least one table!"
-
 msgid "COLLECT-TWOTABLES-ERROR"
 msgstr "You can't select two tables at the same time"
 
@@ -227,9 +224,6 @@ msgstr "There was a error proccessing your request, Please try again"
 
 msgid "APP-REMOVETAG-TEXT"
 msgstr "Remove Tag"
-
-msgid "NO-MOTD"
-msgstr "At DATAL, we are constantly working behind the scenes to provide you the best experience possible. We just completed a major update and hope you enjoy the added perks."
 
 msgid "VALIDATE-USERNAME"
 msgstr "The username already exist."
@@ -373,7 +367,7 @@ msgid "ADMIN-HOME-SECTION-RESOURCETITLE"
 msgstr "Resources Slider section"
 
 msgid "ADMIN-HOME-SECTION-RESOURCEDESCRIPTION"
-msgstr "Start typing the the name of the resources that will be included in the slider, and select them from the list."
+msgstr "Procurar e adicionar recursos para o carrousel."
 
 msgid "ADMIN-HOME-SECTION-LEFTBOTTOMTITLE"
 msgstr "Left Bottom section"
@@ -418,7 +412,7 @@ msgid "ADMIN-HOME-SECTION-QUICKLINKSTITLE"
 msgstr "Quick Links section"
 
 msgid "ADMIN-HOME-SECTION-QUICKLINKSDESCRIPTION"
-msgstr "Start typing the the name of the resources that will be included in the Quick Links section, and select them from the list."
+msgstr "Start typing the name of the resources that will be included in the Quick Links section, and select them from the list."
 
 msgid "ADMIN-HOME-SECTION-NEWSLIDE"
 msgstr "Add new slide"
@@ -887,3 +881,84 @@ msgstr "You already have a source with that name. Please, choose another."
 
 msgid "INVALID-TAG"
 msgstr "Invalid Tag"
+
+msgid "ADMIN-HOME-DESCRIPTION-THEME7"
+msgstr "Custom theme designed for the city of <em>Mesa</em>. Contains a welcome image, two slideshows, animated icons and more. Need a custom theme? Order yours <a href='mailto:support@junar.com' title='support@junar.com'>here</a>."
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOXTITLE"
+msgstr "Welcome section"
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOXDESCRIPTION"
+msgstr "This content is displayed in the upper left. It contains a background image, title, description and button. Maximum image size: 5 MB."
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOX-IMAGE-LABEL"
+msgstr "Image:"
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOX-TITLE-LABEL"
+msgstr "Title:"
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOX-DESCRIPTION-LABEL"
+msgstr "Description:"
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOX-LINK-LABEL"
+msgstr "Button title:"
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOX-URL-LABEL"
+msgstr "Button URL:"
+
+msgid "ADMIN-HOME-SECTION-WELCOMEBOX-BACKGROUND-COLOR-LABEL"
+msgstr "Color for text background:"
+
+msgid "ADMIN-HOME-SECTION-SLIDERTHEME7-TITLE"
+msgstr "Featured slideshow section"
+
+msgid "ADMIN-HOME-SECTION-SLIDERTHEME7-DESCRIPTION"
+msgstr "Add images to the carousel and order them. If you want, add titles. This content is displayed in the upper right part of the portal. Maximum size of each image: 5 MB."
+
+msgid "ADMIN-HOME-SECTION-TITLE-LABEL"
+msgstr "Title:"
+
+msgid "ADMIN-HOME-SECTION-TITLE-TEXT"
+msgstr "Enter title (optional)"
+
+msgid "ADMIN-HOME-SECTION-PIORITIES-TITLE"
+msgstr "Priorities section"
+
+msgid "ADMIN-HOME-SECTION-PIORITIES-DESCRIPTION"
+msgstr "This section contains a slideshow with pictures, titles, descriptions and links. Maximum size of each image: 5 MB."
+
+msgid "ADMIN-HOME-DESCRIPTION-THEME8"
+msgstr "Custom theme designed for <em>Arlington County</em>. Contains a welcome text, a resources slider and animated icons. Need a custom theme? Order yours <a href='mailto:support@junar.com' title='support@junar.com'>here</a>."
+
+msgid "ADMIN-HOME-SECTION-CATEGORY-TO-OPEN-TEXT"
+msgstr "Category to be opened"
+
+msgid "ADMIN-HOME-SECTION-MOUSEOVER-BACKGROUND-TEXT"
+msgstr "Mouseover background"
+
+msgid "ADMIN-HOME-SECTION-SECTION-TITLE-LABEL"
+msgstr "Section title:"
+
+msgid "ADMIN-HOME-SECTION-SECTION-DESCRIPTION-LABEL"
+msgstr "Section description:"
+
+msgid "ADMIN-HOME-SECTION-PIORITIES-ADD-SLIDES-TEXT"
+msgstr "Add slides"
+
+msgid "ADMIN-HOME-SECTION-NAVIGATION7-DESCRIPTION"
+msgstr "Add icons, set titles, descriptions and links. Assigns a background color for descriptions. Finally, rearrange the location of each button. Recommended icon size: 50 x 50 pixels."
+
+msgid "ADMIN-HOME-SECTION-SECTION-STARTINGCATEGORY-LABEL"
+msgstr "Starting category:"
+
+msgid "ADMIN-HOME-SECTION-SECTION-BACKGROUND-COLOR-LABEL"
+msgstr "Section background color:"
+
+msgid "ADMIN-HOME-SECTION-PIORITIES-ADD-BUTTONS-TEXT"
+msgstr "Add buttons"
+
+msgid "ADMIN-HOME-SECTION-VIDEOTEXT"
+msgstr "Video"
+
+msgid "ADMIN-HOME-SECTION-VIDEOPLACEHOLDER"
+msgstr "Embed video code (optional)"

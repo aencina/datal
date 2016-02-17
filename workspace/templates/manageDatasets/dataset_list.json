@@ -28,7 +28,8 @@
 			"created_at": "{{resource.created_at|date:'F d, Y, h:i A'|capfirst}}", 
 			"modified_at": "{{resource.modified_at|date:'F d, Y, h:i A'|capfirst}}", 
 			"id": {{resource.id}}, 
-			"collect_type": {{resource.dataset__type}}
+			"collect_type": {{resource.dataset__type}},
+			"cant": {{resource.cant}}
 		}{% if not forloop.last %}, {% endif%}
 		{% endfor %}
 	]

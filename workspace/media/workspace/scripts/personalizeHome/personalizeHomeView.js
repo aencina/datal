@@ -7,7 +7,7 @@ var personalizeView = Backbone.View.extend({
 	themeModel : null,
 	events:{
 		'click #id_save, #id_save_top, #id_preview, #id_preview_top': 'save',
-		'click #id_noThemeButton, #id_theme0Button, #id_theme1Button, #id_theme2Button, #id_theme3Button, #id_theme4Button, #id_theme5Button, #id_theme6Button': 'onSwitchThemeButtonClicked',
+		'click #id_noThemeButton, #id_theme0Button, #id_theme1Button, #id_theme2Button, #id_theme3Button, #id_theme4Button, #id_theme5Button, #id_theme6Button, #id_theme7Button, #id_theme8Button': 'onSwitchThemeButtonClicked',
 	},
 
 	initialize: function(){
@@ -45,6 +45,12 @@ var personalizeView = Backbone.View.extend({
 				break;
 			case '6':
 				this.selectTheme6();
+				break;
+			case '7':
+				this.selectTheme7();
+				break;
+			case '8':
+				this.selectTheme8();
 				break;
 			default:
 				this.noThemeSelected();
@@ -187,6 +193,42 @@ var personalizeView = Backbone.View.extend({
 			themeModel = new theme6Model();
 		}	
 		this.pivotView = new theme6View({ 
+			model: themeModel, currentModel: this.model, currentView: this
+		});
+	},
+
+	selectTheme7: function(){
+		this.selectTab('id_theme7Button');
+		this.setThemeDescriptions(7);
+		$('#id_themeConfigs').show().removeClass('noThemeSelected');
+		$('#id_preview').show();
+		if(themeToSet == this.model.get('themeID'))
+		{
+			themeModel= new theme7Model({config: this.model.get('config')});
+		}
+		else
+		{
+			themeModel = new theme7Model();
+		}	
+		this.pivotView = new theme7View({ 
+			model: themeModel, currentModel: this.model, currentView: this
+		});
+	},
+
+	selectTheme8: function(){
+		this.selectTab('id_theme8Button');
+		this.setThemeDescriptions(8);
+		$('#id_themeConfigs').show().removeClass('noThemeSelected');
+		$('#id_preview').show();
+		if(themeToSet == this.model.get('themeID'))
+		{
+			themeModel= new theme8Model({config: this.model.get('config')});
+		}
+		else
+		{
+			themeModel = new theme8Model();
+		}	
+		this.pivotView = new theme8View({ 
 			model: themeModel, currentModel: this.model, currentView: this
 		});
 	},

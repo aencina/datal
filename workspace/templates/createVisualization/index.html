@@ -6,12 +6,11 @@
 
 
 {% compress css %}
-<link href="{% sass_src 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% static 'c3/c3.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% static 'handsontable/dist/handsontable.full.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/createCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/createVisualization.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/forms.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
 <meta name="main-option" content="id_visualizations_option"/>
 
@@ -24,7 +23,7 @@
               'packages':['corechart']
             }]
     }"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
 
 
 <script type="text/javascript" src="{% static 'handsontable/dist/handsontable.full.js' %}"></script>
@@ -32,6 +31,9 @@
 <script type="text/javascript" src="{% static 'c3/c3.min.js' %}"></script>
 <script src="/js_core/plugins/nicEdit/nicEdit-2014.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/plugins/multimarker.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/libs/jquery_ui/jquery.ui.datepicker-es.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 <!-- Charts types & instances -->
 <script src="/js_core/base_modules/charts/ChartsFactory.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -106,7 +108,7 @@
 <script src="{% static 'workspace/scripts/createVisualization/models/DataTableSelectionModel.js' %}"></script>
 <script src="{% static 'workspace/scripts/createVisualization/models/DataStreamModel.js' %}"></script>
 <script src="{% static 'workspace/scripts/createVisualization/collections/DataTableSelectedCollection.js' %}"></script>
-<script src="{% static 'workspace/scripts/createVisualization/views/table/DataTableUtils.js' %}"></script>
+<script src="/js_core/base_modules/DataTableUtils.js"></script>
 <script src="{% static 'workspace/scripts/createVisualization/views/table/DataTable.js' %}"></script>
 <script src="{% static 'workspace/scripts/createVisualization/views/ButtonsView.js' %}"></script>
 <script src="{% static 'workspace/scripts/createVisualization/views/MainView.js' %}"></script>
@@ -139,12 +141,13 @@
       datastream_category: '{{ datastream_revision.category_name }}',
       datastream_sources: sources,
       {% if visualization_revision %}
+        editMode: true,
         id: {{ visualization_revision.visualization_id }},
         revision_id: {{ visualization_revision.visualization_revision_id }},
 
         title: '{{ visualization_revision.title }}',
         description: '{{ visualization_revision.description }}',
-        notes: '{{ visualization_revision.notes }}',
+        notes: '{{ visualization_revision.notes|escapejs }}',
         lib: '{{ visualization_revision.lib }}',
 
         data: '{{ visualization_revision.data }}',

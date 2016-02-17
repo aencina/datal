@@ -1,19 +1,23 @@
-{% load i18n compress staticfiles sass_tags %}
+{% load i18n compress staticfiles sass_tags plugins_tags %}
 <!DOCTYPE html>
 <html>
 <head>
-<title>DATAL &middot; {% trans "APP-DISCOVERINGDATA-TEXT" %}</title>
+<title>{{ settings.APPLICATION_DETAILS.name }} &middot; {% trans "APP-DISCOVERINGDATA-TEXT" %}</title>
 <meta charset="utf-8">
 
 {% compress css %}
 <!-- RESET -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/reset.css' %}"/>
+<link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <!-- DATA STREAM BOX -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/dataStreamBox.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
 <!-- COMPONENT -->
-<link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/embed.css' %}"/>
+<link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/embed.css' %}"/>
 
+{% if not 'favicon'|inplugin %}
 <link rel="shortcut icon" href="{% static 'core/images/favicon/datal.ico' %}" />
+{% else %}
+{% plugins_call 'favicon' %}
+{% endif %}
 
 <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
 {% endcompress %}
@@ -24,8 +28,8 @@
     <div id="id_dataservice_NN">
         <div class="dataStreamBox clearfix">
             <h2>
-                <a href="{{settings.BASE_URI}}" title="DATAL" class="clearfix" target="_blank">
-                  <span class="txt"><span class="titleDS"><strong>DATAL</strong>
+                <a href="{{settings.BASE_URI}}" title="{{ settings.APPLICATION_DETAILS.name }}" class="clearfix" target="_blank">
+                  <span class="txt"><span class="titleDS"><strong>{{ settings.APPLICATION_DETAILS.name }}</strong>
                   <br> {% trans "APP-DISCOVERINGDATA-TEXT" %}
                   </span></span>
                 </a>

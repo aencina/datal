@@ -7,7 +7,7 @@ import mandrill
 import logging
 
 from core.lib.mail.mail import MailService
-from core import settings
+from django.conf import settings
 
 
 class MailchimpMailService(MailService):
@@ -47,14 +47,14 @@ class MailchimpMailService(MailService):
 
         if user.language == "es":
             tmpl = settings.MAIL_LIST['WELCOME_TEMPLATE_ES']
-            sbj = 'Nueva cuenta en Datal'
+            sbj = 'Nueva cuenta en '+ APPLICATION_DETAILS['name']
         else:
             tmpl = settings.MAIL_LIST['WELCOME_TEMPLATE_EN']
-            sbj = 'New Datal account'
+            sbj = 'New '+ APPLICATION_DETAILS['name'] +' account'
 
         message = {'subject':sbj, 'to': to,
                    'from_name': company,
-                   'from_email':'alguien@datal.org',
+                   'from_email':APPLICATION_DETAILS['mail'],
                    'merge': True,
                    'merge_vars': [{'rcpt': user.email,'vars': avars }]
         }

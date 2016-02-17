@@ -15,11 +15,12 @@ var theme6View = Backbone.Epoxy.View.extend({
 		"click #id_btnRemoveLeftBottom" : "removeLeftBottomImage",
 		"click #id_btnRemoveMiddleBottom" : "removeMiddleBottomImage",
 		"click #id_btnRemoveRightBottom" : "removeRightBottomImage",
+		"change #id_radios input[type='radio']": "onRadioChange"
 	},
 
 	initialize: function(options) {
 		this.currentView = options.currentView;
-		this.currentModel = options.currentModel;
+        this.currentModel = options.currentModel;
 
 		this.currentView.helpAndTips('hide');
 		that = this;
@@ -40,8 +41,10 @@ var theme6View = Backbone.Epoxy.View.extend({
 		var linkText = gettext('ADMIN-HOME-SECTION-LINKTEXT');
 		var deleteText = gettext('ADMIN-HOME-SECTION-DELETESLIDE');
 		var descriptionLabelText = gettext('APP-DESCRIPTION2-LABEL');
+		var videoLabelText = gettext('ADMIN-HOME-SECTION-VIDEOTEXT');
 		var descriptionPlaceHolderText = gettext('APP-DESCRIPTION2-TEXT');
 		var placeholderText = gettext('ADMIN-HOME-SECTION-LINKPLACEHOLDER');
+		var videoPlaceholderText = gettext('ADMIN-HOME-SECTION-VIDEOPLACEHOLDER');
 		var buttonText = gettext('ADMIN-HOME-SECTION-BUTTONTEXT');
 		var html = 
 			'<tr class=\"template-upload fade\" id=\"row' + intId + '\">' +
@@ -49,8 +52,8 @@ var theme6View = Backbone.Epoxy.View.extend({
 					'<div class=\"clearfix\">' +
 
 						'<div class=\"FL clearfix\">' +
-							'<div class=\"crop relative clearfix\">' +
-								'<button class=\"absolute button small\">' + buttonText + '</button>' +
+							'<div class=\"crop relative clearfix FL\">' +
+								'<button class=\"button small\">' + buttonText + '</button>' +
 								'<input type=\"file\" id=\"' + inputId + '\" class=\"file FL\" tabindex=\"-1\"/>' +
 							'</div>' +
 						'</div>' +
@@ -59,7 +62,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 							'<input type=\"button\" id=\"del_' + section + intId + '\" class=\"remove FL\" value=\"' + deleteText + '\"/>' +
 						'</div>' +
 						
-						'<div class=\"FR\">' +
+						'<div class=\"FR sliderData\">' +
 
 							'<div class=\"clearfix rowSeparation\">' +
 								'<label for=\"description_' + section + intId + '\" class=\"FL\">' + descriptionLabelText + '</label>' +
@@ -68,10 +71,25 @@ var theme6View = Backbone.Epoxy.View.extend({
 								'</div>' +
 							'</div>' +
 
-							'<div class=\"clearfix\">' +
-								'<label for=\"link_' + intId + '\"class=\"FL\">' + linkText + '</label>' +
+							'<div id=\"id_radios\">' +
+								'<label></label>' +
+								'<input class=\"linkRadio\" type=\"radio\" value=\"linkSection\" id=\"id_radios_link_' + section + intId + '\" name=\"radios_' + section + intId + '\" checked=\"checked\"/>' +
+								'<label for=\"id_radios_link_' + section + intId + '\" class=\"radioLabel linkLabel\">' + linkText + '</label>' +
+								'<input class=\"videoRadio\" type=\"radio\" value=\"videoSection\" id=\"id_radios_video_' + section + intId + '\" name=\"radios_' + section + intId + '\"/>' +
+								'<label for=\"id_radios_video_' + section + intId + '\" class=\"radioLabel videoLabel\">' + videoLabelText + '</label>' +
+							'</div>' +
+
+							'<div class=\"clearfix linkSection radioSection\">' +
+								'<label for=\"link_' + intId + '\"class=\"FL\"></label>' +
 								'<div class=\"formErrorMessageContainer FL\">' +
 									'<input type=\"url\" id=\"link_' + section + intId + '\" class=\"field FL urlLink complete_url\" placeholder=\"' + placeholderText + '\"/>' +
+								'</div>' +
+							'</div>' +
+
+							'<div class=\"clearfix videoSection radioSection\" style=\"display:none;\">' +
+								'<label for=\"video_' + intId + '\"class=\"FL\"></label>' +
+								'<div class=\"formErrorMessageContainer FL\">' +
+									'<textarea id=\"video_' + section + intId + '\" rows="" cols="" class=\"field FL video_url\" placeholder=\"' + videoPlaceholderText + '\"></textarea>' +
 								'</div>' +
 							'</div>' +
 
@@ -86,9 +104,26 @@ var theme6View = Backbone.Epoxy.View.extend({
 		var linkText = gettext('ADMIN-HOME-SECTION-LINKTEXT');
 		var deleteText = gettext('ADMIN-HOME-SECTION-DELETESLIDE');
 		var descriptionLabelText = gettext('APP-DESCRIPTION2-LABEL');
+		var videoLabelText = gettext('ADMIN-HOME-SECTION-VIDEOTEXT');
 		var descriptionPlaceHolderText = gettext('APP-DESCRIPTION2-TEXT');
 		var placeholderText = gettext('ADMIN-HOME-SECTION-LINKPLACEHOLDER');
+		var videoPlaceholderText = gettext('ADMIN-HOME-SECTION-VIDEOPLACEHOLDER');
 		var buttonText = gettext('ADMIN-HOME-SECTION-BUTTONTEXT');
+
+		var linkChecked = "";
+		var videoChecked = "";
+		var linkContainer = "none";
+		var videoContainer = "none";
+
+		if(item.radio == "videoSection"){
+			videoChecked = 'checked=\"checked\"';
+			videoContainer = "block";
+		}
+		if(item.radio == "linkSection"){
+			linkChecked = 'checked=\"checked\"';
+			linkContainer = "block";
+		}
+
 		var html = 
 			'<tr class=\"template-upload fade\" id=\"row' + rowIndex + '\">' +
 				'<td class=\"draggableSection\"><i class=\"arrangeIcon\"></i></td>' +
@@ -97,8 +132,8 @@ var theme6View = Backbone.Epoxy.View.extend({
 
 						'<div class=\"FL clearfix\">' +
 							'<img src=\"' + item.image + '\" alt=\"\" class=\"FL\"/>' +
-							'<div class=\"crop relative clearfix\">' +
-								'<button class=\"absolute button small\">' + buttonText + '</button>' +
+							'<div class=\"crop relative clearfix FL\">' +
+								'<button class=\"button small\">' + buttonText + '</button>' +
 								'<input type=\"file\" id=\"' + inputId + '\" class=\"file FL\" tabindex=\"-1\"/>' +
 							'</div>' +
 						'</div>' +
@@ -107,7 +142,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 							'<input type=\"button\" id=\"del_' + section + rowIndex + '\" class=\"remove FL\" value=\"' + deleteText + '\"/>' +
 						'</div>' +
 
-						'<div class=\"FR\">' +
+						'<div class=\"FR sliderData\">' +
 
 							'<div class=\"clearfix rowSeparation\">' +
 								'<label for=\"description_' + section + rowIndex + '\" class=\"FL\">' + descriptionLabelText + '</label>' +
@@ -116,10 +151,25 @@ var theme6View = Backbone.Epoxy.View.extend({
 								'</div>' +
 							'</div>' +
 
-							'<div class=\"clearfix\">' +
-								'<label for=\"link_' + section + rowIndex + '\" class=\"FL\">' + linkText + '</label>' +
+							'<div id=\"id_radios\">' +
+								'<label></label>' +
+								'<input class=\"linkRadio\" type=\"radio\" value=\"linkSection\" id=\"id_radios_link_' + section + rowIndex + '\" name=\"radios_' + section + rowIndex + '\"' + linkChecked +'/>' +
+								'<label for=\"id_radios_link_' + section + rowIndex + '\" class=\"radioLabel linkLabel\">' + linkText + '</label>' +
+								'<input class=\"videoRadio\" type=\"radio\" value=\"videoSection\" id=\"id_radios_video_' + section + rowIndex + '\" name=\"radios_' + section + rowIndex + '\"' + videoChecked + '/>' +
+								'<label for=\"id_radios_video_' + section + rowIndex + '\" class=\"radioLabel videoLabel\">' + videoLabelText + '</label>' +
+							'</div>' +
+
+							'<div class=\"clearfix linkSection radioSection\" style=\"display:' + linkContainer + '\">' +
+								'<label for=\"link_' + section + rowIndex + '\" class=\"FL\"></label>' +
 								'<div class=\"formErrorMessageContainer FL\">' +
 									'<input type=\"url\" id=\"link_' + section + rowIndex + '\" value=\"' + item.href + '\" class=\"field FL urlLink complete_url\" placeholder=\"' + placeholderText + '\"/>' +
+								'</div>' +
+							'</div>' +
+
+							'<div class=\"clearfix videoSection radioSection\" style=\"display:' + videoContainer + '\">' +
+								'<label for=\"video_' + section + rowIndex + '\" class=\"FL\"></label>' +
+								'<div class=\"formErrorMessageContainer FL\">' +
+									'<textarea id=\"video_' + section + rowIndex + '\" rows="" cols="" class=\"field FL video_url\" placeholder=\"' + videoPlaceholderText + '\">'+ item.video +'</textarea>' +
 								'</div>' +
 							'</div>' +
 
@@ -138,6 +188,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 	initSliderSection: function() {
 		var that = this;
 		_.each(this.model.get('imageSliderSection'), function(item, index) {
+			console.log(item);
 			var intId = that.sliderInputCont;
 			var inputId = "file_image" + intId;
 			var row = that.createSavedTemplateImageInputRow(intId, item, inputId, "slider");
@@ -157,6 +208,13 @@ var theme6View = Backbone.Epoxy.View.extend({
 			$("#description_slider" + intId).on('change', function() {
 					var image = that.model.get('imageSliderSection')[index];
 					image.description = $("#description_slider" + intId).val();
+					that.model.get('imageSliderSection').splice(index, 1, image);
+					image = null;
+			});
+
+			$("#video_slider" + intId).on('change', function() {
+					var image = that.model.get('imageSliderSection')[index];
+					image.video = $("#video_slider" + intId).val();
 					that.model.get('imageSliderSection').splice(index, 1, image);
 					image = null;
 			});
@@ -235,6 +293,26 @@ var theme6View = Backbone.Epoxy.View.extend({
 				if (that.model.attributes.imageSliderSection.length > index && that.model.attributes.imageSliderSection[index] != undefined) {
 						var image = that.model.get('imageSliderSection')[index];
 						image.description = $("#description_slider" + intId).val();
+						that.model.get('imageSliderSection').splice(index, 1, image);
+				}
+			});
+
+			// $("#id_radios input[name='radios_slider" + intId + "']").on('change', function() {
+			// 	console.log("Radio");
+			// 	var index = $("#id_radios input[name='radios_slider" + intId + "']").closest('tr').index();
+			// 	if (that.model.attributes.imageSliderSection.length > index && that.model.attributes.imageSliderSection[index] != undefined) {
+			// 			var image = that.model.get('imageSliderSection')[index];
+			// 			image.radios = $("#id_radios input[name='radios_slider" + intId + "']:checked").val();
+			// 			that.model.get('imageSliderSection').splice(index, 1, image);
+			// 			console.log(that.model.attributes.imageSliderSection[index]);
+			// 	}
+			// });
+
+			$("#video_slider" + intId).on('change', function() {
+				var index = $("#video_slider" + intId).closest('tr').index();
+				if (that.model.attributes.imageSliderSection.length > index && that.model.attributes.imageSliderSection[index] != undefined) {
+						var image = that.model.get('imageSliderSection')[index];
+						image.video = $("#video_slider" + intId).val();
 						that.model.get('imageSliderSection').splice(index, 1, image);
 				}
 			});
@@ -376,7 +454,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 	setUploadable: function(input, section) {
 
 		input.fileupload({
-				url: '/personalizeHome/upload',
+				url: '/personalizeHome/upload/',
 				dataType: 'json',
 				timeout: 60000,
 				acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -438,25 +516,39 @@ var theme6View = Backbone.Epoxy.View.extend({
 					var inputRow = input.closest('tr');
 					var inputUrl = inputRow.find("input[type=url]");
 					var inputDescription = inputRow.find("input[type=text]");
+					var inputVideo = inputRow.find(".video_url");
+					var inputRadio = inputRow.find("input[type=radio]:checked");
 					var href = '';
 					var description = '';
+					var video = '';
+					var radio = '';
 					if (typeof inputUrl.val() != 'undefined') {
 						href = inputUrl.val();
 					}
 					if (typeof inputDescription.val() != 'undefined') {
 						description = inputDescription.val();
 					}
+					if (typeof inputVideo.val() != 'undefined') {
+						video = inputVideo.val();
+					}
+					if (typeof inputRadio.val() != 'undefined') {
+						radio = inputRadio.val();
+					}
 					if (data.fileInput[0].id.indexOf("btn_file_image") >= 0) {
 						that.model.get('buttonSection').splice(inputRow.index(), 1, {
 							'image': data.result['url'],
 							'href': href,
-							'description': description
+							'description': description,
+							'video': video,
+							'radio': radio
 						});
 					} else {
 						that.model.get('imageSliderSection').splice(inputRow.index(), 1, {
 							'image': data.result['url'],
 							'href': href,
-							'description': description
+							'description': description,
+							'video': video,
+							'radio': radio
 						});
 					}
 
@@ -515,6 +607,10 @@ var theme6View = Backbone.Epoxy.View.extend({
 					if (image != undefined && image.description != descriptionInput.val()) {
 							image.description = descriptionInput.val();
 					}
+					var videoInput = $(this).find(".video_url");
+					if (image != undefined && image.video != videoInput.val()) {
+							image.video = videoInput.val();
+					}
 				});
 
 			}
@@ -537,7 +633,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_middleBottomImage').fileupload({
-			url : '/personalizeHome/upload',
+			url : '/personalizeHome/upload/',
 			dataType : 'json',
 			acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
 			timeout : 60000,
@@ -625,7 +721,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_leftBottomImage').fileupload({
-			url : '/personalizeHome/upload',
+			url : '/personalizeHome/upload/',
 			dataType : 'json',
 			acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
 			timeout : 60000,
@@ -713,7 +809,7 @@ var theme6View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_rightBottomImage').fileupload({
-			url : '/personalizeHome/upload',
+			url : '/personalizeHome/upload/',
 			dataType : 'json',
 			acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
 			timeout : 60000,
@@ -1100,10 +1196,10 @@ var theme6View = Backbone.Epoxy.View.extend({
 		var btn_id = $(event.currentTarget).attr("id");
 		var ob = {};
 		if (btn_id === 'id_save' || btn_id === 'id_save_top') {
-			this.currentModel.attributes.config = this.model.toJSON();
-			this.currentModel.attributes.themeID = '6';
-			ob['config'] = this.currentModel.attributes.config;
-			ob['theme'] = this.currentModel.attributes.themeID;
+            this.currentModel.attributes.config = this.model.toJSON();
+            this.currentModel.attributes.themeID = '6';
+            ob['config'] = this.currentModel.attributes.config;
+            ob['theme'] = this.currentModel.attributes.themeID;
 			ob['type'] = 'save';
 		} else {
 			ob['config'] = this.model.toJSON();
@@ -1117,10 +1213,9 @@ var theme6View = Backbone.Epoxy.View.extend({
 			},
 			dataType: 'json',
 			beforeSend: function(xhr, settings) {
-
 				// call global beforeSend func
-				$.ajaxSettings.beforeSend(xhr, settings);
-
+                $.ajaxSettings.beforeSend(xhr, settings);
+                
 				$("#ajax_loading_overlay").show();
 			},
 			success: function(response) {
@@ -1166,6 +1261,12 @@ var theme6View = Backbone.Epoxy.View.extend({
 			that.model.set('buttonsPerRowWidth', (100 / btnsPerRow).toString() );
 		}			
 
+	},
+
+	onRadioChange: function(event) {
+		var value = $(event.currentTarget).val();
+		$(event.currentTarget).parents(".sliderData").find(".radioSection").hide();
+		$(event.currentTarget).parents(".sliderData").find("." + value).show();
 	}
 
 });

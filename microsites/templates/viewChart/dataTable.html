@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load extra_tags components %}
+{% load extra_tags components plugins_tags %}
 
 <div class="dataTable box relative" id="id_dataStreamContainer">
 	
@@ -19,16 +19,21 @@
 		<hgroup>
 			<h1>
 				<strong>{{visualization_revision.title|capfirst}}</strong>
-			<h2>{{visualization_revision.description|capfirst}}</h2>
+			<h2>{{visualization_revision.description|capfirst}}{% if notes and preferences.account_enable_notes and preferences.account_description_enhancement %}<span class="sep"> | </span> <a class="link" id="id_openNotesLink" rel="id_notesSidebar"><span class="viewMore">{% trans "VIEWDS-VIEWMORE-INFORMATION-TEXT" %}</span><span class="viewLess" style="display:none;">{% trans "VIEWDS-VIEWLESS-INFORMATION-TEXT" %}</span></a>{% endif %}</h2>
 		</hgroup>
 
 	</header>
 
 	<!-- Data -->
 	<div class="data">
+    
     <div id="id_visualizationResult"><div class="result"><div class="loading">{% trans 'APP-LOADING-TEXT' %}</div></div></div>
+    
+    <!-- Space for render a Data Table from plugins -->
+		{% plugins_call 'microsites_view_visualization_data_table' %}
+		
   </div>
-
+	
   <!-- Mini Loading -->
   <div id="id_miniLoading" style="display:none;" class="absolute">{% trans 'VIEWCHART-MINILOADING-TEXT' %}</div>
 

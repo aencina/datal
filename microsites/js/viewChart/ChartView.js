@@ -12,7 +12,10 @@ var ChartView = Backbone.View.extend({
         if(chartSettings){
 
             //Set list of custom attributes for my model
-            this.model.set('attributes',chartSettings.attributes);
+            this.model.set(
+                {attributes:chartSettings.attributes},
+                {silent: true}
+            );
 
             this.ChartViewClass = chartSettings.Class;
 

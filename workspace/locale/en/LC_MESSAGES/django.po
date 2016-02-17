@@ -1,6 +1,6 @@
 # DATAL's language pack.
 # Copyright (C) 2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -71,7 +71,7 @@ msgid "ACCOUNT-FORM-CONTACT-PERSON-EMAIL-LABEL"
 msgstr "E-mail of contact person"
 
 msgid "ACCOUNT-FORM-CONTACT-DATAPERSON-EMAIL-LABEL"
-msgstr "E-mail of data responsable"
+msgstr "E-mail of person responsible for data"
 
 msgid "ACCOUNT-FORM-CONTACT-PERSON-PHONE-LABEL"
 msgstr "Phone"
@@ -144,9 +144,6 @@ msgstr "Create category"
 
 msgid "WORKSPACE-CATEGORY-DESCRIPTION-LABEL"
 msgstr "Description"
-
-msgid "APP-NAME-TEXT"
-msgstr "Name"
 
 msgid "APP-DESCRIPTION-TEXT"
 msgstr "Description"
@@ -454,9 +451,6 @@ msgstr "Successfully approved a resource."
 msgid "APP-INSTITUTIONAL-TEXT"
 msgstr "Institutional"
 
-msgid "APP-ABOUTUS-TITLE"
-msgstr "See who is behind DATAL"
-
 msgid "APP-ABOUTUS-TEXT"
 msgstr "About us"
 
@@ -466,17 +460,8 @@ msgstr "Contact us"
 msgid "APP-WIKI-TEXT"
 msgstr "Wiki"
 
-msgid "APP-COMMUNITY-TEXT"
-msgstr "DATAL Community"
-
 msgid "APP-FOLLOWUSON-TEXT"
 msgstr "Follow us on"
-
-# msgid "HEADER-JUNAR-TITLE"
-# msgstr "DATAL is the Easiest-to-Use Open Data Platform"
-
-msgid "HEADER-JUNAR-TITLE-PRIVATE"
-msgstr "DATAL is the Easiest-to-Use Private Data Platform"
 
 msgid "APP-COLLECT-TEXT"
 msgstr "Collect"
@@ -504,12 +489,6 @@ msgstr "Account settings"
 
 msgid "APP-SIGNINTO-TEXT"
 msgstr "Sign in to"
-
-msgid "APP-SIGNINWELCOME-TEXT"
-msgstr "<h2>Welcome back! this is the private entrance for current DATAL customers.<br/>If you got here by accident, please <a href='http://www.junar.com'>go back</a>.</h2><p><strong>With DATAL you can:</strong></p><ul><li>Manage your Open Data projects end-to-end</li><li>Build visually compelling visualizations and tables with your data</li><li>Easily integrate your Open Data into your website or have us host it</li><li>Make your data social and track its usage</li></ul>"
-
-msgid "APP-SIGNINWELCOME-TEXT-PRIVATE"
-msgstr "<h2>Welcome back! this is the private entrance for current DATAL customers.<br/>If you got here by accident, please <a href='http://www.junar.com'>go back</a>.</h2><p><strong>With DATAL you can:</strong></p><ul><li>Manage your Private Data projects end-to-end</li><li>Build visually compelling visualizations and tables with your data</li>/ul>"
 
 msgid "MODEL-USERNAME-TEXT"
 msgstr "Username"
@@ -539,10 +518,10 @@ msgid "APP-PICTURE-TEXT"
 msgstr "Picture"
 
 msgid "DSFIND-HELPTIP-TITLE"
-msgstr "Helpfull Tips"
+msgstr "Helpful Tips"
 
 msgid "USR-GRAVATAR-TIP1"
-msgstr "DATAL uses the power of"
+msgstr "uses the power of"
 
 msgid "USR-GRAVATAR-TIP2"
 msgstr "to show your picture. If you already have a Gravatar account, you can change "
@@ -564,9 +543,6 @@ msgstr "New password has been sent to you by e-mail"
 
 msgid "FORFOT-PASSWORD-SIGNIN"
 msgstr "Sign in with new password"
-
-msgid "OV-SIGINCREATE-SIGINSUBMIT"
-msgstr "Sign in to DATAL"
 
 msgid "APP-THEOPENDATAPLATFORM-TEXT"
 msgstr "The Open Data Platform"
@@ -594,9 +570,6 @@ msgstr "Sign In"
 
 msgid "APP-DATAECONOMY-TEXT"
 msgstr "Open Data"
-
-msgid "APP-WHYJUNAR-TEXT"
-msgstr "Why DATAL?"
 
 msgid "APP-HOWITWORKS-TEXT"
 msgstr "How it Works"
@@ -694,9 +667,6 @@ msgstr "Configure your picture"
 msgid "APP-DATASET-ABBR-TEXT"
 msgstr "Datasets"
 
-msgid "APP-ACTIVITYSTREAM-TITLE"
-msgstr "Welcome to DATAL!"
-
 msgid "APP-TOTAL-TEXT"
 msgstr "Total"
 
@@ -719,10 +689,7 @@ msgid "ACCOUNT-BRANDING-FOOTER-TIP"
 msgstr "Paste an URL reference here for the footer<br/>Example: http://www.my-organization.com/my-footer.html"
 
 msgid "BRANDED-OPEN-DATA-SITE-TIP"
-msgstr "<p>The DATAL Branded Open Data Site enables you to integrate your customized Open Data dashboards into your website. It includes the option to add a header and footer. The branded site mirrors your existing website and enables your audience full access to your published data.</p><br />"
-
-msgid "BRANDED-OPEN-DATA-SITE-TIP-PRIVATE"
-msgstr "<p>The DATAL Branded Private Data Site enables you to integrate your customized Private Data dashboards into your website. It includes the option to add a header and footer. The branded site mirrors your existing website and enables your audience full access to your published data.</p><br />"
+msgstr "<p>Branded Open Data Site enables you to integrate your customized Open Data dashboards into your website. It includes the option to add a header and footer. The branded site mirrors your existing website and enables your audience full access to your published data.</p><br />"
 
 msgid "WORKSPACE-CUSTOMIZE-SETTINGS"
 msgstr "Customize display"
@@ -741,9 +708,6 @@ msgstr "(*) in Dashboards and Data Views embeds"
 
 msgid "BRANDED-BRANDINGS-TIP"
 msgstr "Use the color pickers to customize the colors of the Branded Open Data Site with the ones of your brand."
-
-msgid "BRANDED-BRANDINGS-TIP-PRIVATE"
-msgstr "Use the color pickers to customize the colors of the Branded Private Data Site with the ones of your brand."
 
 msgid "APP-CATEGORIES-TEXT"
 msgstr "Categories"
@@ -765,16 +729,13 @@ msgid "APP-DELETE-TEXT"
 msgstr "Delete"
 
 msgid "WORKSPACE-DOMAIN-SETTINGS"
-msgstr "Domains settings"
+msgstr "Domain settings"
 
 msgid "ACCOUNT-DOMAIN-TIP"
 msgstr "Enter your domain here.<br/>You need first to configure a CNAME with your sysadmin and point it to cloud.junar.com"
 
 msgid "WRKSPCE-DOMAIN-TIP"
-msgstr "<p>DATAL lets you Open Data.</p><p>In order to define where data is opened, we offer 2 alternatives:</p><ul><li>DATAL can host your data in an Open Data Domain</li><li>You can integrate your data into your website by creating a subdomain and pointing it to our cloud</li></ul><p>Please contact us at <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> to help you set this up in a few minutes.</p>"
-
-msgid "WRKSPCE-DOMAIN-TIP-PRIVATE"
-msgstr "<ul><li>DATAL can host your data in an Private Data Domain</li><li>You can integrate your data into your website by creating a subdomain and pointing it to our cloud</li></ul><p>Please contact us at <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> to help you set this up in a few minutes.</p>"
+msgstr "<p>In order to define where data is opened, we offer 2 alternatives:</p><ul><li>You can host your data in an Open Data Domain</li><li>You can integrate your data into your website by creating a subdomain and pointing it to our cloud</li></ul><p>Please contact us at <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> to help you set this up in a few minutes.</p>"
 
 msgid "ACCOUNT-CONTACT-INFORMATION-TEXT"
 msgstr "Contact Information"
@@ -801,10 +762,7 @@ msgid "SOCIAL-NOTES-TIP"
 msgstr "Add more context to your Data Views by adding notes."
 
 msgid "WRKSPC-SOCIAL-TIP"
-msgstr "<p>Data must be opened to unleash its value!</p><br/><p>DATAL makes it easy to optimize your open data to be shareable via social network sites and searchable by search engines which helps to drive additional views and engagement.</p>"
-
-msgid "WRKSPC-SOCIAL-TIP-PRIVATE"
-msgstr ""
+msgstr "<p>Data must be opened to unleash its value!</p><br/><p>We make it easier to optimize your open data to be shareable via social network sites and searchable by search engines which helps to drive additional views and engagement.</p>"
 
 msgid "ACCOUNT-USERS-TAB"
 msgstr "Users"
@@ -831,10 +789,7 @@ msgid "APP-LAST-ACTIVITY-TEXT"
 msgstr "Last activity"
 
 msgid "APP-USER-TIP"
-msgstr "<h6>HELPFULL TIPS</h6><p>There are 3 types of roles:</p><p><strong>Editor:</strong><br> Can collect and transform datasets into Data Views and Visualizations, and use those in Dashboards.</p><p><strong>Publishers:</strong><br> Same privileges as Editor, plus the permition to publish the resources to the Branded Open Data Site.</p><p><strong>Account administrators:</strong><br> Same privileges as Editor and Publisher, plus management of account settings.</p>"
-
-msgid "APP-USER-TIP-PRIVATE"
-msgstr "<h6>HELPFULL TIPS</h6><p>There are 4 roles in the DATAL Private Data Platform:</p><p><strong>Editor:</strong><br> Collect and transform datasets into richer and more usable formats such as Data Views, Visualizations, and themed Dashboards.</p><p><strong>Publishers:</strong><br> Collect and enhance datasets, and approve which data to publish in the Branded Private Data Site</p><p><strong>Administrators:</strong> Collect, Enhance, and Publish datasets and manageaccount settings.</p><p><strong>Members:</strong><br>Chance to access to private resources.</p>"
+msgstr "<h6>HELPFUL TIPS</h6><p>There are 3 types of roles:</p><p><strong>Editor:</strong><br> Can collect and transform datasets into Data Views and Visualizations, and use those in Dashboards.</p><p><strong>Publishers:</strong><br> Same privileges as Editor, plus the permition to publish the resources to the Branded Open Data Site.</p><p><strong>Account administrators:</strong><br> Same privileges as Editor and Publisher, plus management of account settings.</p>"
 
 msgid "CHRT-XAXISNAME-TEXT"
 msgstr "X axis name"
@@ -1233,7 +1188,7 @@ msgid "APP-CALLUSONSKYPE-TEXT2"
 msgstr "Send us an e-mail"
 
 msgid "DSCRE-UPLOAD-TIP"
-msgstr "The following file types are allowed: <br/> DOC, DOCX, DOCM, DOTX, DOTM, XLS, XLSX, XLSM, XLTX, XLTM, XLSB, XLAM, XLL, ODT, ODS, CSV, TXT, PDF, HTML, HTM, XML, KML, KMZ, TSV. <br/> Files must be encoded in UTF-8."
+msgstr "The following file types are allowed and must be encoded in UTF-8:"
 
 msgid "HOME-SEARCH-TIP"
 msgstr "- For a URL to be a dataset, it must be a webpage that contains HTML &lt;table&gt; tags.<br/> - CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML files can also be used as datasets."
@@ -1331,9 +1286,6 @@ msgstr "Arrange in the right box the dashboards that will be set as featured."
 msgid "APP-FEATURED-HELPTIP"
 msgstr "The featured dashboards will appear as tabs in the Branded Open Data Site, and they will be arranged in the same order as they appear in the right box."
 
-msgid "APP-FEATURED-HELPTIP-PRIVATE"
-msgstr "The featured dashboards will appear as tabs in the Branded Private Data Site, and they will be arranged in the same order as they appear in the right box."
-
 msgid "APP-TIME-ALL"
 msgstr "All time"
 
@@ -1345,9 +1297,6 @@ msgstr "This month"
 
 msgid "APP-ACTIONS-REVIEW"
 msgstr "Review"
-
-msgid "OVEDITDS-NAME-TIP"
-msgstr "What's the data about? Type a general topic that explains the data you are extracting"
 
 msgid "EDITDS-SOURCE-TIP1"
 msgstr "Type the first 3 letters of a source and select one of them from the autocomplete list. If it doesn't appear, please"
@@ -1391,20 +1340,11 @@ msgstr "to select the whole table."
 msgid "APP-CONTINUE-TEXT"
 msgstr "Continue"
 
-msgid "APP-COLLECTDATA-TEXT"
-msgstr "Collect Data"
-
 msgid "APP-SELECT-TEXT"
 msgstr "Select"
 
-msgid "APP-PICKDATA-TEXT"
-msgstr "Pick Data"
-
 msgid "DSCRE-SIDEBAR-COLLECTTITLE"
 msgstr "Collect Summary"
-
-msgid "DSCRE-SIDEBAR-COLLECTSUBTITLE"
-msgstr "To start collecting data, you need to make some selections in the table beside. Read our help and tips to learn more about the different selection combinations"
 
 msgid "APP-SELECTION-TEXT"
 msgstr "Selection"
@@ -1429,15 +1369,6 @@ msgstr "Aliases"
 
 msgid "APP-ADVANCEDOPTIONS-TEXT"
 msgstr "Advanced Options"
-
-msgid "CREATION-SIDEBAR-ADVANCEDTIP"
-msgstr "In the advanced mode, there are various functions that you can perform, such as: set table headers, add filters, calculate averages and totals. If you use our API, you can also set your aliases in this mode"
-
-msgid "CREATION-ENABLE-ADVANCE"
-msgstr "Enable advanced mode"
-
-msgid "CREATION-SIDEBAR-SELECTION"
-msgstr "The advanced options only work with certain selections. If your selection does not support an option, the option will appear as disabled in the list"
 
 msgid "CREATION-SELECTTABLEHEADERS-TEXT"
 msgstr "Select table headers"
@@ -1508,59 +1439,8 @@ msgstr "Complete the inputs to add aliases to the columns"
 msgid "CREATION-ALIASES-TIP2"
 msgstr "<strong>This is an option for developers.</strong><br/> Use this to set names for key value pairs in the API JSON, when the prettyJSON option is enabled"
 
-msgid "CREATION-TIPS-ALLTABLETITLE"
-msgstr "To select the entire table"
-
-msgid "CREATION-TIPS-ALLTABLETEXT"
-msgstr "Click the &lt; &gt; button on the top-left corner of the grid"
-
-msgid "CREATION-TIPS-COLUMSTITLE"
-msgstr "To select columns"
-
-msgid "CREATION-TIPS-COLUMSTEXT"
-msgstr "Click on one or more of the lettered columns on the top of the table"
-
-msgid "CREATION-TIPS-ROWSTITLE"
-msgstr "To select rows"
-
-msgid "CREATION-TIPS-ROWSTEXT"
-msgstr "Click on one or more of the numbered rows on the left side of the table"
-
-msgid "CREATION-TIPS-CELLTITLE"
-msgstr "To select cells"
-
-msgid "CREATION-TIPS-CELLTEXT"
-msgstr "Click on one or more individual cells or select a group of cells from different rows and columns"
-
-msgid "CREATION-TIPS-DIFFERENTTITLE"
-msgstr "Create different combinations"
-
-msgid "CREATION-TIPS-DIFFERENTTEXT"
-msgstr "Use the same source to publish new data views. You can use the same source of to track different data"
-
-msgid "CREATION-DOUBTS-TIP"
-msgstr "Call us on Skype</a>. <br/>Please, don't hesitate to contact us <br/>for any help or questions"
-
-msgid "APP-HINTS-TEXT"
-msgstr "Hints"
-
-msgid "CREATION-HINTS-HINT1"
-msgstr "Selecting rows and columns simultaneously will collect the intersection of them"
-
-msgid "CREATION-HINTS-HINT2"
-msgstr "You need to select cells in a 'rectangle shape' in order for them be collected as they appear in the &lt;table&gt; of your source. Otherwise, the cells with data you collect will appear side by side"
-
-msgid "CREATION-HINTS-HINT3"
-msgstr "If using filters, the parameters values should be exactly as the value in the columns you are filtering in order to get the appropriate results"
-
 msgid "APP-CLICKTOLOAD-TEXT"
 msgstr "Click to load this Source"
-
-msgid "CREATE-STEP1-TITLE"
-msgstr "Where's the data"
-
-msgid "CREATE-STEP1-SUBTITLE"
-msgstr "Click on the data you want to use"
 
 msgid "APP-NEEDHELP-TEXT"
 msgstr "Need help"
@@ -1572,22 +1452,16 @@ msgid "APP-KEEPINMIND-TEXT"
 msgstr "Please, take a look at the following tips and try again"
 
 msgid "CREATE-STEP1-DISCLAIMER0"
-msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 500.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
+msgstr "Maximum sizes allowed for datasets are:<ol><li><strong>- CSV:</strong> 1.000.000 rows and 100 columns</li><li><strong>- XLSx / XLS:</strong> 100.000 rows and 50 columns</li><li><strong>- KML:</strong> 100.000 placemarks</li><li><strong>- HTML, XML and other formats:</strong> 50.000 rows and 30 columns</li></ol>"
 
 msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "For an URL to be a data source, it must be a HTML webpage that contains HTML &lt;table&gt; tags"
 
 msgid "CREATE-STEP1-DISCLAIMER2"
-msgstr "CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML files can also be used as data sources"
+msgstr "CSV, XLS, XLSX, KML, KMZ, TSV, XML files can also be used as data sources"
 
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "As of now, you cannot extract data from an image, flash (.swf)"
-
-msgid "CREATE-STEP1-DISCLAIMER4"
-msgstr "The webpage or file that contains the data should have a URL. A URL is the internet address you see in your web browser"
-
-msgid "CREATE-STEP1-DISCLAIMER5"
-msgstr "If you are collecting data from a &lt;table&gt; inside an &lt;iframe&gt; or &lt;frame&gt;, you need to provide the URL of the &lt;iframe&gt; or &lt;frame&gt;"
 
 msgid "CREATE-STEP1-DISCLAIMER6"
 msgstr "Files must be encoded in UTF-8"
@@ -1595,32 +1469,8 @@ msgstr "Files must be encoded in UTF-8"
 msgid "APP-RELATEDSOURCES-TEXT"
 msgstr "Related sources"
 
-msgid "CREATE-STEP1-THROUBLE-TITLE"
-msgstr "Troubleshooting & tips to take into account"
-
-msgid "CREATE-STEP1-THROUBLE1"
-msgstr "You can only collect data from a &lt;table&gt; that has at least one row of data. You cannot select a &lt;table&gt; that is used to organize the structure for a webpage"
-
-msgid "CREATE-STEP1-THROUBLE2"
-msgstr "You can only select one data &lt;table&gt; from a source at a time (at least for now!)"
-
-msgid "CREATE-STEP2-TITLE"
-msgstr "What do you need"
-
-msgid "CREATE-STEP2-SUBTITLE"
-msgstr "Let us know if you want to collect the entire table, specific columns, rows or just cells"
-
-msgid "CREATE-STEP3-TITLE"
-msgstr "Name it"
-
 msgid "CREATE-STEP3-SUBTITLE"
 msgstr "Let us know what is your data view about. <span>Fields with (<span class='required'>*</span>) are mandatory.</span>"
-
-msgid "CREATION-STEP3-HELPTITLE"
-msgstr "Names: Best practices and correct uses"
-
-msgid "CREATION-STEP3-HELPTIP"
-msgstr "A good data view clearly communicates what it is about."
 
 msgid "APP-PREVIEWANDSAVE-TEXT"
 msgstr "Make sure that all is going well with your Data View."
@@ -1630,12 +1480,6 @@ msgstr "For large files we show here up to 100 rows. You can see it completely a
 
 msgid "CREATE-STEP4-TAGTITLE"
 msgstr "Tags for this data view"
-
-msgid "CREATE-STEP4-HELPTITLE"
-msgstr "Want to edit your data view"
-
-msgid "CREATE-STEP4-HELPTEXT"
-msgstr "You can always go back by clicking on the <strong>&quot;Previous&quot;</strong> link in the progress bar"
 
 msgid "ACCOUNT-SAVE-SUCCESS"
 msgstr "Account information saved successfully."
@@ -1719,13 +1563,10 @@ msgid "DATASET-NOT-PUBLISHED"
 msgstr "The dataset related to this Data View must be published"
 
 msgid "ACCOUNT-USERS-USERNAME-TIP"
-msgstr "The <em>username</em> must be unique.<br/>This validation is being made between all users from DATAL."
+msgstr "The <em>username</em> must be unique.<br/>This validation applies across all accounts."
 
 msgid "ACCOUNT-USERS-EMAIL-TIP"
-msgstr "The <em>e-mail</em> must be unique.<br/>This validation is being made between all users from DATAL."
-
-msgid "ACCOUNT-USERS-ROLES-TIP"
-msgstr "Check below the differences between roles."
+msgstr "The <em>e-mail</em> must be unique.<br/>This validation applies across all accounts."
 
 msgid "MISSING-TRACKING-ID"
 msgstr "To add any event, you need to set the property ID of your Google Analytics account."
@@ -1868,6 +1709,9 @@ msgstr "Defines the path(xpath or json-path) to table data."
 msgid "WORKSPACE-CACHE-TIP"
 msgstr "Defines if webservice result should be cached or not"
 
+msgid "WORKSPACE-ATT-HEADERS-TIP"
+msgstr "Defines if attributes are used as headers."
+
 msgid "WEBSERVICE-STEP1-TITLE"
 msgstr "Filter your selection as you need"
 
@@ -1881,7 +1725,7 @@ msgid "WEBSERVICE-STEP1-HELPTEXT"
 msgstr "These parameters has come from the Dataset that you are using to create this Data View. They are used to filter the information that this Dataset can bring.<br/><br/>If the parameters are not editable, you will not be able to change it's original value"
 
 msgid "APP-DSWEBSERVICE-TEXT"
-msgstr "Choose a better name for the parameters <small>(if needed and editable)</small>"
+msgstr "Choose a better name for the parameters <span>(if needed and editable)</span>"
 
 msgid "WEBSERVICE-HELP-TIP"
 msgstr "- The webservice must accept SOAP 1.2 calls<br/>- The response root element must be named 'NewDataSet'. It may have one or more childs representing rows. Rows may have one or more childs representing cells."
@@ -1916,9 +1760,6 @@ msgstr "Image size must be 136 x 80 px, otherwise image could appear distorted"
 msgid "ACCOUNT-OPENDATASITE-TAB"
 msgstr "Go to my Open Data site"
 
-msgid "ACCOUNT-OPENDATASITE-TAB-PRIVATE"
-msgstr "Go to my Private Data site"
-
 msgid "WORKSPACE-COLLECT-SELECTCATEGORY"
 msgstr "Select a category"
 
@@ -1930,6 +1771,9 @@ msgstr "Path to data"
 
 msgid "APP-CACHE-TEXT"
 msgstr "Use cache"
+
+msgid "APP-ATT-HEADERS-TEXT"
+msgstr "Use attributes as headers"
 
 msgid "WORKSPACE-METHODNAME-TEXT"
 msgstr "Method"
@@ -1978,9 +1822,6 @@ msgstr "Left bottom content"
 
 msgid "ACCOUNT-HOME-RIGHT-FOOTER"
 msgstr "Right bottom content"
-
-msgid "ACCOUNT-HOME-FEATURED-TIP"
-msgstr "This content is displayed below the header and above the main content and the resources' slider. <br/>If you want to add an image slider here, please <a href='http://en.wiki.junar.com/index.php/Add_an_image_slider_to_your_Open_Data_site_home_page' title='DATAL Wiki' target='_blank'>refer to this documentation</a>."
 
 msgid "ACCOUNT-HOME-MAIN-TIP"
 msgstr "This content is displayed on the left side of the slider"
@@ -2096,9 +1937,6 @@ msgstr "Share"
 msgid "APP-ANALYZE-TEXT"
 msgstr "Analyze"
 
-msgid "APP-CONTACTUS-TEXT"
-msgstr "Contact us"
-
 msgid "APP-PRESS-TEXT"
 msgstr "News"
 
@@ -2119,9 +1957,6 @@ msgstr "Privacy Policy"
 
 
 
-msgid "HEADER-JUNAR-TITLE"
-msgstr "DATAL Open Data Platform"
-
 msgid "HEADER-SEARCH-TEXT"
 msgstr "Search resources"
 
@@ -2132,7 +1967,7 @@ msgid "HEADER-SEARCH-ADVANCED"
 msgstr "Advanced options"
 
 msgid "HEADER-ODS-BUTTON"
-msgstr "View Open Data site"
+msgstr "View Open Data Portal"
 
 msgid "HEADER-ACCOUNTDETAILLS-TEXT"
 msgstr "Account Details"
@@ -2145,9 +1980,6 @@ msgstr "Online Support"
 
 msgid "FOOTER-INSTITUTIONAL-TEXT"
 msgstr "Institutional"
-
-msgid "FOOTER-ABOUTUS-TITLE"
-msgstr "See who is behind DATAL"
 
 msgid "FOOTER-ABOUTUS-TEXT"
 msgstr "About us"
@@ -2189,7 +2021,7 @@ msgid "APP-SETTINGS-TEXT"
 msgstr "Settings"
 
 msgid "APP-FEEDBACK-TEXT"
-msgstr "Feedback"
+msgstr "Report a problem"
 
 msgid "LANDINGPAGE-SECTION-TITLE"
 msgstr "Welcome"
@@ -2218,9 +2050,6 @@ msgstr "Yesterday"
 msgid "APP-DOWNLOAD-CSV-TEXT"
 msgstr "Download as CSV"
 
-msgid "APP-GOBACKTO-TEXT"
-msgstr "Go back to DATAL website"
-
 msgid "FORGOT-ACTIVATION-EMAIL"
 msgstr "An activation link for your new password has been sent to your e-mail."
 
@@ -2235,6 +2064,9 @@ msgstr "Author"
 
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Download"
+
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Go to source"
 
 msgid "APP-ADDNEW-TEXT"
 msgstr "Add new"
@@ -2465,7 +2297,7 @@ msgid "APP-CONTACT-EMAIL-TIP"
 msgstr "This is the contact e-mail of the person responsible for this dataset."
 
 msgid "APP-LICENSE-TIP"
-msgstr "The license with which the dataset is published. Licenses examples can be found here "
+msgstr "The license with which the dataset is published. License examples can be found here "
 
 msgid "APP-LICENSE-EXAMPLE-TITLE"
 msgstr "View license examples"
@@ -2681,7 +2513,7 @@ msgid "ACCOUNT-ENABLE-DOWNLOADS-LABEL"
 msgstr "Enable downloads"
 
 msgid "SOCIAL-DOWNLOADS-TIP"
-msgstr "Allow users download your Datasets."
+msgstr "Allow users to download your Datasets."
 
 msgid "APP-DATASETCANTBEUSEDTOCREATECHILD-TEXT"
 msgstr "This Dataset cannot be used to create a Data View."
@@ -2692,9 +2524,6 @@ msgstr "There are not associated resources to this Dataset."
 msgid "APP-START-FROM-HERE-TEXT"
 msgstr "You can start from here!"
 
-msgid "APP-CREATE-FIRST-DATASET-TEXT"
-msgstr "In order to start using DATAL, create your first dataset."
-
 msgid "CHILD_NOT_ACCEPTED-1"
 msgstr "It was not posible to publish this Dataset, because you have unapproved Data Views. Check a list of the associated Data Views "
 
@@ -2702,7 +2531,7 @@ msgid "CHILD_NOT_ACCEPTED-2"
 msgstr "here"
 
 msgid "APP-SELECT-DATASET-TEXT"
-msgstr "Select Dataset"
+msgstr "New Data View"
 
 msgid "APP-SELECT-DATASTREAM-TEXT"
 msgstr "Select View"
@@ -2729,7 +2558,7 @@ msgid "APP-LASTPUBLISHDATE-TEXT"
 msgstr "Last published version:"
 
 msgid "APP-VIEWONSITE-TEXT"
-msgstr "View on site"
+msgstr "View on open data portal "
 
 msgid "APP-SENDREJECTEDNOTE-TEXT"
 msgstr "Rejection reason?"
@@ -2924,6 +2753,9 @@ msgid "LANDINGPAGE-NOACTIVITY-START"
 msgstr "Create a new dataset to begin"
 
 msgid "APP-SELECT-VISUALIZATION-TEXT"
+msgstr "New Visualization"
+
+msgid "APP-ADD-VISUALIZATION-HINT"
 msgstr "Which dataview you want to use?"
 
 msgid "APP-CREATE-VISUALIZATION-TEXT"
@@ -3184,9 +3016,6 @@ msgstr "the Data View"
 msgid "LANDINGPAGE-ACTIVITY-VISUALIZATION"
 msgstr "the Visualization"
 
-msgid "LANDINGPAGE-ACTIVITY-DASHBOARD"
-msgstr "the Dashboard"
-
 msgid "APP-CHOOSE-MAP-TEXT"
 msgstr "Maps"
 
@@ -3202,6 +3031,9 @@ msgstr "Invalid value"
 msgid "APP-SEARCH-PLACEHOLDER-TEXT"
 msgstr "Search..."
 
+msgid "APP-ALL-TYPES-TEXT"
+msgstr "All types"
+
 msgid "APP-ALL-CATEGORIES-TEXT"
 msgstr "All categories"
 
@@ -3213,3 +3045,219 @@ msgstr "available resources"
 
 msgid "APP-X-RESOURCES-ADDED-TEXT"
 msgstr "resources added"
+
+msgid "APP-UPLOAD-FILE-LINK"
+msgstr "From file"
+
+msgid "APP-WEBSITE-LINK"
+msgstr "From URL or website"
+
+msgid "APP-WEBSERVICE-LINK"
+msgstr "From webservice"
+
+msgid "APP-LISTRESOURCES-TEXT"
+msgstr "List"
+
+msgid "APP-NEWFEMALE-TEXT"
+msgstr "New"
+
+msgid "APP-NEWMALE-TEXT"
+msgstr "New"
+
+msgid "APP-DOES-NOT-EXIST-TEXT"
+msgstr "does not exist, try again with other keywords."
+
+msgid "APP-FEATUREDFEMALE-TEXT"
+msgstr "Featured"
+
+msgid "APP-DONE-TEXT"
+msgstr "Done"
+
+msgid "APP-EDIT-DESCRIPTION-TEXT"
+msgstr "Edit description"
+
+msgid "APP-EDIT-VISUALIZATION-TEXT"
+msgstr "Edit visualization"
+
+msgid "APP-DATA-SELECTION-TEXT"
+msgstr "Data selection"
+
+msgid "APP-REVISION-TEXT"
+msgstr "Revision"
+
+msgid "APP-ADVANCED-MODE-TEXT"
+msgstr "Advanced mode"
+
+msgid "APP-SELECT-TABLE-HEADERS-TEXT"
+msgstr "Select table headers"
+
+msgid "APP-FILTER-DATA-TEXT"
+msgstr "Filter data"
+
+msgid "APP-CONFIG-DATA-TYPE-AND-COLUMN-FORMAT-TEXT"
+msgstr "Set datatype and columns format"
+
+msgid "APP-COLUMN-TEXT"
+msgstr "Column"
+
+msgid "APP-CREATE-DATAVIEW-DATA-SELECTION-TIP-TEXT"
+msgstr "Select intervals to use. You can select the entire table, rows/columns, or individual cells."
+
+msgid "APP-TABLE-HEADERS-TEXT"
+msgstr "Table headers"
+
+msgid "APP-CREATE-DATAVIEW-TABLE-HEADERS-TIP-TEXT"
+msgstr "Select the rows of the table that represent headers"
+
+msgid "APP-ADD-NEW-FILTER-TEXT"
+msgstr "Add new filter"
+
+msgid "APP-OPERATION-TEXT"
+msgstr "Operation"
+
+msgid "APP-EQUAL-TO-TEXT"
+msgstr "Equal to"
+
+msgid "APP-NOT-EQUAL-TO-TEXT"
+msgstr "Not equal to"
+
+msgid "APP-HIGHER-THAN-TEXT"
+msgstr "Higher than"
+
+msgid "APP-LOWER-THAN-TEXT"
+msgstr "Lower than"
+
+msgid "APP-CONTAINS-TEXT"
+msgstr "It contains"
+
+msgid "APP-OPERATOR-TEXT"
+msgstr "Operator"
+
+msgid "APP-FIXED-VALUE-TEXT"
+msgstr "Fixed value"
+
+msgid "APP-PARAMETER-TEXT"
+msgstr "Parameter"
+
+msgid "APP-ENTER-A-FIXED-VALUE-TEXT"
+msgstr "Enter a fixed value"
+
+msgid "APP-CONFIGURE-OPERATOR-TEXT"
+msgstr "Configure the operator"
+
+msgid "APP-PARAMETER-NAME-TEXT"
+msgstr "Parameter name"
+
+msgid "APP-OPTIONAL-TEXT"
+msgstr "Optional"
+
+msgid "APP-CONFIGURE-A-COLUMN-TEXT"
+msgstr "Configure column"
+
+msgid "APP-COLUMN-DATA-TYPE-TEXT"
+msgstr "Column data type"
+
+msgid "APP-TEXT-TEXT"
+msgstr "Text"
+
+msgid "APP-NUMBER-TEXT"
+msgstr "Number"
+
+msgid "APP-DATE-TEXT"
+msgstr "Date"
+
+msgid "APP-DATASET-PARAMETERS"
+msgstr "Dataset Parameters"
+
+msgid "APP-SELECT-DATASET-TABLE"
+msgstr "Tables"
+
+msgid "APP-COLS-TEXT"
+msgstr "Columns"
+
+msgid "APP-FULL-TABLE-TEXT"
+msgstr "Full Table"
+
+msgid "APP-COL-FORMAT-TEXT"
+msgstr "Formats"
+
+msgid "APP-NAME-TEXT"
+msgstr "Name"
+
+msgid "ADMIN-HOME-THEMES-THEME7-TEXT"
+msgstr "Responsive"
+
+msgid "ADMIN-HOME-THEMES-THEME8-TEXT"
+msgstr "Catalog"
+
+msgid "APP-THOUSAND-INDICATOR"
+msgstr "Thousand indicator"
+
+msgid "APP-DECIMAL-INDICATOR"
+msgstr "Decimal indicator"
+
+msgid "APP-SYMBOLS"
+msgstr "Symbols"
+
+msgid "APP-LOCALE"
+msgstr "Locale"
+
+msgid "APP-CUSTOM-PATTERN"
+msgstr "Custom pattern"
+
+msgid "APP-CONFIGURE-ORIGIN-FORMAT"
+msgstr "Configure origin format"
+
+msgid "APP-CONFIGURE-OUTPUT-FORMAT"
+msgstr "Configure output format"
+
+msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
+msgstr "Decimals / Thousands indicators"
+
+msgid "APP-WHAT-IS-THE-ORIGINAL-PATTERN"
+msgstr "What is the original pattern?"
+
+msgid "APP-WHAT-IS-THE-OUTPUT-PATTERN"
+msgstr "What is the output pattern?"
+
+msgid "APP-DOT"
+msgstr "dot"
+
+msgid "APP-COMMA"
+msgstr "comma"
+
+msgid "APP-SELECTED-DATA-TEXT"
+msgstr "Data selected"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Use the USA formatting pattern.<br><hr class='divider divider-xs'>0: Digit <br>#: Digit, zero absent <br>. (dot): Decimal separator <br>, (coma): Grouping separator <br>-: Minus symbol"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Select thousands and decimal indicators exactly as shown in this column"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Select the location indicators representing thousands and decimals in this column"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Select the location to be used to represent the output format of sight"
+
+msgid "APP-DATE-ORIGIN-FORMAT-TIP"
+msgstr "Use patterns formatting date and time from <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Whole year (Ej: 2001)<br> yy: Abbreviated year (Ej: 01)<br> MM: Month starting with 0 (Ej: July 07)<br> M: Month without 0 (Ej: July 7)<br> dd: Day start with 0 (Ej: April 04)<br> d: Day without 0 (Ej: April 4)<br> - (dash) y / (bar) separate terms"
+
+msgid "APP-DATE-OUTPUT-FORMAT-TIP"
+msgstr "Use patterns formatting date and time from <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Day of the month (without leading zero) <br> dd: Day of the month (two digits) <br> o: Day of the year (without leading zero) <br> oo: Day of the year (three digits) <br> D: Short day name <br> DD: Long day name <br> m: Month of the year (without leading zero) <br> mm:Month of the year (two digits) <br> M: Short month name <br> MM: Long month name <br> y: Year (two digits) <br> yy: Year (four digits) <br> @: Unix timestamp (month from 01/01/1970) <br> !: Windows ticks (100ns from 01/01/0001) <br> '...': Literal text <br> '': Single quote <br> Everything else: Literal text"
+
+msgid "APP-ERR-NO-TABLES-FOUND"
+msgstr "The parameter does not yield results, try a different one."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Table"
+
+msgid "APP-ERROR-400-TEXT"
+msgstr "There was an error"
+
+msgid "APP-GO-HOME-TEXT"
+msgstr "Go to the home page"
+
+msgid "APP-GO-PORTAL-TEXT"
+msgstr "Go to open data site"

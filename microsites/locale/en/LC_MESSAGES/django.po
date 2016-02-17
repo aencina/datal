@@ -1,6 +1,6 @@
 # DATAL's English language pack.
 # Copyright  2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-19 16:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Emilio Heck <emilio.heck@junar.com>\n"
+"Last-Translator: Ignacio Sans <ignacio.sans@junar.com>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -312,9 +312,6 @@ msgstr "Last modified"
 msgid "APP-OPEN-RESOURCES"
 msgstr "Open Data Resources"
 
-msgid "APP-OPEN-RESOURCES-PRIVATE"
-msgstr "Private Data Resources"
-
 msgid "APP-SEARCH-TEXT"
 msgstr "Search"
 
@@ -570,6 +567,9 @@ msgstr "View more"
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Download"
 
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Go to source"
+
 msgid "APP-RESOURCESCREATED-TEXT"
 msgstr "Resources created using this Dataset"
 
@@ -620,3 +620,30 @@ msgstr "Minutely"
 
 msgid "APP-OTHER-TEXT"
 msgstr "Other"
+
+msgid "VIEWDS-TABS-DESCRIPTION"
+msgstr "Description"
+
+msgid "VIEWDS-DESCRIPTION-TITLE"
+msgstr "Description"
+
+msgid "VIEWDS-VIEWMORE-INFORMATION-TEXT"
+msgstr "More information"
+
+msgid "VIEWDS-VIEWLESS-INFORMATION-TEXT"
+msgstr "Hide information"
+
+msgid "APP-EXPORT-TO-EXCEL-TEXT"
+msgstr "Export to Excel"
+
+msgid "APP-BACK-TEXT"
+msgstr "Back"
+
+msgid "APP-ERROR-400-TEXT"
+msgstr "There was an error"
+
+msgid "APP-GO-HOME-TEXT"
+msgstr "Go to the home page"
+
+msgid "APP-GO-PORTAL-TEXT"
+msgstr "Go to open data site"

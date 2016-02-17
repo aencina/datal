@@ -8,11 +8,14 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import pre_delete
 from django.contrib.auth.models import AnonymousUser
+from django.db.models import Q
+
 
 from core.utils import slugify
 from core import choices
 from core import managers
 from core.cache import Cache
+from core.lib.datastore import *
 
 
 logger = logging.getLogger(__name__)
@@ -124,8 +127,7 @@ class Account(models.Model):
     meta_data = models.TextField(blank=True, verbose_name=ugettext_lazy('MODEL_METADATA_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True, verbose_name=ugettext_lazy('MODEL_CREATED_AT_LABEL'))
     expires_at = models.DateTimeField(verbose_name=ugettext_lazy('MODEL_EXPIRES_AT_LABEL'))
-    objects = managers.AccountManager()
-    parent = models.ForeignKey('Account', null=True, on_delete=models.PROTECT, blank=True)
+    parent = models.ManyToManyField('Account', null=True, blank=True)
 
     class Meta:
         db_table = 'ao_accounts'
@@ -165,11 +167,11 @@ class Account(models.Model):
         total_datasets = c.get('account_total_datasets_' + str(self.id))
         if not total_datasets:
             total_datasets =  Dataset.objects.filter(user__in=users).count()
-            if settings.DEBUG: logger.info('get_total_datasets from database %d' % total_datasets)
+            #if settings.DEBUG: logger.info('get_total_datasets from database %d' % total_datasets)
             if total_datasets > 0:
                 c.set('account_total_datasets_' + str(self.id), total_datasets, settings.REDIS_STATS_TTL)
-        else:
-            if settings.DEBUG: logger.info('get_total_datasets from cache %s' % total_datasets)
+        #else:
+        #    if settings.DEBUG: logger.info('get_total_datasets from cache %s' % total_datasets)
             
         return total_datasets
 
@@ -193,12 +195,51 @@ class Account(models.Model):
                 c.set('account_total_visualization_' + str(self.id), total_visualizations, settings.REDIS_STATS_TTL)
         return total_visualizations
 
+    @staticmethod
+    def get_by_domain(domain, status=ACTIVE):
+        """Devuelve el account dependiendo del dominio
+            :param: domain: dominio asociado a la preferencia
+            :param: status: por default, cuentas activas, en caso de querer las TIRAL, pasarle Account.TRIAL
+            :return: instancia Account """
+
+        try:
+            return Account.objects.get(
+                Q(preference__key='account.api.domain', preference__value=domain) | 
+                Q(preference__key='account.domain', preference__value=domain),
+                status = status)
+        except Account.DoesNotExist:
+            # generalmente usamos algo.dev:port
+            #if settings.DEBUG: logger.info('NO domain (%s)' % domain)
+
+            try:
+                if domain.find('.site.demo.junar.com') > -1:
+                    account_id = int(domain.split('.')[0])
+                    return Account.objects.get(pk=account_id)
+                    
+                elif domain.split(":")[0][-4:] == ".dev":
+                    # obtenemos la primer parte, que en las demos/ambiente de dev
+                    # es el ID del Account
+                    dom = domain.split(".")[0]
+                    #if settings.DEBUG: logger.info('API Test domain (%s)' % dom)
+    
+                    if dom in ("microsites", "api"):
+                        return Account.objects.get(pk=1) 
+                    else:
+                        return Account.objects.get(pk=int(dom)) 
+            # en caso de que no le haya pegado a nada, que tire un
+            # Account.DoesNotExist
+            except:
+                pass
+
+        raise Account.DoesNotExist
+
 
 class AccountAnonymousUser(AnonymousUser):
 
-    def __init__(self, account):
+    def __init__(self, account, language):
         super(AccountAnonymousUser, self).__init__()
         self.account = account
+        self.language = language
 
     def is_authenticated(self):
         return True
@@ -342,18 +383,6 @@ class DataStreamRevision(RevisionModel):
         return DataStreamRevision.objects.filter(dataset=dataset)
 
 
-    @staticmethod
-    def remove_related_to_dataset(dataset):
-        """
-        Elimino las revisiones de DataStream asociados a un dataset en particular y su DataStream
-        """
-        datastream_ids = set()
-        datastream_revisions = DataStreamRevision.related_to_dataset(dataset)
-        for datastreamrevision in datastream_revisions:
-            datastream_ids.add(datastreamrevision.id)
-            datastreamrevision.delete()
-        DataStream.objects.filter(pk__in=datastream_ids).delete()
-
     def update(self, changed_fields, **fields):
         if changed_fields:
             if 'category' in changed_fields:
@@ -382,7 +411,7 @@ class DataStreamRevision(RevisionModel):
 
     def add_sources(self, sources):
         self.sourcedatastream_set.clear()
-        
+
         for source_field in sources:
             source_with_name = Source.objects.filter(name=source_field.get('name', ''))
             if source_with_name.count():
@@ -403,7 +432,7 @@ class DataStreamRevision(RevisionModel):
 
     def add_parameters(self, parameters):
         self.datastreamparameter_set.clear()
-        
+
         for parameter in parameters:
             self.datastreamparameter_set.add(DataStreamParameter.objects.create(name=parameter['name']
                                                                                 , position=parameter['position']
@@ -580,6 +609,10 @@ class DatasetRevision(RevisionModel):
                 settings.AWS_BUCKET_NAME,
                 self.end_point.replace('file://', '')
             )
+
+        if settings.USE_DATASTORE == 's3':
+            return active_datastore.generate_url(settings.AWS_BUCKET_NAME, key=self.end_point.replace('file://', ''))
+
         return self.end_point
 
     def is_pending_review(self):
@@ -726,8 +759,10 @@ class Visualization(GuidModel):
 
 class VisualizationRevision(RevisionModel):
     visualization = models.ForeignKey('Visualization', verbose_name=ugettext_lazy('MODEL_VISUALIZATION_LABEL'))
-    datastream_revision = models.ForeignKey('DataStreamRevision',
-                                            verbose_name=ugettext_lazy('MODEL_DATASTREAM_REV_LABEL'))
+
+    datastream = models.ForeignKey('DataStream',
+                                            verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
+
     user = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), on_delete=models.PROTECT)
     lib = models.CharField(max_length=10, choices=choices.VISUALIZATION_LIBS)
     impl_details = models.TextField(blank=True)
@@ -736,7 +771,6 @@ class VisualizationRevision(RevisionModel):
     modified_at = models.DateTimeField(editable=False, auto_now=True)
     status = models.IntegerField(choices=choices.STATUS_CHOICES, verbose_name=ugettext_lazy('MODEL_STATUS_LABEL'))
     parameters = models.CharField(max_length=2048, verbose_name=ugettext_lazy( 'MODEL-URL-TEXT' ), blank=True)
-    objects = managers.VisualizationRevisionManager()
 
     class Meta:
         db_table = 'ao_visualizations_revisions'
@@ -755,7 +789,7 @@ class VisualizationRevision(RevisionModel):
     def clone(self, status=choices.StatusChoices.DRAFT):
         visualization_revision = VisualizationRevision(
             visualization=self.visualization,
-            datastream_revision=self.datastream_revision,
+            datastream=self.datastream,
             user=self.user,
             lib=self.lib,
             impl_details=self.impl_details,
@@ -808,8 +842,8 @@ class Category(models.Model):
 class CategoryI18n(models.Model):
     language = models.CharField(max_length=2, choices=choices.LANGUAGE_CHOICES, verbose_name=ugettext_lazy('MODEL_LANGUAGE_LABEL'))
     category = models.ForeignKey('Category', verbose_name=ugettext_lazy('MODEL_CATEGORY_LABEL'))
-    name = models.CharField(max_length=30, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
-    slug = models.SlugField(max_length=30, verbose_name=ugettext_lazy('MODEL_SLUG_LABEL'))
+    name = models.CharField(max_length=80, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
+    slug = models.SlugField(max_length=80, verbose_name=ugettext_lazy('MODEL_SLUG_LABEL'))
     description = models.CharField(max_length=140, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
 
@@ -900,11 +934,12 @@ class Privilege(models.Model):
 
 
 class Grant(models.Model):
-    user            = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), null=True, on_delete=models.PROTECT)
-    role            = models.ForeignKey('Role', verbose_name=ugettext_lazy('MODEL_ROLE_LABEL'), null=True)
-    guest           = models.ForeignKey('Guest', verbose_name=ugettext_lazy('MODEL_GUEST_LABEL'), null=True)
-    privilege       = models.ForeignKey('Privilege', verbose_name=ugettext_lazy('MODEL_PRIVILEGE_LABEL'), null=True)
-    created_at      = models.DateTimeField(editable=False, auto_now_add=True)
+    user = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), null=True,
+                             on_delete=models.PROTECT)
+    role = models.ForeignKey('Role', verbose_name=ugettext_lazy('MODEL_ROLE_LABEL'), null=True)
+    guest = models.ForeignKey('Guest', verbose_name=ugettext_lazy('MODEL_GUEST_LABEL'), null=True)
+    privilege = models.ForeignKey('Privilege', verbose_name=ugettext_lazy('MODEL_PRIVILEGE_LABEL'), null=True)
+    created_at = models.DateTimeField(editable=False, auto_now_add=True)
 
     class Meta:
         db_table = 'ao_user_grants'
@@ -914,13 +949,13 @@ class Grant(models.Model):
 
 
 class ObjectGrant(models.Model):
-    grant           = models.ForeignKey('Grant', verbose_name=ugettext_lazy('MODEL_GRANT_LABEL'))
-    datastream      = models.ForeignKey('DataStream', null=True, verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
-    visualization   = models.ForeignKey('Visualization', null=True, verbose_name=ugettext_lazy('MODEL_VISUALIZATION_LABEL'))
-    type            = models.CharField(max_length=63, verbose_name=ugettext_lazy('MODEL_TYPE_LABEL'))
-    auth_key        = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_AUTH_KEY_LABEL'))
-    created_at      = models.DateTimeField(editable=False, auto_now_add=True)
-    objects         = managers.ObjectGrantManager()
+    grant = models.ForeignKey('Grant', verbose_name=ugettext_lazy('MODEL_GRANT_LABEL'))
+    datastream = models.ForeignKey('DataStream', null=True, verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
+    visualization = models.ForeignKey('Visualization', null=True, verbose_name=ugettext_lazy('MODEL_VISUALIZATION_LABEL'))
+    type = models.CharField(max_length=63, verbose_name=ugettext_lazy('MODEL_TYPE_LABEL'))
+    auth_key = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_AUTH_KEY_LABEL'))
+    created_at = models.DateTimeField(editable=False, auto_now_add=True)
+    objects = managers.ObjectGrantManager()
 
     class Meta:
         db_table = 'ao_user_object_grants'
@@ -928,9 +963,10 @@ class ObjectGrant(models.Model):
     def __unicode__(self):
         return unicode(self.id)
 
+
 class Guest( models.Model ):
-    email       = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_EMAIL_LABEL'))
-    grants      = models.ManyToManyField('Privilege', through='Grant', verbose_name=ugettext_lazy('MODEL_GUEST_GRANT_LABEL'))
+    email = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_EMAIL_LABEL'))
+    grants = models.ManyToManyField('Privilege', through='Grant', verbose_name=ugettext_lazy('MODEL_GUEST_GRANT_LABEL'))
 
     class Meta:
         db_table = 'ao_user_guests'
@@ -941,11 +977,11 @@ class Guest( models.Model ):
 
 class Threshold(models.Model):
     account_level = models.ForeignKey('AccountLevel', null=True, blank=True)
-    account       = models.ForeignKey('Account', null=True, blank=True)
-    name          = models.CharField(max_length=30, choices=choices.THRESHOLD_NAME_CHOICES)
-    description   = models.TextField(blank=True)
-    limit         = models.IntegerField(default=0)
-    objects       = managers.ThresholdManager()
+    account = models.ForeignKey('Account', null=True, blank=True)
+    name = models.CharField(max_length=30, choices=choices.THRESHOLD_NAME_CHOICES)
+    description = models.TextField(blank=True)
+    limit = models.IntegerField(default=0)
+    objects = managers.ThresholdManager()
 
     class Meta:
         db_table = 'ao_account_thresholds'
@@ -1029,7 +1065,7 @@ class UserPassTickets(models.Model):
     def __unicode__(self):
         return unicode(self.id)
 
-
+# :TODO: Sin Migrar aun
 class Source(models.Model):
     name = models.CharField(unique=True, max_length=40, blank=False)
     url = models.CharField(max_length=2048, blank=False)
@@ -1048,7 +1084,7 @@ class SourceDataset(models.Model):
     class Meta:
         db_table = 'ao_sources_dataset_revision'
 
-
+# :TODO: Sin Migrar aun
 class SourceDatastream(models.Model):
     source = models.ForeignKey('Source', null=True)
     datastreamrevision = models.ForeignKey('DataStreamRevision', null=True)

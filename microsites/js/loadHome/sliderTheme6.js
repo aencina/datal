@@ -1,5 +1,6 @@
 $(document).ready(function(){
     initFeaturedSlider();
+    initVideoOverlay();
 });
 
 function initFeaturedSlider(){
@@ -34,4 +35,30 @@ function initFeaturedSlider(){
             }
         });
     }
+}
+
+function initVideoOverlay(){
+
+    var thePopup = $('#id_videoPopup');
+
+      thePopup.overlay({
+        top: 'center',
+        left: 'center',
+        mask: {
+          color: '#000', 
+          loadSpeed: 200, 
+          opacity: 0.5, 
+          zIndex: 99999
+        }
+      });
+
+      $('[id*=id_panel_slider_]').click(function(event) {
+        console.log(event.currentTarget);
+        if( $(event.currentTarget).hasClass('videoSection') ){
+            var videoContent = $(event.currentTarget).parent().find('[id*=dialog_]').html();
+            thePopup.find('.videoContent').html(videoContent);
+            thePopup.data('overlay').load();
+        }
+      });
+
 }

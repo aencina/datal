@@ -6,6 +6,7 @@ from django.conf import settings
 from core.exceptions import DATALException
 import logging
 import sys, traceback
+import json
 
 def datal_exception_handler(exception, context):
     # Call REST framework's default exception handler first,
@@ -13,7 +14,7 @@ def datal_exception_handler(exception, context):
     response = exception_handler(exception, context)
 
     # Now add the HTTP status code to the response.
-    if response is not None:
+    if not response is None:
         response.data['status'] = response.status_code
         if not 'description' in response.data:
             response.data['description'] = ''
@@ -36,7 +37,7 @@ def datal_exception_handler(exception, context):
         set_rollback()
         response = Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         response.data['status'] = response.status_code
-        response.data['description'] = str(exception)
+        response.data['description'] = json.dumps(str(exception))
         response.data['error'] = str(exception.__class__.__name__)
         response.data['type'] = 'unexpected-error'
 

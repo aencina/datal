@@ -7,7 +7,7 @@
 
 {% block css_includes %}
 	{% compress css %}
-	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/stickyFooter.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/stickyFooter.css' %}"/>
 	{% endcompress %}
 {% endblock %}
 
@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block facebook %}
-    <meta property="og:description" content="DATAL delivers the easiest to use, cloud-based, Open Data Platform that enables data-rich organizations to achieve greater transparency, citizen engagement, efficiencies and innovation." />
+    <meta property="og:description" content="{{ settings.APPLICATION_DETAILS.name }} delivers the easiest to use, cloud-based, Open Data Platform that enables data-rich organizations to achieve greater transparency, citizen engagement, efficiencies and innovation." />
     <meta property="og:image" content="{% static 'core/images/common/im_defaultAvatar_90x90.jpg' %}" />
 {% endblock %}
 
@@ -39,6 +39,9 @@
 	    	<!-- HEADER -->
 	    	{% include "header_microsites.html" %}
 			{% endblock %}
+
+			{# Used in viewDataStream / viewChart #}
+			{% block messageBar %}{% endblock %}
 		
 	    <!-- CONTENT -->
 	    <div class="content">
@@ -55,6 +58,10 @@
 	
 	<!-- MINI FOOTER JUNAR -->
 	{% include "miniFooterJunar.html" %}
+
+{% endblock %}
+
+{% block base_bottom_js %}
 	
 	<script type="text/javascript">
 		/* <![CDATA[ */
@@ -93,16 +100,24 @@
 	    Configuration.apiKey = "{{settings.PUBLIC_KEY}}";	    
 	    Configuration.language = "{{LANGUAGE_CODE}}";
 	    Configuration.showLastUpdate = {% if not preferences.account_hidelastupdate %}true{% else %}false{% endif %};
-	    Configuration.chartSize = {"embed":{"width":"{{chartSizes.embed.width}}", "height":"{{chartSizes.embed.height}}" }, "normal":{"width":"{{chartSizes.normal.width}}", "height":"{{chartSizes.normal.height}}" }};
-
 	    {% if preferences.account_embed_powered_by %}
-	    Configuration.embedPoweredBy = ["http://{{preferences.account_domain}}","{{preferences.account_name}}"];
+	    Configuration.embedPoweredBy = ["{{settings.MSPROTOCOL}}://{{preferences.account_domain}}","{{preferences.account_name}}"];
   		{% else %}
-  		Configuration.embedPoweredBy = ["http://www.datal.org","DATAL"];
+  		Configuration.embedPoweredBy = ["{{ settings.APPLICATION_DETAILS.website }}","{{ settings.APPLICATION_DETAILS.name }}"];
   		{% endif %}
+
+  		Configuration.APPLICATION_DETAILS = {}
+			Configuration.APPLICATION_DETAILS.name = "{{ settings.APPLICATION_DETAILS.name }}";
+			Configuration.APPLICATION_DETAILS.website = "{{ settings.APPLICATION_DETAILS.website }}";
+			Configuration.APPLICATION_DETAILS.mail = "{{ settings.APPLICATION_DETAILS.mail }}";
 
 		/* ]]> */
 	</script>
+
+	{% block microsites_bottom_js %}
+		
+	{% endblock %}
+
 {% endblock %}
 
 {% block ga_code %}

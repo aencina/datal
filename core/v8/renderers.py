@@ -1,25 +1,88 @@
 from rest_framework import renderers
 from babel import numbers, dates
+from rest_framework.renderers import JSONRenderer
 import json
+from lxml import html, etree
+from lxml.cssselect import CSSSelector
 import datetime
 import sys
 import re
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+select_tables = CSSSelector(".ao-table-selectable")
+select_rows = CSSSelector(".ao-row-selectable")
+select_cells = CSSSelector(".ao-cell-selectable")
+
 
 class EngineRenderer(renderers.BaseRenderer):
     def render(self, data, media_type=None, renderer_context=None):
         return data
 
+
 class CSVEngineRenderer(EngineRenderer):
     media_type="text/csv"
     format = "csv"
+
+
+class TSVEngineRenderer(EngineRenderer):
+    media_type="text/tab-separated-values"
+    format = "tsv"
+
+class PJSONEngineRenderer(JSONRenderer):
+    format = "pjson"
+
+
+class AJSONEngineRenderer(JSONRenderer):
+    format = "ajson"
+
 
 class XLSEngineRenderer(EngineRenderer):
     media_type="application/vnd.ms-excel"
     format = "xls"
 
+
+class XLSNonRedirectEngineRenderer(JSONRenderer):
+    format = "xls"
+
+
+class XMLEngineRenderer(EngineRenderer):
+    media_type="text/xml"
+    format = "xml"
+
+
 class HTMLEngineRenderer(EngineRenderer):
     media_type="text/html"
     format = "html"
+
+
+class JSONEngineRenderer(EngineRenderer):
+    media_type="application/json"
+    format = "json"
+
+    def render(self, data, media_type=None, renderer_context=None):
+        parser = etree.HTMLParser(encoding='utf-8')
+        x_tree = html.fromstring(data, parser=parser)
+
+        result = []
+
+        for x_table in select_tables(x_tree):
+            table = []
+            for x_row in select_rows(x_table):
+                row = []
+                for x_cell in x_row.xpath("*[self::td or self::th]"):
+                    etree.strip_elements(x_cell, 'form', 'select')
+                    text = "".join(x_cell.xpath("descendant::text()"))
+                    row.append(text.strip(" \n\t"))
+
+                table.append(row)
+
+            result.append(table)
+
+        return json.dumps(result)
+
 
 class GridEngineRenderer(EngineRenderer):
     media_type="application/json"
@@ -27,6 +90,7 @@ class GridEngineRenderer(EngineRenderer):
 
     def format_datetime(self, seconds, strformat="dd/mm/yyyy", strlocale="en_US"):
         try:
+            strlocale=strlocale.split("_")
             # We need MILISECONDS but sometimes we receive seconds
             if seconds > 1000000000000: #ejemplos 1.399.488.910 | 1.399.047.696.818
                 seconds = seconds/1000
@@ -40,11 +104,11 @@ class GridEngineRenderer(EngineRenderer):
                 strformat = strformat.replace("M", "MMM")
             else:
                 strformat = strformat.replace("m", "L")
-            res = dates.format_datetime(myutc, format=strformat, locale=strlocale)
+            res = dates.format_datetime(myutc, format=strformat, locale="%s_%s" %(strlocale[0], strlocale[1].upper()))
         except:
-            #maybe TODO datetime.datetime.utcfromtimestamp(seconds/1000).strftime(strformat)
+            res = "%s (seconds)" % str(seconds)
             err = str(sys.exc_info())
-            res = str(seconds) + " error " + err
+            logger.error("[ERROR]: Render error: %s seconds, format: %s, strlocale: %s, error: %s " %(str(seconds),strformat, strlocale, err))
 
         return res
 
@@ -94,7 +158,10 @@ class GridEngineRenderer(EngineRenderer):
                 fPattern = l_cell['fDisplayFormat']['fPattern']
             if l_cell['fDisplayFormat'].get('fLocale',False):
                 #sometimes locale come as en,us and it's wrong. We need en_US
-                fLocale = l_cell['fDisplayFormat']['fLocale'].replace(",","_")
+                if len(l_cell['fDisplayFormat']['fLocale']) == 2:
+                    fLocale = "%s_%s" % (l_cell['fDisplayFormat']['fLang'],l_cell['fDisplayFormat']['fLocale'].upper())
+                else:
+                    fLocale = l_cell['fDisplayFormat']['fLocale'].replace(",","_")
             if l_cell['fDisplayFormat'].get('fCurrency',False):
                 fCurrency = l_cell['fDisplayFormat']['fCurrency']
 
@@ -139,6 +206,8 @@ class GridEngineRenderer(EngineRenderer):
 
         try:
             p_response = data
+            if not 'fLength' in p_response:
+               raise Exception('no length') 
         except:
             return '{"page": 1, "rows": [], "total":1}'
 

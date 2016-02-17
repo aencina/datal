@@ -10,7 +10,9 @@
    <div class="ov-bottom">
       <div class="ov-buttons">
          <a id="id_deleteResource" class="button red" title="{% trans 'APP-DELETE-RESOURCE-TEXT' %}">{% trans 'APP-DELETE-RESOURCE-TEXT' %}</a>
+        {% if dataset.cant  > 1 %}
          <a id="id_deleteRevision" class="button delete" title="{% trans 'APP-DELETE-REVISION-TEXT' %}">{% trans 'APP-DELETE-REVISION-TEXT' %}</a>
+        {% endif %}
       </div>
    </div>
 </div>
@@ -43,7 +45,9 @@
    <div class="ov-bottom">
       <div class="ov-buttons">
          <a id="id_unpublishResource" class="button" title="{% trans 'APP-UNPUBLISH-RESOURCE-TEXT' %}">{% trans 'APP-UNPUBLISH-RESOURCE-TEXT' %}</a>
+{% if dataset.last_published_revision_id == dataset.last_revision_id %}
          <a id="id_unpublishRevision" class="button primary" title="{% trans 'APP-UNPUBLISH-REVISION-TEXT' %}" data-action="unpublish">{% trans 'APP-UNPUBLISH-REVISION-TEXT' %}</a>
+{% endif %}
       </div>
    </div>
 </div>

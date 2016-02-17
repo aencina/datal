@@ -22,12 +22,17 @@
             this.addGritterNotification();
         },
         addGritterNotification: function () {
-            $.gritter.add({
+            var params = {
                 title: this.model.get('error'),
                 text: this.prepareText(),
                 image: '/static/workspace/images/common/ic_validationError32.png',
                 sticky: true
-            });
+            }
+            var responseOnClose = this.model.get('responseOnClose')
+            if ( responseOnClose ) {
+                params['after_close'] = responseOnClose 
+            }
+            $.gritter.add(params);
         }
     });
 

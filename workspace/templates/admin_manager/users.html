@@ -4,7 +4,7 @@
 {% block meta %}
 {% compress css %}
 <link href="{% sass_src 'workspace/styles/manageCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/accountAdmin.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
 <script src="{% static 'workspace/scripts/admin_manager/users.js' %}" type="text/javascript"></script>
@@ -106,7 +106,6 @@
                             <div class="formErrorMessageContainer">
                                 {{form.role}}
                             </div>
-                            <p class="tip">{% trans "ACCOUNT-USERS-ROLES-TIP" %}</p>
                         </div>
                     </fieldset>
                 </div>

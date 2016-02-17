@@ -34,20 +34,27 @@
 			<header>
 				<h1>{% trans 'VIEWDS-INFO-DATACOLLECTEDFROM' %}</h1>
 			</header>
-      <p class="clearfix">
-      	{% if datastream.collect_type|collect_type_nice == 'URL' %}
-      	    
-      		<a class="icon URL {{ datastream.impl_type|impl_type_nice }}" id="id_gotosource" href="{{datastream.end_point}}" target="_blank" rel="nofollow" title="{{datastream.end_point}}">{{datastream.end_point}}</a>
-      		
-	      {% elif datastream.collect_type|collect_type_nice == 'SELF PUBLISH' %}
-		  	<a rel="nofollow" href="{% url "datastream_manager.download" datastream.datastream_id datastream.slug %}" id="id_downloadLink" class="icon FILE {{ datastream.impl_type|impl_type_nice }}" title="{% trans 'APP-DOWNLOADDATASET-TEXT' %}">{% if auth_manager.language == 'es' %} {% trans 'APP-FILE-TEXT' %} {% endif %} {{ datastream.impl_type|impl_type_nice }} {% if auth_manager.language == 'en' %} {% trans 'APP-FILE-TEXT' %} {% endif %}</a>
-		  	<!-- <span class="icon FILE {{ datastream.impl_type|impl_type_nice }}">{% if auth_manager.language == 'es' %} {% trans 'APP-FILE-TEXT' %} {% endif %} {{ datastream.impl_type|impl_type_nice }} {% if auth_manager.language == 'en' %} {% trans 'APP-FILE-TEXT' %} {% endif %}</span> -->
-	      {% elif datastream.collect_type|collect_type_nice == 'WEBSERVICE' %}
-	      
-	      	<span class="icon WS {{ datastream.impl_type|impl_type_nice }}">{% trans "APP-WEBSERVICE-TEXT" %}</span>
-	      	
-	      {% endif %}
-	      
+	      	<p class="clearfix">
+      		{% if  datastream.collect_type|collect_type_nice == 'WEBSERVICE' %}
+                <span class="icon WS {{ datastream.impl_type|impl_type_nice }}">{% trans "APP-WEBSERVICE-TEXT" %}</span>
+            {% else %}
+                {% if preferences.account_dataset_download %}
+                    {% if datastream.collect_type|collect_type_nice == 'URL' %}
+
+                        <a class="icon URL {{ datastream.impl_type|impl_type_nice }}" id="id_gotosource" href="{{datastream.end_point}}" target="_blank" rel="nofollow" title="{{datastream.end_point}}">{{datastream.end_point}}</a>
+
+                    {% elif datastream.collect_type|collect_type_nice == 'SELF-PUBLISH' %}
+                         
+                        <a rel="nofollow" href="{% url "manageDatasets.download" datastream.dataset_id datastream.slug %}" id="id_downloadLink" class="icon FILE {{ datastream.impl_type|impl_type_nice }}" title="{% trans 'APP-DOWNLOADDATASET-TEXT' %}">{{datastream.filename}}</a>
+                    {% endif %}
+                {% else %}
+                    {% if datastream.collect_type|collect_type_nice == 'URL' %}
+                        <span class="icon URL {{ datastream.impl_type|impl_type_nice }}">{{datastream.end_point}}</span>
+                    {% elif datastream.collect_type|collect_type_nice == 'SELF-PUBLISH' %}
+                        <span class="icon FILE {{ datastream.impl_type|impl_type_nice }}">{{datastream.filename}}</a>
+                    {% endif %}
+                {% endif %}
+            {% endif %}     
 			</p>
 		</article>
 

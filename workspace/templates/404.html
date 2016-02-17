@@ -1,0 +1,23 @@
+{% extends 'base_errors.html' %}
+{% load i18n %}
+
+{% block title %}
+	{% trans 'APP-ERROR-TEXT' %} 404
+{% endblock %}
+
+{% block errorContent %}
+
+<div class="error-graphic error-graphic-not-found"></div>
+
+<h1>{% trans 'APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT' %}</h1>
+<p>
+    {% trans 'APP-ERROR-404-DESCRIPTION' %}
+</p>
+<p>
+    <a href="/">{% trans 'APP-GO-TO-HOMEPAGE-TEXT' %}</a>
+    {% trans 'APP-OF-THE-WORKSPACE-TEXT' %}.
+</p>
+
+<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 404</span></p>
+
+{% endblock %}

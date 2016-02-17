@@ -28,6 +28,12 @@ charts.views.C3LineChart = charts.views.LineChart.extend({
     render: function () {
         var data = this.formatData(this.model.data.toJSON());
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -42,7 +48,8 @@ charts.views.C3LineChart = charts.views.LineChart.extend({
                 }
             },
             legend: {
-                position: 'right'
+                position: 'right',
+                show: showLegend
             }
         });
     }
@@ -86,6 +93,12 @@ charts.views.C3AreaChart = charts.views.LineChart.extend({
             }
         });
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -100,7 +113,8 @@ charts.views.C3AreaChart = charts.views.LineChart.extend({
                 }
             },
             legend: {
-                position: 'right'
+                position: 'right',
+                show: showLegend
             }
         });
     }
@@ -122,6 +136,12 @@ charts.views.C3BarChart = charts.views.BarChart.extend({
     render: function () {
         var rows = this.formatData(this.model.data);
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -139,8 +159,13 @@ charts.views.C3BarChart = charts.views.BarChart.extend({
                 width: {
                     ratio: 0.5 // this makes bar width 50% of length between ticks
                 }
+            },
+            legend: {
+                position: 'right',
+                show: showLegend
             }
         });
+
     }
 });
 
@@ -160,6 +185,12 @@ charts.views.C3ColumnChart = charts.views.BarChart.extend({
     render: function () {
         var rows = this.formatData(this.model.data);
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -176,14 +207,20 @@ charts.views.C3ColumnChart = charts.views.BarChart.extend({
                 width: {
                     ratio: 0.5 // this makes bar width 50% of length between ticks
                 }
+            },
+            legend: {
+                position: 'right',
+                show: showLegend
             }
         });
+
     }
 });
 
 charts.views.C3PieChart = charts.views.PieChart.extend({
     initialize: function (options) {
         this.constructor.__super__.initialize.apply(this, arguments);
+        this.hideLegend = false;
     },
 
     formatData: function (dataModel) {
@@ -199,6 +236,7 @@ charts.views.C3PieChart = charts.views.PieChart.extend({
     },
 
     render: function () {
+        var self = this;
         var rows = this.formatData(this.model.data);
 
         this.chart = c3.generate({
@@ -206,6 +244,20 @@ charts.views.C3PieChart = charts.views.PieChart.extend({
             data: {
                 type: 'pie',
                 columns: rows,
+            },
+            legend: {
+                position: 'right',
+                hide: self.hideLegend
+            },
+            onrendered: function () {
+                var previousHideLegend = self.hideLegend;
+
+                if (self.chart) {
+                    self.hideLegend = (this.width < 500);
+                    if (self.hideLegend !== previousHideLegend) {
+                        self.render();
+                    }
+                }
             }
         });
     }

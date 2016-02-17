@@ -79,56 +79,6 @@ def grant_datastream(request):
     return HttpResponse('{"pStatus": "OK", "pMessage": "'+ugettext("PRIV-SHARING-UPDATED")+'"}', content_type='application/json')
 
 @login_required
-def grant_dashboard(request):
-
-    auth_manager = request.auth_manager
-    private_dashboard_share_form = forms.PrivateDashboardShareForm(request.POST, prefix='private_share_form')
-    collaborator_formset = formset_factory(forms.CollaboratorForm)
-    collaborator_forms = collaborator_formset(request.POST, prefix='private_share_form_collaborators')
-
-    if private_dashboard_share_form.is_valid() and collaborator_forms.is_valid():
-        dashboard_id = private_dashboard_share_form.cleaned_data['id']
-        dashboard = get_object_or_404(Dashboard, pk=dashboard_id, user__account = auth_manager.account_id)
-
-        if not auth_manager.has_privilege_on_object(dashboard_id, 'dashboard', 'share', request.is_workspace):
-            raise Http404
-
-        old_collaborators = []
-        for collaborator in ObjectGrant.objects.get_collaborators(dashboard_id, 'dashboard'):
-            collab = {'email': collaborator['email'], 'role': collaborator['role']}
-            old_collaborators.append(collab)
-
-        new_collaborators = []
-        for collaborator_form in collaborator_forms.forms:
-            collab = {'email': collaborator_form.cleaned_data['email'],
-                      'role': collaborator_form.cleaned_data['role']}
-            new_collaborators.append(collab)
-
-        added = [ collab for collab in new_collaborators if collab not in old_collaborators ]
-        deleted = [ collab for collab in old_collaborators if collab not in new_collaborators ]
-
-        for collaborator in deleted:
-            ObjectGrant.objects.filter(dashboard=dashboard, grant__user__email = collaborator['email']).delete()
-            # logging
-            user = User.objects.get(email = collaborator['email'])
-            content = """{"user_nick": "%s", "action": "deleted grant"}""" % user.nick
-            Log.objects.create(user_id=auth_manager.id, content=content, dashboard_id=dashboard_id)
-
-        for collaborator in added:
-            role = Role.objects.get(code=collaborator['role'])
-            user = User.objects.get(email = collaborator['email'])
-            grant, is_new = Grant.objects.get_or_create(user=user, role=role)
-            object_grant = ObjectGrant.objects.get_or_create(type='dashboard', dashboard=dashboard, grant=grant)
-            # logging
-            content = """{"user_nick": "%s", "action": "granted %s"}""" % (user.nick, role.code)
-            Log.objects.create(user_id=auth_manager.id, content=content, dashboard_id=dashboard_id)
-
-    else:
-        return HttpResponse('{"pStatus": "ERROR", "pMessage": "'+ugettext("PRIV-SHARE-DB-ERROR")+'"}', content_type='application/json', status=400)
-
-    return HttpResponse('{"pStatus": "OK", "pMessage": "'+ugettext("PRIV-SHARING-UPDATED")+'"}', content_type='application/json')
-
-@login_required
 def grant_visualization(request):
 
     auth_manager = request.auth_manager

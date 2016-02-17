@@ -184,7 +184,8 @@ def account_logo(account, klass, roles):
     elif 'ao-free-user' in roles:
         return ''
     else:
-        account_domain = 'http://' + account_domain
+        msprotocol = 'https' if preferences['account.microsite.https'] else 'http'
+        account_domain = msprotocol + '://' + account_domain
     account_logo = account_logo and account_logo or '/static/workspace/images/_workspace/im_logoNotDefined.gif'
     account_name = preferences['account_name']
     img_string = '<a title="%s" href="%s"><img src="%s" alt="%s" title="%s" class="%s"/></a>' % (account_name, account_domain, account_logo, account_name, account_name, klass)
@@ -209,3 +210,8 @@ def jsonize(obj):
 @register.filter
 def jsonify(o):
     return mark_safe(simplejson.dumps(o))
+
+
+@register.filter(name='key')
+def key(d, key_name):
+    return d.get(key_name, "")

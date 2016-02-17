@@ -1,0 +1,9 @@
+{
+    "result": "{{result}}", 
+    "length": "{{results_length|default:'0'}}",
+    "message":  "{{message}}", 
+    "final_rdf": "{{rdf|escapejs}}", 
+    "template": "{{template|escapejs}}", 
+    "error": "{{errors}}"
+}
+    

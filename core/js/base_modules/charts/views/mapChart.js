@@ -5,6 +5,9 @@ var charts = charts || {
 
 charts.views.MapChart = charts.views.Chart.extend({
     mapInstance: null,
+    heatMapLayer: null,
+    heatMapPoints: [], 
+    onHeatMap: false, 
     mapMarkers: [],
     mapClusters: [],
     mapTraces: [],
@@ -38,17 +41,33 @@ charts.views.MapChart = charts.views.Chart.extend({
 
     render: function () {
         this.clearMapOverlays();
-        if(this.model.data.get('points') && this.model.data.get('points').length){
-            this.createMapPoints();
+        this.clearHeatMapOverlays();
+        var points = this.model.data.get('points');
+        var clusters = this.model.data.get('clusters');
+        
+        var styles = this.model.data.get('styles');
+        var styledPoints = this.mergePointsAndStyles(points, styles);
+
+        if(!_.isUndefined(points) && points.length !== 0){
+            this.createMapPoints(styledPoints);
         }
-        if(this.model.data.get('clusters') && this.model.data.get('clusters').length){
-            this.createMapClusters();
+        if(!_.isUndefined(clusters) && clusters.length !== 0){
+            this.createMapClusters(clusters);
         }
+
+        if (this.onHeatMap) {
+            this.heatMapLayer.setData(this.heatMapPoints);
+            this.heatMapLayer.setMap(this.mapInstance);
+            this.clearMapOverlays();
+        }
+        else {
+            this.heatMapLayer.setMap(null);
+            }
+        
         return this;
     },
 
     handleDataUpdated: function () {
-        this.clearMapOverlays();
         this.render();
     },
 
@@ -56,6 +75,47 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.listenTo(this.model, 'change', this.render, this);
         this.listenTo(this.model, 'change:mapType', this.onChangeMapType, this);
         this.listenTo(this.model, 'data_updated', this.handleDataUpdated, this);
+    },
+
+    mergePointsAndStyles: function (points, styles) {
+        var self = this,
+            result;
+
+        // _.each(styles, function (style) {
+        //     if (points[style.rows[0]]) {
+        //         points[style.rows[0]].styles = style.styles;
+        //     };
+        // });
+        if (_.isUndefined(styles) || styles.length === 0) {
+            result = points;
+        } else {
+            result = _.map(points, function (point, index) {
+                point.styles = self.lookupStyle(point, index, styles);
+                return point;
+            });
+        }
+
+        return result;
+    },
+
+    lookupStyle: function (point, pointIndex, styles) {
+        var result = styles[0].styles;
+        // Find style by ID
+
+        // Find style by row number
+        var style;
+
+        _.each(styles, function (item) {
+            if (item.rows.indexOf(pointIndex) !== -1) {
+                style = item;
+            }
+        });
+        if (!_.isUndefined(style)) {
+            result = style.styles;
+        }
+
+        return result;
+
     },
 
     onChangeMapType: function (model, type) {
@@ -80,7 +140,8 @@ charts.views.MapChart = charts.views.Chart.extend({
         var mapInitialOptions = {
             zoom: this.model.get('options').zoom,
             mapTypeId: google.maps.MapTypeId[this.model.get('mapType')],
-            backgroundColor:'#FFFFFF'
+            backgroundColor:'#FFFFFF',
+            zoomControl: true,
         };
 
         if(this.model.get('options').center){
@@ -89,7 +150,7 @@ charts.views.MapChart = charts.views.Chart.extend({
                     this.model.get('options').center.long
                     );
         }
-        
+
         if(this.model.get('options').bounds){
             var b = this.model.get('options').bounds;
             var southWest = new google.maps.LatLng(parseFloat(b[2]),parseFloat(b[3])),
@@ -101,6 +162,10 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.mapInstance = new google.maps.Map(this.el, mapInitialOptions);
         this.mapInstance.setOptions(this.googleMapOptions);
         this.mapInstance.setOptions({minZoom: 1});
+
+        // crear instancia del heatmap vacia
+        this.heatMapPoints = new google.maps.MVCArray([]);
+        this.heatMapLayer = new google.maps.visualization.HeatmapLayer({data: this.heatMapPoints , radius: 20, opacity: 0.8});
 
         this.infoWindow = new google.maps.InfoWindow();
         this.bindMapEvents();
@@ -116,6 +181,11 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.mapClusters = this.clearOverlay(this.mapClusters);
         //Traces
         this.mapTraces = this.clearOverlay(this.mapTraces);
+    },
+        
+    clearHeatMapOverlays: function() {
+        // limpiar el heatmap asociado
+        this.heatMapPoints = new google.maps.MVCArray([]);
     },
 
     /**
@@ -139,14 +209,13 @@ charts.views.MapChart = charts.views.Chart.extend({
     /**
      * Crea puntos en el mapa, pueden ser de tipo traces o markers
      */
-    createMapPoints: function () {
-        var self = this,
-            styles = this.parseKmlStyles(this.model.get('styles'));
-        _.each(this.model.data.get('points'), function (point, index) {
+    createMapPoints: function (points) {
+
+        _.each(points, function (point, index) {
             if(point.trace){
-                this.createMapTrace(point, index, styles);
+                this.createMapTrace(point, index);
             } else {
-                this.createMapMarker(point, index, styles);
+                this.createMapMarker(point, index);
             }
         }, this);
     },
@@ -157,23 +226,37 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @param  {int} index      Indice del trace en el arreglo local de traces
      * @param  {object} styles  Estilos para dibujar el trace
      */
-    createMapTrace: function (point, index, styles) {
+    createMapTrace: function (point, index) {
         var paths = _.map(point.trace, function (tracePoint, index) {
             return {lat: parseFloat(tracePoint.lat), lng: parseFloat(tracePoint.long)};
         });
+        var styles = this.parseKmlStyles(point.styles);
 
         var isPolygon = (paths[0].lat == paths[paths.length-1].lat && paths[0].lng == paths[paths.length-1].lng);
-
         if(isPolygon){
-            this.mapTraces.push(this.createMapPolygon(paths, styles.polyStyle));
+            var obj = this.createMapPolygon(paths, styles.polyStyle);
         } else {
-            this.mapTraces.push(this.createMapPolyline(paths, styles.lineStyle))
+            var obj = this.createMapPolyline(paths, styles.lineStyle);    
         }
-        this.mapTraces[index].setMap(this.mapInstance);
+        this.mapTraces.push(obj)
+
+        var self = this;
+        if(point.info){
+            var clickHandler = google.maps.event.addListener(obj, 'click', (function (marker, info) {
+                return function(event) {
+                    self.infoWindow.setContent("<div class='junarinfowindow'>" + String(info) + "</div>");
+                    self.infoWindow.setPosition(event.latLng);
+                    self.infoWindow.open(self.mapInstance, marker);
+                }
+            })(obj, point.info));
+            obj.events = {click: clickHandler};
+        }
+        
+        obj.setMap(this.mapInstance);
     },
 
     createMapPolygon: function (paths, styles) {
-        return new google.maps.Polygon({
+        var poly = new google.maps.Polygon({
             paths: paths,
             strokeColor: styles.strokeColor,
             strokeOpacity: styles.strokeOpacity,
@@ -181,15 +264,24 @@ charts.views.MapChart = charts.views.Chart.extend({
             fillColor: styles.fillColor,
             fillOpacity: styles.fillOpacity
         });
+
+        poly.weight = 1;
+        this.addWeightLocation(poly);
+
+        return poly;
     },
 
     createMapPolyline: function (path, styles) {
-        return new google.maps.Polyline({
+        var line = new google.maps.Polyline({
             path: path,
             strokeColor: styles.strokeColor,
             strokeOpacity: styles.strokeOpacity,
             strokeWeight: styles.strokeWeight
         });
+        
+        line.weight = 1;
+        this.addWeightLocation(line);
+        return line;
     },
 
     /**
@@ -198,13 +290,23 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @param  {int}    index   Indice del punto en el arreglo local de markers
      * @param  {object} styles  Estilos para dibujar el marker
      */
-    createMapMarker: function (point, index, styles) {
-        var self = this,
-            markerIcon = this.stylesDefault.marker.icon;
+    createMapMarker: function (point, index) {
+        var self = this, markerIcon = this.stylesDefault.marker.icon;
+
+        //agregar al heatmap
+        point.weight = 1;
+        this.addWeightLocation(point);
 
         //Obtiene el estilo del marcador
-        if(styles && styles.iconStyle){
-            markerIcon = styles.iconStyle.href;
+        if(point.styles && point.styles.iconStyle){
+            //TODO For now personalized KMLFile-included markers files are not readable for us
+            if (undefined !== point.styles.iconStyle.href) {
+                //just if it's a external link
+                if (point.styles.iconStyle.href.indexOf("http") > -1) {
+                    markerIcon = point.styles.iconStyle.href;
+                    }
+                }
+            
         }
 
         this.mapMarkers[index] = new google.maps.Marker({
@@ -242,6 +344,8 @@ charts.views.MapChart = charts.views.Chart.extend({
 
         // Se desabilita la funcionalidad de joinIntersectedClusters porque contiene problemas
         this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, false /* joinIntersectedClusters */);
+        var hPoint = {lat: parseFloat(cluster.lat), long: parseFloat(cluster.long), weight: parseInt(cluster.info)};
+        this.addWeightLocation(hPoint);
     },
 
     /**
@@ -287,18 +391,16 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @return {object}
      */
     parseKmlStyles: function (styles) {
-        styles = styles || [];
-        var parsedStyles = this.stylesDefault;
+        var parsedStyles = _.clone(this.stylesDefault);
 
-        if(styles.length && styles[0].styles){
-            //Obtiene el primer estilo encontrado en la data
-            styles = styles[0].styles;
-            if(styles.lineStyle){
-                parsedStyles.lineStyle = this.kmlStyleToLine(styles.lineStyle);
-            }
-            if(styles.polyStyle){
-                parsedStyles.polyStyle = this.kmlStyleToPolygon(parsedStyles.lineStyle, styles.polyStyle);
-            }
+        if (_.isUndefined(styles)) {
+            return parsedStyles;
+        }
+        if(styles.lineStyle){
+            parsedStyles.lineStyle = this.kmlStyleToLine(styles.lineStyle);
+        }
+        if(styles.polyStyle){
+            parsedStyles.polyStyle = this.kmlStyleToPolygon(parsedStyles.lineStyle, styles.polyStyle);
         }
 
         return parsedStyles;
@@ -310,7 +412,7 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @return {object
      */
     kmlStyleToLine: function(lineStyle) {
-        var defaultStyle = this.get('stylesDefault').lineStyle;
+        var defaultStyle = _.clone(this.stylesDefault.lineStyle);
         return {
             "strokeColor": this.getStyleFromKml(lineStyle, 'color', 'color', defaultStyle.strokeColor),
             "strokeOpacity": this.getStyleFromKml(lineStyle, 'color', 'opacity', defaultStyle.strokeOpacity),
@@ -325,14 +427,14 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @return {object}
      */
     kmlStyleToPolygon: function (lineStyle, polyStyle) {
-        var defaultStyle = this.get('stylesDefault').polyStyle;
-        var opacity = this.getStyleFromKml(polyStyle, 'fill', 'opacity', defaultStyle.strokeWeight);
+        var defaultStyle = _.clone(this.stylesDefault.polyStyle);
+
         return {
             "strokeColor": lineStyle.strokeColor,
             "strokeOpacity": lineStyle.strokeOpacity,
             "strokeWeight": lineStyle.strokeWeight,
-            "fillColor": this.getStyleFromKml(polyStyle, 'fill', 'color', defaultStyle.strokeWeight),
-            "fillOpacity": this.getStyleFromKml(polyStyle, 'fill', 'opacity', defaultStyle.strokeWeight)
+            "fillColor": this.getStyleFromKml(polyStyle, 'color', 'color', defaultStyle.fillColor),
+            "fillOpacity": this.getStyleFromKml(polyStyle, 'color', 'opacity', defaultStyle.fillOpacity)
         };
     },
 
@@ -347,16 +449,31 @@ charts.views.MapChart = charts.views.Chart.extend({
     getStyleFromKml: function (kmlStyles, attribute, type, defaultStyle) {
         var style = kmlStyles[attribute] || null;
         if(style == null) return defaultStyle;
-
         //Convierte el color de formato ARGB a RGB
-        if(type == 'color')
+        if(type == 'color') {
             return '#' + style.substring(2);
+        }
         //La opacidad se extrae del color y convierte de hexadecimal a entero
-        if(type == 'opacity')
+        if(type == 'opacity') {
             return parseInt(style.substring(0, 2), 16) / 256;
+        }
+
+        if(type == 'width') {
+            var value = parseFloat(style);
+            return (value === 0)? 1 : value;
+        }
 
         return style;
-    }
+    },
+    toggleHeatMap: function(){
+        // toogle
+        this.onHeatMap = !this.heatMapLayer.getMap();
+        this.render(); 
+    },
 
+    addWeightLocation: function(obj) {
+        weight = obj.weight || 1;
+        this.heatMapPoints.push({location: new google.maps.LatLng(obj.lat, obj.long), weight: weight});
+    }
 
 });

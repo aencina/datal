@@ -14,10 +14,10 @@ class SelectStatementBuilder(object):
 
 
 class DataSourceBuilder(object):
-    def build(self, table_id, dataset_revision_id):
+    def build(self, table_id, dataset_revision_id, app):
 
         data = {'pId': dataset_revision_id, 'pLimit': 50}
-        command = AbstractCommandFactory().create("load", "dt", [data])
+        command = AbstractCommandFactory(app).create("load", "dt", [data])
         result = command.run()
         if not result:
             # TODO: correct handling

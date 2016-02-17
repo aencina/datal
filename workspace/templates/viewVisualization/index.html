@@ -19,7 +19,7 @@
               'packages':['corechart']
             }]
     }"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
 
 <script type="text/javascript" src="{% static 'd3/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'c3/c3.min.js' %}"></script>
@@ -27,6 +27,7 @@
 <script src="/js_core/plugins/multimarker.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 <!-- Charts types & instances -->
+<script src="/js_core/base_modules/DataTableUtils.js"></script>
 <script src="/js_core/base_modules/charts/ChartsFactory.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/base_modules/charts/models/data.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/base_modules/charts/models/chart.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -89,14 +90,14 @@ var chartModel = new charts.models.Chart({
     title: "{{visualization_revision.title}}", 
     description: "{{visualization_revision.description|escapejs}}", 
     visualizationJson : '{{result|escapejs}}',
-    chartJson : '{{visualization_revision.impl_details|escapejs}}',
+    chartJson : '{{visualization_revision.impl_details|escapejs }}',
     chartLib: "{{visualization_revision.lib}}",
     status : '{{visualization_revision.status}}',
     status_str: "{{ visualization_revision.status|status_str|capfirst }}",
     createdAt: "{{ visualization_revision.created_at|date:'F d, Y, h:i A'|capfirst }}",
     modifiedAt: "{{ visualization_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}",
     lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-    publicUrl: "{{ visualization_revision.public_url }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
     changeStatusUrl: "{% url 'manageVisualizations.change_status' visualization_revision.visualization_revision_id %}",
     lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
     editUrl: "{% url 'manageVisualizations.edit' visualization_revision.last_revision_id %}",
@@ -116,7 +117,7 @@ chartModel.parse({
 
     title: '{{ visualization_revision.title }}',
     description: '{{ visualization_revision.description }}',
-    notes: '{{ visualization_revision.notes }}',
+    notes: '{{ visualization_revision.notes|escapejs }}',
     lib: '{{ visualization_revision.lib }}',
 
     data: '{{ visualization_revision.data }}',
@@ -129,7 +130,7 @@ var chartView = new MainView({
     model: chartModel
 });
 
-chartView.setLoading();
+chartView.setLoading()
 
 </script>
 {% endblock %}

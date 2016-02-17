@@ -4,7 +4,8 @@ from core.models import *
 
 class UserAdmin(admin.ModelAdmin):
     fields = ('name', 'nick', 'email', 'password', 'country', 'ocupation', 'language', 'roles', 'account')
-    list_display = ('id', 'name', 'nick', 'language', 'created_at')
+    list_display = ('id', 'name', 'nick', 'account', 'language', 'created_at')
+    list_filter = ('account','language')
     search_fields = ('name', 'nick')
     list_per_page = 25
 
@@ -26,6 +27,15 @@ class TagAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 admin.site.register(Tag, TagAdmin)
+
+
+class GrantAdmin(admin.ModelAdmin):
+    list_display = ('user', 'role', 'privilege')
+    search_fields = ('privilege',)
+    list_filter = ('user', 'role')
+    list_per_page = 25
+
+admin.site.register(Grant, GrantAdmin)
 
 
 class SettingAdmin(admin.ModelAdmin):
@@ -81,7 +91,7 @@ admin.site.register(Account, AccountAdmin)
 
 
 class PreferenceAdmin(admin.ModelAdmin):
-    list_display = ('account', 'key')
+    list_display = ('account', 'key', 'value')
     list_filter = ('account',)
     list_per_page = 25
 
@@ -189,13 +199,19 @@ class SourceAdmin(admin.ModelAdmin):
 
 admin.site.register(Source, SourceAdmin)
 
-
 class DataStreamHitsAdmin(admin.ModelAdmin):
-    list_display = ('datastream', 'created_at')
+    list_display = ('datastream', 'created_at', 'channel_type')
     search_fields = ('datastream', 'created_at')
     list_per_page = 25
 
 admin.site.register(DataStreamHits, DataStreamHitsAdmin)
+
+class VisualizationHitsAdmin(admin.ModelAdmin):
+    list_display = ('visualization', 'created_at', 'channel_type')
+    search_fields = ('visualization', 'created_at')
+    list_per_page = 25
+
+admin.site.register(VisualizationHits, VisualizationHitsAdmin)
 
 
 class DataStreamCommentAdmin(admin.ModelAdmin):

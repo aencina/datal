@@ -57,20 +57,3 @@ class HomeFinder(elastic.ElasticsearchFinder):
                     , type=doc['type'].upper()
                     , account_id = int(doc['account_id'])
                    )
-
-    def get_dashboard_dictionary(self, doc):
-
-        id = doc['dashboard_id']
-        title = doc['title']
-        slug = slugify(title)
-        permalink = reverse('dashboard_manager.view', kwargs={'id': id, 'slug': slug})
-        created_at = datetime.datetime.fromtimestamp(int(doc['timestamp']))
-
-        return dict(id=id
-                    , title = title
-                    , category = doc['category_name']
-                    , created_at = created_at
-                    , permalink = permalink
-                    , type=doc['type'].upper()
-                    , account_id = int(doc['account_id'])
-           )

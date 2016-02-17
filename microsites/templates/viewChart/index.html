@@ -1,10 +1,10 @@
 {% extends "base_microsites.html" %}
-{% load i18n extra_tags components core_components compress staticfiles sass_tags %}
+{% load i18n extra_tags components core_components compress staticfiles sass_tags plugins_tags %}
 
 {% block SEO %}
     <title>{{visualization_revision.title}} &middot; {{preferences.account_page_titles}}</title>
     <meta name="description" content="{{ visualization_revision.description }}" />
-    <link rel="canonical" href="{{base_uri}}{{visualization_revision.permalink}}" />
+    <link rel="canonical" href="{{settings.MSPROTOCOL}}://{{ preferences.account_domain}}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}" />
 {% endblock %}
 
 {% if preferences.account_enable_sharing %} 
@@ -21,23 +21,44 @@
 
 {% compress css %}
 <!-- CSS -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/plugins/jquery.gritter.css' %}" />
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/viewDataStream.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewDataStream.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewVisualization.css' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'c3/c3.min.css' %}"/>
 {% endcompress %}
+
+<!-- Styles items from plugins -->
+{% plugins_call 'microsites_view_visualization_styles' %}
 
 <!-- JS LIBS -->
 <!--[if lt IE 9]>
 <script type="text/javascript" src="/js_core/plugins/date.toISOString.js?id={{settings.VERSION_JS_CSS}}"></script>
 <![endif]-->
+<script type="text/javascript" src="/js_core/plugins/jquery.client.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/imagesPreLoader.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/flexigrid.4/source/flexigrid.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
+<!-- Lib items from plugins -->
+{% plugins_call 'microsites_view_visualization_libs' %}
+
+<!-- Libraries -->
+<script type="text/javascript"
+          src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart']
+            }]
+    }"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
+
+
 <script type="text/javascript" src="/js_core/plugins/multimarker.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 {% if preferences.account_enable_sharing %}
-  <script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
-  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+  <script type="text/javascript" charset="utf-8" src="https://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
+  <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
   <script type="text/javascript">stLight.options({publisher: "b6aba428-3562-4003-b6a8-018086ce7af4", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 {% endif%}
 
@@ -45,6 +66,7 @@
 <script type="text/javascript" src="{% static 'd3/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'c3/c3.min.js' %}"></script>
 
+<script src="/js_core/base_modules/DataTableUtils.js"></script>
 <script language="javascript" src="/js_core/base_modules/charts/ChartsFactory.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script language="javascript" src="/js_core/base_modules/charts/models/data.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script language="javascript" src="/js_core/base_modules/charts/models/chart.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -61,16 +83,28 @@
 
 <script type="text/javascript" src="/js_microsites/viewChart/visualizationHitsModel.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_microsites/viewChart/visualizationHitsView.js?id={{settings.VERSION_JS_CSS}}"></script>
+
 <script type="text/javascript" src="/js_microsites/viewChart/ChartView.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+<!-- Styles items from plugins -->
+{% plugins_call 'microsites_view_visualization_scripts' %}
+
 {% compress css %}
 <!-- BRANDED CSS -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
 {% endcompress %}
-<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 <!-- BRANDED JS -->
-<script type="text/javascript" src="{% url "microsites.get_js" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
   
+{% endblock %}
+
+{% block messageBar %}
+
+<!-- Message Bar from plugins -->
+{% plugins_call 'microsites_view_visualization_message_bar' %}
+
 {% endblock %}
 
 {% block content %}
@@ -88,27 +122,35 @@
         {% include "viewChart/sidebarInfo.html" %}
         {% include "viewChart/sidebarAPI.html" %}
         {% if notes and preferences.account_enable_notes %}
-        {% include "viewChart/sidebarNotes.html" %}
+          {% include "viewChart/sidebarNotes.html" %}
         {% endif %}
+        
+        <!-- Plugins Sidebar Includes -->
+        {% plugins_call 'microsites_view_visualization_sidebar_includes' %}
+
       </aside>
 
-
-        <section class="section transition">
-          {% include "viewChart/dataTable.html" %}
-        </section>
+      <section class="section transition">
+        {% include "viewChart/dataTable.html" %}
+      </section>
 
     </div>
 
   </div>
 </div>
 
-{# check if this is the data we use for visualizations, for now we use the datastream title and others #}
+<!-- plugins templates backbone -->
+{% plugins_call 'microsites_view_visualization_templates_backbone' %}
+
+{% endblock %}
+
+{% block microsites_bottom_js %}
 
 <script type="text/javascript">
 
 google.load('visualization', '1', {packages: ['corechart', 'geomap']});
 
-var chartModel = new charts.models.Chart({
+var viewVisualizationModel = {
     title: "{{visualization_revision.title}}", 
     description: "{{visualization_revision.description|escapejs}}", 
     visualizationJson : '{{result|escapejs}}',
@@ -118,45 +160,56 @@ var chartModel = new charts.models.Chart({
     createdAt: "{{ visualization_revision.created_at|date:'F d, Y, h:i A'|capfirst }}",
     modifiedAt: "{{ visualization_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}",
     lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-    publicUrl: "{{ visualization_revision.public_url }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
     lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
-
-    // Validar si es necesario
     guid: "{{visualization_revision.guid}}",
 
     // Revisar
-    id: "{{ visualization_revision.last_revision_id }}",
+    id: "{{ visualization_revision.last_published_revision_id }}",
     visualization_id: "{{ visualization_revision.visualization_id }}",
-});
+    embedUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% url 'viewChart.embed' visualization_revision.guid %}"
+}
 
+// Plugins - Extend Main Model
+{% plugins_call 'microsites_view_visualization_js_extend_main_model' %}
 
-chartModel.parse({
+var visualizationModel = new charts.models.Chart( viewVisualizationModel );
+
+var formatDict = {{ visualization_revision.format | jsonify }};
+
+visualizationModel.parse({
     id: {{ visualization_revision.visualization_id }},
     revision_id: {{ visualization_revision.visualization_revision_id }},
-
+    datastream_revision_id: {{datastream.datastream_revision_id}},
+    
     title: '{{ visualization_revision.title }}',
     description: '{{ visualization_revision.description }}',
-    notes: '{{ visualization_revision.notes }}',
+    notes: '{{ visualization_revision.notes|escapejs }}',
     lib: '{{ visualization_revision.lib }}',
 
     data: '{{ visualization_revision.data }}',
 
-    format: {{ visualization_revision.format | jsonify }},
+    format: formatDict,
     chart: {{ visualization_revision.chart | jsonify }},
+
+    silent: formatDict.type === 'mapchart',
+}); 
+
+// Plugins- Extend Main Model After Parse
+{% plugins_call 'microsites_view_visualization_js_extend_main_model_after_parse' %}
+
+var visualizationView = new viewVisualizationView({
+    model: visualizationModel
 });
-
-
-var chartView = new viewChartView({
-    model: chartModel
-});
-
 
 </script>
-{# <!-- ID {{id}} base uri {{base_uri}} viz rev id {{visualizationrevision_id}} RES TEST {{result}}  --> #}
 {% endblock %}
 
 {% block popupsOverlay %}
   
   {% include "viewChart/overlays.html" %}
+
+  <!-- overlays from plugins -->
+  {% plugins_call 'microsites_view_visualization_overlays' %}
 
 {% endblock %}

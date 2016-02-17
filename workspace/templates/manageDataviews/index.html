@@ -5,25 +5,16 @@
 
 {# CSS #}
 {% compress css %}
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid-paginator.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid-text-cell.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid-filter.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/manageCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/manageVisualizations.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
+
 {# JS Libs and Plugins #}
 <script type="text/javascript" src="/js_core/plugins/jquery.client.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/imagesPreLoader.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backbone_paginator/backbone.paginator.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid/backgrid.min.js"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid_paginator/backgrid-paginator.min.js"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid-text-cell/backgrid-text-cell.min.js"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid-select-all/backgrid-select-all.min.js"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid-filter/backgrid-filter.min.js"></script>
 <script type="text/javascript" src="/js_core/plugins/nicEdit/nicEdit-2014.js"></script>
 
 {# JS for this screen #}
@@ -36,10 +27,6 @@
 <script src="{% static 'workspace/scripts/manageDataviews/affectedResourcesView.js' %}"></script>
 <script src="{% static 'workspace/scripts/manageDataviews/affectedResourcesCollection.js' %}"></script>
 <script src="{% static 'workspace/scripts/manageDataviews/affectedResourcesCollectionView.js' %}"></script>
-<script src="{% static 'workspace/scripts/manageDataviews/datasetItemModel.js' %}"></script>
-<script src="{% static 'workspace/scripts/manageDataviews/listDatasets.js' %}"></script>
-<script src="{% static 'workspace/scripts/manageDataviews/datasetItemView.js' %}"></script>
-<script src="{% static 'workspace/scripts/manageDataviews/manageDatasetsOverlayView.js' %}"></script>
 <script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemView.js' %}"></script>
 <script src="{% static 'workspace/scripts/manageDataviews/datastreamEditItemModel.js' %}"></script>
 
@@ -134,9 +121,8 @@
 
     var manageDataviewsView =  new ManageDataviewsView({
       model: manageDataViewsModel,
-      dataViewCreationStepsUrl: "{% url 'manageDataviews.create' %}",
-      sourceUrl: '/rest/sources.json',
-      tagUrl: '/rest/tags.json',
+      sourceUrl: '/rest/sources.json/',
+      tagUrl: '/rest/tags.json/',
       filters: {{filters|jsonify}}
     });
 

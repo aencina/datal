@@ -56,7 +56,7 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 			var sectionContentHeight =
 				windowHeight
 				- parseFloat( otherHeight	)
-				- $('.header').height()
+				- $('.global-navigation').height()
 				- $('.main-section .section-title').height()
 				- parseFloat( $('.main-section .section-content').css('padding-top').split('px')[0] );
 				- parseInt($('.main-section .section-content .detail').css('padding-top').split('px')[0])
@@ -84,7 +84,7 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 
 		if(action == 'unpublish'){
 			var lastPublishRevisionId = this.model.get('lastPublishRevisionId');
-			url = 'change_status/'+lastPublishRevisionId+'/';
+			url = '/dataviews/change_status/'+lastPublishRevisionId+'/';
 			data.killemall = killemall;
 		}
 
@@ -113,6 +113,10 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 						'modifiedAt': response.result.modified_at,
 					});
 
+                    self.datastreamEditItemModel.set({
+                        'status': response.result.status,
+                    });
+
 					// Set OK Message
 					$.gritter.add({
 						title: response.messages.title,
@@ -130,9 +134,8 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 
 			},
 			error:function(response){
-
+				response.onClose = function(){ window.location.reload(true)}; 
 				datalEvents.trigger('datal:application-error', response);
-
 			},
 			complete:function(response){
 				// Hide Loading

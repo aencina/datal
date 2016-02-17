@@ -11,14 +11,14 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 from datetime import datetime, date, timedelta
 from core.utils import slugify
-from core import settings
+from django.conf import settings
 from core.cache import Cache
 from core.daos.resource import AbstractVisualizationDBDAO
 from core.models import VisualizationRevision, VisualizationHits, VisualizationI18n, Preference, Visualization, Setting
 from core.exceptions import SearchIndexNotFoundException
 
 from core.lib.elastic import ElasticsearchIndex
-from core.choices import STATUS_CHOICES, StatusChoices
+from core.choices import STATUS_CHOICES, StatusChoices, ChannelTypes
 from core.builders.visualizations import VisualizationImplBuilder
 
 from django.core.urlresolvers import reverse
@@ -31,7 +31,8 @@ logger = logging.getLogger(__name__)
 try:
     from core.lib.searchify import SearchifyIndex
 except ImportError:
-    logger.warning("ImportError: No module named indextank.client.")
+#    logger.warning("ImportError: No module named indextank.client.")
+    pass
 
 
 class VisualizationDBDAO(AbstractVisualizationDBDAO):
@@ -40,7 +41,12 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         pass
 
     def create(self, visualization=None, datastream_rev=None, user=None, language=None, **fields):
-        """create a new visualization if needed and a visualization_revision"""
+        """create a new visualization if needed and a visualization_revision
+        :param language:
+        :param user:
+        :param datastream_rev:
+        :param visualization:
+        """
 
         if not visualization:
             # Create a new datastream (TITLE is for automatic GUID creation)
@@ -51,7 +57,7 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             )
 
         visualization_rev = VisualizationRevision.objects.create(
-            datastream_revision=datastream_rev,
+            datastream=datastream_rev.datastream,
             visualization=visualization,
             user=user,
             status=StatusChoices.DRAFT,
@@ -69,38 +75,54 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
 
         return visualization, visualization_rev
 
-    def get(self, language, visualization_id=None, visualization_revision_id=None, guid=None, published=True):
-        """ Get full data """
+    def get(self, user, visualization_id=None, visualization_revision_id=None, guid=None, published=False):
+        """get all data of visualization 
+        :param user: mandatory
+        :param visualization_id:
+        :param visualization_revision_id:
+        :param guid:
+        :param published: boolean
+        :return: JSON Object
+        """
 
-        fld_revision_to_get = 'visualization__last_published_revision' if published else 'visualization__last_revision'
+        if settings.DEBUG: logger.info('Getting Visualization %s' % str(locals()))
+
+        resource_language = Q(visualizationi18n__language=user.language)
+        user_language = Q(user__language=user.language)
 
         if guid:
-            visualization_revision = VisualizationRevision.objects.select_related().get(
-                visualization__guid=guid,
-                pk=F(fld_revision_to_get),
-                user__language=language,
-                visualizationi18n__language=language
-            )
-        elif not visualization_id:
-            visualization_revision = VisualizationRevision.objects.select_related().get(
-                pk=visualization_revision_id,
-                user__language=language,
-                visualizationi18n__language=language
-            )
+            condition = Q(visualization__guid=guid)
+        elif visualization_id:
+            condition = Q(visualization__id=int(visualization_id))
+        elif visualization_revision_id:
+            condition = Q(pk=int(visualization_revision_id))
         else:
-            visualization_revision = VisualizationRevision.objects.select_related().get(
-                pk=F(fld_revision_to_get),
-                user__language=language,
-                visualizationi18n__language=language,
-                visualization__id=visualization_id
-            )
+            logger.error('[ERROR] VisualizationDBDAO.get: no guid, resource id or revision id %s' % locals())
+            raise
 
-        tags = visualization_revision.datastream_revision.tagdatastream_set.all().values(
+        # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
+        if published:
+            status_condition = Q(status=StatusChoices.PUBLISHED)
+            last_revision_condition = Q(pk=F("visualization__last_published_revision"))
+        else:
+            status_condition = Q(status__in=StatusChoices.ALL)
+            last_revision_condition = Q(pk=F("visualization__last_revision"))
+
+        # aca la magia
+        account_condition = Q(user__account=user.account)
+
+        try:
+            visualization_revision = VisualizationRevision.objects.select_related().get(condition & resource_language & user_language & status_condition & account_condition & last_revision_condition)
+        except VisualizationRevision.DoesNotExist:
+            logger.error('[ERROR] Visualization Not exist Revision (query: %s\n\t%s\n\t %s\n\t %s\n\t %s\n\t %s)'% (condition, resource_language, user_language, status_condition, account_condition, last_revision_condition.children[0][1].__dict__['name']))
+            raise VisualizationRevision.DoesNotExist("Visualization Not exist Revision")
+
+        tags = visualization_revision.datastream.last_revision.tagdatastream_set.all().values(
             'tag__name',
             'tag__status',
             'tag__id'
         )
-        sources = visualization_revision.datastream_revision.sourcedatastream_set.all().values(
+        sources = visualization_revision.datastream.last_revision.sourcedatastream_set.all().values(
             'source__name',
             'source__url',
             'source__id'
@@ -108,22 +130,18 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         parameters = []
 
         # Get category name
-        category = visualization_revision.datastream_revision.category.categoryi18n_set.get(language=language)
+        category = visualization_revision.datastream.last_revision.category.categoryi18n_set.get(language=user.language)
         visualizationi18n = VisualizationI18n.objects.get(
             visualization_revision=visualization_revision,
-            language=language
+            language=user.language
         )
-
-        # Muestro el link del micrositio solo si esta publicada la revision
-        public_url = ''
-        if visualization_revision.visualization.last_published_revision:
-            domain = visualization_revision.user.account.get_preference('account.domain')
-            if not domain.startswith('http'):
-                domain = 'http://' + domain
-            public_url = '{}/visualizations/{}/{}'.format(domain, visualization_revision.visualization.id, slugify(visualizationi18n.title))
 
         visualization = dict(
             visualization=visualization_revision.visualization,
+
+            resource_id=visualization_revision.visualization.id,
+            revision_id=visualization_revision.id,
+
             visualization_id=visualization_revision.visualization.id,
             visualization_revision_id=visualization_revision.id,
             user_id=visualization_revision.user.id,
@@ -146,24 +164,27 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             tags=tags,
             sources=sources,
             parameters=parameters,
-            public_url=public_url,
             slug=slugify(visualizationi18n.title),
             lib=visualization_revision.lib,
             datastream_id=visualization_revision.visualization.datastream.id,
-            datastream_revision_id=visualization_revision.datastream_revision_id,
-            filename='' # nice to have
+            datastream_revision_id=visualization_revision.datastream.last_revision_id,
+            filename='', # nice to have
+            cant=VisualizationRevision.objects.filter(visualization__id=visualization_revision.visualization.id).count(),
         )
         visualization.update(VisualizationImplBuilder().parse(visualization_revision.impl_details))
+
+        # para que el title del impl_details no pise el de la VZ
+        visualization['title']=visualizationi18n.title
 
         return visualization
 
     def query_childs(self, visualization_id, language):
-        """ Devuelve la jerarquia completa para medir el impacto """
+        """ Devuelve la jerarquia completa para medir el impacto
+        :param language:
+        :param visualization_id:
+        """
 
-        related = dict(
-            dashboards=dict()
-        )
-        return related
+        return dict()
 
     def update(self, visualization_revision, changed_fields, **fields):
         visualizationi18n = dict()
@@ -216,8 +237,22 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
 
     def query(self, account_id=None, language=None, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE,
           sort_by='-id', filters_dict=None, filter_name=None, exclude=None, filter_status=None,
-          filter_category=None, filter_text=None):
-        """ Consulta y filtra las visualizaciones por diversos campos """
+          filter_category=None, filter_text=None, filter_user=None, full=False):
+        """ Consulta y filtra las visualizaciones por diversos campos
+        :param full:
+        :param filter_user:
+        :param filter_text:
+        :param filter_category:
+        :param filter_status:
+        :param exclude:
+        :param filter_name:
+        :param filters_dict:
+        :param sort_by:
+        :param itemsxpage:
+        :param page:
+        :param language:
+        :param account_id:
+        """
         """ filter_category existe para poder llamar a todos los daos con la misma firma """
         query = VisualizationRevision.objects.filter(
             id=F('visualization__last_revision'),
@@ -250,16 +285,22 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             query = query.filter(Q(visualizationi18n__title__icontains=filter_text) |
                                  Q(visualizationi18n__description__icontains=filter_text))
 
+        if filter_user is not None:
+            query = query.filter(visualization__user__nick=filter_user)
+
         total_resources = query.count()
         query = query.values(
             'status',
             'id',
+            'lib',
+            'impl_details',
             'visualization__id',
             'visualization__guid',
             'visualization__user__nick',
             'visualization__user__name',
             'visualization__last_revision_id',
             'visualization__last_published_revision__modified_at',
+            'visualization__last_published_revision_id',
             'visualization__datastream__id',
             'visualization__datastream__last_revision__id',
             'visualization__datastream__last_revision__category__id',
@@ -277,7 +318,13 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         nto = nfrom + itemsxpage
         query = query[nfrom:nto]
 
+        # sumamos el field cant
+        map(self.__add_cant, query)
+
         return query, total_resources
+
+    def __add_cant(self, item):
+            item['cant']=VisualizationRevision.objects.filter(visualization__id=item['visualization__id']).count()
 
     def query_hot_n(self, lang, hot = None):
 
@@ -342,6 +389,8 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         """
         Reads available filters from a resource array. Returns an array with objects and their
         i18n names when available.
+        :param language:
+        :param account_id:
         """
         query = VisualizationRevision.objects.filter(
             id=F('visualization__last_revision'),
@@ -380,45 +429,67 @@ class VisualizationHitsDAO():
     # cache ttl, 1 hora
     TTL=3600 
 
+    CHANNEL_TYPE=("web","api")
+
     def __init__(self, visualization):
         self.visualization=visualization
+        if isinstance(self.visualization, dict):
+            self.visualization_id = self.visualization['visualization_id']
+        else:
+            self.visualization_id = self.visualization.visualization_id
         self.search_index = ElasticsearchIndex()
         self.logger=logging.getLogger(__name__)
         self.cache=Cache()
 
     def add(self,  channel_type):
-        """agrega un hit al datastream. """
+        """agrega un hit al datastream.
+        :param channel_type:
+        """
+
+        # TODO: Fix temporal por el paso de DT a DAO.
+        # Es problema es que por momentos el datastream viene de un queryset y otras veces de un DAO y son objetos
+        # distintos
+        try:
+            guid = self.visualization.guid
+        except:
+            guid = self.visualization['guid']
 
         try:
-            hit=VisualizationHits.objects.create(visualization_id=self.visualization.visualization_id, channel_type=channel_type)
+            hit=VisualizationHits.objects.create(visualization_id=self.visualization_id, channel_type=channel_type)
         except IntegrityError:
             # esta correcto esta excepcion?
             raise VisualizationNotFoundException()
 
-        self.logger.info("VisualizationHitsDAO hit! (guid: %s)" % ( self.datastream.guid))
+        self.logger.info("VisualizationHitsDAO hit! (id: %s)" % ( self.visualization_id))
 
         # armo el documento para actualizar el index.
-        doc={'docid':"%s::%s" % (self.doc_type.upper(), self.visualization.guid),
+        doc={'docid':"%s::%s" % (self.doc_type.upper(), guid),
                 "type": self.doc_type,
-                "script": "ctx._source.fields.hits+=1"}
+                "script": "ctx._source.fields.hits+=1",
+                }
+        self.search_index.update(doc)
+
+        # ahora sumamos al hit del channel especifico
+        doc['script']="ctx._source.fields.%s_hits+=1" % self.CHANNEL_TYPE[channel_type]
 
         return self.search_index.update(doc)
 
-    def count(self):
-        return VisualizationHits.objects.filter(visualization_id=self.visualization.visualization_id).count()
+    def count(self, channel_type=None):
+        """devuelve cuantos hits tiene por canal o en general
+            :param: channel_type: filtra por canal
+            :return: int"""
 
-    def _get_cache(self, cache_key):
+        query=VisualizationHits.objects.filter(visualization__id=self.visualization_id)
 
-        cache=self.cache.get(cache_key)
+        if channel_type in (0,1):
+            query=query.filter(channel_type=channel_type)
 
-        return cache
+        return query.count()
 
-    def _set_cache(self, cache_key, value):
-
-        return self.cache.set(cache_key, value, self.TTL)
-
-    def count_by_day(self,day):
-        """retorna los hits de un día determinado"""
+    def count_by_day(self, day):
+        """retorna los hits de un día determinado
+        :param day:
+        """
 
         # si es datetime, usar solo date
         if type(day) == type(datetime.today()):
@@ -438,61 +509,47 @@ class VisualizationHitsDAO():
         return (date,hits)
 
     def count_by_days(self, day=30, channel_type=None):
-        """trae un dict con los hits totales de los ultimos day y los hits particulares de los días desde day hasta today"""
+        """trae un dict con los hits totales de los ultimos day y los hits particulares de los días desde day hasta today
+        :param channel_type:
+        :param day:
+        """
 
         # no sé si es necesario esto
         if day < 1:
             return {}
 
-        cache_key="%s_hits_%s_%s" % ( self.doc_type, self.visualization.guid, day)
+        # tenemos la fecha de inicio
+        start_date=datetime.today()-timedelta(days=day)
+
+        # tomamos solo la parte date
+        truncate_date = connection.ops.date_trunc_sql('day', 'created_at')
+
+        qs=VisualizationHits.objects.filter(visualization_id=self.visualization_id,created_at__gte=start_date)
 
         if channel_type:
-            cache_key+="_channel_type_%s" % channel_type
+            qs=qs.filter(channel_type=channel_type)
 
-        hits = self._get_cache(cache_key)
+        hits=qs.extra(select={'_date': truncate_date, "fecha": 'DATE(created_at)'}).values("fecha").order_by("created_at").annotate(hits=Count("created_at"))
 
-        # me cachendié! no esta en la cache
-        if not hits :
-            # tenemos la fecha de inicio
-            start_date=datetime.today()-timedelta(days=day)
+        control=[ date.today()-timedelta(days=x) for x in range(day-1,0,-1)]
+        control.append(date.today())
 
-            # tomamos solo la parte date
-            truncate_date = connection.ops.date_trunc_sql('day', 'created_at')
+        
+        for i in hits:
+            try:
+                control.remove(i['fecha'])
+            except ValueError:
+                pass
 
-            qs=VisualizationHits.objects.filter(visualization=self.visualization,created_at__gte=start_date)
-
-            if channel_type:
-                qs=qs.filter(channel_type=channel_type)
-
-            hits=qs.extra(select={'_date': truncate_date, "fecha": 'DATE(created_at)'}).values("fecha").order_by("created_at").annotate(hits=Count("created_at"))
-
-            control=[ date.today()-timedelta(days=x) for x in range(day-1,0,-1)]
-            control.append(date.today())
-
+        hits=list(hits)
             
-            for i in hits:
-                try:
-                    control.remove(i['fecha'])
-                except ValueError:
-                    pass
+        for i in control:
+            hits.append({"fecha": i, "hits": 0})
 
-            hits=list(hits)
-                
-            for i in control:
-                hits.append({"fecha": i, "hits": 0})
+        hits = sorted(hits, key=lambda k: k['fecha']) 
 
-            hits = sorted(hits, key=lambda k: k['fecha']) 
-
-            # transformamos las fechas en isoformat
-            hits=map(self._date_isoformat, hits)
-
-            # lo dejamos, amablemente, en la cache!
-            self._set_cache(cache_key, json.dumps(hits, cls=DjangoJSONEncoder))
-
-            self.from_cache=False
-        else:
-            hits=json.loads(hits)
-            self.from_cache=True
+        # transformamos las fechas en isoformat
+        hits=map(self._date_isoformat, hits)
 
         return hits
 
@@ -524,12 +581,14 @@ class VisualizationSearchDAO():
     """ class for manage access to datasets' searchify documents """
 
     TYPE="vz"
+
     def __init__(self, visualization_revision):
         self.visualization_revision=visualization_revision
         self.search_index = SearchifyIndex()
 
     def _get_type(self):
         return self.TYPE
+    
     def _get_id(self):
         """ Get Tags """
         return "%s::%s" %(self.TYPE.upper(),self.visualization_revision.visualization.guid)
@@ -562,6 +621,8 @@ class VisualizationSearchDAO():
                 'docid' : self._get_id(),
                 'fields' :
                     {'type' : self.TYPE,
+                     'resource_id': self.visualization_revision.visualization.id,
+                     'revision_id': self.visualization_revision.id,
                      'visualization_id': self.visualization_revision.visualization.id,
                      'visualization_revision_id': self.visualization_revision.id,
                      'datastream_id': self.visualization_revision.visualization.datastream.id,
@@ -574,6 +635,8 @@ class VisualizationSearchDAO():
                      'parameters': "",
                      'timestamp': int(time.mktime(self.visualization_revision.created_at.timetuple())),
                      'hits': 0,
+                     'web_hits': 0,
+                     'api_hits': 0,
                     },
                 'categories': {'id': unicode(category.category_id), 'name': category.name}
                 }

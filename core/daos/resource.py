@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
-from core import settings
+from django.conf import settings
 
 
 class AbstractDatasetDBDAO():
@@ -24,7 +24,8 @@ class AbstractDatasetDBDAO():
 
     @abstractmethod
     def query(self, account_id=None, language=None, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE,
-              sort_by='-id', filters_dict=None, filter_name=None, exclude=None):
+              sort_by='-id', filters_dict=None, filter_name=None, exclude=None, filter_status=None,
+          filter_category=None, filter_text=None, filter_user=None, full=False):
         pass
 
     @abstractmethod
@@ -56,7 +57,8 @@ class AbstractDataStreamDBDAO():
 
     @abstractmethod
     def query(self, account_id=None, language=None, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE,
-              sort_by='-id', filters_dict=None, filter_name=None, exclude=None):
+              sort_by='-id', filters_dict=None, filter_name=None, exclude=None, filter_status=None,
+          filter_category=None, filter_text=None, filter_user=None, full=False):
         """ Consulta y filtra los datastreams por diversos campos """
 
         pass
@@ -89,7 +91,7 @@ class AbstractVisualizationDBDAO():
     @abstractmethod
     def query(self, account_id=None, language=None, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE,
               sort_by='-id', filters_dict=None, filter_name=None, exclude=None, filter_status=None,
-          filter_category=None, filter_text=None):
+          filter_category=None, filter_text=None, filter_user=None, full=False):
         pass
 
     @abstractmethod

@@ -6,7 +6,6 @@ from django.conf import settings
 
 
 def filter(request):
-    DOC_API_URL = settings.DOC_API_URL
     if hasattr(request, 'account'):
         account = request.account
         preferences = account.get_preferences()
@@ -15,7 +14,8 @@ def filter(request):
                 'account.language', 'account.logo', 'account.header.uri', 'account.header.height',
                 'account.footer.uri', 'account.footer.height', 'account.enable.sharing']
         preferences.load(keys)
-        base_uri = 'http://' + preferences['account_domain']
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+        base_uri = msprotocol + '://' + preferences['account_domain']
         objs = DataStream.objects.filter(user__account_id=request.account.id, datastreamrevision__status=3)
         try:
             example_guid = objs[0].guid

@@ -3,10 +3,10 @@
 
 {% block meta %}
 {% compress css %}
-<link href="{% sass_src 'core/styles/plugins/jquery-file-upload/jquery.fileupload-ui.css' %}" type="text/css" rel="stylesheet" media="screen">
-<link type="text/css" href="{% sass_src 'core/styles/plugins/jquery-file-upload/jquery.fileupload.css' %}" type="text/css" rel="stylesheet" media="screen">
+<link href="{% static 'core/styles/plugins/jquery-file-upload/jquery.fileupload-ui.css' %}" type="text/css" rel="stylesheet" media="screen">
+<link type="text/css" href="{% static 'core/styles/plugins/jquery-file-upload/jquery.fileupload.css' %}" type="text/css" rel="stylesheet" media="screen">
 
-<link href="{% sass_src 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/createCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/createDataset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
@@ -81,6 +81,7 @@ $(document).ready(function(){
     method_name: '{{ dataset.method_name }}',
     namespace: '{{ dataset.namespace }}',
     use_cache: '{{ dataset.use_cache }}',
+    att_headers: '{{ dataset.att_headers }}',
     mbox: '{{ dataset.mbox }}',
     license_url: '{{ dataset.license_url }}',
     spatial: '{{ dataset.spatial }}',
@@ -92,16 +93,16 @@ $(document).ready(function(){
 
   var finishModel = new FinishWebserviceModel({
     name: 'finish',
-    saveUrl: "{% url 'manageDatasets.edit' %}/{{dataset.dataset_revision_id}}/",
-    sourceUrl: '/rest/sources.json',
-    tagUrl: '/rest/tags.json',
+    saveUrl: "{% url 'manageDatasets.edit' %}{{dataset.dataset_revision_id}}/",
+    sourceUrl: '/rest/sources.json/',
+    tagUrl: '/rest/tags.json/',
 
     // Initialize Model
     title: '{{ dataset.title }}',
     description: '{{ dataset.description }}',
     category: '{{ dataset.category_id }}',
     status: '{{ dataset.status }}',
-    notes: '{{ dataset.notes }}',
+    notes: '{{ dataset.notes|escapejs }}',
     tags: [{% for tag in dataset.tags %}{"name":"{{ tag.tag__name }}"},{% endfor %}],
     sources: [{% for source in dataset.sources %}{"name":"{{ source.source__name }}"},{% endfor %}]
     

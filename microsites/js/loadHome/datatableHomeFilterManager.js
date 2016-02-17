@@ -4,6 +4,7 @@ var DatatableHomeFilterManager = DatatableFilterManager.extend({
         //$('.filter_all', this.get("selector")).click(_.bind(this.onClickAllFilter, this));
         $("#apply_filters", this.get("selector")).click(_.bind(this.onClickApplyFilters, this));
         $("#id_filter_entity", this.get("selector")).change(_.bind(this.onChangeEntity, this));
+        $('.one_category_filter').click(_.bind(this.onClickOneCategory, this));
         
         $('.filter_type', this.get("selector")).click(_.bind(this.onClickTypeFilter, this));
         
@@ -64,7 +65,7 @@ var DatatableHomeFilterManager = DatatableFilterManager.extend({
       var $el = $(event.currentTarget);
       var val = $el.find("option:selected").val();
       $.ajax({
-        url: "update_categories",
+        url: "/home/update_categories/",
         data: {account_id: val}
       })
     },

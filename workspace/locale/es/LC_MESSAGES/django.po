@@ -1,6 +1,6 @@
 # DATAL's language pack.
 # Copyright (C) 2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -145,7 +145,7 @@ msgstr "Crear categoría"
 msgid "WORKSPACE-CATEGORY-DESCRIPTION-LABEL"
 msgstr "Descripción"
 
-msgid "APP-NAME-TEXT"
+msgid "WEBSERVICE-NEW-NAME-LABEL"
 msgstr "Nombre"
 
 msgid "APP-DESCRIPTION-TEXT"
@@ -454,9 +454,6 @@ msgstr "Recurso aprobado exitosamente"
 msgid "APP-INSTITUTIONAL-TEXT"
 msgstr "Institucional"
 
-msgid "APP-ABOUTUS-TITLE"
-msgstr "Ve quienes están detrás de DATAL"
-
 msgid "APP-ABOUTUS-TEXT"
 msgstr "Sobre nosotros"
 
@@ -466,17 +463,8 @@ msgstr "Contacto"
 msgid "APP-WIKI-TEXT"
 msgstr "Wiki"
 
-msgid "APP-COMMUNITY-TEXT"
-msgstr "Comunidad DATAL"
-
 msgid "APP-FOLLOWUSON-TEXT"
 msgstr "Síguenos en"
-
-# msgid "HEADER-JUNAR-TITLE"
-# msgstr "DATAL es la plataforma de Datos Abiertos más fácil de usar"
-
-msgid "HEADER-JUNAR-TITLE-PRIVATE"
-msgstr "DATAL es la plataforma de distribución de Datos más fácil de usar"
 
 msgid "APP-COLLECT-TEXT"
 msgstr "Recolectar"
@@ -501,9 +489,6 @@ msgstr "Salir"
 
 msgid "APP-ACCOUNTADMIN-TEXT"
 msgstr "Configuración de la cuenta"
-
-msgid "APP-SIGNINWELCOME-TEXT"
-msgstr "<h2>Bienvenido de nuevo! Ésta es la entrada privada para los clientes actuales de DATAL.<br/>Si has llegado aquí por casualidad, por favor <a href='http://www.junar.com'>regrese</a>.</h2><p><strong>Con esta plataforma de datos abiertos, usted puede:</strong></p><ul><li>Administrar sus proyectos de Datos Abiertos de extremo a extremo</li><li>Abrir datos curados a tu audiencia</li><li>Integrar facilmente los datos abiertos a su sitio web</li></ul>"
 
 msgid "MODEL-USERNAME-TEXT"
 msgstr "Usuario"
@@ -536,7 +521,7 @@ msgid "DSFIND-HELPTIP-TITLE"
 msgstr "Tips Útiles"
 
 msgid "USR-GRAVATAR-TIP1"
-msgstr "DATAL usa el poder de"
+msgstr "usa el poder de"
 
 msgid "USR-GRAVATAR-TIP2"
 msgstr "para mostrar tu imagen. Si ya tienes una cuenta en Gravatar, puedes cambiar "
@@ -558,9 +543,6 @@ msgstr "La nueva contraseña ha sido enviada a tu correo"
 
 msgid "FORFOT-PASSWORD-SIGNIN"
 msgstr "Ingresa con la nueva contraseña"
-
-msgid "OV-SIGINCREATE-SIGINSUBMIT"
-msgstr "Ingresa a DATAL"
 
 msgid "APP-THEOPENDATAPLATFORM-TEXT"
 msgstr "Plataforma de Datos Abiertos"
@@ -588,9 +570,6 @@ msgstr "Iniciar sesión"
 
 msgid "APP-DATAECONOMY-TEXT"
 msgstr "Datos Abiertos"
-
-msgid "APP-WHYJUNAR-TEXT"
-msgstr "¿Por qué DATAL?"
 
 msgid "APP-HOWITWORKS-TEXT"
 msgstr "Cómo Funciona"
@@ -688,9 +667,6 @@ msgstr "Configure su foto"
 msgid "APP-DATASET-ABBR-TEXT"
 msgstr "<abbr title='Conjuntos'>Conj.</abbr> datos"
 
-msgid "APP-ACTIVITYSTREAM-TITLE"
-msgstr "¡Bienvenido a DATAL!"
-
 msgid "APP-TOTAL-TEXT"
 msgstr "Total"
 
@@ -701,7 +677,7 @@ msgid "APP-DATASET-TEXT"
 msgstr "Conjunto de datos"
 
 msgid "WORKSPACE-MICROSITE-SETTINGS"
-msgstr "Configuración del sitio de datos abiertos"
+msgstr "Configuración del portal de datos abiertos"
 
 msgid "ACCOUNT-BRANDING-HEADER-TIP"
 msgstr "Pegue una URL para la cabecera<br/>Ejemplo: http://www.my-organization.com/my-header.html"
@@ -710,19 +686,13 @@ msgid "ACCOUNT-BRANDING-FOOTER-TIP"
 msgstr "Pegue una URL para el pie<br/>Example: http://www.my-organization.com/my-footer.html"
 
 msgid "BRANDED-OPEN-DATA-SITE-TIP"
-msgstr "<p>Los sitios de datos abiertos de DATAL te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El sitio de datos abiertos refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
-
-msgid "BRANDED-OPEN-DATA-SITE-TIP-PRIVATE"
-msgstr "<p>Los sitios de datos privados de DATAL te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El sitio de datos privados refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
+msgstr "<p>Los sitios de datos abiertos te permiten integrar tus colecciones modificadas de Datos Abiertos en tu sitio web. Incluye la opci&oacute;n de agregar un encabeza y pie de página. El portal de datos abiertos refleja la imagen de tu sitio y le permite a tu audiencia acceso total a tus datos publicados.</p><br />"
 
 msgid "WORKSPACE-CUSTOMIZE-SETTINGS"
 msgstr "Personalizar la visualización"
 
 msgid "ACCOUNT-MICROSITE-TITLES"
-msgstr "Títulos del sitio de datos abiertos"
-
-msgid "ACCOUNT-MICROSITE-TITLES-PRIVATE"
-msgstr "Títulos del sitio de datos privados"
+msgstr "Títulos del portal de datos abiertos"
 
 msgid "APP-BUTTONS-TEXT"
 msgstr "Botones"
@@ -734,7 +704,7 @@ msgid "ACCOUNT-MOUSEOVER-TIP"
 msgstr "(*) dentro de las colecciones y las vistas incrustadas"
 
 msgid "BRANDED-BRANDINGS-TIP"
-msgstr "Utilice los selectores de color para personalizar los colores del sitio de datos abiertos con los de su marca."
+msgstr "Utilice los selectores de color para personalizar los colores del portal de datos abiertos con los de su marca."
 
 msgid "APP-CATEGORIES-TEXT"
 msgstr "Categorías"
@@ -761,7 +731,7 @@ msgid "ACCOUNT-DOMAIN-TIP"
 msgstr "Introduzca su dominio aquí.<br/>Es necesario primero configurar un CNAME con tu administrador de sistemas y el apuntarlo a cloud.junar.com"
 
 msgid "WRKSPCE-DOMAIN-TIP"
-msgstr "<p>DATAL le permite abrir datos.</p><p>Con el fin de definir en donde se abren los datos, le ofrecemos 2 alternativas:</p><ul><li>DATAL puede alojar sus datos en un dominio de datos abiertos</li><li>Usted puede integrar sus datos en su sitio web mediante la creación de un subdominio y apuntarlo a nuestra nube</li></ul><p>Por favor, póngase en contacto con nosotros en <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> para ayudarle a configurar esto en pocos minutos.</p>"
+msgstr "<p>Con el fin de definir en donde se abren los datos, le ofrecemos 2 alternativas:</p><ul><li>Puede alojar sus datos en un dominio de datos abiertos</li><li>Usted puede integrar sus datos en su sitio web mediante la creación de un subdominio y apuntarlo a nuestra nube</li></ul><p>Por favor, póngase en contacto con nosotros en <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> para ayudarle a configurar esto en pocos minutos.</p>"
 
 msgid "ACCOUNT-CONTACT-INFORMATION-TEXT"
 msgstr "Información de contacto"
@@ -785,7 +755,7 @@ msgid "SOCIAL-NOTES-TIP"
 msgstr "Añade mas contexto a tus Vistas añadiendo notas."
 
 msgid "WRKSPC-SOCIAL-TIP"
-msgstr "<p>Los datos deben ser abiertos para aumentar su valor!</p><br/><p>DATAL facilita la optimizacion de tus datos para que sean compartidos en redes sociales e indexados en motores de busqueda mas facilmente.</p>"
+msgstr "<p>¡Los datos deben ser abiertos para aumentar su valor!</p><br/><p>Le facilitamos la optimización de sus datos para que sean compartidos en redes sociales e indexados en motores de búsqueda facilmente.</p>"
 
 msgid "ACCOUNT-USERS-TAB"
 msgstr "Usuarios"
@@ -812,10 +782,7 @@ msgid "APP-LAST-ACTIVITY-TEXT"
 msgstr "Última actividad"
 
 msgid "APP-USER-TIP"
-msgstr "<h6>TIPS ÚTILES</h6><p>Hay 3 tipos de roles:</p><p><strong>Editores:</strong><br> Recolectar y transformar datos en vistas y visualizaciones, y usarlas en colecciones.</p><p><strong>Publicadores:</strong><br> Mismos privilegios que Editores, más el permiso de publicar el recurso en el sitio de datos abiertos.</p><p><strong>Administradores:</strong><br> Mismos permisos que Editores y Publicadores, más ajustes de la cuenta.</p>"
-
-msgid "APP-USER-TIP-PRIVATE"
-msgstr "<h6>TIPS ÚTILES</h6><p>Hay 4 roles en la plataforma Privada Data DATAL:</p><p><strong>Editores:</strong><br> Recolectar y transformar datos en vistas, visualizaciones y colecciones.</p><p><strong>Publicadores:</strong><br> Recolectar y mejorar los conjuntos de datos, y aprobar los datos que se publicarán en el sitio de datos privados.</p><p><strong>Administradores:</strong><br> Recolectar, mejorar, y publicar conjuntos de datos y definir las funciones y ajustes de la cuenta</p><p><strong>Miembros:</strong> Posibilidad de acceder a recursos privados.</p>"
+msgstr "<h6>TIPS ÚTILES</h6><p>Hay 3 tipos de roles:</p><p><strong>Editores:</strong><br> Recolectar y transformar datos en vistas y visualizaciones, y usarlas en colecciones.</p><p><strong>Publicadores:</strong><br> Mismos privilegios que Editores, más el permiso de publicar el recurso en el portal de datos abiertos.</p><p><strong>Administradores:</strong><br> Mismos permisos que Editores y Publicadores, más ajustes de la cuenta.</p>"
 
 msgid "CHRT-XAXISNAME-TEXT"
 msgstr "Nombre eje X"
@@ -1310,7 +1277,7 @@ msgid "APP-FEATURED-SUBTITLE"
 msgstr "Organize en la caja derecha las colecciones que quiere seleccionar como destacados."
 
 msgid "APP-FEATURED-HELPTIP"
-msgstr "Las colecciones destacadas apareceran como pestañas en el sitio de datos abiertos, y ellas se organizarán en el mismo orden que aparecen en el cuadro de la derecha."
+msgstr "Las colecciones destacadas apareceran como pestañas en el portal de datos abiertos, y ellas se organizarán en el mismo orden que aparecen en el cuadro de la derecha."
 
 msgid "APP-TIME-ALL"
 msgstr "Cualquier fecha"
@@ -1323,9 +1290,6 @@ msgstr "Este mes"
 
 msgid "APP-ACTIONS-REVIEW"
 msgstr "Revisar"
-
-msgid "OVEDITDS-NAME-TIP"
-msgstr "¿De que se tratan los datos? Escribe un tema general que explique los datos que se muestran"
 
 msgid "EDITDS-SOURCE-TIP1"
 msgstr "Escribe las primeras 3 letras de la fuente y selecciona una de la lista. Si la fuente no aparece, por favor"
@@ -1369,20 +1333,11 @@ msgstr "para seleccionar toda la tabla."
 msgid "APP-CONTINUE-TEXT"
 msgstr "Continuar"
 
-msgid "APP-COLLECTDATA-TEXT"
-msgstr "Recolectar Datos"
-
 msgid "APP-SELECT-TEXT"
 msgstr "Seleccionar"
 
-msgid "APP-PICKDATA-TEXT"
-msgstr "Seleccionar Datos"
-
 msgid "DSCRE-SIDEBAR-COLLECTTITLE"
 msgstr "Resumen de la Recolección"
-
-msgid "DSCRE-SIDEBAR-COLLECTSUBTITLE"
-msgstr "Para empezar a recolectar datos, necesitas hacer selecciones en la tabla de al lado. Lee nuestros tips y ayuda para aprender las distintas combinaciones de selección"
 
 msgid "APP-SELECTION-TEXT"
 msgstr "Selección"
@@ -1407,15 +1362,6 @@ msgstr "Alias"
 
 msgid "APP-ADVANCEDOPTIONS-TEXT"
 msgstr "Opciones"
-
-msgid "CREATION-SIDEBAR-ADVANCEDTIP"
-msgstr "En el modo avanzado, hay varias funciones que puedes realizar, como: elegir las cabeceras de la tabla, agregar filtros, calcular promedios y totales. Si tu usas la API, también puedes definir aliases en este modo"
-
-msgid "CREATION-ENABLE-ADVANCE"
-msgstr "Habilitar el modo avanzado"
-
-msgid "CREATION-SIDEBAR-SELECTION"
-msgstr "Las opciones avanzadas solo funcionan con ciertas selecciones. Si tu selección no soporta una opción, esta aparecerá deshabilitada desde la lista"
 
 msgid "CREATION-SELECTTABLEHEADERS-TEXT"
 msgstr "Selecciona cabeceras de la tabla"
@@ -1486,59 +1432,8 @@ msgstr "Completa los campos para agregar alias a las columnas"
 msgid "CREATION-ALIASES-TIP2"
 msgstr "<strong>Esta es una opción para desarrolladores.</strong><br/> Úsalo para setear nombres para los pares de valores en la API JSON, cuando la opción prettyJSON está habilidata"
 
-msgid "CREATION-TIPS-ALLTABLETITLE"
-msgstr "Para seleccionar toda la tabla"
-
-msgid "CREATION-TIPS-ALLTABLETEXT"
-msgstr "Click en el botón &lt; &gt;, en la esquina superior izquierda de la tabla"
-
-msgid "CREATION-TIPS-COLUMSTITLE"
-msgstr "Para seleccionar columnas"
-
-msgid "CREATION-TIPS-COLUMSTEXT"
-msgstr "Click en una o más columnas con letras en la parte superior de la tabla"
-
-msgid "CREATION-TIPS-ROWSTITLE"
-msgstr "Para seleccionar filas"
-
-msgid "CREATION-TIPS-ROWSTEXT"
-msgstr "Click en una o mas  filas con letras en la parte izquierda de la tabla"
-
-msgid "CREATION-TIPS-CELLTITLE"
-msgstr "Para seleccionar celdas"
-
-msgid "CREATION-TIPS-CELLTEXT"
-msgstr "Click en una o mas celdas individuales o selecciona distintos grupos de filas y columnas"
-
-msgid "CREATION-TIPS-DIFFERENTTITLE"
-msgstr "Crea diferentes tipos de combinaciones"
-
-msgid "CREATION-TIPS-DIFFERENTTEXT"
-msgstr "Usa la misma fuente para publicar nuevas vistas. Puedes usar la misma fuente para seguir distintos datos"
-
-msgid "CREATION-DOUBTS-TIP"
-msgstr "Llámanos en Skype</a>. <br/>Por favor, no dudes en contactarnos <br/>por cualquier pregunta"
-
-msgid "APP-HINTS-TEXT"
-msgstr "Ayuda"
-
-msgid "CREATION-HINTS-HINT1"
-msgstr "Seleccionar filas y columnas de manera simultanea, producirá que la selección sea la intersección de ellas"
-
-msgid "CREATION-HINTS-HINT2"
-msgstr "Necesitas seleccionar celdas con una 'forma rectangular' para que aparezcan de igual manera en la &lt;tabla&gt; de tu funte. De otra manera, las celdas con datos que colectaste aparecerán una al lado de la otra"
-
-msgid "CREATION-HINTS-HINT3"
-msgstr "Si estás usando filtros, lo valores de los parámetros debieran ser exactamente iguales a los valores en la columna que estas filtrando"
-
 msgid "APP-CLICKTOLOAD-TEXT"
 msgstr "Click para cargar esta Fuente"
-
-msgid "CREATE-STEP1-TITLE"
-msgstr "&iquest;Donde están los datos"
-
-msgid "CREATE-STEP1-SUBTITLE"
-msgstr "Hace click sobre los datos que deseas utilizar para seleccionarlos."
 
 msgid "APP-NEEDHELP-TEXT"
 msgstr "&iquest;Necesitas ayuda"
@@ -1550,22 +1445,16 @@ msgid "APP-KEEPINMIND-TEXT"
 msgstr "Por favor, lee la ayuda a continuación e intenta nuevamente"
 
 msgid "CREATE-STEP1-DISCLAIMER0"
-msgstr "El tamaño máximo permitido para los conjuntos de datos son:<ol><li><strong>- CSV:</strong> 500.000 filas y 100 columnas</li><li><strong>- XLSx / XLS:</strong> 100.000 filas y 50 columnas</li><li><strong>- KML:</strong> 100.000 marcadores</li><strong>- HTML, XML y otros formatos:</strong> 50.000 filas y 30 columnas</li></ol>"
+msgstr "El tamaño máximo permitido para los conjuntos de datos son:<ol><li><strong>- CSV:</strong> 1.000.000 filas y 100 columnas</li><li><strong>- XLSx / XLS:</strong> 100.000 filas y 50 columnas</li><li><strong>- KML:</strong> 100.000 marcadores</li><strong>- HTML, XML y otros formatos:</strong> 50.000 filas y 30 columnas</li></ol>"
 
 msgid "CREATE-STEP1-DISCLAIMER1"
 msgstr "Para que una URL sea una fuente de datos, debe ser una página web que contenga la etiqueta &lt;table&gt"
 
 msgid "CREATE-STEP1-DISCLAIMER2"
-msgstr "Los archivos CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML también pueden ser usados como fuentes"
+msgstr "Los archivos CSV, XLS, XLSX, KML, KMZ, TSV, XML también pueden ser usados como fuentes"
 
 msgid "CREATE-STEP1-DISCLAIMER3"
 msgstr "Por ahora, no se puede extraer datos desde una imagen o flash (.swf) "
-
-msgid "CREATE-STEP1-DISCLAIMER4"
-msgstr "La página o archivo que contiene los datos debe tener una URL. Una URL es la dirección de Internet que ves en el navegador"
-
-msgid "CREATE-STEP1-DISCLAIMER5"
-msgstr "Si estás recolectando datos desde una &lt;table&gt; dentor de un &lt;iframe&gt; o &lt;frame&gt;, necesitas usar la URL del &lt;iframe&gt; o del &lt;frame&gt;"
 
 msgid "CREATE-STEP1-DISCLAIMER6"
 msgstr "Los archivos deben estar encodeados en UTF-8"
@@ -1573,32 +1462,8 @@ msgstr "Los archivos deben estar encodeados en UTF-8"
 msgid "APP-RELATEDSOURCES-TEXT"
 msgstr "Fuentes relacionadas"
 
-msgid "CREATE-STEP1-THROUBLE-TITLE"
-msgstr "Resolución de problemas y consejos a tener en cuenta"
-
-msgid "CREATE-STEP1-THROUBLE1"
-msgstr "Solo puedes colectar datos desde &lt;table&gt; que contiene a lo menos una columna de datos. No puedes seleccionar &lt;table&gt; que se usa para organizar la estructura de la página"
-
-msgid "CREATE-STEP1-THROUBLE2"
-msgstr "Solo puedes seleccionar una &lt;table&gt; como fuente a la vez (por lo menos por ahora!)"
-
-msgid "CREATE-STEP2-TITLE"
-msgstr "&iquest;Que es lo que necesitas"
-
-msgid "CREATE-STEP2-SUBTITLE"
-msgstr "Indique las partes especificas de la tabla que necesitas"
-
-msgid "CREATE-STEP3-TITLE"
-msgstr "Nómbralo"
-
 msgid "CREATE-STEP3-SUBTITLE"
 msgstr "Cuéntanos sobre que se trata tu vista. <span>Los campos con (<span class='required'>*</span>) son obligatorios.</span>"
-
-msgid "CREATION-STEP3-HELPTITLE"
-msgstr "Nombres: Buenas prácticas y uso correcto"
-
-msgid "CREATION-STEP3-HELPTIP"
-msgstr "Una buena Vista comunica claramente sobre que trata."
 
 msgid "APP-PREVIEWANDSAVE-TEXT"
 msgstr "Asegurate que todo va bien con tu vista."
@@ -1608,12 +1473,6 @@ msgstr "Para archivos extensos mostramos aquí sólo hasta 100 filas. Podrás ve
 
 msgid "CREATE-STEP4-TAGTITLE"
 msgstr "Etiquetas para esta Vista"
-
-msgid "CREATE-STEP4-HELPTITLE"
-msgstr "Quieres editar esta Vista"
-
-msgid "CREATE-STEP4-HELPTEXT"
-msgstr "Siempre puedes volver atrás haciendo click en el link <strong>&quot;Anterior&quot;</strong> en la barra de progreso"
 
 msgid "ACCOUNT-SAVE-SUCCESS"
 msgstr "Información de cuenta guardada con éxito."
@@ -1697,13 +1556,10 @@ msgid "DATASET-NOT-PUBLISHED"
 msgstr "El Conjunto de Datos relacionado a esta Vista de Datos debe estar publicado"
 
 msgid "ACCOUNT-USERS-USERNAME-TIP"
-msgstr "El <em>usuario</em> debe ser único.<br/>Esta validación se realiza entre todos los usuarios de DATAL."
+msgstr "El <em>usuario</em> debe ser único.<br/>Esta validación se realiza entre todas las cuentas."
 
 msgid "ACCOUNT-USERS-EMAIL-TIP"
-msgstr "El <em>e-mail</em> debe ser único.<br/>Esta validación se realiza entre todos los usuarios de DATAL."
-
-msgid "ACCOUNT-USERS-ROLES-TIP"
-msgstr "Compruebe más abajo las diferencias entre los roles."
+msgstr "El <em>e-mail</em> debe ser único.<br/>Esta validación se realiza entre todas las cuentas."
 
 msgid "MISSING-TRACKING-ID"
 msgstr "Para agregar cualquier evento, es necesario especificar el ID de propiedad de la cuenta de Google Analytics."
@@ -1846,6 +1702,9 @@ msgstr "Define la ruta(xpath o json-path) a los datos de la tabla."
 msgid "WORKSPACE-CACHE-TIP"
 msgstr "Define si el resultado del webservice debe ser almacenado en memoria."
 
+msgid "WORKSPACE-ATT-HEADERS-TIP"
+msgstr "Define si los atributos son usados como encabezado."
+
 msgid "WEBSERVICE-STEP1-TITLE"
 msgstr "Filtra tu selección como necesites"
 
@@ -1859,19 +1718,19 @@ msgid "WEBSERVICE-STEP1-HELPTEXT"
 msgstr "Estos parámetros ha venido de la conjunto de datos que está utilizando para crear esta vista de datos. Se utilizan para filtrar la información que este conjunto de datos puede traer<br/><br/>Si los parámetros no son editables, usted no será capaz de cambiar su valor original"
 
 msgid "APP-DSWEBSERVICE-TEXT"
-msgstr "Elija un nombre más apropiado para los parámetros <small>(si es necesario y si son editables)</small>"
+msgstr "Elija un nombre más apropiado para los parámetros <span>(si es necesario y si son editables)</span>"
 
 msgid "WEBSERVICE-HELP-TIP"
 msgstr "- El servicio web debe aceptar llamadas SOAP 1.2<br/>El elemento principal de la respuesta debe ser nombrado 'NewDataSet'. Puede tener uno o más hijos que representen filas. Las filas pueden tener uno o más hijos que representen celdas."
 
 msgid "COLLECTORS-DATASET-HELP-TIP"
-msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Envíe a revisión' si usted considera que el conjunto de datos está listo para ser enviado a su sitio de datos abiertos."
+msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Envíe a revisión' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos."
 
 msgid "ENHANCERS-DATASET-HELP-TIP"
-msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Apruebe' si usted considera que el conjunto de datos está listo para ser enviado a su sitio de datos abiertos."
+msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Apruebe' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos."
 
 msgid "PUBLISHERS-DATASET-HELP-TIP"
-msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Publique' si usted considera que el conjunto de datos está listo para ser enviado a su sitio de datos abiertos."
+msgstr "- 'Guarde' el conjunto de datos si desea crear/editar una revisión en borrador, o 'Publique' si usted considera que el conjunto de datos está listo para ser enviado a su portal de datos abiertos."
 
 msgid "APP-HEADER-TEXT"
 msgstr "Encabezado *"
@@ -1883,10 +1742,7 @@ msgid "ACCOUNT-LOGO-TIP"
 msgstr "El tamaño de la imagen debe ser de 136 x 80 px, de otro modo la imagen puede aparecer deformada"
 
 msgid "ACCOUNT-OPENDATASITE-TAB"
-msgstr "Ir a mi sitio de datos abiertos"
-
-msgid "ACCOUNT-OPENDATASITE-TAB-PRIVATE"
-msgstr "Ir a mi sitio de datos privados"
+msgstr "Ir a mi portal de datos abiertos"
 
 msgid "WORKSPACE-COLLECT-SELECTCATEGORY"
 msgstr "Seleccione una categoría"
@@ -1899,6 +1755,9 @@ msgstr "Ruta a los datos"
 
 msgid "APP-CACHE-TEXT"
 msgstr "Usar cache"
+
+msgid "APP-ATT-HEADERS-TEXT"
+msgstr "Usar atributos como cabeceras"
 
 msgid "WORKSPACE-METHODNAME-TEXT"
 msgstr "Método"
@@ -1927,26 +1786,14 @@ msgstr "Alguna de sus propiedades debera contener information como un arreglo de
 msgid "WORKSPACE-SIGNATURE-TEXT"
 msgstr "Nombre de la Firma"
 
-msgid "APP-ACTIVITYSTREAM-TXT8-PRIVATE"
-msgstr "Transforme sus conjuntos de datos en <a href='/resource/action_query' title='Crear vistas'>Vistas</a> y <a href='/resource/action_query' title='Crear visualizaciones vivas'>visualizaciones vivas</a>, y finalmente <a href='/review/action_query' title='Publique sus recursos'>publiquelos</a> en su <a href='/admin/domain' title='Configuración de dominio'>sitio de datos privado</a>."
-
 msgid "PUBLISHERS-DATASET-HELP-TIP-PRIVATE"
-msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Publicar' si consideras que el conjunto de datos está listo para ser usado en el sitio de datos."
+msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Publicar' si consideras que el conjunto de datos está listo para ser usado en el portal de datos abiertos."
 
 msgid "ENHANCERS-DATASET-HELP-TIP-PRIVATE"
-msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Aprobar' si consideras que el conjunto de datos está listo para ser usado en el sitio de datos."
+msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Aprobar' si consideras que el conjunto de datos está listo para ser usado en el portal de datos abiertos."
 
 msgid "COLLECTORS-DATASET-HELP-TIP-PRIVATE"
-msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Enviar a revisión' si consideras que el conjunto de datos está listo para ser usado en el sitio de datos."
-
-msgid "APP-FEATURED-HELPTIP-PRIVATE"
-msgstr "Las colecciones destacadas aparecerán como pestañas en el sitio de datos privados, y estarán ordenadas tal como aparecen en la caja de la derecha."
-
-msgid "BRANDED-BRANDINGS-TIP-PRIVATE"
-msgstr "Use el seleccionador de colores para personalizar los colores del sitio de datos privado con sus colores corporativos."
-
-msgid "WRKSPCE-DOMAIN-TIP-PRIVATE"
-msgstr "<ul><li>DATAL puede hospedar sus datos en un dominio de datos privado</li><li>Usted puede integrar sus datos en su sitio web creando un subdominio y apuntandolo a nuestra nuve</li></ul><p>Por favor contactenos en <a title='support@junar.com' href='mailto:support@junar.com'>support@junar.com</a> para ayudarlo a configurar esto en pocos minutos.</p>"
+msgstr "- 'Guardar' el conjunto de datos si quieres crear/editar una revisión en borrador, o 'Enviar a revisión' si consideras que el conjunto de datos está listo para ser usado en el portal de datos abiertos."
 
 msgid "ACCOUNT-HOME-TAB"
 msgstr "Página de inicio"
@@ -1968,9 +1815,6 @@ msgstr "Contenido abajo a la izquierda"
 
 msgid "ACCOUNT-HOME-RIGHT-FOOTER"
 msgstr "Contenido abajo a la derecha"
-
-msgid "ACCOUNT-HOME-FEATURED-TIP"
-msgstr "Este contenido se muestra debajo del encabezado y por encima del contenido principal y la calesita de recursos.<br/>Si desea agregar una calesita de imagenes en este espacio <a href='http://es.wiki.junar.com/index.php/Agregar_calesita_de_imagenes_en_la_pagina_de_inicio_de_mi_sitio_de_datos_abiertos' title='DATAL Wiki' target='_blank'>siga estas instrucciones</a>."
 
 msgid "ACCOUNT-HOME-MAIN-TIP"
 msgstr "Este contenido se muestra en el lado izquierdo de la calesita"
@@ -2086,9 +1930,6 @@ msgstr "Socializar"
 msgid "APP-ANALYZE-TEXT"
 msgstr "Analisis"
 
-msgid "APP-CONTACTUS-TEXT"
-msgstr "Contáctenos"
-
 msgid "APP-PRESS-TEXT"
 msgstr "Prensa"
 
@@ -2108,10 +1949,6 @@ msgstr "Política de privacidad"
 
 
 
-
-msgid "HEADER-JUNAR-TITLE"
-msgstr "Plataforma de Datos Abiertos DATAL"
-
 msgid "HEADER-SEARCH-TEXT"
 msgstr "Buscar recursos"
 
@@ -2122,7 +1959,7 @@ msgid "HEADER-SEARCH-ADVANCED"
 msgstr "Opciones avanzadas"
 
 msgid "HEADER-ODS-BUTTON"
-msgstr "Ver sitio de datos"
+msgstr "Ver portal de datos abiertos"
 
 msgid "HEADER-ACCOUNTDETAILLS-TEXT"
 msgstr "Detalles de la cuenta"
@@ -2135,9 +1972,6 @@ msgstr "Soporte en línea"
 
 msgid "FOOTER-INSTITUTIONAL-TEXT"
 msgstr "Institucional"
-
-msgid "FOOTER-ABOUTUS-TITLE"
-msgstr "Ver quien está detrás de DATAL"
 
 msgid "FOOTER-ABOUTUS-TEXT"
 msgstr "Sobre nosotros"
@@ -2179,7 +2013,7 @@ msgid "APP-SETTINGS-TEXT"
 msgstr "Configuraciones"
 
 msgid "APP-FEEDBACK-TEXT"
-msgstr "Feedback"
+msgstr "Reportar problema"
 
 msgid "LANDINGPAGE-SECTION-TITLE"
 msgstr "Bienvenido"
@@ -2208,9 +2042,6 @@ msgstr "Ayer"
 msgid "APP-DOWNLOAD-CSV-TEXT"
 msgstr "Descargar como CSV"
 
-msgid "APP-GOBACKTO-TEXT"
-msgstr "Volver al sitio web de DATAL"
-
 msgid "FORGOT-ACTIVATION-EMAIL"
 msgstr "Un enlace para activar su nueva contraseña ha sido enviado a su correo electrónico."
 
@@ -2225,6 +2056,9 @@ msgstr "Autor"
 
 msgid "APP-DOWNLOAD-TEXT"
 msgstr "Descargar"
+
+msgid "APP-GOTO-PAGE-TEXT"
+msgstr "Ir a la fuente"
 
 msgid "APP-ADDNEW-TEXT"
 msgstr "Agregar nuevo"
@@ -2527,10 +2361,10 @@ msgid "APP-OVERLAY-DELETE-DATASET-TITLE"
 msgstr "Eliminar conjunto de datos"
 
 msgid "APP-OVERLAY-DELETE-DATASET-TEXT"
-msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea realizar:"
+msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea hacer:"
 
 msgid "APP-OVERLAY-DELETE-VISUALIZATION-TEXT"
-msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea realizar:"
+msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea hacer:"
 
 msgid "APP-OVERLAY-DELETE-VISUALIZATION-TITLE"
 msgstr "Eliminar visualización"
@@ -2682,9 +2516,6 @@ msgstr "Aún no hay recursos asociados a este Dataset."
 msgid "APP-START-FROM-HERE-TEXT"
 msgstr "Puede comenzar desde aquí!"
 
-msgid "APP-CREATE-FIRST-DATASET-TEXT"
-msgstr "Para empezar a utilizar DATAL, cree su primer conjunto de datos."
-
 msgid "CHILD_NOT_ACCEPTED-1"
 msgstr "No es posible publicar este conjunto de datos, debido a que tiene vistas asociadas sin aprobar. Revise la lista de vistas asociadas "
 
@@ -2692,7 +2523,7 @@ msgid "CHILD_NOT_ACCEPTED-2"
 msgstr "aquí"
 
 msgid "APP-SELECT-DATASET-TEXT"
-msgstr "Seleccionar un Conjunto de datos"
+msgstr "Nueva vista"
 
 msgid "APP-SELECT-DATASTREAM-TEXT"
 msgstr "Seleccionar una Vista"
@@ -2716,7 +2547,7 @@ msgid "APP-LASTPUBLISHDATE-TEXT"
 msgstr "Última versión publicada:"
 
 msgid "APP-VIEWONSITE-TEXT"
-msgstr "Ver en sitio"
+msgstr "Ver en portal de datos abiertos"
 
 msgid "APP-SENDREJECTEDNOTE-TEXT"
 msgstr "¿Motivo del rechazo?"
@@ -2728,7 +2559,7 @@ msgid "APP-DATASET-APPROVED-TITLE"
 msgstr "Conjunto de datos aceptado"
 
 msgid "APP-DATASET-APPROVED-TEXT"
-msgstr "Publiquelo para verlo en el sitio de datos."
+msgstr "Publiquelo para verlo en el portal de datos abiertos."
 
 msgid "APP-DATASET-REJECTED-TITLE"
 msgstr "Conjunto de datos rechazado"
@@ -2740,16 +2571,16 @@ msgid "APP-DATASET-PUBLISHED-TITLE"
 msgstr "Conjunto de datos publicado"
 
 msgid "APP-DATASET-PUBLISHED-TEXT"
-msgstr "Puedes verlo ahora en el sitio de datos."
+msgstr "Puedes verlo ahora en el portal de datos abiertos."
 
 msgid "APP-DATASET-UNPUBLISH-TITLE"
 msgstr "Conjunto de datos despublicado"
 
 msgid "APP-DATASET-UNPUBLISH-TEXT"
-msgstr "El conjunto de datos ha sido puesto como borrador, y no está más disponible en el sitio de datos."
+msgstr "El conjunto de datos ha sido puesto como borrador, y no está más disponible en el portal de datos abiertos."
 
 msgid "APP-DATASET-UNPUBLISHALL-TEXT"
-msgstr "El conjunto de datos se puso como borrador y sus recursos asociados han sido puestos como pendientes de aprobación, y ambos no están más disponibles en el sitio de datos."
+msgstr "El conjunto de datos se puso como borrador y sus recursos asociados han sido puestos como pendientes de aprobación, y ambos no están más disponibles en el portal de datos abiertos."
 
 msgid "APP-DATASET-SENDTOREVIEW-TITLE"
 msgstr "Conjunto de datos enviado a revisión"
@@ -2761,7 +2592,7 @@ msgid "APP-DATAVIEW-APPROVED-TITLE"
 msgstr "Vista aceptada"
 
 msgid "APP-DATAVIEW-APPROVED-TEXT"
-msgstr "Publiquela para verla en el sitio de datos."
+msgstr "Publiquela para verla en el portal de datos abiertos."
 
 msgid "APP-DATAVIEW-REJECTED-TITLE"
 msgstr "Vista rechazada"
@@ -2773,16 +2604,16 @@ msgid "APP-DATAVIEW-PUBLISHED-TITLE"
 msgstr "Vista publicada"
 
 msgid "APP-DATAVIEW-PUBLISHED-TEXT"
-msgstr "Puedes verla ahora en el sitio de datos."
+msgstr "Puedes verla ahora en el portal de datos abiertos."
 
 msgid "APP-DATAVIEW-UNPUBLISH-TITLE"
 msgstr "Vista despublicada"
 
 msgid "APP-DATAVIEW-UNPUBLISH-TEXT"
-msgstr "La vista ha sido puesta como borrador, y no está más disponible en el sitio de datos."
+msgstr "La vista ha sido puesta como borrador, y no está más disponible en el portal de datos abiertos."
 
 msgid "APP-DATAVIEW-UNPUBLISHALL-TEXT"
-msgstr "La vista y sus recursos asociados han sido puestos como borrador, y no están más disponibles en el sitio de datos."
+msgstr "La vista y sus recursos asociados han sido puestos como borrador, y no están más disponibles en el portal de datos abiertos."
 
 msgid "APP-DATAVIEW-SENDTOREVIEW-TITLE"
 msgstr "Vista enviada a revisión"
@@ -2794,7 +2625,7 @@ msgid "APP-VISUALIZATION-APPROVED-TITLE"
 msgstr "Visualización aceptada"
 
 msgid "APP-VISUALIZATION-APPROVED-TEXT"
-msgstr "Publiquela para verla en el sitio de datos."
+msgstr "Publiquela para verla en el portal de datos abiertos."
 
 msgid "APP-VISUALIZATION-REJECTED-TITLE"
 msgstr "Visualización rechazada"
@@ -2806,13 +2637,13 @@ msgid "APP-VISUALIZATION-PUBLISHED-TITLE"
 msgstr "Visualización publicada"
 
 msgid "APP-VISUALIZATION-PUBLISHED-TEXT"
-msgstr "Puedes verla ahora en el sitio de datos."
+msgstr "Puedes verla ahora en el portal de datos abiertos."
 
 msgid "APP-VISUALIZATION-UNPUBLISH-TITLE"
 msgstr "Visualización despublicada"
 
 msgid "APP-VISUALIZATION-UNPUBLISH-TEXT"
-msgstr "La visualización ha sido puesta como borrador, y no está más disponible en el sitio de datos."
+msgstr "La visualización ha sido puesta como borrador, y no está más disponible en el portal de datos abiertos."
 
 msgid "APP-VISUALIZATION-SENDTOREVIEW-TITLE"
 msgstr "Visualización enviada a revisión"
@@ -2830,7 +2661,7 @@ msgid "APP-OVERLAY-UNPUBLISH-DATASET-TITLE"
 msgstr "Despublicar conjunto de datos"
 
 msgid "APP-OVERLAY-UNPUBLISH-DATASET-TEXT"
-msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea realizar:"
+msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea hacer:"
 
 msgid "APP-UNPUBLISH-RESOURCE-TEXT"
 msgstr "Despublicar todas las revisiones"
@@ -2851,7 +2682,7 @@ msgid "APP-OVERLAY-DELETE-DATASTREAM-TITLE"
 msgstr "Eliminar vista"
 
 msgid "APP-OVERLAY-DELETE-DATASTREAM-TEXT"
-msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea realizar:"
+msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea hacer:"
 
 msgid "APP-OVERLAY-DELETE-DATASTREAM-CONFIRM-TITLE"
 msgstr "Eliminar vista"
@@ -2863,7 +2694,7 @@ msgid "APP-OVERLAY-UNPUBLISH-DATASTREAM-TITLE"
 msgstr "Despublicar vista"
 
 msgid "APP-OVERLAY-UNPUBLISH-DATASTREAM-TEXT"
-msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea realizar:"
+msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea hacer:"
 
 msgid "APP-OVERLAY-UNPUBLISH-DATASTREAM-CONFIRM-TITLE"
 msgstr "Despublicar vista"
@@ -2911,6 +2742,9 @@ msgid "LANDINGPAGE-NOACTIVITY-START"
 msgstr "Crea un nuevo conjunto de datos para comenzar"
 
 msgid "APP-SELECT-VISUALIZATION-TEXT"
+msgstr "Nueva visualización"
+
+msgid "APP-ADD-VISUALIZATION-HINT"
 msgstr "¿Qué vista quieres usar?"
 
 msgid "APP-CREATE-VISUALIZATION-TEXT"
@@ -3130,7 +2964,7 @@ msgid "APP-OVERLAY-UNPUBLISH-VISUALIZATION-TITLE"
 msgstr "Despublicar visualización"
 
 msgid "APP-OVERLAY-UNPUBLISH-VISUALIZATION-TEXT"
-msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea realizar:"
+msgstr "Esta acción no se puede deshacer. Por favor, confirme que desea hacer:"
 
 msgid "APP-PARAMETERS-TEXT"
 msgstr "Parámetros"
@@ -3171,9 +3005,6 @@ msgstr "la vista"
 msgid "LANDINGPAGE-ACTIVITY-VISUALIZATION"
 msgstr "la visualización"
 
-msgid "LANDINGPAGE-ACTIVITY-DASHBOARD"
-msgstr "la colección"
-
 msgid "APP-CHOOSE-MAP-TEXT"
 msgstr "Mapas"
 
@@ -3189,6 +3020,9 @@ msgstr "Valor inválido"
 msgid "APP-SEARCH-PLACEHOLDER-TEXT"
 msgstr "Buscar..."
 
+msgid "APP-ALL-TYPES-TEXT"
+msgstr "Todos los tipos"
+
 msgid "APP-ALL-CATEGORIES-TEXT"
 msgstr "Todas las categorías"
 
@@ -3200,3 +3034,222 @@ msgstr "recursos disponibles"
 
 msgid "APP-X-RESOURCES-ADDED-TEXT"
 msgstr "recursos agregados"
+
+msgid "APP-UPLOAD-FILE-LINK"
+msgstr "Desde archivo"
+
+msgid "APP-WEBSITE-LINK"
+msgstr "Desde URL o sitio web"
+
+msgid "APP-WEBSERVICE-LINK"
+msgstr "Desde servicio web"
+
+msgid "APP-LISTRESOURCES-TEXT"
+msgstr "Listado"
+
+msgid "APP-NEWFEMALE-TEXT"
+msgstr "Nueva"
+
+msgid "APP-NEWMALE-TEXT"
+msgstr "Nuevo"
+
+msgid "APP-DOES-NOT-EXIST-TEXT"
+msgstr "no existe, intente nuevamente con otra palabra clave."
+
+msgid "APP-FEATUREDFEMALE-TEXT"
+msgstr "Destacadas"
+
+msgid "APP-DONE-TEXT"
+msgstr "Listo"
+
+msgid "APP-EDIT-DESCRIPTION-TEXT"
+msgstr "Editar descripción"
+
+msgid "APP-EDIT-VISUALIZATION-TEXT"
+msgstr "Editar visualización"
+
+msgid "WEBSERVICE-ORIGINALARG-TEXT"
+msgstr "Nombre original"
+
+msgid "APP-DATA-SELECTION-TEXT"
+msgstr "Selección de datos"
+
+msgid "APP-REVISION-TEXT"
+msgstr "Revisión"
+
+msgid "APP-ADVANCED-MODE-TEXT"
+msgstr "Modo avanzado"
+
+msgid "APP-SELECT-TABLE-HEADERS-TEXT"
+msgstr "Seleccionar las cabeceras de la tabla"
+
+msgid "APP-FILTER-DATA-TEXT"
+msgstr "Filtrar los datos"
+
+msgid "APP-CONFIG-DATA-TYPE-AND-COLUMN-FORMAT-TEXT"
+msgstr "Configurar tipo de dato y formato de columnas"
+
+msgid "APP-COLUMN-TEXT"
+msgstr "Columna"
+
+msgid "APP-CREATE-DATAVIEW-DATA-SELECTION-TIP-TEXT"
+msgstr "Seleccione los intervalos que desea utilizar. Puede seleccionar toda la tabla, filas/columnas, o celdas individuales."
+
+msgid "APP-TABLE-HEADERS-TEXT"
+msgstr "Cabeceras de la tabla"
+
+msgid "APP-CREATE-DATAVIEW-TABLE-HEADERS-TIP-TEXT"
+msgstr "Seleccionar las filas de la tabla que representan cabeceras"
+
+msgid "APP-ADD-NEW-FILTER-TEXT"
+msgstr "Agregar nuevo filtro"
+
+msgid "APP-OPERATION-TEXT"
+msgstr "Operación"
+
+msgid "APP-EQUAL-TO-TEXT"
+msgstr "Es igual a"
+
+msgid "APP-NOT-EQUAL-TO-TEXT"
+msgstr "No es igual a"
+
+msgid "APP-HIGHER-THAN-TEXT"
+msgstr "Es mayor a"
+
+msgid "APP-LOWER-THAN-TEXT"
+msgstr "Es menor a"
+
+msgid "APP-CONTAINS-TEXT"
+msgstr "Contiene"
+
+msgid "APP-OPERATOR-TEXT"
+msgstr "Operador"
+
+msgid "APP-FIXED-VALUE-TEXT"
+msgstr "Valor fijo"
+
+msgid "APP-PARAMETER-TEXT"
+msgstr "Parámetro"
+
+msgid "APP-ENTER-A-FIXED-VALUE-TEXT"
+msgstr "Ingrese un valor fijo"
+
+msgid "APP-CONFIGURE-OPERATOR-TEXT"
+msgstr "Configure el operador"
+
+msgid "APP-PARAMETER-NAME-TEXT"
+msgstr "Nombre del parámetro"
+
+msgid "APP-OPTIONAL-TEXT"
+msgstr "Opcional"
+
+msgid "APP-CONFIGURE-A-COLUMN-TEXT"
+msgstr "Configurar una columna"
+
+msgid "APP-COLUMN-DATA-TYPE-TEXT"
+msgstr "Tipo de dato de la columna"
+
+msgid "APP-TEXT-TEXT"
+msgstr "Texto"
+
+msgid "APP-NUMBER-TEXT"
+msgstr "Número"
+
+msgid "APP-DATE-TEXT"
+msgstr "Fecha"
+
+msgid "APP-DATASET-PARAMETERS"
+msgstr "Parámetros del conjunto de datos"
+
+msgid "APP-SELECT-DATASET-TABLE"
+msgstr "Tablas"
+
+msgid "APP-COLS-TEXT"
+msgstr "Columnas"
+
+msgid "APP-FULL-TABLE-TEXT"
+msgstr "Tabla Completa"
+
+msgid "APP-COL-FORMAT-TEXT"
+msgstr "Formatos"
+
+msgid "APP-NAME-TEXT"
+msgstr "Nombre"
+
+msgid "ADMIN-HOME-THEMES-THEME7-TEXT"
+msgstr "Responsive"
+
+msgid "ADMIN-HOME-THEMES-THEME8-TEXT"
+msgstr "Catálogo"
+
+msgid "APP-THOUSAND-INDICATOR"
+msgstr "Indicador de miles"
+
+msgid "APP-DECIMAL-INDICATOR"
+msgstr "Indicador de decimales"
+
+msgid "APP-SYMBOLS"
+msgstr "Símbolos"
+
+msgid "APP-LOCALE"
+msgstr "Localización"
+
+msgid "APP-CUSTOM-PATTERN"
+msgstr "Patrón personalizado"
+
+msgid "APP-CONFIGURE-ORIGIN-FORMAT"
+msgstr "Configurar formato de origen"
+
+msgid "APP-CONFIGURE-OUTPUT-FORMAT"
+msgstr "Configurar formato de salida"
+
+msgid "APP-THOUSANDS-DECIMALS-INDICATORS"
+msgstr "Indicadores de decimales / miles"
+
+msgid "APP-WHAT-IS-THE-ORIGINAL-PATTERN"
+msgstr "¿Cuál es el patrón del formato de origen?"
+
+msgid "APP-WHAT-IS-THE-OUTPUT-PATTERN"
+msgstr "¿Cuál es el patrón del formato de salida?"
+
+msgid "APP-DOT"
+msgstr "punto"
+
+msgid "APP-COMMA"
+msgstr "coma"
+
+msgid "APP-SELECTED-DATA-TEXT"
+msgstr "Datos seleccionados"
+
+msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
+msgstr "Usa el patrón de formateo de EEUU.<br><hr class='divider divider-xs'>0: Dígito <br>#: Dígito, cero ausente <br>. (punto): Separador decimal <br>, (coma): Separador de agrupación <br>-: Signo menos"
+
+msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
+msgstr "Seleccione indicadores de miles y decimales exactamente igual a como aparecen en esta columna"
+
+msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
+msgstr "Seleccione la localización que representa a los indicadores de miles y decimales en esta columna"
+
+msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
+msgstr "Seleccione la localización que se usará para representar el formato de salida de la vista"
+
+msgid "APP-DATE-ORIGIN-FORMAT-TIP"
+msgstr "Usa patrones de formateo de fecha y hora de <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Año completo (Ej: 2001)<br> yy: Año abreviado (Ej: 01)<br> MM: Mes empezado con 0 (Ej: Julio 07)<br> M: Mes sin 0 (Ej: Julio 7)<br> dd: Día empezado con 0 (Ej: Abril 04)<br> d: Día sin 0 (Ej: Abril 4)<br> - (guión) y / (barra) separa términos"
+
+msgid "APP-DATE-OUTPUT-FORMAT-TIP"
+msgstr "Usa patrones de formateo de fecha y hora de <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Día del mes (sin cero inicial) <br> dd: Día del mes (dos dígitos) <br> o: Día del año (sin ceros iniciales) <br> oo: Día del año (tres dígitos) <br> D: Nombre día corto <br> DD: Nombre día largo <br> m: Mes del año (sin cero inicial) <br> mm: Mes del año (dos dígitos) <br> M: Nombre mes corto <br> MM: Nombre mes largo <br> y: Año (dos dígitos) <br> yy: Año (cuatro dígitos) <br> @: Unix timestamp (mes desde 01/01/1970) <br> !: Windows ticks (100ns desde 01/01/0001) <br> '...': Texto literal <br> '': Comilla simple <br> Todo lo demás: Texto literal"
+
+msgid "APP-ERR-NO-TABLES-FOUND"
+msgstr "El parámetro no arroja resultados, intente con uno diferente."
+
+msgid "APP-DATASET-SHEET"
+msgstr "Tabla"
+
+msgid "APP-ERROR-400-TEXT"
+msgstr "Ha ocurrido un error"
+
+msgid "APP-GO-HOME-TEXT"
+msgstr "Ir a la página de inicio"
+
+msgid "APP-GO-PORTAL-TEXT"
+msgstr "Ir al portal de datos abiertos"

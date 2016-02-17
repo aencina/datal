@@ -4,45 +4,45 @@
 <head>
 <title>{{preferences.account_name}} &middot; {{preferences.account_page_titles}}</title>
 <meta charset="utf-8">
+
+<link rel="shortcut icon" href="{{preferences.account_favicon}}" />
+
 {% compress css %}
-    <!-- RESET -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/reset.css' %}"/>
+<!-- RESET -->
+<link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <!-- DATA STREAM BOX -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/dataStreamBox.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
 <!-- COMMON MODULES -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/commonModules.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/commonModules.css' %}"/>
 <!-- BUTTONS -->
-<link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/buttons.css' %}"/>
+<link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/buttons.css' %}"/>
+<!-- OVERLAY -->
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/overlay.css' %}"/>
 <!-- COMPONENT -->
-<link rel="stylesheet" media="screen" type="text/css" href="{% sass_src 'core/styles/embed.css' %}"/>
+<link rel="stylesheet" media="screen" type="text/css" href="{% static 'core/styles/embed.css' %}"/>
 {% endcompress %}
 
 {% if preferences.enable_embed_options %}
-    {% compress css %}
-    <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
-	<!-- OVERLAY -->
-	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/overlay.css' %}"/>
-    {% endcompress %}
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 
-	<script type="text/javascript" src="/js_core/libs/underscore/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
-	<script type="text/javascript" src="/js_core/libs/backbone/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 {% endif %}
+
+<script type="text/javascript" src="/js_core/libs/underscore/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backbone/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
 <script type="text/javascript" src="/js_core/libs/jquery/jquery-1.7.2.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 {% if preferences.enable_embed_options %}
-<!--  <script type="text/javascript" src="/js_microsites/modules/share.js?id={{settings.VERSION_JS_CSS}}"></script> -->
-	<script type="text/javascript" src="/js_microsites/viewDataStream/embedActions.js?id={{settings.VERSION_JS_CSS}}"></script>
-<!--	<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
-	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script> -->
-	<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<script type="text/javascript" src="/js_microsites/viewDataStream/embedActions.js?id={{settings.VERSION_JS_CSS}}"></script>
 {% endif %}
 
 <script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+{% ifequal LANGUAGE_CODE 'es'%}
+<script type="text/javascript" src="/js_core/libs/jquery_ui/jquery.ui.datepicker-es.js?id={{settings.VERSION_JS_CSS}}"></script>
+{%endifequal%}
+
 <script type="text/javascript" src="/js_microsites/viewDataStream/embed.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 
@@ -54,7 +54,7 @@
   {% if preferences.account_embed_powered_by %}
   Configuration.embedPoweredBy = ["http://{{preferences.account_domain}}","{{preferences.account_name}}"];
   {% else %}
-  Configuration.embedPoweredBy = ["http://www.datal.org","DATAL"];
+  Configuration.embedPoweredBy = ["{{ settings.APPLICATION_DETAILS.website }}","{{ settings.APPLICATION_DETAILS.name }}"];
   {% endif %}
   
 	{% if preferences.enable_embed_options %}
@@ -63,6 +63,16 @@
 	   var areEmbedOptionsEnabled = false;
 	{% endif %}
 </script>
+
+<!-- BRANDED CSS -->
+{% compress css %}
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+{% endcompress %}
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+
+<!-- BRANDED JS -->
+<script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
 
 </head>
 
@@ -148,8 +158,8 @@
 <!-- 			            <div class="menuInner"> -->
 <!-- 			                <ul class="In share"> -->
 <!-- 			                    <li class="J"><a href="javascript:;" title="{% trans 'APP-SHARE-TEXT' %}" class="Icon FR ic_Menu open"><span>{% trans "APP-SHARE-TEXT" %}</span></a></li> -->
-<!-- 			                    <li class="facebook"><iframe src="http://www.facebook.com/plugins/like.php" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:112px; height:20px;" allowTransparency="true"></iframe></li> -->
-<!-- 			                    <li class="twitter"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html" style="width:112px; height:20px;"></iframe></li> -->
+<!-- 			                    <li class="facebook"><iframe src="https://www.facebook.com/plugins/like.php" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:112px; height:20px;" allowTransparency="true"></iframe></li> -->
+<!-- 			                    <li class="twitter"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html" style="width:112px; height:20px;"></iframe></li> -->
 <!-- 			                    <li class="google"><div class="g-plusone" data-size="medium" data-count="true"></div></li> -->
 <!-- 			                    <li class="url"><input type="text" value="" class="share_url_input" readonly="readonly"/></li> -->
 <!-- 			                </ul> -->
@@ -190,11 +200,10 @@
 			</div>
 		</div>
 	</div>
-
 	<script type="text/javascript">
 	      var lDataService = $("#id_dataservice_container")[0];
 	      jQuery.data(lDataService, "datastream_id", "{{datastream.datastream_id}}");
-	      jQuery.data(lDataService, "datastreamrevision_id", "{{datastreamrevision_id}}");
+	      jQuery.data(lDataService, "datastreamrevision_id", "{{ datastream.last_published_revision_id}}");
 	      jQuery.data(lDataService, "dataservice_end_point", "{% if end_point%}\u0026{{end_point|escapejs}}{% endif %}");
 	      jQuery.data(lDataService, "dataservice_title", "{{datastream.title}}");
 	      jQuery.data(lDataService, "dataservice_description", "{{datastream.description}}");

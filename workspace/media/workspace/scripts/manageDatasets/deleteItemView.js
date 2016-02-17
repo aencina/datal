@@ -17,6 +17,8 @@ var DeleteItemView = Backbone.View.extend({
 		this.models = options.models;
 		this.type = options.type;
 
+        this.cant = this.models[0].attributes.cant;
+
 		// Check if is a Bulk Actions Overlay
 		if( _.isUndefined( options.bulkActions ) ){
 			this.bulkActions = false;
@@ -48,6 +50,12 @@ var DeleteItemView = Backbone.View.extend({
 	},
 
 	render: function(){
+
+        // oculta el boton de eliminar revisión actual
+        if ( this.cant > 1 )
+            $("#id_deleteRevision",this.$el).show();
+        else
+            $("#id_deleteRevision",this.$el).hide();
 		this.$el.data('overlay').load();
 	},
 

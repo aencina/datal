@@ -109,7 +109,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
                 self.datastream_revision.status = StatusChoices.APPROVED
                 self.datastream_revision.save()
                 transaction.commit()
-                raise ParentNotPublishedException()
+                raise ParentNotPublishedException(self.datastream_revision)
 
         self.datastream_revision.status = StatusChoices.PUBLISHED
         self.datastream_revision.save()
@@ -286,6 +286,10 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
 
     def _remove_all(self):
+
+        for visualization_revision in VisualizationRevision.objects.filter(datastream=self.datastream_revision.datastream):
+            VisualizationLifeCycleManager(user=self.user, resource=visualization_revision).remove(killemall=True)
+
         self.datastream.delete()
         self._log_activity(ActionStreams.DELETE)
         if settings.DEBUG: logger.info('Clean Caches')
@@ -293,11 +297,18 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self._delete_cache(cache_key='account_total_datastreams_%d' % self.datastream.user.account.id)
 
     def edit(self, allowed_states=EDIT_ALLOWED_STATES, changed_fields=None, **fields):
-        """ Create new revision or update it """
+        """ Create new revision or update it
+        :param allowed_states:
+        :param changed_fields:
+        :param fields:
+        :return:
+        """
         form_status = None
 
         if 'status' in fields.keys():
             form_status = int(fields.pop('status', None))
+        else:
+            form_status = StatusChoices.DRAFT
 
         old_status = self.datastream_revision.status
 
@@ -315,13 +326,15 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         if fields['select_statement'] == "":
             fields['select_statement'] = self.datastream_revision.select_statement
 
-        if old_status == StatusChoices.PUBLISHED:
+        # si el status de la version anterior es publicado o aprobado
+        # genera revisiones de sus hijos
+        if old_status in [StatusChoices.PUBLISHED, StatusChoices.APPROVED]:
             self.datastream, self.datastream_revision = DataStreamDBDAO().create(
                 datastream=self.datastream,
                 dataset=self.datastream_revision.dataset,
                 user=self.datastream_revision.user,
-                status=StatusChoices.DRAFT,
-                parameters=self.datastream_revision.datastreamparameter_set.all(),
+                status=fields.pop('status', StatusChoices.DRAFT),
+                parameters=self.datastream_revision.datastreamparameter_set.values(),
                 **fields
             )
 
@@ -335,7 +348,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             # Actualizo sin el estado
             self.datastream_revision = DataStreamDBDAO().update(
                 self.datastream_revision,
-                status=old_status,
+                status=fields.pop('status', old_status), 
                 changed_fields=changed_fields,
                 **fields
             )
@@ -361,7 +374,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             visualizations = VisualizationRevision.objects.select_for_update().filter(
                 visualization__datastream__id=self.datastream.id,
                 id=F('visualization__last_revision__id'),
-                status=StatusChoices.PUBLISHED)
+                status__in=[StatusChoices.PUBLISHED,StatusChoices.APPROVED])
 
             for visualization in visualizations:
                VisualizationLifeCycleManager(self.user, visualization_revision_id=visualization.id).save_as_status(status)
@@ -369,6 +382,26 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
     def save_as_status(self, status=StatusChoices.DRAFT):
         self.datastream_revision.clone(status)
         self._update_last_revisions()
+
+    def _clone_childs(self):
+        with transaction.atomic():
+            visualizations = VisualizationRevision.objects.select_for_update().filter(
+                visualization__datastream__id=self.datastream.id,
+                id=F('visualization__last_revision__id'))
+
+            for visualization in visualizations:
+               VisualizationLifeCycleManager(self.user, visualization_revision_id=visualization.id).clone()
+
+
+    def clone(self):
+        dsr = self.datastream_revision.clone(self.datastream_revision.status)
+        if dsr.status == StatusChoices.PUBLISHED:
+            DatastreamSearchDAOFactory().create(dsr).add()
+        self._update_last_revisions()
+        self._clone_childs()
+        return dsr
+
+
 
     def _log_activity(self, action_id):
         title = self.datastreami18n.title if self.datastreami18n else ''

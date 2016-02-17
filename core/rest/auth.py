@@ -5,11 +5,12 @@ from rest_framework import authentication
 
 class RestAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
+
         if hasattr(request, 'account') and request.account:
             account = request.account
 
             return (
-                AccountAnonymousUser(account), {
+                AccountAnonymousUser(account, request.auth_manager.language), {
                     'account': account,
                     'preferences': None,
                     'language': request.auth_manager.language,

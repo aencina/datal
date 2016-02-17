@@ -11,7 +11,7 @@
 		<!-- Request key -->
 		<article class="requestKey">
 			<header>
-				<h1>{% trans 'VIEWDS-API-REQUESTKEY-1' %} <a href="/developers" target="_blank" title="{% trans 'VIEWDS-API-REQUESTKEY-1' %}">{% trans 'VIEWDS-API-REQUESTKEY-2' %}</a>.</h1>
+				<h1>{% trans 'VIEWDS-API-REQUESTKEY-1' %} <a href="/developers/" target="_blank" title="{% trans 'VIEWDS-API-REQUESTKEY-1' %}">{% trans 'VIEWDS-API-REQUESTKEY-2' %}</a>.</h1>
 			</header>
 		</article>
 
@@ -31,12 +31,12 @@
 				<h1>{% trans 'VIEWDS-API-EXAMPLES' %}</h1>
 			</header>
 			<p>{% trans 'VIEWDS-API-EXAMPLES-1' %}</p>
-			<code>http://{{preferences.account_api_domain}}/api/v1/visualizations/{{visualization.guid}}?auth_key=YOUR_API_KEY</code>
+			<code>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/visualizations/{{visualization.guid}}/?auth_key=YOUR_API_KEY</code>
 			<p>{% trans 'VIEWDS-API-EXAMPLES-2' %}</p>
-			<code>http://{{preferences.account_api_domain}}/api/v1/visualizations/{{visualization.guid}}?auth_key=YOUR_API_KEY&amp;output=json_array</code>
+			<code>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/visualizations/{{visualization.guid}}/?auth_key=YOUR_API_KEY&amp;output=json_array</code>
 			{% if datastream.parameters %}
 			<p>{% trans 'VIEWDS-API-EXAMPLES-3' %}</p>
-			<code>http://{{preferences.account_api_domain}}/api/v1/visualizations/{{visualization.guid}}?auth_key=YOUR_API_KEY&amp;pArgument0=VALUE</code>
+			<code>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/visualizations/{{visualization.guid}}/?auth_key=YOUR_API_KEY&amp;pArgument0=VALUE</code>
 			{% endif %}
 		</article>
 		{% endif %}

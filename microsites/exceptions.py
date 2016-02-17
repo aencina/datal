@@ -12,7 +12,7 @@ class VisualizationRevisionDoesNotExist(LifeCycleException):
 class VisualizationDoesNotExist(DATALException):
 	title = _('EXCEPTION-TITLE-VISUALIZATION-NOT-EXIST')
 	description = _('EXCEPTION-DESCRIPTION-VISUALIZATION-NOT-EXIST')
-	tipo = 'revision-no-exist'
+	tipo = 'visualization-dont-exist'
 	status_code = 404
 
 class AccountDoesNotExist(DATALException):
@@ -30,13 +30,13 @@ class InvalidPage(DATALException):
 class DataStreamDoesNotExist(DATALException):
 	title = _('EXCEPTION-TITLE-DATASTREAM-NOT-EXIST')
 	description = _('EXCEPTION-DESCRIPTION-DATASTREAM-NOT-EXIST')
-	tipo = 'datastream-not-exist'
+	tipo = 'datastream-dont-exist'
 	status_code = 404
 
 class DatasetDoesNotExist(DATALException):
 	title = _('EXCEPTION-TITLE-DATASET-NOT-EXIST')
 	description = _('EXCEPTION-DESCRIPTION-DATASET-NOT-EXIST')
-	tipo = 'dataset-not-exist'
+	tipo = 'dataset-dont-exist'
 	status_code = 404
 
 class DatsetError(DATALException):
@@ -48,5 +48,5 @@ class DatsetError(DATALException):
 class NotAccesVisualization(DATALException):
 	title = _('EXCEPTION-TITLE-VISUALIZATION-NOT-ACCESS')
 	description = _('EXCEPTION-DESCRIPTION-VISUALIZATION-NOT-ACCESS')
-	tipo = 'not-acces'
+	tipo = 'not-access'
 	status_code = 404

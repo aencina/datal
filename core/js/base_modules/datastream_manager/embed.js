@@ -143,7 +143,7 @@ function startWaitMessage(pHTMLElement){
 
 function invokeDataService(pEndPoint){
 
-    var lUrl     = '/rest/datastreams/' + fDataServiceId + '/data.json';
+    var lUrl     = '/rest/datastreams/' + fDataServiceId + '/data.json/';
     var lData    = pEndPoint;
 
     $.ajax({ url: lUrl

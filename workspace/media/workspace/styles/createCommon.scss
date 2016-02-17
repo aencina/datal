@@ -64,7 +64,6 @@
      -moz-box-sizing:border-box;
           box-sizing:border-box;
 }
-.create .row p.has-error{padding-left:34%;clear:both;}
 
 /* Form */
 .create .formContent .separator{height:1px;background:#d7d7d7;margin:5px 0 20px 0;border:0;padding:0;}
@@ -104,3 +103,6 @@
 .create .nolabel{margin-left:115px;position:relative;top:3px;}
 
 .sticky{position:fixed;width:100%;top:0;z-index:100;border-top:0;} 
+
+/* Step revision */
+.create .step-revision{border-top:1px solid #d7d7d7;position:relative;float:left;width:100%;margin-bottom:20px;}

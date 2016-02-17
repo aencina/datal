@@ -8,7 +8,7 @@
 	header{padding-top:0;}
 	.title{text-transform:uppercase;margin-bottom:20px;color:$font-color-light;font-family:$font-titles-family;font-size:$font-size-m;line-height:21px;}
 	.input-file{position:relative;overflow:hidden;width:480px;height:28px;cursor:pointer;display:inline-block;
-		.button{height:28px;line-height:25px;left:0;position:absolute;top:0;width:95px;z-index:1;@include border-radius(3px 0 0 3px);border-top-color:transparent;border-left-color:transparent;border-bottom-color:transparent;border-right-color:#e2e0e0;background:none;@include transition(border-right, 0.30s, ease-in-out);}
+		.button{padding:0 11px;height:28px;line-height:25px;left:0;position:absolute;top:0;width:95px;z-index:1;@include border-radius(3px 0 0 3px);border-top-color:transparent;border-left-color:transparent;border-bottom-color:transparent;border-right-color:#e2e0e0;background:none;@include transition(border-right, 0.30s, ease-in-out);}
 		input[type=file]{position:absolute;top:0;right:0;width:460px;height:27px;font-size:100px;text-align:right;filter:alpha(opacity=0);opacity:0;background:red;cursor:inherit;display:block;cursor:pointer;left:0;position: absolute;top:0;z-index:2;cursor:pointer;}
 		&.has-error{
 			input[name=file_name]{border-color:#f45f64;}

@@ -1,4 +1,4 @@
-{% load i18n extra_tags %}
+{% load i18n extra_tags plugins_tags %}
 
 <div id="{{table_prefix}}_filter" class="sidebarPadding">
     
@@ -8,7 +8,7 @@
         <dd class="row clearfix">
             <select id="entities" name="" class="shorter FL">
                 <option value="" selected="selected">{% trans "HOME-ENTITY-OPTION" %}</option>
-                {% for account in featured_accounts %}
+                {% for account in federated_accounts %}
                 <option value="{{account.id}}" id="id_account_{{account.id}}" data-url="{{account.link}}">{{account.name}}</option>
                 {%endfor%}
             </select>
@@ -25,7 +25,7 @@
             <label for="id_filter_entity">{% trans "FILTER-ENTITY-LABEL" %}</label>
             <select id="id_filter_entity" name="id_filter_entity">
                 <option value="" selected="selected">{% trans "FILTER-ENTITY-OPTION" %}</option>
-                {% for account in featured_accounts %}
+                {% for account in federated_accounts %}
                 <option value="{{account.id}}" id="id_filterAccount_{{account.id}}">{{account.name}}</option>
                 <script type="text/javascript">
                     $('#id_filterAccount_{{account.id}}').data("category", "{{account.id}}");
@@ -39,7 +39,8 @@
                 <option value="" selected="selected">{% trans "FILTER-TYPE-OPTION" %}</option>
                 <option value="ds">{% trans 'APP-DATAVIEWS-TEXT' %}</option>
                 <option value="chart">{% trans 'APP-CHARTS-TEXT' %}</option>
-                <option value="db">{% trans 'APP-DASHBOARDS-TEXT' %}</option>
+                <!-- filter from plugins -->
+                {% plugins_call 'microsites_home_filter' %}
             </select>
 
             <!-- FILTER BY: CATEGORY -->

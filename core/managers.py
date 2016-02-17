@@ -26,34 +26,6 @@ class AccountLevelManager(models.Manager):
         return super(AccountLevelManager, self).get(code = code)
 
 
-class AccountManager(models.Manager):
-    def get_by_domain(self, domain):
-        if domain.find(".microsites.dev") > -1:
-            dom = domain.split(".")[0]
-            if settings.DEBUG: logger.info('Test domain (%s)' % dom)
-            from core.models import Account
-            return Account.objects.get(pk=int(dom))
-            # return super(AccountManager, self).get(account__id = dom[0])
-        else:
-            return super(AccountManager, self).get(preference__key = 'account.domain', preference__value = domain)
-
-    def get_featured_accounts(self, account_id):
-
-        sql = """SELECT `ao_accounts`.`id`, `ao_account_preferences`.`value`
-                 FROM `ao_accounts`
-                 INNER JOIN `ao_account_preferences` ON (`ao_accounts`.`id` = `ao_account_preferences`.`account_id`)
-                 WHERE (`ao_accounts`.`parent_id` = %s AND `ao_account_preferences`.`key` = 'account.name')"""
-        params = [account_id]
-
-        cursor = connection.cursor()
-        cursor.execute(sql, params)
-
-        featured_accounts = []
-        for account_id, account_name in cursor.fetchall():
-            featured_accounts.append({'id': account_id, 'name': account_name})
-
-        return featured_accounts
-
 
 class PreferenceManager(models.Manager):
 
@@ -325,14 +297,6 @@ class DataStreamRevisionManager(models.Manager):
             last_guids.append(guid)
 
         return last_guids
-
-
-class VisualizationRevisionManager(models.Manager):
-    def get_last_published_by_guid(self, guid):
-        return super(VisualizationRevisionManager, self).filter(
-            visualization__guid=guid,
-            status=choices.StatusChoices.PUBLISHED
-        ).aggregate(models.Max('id'))['id__max']
 
 
 class ObjectGrantManager(models.Manager):

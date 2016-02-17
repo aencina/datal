@@ -1,67 +1,106 @@
-{% load i18n staticfiles plugins %}
+{% load i18n staticfiles plugins_tags %}
 
 <nav class="main-navigation border-box collapsed">
-  <ul>
+	<ul>
 
-    <!-- Home -->
-    <li>
-      <a id="id_home_option" href="/welcome" class="button primary nav-home">
-        <span class="icon icon-home"></span>{% trans 'APP-HOME-TEXT' %}
-      </a>
-    </li>
+		<!-- Home -->
+		<li id="id_home_option">
+			<a href="/welcome/" class="button nav-home">
+				<span class="icon icon-home"></span>{% trans 'APP-HOME-TEXT' %}
+			</a>
+		</li>
 
-    <!-- Datasets -->
-    <li>
-      <a id="id_datasets_option" href="{% url 'manageDatasets.index' %}" class="button primary nav-datasets">
-        <span class="icon icon-datasets"></span>{% trans 'APP-DATASETS-TEXT' %}
-      </a>
-    </li>
+		<!-- Datasets -->
+		<li id="id_datasets_option" class="has-submenu">
+			<a href="{% url 'manageDatasets.index' %}" class="button nav-datasets">
+				<span class="icon icon-datasets"></span>{% trans 'APP-DATASETS-TEXT' %}
+			</a>
+			<ul class="submenu">
+				<li class="submenu-header">
+					<a href="{% url 'manageDatasets.index' %}">{% trans 'APP-DATASETS-TEXT' %}</a>
+				</li>
+				<li>
+					<a href="{% url 'manageDatasets.index' %}">{% trans 'APP-LISTRESOURCES-TEXT' %}</a>
+				</li>
+				<li>
+					<a class="no-link">{% trans 'APP-NEWMALE-TEXT' %}</a>
+					<ul>
+						<li><a  href="{% url 'manageDatasets.create_type' 'file' %}">{% trans 'APP-UPLOAD-FILE-LINK' %}</a></li>
+						<li><a href="{% url 'manageDatasets.create_type' 'url' %}">{% trans 'APP-WEBSITE-LINK' %}</a></li>
+						<li><a href="{% url 'manageDatasets.create_type' 'webservice' %}">{% trans 'APP-WEBSERVICE-LINK' %}</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
 
-    <!-- Data Views -->
-    <li>
-        <a id="id_dataviews_option" href="{% url 'manageDataviews.index' %}" class="button primary nav-dataviews ">
-          <span class="icon icon-dataviews"></span>{% trans 'APP-DATAVIEWS-TEXT' %}
-        </a>
-    </li>
+		<!-- Data Views -->
+		<li id="id_dataviews_option" class="has-submenu">
+			<a href="{% url 'manageDataviews.index' %}" class="button nav-dataviews ">
+				<span class="icon icon-dataviews"></span>{% trans 'APP-DATAVIEWS-TEXT' %}
+			</a>
+			<ul class="submenu">
+				<li class="submenu-header">
+					<a href="{% url 'manageDataviews.index' %}">{% trans 'APP-DATAVIEWS-TEXT' %}</a>
+				</li>
+				<li>
+					<a href="{% url 'manageDataviews.index' %}">{% trans 'APP-LISTRESOURCES-TEXT' %}</a>
+				</li>
+				<li>
+					<a id="id_navNewDataview">{% trans 'APP-NEWFEMALE-TEXT' %}</a>
+				</li>
+				<li>
+					{% plugins_call 'workspace_custom_dataviews_nav' %}
+				</li>
+			</ul>
+		</li>
 
-    <!-- Visualizations -->
-    <li>
-      <a id="id_visualizations_option" href="{% url 'manageVisualizations.index' %}" class="button primary nav-visualizations">
-        <span class="icon icon-visualizations"></span>{% trans 'APP-VISUALIZATIONS-TEXT' %}
-      </a>
-    </li>
+		<!-- Visualizations -->
+		<li id="id_visualizations_option" class="has-submenu">
+			<a href="{% url 'manageVisualizations.index' %}" class="button nav-visualizations">
+				<span class="icon icon-visualizations"></span>{% trans 'APP-VISUALIZATIONS-TEXT' %}
+			</a>
+			<ul class="submenu">
+				<li class="submenu-header"><a href="{% url 'manageVisualizations.index' %}">{% trans 'APP-VISUALIZATIONS-TEXT' %}</a></li>
+				<li>
+					<a href="{% url 'manageVisualizations.index' %}">{% trans 'APP-LISTRESOURCES-TEXT' %}</a>
+				</li>
+				<li>
+					<a id="id_navNewVisualization">{% trans 'APP-NEWFEMALE-TEXT' %}</a>
+				</li>
+				<li>
+					{% plugins_call 'workspace_custom_visualizations_nav' %}
+				</li>
+			</ul>
+		</li>
 
-    <!-- Top Nav items from plugins -->
-    {% get_plugins core.plugins.DatalPluginPoint as plugins %}
-    {% for plugin in plugins %}
-      {% if plugin.is_active and plugin.workspace_top_nav %}
-        {% autoescape off %}
-          {{ plugin.workspace_top_nav }}
-        {% endautoescape %}
-      {% endif %}
-    {% endfor %}
+		<!-- Top Nav items from plugins -->
+		{% plugins_call 'workspace_top_nav' %}
 
-  </ul>
+	</ul>
 
-  <ul class="bottom-navigation">
-    <!-- Bottom Nav items from plugins -->
-    {% get_plugins core.plugins.DatalPluginPoint as plugins %}
-    {% for plugin in plugins %}
-      {% if plugin.is_active and plugin.workspace_bottom_nav %}
-        {% autoescape off %}
-          {{ plugin.workspace_bottom_nav }}
-        {% endautoescape %}
-      {% endif %}
-    {% endfor %}
+	<ul class="bottom-navigation">
 
-    {% if 'workspace.can_access_admin' in auth_manager.privileges %}
-    <!-- Settings -->
-    <li>
-      <a id="id_settings_option" href="{% url 'admin_manager.edit_info' %}" class="button primary nav-settings"><span class="icon icon-settings"></span>{% trans 'APP-SETTINGS-TEXT' %}</a>
-    </li>
-    {% endif %}
+		<!-- Bottom Nav items from plugins -->
+		{% plugins_call 'workspace_bottom_nav' %}
 
-    <li class="footer">&copy; 2009-{%now "Y" %}, <a href="http://www.datal.org" title="DATAL" target="_blank">DATAL</a></li>
+		{% if 'workspace.can_access_admin' in auth_manager.privileges %}
+		<!-- Settings -->
+		<li id="id_settings_option" class="has-submenu bottom-submenu">
+			<a href="{% url 'admin_manager.edit_info' %}" class="button nav-settings"><span class="icon icon-settings"></span>{% trans 'APP-SETTINGS-TEXT' %}</a>
+			<ul class="submenu">
+				<li class="submenu-header"><a href="{% url 'admin_manager.edit_info' %}">{% trans 'APP-SETTINGS-TEXT' %}</a></li>
+				<li><a href="{% url 'admin_manager.edit_info' %}">{% trans 'ACCOUNT-ACCOUNTINFORMATION-TEXT' %}</a></li>
+				<li><a href="{% url 'admin_manager.index_users' %}">{% trans 'ACCOUNT-USERS-TAB' %}</a></li>
+				<li><a href="{% url 'admin_manager.edit_branding' %}">{% trans 'APP-BRANDING-TEXT' %}</a></li>
+				<li><a href="{% url 'admin_manager.edit_social' %}">{% trans 'APP-SOCIAL-TEXT' %}</a></li>
+				<li><a href="{% url 'admin_manager.edit_domain' %}">{% trans 'ACCOUNT-DOMAINSETTINGS-TAB' %}</a></li>
+				<li><a href="{% url 'admin_manager.index_categories' %}">{% trans 'ACCOUNT-CATEGORIES-TAB' %}</a></li>
+				<li><a href="{% url 'admin_manager.load' %}">{% trans 'ACCOUNT-HOME-TAB' %}</a></li>
+			</ul>
+		</li>
+		{% endif %}
 
-  </ul>
+		<li class="footer">&copy; 2009-{%now "Y" %}, <a href="{{ settings.APPLICATION_DETAILS.website }}" target="_blank">{{ settings.APPLICATION_DETAILS.name }}</a>  - v{{ core_version }}</li>
+
+	</ul>
 </nav>

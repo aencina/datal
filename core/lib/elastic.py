@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
+from core.plugins_point import DatalPluginPoint
 import logging
 
 
@@ -14,11 +15,53 @@ class ElasticsearchIndex():
 
         es_conf= { "settings": {
                 "analysis": {
+                  "filter": {
+                    "english_stop": {
+                      "type":       "stop",
+                      "stopwords":  "_english_"
+                    },
+                    "light_english_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "light_english"
+                    },
+                    "english_possessive_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "english"
+                    },
+ 
+                    "light_spanish_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "light_spanish"
+                    },
+                    "spanish_possessive_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "spanish"
+                    }
+                  },
                     "analyzer": {
                         "case_insensitive_sort": {
                             "tokenizer": "keyword",
                             "filter":  [ "lowercase" ]
+                        },
+                        "english": {
+                          "tokenizer":  "standard",
+                          "filter": [
+                            "english_possessive_stemmer",
+                            "lowercase",
+                            "english_stop",
+                            "light_english_stemmer",
+                            "asciifolding"
+                          ]
+                        },
+                        "spanish": {
+                          "tokenizer":  "standard",
+                          "filter": [
+                            "spanish_possessive_stemmer",
+                            "lowercase",
+                            "light_spanish_stemmer",
+                          ]
                         }
+ 
                     }
                 }               
             } }
@@ -30,8 +73,10 @@ class ElasticsearchIndex():
         # primera vez que empuja el index
         try:
             if indices['acknowledged']:
-                for doc_type in ["ds","dt","db","chart"]:
+                for doc_type in ["ds","dt","vz"]:
                     self.es.indices.put_mapping(index=settings.SEARCH_INDEX['index'], doc_type=doc_type, body=self.__get_mapping(doc_type))
+                for finder in DatalPluginPoint.get_active_with_att('finder'):
+                    self.es.indices.put_mapping(index=settings.SEARCH_INDEX['index'], doc_type=finder.doc_type, body=self.__get_mapping(finder.doc_type))
         # Ya existe un index
         except KeyError:
             pass
@@ -43,10 +88,12 @@ class ElasticsearchIndex():
             return self.__get_datastream_mapping()
         elif doc_type == "dt":
             return self.__get_dataset_mapping()
-        elif doc_type == "db":
-            return self.__get_dashboard_mapping()
-        elif doc_type == "chart":
+        elif doc_type == "vz":
             return self.__get_visualization_mapping()
+
+        for finder in DatalPluginPoint.get_active_with_att('finder'):
+            if finder.doc_type == doc_type:
+                return finder.get_mapping()
 
     def __get_datastream_mapping(self):
         return {"ds" : {
@@ -54,7 +101,8 @@ class ElasticsearchIndex():
                   "categories" : {
                     "properties" : {
                       "id" : { "type" : "string" },
-                      "name" : { "type" : "string" }
+                      "name" : { "type" : "string", 
+                                 "index" : "not_analyzed" }
                     }
                   }, # categories
                   "docid" : { "type" : "string" },
@@ -63,6 +111,8 @@ class ElasticsearchIndex():
                       "account_id" : { "type" : "long" },
                       "datastream__revision_id" : { "type" : "long" },
                       "datastream_id" : { "type" : "long" },
+                      "resource_id" : { "type" : "long" },
+                      "revision_id" : { "type" : "long" },
                       "description" : { "type" : "string" },
                       "end_point" : { "type" : "string" },
                       "owner_nick" : { "type" : "string" },
@@ -70,10 +120,20 @@ class ElasticsearchIndex():
                       "tags" : { "type" : "string" },
                       "text" : {
                         "type" : "string",
-                        "fields": {"text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
+                        "fields": {
+                                "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
+                      "web_hits" : { "type" : "integer" },
+                      "api_hits" : { "type" : "integer" },
                       "title" : { "type" : "string" ,
                         "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
                           },
@@ -90,7 +150,8 @@ class ElasticsearchIndex():
                   "categories" : {
                     "properties" : {
                       "id" : { "type" : "string" },
-                      "name" : { "type" : "string" }
+                      "name" : { "type" : "string",
+                                 "index" : "not_analyzed" }
                     }
                   }, # categories
                   "docid" : { "type" : "string" },
@@ -99,6 +160,8 @@ class ElasticsearchIndex():
                       "account_id" : { "type" : "long" },
                       "datasetrevision_id" : { "type" : "long" },
                       "dataset_id" : { "type" : "long" },
+                      "resource_id" : { "type" : "long" },
+                      "revision_id" : { "type" : "long" },
                       "description" : { "type" : "string" },
                       "end_point" : { "type" : "string" },
                       "owner_nick" : { "type" : "string" },
@@ -106,44 +169,21 @@ class ElasticsearchIndex():
                       "tags" : { "type" : "string" },
                       "text" : {
                         "type" : "string",
-                        "fields": {"text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
+                        "fields": {
+                                "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
-                      "timestamp" : { "type" : "long" },
-                      "title" : { "type" : "string" ,
-                        "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                          },
-                      "type" : { "type" : "string" }
-                    }
-                  } # fields
-                }
-              }
-        }
  
-    def __get_dashboard_mapping(self):
-        return {"db" : {
-                "properties" : {
-                  "categories" : {
-                    "properties" : {
-                      "id" : { "type" : "string" },
-                      "name" : { "type" : "string" }
-                    }
-                  }, # categories
-                  "docid" : { "type" : "string" },
-                  "fields" : {
-                    "properties" : {
-                      "account_id" : { "type" : "long" },
-                      "databoardrevision_id" : { "type" : "long" },
-                      "databoard_id" : { "type" : "long" },
-                      "description" : { "type" : "string" },
-                      "end_point" : { "type" : "string" },
-                      "owner_nick" : { "type" : "string" },
-                      "parameters" : { "type" : "string" },
-                      "tags" : { "type" : "string" },
-                      "text" : {
-                        "type" : "string",
-                        "fields": {"text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                      },
                       "timestamp" : { "type" : "long" },
+                      "hits" : { "type" : "integer" },
+                      "web_hits" : { "type" : "integer" },
+                      "api_hits" : { "type" : "integer" },
                       "title" : { "type" : "string" ,
                         "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
                           },
@@ -155,18 +195,21 @@ class ElasticsearchIndex():
         }
  
     def __get_visualization_mapping(self):
-        return {"chart" : {
+        return {"vz" : {
                 "properties" : {
                   "categories" : {
                     "properties" : {
                       "id" : { "type" : "string" },
-                      "name" : { "type" : "string" }
+                      "name" : { "type" : "string",
+                                 "index" : "not_analyzed" }
                     }
                   }, # categories
                   "docid" : { "type" : "string" },
                   "fields" : {
                     "properties" : {
                       "account_id" : { "type" : "long" },
+                      "resource_id" : { "type" : "long" },
+                      "revision_id" : { "type" : "long" },
                       "visualization_revision_id" : { "type" : "long" },
                       "visualization_id" : { "type" : "long" },
                       "description" : { "type" : "string" },
@@ -176,8 +219,20 @@ class ElasticsearchIndex():
                       "tags" : { "type" : "string" },
                       "text" : {
                         "type" : "string",
-                        "fields": {"text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
+                        "fields": {
+                                "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
+ 
+                      "hits" : { "type" : "integer" },
+                      "web_hits" : { "type" : "integer" },
+                      "api_hits" : { "type" : "integer" },
                       "timestamp" : { "type" : "long" },
                       "title" : { "type" : "string" ,
                         "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
@@ -210,7 +265,6 @@ class ElasticsearchIndex():
                     id=document['docid'])
 
 
-        logger.error(u"Elasticsearch: Ningún documento para indexar")
         return False
         
     def count(self, doc_type=None):
@@ -262,11 +316,12 @@ class ElasticsearchIndex():
         :param document:
         """
         # Me lo pediste vos nacho, despues no me putees
-        return True
-        # try:
-        #     return self.es.update(index=settings.SEARCH_INDEX['index'], id=document['docid'], doc_type=document['type'], body=document)
-        # except RequestError,e:
-        #     raise RequestError(e)
-        # except NotFoundError,e:
-        #     raise NotFoundError,(e)
+        # te tengo que putear, seas quien seas
+        #return True
+        try:
+            return self.es.update(index=settings.SEARCH_INDEX['index'], id=document['docid'], doc_type=document['type'], body=document)
+        except RequestError,e:
+            raise RequestError(e)
+        except NotFoundError,e:
+            raise NotFoundError,(e)
 

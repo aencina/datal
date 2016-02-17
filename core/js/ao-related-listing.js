@@ -27,7 +27,7 @@
         },
         _getResources : function(){
 			var self = this;
-			var lUrl  = self.options.apiUrl + '/resources/search';
+			var lUrl  = self.options.apiUrl + '/resources/search/';
 			var lData = "auth_key=" + self.options.apiKey + "&" + $.param(self.options.metaData);
 			if(self.options.searchTerms != ""){
 				lData += "&q=" + self.options.searchTerms;

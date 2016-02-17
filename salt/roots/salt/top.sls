@@ -14,6 +14,6 @@ base:
     - core.selenium
     - core.bower
     - core.grunt
-    - apps.aos.core
+    - apps.v8.core
     - apps.datal.core
     - apps.datastore.core

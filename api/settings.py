@@ -16,6 +16,7 @@ ROOT_URLCONF = 'api.urls'
 INSTALLED_APPS += (
     'api',
     'corsheaders',
+    'jsonify',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -41,23 +42,19 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] = (
     'rest_framework.authentication.SessionAuthentication',
-    'api.rest.auth.DatalApiAuthentication',
+    'api.v2.auth.DatalApiAuthentication',
 )
 
 REST_FRAMEWORK['DEFAULT_PERMISSION_CLASSES'] = (
     'rest_framework.permissions.IsAuthenticated',
-    'api.rest.permissions.ApiPermission',
-    'api.rest.permissions.ApiPrivateForWritePermission',
-    'api.rest.permissions.ApiIsUserForWritePermission',
+    'api.v2.permissions.ApiPermission',
+    'api.v2.permissions.ApiPrivateForWritePermission',
+    'api.v2.permissions.ApiIsUserForWritePermission',
 )
 
 REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = (
     'rest_framework.throttling.UserRateThrottle',
 )
-
-REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
-    'user': '20/minute'
-}
 
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
     'rest_framework.renderers.JSONRenderer',
@@ -65,8 +62,26 @@ REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
     'rest_framework.renderers.BrowsableAPIRenderer',
 )
 
+# Agregamos la config para usar cache por pagina
+if not DEBUG:
+    CACHES['pages']={
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+else:
+    # disable cache_page
+    CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
+
+#queda deshabilitado hasta nuevo aviso
+CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
+
 try:
     from api.local_settings import *
+except ImportError:
+    pass
+
+try:    
+    from plugins.local_settings import *
 except ImportError:
     pass
 

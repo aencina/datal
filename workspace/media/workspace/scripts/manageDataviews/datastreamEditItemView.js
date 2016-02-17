@@ -73,7 +73,7 @@ var DatastreamEditItemView = Backbone.Epoxy.View.extend({
 
     initNotes: function(){
         this.notesInstance = new nicEditor({
-            buttonList : ['bold','italic','underline','ul', 'ol', 'link', 'hr'], 
+            buttonList : ['bold','italic','underline','ul', 'ol', 'link', 'hr','xhtml'], 
             iconsPath: '/js_core/plugins/nicEdit/nicEditorIcons-2014.gif'
         }).panelInstance('id_notes');
     },
@@ -92,7 +92,7 @@ var DatastreamEditItemView = Backbone.Epoxy.View.extend({
 
             // NOT WORKING. Need to be done with data and select what is sent to server.
             $.ajax({ 
-                url: '/dataviews/edit/'+ this.model.get('datastream_revision_id'), 
+                url: '/dataviews/edit/'+ this.model.get('datastream_revision_id') + '/', 
                 type:'POST', 
                 data: data, 
                 dataType: 'json',

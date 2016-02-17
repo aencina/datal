@@ -45,14 +45,14 @@ function initDataServices(){
 
 function initDataService(pDataServiceId){
 
+    container = $('#id_dataservice_container_' + pDataServiceId);
+
     var $lDataServiceContainer = $fDataServicesContainer.find('#id_dataservice_container_' + pDataServiceId);
     var $lIframe = $lDataServiceContainer.find('#id_dataservice_' + pDataServiceId);
 
     startWaitMessage($lIframe);
 
-    var lEndPoint   = jQuery.data($lDataServiceContainer[0], "dataservice_end_point");
-
-    invokeDataService(lEndPoint, pDataServiceId);
+    invokeDataService(container.data("jsonURL"),container.data("pId"));
 }
 
 function startWaitMessage(pHTMLElement){
@@ -63,36 +63,36 @@ function startWaitMessage(pHTMLElement){
     pHTMLElement.html(lHtml);
 }
 
-function invokeDataService(pEndPoint, pDataServiceId){
+function invokeDataService(lUrl, pDataServiceId){
 
-    var lUrl = '/rest/datastreams/' + pDataServiceId + '/data.json';
-    var lData= $.param({limit: 50});
-    if (pEndPoint) {
-      lData += pEndPoint;
-    }
+    var lData= $.param({limit: 50, revision_id: pDataServiceId});
+    
+    if ( pDataServiceId != undefined ){
 
-    $.ajax({ url: lUrl
+        $.ajax({ url: lUrl
             , type:'GET'
             , data: lData
             , dataType: 'json'
             , timeoutNumber : 30000
             , success: onSuccessDataServiceExecute
             , error: onErrorDataServiceExecute
-            }
-    );
+        });
+    }
 }
 
 function onSuccessDataServiceExecute(pResponse){
 
     ds_results = pResponse; //global, for later use
     $.url.setUrl(this.url);
-    var lDataServiceId          = $.url.param("datastream_revision_id");
+    var lDataServiceId          = $.url.param("revision_id");
     var $lDataServiceContainer  = $fDataServicesContainer.find('#id_dataservice_container_' + lDataServiceId);
     var lDataserviceId          = $lDataServiceContainer.data('dataservice_id');
 
     var lHtml = '';
 
     if( pResponse != null && pResponse.fType != 'ERROR' ){
+
+        // si es array
         if(pResponse.fType!='ARRAY'){
             var lValue = '';
             if(pResponse.fType == 'TEXT'){
@@ -107,6 +107,7 @@ function onSuccessDataServiceExecute(pResponse){
                     // sometimes are seconds, sometimes miliseconds
                     if (number < 100000000000) number = number * 1000;
                     var dt = new Date(number);
+                    dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
                     var local = format.fLocale;
                     //(?) if I use "en" doesn't work, I must use "" for "en"
                     if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
@@ -134,9 +135,12 @@ function onSuccessDataServiceExecute(pResponse){
                 lValue = '<table class="Texto"><tr><td><a target="_blank" href="' + pResponse.fUri + '" rel="nofollow" title="' + pResponse.fStr + '">' + pResponse.fStr + '</a></td></tr></table>';
             }
             lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje">' + lValue +'</div></div></div>';
+
+        // si no es array
         }else {
             i = 0;
-            lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><table class="Tabla">';
+            var headerCells = [];
+            lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><table class="Tabla"><tbody>';
             for(var lRow=1;lRow<=pResponse.fRows;lRow++){
                 lHtml  = lHtml + '<tr>';
                 for(var lColumns=1;lColumns <= pResponse.fCols;lColumns++){
@@ -160,6 +164,7 @@ function onSuccessDataServiceExecute(pResponse){
                             // sometimes are seconds, sometimes miliseconds
                             if (number < 100000000000) number = number * 1000;
                             var dt = new Date(number);
+                            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
                             var local = format.fLocale;
                             //(?) if I use "en" doesn't work, I must use "" for "en"
                             if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
@@ -191,23 +196,29 @@ function onSuccessDataServiceExecute(pResponse){
 
                         lValue = '<a target="_blank" href="' + lCell.fUri + '" rel="nofollow" title="' + lCell.fStr + '">' + cellStr + '</a>';
                     }
-                    lHtml  = lHtml + '<td><div>' + lValue + '</div></td>';
+                    if(typeof lCell.fHeader !== "undefined" && lCell.fHeader == true){
+                        headerCells.push(lValue);
+                    }else{
+                        lHtml  = lHtml + '<td><div>' + lValue + '</div></td>';
+                    }
                     i++;
                 }
                 lHtml  = lHtml +'</tr>';
             }
-            lHtml  = lHtml +'</table></div></div></div>';
+            lHtml  = lHtml +'</tbody><thead><tr>';
+            _.each(headerCells, function(cell) {
+                lHtml  = lHtml + '<th><div>' + cell + '</div></th>';
+            });
+            lHtml  = lHtml +'</tr></thead></table></div></div></div>';
         }
         $lDataServiceContainer.find('#id_dataservice_' + lDataserviceId).html(lHtml);
         $lDataServiceContainer.removeClass('DN');
-    } else {
-        //removeIfIsNotBeingDisplayed(lDataserviceId);
-    }
+    } 
 }
 
 function onErrorDataServiceExecute(pRequest){
     $.url.setUrl(this.url);
-    var lDataServiceId = $.url.param("pId");
+    var lDataServiceId = $.url.param("revision_id");
 
     var $lDataServiceContainer         = $fDataServicesContainer.find('#id_dataservice_container_' + lDataServiceId);
     var lRetries                       = jQuery.data($lDataServiceContainer[0], "retries");
@@ -259,7 +270,7 @@ var HomeChart = Backbone.Model.extend({
     },
     executeDataStream : function(){
         var att     = this.attributes;
-        var lUrl    = '/rest/datastreams/' + att.dataStreamId + '/data.json';
+        var lUrl    = '/rest/datastreams/' + att.dataStreamId + '/data.json/';
         var lData   = '';
 
         startWaitMessage(att.$Container.find('#id_chartDisplay'));

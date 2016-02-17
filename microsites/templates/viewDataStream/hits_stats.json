@@ -1,7 +1,0 @@
-{
-  "status": "ok",
-  "cache": {{ cache|yesno:"true,false,NaN" }},
-  "chart": [
-    ["{{ field_names.0 }}", "{{ field_names.1 }}"]{% for item in data%}, ["{{item.fecha}}", {{ item.hits }}]{% endfor %}
-  ]
-}

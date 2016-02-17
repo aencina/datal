@@ -53,13 +53,14 @@ class RESTImplBuilder(DefaultImplBuilder):
         algorithm = self.fields.get('algorithm')
         username = self.fields.get('username')
         password = self.fields.get('password')
-        useCache = self.fields.get('use_cache', False)
+        useCache = str(self.fields.get('use_cache', False)).lower()
+        attHeaders = str(self.fields.get('att_headers', False)).lower()
         parameters = self.fields.get('parameters')
         signature = self.fields.get('signature')
 
         if not path_to_data or path_to_data == '':
             path_to_data = '$'
-        impl_details = '<wsOperation useCache="%s"><pathToHeaders>%s</pathToHeaders><pathToData>%s</pathToData>' % (useCache, path_to_headers, path_to_data)
+        impl_details = '<wsOperation useCache="%s" useAttrAsHeaders="%s"><pathToHeaders>%s</pathToHeaders><pathToData>%s</pathToData>' % (useCache, attHeaders, path_to_headers, path_to_data)
 
         # uriSignatures
         if token != "" or algorithm != "":
@@ -103,12 +104,13 @@ class SOAPImplBuilder(DefaultImplBuilder):
 
         method_name = self.fields.get('method_name')
         namespace = self.fields.get('namespace')
-        useCache = self.fields.get('use_cache', False)
+        useCache = str(self.fields.get('use_cache', False)).lower()
+        attHeaders = str(self.fields.get('att_headers', False)).lower()
         parameters = self.fields.get('parameters')
 
-        if settings.DEBUG: logger.info('Building SOAP impl_details (%s) (%s) (%s) (%s)' % (method_name, namespace, str(useCache), str(parameters)))
+        if settings.DEBUG: logger.info('Building SOAP impl_details (%s) (%s) (%s) (%s) (%s)' % (method_name, namespace, str(useCache), str(attHeaders), str(parameters)))
         
-        impl_details = '<wsOperation useCache="%s">' % useCache
+        impl_details = '<wsOperation useCache="%s" useAttrAsHeaders="%s">' % (useCache, attHeaders)
         impl_details += '<methodName>%s</methodName>' % method_name
         impl_details += '<targetNamespace>%s</targetNamespace>' % namespace
 

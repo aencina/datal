@@ -66,7 +66,7 @@ var theme4View = Backbone.Epoxy.View.extend({
 		that.setBrowseButtonTrigger();
 
 		$('#id_cover').fileupload({
-            url: '/personalizeHome/upload',
+            url: '/personalizeHome/upload/',
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             timeout:60000,
@@ -188,7 +188,10 @@ var theme4View = Backbone.Epoxy.View.extend({
 			}
 		}).on("click", function(e){
 			e.preventDefault();
-			$(this).parent().find('input[type=file]').trigger("click");
+
+			// Esto triggerea un comportamiento erroneo en todos los campos input. Les hace abrir una ventana de subir archivo.
+			//$(this).parent().find('input[type=file]').trigger("click");
+			
 		});
 
 	},
@@ -201,17 +204,25 @@ var theme4View = Backbone.Epoxy.View.extend({
 			resourceType=item.type;
             resourceQuery += item.id+",";
 		});		
+
+        // TODO (ignacio feijoo): Por favor, revisar porque no hay un sliderSection
+        // en una cuenta recien creada
+        // this.model.attributes.sliderSection = Array[0]
+        if (typeof resourceType == 'undefined'){
+            resourceType="source";
+        }
 		$.when(
+                    
 				$.ajax({
 					url: "/admin/suggest",
 					type: "GET",
 					dataType: "json",
 					contentType: "application/json; charset=utf-8",
-					data: {ids: resourceQuery, resources:[resourceType]},				
+					data: {ids: resourceQuery, resources:["ds","vz"]},				
 				})).done( function(data){
 					$('#id_theme4nameSuggest').taggingSources({
 						source:function(request, response) {
-						    $.getJSON("/admin/suggest", { term: request.term, resources:['ds']}, response);
+						    $.getJSON("/admin/suggest", { term: request.term, resources:['ds', 'vz']}, response);
 						}
 						, minLength: 3
 						, sources: data
@@ -253,12 +264,11 @@ var theme4View = Backbone.Epoxy.View.extend({
 					type: "GET",
 					dataType: "json",
 					contentType: "application/json; charset=utf-8",
-					data: {ids: resourceQuery, resources:[resourceType]},				
+					data: {ids: resourceQuery, resources:["ds","vz"]},				
 				})).done( function(data){
 					$('#id_theme4nameLinkSuggest').taggingSources({
 						source:function(request, response) {
-						    /* $.getJSON("/admin/suggest", { term: request.term.concat("*"), resources:['ds','chart','db']}, response); */
-						    $.getJSON("/admin/suggest", { term: request.term.concat("*"), resources:['ds']}, response);
+						    $.getJSON("/admin/suggest", { term: request.term.concat("*"), resources:['ds','vz']}, response);
 						}
 						, minLength: 3
 						, sources: data

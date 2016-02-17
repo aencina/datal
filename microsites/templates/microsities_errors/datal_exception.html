@@ -1,23 +1,43 @@
 {% extends 'base_microsites.html' %}
+{% load compress sass_tags staticfiles %}
+
+{% block meta %}
+
+{% compress css %}
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'workspace/styles/common.css' %}">
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+{% endcompress %}
+
+{% endblock %}
 
 {% block content %}
-{% block error_content %}
-	<h1>{{exception.title}}</h1>
-	<section class="box error-container">
 
-		<div class="box-content clearfix">
-		{% block error_text %}
-			{{exception.description}}
-			<ul>
-				{% for action in exception.get_actions %}
-					<li><a href="{{action.url}}">{{action.description}}</a></li>
-				{% endfor %}
-			</ul>
+<div class="w960 columns clearfix">
+
+	<div class="CL FL">
+
+		{% block error_content %}
+			<h1 class="sectionTitle">{{exception.title}}</h1>
+			<section class="box error-container">
+
+				<div class="box-content clearfix">
+				{% block error_text %}
+					{{exception.description}}
+					<ul>
+						{% for action in exception.get_actions %}
+							<li><a href="{{action.url}}">{{action.description}}</a></li>
+						{% endfor %}
+					</ul>
+				{% endblock %}
+				</div>
+
+			</section>
 		{% endblock %}
-		</div>
 
-	</section>
-{% endblock %}
+	</div>
+
+</div>
+
 {% endblock %}
 
 {% block extras %}

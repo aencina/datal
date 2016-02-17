@@ -1,4 +1,6 @@
 import json
+from django.conf import settings
+from core import VERSION
 
 def request_context(request):
     obj = {}
@@ -7,19 +9,13 @@ def request_context(request):
         path = request.path
         obj = {'tracking_id': account.get_preference('account.ga.tracking')}
         ga_obj = account.get_preference('account.ga')
+
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+        msdomain = account.get_preference('account.domain')
+
         if ga_obj == '':
             ga_obj = '{}'
-        if path == '/':
-            if 'dashboard_view' in json.loads(ga_obj):
-                final = {}
-                final['dashboard_view'] = json.loads(ga_obj)['dashboard_view']
-                obj.update({'ga': json.dumps(final)})
-        elif 'dashboards' in path and 'embed' not in path:
-            if 'dashboard_view' in json.loads(ga_obj):
-                final = {}
-                final['dashboard_view'] = json.loads(ga_obj)['dashboard_view']
-                obj.update({'ga': json.dumps(final)})
-        elif 'visualizations' in path and 'embed' not in path:
+        if 'visualizations' in path and 'embed' not in path:
             if 'dataview_view' in json.loads(ga_obj):
                 final = {}
                 final['dataview_view'] = json.loads(ga_obj)['dataview_view']
@@ -36,4 +32,11 @@ def request_context(request):
                 obj.update({'ga': json.dumps(final)})
         else:
             obj = {}
+    else:
+        msprotocol = 'http'
+        msdomain=settings.DOMAINS['microsites']
+
+    obj['microsite_domain']=msdomain
+    obj['microsite_uri']=msprotocol
+    obj['core_version']=VERSION
     return obj

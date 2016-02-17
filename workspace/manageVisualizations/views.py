@@ -19,7 +19,6 @@ from core.models import VisualizationRevision
 from core.daos.visualizations import VisualizationDBDAO
 from core.lifecycle.visualizations import VisualizationLifeCycleManager
 from core.exceptions import VisualizationNotFoundException
-from core.v8.factories import AbstractCommandFactory
 from core.exceptions import DataStreamNotFoundException
 from core.signals import visualization_changed, visualization_removed, visualization_unpublished, \
     visualization_rev_removed
@@ -136,7 +135,8 @@ def remove(request, visualization_revision_id, type="resource"):
             last_revision_id = -1
 
         # Send signal
-        visualization_rev_removed.send(sender='remove_view', id=visualization_revision_id)
+        visualization_rev_removed.send_robust(sender='remove_view', id=lifecycle.visualization.id,
+                                       rev_id=visualization_revision_id)
 
         return JSONHttpResponse(json.dumps({
             'status': True,
@@ -148,7 +148,7 @@ def remove(request, visualization_revision_id, type="resource"):
         lifecycle.remove(killemall=True)
 
         # Send signal
-        visualization_removed.send(sender='remove_view', id=lifecycle.visualization.id)
+        visualization_removed.send_robust(sender='remove_view', id=lifecycle.visualization.id, rev_id=-1)
 
         return HttpResponse(json.dumps({
             'status': True,
@@ -167,85 +167,54 @@ def change_status(request, visualization_revision_id=None):
     :param visualization_revision_id:
     :return: JSON Object
     """
-    if request.method == 'POST' and visualization_revision_id:
+    if visualization_revision_id:
         lifecycle = VisualizationLifeCycleManager(
             user=request.user,
             visualization_revision_id=visualization_revision_id
         )
         action = request.POST.get('action')
+        action = 'accept' if action == 'approve'else action # fix para poder llamar dinamicamente al metodo de lifecycle
+        killemall = True if request.POST.get('killemall', False) == 'true' else False
 
-        if action == 'approve':
-            lifecycle.accept()
 
-            # Signal
-            visualization_changed.send_robust(sender='change_status_view', id=lifecycle.visualization.id)
-
-            response = dict(
-                status='ok',
-                messages={
-                    'title': ugettext('APP-VISUALIZATION-APPROVED-TITLE'),
-                    'description': ugettext('APP-VISUALIZATION-APPROVED-TEXT')
-                }
-            )
-        elif action == 'reject':
-            lifecycle.reject()
-
-            # Signal
-            visualization_changed.send_robust(sender='change_status_view', id=lifecycle.visualization.id)
-
-            response = dict(
-                status='ok',
-                messages={
-                    'title': ugettext('APP-VISUALIZATION-REJECTED-TITLE'),
-                    'description': ugettext('APP-VISUALIZATION-REJECTED-TEXT')
-                }
-            )
-        elif action == 'publish':
-            lifecycle.publish()
-
-            # Signal
-            visualization_changed.send_robust(sender='change_status_view', id=lifecycle.visualization.id)
-
-            response = dict(
-                status='ok',
-                messages={
-                    'title': ugettext('APP-VISUALIZATION-PUBLISHED-TITLE'),
-                    'description': ugettext('APP-VISUALIZATION-PUBLISHED-TEXT')
-                }
-            )
-        elif action == 'unpublish':
-            killemall = True if request.POST.get('killemall', False) == 'true' else False
-            lifecycle.unpublish(killemall=killemall)
-
-            # Signal
-            visualization_changed.send_robust(sender='change_status_view', id=lifecycle.visualization.id)
-            visualization_unpublished.send_robust(sender='change_status_view', id=lifecycle.visualization.id)
-
-            response = dict(
-                status='ok',
-                messages={
-                    'title': ugettext('APP-VISUALIZATION-UNPUBLISH-TITLE'),
-                    'description': ugettext('APP-VISUALIZATION-UNPUBLISH-TEXT')
-                }
-            )
-        elif action == 'send_to_review':
-            lifecycle.send_to_review()
-
-            # Signal
-            visualization_changed.send_robust(sender='change_status_view', id=lifecycle.visualization.id)
-
-            response = dict(
-                status='ok',
-                messages={
-                    'title': ugettext('APP-VISUALIZATION-SENDTOREVIEW-TITLE'),
-                    'description': ugettext('APP-VISUALIZATION-SENDTOREVIEW-TEXT')
-                }
-            )
-        else:
+        if action not in ['accept', 'reject', 'publish', 'unpublish', 'send_to_review']:
             raise NoStatusProvidedException()
 
+        if action == 'unpublish':
+            getattr(lifecycle, action)(killemall)
+            # Signal
+            visualization_unpublished.send_robust(sender='change_status_view', id=lifecycle.visualization.id,
+                                                  rev_id=lifecycle.visualization_revision.id)
+        else:
+            getattr(lifecycle, action)()
+
+        if action == 'accept':
+            title = ugettext('APP-VISUALIZATION-APPROVED-TITLE'),
+            description = ugettext('APP-VISUALIZATION-APPROVED-TEXT')
+        elif action == 'reject':
+            title = ugettext('APP-VISUALIZATION-REJECTED-TITLE'),
+            description = ugettext('APP-VISUALIZATION-REJECTED-TEXT')
+        elif action == 'publish':
+            title = ugettext('APP-VISUALIZATION-PUBLISHED-TITLE'),
+            description = ugettext('APP-VISUALIZATION-PUBLISHED-TEXT')
+        elif action == 'unpublish':
+            title = ugettext('APP-VISUALIZATION-UNPUBLISH-TITLE'),
+            description = ugettext('APP-VISUALIZATION-UNPUBLISH-TEXT')
+        elif action == 'send_to_review':
+            title = ugettext('APP-VISUALIZATION-SENDTOREVIEW-TITLE'),
+            description = ugettext('APP-VISUALIZATION-SENDTOREVIEW-TEXT')
+
+        response = dict(
+            status='ok',
+            messages={'title': title, 'description': description }
+        )
+
         # Limpio un poco
-        response['result'] = VisualizationDBDAO().get(request.user.language, visualization_revision_id=visualization_revision_id)
+        response['result'] = VisualizationDBDAO().get(request.user, visualization_revision_id=int(visualization_revision_id))
+        account = request.account
+        msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+        response['result']['public_url'] = msprotocol + "://" + request.preferences['account.domain'] + reverse('chart_manager.view', urlconf='microsites.urls', 
+            kwargs={'id': response['result']['visualization_id'], 'slug': '-'})
         response['result'].pop('parameters')
         response['result'].pop('tags')
         response['result'].pop('sources')
@@ -263,8 +232,7 @@ def create(request):
     if request.method == 'GET':
         datastream_revision_id = request.GET.get('datastream_revision_id', None)
         try:
-            datastream_rev = DataStreamDBDAO().get(
-                request.user.language,
+            datastream_rev = DataStreamDBDAO().get(request.user,
                 datastream_revision_id=datastream_revision_id,
                 published=False
             )
@@ -303,7 +271,7 @@ def retrieve_childs(request):
     visualizations = VisualizationDBDAO().query_childs(
         visualization_id=visualization_id,
         language=request.auth_manager.language
-    )['dashboards']
+    )
 
     list_result = [associated_visualization for associated_visualization in visualizations]
     return HttpResponse(json.dumps(list_result), mimetype="application/json")
@@ -314,8 +282,7 @@ def retrieve_childs(request):
 def view(request, revision_id):
 
     try:
-        visualization_revision = VisualizationDBDAO().get(
-            request.auth_manager.language,
+        visualization_revision = VisualizationDBDAO().get(request.user,
             visualization_revision_id=revision_id
         )
     except VisualizationRevision.DoesNotExist:
@@ -333,13 +300,11 @@ def view(request, revision_id):
 @transaction.commit_on_success
 def edit(request, revision_id=None):
     if request.method == 'GET':
-        visualization_rev = VisualizationDBDAO().get(
-            request.auth_manager.language,
-            visualization_revision_id=revision_id
-        )
-        datastream_rev = DataStreamDBDAO().get(
-            request.auth_manager.language,
-            datastream_revision_id=visualization_rev['datastream_revision_id'])
+        visualization_rev = VisualizationDBDAO().get(request.user,
+            visualization_revision_id=revision_id, published=False)
+
+        datastream_rev = DataStreamDBDAO().get(request.user,
+            datastream_revision_id=visualization_rev['datastream_revision_id'], published=False)
         return render_to_response('createVisualization/index.html', dict(
             request=request,
             datastream_revision=datastream_rev,
@@ -351,17 +316,17 @@ def edit(request, revision_id=None):
         # Formulario
         form = VisualizationForm(request.POST)
         if not form.is_valid():
-            logger.info(form._errors)
+            logger.info(form.errors)
             raise VisualizationSaveException('Invalid form data: %s' % str(form.errors.as_text()))
 
-        visualization_rev = VisualizationDBDAO().get(
-            request.auth_manager.language,
+        visualization_rev = VisualizationDBDAO().get(request.user,
             visualization_revision_id=revision_id
         )
         response = form.save(request, visualization_rev=visualization_rev)
 
         # Signal
-        visualization_changed.send_robust(sender='edit_view', id=visualization_rev['visualization_revision_id'])
+        visualization_changed.send_robust(sender='edit_view', id=visualization_rev['visualization_id'],
+                                          rev_id=visualization_rev['visualization_revision_id'])
 
         return JSONHttpResponse(json.dumps(response))
 

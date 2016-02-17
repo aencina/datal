@@ -23,7 +23,8 @@
       "guid": "{{ item.visualization__guid }}",
       "url": "{{ item.url }}",
       "created_at": "{{ item.created_at|date:'F d, Y, h:i A'|capfirst }}",
-      "modified_at": "{{ item.modified_at|date:'F d, Y, h:i A'|capfirst}}"
+      "modified_at": "{{ item.modified_at|date:'F d, Y, h:i A'|capfirst}}",
+      "cant": "{{ item.cant}}"
     }{% if not forloop.last %},{% endif %}
     {% endfor %}
 ]

@@ -14,17 +14,37 @@ body,
 .homeColumns .searchContainer{background:url(/static/core/images/homeManager/sh_sliderWrapper.png) center bottom no-repeat;padding-bottom:6px;}
 .homeColumns .searchContainer .FR{float:none;}
 .homeColumns .searchContainer .search{background-color:#fff;}
-.homeColumns .searchContainer .search .field{width:327px;padding:11px 11px 11px 48px;font-size:14px;height:auto;background:url(/static/core/images/homeManager/ic_searchHome.png) 14px center no-repeat;}
+.homeColumns .searchContainer .search .field{width:327px;padding:11px 11px 11px 48px;font-size:14px;height:auto;background:url(/static/microsites/images/homeManager/ic_searchHome.png) 14px center no-repeat;}
+.homeColumns .homeMainContent{padding-right:30px;}
 
 /*SLIDER CONTAINER*/
-.sliderContainer{top:0;}
+.sliderContainer{top:0;margin-bottom:30px;}
 .paddingSlider{padding-top:255px;}
+.dataStreamBox h2 a{height:52px;
+  -webkit-box-sizing:border-box;
+     -moz-box-sizing:border-box;
+          box-sizing:border-box;
+}
 .dataStreamBox h2 a .txt{width:auto;float:none}
 .dataStreamBox h2 a img{display:none;}
 .dataStreamBox h2 a .txt .titleDS{height:auto;white-space:normal;}
 .dataStreamBox h2 a .txt .titleDS .infoDS .sep,
 .dataStreamBox h2 a .txt .titleDS .infoDS .authorDS{display:none}
 .dataStreamBox h2 a .txt .titleDS strong{height:17px;max-height:32px;display:block;} 
+
+.dataStreamBox{height:230px;}
+.sliderContent{height:178px;border:1px solid #e2e0e0;border-top:0;border-radius:0 0 5px 5px;}
+.sliderContent > div{border-radius:0 0 5px 5px;overflow:hidden;}
+
+.dataStreamBox .dataStreamResult{height:178px;overflow:auto;}
+.dataStreamBox .Mensaje{}
+
+.sliderWrapper, 
+.sliderWrapper .dataStreamContainer, 
+.sliderWrapper .dataStreamBorder, 
+.dataStreamBox{width:410px;}
+.sliderWrapper{overflow:hidden;border-radius:5px;}
+.sliderWrapper .dataStreamContainer{float: left;overflow: hidden; }
 
 /*PILLS*/
 .pills{background:#fff;padding:15px 15px 15px 25px !important;margin-bottom:20px;border:1px solid #ececec;border-left:5px solid #ececec;}
@@ -47,10 +67,10 @@ body,
   .sidebar .filters dt span{font-weight:bold;font-size:12px;color:#918989;padding-bottom:4px;}
   .sidebar .filters dd{word-break:break-word;}
   .sidebar .filters dd span{color:#2875bb;padding-right:15px;}
-  .sidebar .filters dd span:hover{background:#eee;}
+  .sidebar .filters dd span:hover{background-color:#eee;}
   .sidebar .filters .filter-active,
   .sidebar .filters dd.filter-active span,
-  .sidebar .filters dd.filter-active span:hover{background:#eee url(/static/workspace/images/_workspace/ic_filtersArrow.gif) no-repeat right 7px;font-weight:bold;color:#333;}
+  .sidebar .filters dd.filter-active span:hover{font-weight:bold;color:#333;}
   .sidebar .filters dd.filter-active{background:none;}  
 
   /*PAGINATION - ITEMS PER PAGE*/
@@ -99,13 +119,11 @@ body,
 
 /* REFERENCES */
 .columns .sidebar .sidebarPadding{padding-bottom:110px;}
-.references{position:absolute;font-size:11px;bottom:0;left:0;padding:0 19px 15px;text-shadow:0 1px 0 #fff;}
-.references strong{line-height:25px;display:block;color:#918989;}
-.references span{line-height:21px;padding-left:20px;display:block;background: url(/static/workspace/images/common/ic_resources.png) no-repeat;}
-.references span.DST{}
-.references span.DS{background-position:0 -20px;}
-.references span.VZ{background-position:0 -40px;}
-.references span.DB{background-position:0 -59px;}
+.filters strong{line-height:25px;display:block;color:#918989;}
+.filters span.type{line-height:21px;padding-left:30px !important;padding-right:0 !important;display:block;background-image: url(/static/workspace/images/common/ic_resources.png);background-repeat:no-repeat;}
+.filters span.DST{background-position:8px 0;}
+.filters span.DS{background-position:8px -20px;}
+.filters span.VZ{background-position:8px -40px;}
 
 /*PLACEHOLDERS*/
 .placeholder{line-height:21px;font-size:14px;color:#666;}
@@ -233,7 +251,7 @@ body .theme2 .caroufredsel_wrapper{border:0 !important;}
 
     /* Search Box */
     .theme5 .topSection .searchBox{height:34px;border:1px solid #bdbdbd;padding:0 15px;}
-    .theme5 .topSection .searchBox form{background:url(/static/core/images/homeManager/ic_searchTheme5.png) right center no-repeat;}
+    .theme5 .topSection .searchBox form{background:url(/static/microsites/images/homeManager/ic_searchHome.png) right center no-repeat;}
     .theme5 .topSection .searchBox input[type=text]{padding:0;height:34px;line-height:34px;border:0;width:470px;background:transparent;}
     .theme5 .topSection .searchBox input[type=text]:focus,
     .theme5 .topSection .searchBox input[type=text]:active{border:0;

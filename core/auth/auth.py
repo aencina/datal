@@ -68,7 +68,7 @@ class AuthManager:
     def has_privilege_on_object(self, object_id, object_type, privilege, is_workspace = True):
         """
             Privelege in view, share, export
-            object_type in datastream, dashboard, visualization
+            object_type in datastream, visualization
         """
         if is_workspace:
             return self.has_privilege('workspace.can_'+privilege+'_'+object_type)

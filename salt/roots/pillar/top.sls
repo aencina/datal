@@ -3,7 +3,7 @@ base:
     - base.system
     - base.nginx
     - apps.general
-    - apps.aos
+    - apps.v8
     - apps.datal
     {% if salt['file.file_exists']('/srv/salt/pillar/local.sls') %}
     - local

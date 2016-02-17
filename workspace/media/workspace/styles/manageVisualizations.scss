@@ -27,6 +27,6 @@
 .formContent .tagsContent, .formContent .sourcesContent, .formContent .paramContent{margin-left:90px;}
 .formContent p.tip{font-size:11px;color:#999;clear:both;float:left;margin:5px 0 0 90px;padding-bottom:10px;text-shadow:0 1px 0 #fff;}
 .formContent .required {float:left;margin-left:5px;width:5px;}
-.formContent .divider{margin-bottom:15px;width:100%;border-bottom:1px solid #e3e3e3;}
+.formContent .divider{margin-bottom:15px;width:100%;border-bottom:1px solid #e3e3e3;height:inherit;}
 .formContent .insetFormTitle{font-size:14px;margin:15px 0;font-family:$font-secondary-family;text-transform:uppercase;}
 .formContent .row p.has-error{padding:7px 0 0 90px;clear:both;color:#f45f64;}

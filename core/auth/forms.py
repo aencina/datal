@@ -16,12 +16,6 @@ class CollaboratorForm(forms.Form):
                                                      widget=forms.Select(attrs={'class':'FR selectField'})
                                                      )
 
-class PrivateDashboardShareForm(forms.Form):
-    id = forms.IntegerField(required=True, widget=forms.HiddenInput)
-
-    def action(self):
-        return reverse('auth.grant_dashboard')
-
 class PrivateVisualizationShareForm(forms.Form):
     id = forms.IntegerField(required=True, widget=forms.HiddenInput)
 

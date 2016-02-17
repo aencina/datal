@@ -67,7 +67,7 @@ var datasetView = Backbone.Epoxy.View.extend({
 
 		if(action == 'unpublish'){
 			var lastPublishRevisionId = this.model.get('lastPublishRevisionId');
-			url = 'change_status/'+lastPublishRevisionId+'/';
+			url = '/datasets/change_status/'+lastPublishRevisionId+'/';
 			data.killemall = killemall;
 		}
 
@@ -109,9 +109,8 @@ var datasetView = Backbone.Epoxy.View.extend({
 					});
 
 				}else{
-
+					response.onClose = function(){ window.location.reload(true)}; 
 					datalEvents.trigger('datal:application-error', response);
-
 				}
 
 			},

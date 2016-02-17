@@ -2,13 +2,13 @@ function initSlider(){
     $fDataServicesContainer.carouFredSel({
         circular: true,
         infinite: false,
-        width: 398,
-        height: 229,
+        width: 410,
+        height: 230,
         items: {
             minimum: 1,
             visible: 1,
-            width: 398,
-            height: 229
+            width: 410,
+            height: 230
         },
         scroll: {
             items: 1,

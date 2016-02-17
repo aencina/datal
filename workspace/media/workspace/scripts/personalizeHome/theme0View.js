@@ -91,18 +91,8 @@ var theme0View = Backbone.Epoxy.View.extend({
 		var initialResources = [];
 		var resourceQuery='';
 		_.each(this.model.attributes.sliderSection, function(item, index){
-			if (index > 0){
-				resourceQuery += " OR ";
-			}
-			switch (item.type){
-				case 'ds':
-					resourceQuery += "(datastream_id:"+ item.id+" AND type:"+item.type+")";
-					break;
-				case 'chart':
-					resourceQuery += "(visualization_id:"+ item.id+" AND type:"+item.type+")";
-					break;
-			}
-			   
+            resourceType=item.type;
+            resourceQuery += item.id+",";
 		});		
 		$.when(
 				$.ajax({					
@@ -110,12 +100,12 @@ var theme0View = Backbone.Epoxy.View.extend({
 					type: "GET",
 					dataType: "json",
 					contentType: "application/json; charset=utf-8",
-					data: {term: resourceQuery, resources:['ds','chart']},            
+					data: {term: resourceQuery, resources:['ds','vz']},            
              
 				})).done( function(data){
 					$('#id_theme0NameSuggest').taggingSources({
 						source:function(request, response) {
-							    $.getJSON("/admin/suggest", { term: request.term, resources:['ds']}, response);
+							    $.getJSON("/admin/suggest", { term: request.term, resources:['ds', 'vz']}, response);
 						}
 						, minLength: 3
 						, sources:data							

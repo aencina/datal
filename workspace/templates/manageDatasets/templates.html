@@ -93,8 +93,7 @@
 		{# Review #}
 		<% if( authManager.isPublisher() || authManager.isAdmin() ){ %>
 			<% 
-				// Status Pending Review = 1
-				if( status == 1 ){ 
+				if( status == StatusChoices.PENDING_REVIEW ){ 
 			%>
 				<li class="review"><a href="<%=url%>" title=<%= gettext('APP-REVIEW-TEXT') %>><%= gettext('APP-REVIEW-TEXT')%></a></li>
 			<% } %>
@@ -104,8 +103,7 @@
 		<% 
 			// If collect_type is URL or WEBSERVICE, or if impl_type is one of the allowed (for FILE), then enable "create data view" button.
 			if( 
-				collect_type == 2 ||
-				_.contains( datastreamImplValidChoices, impl_type)
+				(collect_type == 2 || _.contains( datastreamImplValidChoices, impl_type)) && status != StatusChoices.PENDING_REVIEW
 			){ 
 		%>
 		<li class="create">
@@ -115,18 +113,16 @@
 
 		{# Edit #}
 		<% 
-			// Status Pending Review = 1
-			if( status !== 1 ){ 
+			if(status != StatusChoices.PENDING_REVIEW){
 		%>
 			<li class="edit">
-				<a href="{% url 'manageDatasets.edit' %}/<%=id%>/" title=<%= gettext('APP-EDIT-TEXT') %>><%= gettext('APP-EDIT-TEXT') %></a>
+				<a href="{% url 'manageDatasets.edit' %}<%=id%>/" title=<%= gettext('APP-EDIT-TEXT') %>><%= gettext('APP-EDIT-TEXT') %></a>
 			</li>
 		<% } %>
 
 		{# Delete #}
 		<% 
-			// Status Pending Review = 1
-			if( status !== 1 ){ 
+			if( status != StatusChoices.PENDING_REVIEW ){ 
 		%>
 			<li class="delete">
 				<a title=<%= gettext('APP-DELETE-TEXT') %> class="red"><%= gettext('APP-DELETE-TEXT') %></a>
@@ -139,7 +135,7 @@
 				// If FILE
 				if(collect_type == 0){
 			%>
-				<a rel="nofollow" href="/datasets/download_file?dataset_revision_id=<%=id%>" id="id_downloadLink" title="{% trans 'APP-DOWNLOAD-TEXT' %}"><span class="icon icon-download FL"></span>{% trans 'APP-DOWNLOAD-TEXT' %}</a> <span class="type">(.<%= type_nice %>, <%= size = Math.floor(size / 1024) %> KB)</span>
+				<a rel="nofollow" href="/datasets/download_file/?dataset_revision_id=<%=id%>" id="id_downloadLink" title="{% trans 'APP-DOWNLOAD-TEXT' %}"><span class="icon icon-download FL"></span>{% trans 'APP-DOWNLOAD-TEXT' %}</a> <span class="type">(.<%= type_nice %>, <%= size = Math.floor(size / 1024) %> KB)</span>
 			<% 
 				// Else, if URL or WEBSERVICE
 				} else if( collect_type == 1 || collect_type == 2 ){

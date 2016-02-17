@@ -1,0 +1,21 @@
+{% extends 'base_errors.html' %}
+{% load i18n %}
+
+{% block title %}
+	{% trans 'APP-ERROR-TEXT' %} 400
+{% endblock %}
+
+{% block errorContent %}
+
+<div class="error-graphic error-graphic-not-found"></div>
+
+<h1>{% trans 'APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT' %}</h1>
+<p>
+    {% trans 'APP-ERROR-400-DESCRIPTION' %}
+    <a href="/">{% trans 'APP-HOMEPAGE-LOWERCASE-TEXT' %}</a>
+    {% trans 'APP-OF-THE-MICROSITE-TEXT' %}.
+</p>
+
+<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 400</span></p>
+
+{% endblock %}

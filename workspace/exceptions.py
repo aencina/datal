@@ -3,37 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 from core.exceptions import *
 from core.actions import *
 
-
-class ParentNotPublishedException(LifeCycleException):
-    title = _('EXCEPTION-TITLE-PARENT-NOT-PUBLISHED')
-    description = _('EXCEPTION-DESCRIPTION-PARENT-NOT-PUBLISHED')
-    tipo = 'parent-not-published'
-
-    def __init__(self, revision):
-        self.revision = revision
-        super(ParentNotPublishedException, self).__init__()
-
-
-class DatastreamParentNotPublishedException(LifeCycleException):
-    title = _('EXCEPTION-TITLE-DATASTREM-PARENT-NOT-PUBLISHED')
-    description = _('EXCEPTION-DESCRIPTION-DATASTREM-PARENT-NOT-PUBLISHED')
-    tipo = 'parent-not-published'
-
-    def get_actions(self):
-        #Prevent exepction for Exception Test script to prevent fall in the view.
-        if hasattr(self, 'revision'): #
-            return [ViewDatasetExceptionAction(self.revision)]
-
-class VisualizationParentNotPublishedException(LifeCycleException):
-    title = _('EXCEPTION-TITLE-DATASET-PARENT-NOT-PUBLISHED')
-    description = _('EXCEPTION-DESCRIPTION-DATASET-PARENT-NOT-PUBLISHED')
-    tipo = 'parent-not-published'
-
-    def get_actions(self):
-        if hasattr(self, 'revision'):#Prevent exepction for Exception Test script to prevent fall in the view.
-            return [ViewDatastreamExceptionAction(self.revision)]
-
-
 class ResourceRequiredException(LifeCycleException):
     title = _('EXCEPTION-TITLE-RESOURCE-REQUIRED')
     description = _('EXCEPTION-DESCRIPTION-RESOURCE-REQUIRED')
@@ -82,6 +51,7 @@ class InsufficientPrivilegesException(DATALException):
     title = _('EXCEPTION-TITLE-INSUFFICIENT-PRIVILEGES')
     description = _('EXCEPTION-DESCRIPTION-INSUFFICIENT-PRIVILEGES')
     tipo = 'insufficient-priviliges'
+    status_code = 403 # Forbidden
 
 
 class RequiresReviewException(LifeCycleException):

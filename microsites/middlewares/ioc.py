@@ -10,6 +10,7 @@ from core.http import get_domain_by_request
 from core.http import get_domain_with_protocol
 from core.exceptions import *
 from microsites.exceptions import *
+from core.models import AccountAnonymousUser
 
 class DependencyInjector(object):
     """ Gets the current site & account """
@@ -19,12 +20,7 @@ class DependencyInjector(object):
         request.bucket_name = settings.AWS_BUCKET_NAME
 
         try:
-            # check for develop domains
-            if settings.DOMAINS['microsites'].split(":")[0] != domain.split(":")[0]:
-                account = Account.objects.get_by_domain(domain)
-            else:
-                # use default account if exists
-                account = Account.objects.get(pk=1)
+            account = Account.get_by_domain(domain)
         except Account.DoesNotExist:
             logger = logging.getLogger(__name__)
             logger.error('The account do not exists: %s' % domain)
@@ -54,5 +50,9 @@ class DependencyInjector(object):
         if settings.DOMAINS['microsites'] == domain:
             if request.META.get('REQUEST_URI') == '/':
                 return redirect(get_domain_with_protocol('microsites') + "/home")
+
+        # hacemos que el User sea un AccountAnonymousUser
+        # lo creamos con el account y el lenguaje que tenga el account_language
+        request.user = AccountAnonymousUser(request.account, preferences['account_language'])
 
         return None

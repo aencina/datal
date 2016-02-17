@@ -2,6 +2,7 @@ from django import template
 from django.forms.formsets import formset_factory
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
+from core.plugins_point import DatalPluginPoint
 
 from core.auth import forms as auth_forms
 from core.models import ObjectGrant
@@ -9,25 +10,41 @@ from core.models import ObjectGrant
 register = template.Library()
 
 
-@register.filter(name="permalink")
-def permalink(pk, obj_type):
+@register.simple_tag(takes_context=True)
+def permalink(context, obj_type, pk, slug):
     if obj_type == 'dataset':
         return reverse(
             'manageDatasets.view',
             'microsites.urls',
-            kwargs={'dataset_id': pk, 'slug': '-'}
+            kwargs={'dataset_id': pk, 'slug': slug}
         )
     elif obj_type == 'datastream':
         return reverse(
-            'manageDataviews.view',
+            'viewDataStream.view',
             'microsites.urls',
-            kwargs={'id': pk, 'slug': '-'}
+            kwargs={'id': pk, 'slug': slug}
         )
     elif obj_type == 'visualization':
         return reverse(
-            'manageVisualizations.view',
-            'workspace.urls',
-            kwargs={'id': pk, 'slug': '-'}
+            'chart_manager.view',
+            'microsites.urls',
+            kwargs={'id': pk, 'slug': slug}
+        )
+
+    for permalink in DatalPluginPoint.get_active_with_att('permalink'):
+            if permalink.doc_type == obj_type:
+                return permalink.permalink(pk, slug)
+
+    return None
+
+
+@register.filter(name="embedlink")
+def embedlink(guid, obj_type):
+    if obj_type == 'datastream':
+        return reverse(
+            'viewDataStream.embed',
+            'microsites.urls',
+            kwargs={'guid': guid}
         )
     else:
         return None
@@ -68,8 +85,8 @@ def datatable_filter(categories=None, table_prefix='', tab_prefix='', source_cho
     override_filters = False
     filter_template = None
 
-    if kwargs.has_key('featured_accounts'):
-        featured_accounts = kwargs['featured_accounts']
+    if kwargs.has_key('federated_accounts'):
+        federated_accounts = kwargs['federated_accounts']
 
     if tab_prefix == 'microsites' and table_prefix == 'home':
         base_route = 'home_manager/resources/'
@@ -136,17 +153,6 @@ def privateDataStreamShareForm(datastream_id=None, auth_manager=None):
     available_users = ObjectGrant.objects.get_available_users(datastream_id, 'datastream', auth_manager.account_id)
     return locals()
 register.inclusion_tag('auth/privateShareForm.html')(privateDataStreamShareForm)
-
-
-def privateDashboardShareForm(dashboard_id=None, auth_manager=None):
-
-    private_share_form = auth_forms.PrivateDashboardShareForm(prefix='private_share_form', initial={'id': dashboard_id})
-    collaborators = ObjectGrant.objects.get_collaborators(dashboard_id, 'dashboard')
-    collaborator_formset = formset_factory(auth_forms.CollaboratorForm, extra=0)
-    collaborator_forms = collaborator_formset(prefix='private_share_form_collaborators', initial=collaborators)
-    available_users = ObjectGrant.objects.get_available_users(dashboard_id, 'dashboard', auth_manager.account_id)
-    return locals()
-register.inclusion_tag('auth/privateShareForm.html')(privateDashboardShareForm)
 
 
 def privateVisualizationShareForm(visualization_id=None, auth_manager=None):

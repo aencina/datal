@@ -7,7 +7,6 @@ charts.models.Chart = Backbone.Model.extend({
     urlRoot: '/api/charts/',
     defaults: {
         lib: 'google',
-
         showLegend: true,
         invertData: undefined,
         invertedAxis: undefined,
@@ -61,6 +60,7 @@ charts.models.Chart = Backbone.Model.extend({
             id: this.get('id'),
             type: this.get('type')
         });
+        this.editMode = false;
 
         this.bindEvents();
     },
@@ -72,12 +72,15 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     parse: function (res) {
+
         var data = {
             datastream_revision_id: res.datastream_revision_id,
             datastream_tags:  res.datastream_tags,
             datastream_sources: res.datastream_sources,
             datastream_category: res.datastream_category
         };
+
+        this.editMode = res.editMode || false;
 
         _.extend(data, _.pick(res, [
             'revision_id',
@@ -86,10 +89,12 @@ charts.models.Chart = Backbone.Model.extend({
 
 
         //edit
-        if(res.revision_id){
+        if (res.revision_id) {
             data = _.extend(data,{
                 type: res.format.type,
 
+                data: res.data,
+                
                 select_data:true,
                 notes: _.unescape(res.notes),
                 title: res.title,
@@ -104,32 +109,51 @@ charts.models.Chart = Backbone.Model.extend({
 
                 nullValueAction: res.format.nullValueAction,
                 nullValuePreset: res.format.nullValuePreset,
-
-                //data
-                range_data: this.parseColumnFormat(res.data),
-                range_headers: this.parseColumnFormat(res.chart.headerSelection),
-                range_labels: this.parseColumnFormat(res.chart.labelSelection),
-
-                range_lat: this.parseColumnFormat(res.chart.latitudSelection),
-                range_lon: this.parseColumnFormat(res.chart.longitudSelection)
-
             });
             if (data.type === 'mapchart') {
                 data = _.extend(data,{
-                    range_lat: this.parseColumnFormat(res.chart.latitudSelection),
-                    range_lon: this.parseColumnFormat(res.chart.longitudSelection),
-                    range_trace: this.parseColumnFormat(res.chart.traceSelection),
                     mapType: res.chart.mapType? res.chart.mapType.toUpperCase(): undefined,
                     geoType: res.chart.geoType,
                     options:{
                         zoom: res.chart.zoom,
                         bounds: res.chart.bounds? res.chart.bounds.split(';'): undefined,
-                        center: {lat: 0, long: 0}
+                        center: res.chart.center? {lat: res.chart.center[0], long: res.chart.center[1]}: undefined                    }
+                });
+            };
+        }
+
+        //edit
+        if (res.revision_id && this.editMode) {
+            data = _.extend(data,{
+                headerSelection: res.chart.headerSelection,
+                labelSelection: res.chart.labelSelection,
+
+                latitudSelection: res.chart.latitudSelection,
+                longitudSelection: res.chart.longitudSelection
+
+            });
+
+            if (data.type === 'mapchart') {
+                data = _.extend(data,{
+                    latitudSelection: res.chart.latitudSelection,
+                    longitudSelection: res.chart.longitudSelection,
+                    traceSelection: res.chart.traceSelection,
+                    mapType: res.chart.mapType? res.chart.mapType.toUpperCase(): undefined,
+                    geoType: res.chart.geoType,
+                    options:{
+                        zoom: res.chart.zoom,
+                        bounds: res.chart.bounds? res.chart.bounds.split(';'): undefined,
+                        center: res.chart.center? {lat: res.chart.center[0], long: res.chart.center[1]}: undefined
                     }
                 });
             };
         }
-        this.set(data);
+        var options = {
+            silent: res.silent
+        }
+
+        this.set(data, options);
+
     },
 
     bindDataModel: function () {
@@ -152,14 +176,18 @@ charts.models.Chart = Backbone.Model.extend({
         }
 
         var filters = {
-            revision_id: this.get('datastream_revision_id'),
-            data: this.serializeServerExcelRange(this.get('range_data')),
-            headers: this.serializeServerExcelRange(this.get('range_headers')),
-            labels: this.serializeServerExcelRange(this.get('range_labels')),
+            data: this.get('data'),
+            headers: this.get('headerSelection'),
+            labels: this.get('labelSelection'),
             nullValueAction: this.get('nullValueAction'),
             nullValuePreset:  this.get('nullValuePreset') || '',
             type: this.get('type')
         };
+
+        var revision_id = this.get('datastream_revision_id');
+        if (!_.isUndefined(revision_id)) {
+            filters['revision_id'] = revision_id
+        }
 
         if(this.get('invertData')===true){
             filters['invertData'] = true;
@@ -175,7 +203,6 @@ charts.models.Chart = Backbone.Model.extend({
         var id = this.get('id');
 
         var filters = {
-                revision_id: id,
                 zoom: this.get('options').zoom,
                 bounds: (this.get('options').bounds)? this.get('options').bounds.join(';'): undefined,
                 type: 'mapchart'
@@ -183,14 +210,20 @@ charts.models.Chart = Backbone.Model.extend({
 
         if(_.isUndefined(id)){
             filters = _.extend(filters,{
-                revision_id: this.get('datastream_revision_id'),
                 nullValueAction: this.get('nullValueAction'),
-                data: this.serializeServerExcelRange(this.get('range_data')),
-                lat: this.serializeServerExcelRange(this.get('range_lat')),
-                lon: this.serializeServerExcelRange(this.get('range_lon')),
-                traces: this.serializeServerExcelRange(this.get('range_trace'))
+                data: this.get('data'),
+                lat: this.get('latitudSelection'),
+                lon: this.get('longitudSelection'),
+                traces: this.get('traceSelection')
             });
+            var revision_id = this.get('datastream_revision_id');
+            if (!_.isUndefined(revision_id)) {
+                filters['revision_id'] = revision_id
+            }
+        } else {
+            filters['revision_id'] = id
         }
+
 
         if (this.has('nullValuePreset')) {
             filters.nullValuePreset = this.get('nullValuePreset');
@@ -214,40 +247,6 @@ charts.models.Chart = Backbone.Model.extend({
         return this.data.fetch();
     },
 
-    serializeServerExcelRange: function(selection){
-        if (_.isUndefined(selection)) return '';
-        var range = selection.split(":");
-        var left = range[0];
-        var right = range[1];
-
-        // Columna completa o celda
-        if(left == right){
-            var index = left.search(/\d/g);
-
-            // Columna completa
-            if(index == -1){
-                selection = 'Column:' + left;
-            }
-        }
-        else{
-            // TO-DO: Validar que no sea un rango de columnas completas
-        }
-
-        return selection;
-    },
-
-    parseColumnFormat: function (serverExcelRange) {
-        var col;
-        if (_.isUndefined(serverExcelRange)) {
-            return serverExcelRange;
-        };
-        if (serverExcelRange.indexOf('Column:') !== -1) {
-            col = serverExcelRange.replace('Column:', '');
-            serverExcelRange = [col, ':', col].join('');
-        }
-        return serverExcelRange;
-    },
-
     valid: function(){
         var valid = true;
 
@@ -261,6 +260,13 @@ charts.models.Chart = Backbone.Model.extend({
                 valid = true;
                 console.log('valid',valid);
 
+            } else if (this.get('type') === 'piechart') {
+
+                // TODO: agregar validacion 
+                // tenemos piechart que traen 'series' con unv alor y piecharts que no.
+                valid = true;
+                console.log('valid',valid);
+            
             } else {
 
                 //General validation
@@ -326,17 +332,17 @@ charts.models.Chart = Backbone.Model.extend({
             invertedAxis: this.get('invertedAxis'),
 
             //data selection
-            headerSelection: this.serializeServerExcelRange(this.get('range_headers')),
-            data: this.serializeServerExcelRange(this.get('range_data')),
-            labelSelection: this.serializeServerExcelRange(this.get('range_labels'))
+            headerSelection: this.get('headerSelection'),
+            data: this.get('data'),
+            labelSelection: this.get('labelSelection')
 
         };
 
         if (this.get('type') === 'mapchart') {
             settings = _.extend( settings, {
-                latitudSelection: this.serializeServerExcelRange(this.get('range_lat')),
-                longitudSelection: this.serializeServerExcelRange(this.get('range_lon')),
-                traceSelection: this.serializeServerExcelRange(this.get('range_trace')),
+                latitudSelection: this.get('latitudSelection'),
+                longitudSelection: this.get('longitudSelection'),
+                traceSelection: this.get('traceSelection'),
                 mapType: this.get('mapType').toLowerCase(),
                 geoType: this.get('geoType'),
                 zoom: this.get('options').zoom,
@@ -388,14 +394,36 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     remove: function (options) {
-        var opts = _.extend({url: 'remove/' + this.id}, options || {});
+        var opts = _.extend({url: '/visualizations/remove/' + this.id}, options || {});
 
         return Backbone.Model.prototype.destroy.call(this, opts);
     },
 
     remove_revision: function (options) {
-        var opts = _.extend({url: 'remove/revision/' + this.id}, options || {});
+        var opts = _.extend({url: '/visualizations/remove/revision/' + this.id}, options || {});
 
         return Backbone.Model.prototype.destroy.call(this, opts);
+    },
+
+    checkLegend: function(){
+        var legend = this.get('showLegend');
+
+        // Checkeo que no haya series vacia. Si las hay genere una propiedad showLegend = false en el response.
+        if( this.get('type') !== 'mapchart' ){
+
+            if( !_.isUndefined( this.data.get('response') ) ){
+
+                var response = this.data.get('response');
+                var showLegend = response.showLegend;
+
+                if( !_.isUndefined( showLegend ) ){
+                    legend = showLegend;
+                }
+
+            }
+            
+        }        
+
+        return legend;
     }
 });

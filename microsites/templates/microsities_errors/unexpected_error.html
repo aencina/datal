@@ -1,22 +1,38 @@
 {% extends 'base_microsites.html' %}
-{% load i18n %}
+{% load i18n compress sass_tags staticfiles  %}
 
-{% block sectionTitle %}
-    <h1>{% trans "EXCEPTION-TITLE-UNEXPECTED" %}</h1>
+{% block meta %}
+
+{% compress css %}
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'workspace/styles/common.css' %}">
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+{% endcompress %}
+
 {% endblock %}
 
 {% block content %}
-{% block error_content %}
-  <section class="box">
 
-        <div class="box-content clearfix">
-        {% block error_text %}
-            {% trans "EXCEPTION-DESCRIPTION-UNEXPECTED" %}
-        {% endblock %}
-        </div>
+<div class="w960 columns clearfix">
 
-  </section>
-{% endblock %}
+	<div class="CL FL">
+
+		{% block error_content %}
+			<h1 class="sectionTitle">{% trans "EXCEPTION-TITLE-UNEXPECTED" %}</h1>
+			<section class="box error-container">
+
+				<div class="box-content clearfix">
+					{% block error_text %}
+						{% trans "EXCEPTION-DESCRIPTION-UNEXPECTED" %}
+					{% endblock %}
+				</div>
+
+			</section>
+		{% endblock %}
+
+	</div>
+
+</div>
+
 {% endblock %}
 
 {% block extras %}

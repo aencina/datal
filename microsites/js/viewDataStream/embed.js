@@ -21,6 +21,9 @@ $(document).ready(function(){
 });
 
 function stripColumns(pColumns) {
+
+    // MEJORAR, esto tiene ahora un thead, y no funciona bien.
+
     // pull out first column:
     var nt = $('<table id="nameTable" cellpadding="3" cellspacing="0"></table>');
     $('#ladderTable tr').each(function(i)
@@ -69,6 +72,7 @@ function initDataService(){
     $fDataServiceContainer.find('a[id*=id_resetDataServiceButton_]').bind('click', onResetDataServiceButtonClicked);
     startWaitMessage($fDataService);
     var lEndPoint = $fDataServiceContainer.data('dataservice_end_point');
+
     invokeDataService(lEndPoint);
 
     if (areEmbedOptionsEnabled) {
@@ -150,7 +154,7 @@ function startWaitMessage(pHTMLElement){
 
 function invokeDataService(pEndPoint){
 
-    var lUrl     = '/rest/datastreams/' + fDataStreamRevisionId + '/data.json';
+    var lUrl     = '/rest/datastreams/' + fDataStreamRevisionId + '/data.json/';
     var lData    = '&limit=50'
     			+ pEndPoint;
 
@@ -176,7 +180,31 @@ function onSuccessDataServiceExecute(pResponse){
             var str = String(pResponse.fStr);
             str = str.replace(/(<([^>]+)>)/ig," ");
             lValue = '<table class="Texto"><tr><td>' + str + '</td></tr></table>';
-        } else if(pResponse.fType == 'NUMBER'){
+        }else if(pResponse.fType == 'DATE'){
+                var format = pResponse.fDisplayFormat;
+                var number = pResponse.fNum;
+                var str = '';
+                if (! _.isUndefined(format)){
+                    // sometimes are seconds, sometimes miliseconds
+                    if (number < 100000000000) number = number * 1000;
+                    var dt = new Date(number);
+                    dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+                    var local = format.fLocale;
+                    //(?) if I use "en" doesn't work, I must use "" for "en"
+                    if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+                    if (local === "es" || local.indexOf("es_")) local = "es";
+                    str = $.datepicker.formatDate(format.fPattern, dt, {
+                        dayNamesShort: $.datepicker.regional[local].dayNamesShort,
+                        dayNames: $.datepicker.regional[local].dayNames,
+                        monthNamesShort: $.datepicker.regional[local].monthNamesShort,
+                        monthNames: $.datepicker.regional[local].monthNames
+                    });
+                }else{
+                    str = String(number);
+                }
+
+                lValue = '<table class="Numero"><tr><td>' + str + '</td></tr></table>';
+            } else if(pResponse.fType == 'NUMBER'){
             var displayFormat = pResponse.fDisplayFormat;
             if (displayFormat != undefined) {
                 var number = $.formatNumber(pResponse.fNum, {format:displayFormat.fPattern, locale:displayFormat.fLocale});
@@ -192,7 +220,8 @@ function onSuccessDataServiceExecute(pResponse){
         lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje">' + lValue +'</div></div>';
     } else {
         i = 0;
-        lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><div id="id_fixedColumn" style="float:left;"></div><div id="id_mainTable" style="width:100%;"><table id="ladderTable" class="Tabla" >';
+        var headerCells = [];
+        lHtml  = lHtml + '<div class="dataStreamResult clearfix"><div class="Mensaje"><div id="id_fixedColumn" style="float:left;"></div><div id="id_mainTable" style="width:100%;"><table id="ladderTable" class="Tabla" ><tbody>';
         for(var lRow=1;lRow<=pResponse.fRows;lRow++){
             lHtml  = lHtml + '<tr>';
             for(var lColumns=1;lColumns <= pResponse.fCols;lColumns++){
@@ -205,7 +234,28 @@ function onSuccessDataServiceExecute(pResponse){
                             lValue = String(lCell.fStr);
                             lValue = lValue.replace(/(<([^>]+)>)/ig," ");
                         }
-                } else if(lCell.fType == 'NUMBER'){
+                }else if(lCell.fType == 'DATE'){
+                        var format = lCell.fDisplayFormat;
+                        var number = lCell.fNum;
+                        if (! _.isUndefined(format)){
+                            // sometimes are seconds, sometimes miliseconds
+                            if (number < 100000000000) number = number * 1000;
+                            var dt = new Date(number);
+                            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+                            var local = format.fLocale;
+                            //(?) if I use "en" doesn't work, I must use "" for "en"
+                            if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+                            if (local === "es" || local.indexOf("es_")) local = "es";
+                            lValue = $.datepicker.formatDate(format.fPattern, dt, {
+                                dayNamesShort: $.datepicker.regional[local].dayNamesShort,
+                                dayNames: $.datepicker.regional[local].dayNames,
+                                monthNamesShort: $.datepicker.regional[local].monthNamesShort,
+                                monthNames: $.datepicker.regional[local].monthNames
+                            });
+                        }else{
+                            lValue = String(number);
+                        }
+                    } else if(lCell.fType == 'NUMBER'){
                     var displayFormat = lCell.fDisplayFormat;
                     if (displayFormat != undefined) {
                         var number = $.formatNumber(lCell.fNum, {format:displayFormat.fPattern, locale:displayFormat.fLocale});
@@ -218,7 +268,7 @@ function onSuccessDataServiceExecute(pResponse){
                 }
 
                 if (typeof lCell.fHeader !== "undefined" && lCell.fHeader == true) {
-                    lHtml  = lHtml + '<th><div>' + lValue + '</div></th>';
+                    headerCells.push(lValue);
                 }else{
                     lHtml  = lHtml + '<td><div>' + lValue + '</div></td>';
                 }
@@ -226,6 +276,12 @@ function onSuccessDataServiceExecute(pResponse){
             }
             lHtml  = lHtml +'</tr>';
         }
+
+        lHtml  = lHtml +'</tbody><thead><tr>';
+        _.each(headerCells, function(cell) {
+            lHtml  = lHtml + '<th><div>' + cell + '</div></th>';
+        });
+        lHtml  = lHtml +'</tr></thead>';
 
         if(pResponse.fLength > 50){
             var lURL = $fDataServiceContainer.data("permalink");

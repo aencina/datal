@@ -1,6 +1,6 @@
 var CreateDashboard = Backbone.Model.extend({
     defaults: {
-        url: '/dashboards/action_insert',
+        url: '/dashboards/action_insert/',
         $Container: null,
         $Form: null
     },
@@ -30,28 +30,28 @@ var CreateDashboard = Backbone.Model.extend({
 		
         this.attributes.$Container.find('#id_dashboard_tag').tagging({
             tagContainer : '#'+this.attributes.$Container.attr("id") +' #id_tag_container',
-            source: '/rest/tags.json',
+            source: '/rest/tags.json/',
             minLength: 3
         });
     },
 	save : function(){
-		this.attributes.url = '/dashboards/edit_dashboard';
+		this.attributes.url = '/dashboards/edit_dashboard/';
 		this.onSubmit();
 	},
 	saveDraft : function(){
-		this.attributes.url = '/dashboards/save_dashboard_as_draft';
+		this.attributes.url = '/dashboards/save_dashboard_as_draft/';
 		this.onSubmit();
 	},
 	saveReview : function(){
-		this.attributes.url = '/dashboards/save_dashboard_as_review';
+		this.attributes.url = '/dashboards/save_dashboard_as_review/';
 		this.onSubmit();
 	},
 	saveApproved : function(){
-		this.attributes.url = '/dashboards/save_dashboard_as_approved';
+		this.attributes.url = '/dashboards/save_dashboard_as_approved/';
 		this.onSubmit();
 	},
 	savePublished : function(){
-		this.attributes.url = '/dashboards/save_dashboard_as_published';
+		this.attributes.url = '/dashboards/save_dashboard_as_published/';
 		this.onSubmit();
 	},
     onSubmit: function(){

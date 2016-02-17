@@ -16,8 +16,10 @@ otros/
 celerybeat*
 celerybeat-schedule
 celerybeati.pid
+celerydb.sqlite
 .vagrant/
 fabfile*.py
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -75,7 +77,7 @@ docs/_build/
 # SASS Cache
 .sass-cache/
 
-components/
 node_modules/
-
+components/bower_components/
 plugins/
+components/

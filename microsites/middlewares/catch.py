@@ -46,6 +46,9 @@ class ExceptionManager(object):
     def is_json(self, mimetype):
         return mimetype == 'application/json'
 
+    def get_trace(self):
+        return '\n'.join(traceback.format_exception(*(sys.exc_info())))
+
     def log_error(self, exception):
         logger = logging.getLogger(__name__)
         trace = '\n'.join(traceback.format_exception(*(sys.exc_info())))

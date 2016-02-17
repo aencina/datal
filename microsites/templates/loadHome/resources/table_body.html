@@ -1,4 +1,5 @@
-<td class="viewInfo {% if revision.type == 'DT'%}ic_Dset{%endif%}{% if revision.type == 'DS'%}ic_Data{%endif%}{%if revision.type == 'DB'%}ic_Dashboard {%endif%}{%if revision.type == 'VZ'%}ic_Chart{%endif%}">
+{% load plugins_tags %}
+<td class="viewInfo {% if revision.type == 'DT'%}ic_Dset{%endif%}{% if revision.type == 'DS'%}ic_Data{%endif%}{%if revision.type == 'VZ'%}ic_Chart{%endif%}{% plugins_call 'microsites_home_table_body' %}">
     <a href="{{revision.permalink}}" target="_blank" ><strong>{{revision.title}}</strong></a> 
             {% if revision.account_name %}<span class='sep'> | </span>  {{ revision.account_name }} {% endif %}
             <span class='sep'> | </span>  {{ revision.category }}

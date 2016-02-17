@@ -12,6 +12,7 @@ from core.daos.visualizations import VisualizationDBDAO
 from core.choices import StatusChoices
 from core.http import get_domain_by_request
 from core.shortcuts import render_to_response
+from core.models import AccountAnonymousUser
 
 
 def custom_pages(request, page):
@@ -24,19 +25,16 @@ def custom_pages(request, page):
         raise Http404()
 
 
-def get_css(request, id):
-    http_referer = request.META.get('HTTP_REFERER')
-    key = get_key(http_referer)
+def get_css(request, url_name, id):
+    key = get_key(url_name)
     try:
         css = Preference.objects.get_value_by_account_id_and_key(id, '%s.css' % key)
     except Preference.DoesNotExist:
         css = ''
     return HttpResponse(css, content_type='text/css')
 
-
-def get_js(request, id):
-    http_referer = request.META.get('HTTP_REFERER')
-    key = get_key(http_referer)
+def get_js(request, url_name, id):
+    key = get_key(url_name)
     try:
         javascript = Preference.objects.get_value_by_account_id_and_key(id, '%s.javascript' % key)
     except Preference.DoesNotExist:
@@ -44,34 +42,45 @@ def get_js(request, id):
     return HttpResponse(javascript, content_type='text/javascript')
 
 
-def get_key(http_referer):
-
-    if not http_referer:
+def get_key(url_name):
+    logger = logging.getLogger(__name__)
+    
+    if not url_name:
+        logger.error('No url_name')
         raise Http404
 
-    if re.search('^.*dashboards/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
-        key = 'db.detail'
-    elif re.search('^.*datastreams/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
+    #TODO encontrar la forma de llevar esto al plugin en ds.detail y en chart.detail hay cosas de plugins.
+    if url_name in ['viewDataStream.view', 'viewCustomViews.customviews_list', 'viewCustomViews.save', 'viewCustomViews.view']:
         key = 'ds.detail'
-    elif re.search('^.*/datastreams/embed/[A-Z0-9\-]+.*$' , http_referer):
+    elif url_name in ['viewDataStream.embed']:
         key = 'ds.embed'
-    elif re.search('^.*/search/.*$' , http_referer):
+    #elif re.search('^.*/(datastreams|dataviews)/\d+/[A-Za-z0-9\-]+$' , http_referer):
+    #    key = 'ds.detail'
+    elif url_name in ['search.search_by_query_and_category', 'search.search', 'search.browse']:
         key = 'search'
-    elif re.search('^.*/visualizations/embed/[A-Z0-9\-]+.*$' , http_referer):
+    elif url_name in ['chart_manager.embed', 'viewChart.embed']:
         key = 'chart.embed'
-    elif re.search('^.*visualizations/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
-        key = 'chart.detail'
-    elif re.search('^.*/home' , http_referer):
+    elif url_name in ['loadHome.load', 'loadHome.update_list', 'loadHome.update_categories']:
         key = 'home'
-    elif re.search('^.*/developers' , http_referer):
+    elif url_name in ['manageDeveloper.filter']:
         key = 'developers'
+    elif url_name in ['chart_manager.view', 'viewCustomViz.list', 'viewCustomViz.save', 'viewCustomViz.view']:
+        key = 'chart.detail'
+    #elif re.search('^.*/visualizations/\d+/[A-Za-z0-9\-]+/.*$' , http_referer):
+    #    key = 'chart.detail'
+    elif url_name in ['viewDashboards.view']:
+        key = 'db.detail'
+    elif url_name in ['manageDatasets.view']:
+        key = 'dataset'
     else:
+        #  http referer error http://microsites.dev:8080/dataviews/69620/iep-primer-trimestre-2012-ministerio-de-defensa-nacional
+        logger.error('Url_name sin macheo %s' % url_name)
         raise Http404
 
     return key + '.full'
 
 
-def get_new_css(request, id):
+def get_new_css(request, url_name, id):
     try:
         account = request.account
         preferences = account.get_preferences()
@@ -111,46 +120,52 @@ def get_catalog_xml(request):
     account_id = request.account.id
     language = request.auth_manager.language
     preferences = request.preferences
-
+    account = request.account
+    
     domain = get_domain_by_request(request)
     api_domain = preferences['account_api_domain']
     transparency_domain = preferences['account_api_transparency']
-    developers_link = 'http://' + domain + reverse('manageDeveloper.filter')
+    account = Account.objects.get(pk=account_id)
+    msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+    apiprotocol = 'https' if account.get_preference('account.api.https') else 'http'
+    developers_link = msprotocol + '://' + domain + reverse('manageDeveloper.filter')
     datastreams_revision_ids = DataStreamRevision.objects.values_list('id').filter(
         datastream__user__account_id=account_id, status=StatusChoices.PUBLISHED
     )
+
+
+    # necesario, porque el DAO.get requiere un usuario para obtener el language y el account
+    user = AccountAnonymousUser(account, request.auth_manager.language)
+
     resources = []
     for datastream_revision_id, in datastreams_revision_ids:
         try:
-            ds = DataStreamDBDAO().get(language, datastream_revision_id=datastream_revision_id)
+            ds = DataStreamDBDAO().get(user, datastream_revision_id=datastream_revision_id)
         except:
             logger.error('catalog ERROR %s %s' % (datastream_revision_id, language))
             continue
 
-        ds.link = 'http://{}{}'.format(domain, ds.permalink())
-        ds.export_csv_link = 'http://{}{}'.format(
-            domain,
-            reverse('viewDataStream.csv', kwargs={'id': ds.datastream_id, 'slug': ds.slug})
-        )
-        ds.export_html_link = 'http://{}{}'.format(
-            domain,
-            reverse('viewDataStream.html', kwargs={'id': ds.datastream_id, 'slug': ds.slug})
-        )
-        ds.api_link = 'http://' + api_domain + '/datastreams/' + ds.guid + '/data/?auth_key=your_authkey'
+        print ds
+        permalink = reverse('viewDataStream.view', urlconf='microsites.urls', kwargs={'id': ds['resource_id'], 'slug': ds['slug']}) 
+        ds['link'] = '{}://{}{}'.format(msprotocol, domain, permalink)
+        ds['export_csv_link'] = '{}://{}{}'.format(msprotocol, domain,reverse('datastreams-data', kwargs={'id': ds['resource_id'],'format':'csv'}))
+        ds['export_html_link'] = '{}://{}{}'.format(msprotocol, domain, reverse('datastreams-data', kwargs={'id': ds['resource_id'], 'format': 'html'}) )
+        ds['api_link'] = apiprotocol + '://' + api_domain + '/datastreams/' + ds['guid'] + '/data/?auth_key=your_authkey'
 
-        ds.visualizations = []
+        ds['visualizations'] = []
         visualization_revision_ids = VisualizationRevision.objects.values_list('id').filter(
-            visualization__datastream_id=ds.datastream_id,
+            visualization__datastream_id=ds['resource_id'],
             status=StatusChoices.PUBLISHED
         )
         for visualization_revision_id, in visualization_revision_ids:
             try:
-                vz = VisualizationDBDAO().get(language, visualization_revision_id=visualization_revision_id)
+                vz = VisualizationDBDAO().get(user, visualization_revision_id=visualization_revision_id)
             except:
                 logger.error('catalog VIZ ERROR %s %s' % (visualization_revision_id, language))
                 continue
-            vz['link'] = 'http://' + domain + vz.permalink()
-            ds.visualizations.append(vz)
+            permalink = reverse('chart_manager.view', urlconf='microsites.urls', kwargs={'id': vz['resource_id'], 'slug': vz['slug']})
+            vz['link'] = msprotocol + '://' + domain + permalink
+            ds['visualizations'].append(vz)
         resources.append(ds)
 
     return render_to_response('catalog.xml', locals(), mimetype='application/xml')

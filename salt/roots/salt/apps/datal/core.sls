@@ -1,6 +1,14 @@
 {% set user = pillar['system']['user'] %}
 {% set group = pillar['system']['group'] %}
 
+cleanpython:
+  cmd.run:
+    - user: {{ user }}
+    - group: {{ group }}
+    - cwd: {{ pillar['application']['path'] }}
+    - names:
+      - find -iname "*.py[co]" -exec rm -f {} \;
+
 {% if salt['grains.get']('os') == 'Debian' %}
 install_ruby:
   pkg.installed:
@@ -11,6 +19,12 @@ install_ruby:
 sass_install:
   gem.installed:
     - name: sass
+
+clean_caches:
+  cmd.run:
+    - names:
+      - echo 'flush_all' | nc localhost 11211
+      - redis-cli FLUSHALL
 
 # Create static files directory
 {{ pillar['application']['statics_dir'] }}:
@@ -103,6 +117,7 @@ migrate_db:
     - cwd: {{ pillar['application']['path'] }}
     - names:
       - PATH="{{ pillar['virtualenv']['path'] }}/bin/:$PATH"; python manage.py migrate --settings=core.settings
+      - PATH="{{ pillar['virtualenv']['path'] }}/bin/:$PATH"; python manage.py migrate --settings=admin.settings
 
 fixtures:
   cmd.run:
@@ -165,9 +180,9 @@ reindex:
   cmd.run:
     - user: {{ user }}
     - group: {{ group }}
-    - cwd: {{ pillar['application']['path'] }}
+    - cwd: {{install_dir}}{{ pillar['application']['path'] }}
     - names:
-      - PATH="{{ pillar['virtualenv']['path'] }}/bin/:$PATH"; python manage.py index --settings=workspace.settings --re-index
+      - PATH="{{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/:$PATH"; python manage.py index --settings=workspace.settings --all --flush --debug
 
 log_activity:
   cmd.run:

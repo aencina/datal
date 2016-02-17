@@ -9,13 +9,19 @@
     <script type="text/javascript" src="/js_core/base_modules/manageDeveloper/queryList.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script type="text/javascript" src="/js_microsites/manageDeveloper/queryList.js?id={{settings.VERSION_JS_CSS}}"></script>
     {% compress css %}
-    <!-- BRANDED -->
-    <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
-    <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/developers.css' %}"/>
+    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/developers.css' %}"/>
     {% endcompress %}
-    <!-- COMPONENT -->
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-    <link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+    
+    <!-- BRANDED CSS -->
+    {% compress css %}
+    <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+    {% endcompress %}
+    <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+    <link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+
+    <!-- BRANDED JS -->
+    <script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
+    
 {% endblock %}
 
 
@@ -110,7 +116,7 @@
                 </div>
                 <div class="description">
                     <p>{% trans "DEV-GETKEY-TEXT1" %}.</p>
-                    <p>{% trans "DEV-GETKEY-TEXT2" %} <a target="_blank" href="{{DOC_API_URL}}" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
+                    <p>{% trans "DEV-GETKEY-TEXT2" %} <a target="_blank" href="https://github.com/datal-org/datal/tree/master/docs/api" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
                 </div>
             </div>
         </div>
@@ -131,9 +137,9 @@
                     </div>
                 </div>
                 <div class="description">
-                    <p>{% trans "DEV-CREATEREQUEST-TEX1" %}:<br/><code><span class="blue">http://{{preferences.account_api_domain}}/api/v1/datastreams/{{example_guid}}/data.json?auth_key=YOUR_API_KEY</span></code></p>
+                    <p>{% trans "DEV-CREATEREQUEST-TEX1" %}:<br/><code><span class="blue">http://{{preferences.account_api_domain}}/api/v2/datastreams/{{example_guid}}/data.json/?auth_key=YOUR_API_KEY</span></code></p>
                     <p>{% trans "DEV-CREATEREQUEST-TEX3" %}:</p>
-                    <p><code><span class="blue">{% trans "DEV-CREATEREQUEST-TEX4" %}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX5" %} <a target="_blank" href="{{DOC_API_URL}}" title="{% trans 'DEV-CREATEREQUEST-TEX6' %}" rel="nofollow">{% trans "DEV-CREATEREQUEST-TEX6" %}</a>.</p>
+                    <p><code><span class="blue">{% trans "DEV-CREATEREQUEST-TEX4" %}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX5" %} <a target="_blank" href="https://github.com/datal-org/datal/tree/master/docs/api" title="{% trans 'DEV-CREATEREQUEST-TEX6' %}" rel="nofollow">{% trans "DEV-CREATEREQUEST-TEX6" %}</a>.</p>
                     <p><code><span class="black">{{example_guid}}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX8" %}.</p>
                     <p><code><span class="red">{% trans "DEV-CREATEREQUEST-TEX9" %}</span><span class="black">{% trans "DEV-CREATEREQUEST-TEX10" %}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX11" %}.</p>
                 </div>
@@ -156,7 +162,7 @@
                 </div>
                 <div class="description">
                     <p>{% trans "DEV-PROCESS-TEX1" %}.</p>
-                    <p>{% trans "DEV-PROCESS-TEX2" %} <a target="_blank" href="{{DOC_API_URL}}" title="API resource documentation" rel="nofollow">{% trans "DEV-PROCESS-TEX3" %}</a>.</p>
+                    <p>{% trans "DEV-PROCESS-TEX2" %} <a target="_blank" href="https://github.com/datal-org/datal/tree/master/docs/api" title="API resource documentation" rel="nofollow">{% trans "DEV-PROCESS-TEX3" %}</a>.</p>
                 </div>
             </div>
         </div>
@@ -178,7 +184,7 @@
                 <h5>{% trans "DEV-OV-SUBTITLE" %}!</h5>
                 <p>{% trans "DEV-OV-TEXT" %}: <strong class="key"><span id="id_urlLoader" class="ajaxLoader"><span class="DN">{% trans "APP-LOADING-TEXT" %}...</span></span></strong></p>
                 <ul>
-                    <li>{% trans "DEV-OV-TIP1" %} <a target="_blank" href="{{DOC_API_URL}}" title="{% trans 'DEV-GETKEY-TEXT3' %}">{% trans "DEV-GETKEY-TEXT3" %}</a>, {% trans "DEV-OV-TIP2" %}.</li>
+                    <li>{% trans "DEV-OV-TIP1" %} <a target="_blank" href="https://github.com/datal-org/datal/tree/master/docs/api" title="{% trans 'DEV-GETKEY-TEXT3' %}">{% trans "DEV-GETKEY-TEXT3" %}</a>, {% trans "DEV-OV-TIP2" %}.</li>
                 </ul>
             </div>
         </div>

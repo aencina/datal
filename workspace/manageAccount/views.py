@@ -350,6 +350,7 @@ def index_categories(request):
         account=auth_manager.account_id,
         categoryi18n__language=auth_manager.language
     )
+    categories_tab = True
 
     # for block the "delete" button on transparency categories
     used_transparency_categories = preferences['account.transparency.categories'].split()

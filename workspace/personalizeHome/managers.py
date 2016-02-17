@@ -13,6 +13,4 @@ class ThemeFinder(elastic.ElasticsearchFinder):
 
     def get_visualization_dictionary(self, doc):
         return dict(id=doc['visualization_id'], label=doc['title'], value=doc['title'], type=doc['type'])
-
-    def get_dashboard_dictionary(self, doc):
-        return dict(id=doc['dashboard_id'], label=doc['title'], value=doc['title'], type=doc['type'])
+        

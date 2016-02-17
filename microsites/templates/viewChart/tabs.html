@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load extra_tags components %}
+{% load extra_tags components plugins_tags %}
 
 <ul class="icons">
 	<li>
@@ -8,13 +8,22 @@
 			<span>{% trans 'VIEWDS-TABS-INFO' %}</span>
 		</a>
 	</li>
+	{% if notes and preferences.account_enable_notes and preferences.account_description_enhancement %}
+	<li>
+		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar">
+			<i></i>
+			<span>{% trans 'VIEWDS-TABS-DESCRIPTION' %}</span>
+		</a>
+	</li>
+	{% endif %}
 	<li>
 		<a class="icon refresh border-box" id="id_refreshButton">
 			<i></i>
 			<span>{% trans 'VIEWDS-TABS-REFRESH' %}</span>
 		</a>
 	</li>
-	{% if chart_type == "mapchart" %}
+	
+	{% if chart_type == "mapchart"  and geo_type == "points" %}
 	<li>
 		<a class="icon heatmap border-box" id="id_heatmapButton">
 			<i></i> 
@@ -22,6 +31,10 @@
 		</a>
 	</li>
 	{% endif %}
+	
+	<!-- Tabs from plugins -->
+	{% plugins_call 'microsites_view_visualization_tabs' %}
+
 	{% if preferences.account_pivottable %}
 		{% if chart_type != "mapchart" and 1 == 2 %}
 		<li>
@@ -32,6 +45,7 @@
 		</li>
 		{% endif %}
 	{% endif %}
+	
 	{% if preferences.enable_embed_options %}
 	<li>
 		<a class="icon embed border-box" id="id_embedButton">
@@ -40,8 +54,9 @@
 		</a>
 	</li>
 	{% endif %}
+	
 	{% if notes and preferences.account_enable_notes %}
-	<li>
+	<li style="{%if preferences.account_description_enhancement %}display:none;{% endif %}">
 		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar">
 			<i></i>
 			<span>{% trans 'VIEWDS-TABS-NOTES' %}</span>

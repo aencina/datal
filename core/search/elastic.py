@@ -4,6 +4,7 @@ from django.conf import settings
 from core.search.finder import Finder, FinderManager
 import re
 import logging
+from core.plugins_point import DatalPluginPoint
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +15,7 @@ class ElasticsearchFinder(Finder):
 
     def search(self, *args, **kwargs):
 
-        logger.info("Search arguments:\n\t[args]: %s\n\t[kwargs]: %s" % (args,kwargs))
+        if settings.DEBUG: logger.info("Search arguments:\n\t[args]: %s\n\t[kwargs]: %s" % (args,kwargs))
         self.query = kwargs.get('query', '')
         self.ids= kwargs.get('ids', None)
         self.account_id = kwargs.get('account_id')
@@ -22,13 +23,21 @@ class ElasticsearchFinder(Finder):
         page = kwargs.get('page', 0)
         max_results = kwargs.get('max_results', settings.SEARCH_MAX_RESULTS)
         slice = kwargs.get('slice', settings.PAGINATION_RESULTS_PER_PAGE)
-
+        reverse = kwargs.get('reverse', False)
         self.order =  kwargs.get('order')
 
-        if self.order and self.order=='top':
-            self.sort = "hits: desc"
+        if self.order and self.order == 'top':
+            self.sort = "hits:%s" % ("asc" if reverse else "desc")
+        elif self.order and self.order=='web_top':
+            self.sort = "web_hits:%s" % ("asc" if reverse else "desc")
+        elif self.order and self.order=='api_top':
+            self.sort = "api_hits:%s" % ("asc" if reverse else "desc")
         elif self.order and self.order=='last':
-            self.sort =  "timestamp:asc"
+            self.sort =  "timestamp:%s" % ("asc" if reverse else "desc")
+        elif self.order and self.order=='title':
+            self.sort = "title_lower_sort:%s" % ("asc" if reverse else "desc")
+        elif self.order:
+            self.sort=self.order
         else:
             self.sort = self.order_by        
 
@@ -39,7 +48,7 @@ class ElasticsearchFinder(Finder):
             end = max_results < slice and max_results or slice
             start = (page - 1) * end
 
-        if self.sort == "" or self.sort == "1":
+        if self.sort in ("", "1", "2"):
             self.sort = self.order_by
 
         # Tengo que saber para qué se usa esto
@@ -48,7 +57,7 @@ class ElasticsearchFinder(Finder):
         scoring = kwargs.get('scoring', 1)
 
         query = self.__build_query()
-        logger.info("Query arguments: %s (%s)" % (query, self.sort))
+        if settings.DEBUG: logger.info("Query arguments: %s (%s)" % (query, self.sort))
 
         results = self.index.es.search(index=settings.SEARCH_INDEX['index'],
                                        body=query,
@@ -76,11 +85,20 @@ class ElasticsearchFinder(Finder):
         return results, meta_data, facets
 
     def __build_query(self):
-        logger.info("El query es: %s" % self.query)
+
+        if settings.DEBUG: logger.info("El query es: %s" % self.query)
+
+        # comodin, % = *
+        if self.query in ("%",""):
+            self.query="*"
+
+        # en caso de usar el +, el default operador debe ser AND
+        self.query = self.query.replace("+"," AND ")
 
         # decide que conjunto de recursos va a filtrar
         if self.resource == "all":
-            self.resource = ["ds", "dt", "db", "vz"]
+            self.resource = ["ds", "dt", "vz"]
+            self.resource.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
 
         # previene un error al pasarle un string y no un LIST
         if isinstance(self.resource, str):
@@ -91,7 +109,7 @@ class ElasticsearchFinder(Finder):
         # Asi que si llega solo un account_id, lo mete en un list igual
         if type(self.account_id) in (type(str()), type(int()), type(long()), type(float())):
             account_ids=[int(self.account_id)]
-        elif type(self.account_id) == type([]):
+        elif type(self.account_id) in (type([]), type(())):
             account_ids=self.account_id
         else:
             #debería ir un raise?!?!?
@@ -103,27 +121,28 @@ class ElasticsearchFinder(Finder):
         ]
 
         if self.category_filters:
+    
+            # previene errores de pasar un string en el category_filters
+            if type(self.category_filters) not in (type(tuple()), type(list())):
+                self.category_filters=[self.category_filters]
+
             filters.append({"terms": {
                 "categories.name": self.category_filters
             }})
 
         if self.ids:
             # este método solo funciona si o si pasando como param UN tipo de recurso.
-            print "res: ",self.resource
-            id_name=self.get_id_name(self.resource[0])
             filters.append({"terms": {
-                id_name: filter(None,self.ids.split(","))
+                "resource_id": filter(None,self.ids.split(","))
             }})
-
-        print filters
 
         query = {
             "query": {
                 "filtered": {
                     "query": {
                         "query_string": {
-                            "query": "*%s*" % self.query,
-                            "fields": ["title", "text"]
+                            "query": self.query,
+                            "fields": ["title", "text", "text_english_stemmer", "text_spanish_stemmer"]
                         }
                     },
                     "filter": {

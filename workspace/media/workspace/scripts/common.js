@@ -3,14 +3,41 @@ if(typeof datalEvents === 'undefined'){
     _.extend(datalEvents, Backbone.Events);
 }
 
-var BaseView = Backbone.View.extend({
+var BaseView = function(options) {
+	this.inheritedEvents = [];
+
+	Backbone.View.call(this, options);
+}
+
+_.extend(BaseView.prototype, Backbone.View.prototype, {
+		
+	// Extend functions
+
+	baseEvents: {
+		"click .header .tab.pulldown > a": "onHeaderPulldownButtonClicked",
+		"click .button-pulldown .button": "toggleDropDownMenu",
+		"click #id_navNewDataview": "onNewDataviewButtonClicked",
+		"click #id_navNewVisualization": "onNewVisualizationButtonClicked",
+	},
+
+	events: function() {
+		var e = _.extend({}, this.baseEvents);
+
+		_.each(this.inheritedEvents, function(events) {
+			e = _.extend(e, events);
+		});
+
+		return e;
+	},
+
+	addEvents: function(eventObj) {
+		this.inheritedEvents.push(eventObj);
+		this.delegateEvents();
+	},
+
+	// BaseView functions
 
 	el: 'body',
-
-	events: {
-		"click .header .tab.pulldown > a": "onHeaderPulldownButtonClicked",
-		"click .button-pulldown .button": "toggleDropDownMenu"
-	},
 
 	initialize: function(){
 		this.showHiddenElements();
@@ -46,7 +73,8 @@ var BaseView = Backbone.View.extend({
 		// If link is empty
 		if( 
 			$('#id_openDataSiteButton').attr('href') == '' ||
-			$('#id_openDataSiteButton').attr('href') == 'http://'
+			$('#id_openDataSiteButton').attr('href') == 'http://' ||
+			$('#id_openDataSiteButton').attr('href') == 'https://'
 		){
 			$('#id_openDataSiteButton').removeAttr('href');
 			this.events["click #id_openDataSiteButton"] = "onOpenDataSiteButtonClicked"
@@ -62,7 +90,7 @@ var BaseView = Backbone.View.extend({
 
 		// If is admin, change message
 		if( authManager.isAdmin() ){
-			message = gettext('APP-INEXISTENT-DOMAIN-ADMIN-1') + '<a href="http://' + Configuration.baseUri + '/admin/domain" title="' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '">' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '</a>.';			
+			message = gettext('APP-INEXISTENT-DOMAIN-ADMIN-1') + '<a href="' + Configuration.microsite_protocol + Configuration.baseUri + '/admin/domain" title="' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '">' + gettext('APP-INEXISTENT-DOMAIN-ADMIN-2') + '</a>.';			
 		}
 
 		$.gritter.add({
@@ -118,6 +146,18 @@ var BaseView = Backbone.View.extend({
 		}
 
 		button.parents('.button-pulldown').toggleClass('active').find('.dropdown').toggle();
-	}
+	},
+
+	// New Data View Local Nav clicked
+	onNewDataviewButtonClicked: function(){
+		var manageDatasetsOverlayView = new ManageDatasetsOverlayView();
+	},
+
+	// New Visualization Local Nav clicked
+	onNewVisualizationButtonClicked: function(){
+		var manageDatastreamsOverlayView = new ManageDatastreamsOverlayView();
+	},
 
 });
+	
+BaseView.extend = Backbone.View.extend;

@@ -214,6 +214,12 @@ button{background-color:$accent-color;border:none;outline:none;border-radius:non
   }
 
   /* Tabla */
-  .table-view{overflow:auto;}
+  .table-view{
+    overflow:auto;
+    .htCore td {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 
 }

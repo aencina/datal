@@ -1,5 +1,5 @@
 /* Button */
-.button{height:48px;line-height:46px;font-size:15px;padding:0 15px;display:inline-block;border:1px solid transparent;font-family:'robotoregular',arial,helvetica,sans-serif;text-align:center;cursor:pointer;
+.button{height:48px;line-height:44px;font-size:15px;padding:0 15px;display:inline-block;border:1px solid transparent;font-family:'robotoregular',arial,helvetica,sans-serif;text-align:center;cursor:pointer;white-space:nowrap;
   -webkit-box-sizing:border-box;
      -moz-box-sizing:border-box;
           box-sizing:border-box;
@@ -7,7 +7,7 @@
 .button:hover{text-decoration:none;}
 
   /* Small */
-  .button.small{height:24px;line-height:22px;font-size:12px;padding:0 11px;}
+  .button.small{height:34px;line-height:22px;font-size:12px;padding:4px 11px;}
 
   /* Big */
   .button.big{height:66px;line-height:64px;font-size:20px;padding:0 40px;}
@@ -18,9 +18,9 @@
 
   /* Alpha */
   .button.alpha,
-  .button.alpha-icon{font-size:12px;text-transform:none;font-family:Arial, Helvetica, sans-serif !important;border-color:transparent;background:none;font-weight:normal;}
+  .button.alpha-icon{font-size:12px;text-transform:none;font-family:Arial, Helvetica, sans-serif !important;border-color:transparent;background:none;font-weight:normal;min-width:inherit !important;}
   .button.alpha:hover{text-decoration:none;}
-  .button.alpha-icon{min-width:inherit !important;}
+  .button.alpha-icon:active{box-shadow:none;}
     
   /* Back */
   .button.back:before{content:"< ";}
@@ -43,3 +43,8 @@
   .button i.right-arrow{background-image:url(/static/workspace/images/common/ic_navigationArrows.png);width:4px;height:25px;}
   .button i.left-arrow{background-position: 0 center;}
   .button i.right-arrow{background-position: -4px center;margin: 0 0 0 8px;}
+
+/* Buttons group */
+.btn-group{display:inline-block;}
+.btn-group .button{float:left;}
+.btn-group .button + .button{margin-left:-1px;}

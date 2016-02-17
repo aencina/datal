@@ -1,0 +1,20 @@
+{% extends 'base_errors.html' %}
+{% load i18n %}
+
+{% block title %}
+	{% trans 'APP-ERROR-TEXT' %} 403
+{% endblock %}
+
+{% block errorContent %}
+
+<div class="error-graphic error-graphic-not-found"></div>
+
+<h1>{% trans 'APP-SORRY-YOU-DONT-HAVE-PERMISSION-TO-ACCESS-THIS-PAGE-TEXT' %}</h1>
+<p>
+    <a href="/">{% trans 'APP-GO-TO-HOMEPAGE-TEXT' %}</a>
+    {% trans 'APP-OF-THE-MICROSITE-TEXT' %}.
+</p>
+
+<p><span class="error-code">{% trans 'APP-ERROR-CODE-TEXT' %}: 403</span></p>
+
+{% endblock %}

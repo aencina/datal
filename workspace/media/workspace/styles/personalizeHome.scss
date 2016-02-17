@@ -83,6 +83,21 @@
 		.themeTabs > ul li.theme6 a .i6{width:30px;height:23px;line-height:23px;top:121px;left:98px;}
 		.themeTabs > ul li.theme6 a .i7{height:28px;line-height:28px;top:152px;}
 
+		/* Theme 7 */
+		.themeTabs > ul li.theme7 a .i1{height:36px;line-height:39px;top:20px;left:20px;width:57px;}
+		.themeTabs > ul li.theme7 a .i2{height:36px;line-height:39px;top:20px;left:85px;width:42px;}
+		.themeTabs > ul li.theme7 a .i3{height:23px;line-height:25px;top:64px;}
+		.themeTabs > ul li.theme7 a .i4{height:29px;line-height:29px;top:95px;}
+		.themeTabs > ul li.theme7 a .i5{width:30px;height:23px;line-height:25px;top:132px;left:20px;}
+		.themeTabs > ul li.theme7 a .i6{width:31px;height:23px;line-height:25px;top:132px;left:57px;}
+		.themeTabs > ul li.theme7 a .i7{width:31px;height:23px;line-height:25px;top:132px;left:96px;}
+		.themeTabs > ul li.theme7 a .i8{height:17px;line-height:18px;top:163px;}
+
+		/* Theme 8 */
+		.themeTabs > ul li.theme8 a .i1{height:36px;line-height:39px;top:20px;left:20px;width:57px;}
+		.themeTabs > ul li.theme8 a .i2{height:36px;line-height:39px;top:20px;left:85px;width:42px;}
+		.themeTabs > ul li.theme8 a .i3{height:23px;line-height:25px;top:104px;}
+
 /* Title and Description */
 .configs .title{margin:0 0 5px;border:0 !important;}
 .configs .description,
@@ -97,12 +112,13 @@
 .configs .formBox header hgroup{padding-left:30px;}
 .configs .formBox header h1{color:$font-color-semi-light;font-size:$font-size-m;font-weight:bold;line-height:normal;padding:1px 0;}
 .configs .formBox header h2{font-size:$font-size-base;color:#a2a1a1;}
+.configs .formBox header h3{color:$font-color-semi-light;font-size:$font-size-m;font-weight:bold;line-height:normal;padding:1px 0;}
 .configs .formBox fieldset{background:#f4f4f4;padding:13px;
 	-webkit-border-radius:3px;
 	   -moz-border-radius:3px;
 	        border-radius:3px;
 }
-.configs .formBox fieldset .row{padding-top:15px;}
+.configs .formBox fieldset .row{padding-top:15px;position:relative;}
 .configs .formBox fieldset .row:first-child{padding-top:0;}
 .configs .formBox fieldset label{padding-bottom:8px;display:inline-block;height:17px;line-height:17px;font-size:$form-label-size;color:$form-label-color;padding-left:12px;}
 .configs .formBox fieldset .field{border:1px solid #d9d7d7;width:100%;
@@ -124,12 +140,12 @@
 .configs .formBox fieldset.imageComponent img{width:108px;margin:0 10px 5px 0;float:left;border:1px solid #d9d7d7;border-radius:3px;}
 .configs .formBox fieldset.imageComponent.theme4 img{width:241px;}
 .configs .formBox fieldset.imageComponent.theme5 img{height:auto;}
-.configs .formBox fieldset.imageComponent table label{padding:9px 8px 0;}
+.configs .formBox fieldset.imageComponent table label{padding:9px 8px 0;width:75px;}
 .configs .formBox fieldset.imageComponent.theme6 table label{width:80px;text-align:right;padding-left:0 !important;}
 .configs .formBox fieldset.imageComponent .crop{width:110px;padding-top:3px;overflow:hidden;height:32px;}
 .configs .formBox fieldset.imageComponent .crop input[type=file]{width:110px;height:32px;position:relative;z-index:2;opacity:0;filter:alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";cursor:pointer;}
 .configs .formBox fieldset.imageComponent .crop button{position:absolute;top:3px;left:0;width:110px;z-index:1;height:29px !important;padding:0;}
-.configs .formBox fieldset.imageComponent table .field{width:210px;font-size:12px;margin:2px 0 0;}
+.configs .formBox fieldset.imageComponent table .field{width:140px;font-size:12px;margin:2px 0 0;}
 .configs .formBox fieldset.imageComponent.theme5 table .field{width:110px;}
 .configs .formBox fieldset.imageComponent .remove{margin-left:10px;border:0;padding:10px 0 0;background:transparent;font-size:11px;color:#aa2222;text-shadow:0 1px 0 #fff;display:inline-block;}
 .configs .formBox fieldset.imageComponent .remove:hover{text-decoration:underline;cursor:pointer;}
@@ -186,8 +202,6 @@
 
 /* Tagging */
 .tagsContent{margin-left:0;margin-top:10px;}
-.ic_Data{background-position:2px -19px !important;}
-.ui-autocomplete .ic_Data{background-position:2px -23px !important;}
 
 .tag .tagInner a{display:block;float:left;width:17px;height:20px;background:#e2e2e2 url(/static/core/images/common/ic_tagCloseCuration.png) no-repeat 0 1px;padding:2px;cursor:pointer;}
 
@@ -209,3 +223,14 @@
 /* Color Picker */
 .colorPicker{cursor:pointer;}
 .colorPicker div{width:28px !important;height:28px !important;top:4px !important;left:4px !important;}
+
+/* Add slide button side content */
+.buttonSideContent{position:absolute;left:252px;top:22px;}
+.buttonSideContent label{padding-top:3px;float:left;}
+.buttonSideContent .colorPicker{margin-top:-7px;}
+
+/* Theme 6 */
+.configs .buttonsSection #id_radios label{text-align:left !important;}
+.configs .buttonsSection #id_radios label.radioLabel{width:inherit !important;}
+.configs .buttonsSection.section3 #id_radios .videoLabel,
+.configs .buttonsSection.section3 #id_radios .videoRadio{display:none !important;}

@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
-{% load i18n extra_tags compress staticfiles sass_tags %}
+{% load i18n extra_tags compress staticfiles sass_tags core_components components plugins_tags %}
 
 {% block css_includes %}
 		{% compress css %}
 		<link href="{% sass_src 'workspace/styles/common.scss' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'core/styles/plugins/backgrid/backgrid.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="{% static 'core/styles/plugins/backgrid/backgrid-paginator.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="{% static 'core/styles/plugins/backgrid/backgrid-text-cell.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+		<link href="{% static 'core/styles/plugins/backgrid/backgrid-filter.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 		{% endcompress %}
-		<link href='http://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block js_includes %}
@@ -16,7 +20,7 @@
 
 <script src="/js_core/constants.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 
 <script src="/js_core/libs/jquery/jquery.parseHTML.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
@@ -24,34 +28,58 @@
 <script src="/js_core/plugins/jquery.twitter.like.alert.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/plugins/jquery.bgiframe.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/plugins/jquery.url.packed.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/plugins/jquery.gritter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+
 <script src="{% static 'underscore/underscore-min.js' %}"></script>
 <script src="{% static 'backbone/backbone.js' %}"></script>
-<script src="/js_core/libs/backbone_validation/backbone-validation-min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script src="/js_core/libs/epoxy/backbone.epoxy.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script src="/js_core/plugins/jquery.gritter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="{% static 'backbone-validation/dist/backbone-validation.js' %}"></script>
+<script src="{% static 'backbone.epoxy/backbone.epoxy.js' %}"></script>
+
+<!-- Backbone Grid -->
+<script type="text/javascript" src="/js_core/libs/backbone_paginator/backbone.paginator.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backgrid/backgrid.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backgrid_paginator/backgrid-paginator.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backgrid-text-cell/backgrid-text-cell.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backgrid-select-all/backgrid-select-all.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backgrid-filter/backgrid-filter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 <!-- Placeholder -->
 <!--[if IE]>
 <script src="/js_core/base_modules/placeholder.js?id={{settings.VERSION_JS_CSS}}"></script>
 <![endif]-->
 
-<script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
-<script type="text/javascript" src="/js_core/base_modules/auth_manager.js"></script>
-<script type="text/javascript" src="/js_core/plugins/jquery.validate.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-{% if preference.account_language == 'es' %}
-<script type="text/javascript" src="/js_core/plugins/localization/messages_es.js?id={{settings.VERSION_JS_CSS}}"></script>
-{% elif preference.account_language == 'pt' %}
-<script type="text/javascript" src="/js_core/plugins/localization/messages_pt.js?id={{settings.VERSION_JS_CSS}}"></script>
-{% endif %}
-<script type="text/javascript" src="/js_core/plugins/jquery.validate.custom.methods.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+<script src="/js_core/base_modules/auth_manager.js"></script>
+<script src="/js_core/plugins/jquery.validate.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/plugins/jquery.validate.custom.methods.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-<!-- NEW -->
-<script type="text/javascript" src="{% static 'workspace/scripts/common.js' %}"></script>
+<script src="{% static 'workspace/scripts/common.js' %}"></script>
+
 <!-- Error Manager Module -->
-<script language="javascript" src="{% static 'workspace/scripts/errorManager/errorManagerModel.js' %}"></script>
-<script language="javascript" src="{% static 'workspace/scripts/errorManager/errorManagerView.js' %}"></script>
-	
+<script src="{% static 'workspace/scripts/errorManager/errorManagerModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/errorManager/errorManagerView.js' %}"></script>
+
+{% if preference.account_language == 'es' %}
+<script src="/js_core/plugins/localization/messages_es.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% elif preference.account_language == 'pt' %}
+<script src="/js_core/plugins/localization/messages_pt.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% endif %}
+
+<!-- Add New Data View Overlay -->
+<script src="{% static 'workspace/scripts/addNewOverlays/dataview/datasetItemModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/addNewOverlays/dataview/listDatasets.js' %}"></script>
+<script src="{% static 'workspace/scripts/addNewOverlays/dataview/datasetItemView.js' %}"></script>
+<script src="{% static 'workspace/scripts/addNewOverlays/dataview/manageDatasetsOverlayView.js' %}"></script>
+
+<!-- Add New Visualization Overlay -->
+<script src="{% static 'workspace/scripts/addNewOverlays/visualization/datastreamItemModel.js' %}"></script>
+<script src="{% static 'workspace/scripts/addNewOverlays/visualization/listDatastreams.js' %}"></script>
+<script src="{% static 'workspace/scripts/addNewOverlays/visualization/datastreamItemView.js' %}"></script>
+<script src="{% static 'workspace/scripts/addNewOverlays/visualization/manageDatastreamsOverlayView.js' %}"></script>
+
+{% plugins_call 'workspace_base_scripts' %}
+
 {% endblock %}
 
 {% block body %}
@@ -62,7 +90,7 @@
 			<!--[if lt IE 8]>
 			<div class="ieMsg">
 				<div class="w960 clearfix">
-					{% trans "HEADER-IE-MESSAGES" %}
+					{% trans "HEADER-IE-MESSAGES-1" %} {{ settings.APPLICATION_DETAILS.name }} {% trans "HEADER-IE-MESSAGES-2" %}
 				</div>
 			</div>
 			<![endif]-->
@@ -74,7 +102,7 @@
 						<div class="wrapper3">
 
 							<!-- Logo -->
-							<a href="/welcome" title="DATAL" class="logo FL clearfix">
+							<a href="/welcome/" title="{{ settings.APPLICATION_DETAILS.name }}" class="logo FL clearfix">
 								<div class="logo-header-brand"></div>
 							</a>
 
@@ -91,8 +119,9 @@
 										<a href="{% url 'accounts.my_account' %}">{% gravatar auth_manager "small" "" %} {{auth_manager.name}}<span class="icon icon-right icon-pulldown"></span></a>
 										<div class="submenu border-box" style="display:none;">
 												<ul>
+													{% plugins_call 'workspace_account_menu' %}
 													<li><a href="{% url 'accounts.my_account' %}" title="{% trans 'HEADER-ACCOUNTDETAILLS-TEXT' %}">{% trans "HEADER-ACCOUNTDETAILLS-TEXT" %}</a></li>
-													<li><a id="id_sign_out" href="/signout" title="{% trans 'HEADER-SIGNOUT-TEXT' %}">{% trans "HEADER-SIGNOUT-TEXT" %}</a></li>
+													<li><a id="id_sign_out" href="/signout/" title="{% trans 'HEADER-SIGNOUT-TEXT' %}">{% trans "HEADER-SIGNOUT-TEXT" %}</a></li>
 												</ul>
 										</div>
 									</div>
@@ -104,7 +133,9 @@
 									-->
 
 									<!-- ODS Button -->
-									<a id="id_openDataSiteButton" href="http://{{ preference.account_domain }}" target="_blank" class="button alpha FR" title="{% trans 'HEADER-ODS-BUTTON' %}">{% trans 'HEADER-ODS-BUTTON' %}<span class="icon icon-view-site icon-right"></span></a>
+									<a id="id_openDataSiteButton" href="{{settings.MSPROTOCOL}}://{{ preference.account_domain }}" target="_blank" class="button alpha FR" title="{% trans 'HEADER-ODS-BUTTON' %}">{% trans 'HEADER-ODS-BUTTON' %}<span class="icon icon-view-site icon-right"></span></a>
+
+									{% plugins_call 'workspace_header' %}
 
 								</div>
 
@@ -146,11 +177,15 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Global Overlays - Used on all screens -->
+	{% include "global_overlays_workspace.html" %}
+
 {% endblock %}
 
 {% block base_bottom_js %}
 
-		{% include "errorManager/errorManager.html" %}
+	{% include "errorManager/errorManager.html" %}
 
 	<script type="text/javascript">
 
@@ -172,6 +207,19 @@
 		Configuration.apiUri = "{{settings.API_URI}}";
 		Configuration.apiKey = "{{settings.PUBLIC_KEY}}";
 		Configuration.language = "{{LANGUAGE_CODE}}";
+		Configuration.createDataViewUrl = "{% url 'manageDataviews.create' %}";
+		Configuration.createVisualizationUrl = "{% url 'manageVisualizations.create' %}";
+
+		Configuration.APPLICATION_DETAILS = {}
+		Configuration.APPLICATION_DETAILS.name = "{{ settings.APPLICATION_DETAILS.name }}";
+		Configuration.APPLICATION_DETAILS.website = "{{ settings.APPLICATION_DETAILS.website }}";
+		Configuration.APPLICATION_DETAILS.mail = "{{ settings.APPLICATION_DETAILS.mail }}";
+
+		{% if preferences.account_microsite_https %}
+			Configuration.microsite_protocol = 'https://';
+		{% else %}
+			Configuration.microsite_protocol = 'http://'
+		{% endif %}
 
 		csrfmiddlewaretoken = '{{ csrf_token }}';
 

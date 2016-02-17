@@ -27,560 +27,542 @@
     }
 },
 {
-    "pk": 4,
-    "model": "core.preference",
+    "pk": 4, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "{\"config\":{\"mainTitle\":\"\u00a1Bienvenidos a DATAL!\",\"mainSection\":\"<p>DATAL es una plataforma de c\u00f3digo abierto cogobernada por el Gobierno de Chile y Junar, que permite abrir datos p\u00fablicos de calidad, en nuestra regi\u00f3n y en nuestro idioma.<\\/p>\\n\\n<h2>\u00bfC\u00f3mo se realiza la apertura de datos?<\\/h2>\\n\\n<p>DATAL contiene un \u00e1rea de trabajo que permite manejar de inicio a fin el proceso de creaci\u00f3n y publicaci\u00f3n de datos abiertos. Los datos pueden ser curados y revisados para asegurar su calidad antes de ser publicados. Una vez publicados, son puestos a disposici\u00f3n de la ciudadan\u00eda para su descarga en m\u00faltiples formatos.<\\/p>\\n<p>DATAL tambi\u00e9n ofrece la posibilidad de configurar una p\u00e1gina de inicio con un cat\u00e1logo y una identidad gr\u00e1fica personalizada.<\\/p>\\n<p>Los datos abiertos quedan tambi\u00e9n disponibles para ser consumidos a trav\u00e9s de una API REST, lo que permite su reutilizaci\u00f3n por otros desarrolladores para crear aplicaciones web o m\u00f3viles.<\\/p>\\n<p><a href=\\\"http:\\/\\/workspace.dev:8080\\/\\\" target=\\\"_blank\\\">Ingrese al \u00e1rea de trabajo<\\/a> para administrar sus recursos: <\\/p>\\n<p class=\\\"pills\\\">Usuario: <span>administrador<\\/span><br>\\nContrase\u00f1a: <span>administrador<\\/span><\\/p>\\n<p>\u00a1Esperamos que pueda disfrutar de la facilidad de abrir datos con DATAL!<\\/p>\",\"coverUrl\":\"https:\\/\\/s3.amazonaws.com\\/salt.files\\/images\\/datal-portada.jpg\",\"sliderSection\":[{\"id\":\"id\",\"type\":\"source\"}],\"linkSection\":[],\"resourcesTable\":true},\"theme\":\"4\",\"type\":\"save\"}",
+        "account": 1, 
+        "value": "{\"config\":{\"mainTitle\":\"\u00a1Bienvenidos a DATAL!\",\"mainSection\":\"<p>DATAL es una plataforma de c\u00f3digo abierto cogobernada por el Gobierno de Chile y Junar, que permite abrir datos p\u00fablicos de calidad, en nuestra regi\u00f3n y en nuestro idioma.<\\/p>\\n\\n<h2>\u00bfC\u00f3mo se realiza la apertura de datos?<\\/h2>\\n\\n<p>DATAL contiene un \u00e1rea de trabajo que permite manejar de inicio a fin el proceso de creaci\u00f3n y publicaci\u00f3n de datos abiertos. Los datos pueden ser curados y revisados para asegurar su calidad antes de ser publicados. Una vez publicados, son puestos a disposici\u00f3n de la ciudadan\u00eda para su descarga en m\u00faltiples formatos.<\\/p>\\n<p>DATAL tambi\u00e9n ofrece la posibilidad de configurar una p\u00e1gina de inicio con un cat\u00e1logo y una identidad gr\u00e1fica personalizada.<\\/p>\\n<p>Los datos abiertos quedan tambi\u00e9n disponibles para ser consumidos a trav\u00e9s de una API REST, lo que permite su reutilizaci\u00f3n por otros desarrolladores para crear aplicaciones web o m\u00f3viles.<\\/p>\\n<p><a href=\\\"http:\\/\\/workspace.dev:8080\\/\\\" target=\\\"_blank\\\">Ingrese al \u00e1rea de trabajo<\\/a> para administrar sus recursos: <\\/p>\\n<p class=\\\"pills\\\">Usuario: <span>administrador<\\/span><br>\\nContrase\u00f1a: <span>administrador<\\/span><\\/p>\\n<p>\u00a1Esperamos que pueda disfrutar de la facilidad de abrir datos con DATAL!<\\/p>\",\"coverUrl\":\"https:\\/\\/s3.amazonaws.com\\/salt.files\\/images\\/datal-portada.jpg\",\"sliderSection\":[{\"id\":\"1746\",\"type\":\"vz\"}],\"linkSection\":[],\"resourcesTable\":true},\"theme\":\"4\",\"type\":\"save\"}", 
         "key": "account.home"
     }
 },
 {
-    "pk": 5,
-    "model": "core.preference",
+    "pk": 5, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "True",
+        "account": 1, 
+        "value": "True", 
         "key": "account.has.home"
     }
 },
 {
-    "pk": 6,
-    "model": "core.preference",
+    "pk": 6, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "api.dev:8080",
+        "account": 1, 
+        "value": "api.dev:8080", 
         "key": "account.api.domain"
     }
 },
 {
-    "pk": 7,
-    "model": "core.preference",
+    "pk": 7, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "es",
+        "account": 1, 
+        "value": "es", 
         "key": "account.language"
     }
 },
 {
-    "pk": 8,
-    "model": "core.preference",
+    "pk": 8, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "",
+        "account": 1, 
+        "value": "", 
         "key": "account.bio"
     }
 },
 {
-    "pk": 9,
-    "model": "core.preference",
+    "pk": 9, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "http://microsites.dev:8080/",
+        "account": 1, 
+        "value": "http://microsites.dev:8080/", 
         "key": "account.link"
     }
 },
 {
-    "pk": 10,
-    "model": "core.preference",
+    "pk": 10, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "datosgobcl",
+        "account": 1, 
+        "value": "datosgobcl", 
         "key": "account.url"
     }
 },
 {
-    "pk": 12,
-    "model": "core.preference",
+    "pk": 12, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "test@test.com",
+        "account": 1, 
+        "value": "test@test.com", 
         "key": "account.email"
     }
 },
 {
-    "pk": 14,
-    "model": "core.preference",
+    "pk": 14, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "Portal de Datos P\u00fablicos",
+        "account": 1, 
+        "value": "Portal de Datos P\u00fablicos", 
         "key": "account.page.titles"
     }
 },
 {
-    "pk": 15,
-    "model": "core.preference",
+    "pk": 15, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "True",
+        "account": 1, 
+        "value": "True", 
         "key": "enable.embed.options"
     }
 },
 {
-    "pk": 16,
-    "model": "core.preference",
+    "pk": 16, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "on",
+        "account": 1, 
+        "value": "on", 
         "key": "enable.junar.footer"
     }
 },
 {
-    "pk": 22,
-    "model": "core.preference",
+    "pk": 22, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/logo",
+        "account": 1, 
+        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/logo", 
         "key": "account.logo"
     }
 },
 {
-    "pk": 23,
-    "model": "core.preference",
+    "pk": 23, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#006bb7",
+        "account": 1, 
+        "value": "#006bb7", 
         "key": "account.title.color"
     }
 },
 {
-    "pk": 24,
-    "model": "core.preference",
+    "pk": 24, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#006bb7",
+        "account": 1, 
+        "value": "#006bb7", 
         "key": "account.button.bg.color"
     }
 },
 {
-    "pk": 25,
-    "model": "core.preference",
+    "pk": 25, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#044b7a",
+        "account": 1, 
+        "value": "#044b7a", 
         "key": "account.button.border.color"
     }
 },
 {
-    "pk": 26,
-    "model": "core.preference",
+    "pk": 26, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#ffffff",
+        "account": 1, 
+        "value": "#ffffff", 
         "key": "account.button.font.color"
     }
 },
 {
-    "pk": 27,
-    "model": "core.preference",
+    "pk": 27, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#006bb7",
+        "account": 1, 
+        "value": "#006bb7", 
         "key": "account.mouseover.bg.color"
     }
 },
 {
-    "pk": 28,
-    "model": "core.preference",
+    "pk": 28, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#044b7a",
+        "account": 1, 
+        "value": "#044b7a", 
         "key": "account.mouseover.border.color"
     }
 },
 {
-    "pk": 29,
-    "model": "core.preference",
+    "pk": 29, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#ffffff",
+        "account": 1, 
+        "value": "#ffffff", 
         "key": "account.mouseover.title.color"
     }
 },
 {
-    "pk": 30,
-    "model": "core.preference",
+    "pk": 30, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#70aed7",
+        "account": 1, 
+        "value": "#70aed7", 
         "key": "account.mouseover.text.color"
     }
 },
 {
-    "pk": 31,
-    "model": "core.preference",
+    "pk": 31, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#fbfaf4",
+        "account": 1, 
+        "value": "#fbfaf4", 
         "key": "account.header.bg.color"
     }
 },
 {
-    "pk": 32,
-    "model": "core.preference",
+    "pk": 32, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "#fbfaf4",
+        "account": 1, 
+        "value": "#fbfaf4", 
         "key": "account.header.border.color"
     }
 },
 {
-    "pk": 37,
-    "model": "core.preference",
+    "pk": 37, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/favicon",
+        "account": 1, 
+        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/favicon", 
         "key": "account.favicon"
     }
 },
 {
-    "pk": 40,
-    "model": "core.preference",
+    "pk": 40, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "1",
+        "account": 1, 
+        "value": "40524", 
         "key": "account.default.category"
     }
 },
 {
-    "pk": 41,
-    "model": "core.preference",
+    "pk": 41, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "1",
+        "account": 1, 
+        "value": "1", 
         "key": "account.transparency.createdcategories"
     }
 },
 {
-    "pk": 42,
-    "model": "core.preference",
+    "pk": 43, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "True",
-        "key": "account.dataset.showhome"
-    }
-},
-{
-    "pk": 43,
-    "model": "core.preference",
-    "fields": {
-        "account": 5754,
-        "value": "Open Data City",
+        "account": 5754, 
+        "value": "Open Data City", 
         "key": "account.name"
     }
 },
 {
-    "pk": 44,
-    "model": "core.preference",
+    "pk": 44, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "US",
+        "account": 5754, 
+        "value": "US", 
         "key": "account.contact.person.country"
     }
 },
 {
-    "pk": 45,
-    "model": "core.preference",
+    "pk": 45, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "opencity.site.demo.junar.com",
+        "account": 5754, 
+        "value": "opencity.site.demo.junar.com", 
         "key": "account.domain"
     }
 },
 {
-    "pk": 46,
-    "model": "core.preference",
+    "pk": 46, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "{\"config\":{\"mainTitle\":\"Welcome to DATAL!\",\"mainSection\":\"DATAL is Open Data for Latin America. It is an initiative co-governed by the Government of Chile and Junar that seeks to free an open source platform for Open Public Data to the highest international standards. We want to lower the barrier to entry for initiatives of Open Data in our region!\",\"coverUrl\":\"https:\\/\\/s3.amazonaws.com\\/salt.files\\/images\\/datal-portada.jpg\",\"sliderSection\":[{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"}],\"linkSection\":[{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"}],\"resourcesTable\":true},\"theme\":\"4\",\"type\":\"save\"}",
+        "account": 5754, 
+        "value": "{\"config\":{\"mainTitle\":\"Welcome to DATAL!\",\"mainSection\":\"DATAL is Open Data for Latin America. It is an initiative co-governed by the Government of Chile and Junar that seeks to free an open source platform for Open Public Data to the highest international standards. We want to lower the barrier to entry for initiatives of Open Data in our region!\",\"coverUrl\":\"https:\\/\\/s3.amazonaws.com\\/salt.files\\/images\\/datal-portada.jpg\",\"sliderSection\":[{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"}],\"linkSection\":[{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"},{\"id\":\"id\",\"type\":\"source\"}],\"resourcesTable\":true},\"theme\":\"4\",\"type\":\"save\"}", 
         "key": "account.home"
     }
 },
 {
-    "pk": 47,
-    "model": "core.preference",
+    "pk": 47, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "True",
+        "account": 5754, 
+        "value": "True", 
         "key": "account.has.home"
     }
 },
 {
-    "pk": 48,
-    "model": "core.preference",
+    "pk": 48, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "opencity.cloudapi.junar.com",
+        "account": 5754, 
+        "value": "opencity.cloudapi.junar.com", 
         "key": "account.api.domain"
     }
 },
 {
-    "pk": 49,
-    "model": "core.preference",
+    "pk": 49, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "en",
+        "account": 5754, 
+        "value": "en", 
         "key": "account.language"
     }
 },
 {
-    "pk": 50,
-    "model": "core.preference",
+    "pk": 50, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "",
+        "account": 5754, 
+        "value": "", 
         "key": "account.bio"
     }
 },
 {
-    "pk": 51,
-    "model": "core.preference",
+    "pk": 51, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "http://opencity.site.demo.junar.com",
+        "account": 5754, 
+        "value": "http://opencity.site.demo.junar.com", 
         "key": "account.link"
     }
 },
 {
-    "pk": 52,
-    "model": "core.preference",
+    "pk": 52, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "datosgobcl",
+        "account": 5754, 
+        "value": "datosgobcl", 
         "key": "account.url"
     }
 },
 {
-    "pk": 54,
-    "model": "core.preference",
+    "pk": 54, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "test@test.com",
+        "account": 5754, 
+        "value": "test@test.com", 
         "key": "account.email"
     }
 },
 {
-    "pk": 55,
-    "model": "core.preference",
+    "pk": 55, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "Portal de Datos P\u00fablicos",
+        "account": 5754, 
+        "value": "Portal de Datos P\u00fablicos", 
         "key": "account.page.titles"
     }
 },
 {
-    "pk": 56,
-    "model": "core.preference",
+    "pk": 56, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "True",
+        "account": 5754, 
+        "value": "True", 
         "key": "enable.embed.options"
     }
 },
 {
-    "pk": 57,
-    "model": "core.preference",
+    "pk": 57, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "on",
+        "account": 5754, 
+        "value": "on", 
         "key": "enable.junar.footer"
     }
 },
 {
-    "pk": 58,
-    "model": "core.preference",
+    "pk": 58, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/logo",
+        "account": 5754, 
+        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/logo", 
         "key": "account.logo"
     }
 },
 {
-    "pk": 59,
-    "model": "core.preference",
+    "pk": 59, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#006bb7",
+        "account": 5754, 
+        "value": "#006bb7", 
         "key": "account.title.color"
     }
 },
 {
-    "pk": 60,
-    "model": "core.preference",
+    "pk": 60, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#006bb7",
+        "account": 5754, 
+        "value": "#006bb7", 
         "key": "account.button.bg.color"
     }
 },
 {
-    "pk": 61,
-    "model": "core.preference",
+    "pk": 61, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#044b7a",
+        "account": 5754, 
+        "value": "#044b7a", 
         "key": "account.button.border.color"
     }
 },
 {
-    "pk": 62,
-    "model": "core.preference",
+    "pk": 62, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#ffffff",
+        "account": 5754, 
+        "value": "#ffffff", 
         "key": "account.button.font.color"
     }
 },
 {
-    "pk": 63,
-    "model": "core.preference",
+    "pk": 63, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#006bb7",
+        "account": 5754, 
+        "value": "#006bb7", 
         "key": "account.mouseover.bg.color"
     }
 },
 {
-    "pk": 64,
-    "model": "core.preference",
+    "pk": 64, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#044b7a",
+        "account": 5754, 
+        "value": "#044b7a", 
         "key": "account.mouseover.border.color"
     }
 },
 {
-    "pk": 65,
-    "model": "core.preference",
+    "pk": 65, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#ffffff",
+        "account": 5754, 
+        "value": "#ffffff", 
         "key": "account.mouseover.title.color"
     }
 },
 {
-    "pk": 66,
-    "model": "core.preference",
+    "pk": 66, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#70aed7",
+        "account": 5754, 
+        "value": "#70aed7", 
         "key": "account.mouseover.text.color"
     }
 },
 {
-    "pk": 67,
-    "model": "core.preference",
+    "pk": 67, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#fbfaf4",
+        "account": 5754, 
+        "value": "#fbfaf4", 
         "key": "account.header.bg.color"
     }
 },
 {
-    "pk": 68,
-    "model": "core.preference",
+    "pk": 68, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "#fbfaf4",
+        "account": 5754, 
+        "value": "#fbfaf4", 
         "key": "account.header.border.color"
     }
 },
 {
-    "pk": 69,
-    "model": "core.preference",
+    "pk": 69, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/favicon",
+        "account": 5754, 
+        "value": "http://junar-cdn-portal.s3-website-us-east-1.amazonaws.com/2/favicon", 
         "key": "account.favicon"
     }
 },
 {
-    "pk": 71,
-    "model": "core.preference",
+    "pk": 71, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "1",
+        "account": 5754, 
+        "value": "1", 
         "key": "account.transparency.createdcategories"
     }
 },
 {
-    "pk": 72,
-    "model": "core.preference",
+    "pk": 73, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "True",
-        "key": "account.dataset.showhome"
-    }
-},
-{
-    "pk": 73,
-    "model": "core.preference",
-    "fields": {
-        "account": 1,
-        "value": "True",
+        "account": 1, 
+        "value": "True", 
         "key": "account.enable.sharing"
     }
 },
 {
-    "pk": 74,
-    "model": "core.preference",
+    "pk": 74, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "True",
+        "account": 1, 
+        "value": "True", 
         "key": "account.enable.notes"
     }
 },
 {
-    "pk": 75,
-    "model": "core.preference",
+    "pk": 75, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "True",
+        "account": 1, 
+        "value": "True", 
         "key": "account.dataset.download"
     }
 },
 {
-    "pk": 76,
-    "model": "core.preference",
+    "pk": 76, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "True",
+        "account": 5754, 
+        "value": "True", 
         "key": "account.enable.sharing"
     }
 },
 {
-    "pk": 77,
-    "model": "core.preference",
+    "pk": 77, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "True",
+        "account": 5754, 
+        "value": "True", 
         "key": "account.enable.notes"
     }
 },
 {
-    "pk": 78,
-    "model": "core.preference",
+    "pk": 78, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "True",
+        "account": 5754, 
+        "value": "True", 
         "key": "account.dataset.download"
     }
 },
 {
-    "pk": 79,
-    "model": "core.preference",
+    "pk": 79, 
+    "model": "core.preference", 
     "fields": {
-        "account": 1,
-        "value": "1",
+        "account": 1, 
+        "value": "1", 
         "key": "account.id"
     }
 },
 {
-    "pk": 80,
-    "model": "core.preference",
+    "pk": 80, 
+    "model": "core.preference", 
     "fields": {
-        "account": 5754,
-        "value": "5754",
+        "account": 5754, 
+        "value": "5754", 
         "key": "account.id"
     }
 }

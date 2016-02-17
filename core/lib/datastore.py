@@ -78,6 +78,26 @@ class s3(Datastore):
         #                                                               bucket_name))
         #    raise S3CreateException(e)
 
+    def upload(self, bucket_name, uuid, file_data, account_id):
+        """
+        Crea un archivo en S3 dentro de un bucket. La ruta hacia el archivo se genera dando vuelta los ids de la
+        cuenta y el usuario. El nombre del archivo con UUID
+        """
+        logger = logging.getLogger(__name__)
+        if not uuid: uuid = UUID() # pueden pasarme un nombre de archivo especial
+        
+        #try:
+        end_point = "%s/%s" % (str(account_id), uuid)
+        try:
+            self._save(bucket_name, end_point, file_data)
+            logger.info('S3 saved to: %s ' % end_point)
+        except Exception, e:
+            logger.error('Error saving to S3: %s :: %s, %s,%s,%s,%s' % (str(e), end_point, bucket_name, uuid, file_data, account_id))
+            raise
+            
+        return end_point
+        
+        
     def generate_url(self, bucket_name, **kwargs):
         """ Genera una url para poder acceder a un archivo desde afuera """
         key = kwargs['key']
@@ -86,7 +106,7 @@ class s3(Datastore):
 
         return self.connection.generate_url(300, 'GET', bucket_name, key, response_headers = response_headers,
                                             force_http=force_http)
-
+    
     def update(self, bucket_name, file_name, file_data):
         """ Actualiza un archivo en S3. El nombre del archivo se encuentra precedido por la ruta hacia el mismo."""        
         try:
@@ -175,7 +195,7 @@ class datastore_sftp(datastore):
         logger.info(remote_path)
         logger.info(remote_file)
         self.sftp.putfo(file_data, remotepath=remote_file)
-
+        
     def save_checking_path(self, uploaded_file, folder, file_name):
         """ ensure path and save """
         self.connect()

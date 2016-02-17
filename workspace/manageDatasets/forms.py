@@ -13,6 +13,7 @@ from core.models import CategoryI18n
 from core.choices import SOURCE_EXTENSION_LIST, SOURCE_IMPLEMENTATION_CHOICES, SourceImplementationChoices
 from core.exceptions import FileTypeNotValidException
 from workspace.common.forms import TagForm, SourceForm
+from django.conf import settings
 
 
 logger = logging.getLogger(__name__)
@@ -276,6 +277,15 @@ class WebserviceForm(DatasetForm):
         })
     )
 
+    # Attributes as Headers
+    att_headers = forms.BooleanField(
+        required=False,
+        label=ugettext_lazy('APP-ATT-HEADERS-TEXT'),
+        widget=forms.CheckboxInput(attrs={
+            'data-bind':'checked:att_headers'
+        })
+    )
+
     # Username
     username = forms.CharField(
         required=False,
@@ -317,7 +327,9 @@ class WebserviceForm(DatasetForm):
                         self._errors.update(dict(error))
                     self._errors = ErrorDict(self._errors)
         self.cleaned_data['parameters'] = [form.cleaned_data for form in self.param_formset]
-
+        if (int(self.cleaned_data['impl_type']) == choices.SourceImplementationChoices.REST and
+            settings.PUBLICSTUFF_DOMAIN in self.cleaned_data['end_point']):
+            self.cleaned_data['impl_type'] = choices.SourceImplementationChoices.PUS
         return is_valid
 
 

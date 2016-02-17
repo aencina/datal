@@ -15,12 +15,12 @@ from datetime import datetime, timedelta, date
 from core.utils import slugify
 from core.cache import Cache
 from core.daos.resource import AbstractDataStreamDBDAO
-from core import settings
+from django.conf import settings
 from core.exceptions import SearchIndexNotFoundException, DataStreamNotFoundException
 from django.core.exceptions import FieldError
 
-from core.choices import STATUS_CHOICES
-from core.models import DatastreamI18n, DataStream, DataStreamRevision, Category, VisualizationRevision, DataStreamHits, Setting
+from core.choices import STATUS_CHOICES, StatusChoices, ChannelTypes
+from core.models import DatastreamI18n, DataStream, DataStreamRevision, Category, VisualizationRevision, DataStreamHits, Setting, DataStreamParameter
 
 from core.lib.elastic import ElasticsearchIndex
 
@@ -32,21 +32,22 @@ logger = logging.getLogger(__name__)
 try:
     from core.lib.searchify import SearchifyIndex
 except ImportError:
-    logger.warning("ImportError: No module named indextank.client.")
+#    logger.warning("ImportError: No module named indextank.client.")
+    pass
 
 class DataStreamDBDAO(AbstractDataStreamDBDAO):
     """ class for manage access to datastreams' database tables """
     def __init__(self):
         pass
 
-    def create(self, datastream=None, user=None, **fields):
+    def create(self, user, datastream=None, **fields):
         """create a new datastream if needed and a datastream_revision"""
 
         if datastream is None:
             # Create a new datastream (TITLE is for automatic GUID creation)
             datastream = DataStream.objects.create(user=user, title=fields['title'])
 
-        if isinstance(fields['category'], int):
+        if isinstance(fields['category'], int) or isinstance(fields['category'], long):
             fields['category'] = Category.objects.get(id=fields['category'])
 
         datastream_revision = DataStreamRevision.objects.create(
@@ -64,7 +65,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             language=fields['language'],
             title=fields['title'].strip().replace('\n', ' '),
             description=fields['description'].strip().replace('\n', ' '),
-            notes=fields['notes'].strip() if 'notes' in fields else ''
+            notes=fields['notes'].strip() if 'notes' in fields and fields['notes'] else ''
         )
 
         if 'tags' in fields:
@@ -77,9 +78,12 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         return datastream, datastream_revision
 
     def update(self, datastream_revision, changed_fields, **fields):
-        fields['title'] = fields['title'].strip().replace('\n', ' ')
-        fields['description'] = fields['description'].strip().replace('\n', ' ')
-        fields['notes'] = fields['notes'].strip()
+        if 'title' in fields:
+            fields['title'] = fields['title'].strip().replace('\n', ' ')
+        if 'description' in fields:
+            fields['description'] = fields['description'].strip().replace('\n', ' ')
+        if 'notes' in fields and fields['notes']:
+            fields['notes'] = fields['notes'].strip()
 
         datastream_revision.update(changed_fields, **fields)
 
@@ -95,30 +99,48 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
 
         return datastream_revision
 
-    def get(self, language, datastream_id=None, datastream_revision_id=None, guid=None, published=True):
-        """ Get full data """
-        fld_revision_to_get = 'datastream__last_published_revision' if published else 'datastream__last_revision'
+    def get(self, user, datastream_id=None, datastream_revision_id=None, guid=None, published=False):
+        """get all data of datastream 
+        :param user: mandatory
+        :param datastream_id:
+        :param datastream_revision_id:
+        :param guid:
+        :param published: boolean
+        :return: JSON Object
+        """
+
+        if settings.DEBUG: logger.info('Getting Datasstream %s' % str(locals()))
+
+        resource_language = Q(datastreami18n__language=user.language)
+        category_language = Q(category__categoryi18n__language=user.language)
 
         if guid:
-            datastream_revision = DataStreamRevision.objects.select_related().get(
-                datastream__guid=guid,
-                pk=F(fld_revision_to_get),
-                category__categoryi18n__language=language,
-                datastreami18n__language=language
-            )
-        elif not datastream_id:
-            datastream_revision = DataStreamRevision.objects.select_related().get(
-                pk=datastream_revision_id,
-                category__categoryi18n__language=language,
-                datastreami18n__language=language
-            )
+            condition = Q(datastream__guid=guid)
+        elif datastream_id:
+            condition = Q(datastream__id=datastream_id)
+        elif datastream_revision_id:
+            condition = Q(pk=datastream_revision_id)
         else:
-            datastream_revision = DataStreamRevision.objects.select_related().get(
-                pk=F(fld_revision_to_get),
-                category__categoryi18n__language=language,
-                datastreami18n__language=language,
-                datastream__id=datastream_id
-            )
+            logger.error('[ERROR] DataStreamDBDAO.get: no guid, resource id or revision id')
+            raise
+
+        # controla si esta publicado por su STATUS y no por si el padre lo tiene en su last_published_revision
+        if published:
+            status_condition = Q(status=StatusChoices.PUBLISHED)
+            last_revision_condition = Q(pk=F("datastream__last_published_revision"))
+        else:
+            status_condition = Q(status__in=StatusChoices.ALL)
+            last_revision_condition = Q(pk=F("datastream__last_revision"))
+
+        # aca la magia
+        account_condition = Q(user__account=user.account)
+
+        try:
+            datastream_revision = DataStreamRevision.objects.select_related().get(condition & resource_language & category_language & status_condition & account_condition & last_revision_condition)
+        except DataStreamRevision.DoesNotExist:
+            logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s %s %s %s)'% (condition, resource_language, category_language, status_condition, account_condition, last_revision_condition))
+            raise
+
 
         tags = datastream_revision.tagdatastream_set.all().values('tag__name', 'tag__status', 'tag__id')
         sources = datastream_revision.sourcedatastream_set.all().values('source__name', 'source__url', 'source__id')
@@ -129,25 +151,15 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             parameters = []
 
         # Get category name
-        category = datastream_revision.category.categoryi18n_set.get(language=language)
-        datastreami18n = DatastreamI18n.objects.get(datastream_revision=datastream_revision, language=language)
+        category = datastream_revision.category.categoryi18n_set.get(language=user.language)
+        datastreami18n = DatastreamI18n.objects.get(datastream_revision=datastream_revision, language=user.language)
         dataset_revision = datastream_revision.dataset.last_revision
 
-        # Muestro el link del micrositio solo si esta publicada la revision
-        public_url = ''
-        embed_url = ''
-        if datastream_revision.datastream.last_published_revision:
-            domain = datastream_revision.user.account.get_preference('account.domain')
-            if not domain.startswith('http'):
-                domain = 'http://' + domain
-            public_url = '{}/dataviews/{}/{}'.format(domain, datastream_revision.datastream.id, slugify(datastreami18n.title))
-            embed_url = '{}{}'.format(domain, reverse(
-                'viewDataStream.embed',
-                urlconf='microsites.urls',
-                kwargs={'guid': datastream_revision.datastream.guid}
-            ))
-
         datastream = dict(
+
+            resource_id=datastream_revision.datastream.id,
+            revision_id=datastream_revision.id,
+
             datastream_id=datastream_revision.datastream.id,
             datastream_revision_id=datastream_revision.id,
             dataset_id=datastream_revision.dataset.id,
@@ -156,6 +168,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             account_id=datastream_revision.user.account.id,
             category_id=datastream_revision.category.id,
             category_name=category.name,
+            category_slug=category.slug,
             end_point=dataset_revision.end_point,
             filename=dataset_revision.filename,
             collect_type=dataset_revision.dataset.type,
@@ -174,16 +187,17 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             tags=tags,
             sources=sources,
             parameters=parameters,
-            public_url=public_url,
+            data_source=datastream_revision.data_source,
+            select_statement=datastream_revision.select_statement,
             slug= slugify(datastreami18n.title),
-            embed_url=embed_url
+            cant=DataStreamRevision.objects.filter(dataset__id=datastream_revision.dataset.id).count(),
         )
 
         return datastream
 
     def query(self, account_id=None, language=None, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE,
           sort_by='-id', filters_dict=None, filter_name=None, exclude=None, filter_status=None,
-          filter_category=None, filter_text=None):
+          filter_category=None, filter_text=None, filter_user=None, full=False):
         """ Consulta y filtra los datastreams por diversos campos """
 
         query = DataStreamRevision.objects.filter(
@@ -218,6 +232,9 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             query = query.filter(Q(datastreami18n__title__icontains=filter_text) | 
                                  Q(datastreami18n__description__icontains=filter_text))
 
+        if filter_user is not None:
+            query = query.filter(datastream__user__nick=filter_user)
+
         total_resources = query.count()
         query = query.values(
             'datastream__user__nick',
@@ -225,6 +242,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             'status',
             'id',
             'datastream__guid',
+            'datastream__id',
             'category__id',
             'datastream__id',
             'category__categoryi18n__slug',
@@ -235,6 +253,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             'modified_at',
             'datastream__user__id',
             'datastream__last_revision_id',
+            'datastream__last_published_revision_id',
             'datastream__last_published_revision__modified_at',
             'dataset__last_revision__dataseti18n__title',
             'dataset__last_revision__impl_type',
@@ -243,12 +262,31 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
 
         query = query.order_by(sort_by)
 
+        if full:
+            parameters = DataStreamParameter.objects.filter(
+                    datastream_revision_id__in=[x['id'] for x in query]
+                ).values(
+                    'name', 'default', 'position', 'description', 'datastream_revision_id'
+                )
+            par_dict = {}
+            for parameter in parameters:
+                par_dict.setdefault(parameter['datastream_revision_id'], []).append(parameter)
+            for datastream in query:
+                datastream['parameters'] = par_dict.setdefault(datastream['id'], [])
+        
         # Limit the size.
         nfrom = page * itemsxpage
         nto = nfrom + itemsxpage
         query = query[nfrom:nto]
 
+        # sumamos el field cant
+        map(self.__add_cant, query)
+
         return query, total_resources
+
+    def __add_cant(self, item):
+            item['cant']=DataStreamRevision.objects.filter(datastream__id=item['datastream__id']).count()
+
 
     def query_hot_n(self, limit, lang, hot = None):
 
@@ -285,7 +323,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             datastream_id = row[1]
             title = row[2]
             slug = slugify(title)
-            permalink = reverse('datastreams-invoke', kwargs={'id': datastream_id, 'format': 'json'}, urlconf='microsites.urls')
+            permalink = reverse('datastreams-data', kwargs={'id': datastream_id, 'format': 'json'}, urlconf='microsites.urls')
             datastreams.append({'id'          : row[0],
                                 'title'        : title,
                                 'description'  : row[3],
@@ -329,15 +367,27 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
 
         return [{'type':k, 'value':v, 'title':title} for k,v,title in filters]
 
-    def query_childs(self, datastream_id, language):
+    def query_childs(self, datastream_id, language, status=None):
         """ Devuelve la jerarquia completa para medir el impacto """
 
         related = dict()
-        related['visualizations'] = VisualizationRevision.objects.select_related().filter(
+
+        query = VisualizationRevision.objects.select_related()
+
+        if status == StatusChoices.PUBLISHED:
+            query = query.filter(visualization__last_published_revision_id=F('id'))
+        else:
+            query = query.filter(visualization__last_revision_id=F('id'))
+
+        query = query.filter(
             visualization__datastream__id=datastream_id,
             visualizationi18n__language=language
         ).values('status', 'id', 'visualizationi18n__title', 'visualizationi18n__description',
                  'visualization__user__nick', 'created_at', 'visualization__last_revision')
+
+        # ordenamos desde el mas viejo
+        related['visualizations'] = query.order_by("created_at")
+
         return related
 
 
@@ -401,6 +451,8 @@ class DatastreamSearchDAO():
                 'docid' : self._get_id(),
                 'fields' :
                     {'type' : self.TYPE,
+                     'resource_id': self.datastream_revision.datastream.id,
+                     'revision_id': self.datastream_revision.id,
                      'datastream_id': self.datastream_revision.datastream.id,
                      'datastream__revision_id': self.datastream_revision.id,
                      'title': datastreami18n.title,
@@ -412,6 +464,8 @@ class DatastreamSearchDAO():
                      'parameters': "",
                      'timestamp': int(time.mktime(self.datastream_revision.created_at.timetuple())),
                      'hits': 0,
+                     'web_hits': 0,
+                     'api_hits': 0,
                      'end_point': self.datastream_revision.dataset.last_published_revision.end_point,
                     },
                 'categories': {'id': unicode(category.category_id), 'name': category.name}
@@ -458,8 +512,14 @@ class DatastreamHitsDAO():
     # cache ttl, 1 hora
     TTL=3600 
 
+    CHANNEL_TYPE=("web","api")
+
     def __init__(self, datastream):
         self.datastream = datastream
+        if isinstance(self.datastream, dict):
+            self.datastream_id = self.datastream['datastream_id']
+        else:
+            self.datastream_id = self.datastream.id 
         #self.datastream_revision = datastream.last_published_revision
         self.search_index = ElasticsearchIndex()
         self.cache=Cache()
@@ -486,27 +546,15 @@ class DatastreamHitsDAO():
             # esta correcto esta excepcion?
             raise DataStreamNotFoundException()
 
-        logger.info("DatastreamHitsDAO hit! (guid: %s)" % ( guid))
-
         # armo el documento para actualizar el index.
         doc={'docid':"DS::%s" % guid,
                 "type": "ds",
-                "script": "ctx._source.fields.hits+=1"}
+                "script": "ctx._source.fields.%s_hits+=1" % self.CHANNEL_TYPE[channel_type]}
 
         return self.search_index.update(doc)
 
-    def count(self):
-        return DataStreamHits.objects.filter(datastream_id=self.datastream['datastream_id']).count()
-
-    def _get_cache(self, cache_key):
-
-        cache=self.cache.get(cache_key)
-
-        return cache
-
-    def _set_cache(self, cache_key, value):
-
-        return self.cache.set(cache_key, value, self.TTL)
+    def count(self, channel_type=ChannelTypes.WEB):
+        return DataStreamHits.objects.filter(datastream_id=self.datastream_id, channel_type=channel_type).count()
 
     def count_by_days(self, day=30, channel_type=None):
         """trae un dict con los hits totales de los ultimos day y los hits particulares de los días desde day hasta today"""
@@ -515,55 +563,37 @@ class DatastreamHitsDAO():
         if day < 1:
             return {}
 
-        cache_key="%s_hits_%s_%s" % ( self.doc_type, self.datastream.guid, day)
+        # tenemos la fecha de inicio
+        start_date=datetime.today()-timedelta(days=day)
+
+        # tomamos solo la parte date
+        truncate_date = connection.ops.date_trunc_sql('day', 'created_at')
+
+        qs=DataStreamHits.objects.filter(datastream_id=self.datastream_id,created_at__gte=start_date)
 
         if channel_type:
-            cache_key+="_channel_type_%s" % channel_type
+            qs=qs.filter(channel_type=channel_type)
 
-        hits = self._get_cache(cache_key)
+        hits=qs.extra(select={'_date': truncate_date, "fecha": 'DATE(created_at)'}).values("fecha").order_by("created_at").annotate(hits=Count("created_at"))
 
-        # me cachendié! no esta en la cache
-        if not hits :
-            # tenemos la fecha de inicio
-            start_date=datetime.today()-timedelta(days=day)
+        control=[ date.today()-timedelta(days=x) for x in range(day-1,0,-1)]
+        control.append(date.today())
+        
+        for i in hits:
+            try:
+                control.remove(i['fecha'])
+            except ValueError:
+                pass
 
-            # tomamos solo la parte date
-            truncate_date = connection.ops.date_trunc_sql('day', 'created_at')
-
-            qs=DataStreamHits.objects.filter(datastream=self.datastream,created_at__gte=start_date)
-
-            if channel_type:
-                qs=qs.filter(channel_type=channel_type)
-
-            hits=qs.extra(select={'_date': truncate_date, "fecha": 'DATE(created_at)'}).values("fecha").order_by("created_at").annotate(hits=Count("created_at"))
-
-            control=[ date.today()-timedelta(days=x) for x in range(day-1,0,-1)]
-            control.append(date.today())
+        hits=list(hits)
             
-            for i in hits:
-                try:
-                    control.remove(i['fecha'])
-                except ValueError:
-                    pass
+        for i in control:
+            hits.append({"fecha": i, "hits": 0})
 
-            hits=list(hits)
-                
-            for i in control:
-                hits.append({"fecha": i, "hits": 0})
+        hits = sorted(hits, key=lambda k: k['fecha']) 
 
-            hits = sorted(hits, key=lambda k: k['fecha']) 
-
-            # transformamos las fechas en isoformat
-            hits=map(self._date_isoformat, hits)
-
-            # lo dejamos, amablemente, en la cache!
-            self._set_cache(cache_key, json.dumps(hits, cls=DjangoJSONEncoder))
-
-            self.from_cache=False
-        else:
-            hits=json.loads(hits)
-            self.from_cache = True
-
+        # transformamos las fechas en isoformat
+        hits=map(self._date_isoformat, hits)
         return hits
 
     def _date_isoformat(self, row):

@@ -1,5 +1,5 @@
 {% extends "base_microsites.html" %}
-{% load i18n humanize extra_tags core_components compress staticfiles sass_tags %}
+{% load i18n humanize extra_tags core_components compress staticfiles sass_tags plugins_tags %}
 
 {% block SEO %}
 	<title>{% if is_preview %}{% trans "APP-PREVIEWWINDOW-TITLE" %}{% else %}{{preferences.account_page_titles}}{% endif %}</title>
@@ -8,16 +8,23 @@
 {% block meta %}
     {% compress css %}
 	<!-- CSS -->
-	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/dataStreamBox.css' %}"/>
-	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'core/styles/homeModules.css' %}"/>
-	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/loadHome.css' %}" />
-
-	<!-- BRANDED CSS -->
-	<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/dataStreamBox.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/homeModules.css' %}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/loadHome.css' %}" />
+	<link href="{% static 'c3/c3.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
     {% endcompress %}
+
+    {% plugins_call 'microsites_home_css' %}
             
-	<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-	<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+	<!-- BRANDED CSS -->
+	{% compress css %}
+	<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
+	{% endcompress %}
+	<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+
+	<!-- BRANDED JS -->
+	<script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
 
 	<!-- JS -->
 	{% ifequal LANGUAGE_CODE 'es'%}
@@ -32,21 +39,49 @@
 	<script type="text/javascript" src="/js_core/base_modules/datatable_manager/datatablePaginationManager.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_core/base_modules/datatable_manager/datatableHeaderManager.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-	{% ifequal preferences.account_home_filters 'featured_accounts' %}
+	{% if has_federated_accounts %}
 	    <script type="text/javascript" src="/js_microsites/loadHome/datatableHomeFilterManager.js?id={{settings.VERSION_JS_CSS}}"></script>
 	    <script type="text/javascript" src="/js_microsites/loadHome/datatableHomeHeaderManager.js?id={{settings.VERSION_JS_CSS}}"></script>
 	{% else %}
 	    <script type="text/javascript" src="/js_microsites/loadHome/datatableHomeFilterManager.js?id={{settings.VERSION_JS_CSS}}"></script>
 	    <script type="text/javascript" src="/js_microsites/loadHome/datatableHomeHeaderManager.js?id={{settings.VERSION_JS_CSS}}"></script>
-	{% endifequal %}
+	{% endif %}
 	<script type="text/javascript" src="/js_microsites/loadHome/datatableHomeManager.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 	<script type="text/javascript" src="/js_microsites/loadHome/loadHome.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-	<script type="text/javascript" src="/js_core/base_modules/data_table/dataTable.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_core/libs/jquery_ui/jquery.ui.datepicker-es.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+	<script type="text/javascript"
+	          src="https://www.google.com/jsapi?autoload={
+	            'modules':[{
+	              'name':'visualization',
+	              'version':'1',
+	              'packages':['corechart']
+	            }]
+	    }"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
+
+	<script type="text/javascript" src="{% static 'd3/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'c3/c3.min.js' %}"></script>
+
+	<script src="/js_core/plugins/multimarker.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+	<!-- Charts types & instances -->
+	<script src="/js_core/base_modules/DataTableUtils.js"></script>
+	<script src="/js_core/base_modules/charts/ChartsFactory.js?id={{settings.VERSION_JS_CSS}}"></script>
+	<script src="/js_core/base_modules/charts/models/data.js?id={{settings.VERSION_JS_CSS}}"></script>
+	<script src="/js_core/base_modules/charts/models/chart.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+	<script src="/js_core/base_modules/charts/views/chart.js?id={{settings.VERSION_JS_CSS}}"></script>
+	<script src="/js_core/base_modules/charts/views/charts.js?id={{settings.VERSION_JS_CSS}}"></script>
+	<script src="/js_core/base_modules/charts/views/googleCharts.js?id={{settings.VERSION_JS_CSS}}"></script>
+	<script src="/js_core/base_modules/charts/views/mapChart.js?id={{settings.VERSION_JS_CSS}}"></script>
+	<script src="/js_core/base_modules/charts/views/c3Charts.js?id={{settings.VERSION_JS_CSS}}"></script>
+
+	<script src="/js_microsites/loadHome/ChartView.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 	{% block themeMeta %}{% endblock %}
 

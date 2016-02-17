@@ -5,7 +5,7 @@ import json
 from django.views.decorators.http import require_POST
 from django.utils.translation import ugettext
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render_to_response, HttpResponse
+from django.shortcuts import HttpResponse
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 
@@ -14,6 +14,16 @@ from core.http import get_domain_with_protocol
 from core.communitymanagers import FinderManager
 from core.lib.datastore import *
 from workspace.personalizeHome.managers import ThemeFinder
+from core.builders.themes import ThemeBuilder
+
+from core.models import Category
+
+# Éste es usado para traer la variable de SETTINGS que necesito en el template HTML
+#from core.shortcuts import render_to_response
+
+# Éste ya estaba acá, si comento éste y descomento la anterior, da error en el metodo suggest.
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 @login_required
@@ -30,8 +40,15 @@ def load(request):
     preference = account.get_preferences()
     stats = request.stats
     jsonContent = preference["account_home"]
+    language = request.auth_manager.language
     home_tab = True
-    return render_to_response('personalizeHome/index.html', locals())
+
+    # arlington theme (8) need categories
+    # incluye las cuentas federadas
+    federated_accounts_ids = [x['id'] for x in account.account_set.values('id').all()]
+    categories = Category.objects.get_for_home(language, federated_accounts_ids+[account.id])
+
+    return render_to_response('personalizeHome/index.html', locals(), context_instance=RequestContext(request))
 
 
 @login_required
@@ -48,7 +65,6 @@ def save(request):
         account = request.auth_manager.get_account()
         jsonContent = request.POST.get('jsonString')
         jsonObj = json.loads(jsonContent)
-        print jsonObj
         preferences = account.get_preferences()
         if jsonObj['type'] == 'save':
             if jsonObj['theme'] is None:
@@ -60,7 +76,9 @@ def save(request):
                 'status': 'ok',
                 'messages': [ugettext('APP-PREFERENCES-SAVESUCCESSFULLY-TEXT')]}), content_type='application/json')
         else:
-            previewHome = 'http://'+preferences['account_domain']+'/home?preview=true'
+            account = request.account
+            msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
+            previewHome = msprotocol + '://' + preferences['account_domain']+'/home?preview=true'
             preferences['account.preview'] = jsonContent
             return HttpResponse(json.dumps({'preview_home':previewHome}), content_type='application/json')
 
@@ -70,9 +88,14 @@ def save(request):
 def suggest(request):
     account = request.user.account
     preferences = account.get_preferences()
-    if preferences['account_home_filters'] == 'featured_accounts':
-        featured_accounts = Account.objects.get_featured_accounts(account.id)
-        account_id = [featured_account['id'] for featured_account in featured_accounts]
+    language = request.auth_manager.language
+
+    builder = ThemeBuilder(preferences, False, language, request.user)
+    data = builder.parse()
+
+    if data['federated_accounts_ids']:
+        federated_accounts = data['federated_accounts']
+        account_id = data['federated_accounts_ids']+[account.id]
     else:
         account_id = account.id
 
@@ -104,7 +127,7 @@ def upload(request):
             name = data.name
 
             accountid = str(request.auth_manager.account_id)
-            keyname = "%s/%s" %(accountid[::-1], name)
+            keyname = "%s/%s" % (accountid, name)
 
             active_datastore.upload(settings.AWS_CDN_BUCKET_NAME, name, data, str(request.auth_manager.account_id))
             value = get_domain_with_protocol('cdn') + '/' + keyname

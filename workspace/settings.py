@@ -46,6 +46,8 @@ DEFAULT_CATEGORIES = {
     'es': [u'Educación', u'Entretenimiento', u'Mundo', u'Negocios', u'Economía', u'Tecnología', u'Cultura', u'Salud', u'Deportes', u'Clima', u'Planeta', u'Ciencia'],
 }
 
+PUBLICSTUFF_DOMAIN = "publicstuff.com"
+
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 
@@ -77,3 +79,23 @@ try:
     MIDDLEWARE_CLASSES += WORKSPACE_PLUGIN_MIDDLEWARE_CLASSES
 except:
     pass
+
+try:    
+    from plugins.local_settings import *
+except ImportError:
+    pass
+
+# Agregamos la config para usar cache por pagina
+if not DEBUG:
+    CACHES['pages']={
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+else:
+    # disable cache_page
+    CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
+
+#queda deshabilitado hasta nuevo aviso
+CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
+
+

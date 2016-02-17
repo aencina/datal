@@ -1,6 +1,6 @@
 # DATAL's English language pack.
 # Copyright  2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-19 16:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Emilio Heck <emilio.heck@junar.com>\n"
+"Last-Translator: Ignacio Sans <ignacio.sans@junar.com>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -35,9 +35,6 @@ msgstr "Inténtalo Nuevamente"
 
 msgid "APP-TRYAGAIN-TEXT"
 msgstr "inténtalo nuevamente"
-
-msgid "APP-ORGOTOTHE-TEXT"
-msgstr "O puedes ir a la"
 
 msgid "APP-SOURCE-TEXT"
 msgstr "fuente"
@@ -268,7 +265,7 @@ msgid "DATE-MONTH-12"
 msgstr "Diciembre"
 
 msgid "APP-POWEREDBY-TITLE"
-msgstr "DATAL &middot; Platforma de Datos Abiertos"
+msgstr " &middot; Platforma de Datos Abiertos"
 
 msgid "APP-A-TEXT"
 msgstr "un"

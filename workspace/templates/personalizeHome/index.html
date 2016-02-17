@@ -4,8 +4,9 @@
 {% block meta %}
 {% compress css %}
 <!-- CSS LIBS -->
-<link href="{% sass_src 'core/styles/plugins/jquery-file-upload/jquery.fileupload-ui.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
-<link type="text/css" href="{% sass_src 'core/styles/plugins/jquery-file-upload/jquery.fileupload.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
+<link href="{% static 'core/styles/plugins/jquery-file-upload/jquery.fileupload-ui.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
+<link type="text/css" href="{% static 'core/styles/plugins/jquery-file-upload/jquery.fileupload.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
+<link href="{% static 'core/styles/actions.css' %}" type="text/css" rel="stylesheet" media="screen"></script>
 
 <!-- CSS JUNAR -->
 <link href="{% sass_src 'workspace/styles/accountAdmin.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
@@ -14,10 +15,12 @@
 
 <!-- JS LIBS -->
 <script type="text/javascript" src="/js_core/plugins/saferStringify.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% comment %}
 <script type="text/javascript" src="/js_core/libs/underscore151/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/libs/backbone100/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backbone_validation/backbone-validation-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/libs/epoxy/backbone.epoxy.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% endcomment %}
+<script type="text/javascript" src="/js_core/libs/backbone_validation/backbone-validation-min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/taggingCompleteSources.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
@@ -37,6 +40,10 @@
 <script src="{% static 'workspace/scripts/personalizeHome/theme5View.js' %}"></script>
 <script src="{% static 'workspace/scripts/personalizeHome/theme6Model.js' %}"></script>
 <script src="{% static 'workspace/scripts/personalizeHome/theme6View.js' %}"></script>
+<script src="{% static 'workspace/scripts/personalizeHome/theme7Model.js' %}"></script>
+<script src="{% static 'workspace/scripts/personalizeHome/theme7View.js' %}"></script>
+<script src="{% static 'workspace/scripts/personalizeHome/theme8Model.js' %}"></script>
+<script src="{% static 'workspace/scripts/personalizeHome/theme8View.js' %}"></script>
 <script src="{% static 'workspace/scripts/personalizeHome/personalizeHomeModel.js' %}"></script>
 <script src="{% static 'workspace/scripts/personalizeHome/personalizeHomeView.js' %}"></script>
 <meta name="main-option" content="id_settings_option"/>
@@ -169,6 +176,33 @@
 					</span>
 				</a>
 			</li>
+			<li class="theme7">
+				<a id="id_theme7Button" rel="7">
+					<span class="text">{% trans "ADMIN-HOME-THEMES-THEME7-TEXT" %}</span>
+					<span class="img">
+						<img src="{% static 'workspace/images/personalizeHome/im_theme7.gif' %}"/>
+						<i class="i1">1</i>
+						<i class="i2">2</i>
+						<i class="i3">3</i>
+						<i class="i4">4</i>
+						<i class="i5">5</i>
+						<i class="i6">6</i>
+						<i class="i7">7</i>
+						<i class="i8">8</i>
+					</span>
+				</a>
+			</li>
+			<li class="theme8">
+				<a id="id_theme8Button" rel="8">
+					<span class="text">{% trans "ADMIN-HOME-THEMES-THEME8-TEXT" %}</span>
+					<span class="img">
+						<img src="{% static 'workspace/images/personalizeHome/im_theme8.gif' %}"/>
+						<i class="i1">1</i>
+						<i class="i2">2</i>
+						<i class="i3">3</i>
+					</span>
+				</a>
+			</li>
 		</ul>
 	</section>
 
@@ -243,6 +277,8 @@
 {% include "personalizeHome/theme4.html" %}
 {% include "personalizeHome/theme5.html" %}
 {% include "personalizeHome/theme6.html" %}
+{% include "personalizeHome/theme7.html" %}
+{% include "personalizeHome/theme8.html" %}
 
 <script type="text/javascript">
   $(document).ready(function(){

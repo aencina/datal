@@ -6,6 +6,7 @@ from core.models import User
 from core import http as LocalHelper
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext
+from core.plugins_point import DatalPluginPoint
 import redis
 import datetime
 import logging
@@ -38,6 +39,12 @@ class ActivityStreamDAO:
             elif resource_type == settings.TYPE_DATASET:
                 l_permalink = reverse('manageDatasets.view', urlconf='workspace.urls',
                                       kwargs={'revision_id': revision_id})
+            else:
+                for plugin in DatalPluginPoint.get_plugins():
+                    if (plugin.is_active() and hasattr(plugin, 'doc_type') and 
+                        plugin.doc_type == resource_type and 
+                        hasattr(plugin, 'workspace_permalink')):
+                        l_permalink = plugin.workspace_permalink(revision_id)
             
         list_key = 'activity_stream::%s' % str(account_id)
         n=c.incr("%s_counter" % list_key) # count any use of the list indexing hash and never repeat an ID
@@ -56,12 +63,11 @@ class ActivityStreamDAO:
 
     def query(self, account_id, limit=21):
         """ query for last 20 records of activity lists"""
-        if settings.DEBUG: logger.info('Query ActivityStreamDAO %d' % account_id)
 
         c = Cache(db=settings.CACHE_DATABASES['activity_resources'])
         list_key = 'activity_stream::%s' % str(account_id)
         activity_keys = c.lrange(str(list_key),0, limit)
-        r = redis.Redis(host='localhost', port=settings.REDIS_PORT,
+        r = redis.Redis(host=settings.REDIS_READER_HOST, port=settings.REDIS_PORT,
             db=settings.CACHE_DATABASES['activity_resources'])
         pipeline=r.pipeline()
 
@@ -70,17 +76,18 @@ class ActivityStreamDAO:
         activities = []
         users = {} # avoid duplicated sql queries
         for h in pipeline.execute():
-            user_id = h['user_id']
-            if not users.get(user_id, None):
-                user = User.objects.get(pk=user_id)
-                users[user_id] = user
-            else:
-                user = users[user_id]
-            h['user_nick'] = user.nick
-            h['user_email'] = user.email
-            h['user_name'] = user.name
+            user_id = h.get('user_id', None)
+            if user_id:
+                if not users.get(user_id, None):
+                    user = User.objects.get(pk=user_id)
+                    users[user_id] = user
+                else:
+                    user = users[user_id]
+                h['user_nick'] = user.nick
+                h['user_email'] = user.email
+                h['user_name'] = user.name
                 
-            activities.append(h)
+                activities.append(h)
 
         # if settings.DEBUG: logger.info('Returned activities %s' % str(activities))
         return activities

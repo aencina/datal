@@ -35,7 +35,7 @@ var visualizationHitsView = Backbone.View.extend({
 
     var visualization = this.options.visualization.attributes;
       
-    var url  = '/visualizations/get_last_30_days_visualization/'+ visualization.visualization_id;
+    var url  = '/rest/charts/'+ visualization.revision_id + '/hits.json/';
             
     var ajax = $.ajax({ 
       url: url,

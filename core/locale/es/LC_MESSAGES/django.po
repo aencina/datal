@@ -1,6 +1,6 @@
 # DATAL's English language pack.
 # Copyright  2012 JUNAR'S COPYRIGHT HOLDER
-# Author <emilio.heck@junar.com>, 2012.
+# Author <ignacio.sans@junar.com>, 2012.
 #
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-19 16:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Emilio Heck <emilio.heck@junar.com>\n"
+"Last-Translator: Ignacio Sans <ignacio.sans@junar.com>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -128,9 +128,6 @@ msgstr ""
 
 msgid "MODEL_USER_LABEL"
 msgstr "Usuario"
-
-msgid "MODEL_IS_PRIVATE_LABEL"
-msgstr "Es privado"
 
 msgid "MODEL_DATASTREAM_LABEL"
 msgstr "Vista"
@@ -306,9 +303,6 @@ msgstr "La cuenta ha alcanzado el límite de Usuarios, actualiza tu cuenta para 
 msgid "APP-ERROR-TEXT"
 msgstr "Error"
 
-msgid "APP-PAGENOTFOUND-TEXT"
-msgstr "Página no encontrada"
-
 msgid "APP-DISCOVERINGDATA-TEXT"
 msgstr "Datos Abiertos"
 
@@ -327,29 +321,14 @@ msgstr "años atras"
 msgid "APP-OOPS-TEXT"
 msgstr "Oops!"
 
-msgid "APP-404-ERROR"
-msgstr "La página que estas buscando ya no existe, <br/> o tal vez no cargó correctamente"
-
 msgid "APP-PLEASE-TEXT"
 msgstr "Por favor"
 
 msgid "APP-TRYAGAIN-TEXT"
 msgstr "inténtalo nuevamente"
 
-msgid "APP-ORGOTOTHE-TEXT"
-msgstr "O anda a la"
-
 msgid "APP-SOURCE-TEXT"
 msgstr "Fuente"
-
-msgid "APP-INTERNALERROR-TEXT"
-msgstr "Error interno del servidor"
-
-msgid "APP-500-ERROR"
-msgstr "¡Nuestro servidor exploto! O quizas está abajo por mantenimiento"
-
-msgid "APP-INAFEWMINUTES-TEXT"
-msgstr "en unos pocos minutos"
 
 msgid "APP-ACTIONS-TEXT"
 msgstr "Acciones"
@@ -466,7 +445,7 @@ msgid "APP-FREEZE-TEXT"
 msgstr "Congelar"
 
 msgid "APP-ROWS-TEXT"
-msgstr "filas"
+msgstr "Filas"
 
 msgid "APP-COLUMNS-TEXT"
 msgstr "Comentario"
@@ -482,17 +461,6 @@ msgstr "Desarrollado por"
 
 msgid "DEV-PAGE-TITLE"
 msgstr "Página de Desarrolladores"
-
-msgid "DEV-PAGE-SUBTITLE"
-msgstr "Prueba la API de DATAL"
-
-msgid "DEV-DESCRIPTION-TEXT1"
-msgstr ""
-"La API de DATAL permite el acceso directo al catálogo de DATAL y a su motor "
-"desde tu aplicación, para propósitos de <strong>descubrir vistas y "
-"colecciones</strong>,  invocar vistas <strong> y pronto... recolectar y "
-"publicar datos como vistas</strong>. Usa una interfaz RESTful y retorna los "
-"datos en formato JSON."
 
 msgid "DEV-DESCRIPTION-TEXT2"
 msgstr ""
@@ -510,7 +478,7 @@ msgid "DEV-GETKEY-TITLE"
 msgstr "Obtén una Clave"
 
 msgid "DEV-GETKEY-SUBTITLE"
-msgstr "La API de DATAL requiere una <span class='br'>key para operar.</span>"
+msgstr "La API requiere una <span class='br'>key para operar.</span>"
 
 msgid "DEV-GETKEY-TEXT1"
 msgstr "Obtén una y accede a cualquier recurso a través de ella"
@@ -528,7 +496,7 @@ msgid "DEV-CREATEREQUEST-TITLE"
 msgstr "Crea un Request"
 
 msgid "DEV-CREATEREQUEST-SUBTITLE"
-msgstr "La API de DATAL acepta request RESTfuls"
+msgstr "La API acepta request RESTfuls"
 
 msgid "DEV-CREATEREQUEST-TEX1"
 msgstr "Un request típico luce así"
@@ -542,7 +510,7 @@ msgid "DEV-CREATEREQUEST-TEX3"
 msgstr "Algunas puntos importantes en el request anterior"
 
 msgid "DEV-CREATEREQUEST-TEX4"
-msgstr "/api/v1/datastreams/"
+msgstr "/api/v2/datastreams/"
 
 msgid "DEV-CREATEREQUEST-TEX5"
 msgstr ""
@@ -590,7 +558,7 @@ msgid "DEV-OV-TITLE"
 msgstr "Confirmación y Key"
 
 msgid "DEV-OV-SUBTITLE"
-msgstr "Gracias por probar la API de DATAL"
+msgstr "Gracias por probar nuestra API"
 
 msgid "DEV-OV-TEXT"
 msgstr "Esta es tu Auth key"
@@ -610,8 +578,11 @@ msgstr "Las nuevas contraseñas no coincide."
 msgid "EMAIL-EXISTS"
 msgstr "Este e-mail ya existe."
 
-msgid "HEADER-IE-MESSAGES"
-msgstr "<p><strong>Precaución:</strong> DATAL funciona correctamente en Internet Explorer 8 o superior y puede no funcionar correctamente en versiones antiguas de este navegador, o en modo <a href='http://blogs.msdn.com/b/ie/archive/2008/08/27/introducing-compatibility-view.aspx' title='vista de compatibilidad' target='_blank'>vista de compatibilidad</a>. Por favor <a href='http://windows.microsoft.com/en-us/internet-explorer/products/ie/home' title='Actualice su navegador a la última versión' target='_blank'>actualice su navegador a la última versión</a> o <a href='http://abetterbrowser.org/' title='Use otro navegador' target='_blank'>use otro navegador</a>.</p>"
+msgid "HEADER-IE-MESSAGES-1"
+msgstr "<p><strong>Precaución:</strong> "
+
+msgid "HEADER-IE-MESSAGES-2"
+msgstr " funciona correctamente en Internet Explorer 8 o superior y puede no funcionar correctamente en versiones antiguas de este navegador, o en modo <a href='http://blogs.msdn.com/b/ie/archive/2008/08/27/introducing-compatibility-view.aspx' title='vista de compatibilidad' target='_blank'>vista de compatibilidad</a>. Por favor <a href='http://windows.microsoft.com/en-us/internet-explorer/products/ie/home' title='Actualice su navegador a la última versión' target='_blank'>actualice su navegador a la última versión</a> o <a href='http://abetterbrowser.org/' title='Use otro navegador' target='_blank'>use otro navegador</a>.</p>"
 
 msgid "APP-HELP-TEXT"
 msgstr "Soporte en línea"
@@ -683,7 +654,7 @@ msgid "APP-LOGIN-TEXT"
 msgstr "Ingresar"
 
 msgid "APP-ACTIVATION-TITLE-TEXT"
-msgstr "Active su cuenta DATAL"
+msgstr "Active su cuenta"
 
 msgid "APP-ACTIVATION-SUBTITLE-TEXT"
 msgstr "Escriba una contraseña con el fin de terminar su activación de la cuenta"
@@ -1001,7 +972,7 @@ msgstr "Error desconocido"
 msgid "EXCEPTION-DESCRIPTION-UNKNOWN"
 msgstr "Error desconocido con nombre %(exception_name)s y trace '%(exception_trace)s'"
 
-# —————————— Exceptions Microsites
+# —————————— Exceptions Open data portals
 
 msgid "EXCEPTION-TITLE-REVISION-NOT-EXIST"
 msgstr "La visualización no existe"
@@ -1050,3 +1021,51 @@ msgstr "No tiene acceso a la visualización"
 
 msgid "EXCEPTION-DESCRIPTION-VISUALIZATION-NOT-ACCESS"
 msgstr "Su cuenta no tiene acceso a la visualziación"
+
+msgid "APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT"
+msgstr "No encontramos lo que está buscando"
+
+msgid "APP-SORRY-YOU-DONT-HAVE-PERMISSION-TO-ACCESS-THIS-PAGE-TEXT"
+msgstr "Lo sentimos, no posee permisos para acceder a esta página"
+
+msgid "APP-SORRY-SOMETHING-IS-WRONG-TEXT"
+msgstr "Lo sentimos, algo anda mal"
+
+msgid "APP-ERROR-400-DESCRIPTION"
+msgstr "Puede que haya tipeado mal la dirección, revísela y vuelva a intentarlo, o vaya a la"
+
+msgid "APP-ERROR-404-DESCRIPTION"
+msgstr "Puede que haya tipeado mal la dirección o que la página se haya movido."
+
+msgid "APP-ERROR-500-DESCRIPTION"
+msgstr "Estamos trabajando para solucionar este problema lo antes posible. Si el problema continúa escríbanos a <a href='mailto:support@junar.com'>support@junar.com</a>."
+
+msgid "APP-OF-THE-WORKSPACE-TEXT"
+msgstr "del espacio de trabajo"
+
+msgid "APP-OF-THE-MICROSITE-TEXT"
+msgstr "del portal de datos abiertos"
+
+msgid "APP-HOMEPAGE-LOWERCASE-TEXT"
+msgstr "página de inicio"
+
+msgid "APP-GO-TO-HOMEPAGE-TEXT"
+msgstr "Ir a la página de inicio"
+
+msgid "APP-ERROR-CODE-TEXT"
+msgstr "Código de error"
+
+msgid "APP-WORKSPACE-TEXT"
+msgstr "Espacio de trabajo"
+
+msgid "APP-MICROSITE-TEXT"
+msgstr "Portal de datos abiertos"
+
+msgid "APP-CONTACTUS-TEXT"
+msgstr "Contáctenos"
+
+msgid "APP-RESOURCE-TEXT"
+msgstr "Recurso"
+
+msgid "APP-ALL-S-TEXT"
+msgstr "Todos"

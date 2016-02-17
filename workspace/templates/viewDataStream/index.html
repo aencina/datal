@@ -7,27 +7,18 @@
 
 <link href="/js_core/plugins/flexigrid.4/styles/flexigrid.pack.css" type="text/css" rel="stylesheet" media="screen"/>
 {% compress css %}
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid-paginator.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid-text-cell.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/plugins/backgrid/backgrid-filter.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/detailCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/viewDataStream.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/manageDataviews.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
 
 {# JS Libs and Plugins #}
+<script type="text/javascript" src="/js_core/libs/jquery_ui/jquery.ui.datepicker-es.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.client.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/flexigrid.4/source/flexigrid.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backbone_paginator/backbone.paginator.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid/backgrid.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid_paginator/backgrid-paginator.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid-text-cell/backgrid-text-cell.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid-select-all/backgrid-select-all.min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backgrid-filter/backgrid-filter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/nicEdit/nicEdit-2014.js?id={{settings.VERSION_JS_CSS}}"></script>
 
 {# JS for this screen #}
@@ -118,9 +109,9 @@ $(document).ready(function(){
     changeStatusUrl: "{% url 'manageDataviews.change_status' datastream.datastream_revision_id %}",
     lastPublishRevisionId: "{{ datastream.last_published_revision_id }}",
     createVizUrl: "{% url 'manageVisualizations.create' %}?datastream_revision_id={{datastream.datastream_revision_id}}",
-    editUrl: "{% url 'manageDataviews.edit' %}/{{datastream.datastream_revision_id}}/",
+    editUrl: "{% url 'manageDataviews.edit' %}{{datastream.datastream_revision_id}}/",
     lastPublishDate: "{{datastream.last_published_date|date:'F d, Y, h:i A'|capfirst }}",
-    publicUrl: "{{ datastream.public_url }}",
+    publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'datastream' datastream.datastream_id datastream.slug %}",
     createdAt: "{{ datastream.created_at|date:'F d, Y, h:i A'|capfirst  }}",
     modifiedAt: "{{ datastream.modified_at|date:'F d, Y, h:i A'|capfirst  }}"
   });
@@ -135,17 +126,16 @@ $(document).ready(function(){
     description: "{{datastream.description|escapejs}}",
     sources: [{% for source in datastream.sources %}{"name":"{{ source.source__name }}"},{% endfor %}],
     tags: [{% for tag in datastream.tags %}{"name":"{{ tag.tag__name }}"},{% endfor %}],
-    notes: "{{datastream.notes}}",
-    sourceUrl: '/rest/sources.json',
-    tagUrl: '/rest/tags.json',
-    editUrl: "{% url 'manageDataviews.edit' %}/{{datastream.datastream_revision_id}}",
+    notes: "{{datastream.notes|escapejs}}",
+    sourceUrl: '/rest/sources.json/',
+    tagUrl: '/rest/tags.json/',
+    editUrl: "{% url 'manageDataviews.edit' %}{{datastream.datastream_revision_id}}/",
   });
 
   var viewDataStreamView = new ViewDataStreamView({
     model: viewDataStreamModel,
-    dataViewCreationStepsUrl: "{% url 'manageDataviews.create' %}",
-    sourceUrl: '/rest/sources.json',
-    tagUrl: '/rest/tags.json',
+    sourceUrl: '/rest/sources.json/',
+    tagUrl: '/rest/tags.json/',
     datastreamEditItemModel: datastreamEditItemModel
   });
 });

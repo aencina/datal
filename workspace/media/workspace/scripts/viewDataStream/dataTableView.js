@@ -7,6 +7,7 @@ var dataTableView = Backbone.View.extend({
 	
 	events:{
 		'click a[id^="id_changeParam"]': 'onChangeParamButtonClicked',
+		'click #id_retryButton': 'invoke'
 	},
 
 	$parameters: null,
@@ -93,10 +94,10 @@ var dataTableView = Backbone.View.extend({
 
 		var dataStream = this.dataStream.attributes;
 
-	  var data = "&limit=" + this.model.get("rows") + "&page=" + this.model.get("page");
+		var data = "&limit=" + this.model.get("rows") + "&page=" + this.model.get("page");
 
-	  // Add DataStream pArguments
-	  var params = [],
+		// Add DataStream pArguments
+		var params = [],
 			n = 0;
 
 		while( dataStream['parameter' + n ] != undefined ){
@@ -107,16 +108,16 @@ var dataTableView = Backbone.View.extend({
 		if(params.length > 0){
 			data += params.join('');
 		}
-	    
-	  var ajax = $.ajax({ 
-			url: '/rest/datastreams/' + dataStream.id + '/data.json', 
-		  type:'GET', 
-		  data: data, 
-		  dataType: 'json', 
-		  beforeSend: _.bind(this.onInvokeBeforeSend, this),
-		  success: _.bind(this.onInvokeSuccess, this), 
-		  error: _.bind(this.onInvokeError, this)
-	  });
+
+		var ajax = $.ajax({ 
+			url: '/rest/datastreams/' + dataStream.id + '/data.json/', 
+			type:'GET', 
+			data: data, 
+			dataType: 'json', 
+			beforeSend: _.bind(this.onInvokeBeforeSend, this),
+			success: _.bind(this.onInvokeSuccess, this), 
+			error: _.bind(this.onInvokeError, this)
+		});
 
 	},
 
@@ -125,8 +126,9 @@ var dataTableView = Backbone.View.extend({
 		// Prevent override of global beforeSend
 		$.ajaxSettings.beforeSend(xhr, settings);
 
-    this.updateParametersButtonsValues();
-    this.setLoading();
+		this.updateParametersButtonsValues();
+		this.setLoading();
+
 	},
 	
 	onInvokeSuccess: function(response){
@@ -141,7 +143,7 @@ var dataTableView = Backbone.View.extend({
 	setLoading: function(){
 
 		// Loading Template
-		this.$el.find('#id_datastreamResult').html('<div class="result"><div class="loading">'+ gettext( 'APP-LOADING-TEXT' ) + '</div></div>');
+		this.$el.find('#id_datastreamResult').html('<div class="result"><div class="loading light">'+ gettext( 'APP-LOADING-TEXT' ) + '</div></div>');
 
 		// Set Loading Height
 		this.setLoadingHeight();
@@ -149,29 +151,61 @@ var dataTableView = Backbone.View.extend({
 	},
 
 	setLoadingHeight: function(){
-		var self = this;
 
-		$(document).ready(function(){
-			
-			var otherHeights = 0;
+	    $(window).resize(function(){
 
-			self.parentView.setHeights('#id_datastreamResult .loading', otherHeights);
+	      var table = $('.resource-detail'),
+	          windowHeight = $(window).height();
 
-		});
+	        var tableHeight =
+	          windowHeight
+	        - parseFloat( $('.global-navigation').height() )
+	        - parseFloat( $('.context-menu').height() )
+        	- parseFloat( $('.section-content').css('padding-top').split('px')[0] )
+	        - 40 // As margin bottom
+	        ;
+
+	        table.css('height', tableHeight+'px');
+
+	    }).resize();
 	},
 
 	setTableHeight:function(){
 
-		// Set Flexigrid Height
-		var self = this;
 
-	  $(document).ready(function(){
+		$(window).resize(function(){
 
-	  	var otherHeights = 0;
+	      var table = $('.resource-detail, #id_datastreamResult .result table'),
+	          windowHeight = $(window).height();
 
-		  self.parentView.setHeights( '#id_datastreamResult .result table', otherHeights );
+	        var tableHeight =
+	          windowHeight
+	        - parseFloat( $('.global-navigation').height() )
+	        - parseFloat( $('.context-menu').height() )
+        	- parseFloat( $('.section-content').css('padding-top').split('px')[0] )
+	        - 40 // As margin bottom
+	        ;
 
-		});	
+	        table.css('height', tableHeight+'px');
+
+	    }).resize();
+
+
+
+
+
+
+
+		// // Set Flexigrid Height
+		// var self = this;
+
+	 //  $(document).ready(function(){
+
+	 //  	var otherHeights = 0;
+
+		//   //self.parentView.setHeights( '#id_datastreamResult .result table', otherHeights );
+
+		// });	
 
 	},
 
@@ -249,7 +283,7 @@ var dataTableView = Backbone.View.extend({
 
 		// Init Flexigrid
 		$('.dataTable .data .result').flexigrid({
-			url: '/rest/datastreams/' + dataStream.lastPublishRevisionId + '/data.grid',
+			url: '/rest/datastreams/' + dataStream.id + '/data.grid/', // se le pasa el revision_id, de la revision actual.
 			dataType: 'json',
 			colModel: colModel,
 			searchitems : searchArray,
@@ -281,7 +315,29 @@ var dataTableView = Backbone.View.extend({
 			onBeforeSend: function(settings){
 				
 				self.setFilterParams(settings);
+
+				// Fix Page
 				settings.url = settings.url.replace(/(page=).*?(&)/, '$1' + (this.newp - 1).toString() + '$2')
+				
+				// Fix Sort
+				sortname = settings.url.match(/sortname=\d+/)
+				sortorder = settings.url.match(/sortorder=\w+/)
+				if (!_.isEmpty(sortname) && !_.isEmpty(sortorder) && sortname.length == 1 && sortorder.length == 1) {
+					order_list = _.map(settings.url.match(/(orderBy\d+)/g), function(x){return parseInt(x.replace("orderBy", ""))})
+					order = _.isEmpty(order_list)? 0: _.max(order_list) + 1
+					settings.url += "&orderBy" + order + "=column" + sortname[0].split('=')[1] + "[" + sortorder[0].split('=')[1][0].toUpperCase() + "]"
+				}
+
+				// Fix query
+				filter_column = settings.url.match(/qtype=\w+/)
+				filter_text = settings.url.match(/query=\w+/)
+				if (!_.isEmpty(filter_column) && !_.isEmpty(filter_text) && filter_column.length == 1 && filter_text.length == 1) {
+					filter_order_list = _.map(settings.url.match(/(filter\d+)/g), function(x){return parseInt(x.replace("filter", ""))})
+					filter_order = _.isEmpty(filter_order_list)? 0: _.max(filter_order_list) + 1
+					if (filter_order == 0) {
+						settings.url += "&filter" + filter_order + "=" + filter_column[0].split('=')[1] + "[contains]" + filter_text[0].split('=')[1]
+					}
+				}
 				return true;
 
 			},
@@ -317,18 +373,22 @@ var dataTableView = Backbone.View.extend({
 		});
 	
 		// Set Flexigrid Height
-	  $(document).ready(function(){
+	    $(window).resize(function(){
 
-	  	var otherHeights = 
-	  		+ parseFloat( $('.section-content').css('padding-top').split('px')[0] )
-	  		+ parseFloat( $('.flexigrid .hDiv').height() )
-		    + parseFloat( $('.flexigrid .pDiv').height() )
-		    + parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
-		    + parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] );
+	    	if( $('.flexigrid').length > 0 ){
 
-		  self.parentView.setHeights( '.flexigrid div.bDiv', otherHeights );
+				var otherHeights = 
+					  parseFloat( $('.resource-detail').height() )
+					- parseFloat( $('.flexigrid .hDiv').height() )
+					- parseFloat( $('.flexigrid .pDiv').height() )
+					- parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
+					- parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] );
 
-		});	
+				$('.flexigrid div.bDiv').css({ 'height': otherHeights });
+
+			}
+
+		}).resize();
 
 	},
 

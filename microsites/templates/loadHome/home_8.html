@@ -1,0 +1,147 @@
+{% extends "loadHome/index.html" %}
+{% load i18n humanize extra_tags core_components compress staticfiles %}
+
+{% block themeMeta %}
+{% if resources_slider %}
+<script type="text/javascript" src="/js_core/plugins/jquery.easing.1.3.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/jquery.carouFredSel-5.5.0-packed.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_microsites/loadHome/sliderThemes.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_microsites/loadHome/slider.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/plugins/markerclusterer.js?id={{settings.VERSION_JS_CSS}}"></script>
+{% endif %}
+
+<script src="{% static 'underscore/underscore-min.js' %}?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/backbone100/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_core/libs/epoxy/backbone.epoxy.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_microsites/loadHome/theme8Model.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="/js_microsites/loadHome/theme8View.js?id={{settings.VERSION_JS_CSS}}"></script>
+<link type="text/css" rel="stylesheet" media="screen" href="/static/microsites/styles/components/theme8.css?id={{settings.VERSION_JS_CSS}}"/>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block themeContent %}
+
+{% with number=paginator.count|intcomma %}
+<div class="homeContent theme8">
+    <div class="container">
+
+    {% if config.mainTitle %}
+    <div class="featuredContent placeholder">
+        <h1 class="font-rm">{{config.mainTitle|format:number|safe}}</h1>
+    </div>
+    {% endif %}
+
+    {% if config.mainSection or resources_slider %}
+    <!-- HOME COLUMNS -->
+    <div class="homeColumns clearfix">
+
+        {% if config.mainSection %}
+        <!-- COLUMN - Left -->
+        <div class="CL FL">
+            <div class="homeMainContent placeholder">
+                {{config.mainSection|format:number|safe}}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if resources_slider %}
+        <!-- COLUMN - Right -->
+        <div class="CR FR relative">
+
+            {% if resources_slider %}
+            <!-- SLIDER CONTAINER -->  
+            <div class="sliderContainer">
+                <div class="sliderWrapper">
+                    <div class="dataStreamBorder">
+                        <div class="innerBox" id="id_dataservices_container">                       
+                            {% include "loadHome/DSSlider.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+    </div>
+
+    <!-- Buttons section -->
+    <div class="buttons clearfix">
+            
+        <div class="container" id="buttons_home_filter">
+
+            <div class="head">
+                <a class="back">{% trans 'APP-BACK-TEXT' %}</a>
+                <div class="section-title">
+                    <h2 data-bind="text:titleUpgradeable"></h2>
+                    <h3>{{config.buttonsSectionDescription}}</h3>
+                </div>
+
+                <form method="get" action="/search/" class="search buttons-search clearfix" target="_blank">
+                   <input type="text" name="q" class="buttons-field" placeholder="{% trans 'HEADERAUTO-SEARCH-PLACEHOLDER' %}">
+                   <input type="submit" value="" class="buttons-search-button">
+               </form>
+
+            </div>
+            
+            
+            <div class="row">
+
+                <ul class="buttons-grid">    
+                    
+                    {% for button in config.buttonSection %}      
+                    <li class="col-xs-6 col-sm-4 col-md-3" data-button-title="{{button.title}}"  style="width:{{ config.buttonsPerRowWidth }}%;">
+
+                        <a class='one_category_filter' id="one_category_{{button.category}}"
+                         data-category='{{categories_dict|key:button.category}}'>
+                        
+                        <div class="pic">
+                            <img src="{{button.image}}" alt="{{button.title}}"/>
+                        </div>
+                        
+                        <div class="title">{{button.title}}</div>
+                        <span class="screen" style="background-color:rgba({{ button.color }},1) !important;">
+                            <div class="caption">
+
+                                <div class="title">{{button.title}}</div>
+                                <p>{{button.description}}</p>
+
+                            </div>
+                        </span>
+                        </a>
+
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+            <!-- RESOURCES TABLE -->
+            <div class="row resources-table DN">
+                    {% include "loadHome/resourcesTable.html" %}
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var theme8Model = new Theme8Model({
+        titleOriginal: "{{config.buttonsSectionTitle}}",
+        titleResources: "{% trans 'APP-OPEN-RESOURCES' %}",
+        titleUpgradeable: "{{config.buttonsSectionTitle}}"
+    });
+
+    var theme8View = new Theme8View({model: theme8Model});
+});
+</script>
+
+{% endwith %}
+{% endblock %}

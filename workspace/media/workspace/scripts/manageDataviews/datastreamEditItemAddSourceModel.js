@@ -6,11 +6,16 @@ var AddSourceModel = Backbone.Model.extend({
 	},
 
 	validation: {
-		name:
-		{
-			required: true,
-			msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
-		},
+		name: [
+			{
+				required: true,
+				msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
+			},
+			{
+				maxLength: 40,
+			 	msg: gettext('VALIDATE-MAXLENGTH-TEXT-1') + ' 40 ' + gettext('VALIDATE-MAXLENGTH-TEXT-2')
+			}
+		],
 		url: [
 			{
 				required: true,

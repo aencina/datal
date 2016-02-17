@@ -107,7 +107,10 @@ var theme3View = Backbone.Epoxy.View.extend({
 			}
 		}).on("click", function(e){
 			e.preventDefault();
-			$(this).parent().find('input[type=file]').trigger("click");
+
+			// Esto triggerea un comportamiento erroneo en todos los campos input. Les hace abrir una ventana de subir archivo.
+			//$(this).parent().find('input[type=file]').trigger("click");
+			
 		});
 
 	},
@@ -261,7 +264,7 @@ var theme3View = Backbone.Epoxy.View.extend({
 	setUploadable: function(input){
 		
 		$(input).fileupload({
-            url: '/personalizeHome/upload',
+            url: '/personalizeHome/upload/',
             dataType: 'json',
             timeout:60000,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,

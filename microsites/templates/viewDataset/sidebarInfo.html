@@ -15,7 +15,7 @@
             <i></i>
             <header>
                 <h1>{% trans 'VIEWDS-INFO-PERMALINK' %}</h1>
-                <input id="id_permalink" type="text" value="{{permalink}}" class="share_url_input" readonly />
+                <input id="id_permalink" type="text" value="" class="share_url_input" readonly />
             </header>
         </article>
 
@@ -54,7 +54,7 @@
             <header>
                 <h1>{% trans 'APP-TYPE-TEXT' %}</h1>
             </header>
-            <p><i class="icon {{dataset_orig.last_published_revision.impl_type|impl_type_nice}}">{{dataset_orig.last_published_revision.impl_type|impl_type_nice}}</i></p>
+            <p><i class="icon {{dataset.impl_type|impl_type_nice}}">{{dataset.impl_type|impl_type_nice}}</i></p>
         </article>
         
         {% if dataset.spatial %}

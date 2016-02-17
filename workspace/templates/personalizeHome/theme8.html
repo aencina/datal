@@ -1,0 +1,104 @@
+{% load i18n extra_tags components %}
+
+<script type="text/html" id="id_theme8Template">
+
+	<!-- Main section -->
+	<div class="formBox">
+		<header class="clearfix">
+			<div class="num">1</div>
+			<hgroup>
+				<h1><%= gettext('ADMIN-HOME-SECTION-MAINTITLE') %></h1>
+				<h2><%= gettext('ADMIN-HOME-SECTION-MAINDESCRIPTION-1') %></h2>
+			</hgroup>
+		</header>
+		<fieldset>
+			<div class="row">
+				<label for="id_theme8MainTitle"><%= gettext('ADMIN-HOME-SECTION-MAINTITLELABEL') %></label>
+				<input type="text" class="field" id="id_theme8MainTitle" name="id_theme8MainTitle" value="<%= mainTitle%>" data-bind="value:mainTitle,events:['keyup']"/>
+			</div>
+			<div class="row">
+				<label for="id_theme8MainText"><%= gettext('ADMIN-HOME-SECTION-MAINTEXTLABEL') %></label>
+				<textarea cols="" rows="" class="field" id="id_theme8MainText" name="id_theme8MainText" data-bind="value:mainSection,events:['keyup']"><%= mainSection%></textarea>
+			</div>
+		</fieldset>
+	</div>
+
+	<!-- Resources Slider section -->
+	<div class="formBox">
+		<header class="clearfix">
+			<div class="num">2</div>
+			<hgroup>
+				<h1><%= gettext('ADMIN-HOME-SECTION-RESOURCETITLE') %></h1>
+				<h2><%= gettext('ADMIN-HOME-SECTION-RESOURCEDESCRIPTION') %></h2>
+			</hgroup>       
+		</header>
+	  	<fieldset class="form clearfix">
+	      <div class="row clearfix">
+	        <div>
+	          <input id="id_theme8NameSuggest" name="source-name" type="text" class="field" maxlength="80" placeholder="{% trans 'APP-SEARCH-TEXT' %}..."/>            
+	        </div>
+	      </div>       
+		</fieldset>     
+  	</div>
+
+  	<!-- Buttons section -->
+	<div class="formBox buttonsSection">
+		<header class="clearfix">
+			<div class="num">3</div>
+			<hgroup>
+				<h1><%= gettext('ADMIN-HOME-SECTION-NAVIGATION-TITLE') %></h1>
+				<h2><%= gettext('ADMIN-HOME-SECTION-NAVIGATION7-DESCRIPTION') %></h2>
+			</hgroup>
+		</header>
+		<fieldset class="imageComponent theme8">
+			<div class="row">
+				<label for="id_theme8ButtonsSectionTitle"><%= gettext('ADMIN-HOME-SECTION-SECTION-TITLE-LABEL') %></label>
+				<div class="formErrorMessageContainer">
+					<input type="text" class="field" id="id_theme8ButtonsSectionTitle" name="id_theme8ButtonsSectionTitle" value="<%=buttonsSectionTitle%>" data-bind="value:buttonsSectionTitle,events:['keyup']" maxlength="300" />
+				</div>
+			</div>
+			<div class="row">
+				<label for="id_theme8ButtonsSectionDescription"><%= gettext('ADMIN-HOME-SECTION-SECTION-DESCRIPTION-LABEL') %></label>
+				<div class="formErrorMessageContainer">
+					<input type="text" class="field" id="id_theme8ButtonsSectionDescription" 
+					        name="id_theme8ButtonsSectionDescription" 
+					        value="<%=buttonsSectionDescription%>" 
+					        data-bind="value:buttonsSectionDescription,events:['keyup']" />
+				</div>
+			</div>
+			
+
+<select style="display:none" class="field" id="id_theme8ButtonStartingCategory">
+{% for category in categories %}
+<option value="{{category.id}}" {% if category.id == content.config.buttonStartingCategory %}selected=selected{% endif%} >{{category.name}}</option>
+{% endfor %}
+</select>
+				
+		</fieldset>
+
+		<header class="clearfix">
+			<hgroup>
+				<h3><%= gettext('ADMIN-HOME-SECTION-PIORITIES-ADD-BUTTONS-TEXT') %></h3>
+			</hgroup>
+		</header>
+		<fieldset class="imageComponent theme8">
+			<div id="button_section" class="row">    
+				<table id="nav_button_table"></table>
+				<table id="nav_button_saved"></table>
+			</div>
+			<div class="row clearfix bottomRow">
+				<a id="id_new_button" class="button small primary FL"><span><%= gettext('ADMIN-HOME-SECTION-NEWBUTTON') %></span></a>
+				<div class="buttonsPerRow FR clearfix">
+					<label for="id_buttonsPerRow" class="FL"><%= gettext('ADMIN-HOME-SECTION-BUTTONSPERROW') %></label>
+					<div class="formErrorMessageContainer FL">
+						<input type="text" class="field" name="id_buttonsPerRow" 
+						        id="id_buttonsPerRow" value="<%=buttonsPerRow%>" 
+						        data-bind="value:buttonsPerRow,events:['keyup']"/>
+					</div>
+					
+				</div>
+			</div>
+		</fieldset>
+	</div>
+
+</script>

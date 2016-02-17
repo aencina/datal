@@ -1,18 +1,14 @@
-{% load compress sass_tags %}
+{% load compress sass_tags staticfiles %}
 
 {% compress css %}
-<!-- Emeplo de uso de SCSS -->
-
-<!-- NEW -->
-<link href="{% sass_src 'core/styles/reset.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/buttons.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/icons.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/plugins/jquery.gritter.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-
-<!-- OLD -->
-<link href="{% sass_src 'core/styles/plugins/jquery-ui-1.8.6.custom.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/structure.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/forms.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/overlay.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-<link href="{% sass_src 'core/styles/commonModules.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% sass_src 'core/styles/reset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/buttons.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/icons.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/plugins/jquery.gritter.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'jquery-ui/themes/base/all.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/structure.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% sass_src 'core/styles/forms.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/overlay.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/commonModules.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
+

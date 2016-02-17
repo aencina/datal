@@ -20,7 +20,7 @@
 							{{dataset.filename}} <span class="size">({% widthratio dataset.size 1024 1 %} KB)</span>
 						</span>
 
-						<a id="id_download" href="/datasets/download_file?dataset_revision_id={{dataset.dataset_revision_id}}" class="link" title="{% trans 'APP-DOWNLOAD-TEXT' %}">{% trans 'APP-DOWNLOAD-TEXT' %}</a>
+						<a id="id_download" href="/datasets/download_file/?dataset_revision_id={{dataset.dataset_revision_id}}" class="link" title="{% trans 'APP-DOWNLOAD-TEXT' %}">{% trans 'APP-DOWNLOAD-TEXT' %}</a>
 
 					<!-- Type URL and webservice -->
 					{% elif dataset.collect_type == 1 or dataset.collect_type == 2 %}
@@ -64,7 +64,7 @@
 			    <div class="row">
 			        <div class="title">{% trans 'APP-VIEW-DATASET-SOURCE-TEXT' %}</div>
 			        {% for source in dataset.sources %}
-			        <p><a href="{{source.source__url}}" title="{{source.source__name|capfirst}}" target="_blank">{{source.source__name|capfirst}} <span class="icon icon-view-site icon-inline icon-right"></span></a></p>
+			        <p><a href="{{source.source__url}}" title="{{source.source__name|capfirst}}" target="_blank">{{source.source__name|capfirst}}</a></p>
 			        {% endfor %}
 			    </div>
 			    {% endif %}

@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 
-from core import settings
-from core.exceptions import MailServiceNotFoundException
+from django.conf import settings
 import importlib
+
 
 class MailService():
     __metaclass__ = ABCMeta
@@ -11,7 +11,7 @@ class MailService():
         pass
 
     @abstractmethod
-    def send_welcome_mail(self, user, link, company):
+    def send_welcome_mail(user, link, company):
         """ Para usuarios nuevos del sistema """
         pass
 

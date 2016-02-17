@@ -1,6 +1,9 @@
 from django import forms
 from django.forms.forms import Form
 from core.models import *
+import urllib2
+
+logger = logging.getLogger(__name__)
 
 class MetaForm(Form):
     def __init__(self, *args, **kwargs):
@@ -66,7 +69,6 @@ class MimeTypeForm(forms.Form):
             request = urllib2.Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0"})
             connection = urllib2.urlopen(request)
             mimetype = connection.info().getheader('Content-Type').strip().replace('"', '')
-            raise Exception(mimetype)
             try:
                 opener = urllib2.build_opener(SmartRedirectHandler())
                 f = opener.open(url)
@@ -75,7 +77,8 @@ class MimeTypeForm(forms.Form):
             except:
                 status = 200
                 url = url
-        except:
+        except Exception as e:
+            logger.exception("Error en parseo de mimetype de url")
             mimetype = ''
             status = ''
 

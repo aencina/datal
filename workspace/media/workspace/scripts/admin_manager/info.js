@@ -10,7 +10,7 @@ $(document).ready(function(){
 
     $form.validate({
         rules: {
-                account_name: { required: true },
+                account_name: { required: true, maxlength: 65 },
                 account_link: { uri: true },
                 account_contact_person_email: { email: true },
                 account_contact_dataperson_email: { email: true },

@@ -61,7 +61,7 @@ var SignUpModel = Backbone.Model.extend({
 	},
 
 	ifAdminUrlExists: function() {
-		var url = '/accounts/check_admin_url';
+		var url = '/accounts/check_admin_url/';
 		var msg = false;
 		var data = { csrfmiddlewaretoken: csrfmiddlewaretoken }
 		data['admin_url'] = this.get('admin_url');

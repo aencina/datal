@@ -7,7 +7,7 @@
 <link href="{% static 'jquery-file-upload/css/jquery.fileupload-ui.css' %}" type="text/css" rel="stylesheet" media="screen">
 <link href="{% static 'jquery-file-upload/css/jquery.fileupload.css' %}" type="text/css" rel="stylesheet" media="screen">
 
-<link href="{% sass_src 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'core/styles/dataStreamForm.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/createCommon.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% sass_src 'workspace/styles/createDataset.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endcompress %}
@@ -72,8 +72,8 @@ $(document).ready(function(){
 	var finishModel = new FinishFileModel({
 		name: 'finish',
 		saveUrl: "{% url 'manageDatasets.create_type' 'file' %}",
-        sourceUrl: '/rest/sources.json',
-        tagUrl: '/rest/tags.json',
+        sourceUrl: '/rest/sources.json/',
+        tagUrl: '/rest/tags.json/',
         category: {{form.initial.category}}
 	});
 	var finishView = new FinishView({model: finishModel});

@@ -1,5 +1,5 @@
 <td class="viewInfo">
-    <div class="{% if revision.type == 'DT'%}ic_Dset{%endif%}{% if revision.type == 'DS'%}ic_Data{%endif%}{%if revision.type == 'DB'%}ic_Dashboard {%endif%}{%if revision.type == 'VZ'%}ic_Chart{%endif%}"></div>
+    <div class="{% if revision.type == 'DT'%}ic_Dset{%endif%}{% if revision.type == 'DS'%}ic_Data{%endif%}{%if revision.type == 'db'%}ic_Dashboard {%endif%}{%if revision.type == 'VZ'%}ic_Chart{%endif%}"></div>
     <a href="{{revision.permalink}}" target="_blank" ><strong>{{revision.title}}</strong></a>
             {% if revision.account_name %}<span class='sep'> | </span>  {{ revision.account_name }} {% endif %}
             <span class='sep'> | </span>  {{ revision.category }}

@@ -1,5 +1,5 @@
 {% extends "base_microsites.html" %}
-{% load i18n extra_tags components core_components compress staticfiles sass_tags %}
+{% load i18n extra_tags components core_components compress staticfiles sass_tags plugins_tags %}
 
 {% block SEO %}
     <title>{% trans "APP-TRANSPARENCY-TITLE" %} &middot; {{preferences.account_page_titles}}</title>
@@ -10,16 +10,16 @@
 
 {% compress css %}
 <!-- CSS -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/components/transparency.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/components/transparency.css' %}"/>
 <!-- BRANDED CSS -->
-<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/brandedFull.css' %}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/brandedFull.css' %}"/>
 {% endcompress %}
 
-<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
-<link type="text/css" rel="stylesheet" media="screen" href="{% url "microsites.get_new_css" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
+<link type="text/css" rel="stylesheet" media="screen" href="{% url 'microsites.get_new_css' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"/>
 
 <!-- BRANDED JS -->
-<script type="text/javascript" src="{% url "microsites.get_js" preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
+<script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
 
 {% endblock %}
 
@@ -51,7 +51,7 @@
         </ul>
         {% if category.sets|length > 5 %}
         <footer>
-          <a target="_blank" href="/search/category/name:{{category.name}}?datasets=1" title="{% trans 'APP-TRANSPARENCY-VIEWMORE' %}">{% trans "APP-TRANSPARENCY-VIEWMORE" %}</a>
+          <a target="_blank" href="/search/category/name:{{category.name}}/?datasets=1" title="{% trans 'APP-TRANSPARENCY-VIEWMORE' %}">{% trans "APP-TRANSPARENCY-VIEWMORE" %}</a>
         </footer>
         {% endif %}
       </div>
@@ -71,7 +71,7 @@
                 <li class="dataset">{% trans "HOME-DATASET-TEXT" %}</li>
                 <li class="dataview">{% trans "HOME-DS-TEXT" %}</li>
                 <li class="visualization">{% trans "HOME-VZ-TEXT" %}</li>
-                <li class="dashboard">{% trans "HOME-DB-TEXT" %}</li>
+                {% plugins_call 'microsites_transparency_index' %}
   	</ul>
   </div>
 </section>
