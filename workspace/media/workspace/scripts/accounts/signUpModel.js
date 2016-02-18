@@ -4,7 +4,8 @@ var SignUpModel = Backbone.Model.extend({
 
 		account_name: {
 			required: true,
-			msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
+			pattern: /^[a-zA-Z0-9\-]+$/,
+			msg: gettext('APP-ACCOUNT-NAME-NOT-VALID')
 		},
 
 		admin_url: [{
