@@ -116,7 +116,12 @@
                 </div>
                 <div class="description">
                     <p>{% trans "DEV-GETKEY-TEXT1" %}.</p>
-                    <p>{% trans "DEV-GETKEY-TEXT2" %} <a target="_blank" href="https://github.com/datal-org/datal/tree/master/docs/api" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
+                    <p>{% trans "DEV-GETKEY-TEXT2" %} 
+                    {% if preferences.account_language == 'es' %}
+                        <a target="_blank" href="http://junar.github.io/junar-manual/api-es/build/html/" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
+                    {% else %}
+                        <a target="_blank" href=" http://junar.github.io/junar-manual/api-en/build/html/" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
