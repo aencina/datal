@@ -3261,3 +3261,6 @@ msgstr "Go to the home page"
 
 msgid "APP-GO-PORTAL-TEXT"
 msgstr "Go to open data site"
+
+msgid "APP-ACCOUNT-NAME-NOT-VALID"
+msgstr "Invalid organizacion name"

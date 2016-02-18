@@ -954,3 +954,6 @@ msgstr "Video"
 
 msgid "ADMIN-HOME-SECTION-VIDEOPLACEHOLDER"
 msgstr "Embeber código de video (opcional)"
+
+msgid "APP-ACCOUNT-NAME-NOT-VALID"
+msgstr "Nombre de la Organización no válido"
