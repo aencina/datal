@@ -1,5 +1,6 @@
 from django import forms
 from django.core.urlresolvers import reverse
+from django.core.validators import RegexValidator
 from django.utils.translation import ugettext_lazy
 from core.models import User
 import hashlib
@@ -7,14 +8,22 @@ from core import choices
 
 
 class SignUpForm(forms.Form):
-    account_name = forms.CharField(required=True, label=ugettext_lazy('APP-ACCOUNT-NAME-TEXT'), max_length=80)
+    account_name = forms.CharField(required=True, label=ugettext_lazy('APP-ACCOUNT-NAME-TEXT'), max_length=80,
+                                   validators=[RegexValidator(
+                                       regex='/^\w+$/',
+                                       message=ugettext_lazy('APP-ACCOUNT-NAME-NOT-VALID'),
+                                   ),
+    ])
     admin_url = forms.CharField(required=True, label=ugettext_lazy('APP-ADMIN-URL-TEXT'))
     nick = forms.CharField(required=True, label=ugettext_lazy('APP-USERNICK-TEXT'))
     name = forms.CharField(required=True, label=ugettext_lazy('APP-USERNAME-TEXT'))
-    password = forms.CharField(required=True, widget=forms.PasswordInput(render_value=False), label=ugettext_lazy('APP-PASSWORD-TEXT'))
-    password_again = forms.CharField(required=True, widget=forms.PasswordInput(render_value=False), label=ugettext_lazy('UPDATE-PASSWORD-CONFIRMPSW'))
+    password = forms.CharField(required=True, widget=forms.PasswordInput(render_value=False),
+                               label=ugettext_lazy('APP-PASSWORD-TEXT'))
+    password_again = forms.CharField(required=True, widget=forms.PasswordInput(render_value=False),
+                                     label=ugettext_lazy('UPDATE-PASSWORD-CONFIRMPSW'))
     email = forms.CharField(required=True, label=ugettext_lazy('APP-EMAIL-TEXT'))
-    language = forms.ChoiceField(required=True, choices=choices.LANGUAGE_CHOICES, label=ugettext_lazy('APP-LANGUAGE-TEXT'))
+    language = forms.ChoiceField(required=True, choices=choices.LANGUAGE_CHOICES,
+                                 label=ugettext_lazy('APP-LANGUAGE-TEXT'))
 
     def action(self):
         return reverse('accounts.create')
@@ -79,9 +88,12 @@ class ActivateUserForm(forms.Form):
 
 
 class MyAccountForm(forms.ModelForm):
-    old_password = forms.CharField(required=False, widget=forms.PasswordInput(render_value=False), label=ugettext_lazy('UPDATE-PASSWORD-OLDPSW'))
-    new_password = forms.CharField(required=False, widget=forms.PasswordInput(render_value=False), label=ugettext_lazy('UPDATE-PASSWORD-NEWPSW'))
-    new_password_again = forms.CharField(required=False, widget=forms.PasswordInput(render_value=False), label=ugettext_lazy('UPDATE-PASSWORD-CONFIRMPSW'))
+    old_password = forms.CharField(required=False, widget=forms.PasswordInput(render_value=False),
+                                   label=ugettext_lazy('UPDATE-PASSWORD-OLDPSW'))
+    new_password = forms.CharField(required=False, widget=forms.PasswordInput(render_value=False),
+                                   label=ugettext_lazy('UPDATE-PASSWORD-NEWPSW'))
+    new_password_again = forms.CharField(required=False, widget=forms.PasswordInput(render_value=False),
+                                         label=ugettext_lazy('UPDATE-PASSWORD-CONFIRMPSW'))
 
     class Meta:
         model = User
