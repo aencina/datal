@@ -20,7 +20,7 @@ class DataSetSerializer(ResourceSerializer):
         help_text=_(u'Título del conjunto de datos'))
     description = serializers.CharField(
         help_text=_(u'Descripción del conjunto de datos'))
-    category = serializers.ChoiceField(tuple(),
+    category = serializers.CharField(
         help_text=_(u'Nombre de la categoría para clasificar los recursos. Debe coincidir con alguna de las categorías de la cuenta'))
     notes = serializers.CharField(
         required=False, 
@@ -32,6 +32,12 @@ class DataSetSerializer(ResourceSerializer):
         allow_blank=True,
         help_text=_(u'Url apuntando al recurso con los datos (archivos o página web).'))
     file = serializers.FileField(
+        allow_null=True,
+        required=False,
+        help_text=_(u'Archivo a subir a la plataforma'))
+    # Soportamos file_data porque es muy complejo cambiar el request de file_data a file
+    # TODO: Sacar cuando se termine la api v1 y dejar solo 'file'
+    file_data = serializers.FileField(
         allow_null=True,
         required=False,
         help_text=_(u'Archivo a subir a la plataforma'))
@@ -56,14 +62,6 @@ class DataSetSerializer(ResourceSerializer):
         allow_null=True,
         help_text=_(u'Tags separados por coma'))
 
-    def __init__(self, *args, **kwargs):
-        super(DataSetSerializer, self).__init__(*args, **kwargs)
-
-        self.fields['category']= serializers.ChoiceField(
-            self.getAccountCategoriesChoices(),
-            help_text=self.fields['category'].help_text
-        )
-
     def validate(self, data):
         for key, value in data.items():
             if not value:
@@ -80,8 +78,15 @@ class DataSetSerializer(ResourceSerializer):
             data['collect_type'] = CollectTypeChoices.URL
             data['file_name'] = data['end_point']
 
-        if 'file' in data:
+        # Soportamos file_data porque es muy complejo cambiar el request de file_data a file
+        # TODO: Sacar cuando se termine la api v1 y dejar solo 'file'
+        file_data = None
+        if 'file_data' in data:
+            file_data = data.pop('file_data')
+        elif 'file' in data:
             file_data = data.pop('file')
+
+        if file_data:
             file_data.name = urllib.unquote(file_data.name)
             data['file_data'] = file_data
             data['impl_type'] = get_impl_type(file_data.content_type, file_data.name)

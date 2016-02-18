@@ -114,7 +114,7 @@
 .dataTable table .ao-cell-button{background:#8cb311;}
 .dataTable table .ao-table-button, 
 .dataTable table .ao-column-button, 
-.dataTable table .ao-row-button{background:#cec8ca url(/static/core/images/dataServicePublisher/dg_cell.gif) 0 0 repeat-x;color:#929798;text-shadow:0 1px 0 #fff;text-transform:uppercase;vertical-align:center;cursor:pointer;}
+.dataTable table .ao-row-button{background:#cec8ca url(/static/core/images/dataServicePublisher/dg_cell.gif) 0 0 repeat-x;color:#929798;text-shadow:0 1px 0 #fff;text-transform:uppercase;vertical-align:middle;cursor:pointer;}
 .dataTable table .ao-table-button,
 .dataTable table .ao-row-button{width:auto;padding-left:5px;padding-right:5px;}
 .dataTable table th.ao-no-select,
@@ -140,7 +140,7 @@
 	.dataTable table.ao-advanced-mode .ao-row-button.ao-column-selected, 
 	
 		/*HEADERS MODE - BUTTONS*/
-		.dataTable table.ao-headers-mode th.ao-row-button.ao-row-selected{background:#cec8ca url(/static/core/images/dataServicePublisher/dg_cell.gif) 0 0 repeat-x;color:#929798;text-shadow:0 1px 0 #fff;text-transform:uppercase;vertical-align:center;cursor:pointer;}
+		.dataTable table.ao-headers-mode th.ao-row-button.ao-row-selected{background:#cec8ca url(/static/core/images/dataServicePublisher/dg_cell.gif) 0 0 repeat-x;color:#929798;text-shadow:0 1px 0 #fff;text-transform:uppercase;vertical-align:middle;cursor:pointer;}
 		.dataTable table.ao-headers-mode th.ao-row-button:hover, 
 		.dataTable table.ao-headers-mode th.ao-headers-row-selected.ao-row-button{background:#fff url(/static/core/images/dataServicePublisher/dg_cell_over.gif) 0 0 repeat-x;color:#010101;border:1px solid #d7d6d1;font-weight:bold;}
 		

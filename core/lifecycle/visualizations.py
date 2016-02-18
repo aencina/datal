@@ -206,6 +206,13 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
         self.visualization_revision.clone(status)
         self._update_last_revisions()
 
+    def clone(self):
+        vzr = self.visualization_revision.clone(self.visualization_revision.status)
+        if vzr.status == StatusChoices.PUBLISHED:
+            VisualizationSearchDAOFactory().create(vzr).add()
+        self._update_last_revisions()
+        return vzr
+
     def _remove_all(self):
         self.visualization.delete()
         self._log_activity(ActionStreams.DELETE)

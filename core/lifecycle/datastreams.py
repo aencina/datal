@@ -297,14 +297,18 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self._delete_cache(cache_key='account_total_datastreams_%d' % self.datastream.user.account.id)
 
     def edit(self, allowed_states=EDIT_ALLOWED_STATES, changed_fields=None, **fields):
-        """ Create new revision or update it """
+        """ Create new revision or update it
+        :param allowed_states:
+        :param changed_fields:
+        :param fields:
+        :return:
+        """
         form_status = None
 
         if 'status' in fields.keys():
             form_status = int(fields.pop('status', None))
         else:
             form_status = StatusChoices.DRAFT
-
 
         old_status = self.datastream_revision.status
 
@@ -378,6 +382,26 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
     def save_as_status(self, status=StatusChoices.DRAFT):
         self.datastream_revision.clone(status)
         self._update_last_revisions()
+
+    def _clone_childs(self):
+        with transaction.atomic():
+            visualizations = VisualizationRevision.objects.select_for_update().filter(
+                visualization__datastream__id=self.datastream.id,
+                id=F('visualization__last_revision__id'))
+
+            for visualization in visualizations:
+               VisualizationLifeCycleManager(self.user, visualization_revision_id=visualization.id).clone()
+
+
+    def clone(self):
+        dsr = self.datastream_revision.clone(self.datastream_revision.status)
+        if dsr.status == StatusChoices.PUBLISHED:
+            DatastreamSearchDAOFactory().create(dsr).add()
+        self._update_last_revisions()
+        self._clone_childs()
+        return dsr
+
+
 
     def _log_activity(self, action_id):
         title = self.datastreami18n.title if self.datastreami18n else ''

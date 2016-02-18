@@ -649,7 +649,8 @@ class DatasetRevision(RevisionModel):
 
         for tag_data in tags:
             if tag_data:
-                tag, is_new = Tag.objects.get_or_create(name=tag_data['name'])
+                tag_name = tag_data if isinstance(tag_data, str) else tag_data['name']
+                tag, is_new = Tag.objects.get_or_create(name=tag_name)
                 tag_data_set, is_new = TagDataset.objects.get_or_create(tag=tag, datasetrevision=self)
                 self.tagdataset_set.add(tag_data_set)
         self.save()
@@ -934,11 +935,12 @@ class Privilege(models.Model):
 
 
 class Grant(models.Model):
-    user            = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), null=True, on_delete=models.PROTECT)
-    role            = models.ForeignKey('Role', verbose_name=ugettext_lazy('MODEL_ROLE_LABEL'), null=True)
-    guest           = models.ForeignKey('Guest', verbose_name=ugettext_lazy('MODEL_GUEST_LABEL'), null=True)
-    privilege       = models.ForeignKey('Privilege', verbose_name=ugettext_lazy('MODEL_PRIVILEGE_LABEL'), null=True)
-    created_at      = models.DateTimeField(editable=False, auto_now_add=True)
+    user = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), null=True,
+                             on_delete=models.PROTECT)
+    role = models.ForeignKey('Role', verbose_name=ugettext_lazy('MODEL_ROLE_LABEL'), null=True)
+    guest = models.ForeignKey('Guest', verbose_name=ugettext_lazy('MODEL_GUEST_LABEL'), null=True)
+    privilege = models.ForeignKey('Privilege', verbose_name=ugettext_lazy('MODEL_PRIVILEGE_LABEL'), null=True)
+    created_at = models.DateTimeField(editable=False, auto_now_add=True)
 
     class Meta:
         db_table = 'ao_user_grants'
@@ -946,15 +948,15 @@ class Grant(models.Model):
     def __unicode__(self):
         return unicode(self.id)
 
-# :TODO: Sin Migrar aun
+
 class ObjectGrant(models.Model):
-    grant           = models.ForeignKey('Grant', verbose_name=ugettext_lazy('MODEL_GRANT_LABEL'))
-    datastream      = models.ForeignKey('DataStream', null=True, verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
-    visualization   = models.ForeignKey('Visualization', null=True, verbose_name=ugettext_lazy('MODEL_VISUALIZATION_LABEL'))
-    type            = models.CharField(max_length=63, verbose_name=ugettext_lazy('MODEL_TYPE_LABEL'))
-    auth_key        = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_AUTH_KEY_LABEL'))
-    created_at      = models.DateTimeField(editable=False, auto_now_add=True)
-    objects         = managers.ObjectGrantManager()
+    grant = models.ForeignKey('Grant', verbose_name=ugettext_lazy('MODEL_GRANT_LABEL'))
+    datastream = models.ForeignKey('DataStream', null=True, verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
+    visualization = models.ForeignKey('Visualization', null=True, verbose_name=ugettext_lazy('MODEL_VISUALIZATION_LABEL'))
+    type = models.CharField(max_length=63, verbose_name=ugettext_lazy('MODEL_TYPE_LABEL'))
+    auth_key = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_AUTH_KEY_LABEL'))
+    created_at = models.DateTimeField(editable=False, auto_now_add=True)
+    objects = managers.ObjectGrantManager()
 
     class Meta:
         db_table = 'ao_user_object_grants'
@@ -964,8 +966,8 @@ class ObjectGrant(models.Model):
 
 
 class Guest( models.Model ):
-    email       = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_EMAIL_LABEL'))
-    grants      = models.ManyToManyField('Privilege', through='Grant', verbose_name=ugettext_lazy('MODEL_GUEST_GRANT_LABEL'))
+    email = models.CharField( max_length=100, verbose_name=ugettext_lazy('MODEL_EMAIL_LABEL'))
+    grants = models.ManyToManyField('Privilege', through='Grant', verbose_name=ugettext_lazy('MODEL_GUEST_GRANT_LABEL'))
 
     class Meta:
         db_table = 'ao_user_guests'
@@ -976,11 +978,11 @@ class Guest( models.Model ):
 
 class Threshold(models.Model):
     account_level = models.ForeignKey('AccountLevel', null=True, blank=True)
-    account       = models.ForeignKey('Account', null=True, blank=True)
-    name          = models.CharField(max_length=30, choices=choices.THRESHOLD_NAME_CHOICES)
-    description   = models.TextField(blank=True)
-    limit         = models.IntegerField(default=0)
-    objects       = managers.ThresholdManager()
+    account = models.ForeignKey('Account', null=True, blank=True)
+    name = models.CharField(max_length=30, choices=choices.THRESHOLD_NAME_CHOICES)
+    description = models.TextField(blank=True)
+    limit = models.IntegerField(default=0)
+    objects = managers.ThresholdManager()
 
     class Meta:
         db_table = 'ao_account_thresholds'

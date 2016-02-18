@@ -15,11 +15,53 @@ class ElasticsearchIndex():
 
         es_conf= { "settings": {
                 "analysis": {
+                  "filter": {
+                    "english_stop": {
+                      "type":       "stop",
+                      "stopwords":  "_english_"
+                    },
+                    "light_english_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "light_english"
+                    },
+                    "english_possessive_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "english"
+                    },
+ 
+                    "light_spanish_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "light_spanish"
+                    },
+                    "spanish_possessive_stemmer": {
+                      "type":       "stemmer",
+                      "language":   "spanish"
+                    }
+                  },
                     "analyzer": {
                         "case_insensitive_sort": {
                             "tokenizer": "keyword",
                             "filter":  [ "lowercase" ]
+                        },
+                        "english": {
+                          "tokenizer":  "standard",
+                          "filter": [
+                            "english_possessive_stemmer",
+                            "lowercase",
+                            "english_stop",
+                            "light_english_stemmer",
+                            "asciifolding"
+                          ]
+                        },
+                        "spanish": {
+                          "tokenizer":  "standard",
+                          "filter": [
+                            "spanish_possessive_stemmer",
+                            "lowercase",
+                            "light_spanish_stemmer",
+                          ]
                         }
+ 
                     }
                 }               
             } }
@@ -78,7 +120,15 @@ class ElasticsearchIndex():
                       "tags" : { "type" : "string" },
                       "text" : {
                         "type" : "string",
-                        "fields": {"text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
+                        "fields": {
+                                "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
@@ -119,8 +169,17 @@ class ElasticsearchIndex():
                       "tags" : { "type" : "string" },
                       "text" : {
                         "type" : "string",
-                        "fields": {"text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
+                        "fields": {
+                                "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
+ 
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
@@ -160,8 +219,17 @@ class ElasticsearchIndex():
                       "tags" : { "type" : "string" },
                       "text" : {
                         "type" : "string",
-                        "fields": {"text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
+                        "fields": {
+                                "text_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "text_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "text_english": {"type":"string", "analyzer": "english"},
+                                "text_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
                       },
+ 
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },

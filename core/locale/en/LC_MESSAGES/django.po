@@ -1066,3 +1066,9 @@ msgstr "Open data portal"
 
 msgid "APP-CONTACTUS-TEXT"
 msgstr "Contact us"
+
+msgid "APP-RESOURCE-TEXT"
+msgstr "Resource"
+
+msgid "APP-ALL-S-TEXT"
+msgstr "All"

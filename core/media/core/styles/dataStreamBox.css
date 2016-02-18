@@ -54,7 +54,7 @@
 .dataStreamBox .Mensaje table th{border-collapse:collapse;}
 .dataStreamBox .Mensaje .Texto,
 .dataStreamBox .Mensaje .Numero, 
-.dataStreamBox .Mensaje .Nulo{height:123px;width:100%;vertical-align:center;}
+.dataStreamBox .Mensaje .Nulo{height:123px;width:100%;vertical-align:middle;}
 .dataStreamBox .Mensaje .Texto td,
 .dataStreamBox .Mensaje .Numero td,
 .dataStreamBox .Mensaje .Nulo td{font-size:22px;text-align:center;font-weight:bold;color:#4d4d4d;padding:0;margin:0;vertical-align:middle;line-height:normal;}

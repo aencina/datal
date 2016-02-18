@@ -85,9 +85,7 @@ class Command(BaseCommand):
                     user.roles.remove(role_dict[code])
 
     def dataset_preferences(self):
-
-        Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="True")
-        Preference.objects.get_or_create(account=self.account, key="account.dataset.showhome", value="True")
+        Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="on")
 
     def handle(self, *args, **options):
         self.account = None
@@ -171,7 +169,10 @@ class Command(BaseCommand):
 
             if 'invertedAxis' in imp['format']:
                 if imp['format']['invertedAxis'] == 'checked':
-                    print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
+                    if 'headerSelection' in imp['chart'].keys():
+                        print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: %s; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['headerSelection'], imp['chart']['labelSelection'])
+                    else:
+                        print "[InvertedAxis True] Account ID: %s; Revision ID: %s; headerSelection: Empty; labelSelection: %s" %(self.account.id, rev.id, imp['chart']['labelSelection'])
 
         # Preferencias del account.home.config.sliderSection cambiamos los type:chart a type:vz
         for home in Preference.objects.filter(Q(key="account.home")| Q(key="account.preview")):

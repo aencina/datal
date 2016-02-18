@@ -5,6 +5,9 @@ var charts = charts || {
 
 charts.views.MapChart = charts.views.Chart.extend({
     mapInstance: null,
+    heatMapLayer: null,
+    heatMapPoints: [], 
+    onHeatMap: false, 
     mapMarkers: [],
     mapClusters: [],
     mapTraces: [],
@@ -38,8 +41,10 @@ charts.views.MapChart = charts.views.Chart.extend({
 
     render: function () {
         this.clearMapOverlays();
+        this.clearHeatMapOverlays();
         var points = this.model.data.get('points');
         var clusters = this.model.data.get('clusters');
+        
         var styles = this.model.data.get('styles');
         var styledPoints = this.mergePointsAndStyles(points, styles);
 
@@ -49,11 +54,20 @@ charts.views.MapChart = charts.views.Chart.extend({
         if(!_.isUndefined(clusters) && clusters.length !== 0){
             this.createMapClusters(clusters);
         }
+
+        if (this.onHeatMap) {
+            this.heatMapLayer.setData(this.heatMapPoints);
+            this.heatMapLayer.setMap(this.mapInstance);
+            this.clearMapOverlays();
+        }
+        else {
+            this.heatMapLayer.setMap(null);
+            }
+        
         return this;
     },
 
     handleDataUpdated: function () {
-        this.clearMapOverlays();
         this.render();
     },
 
@@ -126,7 +140,8 @@ charts.views.MapChart = charts.views.Chart.extend({
         var mapInitialOptions = {
             zoom: this.model.get('options').zoom,
             mapTypeId: google.maps.MapTypeId[this.model.get('mapType')],
-            backgroundColor:'#FFFFFF'
+            backgroundColor:'#FFFFFF',
+            zoomControl: true,
         };
 
         if(this.model.get('options').center){
@@ -148,6 +163,10 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.mapInstance.setOptions(this.googleMapOptions);
         this.mapInstance.setOptions({minZoom: 1});
 
+        // crear instancia del heatmap vacia
+        this.heatMapPoints = new google.maps.MVCArray([]);
+        this.heatMapLayer = new google.maps.visualization.HeatmapLayer({data: this.heatMapPoints , radius: 20, opacity: 0.8});
+
         this.infoWindow = new google.maps.InfoWindow();
         this.bindMapEvents();
     },
@@ -162,6 +181,11 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.mapClusters = this.clearOverlay(this.mapClusters);
         //Traces
         this.mapTraces = this.clearOverlay(this.mapTraces);
+    },
+        
+    clearHeatMapOverlays: function() {
+        // limpiar el heatmap asociado
+        this.heatMapPoints = new google.maps.MVCArray([]);
     },
 
     /**
@@ -210,15 +234,29 @@ charts.views.MapChart = charts.views.Chart.extend({
 
         var isPolygon = (paths[0].lat == paths[paths.length-1].lat && paths[0].lng == paths[paths.length-1].lng);
         if(isPolygon){
-            this.mapTraces.push(this.createMapPolygon(paths, styles.polyStyle));
+            var obj = this.createMapPolygon(paths, styles.polyStyle);
         } else {
-            this.mapTraces.push(this.createMapPolyline(paths, styles.lineStyle))
+            var obj = this.createMapPolyline(paths, styles.lineStyle);    
         }
-        this.mapTraces[index].setMap(this.mapInstance);
+        this.mapTraces.push(obj)
+
+        var self = this;
+        if(point.info){
+            var clickHandler = google.maps.event.addListener(obj, 'click', (function (marker, info) {
+                return function(event) {
+                    self.infoWindow.setContent("<div class='junarinfowindow'>" + String(info) + "</div>");
+                    self.infoWindow.setPosition(event.latLng);
+                    self.infoWindow.open(self.mapInstance, marker);
+                }
+            })(obj, point.info));
+            obj.events = {click: clickHandler};
+        }
+        
+        obj.setMap(this.mapInstance);
     },
 
     createMapPolygon: function (paths, styles) {
-        return new google.maps.Polygon({
+        var poly = new google.maps.Polygon({
             paths: paths,
             strokeColor: styles.strokeColor,
             strokeOpacity: styles.strokeOpacity,
@@ -226,15 +264,24 @@ charts.views.MapChart = charts.views.Chart.extend({
             fillColor: styles.fillColor,
             fillOpacity: styles.fillOpacity
         });
+
+        poly.weight = 1;
+        this.addWeightLocation(poly);
+
+        return poly;
     },
 
     createMapPolyline: function (path, styles) {
-        return new google.maps.Polyline({
+        var line = new google.maps.Polyline({
             path: path,
             strokeColor: styles.strokeColor,
             strokeOpacity: styles.strokeOpacity,
             strokeWeight: styles.strokeWeight
         });
+        
+        line.weight = 1;
+        this.addWeightLocation(line);
+        return line;
     },
 
     /**
@@ -244,12 +291,22 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @param  {object} styles  Estilos para dibujar el marker
      */
     createMapMarker: function (point, index) {
-        var self = this,
-            markerIcon = this.stylesDefault.marker.icon;
+        var self = this, markerIcon = this.stylesDefault.marker.icon;
+
+        //agregar al heatmap
+        point.weight = 1;
+        this.addWeightLocation(point);
 
         //Obtiene el estilo del marcador
         if(point.styles && point.styles.iconStyle){
-            markerIcon = point.styles.iconStyle.href;
+            //TODO For now personalized KMLFile-included markers files are not readable for us
+            if (undefined !== point.styles.iconStyle.href) {
+                //just if it's a external link
+                if (point.styles.iconStyle.href.indexOf("http") > -1) {
+                    markerIcon = point.styles.iconStyle.href;
+                    }
+                }
+            
         }
 
         this.mapMarkers[index] = new google.maps.Marker({
@@ -287,6 +344,8 @@ charts.views.MapChart = charts.views.Chart.extend({
 
         // Se desabilita la funcionalidad de joinIntersectedClusters porque contiene problemas
         this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, false /* joinIntersectedClusters */);
+        var hPoint = {lat: parseFloat(cluster.lat), long: parseFloat(cluster.long), weight: parseInt(cluster.info)};
+        this.addWeightLocation(hPoint);
     },
 
     /**
@@ -405,7 +464,16 @@ charts.views.MapChart = charts.views.Chart.extend({
         }
 
         return style;
-    }
+    },
+    toggleHeatMap: function(){
+        // toogle
+        this.onHeatMap = !this.heatMapLayer.getMap();
+        this.render(); 
+    },
 
+    addWeightLocation: function(obj) {
+        weight = obj.weight || 1;
+        this.heatMapPoints.push({location: new google.maps.LatLng(obj.lat, obj.long), weight: weight});
+    }
 
 });

@@ -6,13 +6,6 @@ from core.models import CategoryI18n, Category
 import json
 
 class ResourceSerializer(serializers.Serializer):
-    def getAccountCategoriesChoices(self):
-        return (map(lambda x: (x.slug, x.name),
-            CategoryI18n.objects.filter(
-                language=self.context['request'].auth['language'],
-                category__account=self.context['request'].auth['account']
-            )))
-
     def getCategory(self, category_slug):
         return CategoryI18n.objects.get(
             slug=category_slug,
@@ -48,7 +41,7 @@ class ResourceSerializer(serializers.Serializer):
             pass
 
         if answer['tags']:
-            answer['tags'] = map(lambda x: x['tag__name'], answer['tags'])
+            answer['tags'] = map(lambda x: x['tag__name'] if type(x) == dict else x, answer['tags'])
 
         if answer['link']:
             domain = self.context['request'].auth['microsite_domain']

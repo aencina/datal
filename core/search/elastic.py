@@ -26,10 +26,6 @@ class ElasticsearchFinder(Finder):
         reverse = kwargs.get('reverse', False)
         self.order =  kwargs.get('order')
 
-        # comodin, % = *
-        if self.query == "%":
-            self.query=""
-
         if self.order and self.order == 'top':
             self.sort = "hits:%s" % ("asc" if reverse else "desc")
         elif self.order and self.order=='web_top':
@@ -89,7 +85,15 @@ class ElasticsearchFinder(Finder):
         return results, meta_data, facets
 
     def __build_query(self):
+
         if settings.DEBUG: logger.info("El query es: %s" % self.query)
+
+        # comodin, % = *
+        if self.query in ("%",""):
+            self.query="*"
+
+        # en caso de usar el +, el default operador debe ser AND
+        self.query = self.query.replace("+"," AND ")
 
         # decide que conjunto de recursos va a filtrar
         if self.resource == "all":
@@ -117,6 +121,11 @@ class ElasticsearchFinder(Finder):
         ]
 
         if self.category_filters:
+    
+            # previene errores de pasar un string en el category_filters
+            if type(self.category_filters) not in (type(tuple()), type(list())):
+                self.category_filters=[self.category_filters]
+
             filters.append({"terms": {
                 "categories.name": self.category_filters
             }})
@@ -132,8 +141,8 @@ class ElasticsearchFinder(Finder):
                 "filtered": {
                     "query": {
                         "query_string": {
-                            "query": "*%s*" % self.query,
-                            "fields": ["title", "text"]
+                            "query": self.query,
+                            "fields": ["title", "text", "text_english_stemmer", "text_spanish_stemmer"]
                         }
                     },
                     "filter": {

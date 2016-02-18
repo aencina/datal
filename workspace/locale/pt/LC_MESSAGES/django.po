@@ -1963,7 +1963,7 @@ msgid "HEADER-SEARCH-ADVANCED"
 msgstr "Advanced options"
 
 msgid "HEADER-ODS-BUTTON"
-msgstr "View Open Data site"
+msgstr "View Open Data Portal"
 
 msgid "HEADER-ACCOUNTDETAILLS-TEXT"
 msgstr "Account Details"
@@ -2551,7 +2551,7 @@ msgid "APP-LASTPUBLISHDATE-TEXT"
 msgstr "Last published version:"
 
 msgid "APP-VIEWONSITE-TEXT"
-msgstr "View on site"
+msgstr "View on open data portal"
 
 msgid "APP-SENDREJECTEDNOTE-TEXT"
 msgstr "Rejection reason?"
@@ -3209,3 +3209,6 @@ msgstr "Ir para a página inicial"
 
 msgid "APP-GO-PORTAL-TEXT"
 msgstr "Abrir o site de dados"
+
+msgid "APP-ACCOUNT-NAME-NOT-VALID"
+msgstr "Invalid organizacion name"

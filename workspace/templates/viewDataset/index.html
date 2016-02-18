@@ -78,7 +78,7 @@ $(document).ready(function(){
     createDataViewUrl: "{% url 'manageDataviews.create' %}?dataset_revision_id={{ dataset.dataset_revision_id }}",
     changeStatusUrl: "{% url 'manageDatasets.change_status' dataset.dataset_revision_id %}",
     lastPublishRevisionId: "{{ dataset.last_published_revision_id }}",
-    editUrl: "{% url 'manageDatasets.edit' %}/{{dataset.dataset_revision_id}}/",
+    editUrl: "{% url 'manageDatasets.edit' %}{{dataset.dataset_revision_id}}/",
     lastPublishDate: "{{dataset.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
     publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'dataset' dataset.dataset_id dataset.slug %}",
     createdAt: "{{ dataset.created_at|date:'F d, Y, h:i A'|capfirst }}",

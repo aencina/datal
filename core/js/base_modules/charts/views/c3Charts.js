@@ -28,6 +28,12 @@ charts.views.C3LineChart = charts.views.LineChart.extend({
     render: function () {
         var data = this.formatData(this.model.data.toJSON());
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -42,7 +48,8 @@ charts.views.C3LineChart = charts.views.LineChart.extend({
                 }
             },
             legend: {
-                position: 'right'
+                position: 'right',
+                show: showLegend
             }
         });
     }
@@ -86,6 +93,12 @@ charts.views.C3AreaChart = charts.views.LineChart.extend({
             }
         });
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -100,7 +113,8 @@ charts.views.C3AreaChart = charts.views.LineChart.extend({
                 }
             },
             legend: {
-                position: 'right'
+                position: 'right',
+                show: showLegend
             }
         });
     }
@@ -122,6 +136,12 @@ charts.views.C3BarChart = charts.views.BarChart.extend({
     render: function () {
         var rows = this.formatData(this.model.data);
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -141,9 +161,11 @@ charts.views.C3BarChart = charts.views.BarChart.extend({
                 }
             },
             legend: {
-                position: 'right'
+                position: 'right',
+                show: showLegend
             }
         });
+
     }
 });
 
@@ -163,6 +185,12 @@ charts.views.C3ColumnChart = charts.views.BarChart.extend({
     render: function () {
         var rows = this.formatData(this.model.data);
 
+        var showLegend = true;
+
+        if( !this.model.checkLegend() ){
+            showLegend = false;
+        }
+
         this.chart = c3.generate({
             bindto: this.el,
             data: {
@@ -181,9 +209,11 @@ charts.views.C3ColumnChart = charts.views.BarChart.extend({
                 }
             },
             legend: {
-                position: 'right'
+                position: 'right',
+                show: showLegend
             }
         });
+
     }
 });
 

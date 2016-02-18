@@ -31,5 +31,5 @@
 {% endfor %}
 ],
 "category": "{{datastream_revision.category}}",
-"notes": "{{datastreami18n.notes}}"
+"notes": "{{datastreami18n.notes|escapejs}}"
 }

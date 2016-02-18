@@ -19,7 +19,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		'click #id_permalink, #id_GUID' : 'onInputClicked',
 		'click #id_downloadLink, #id_exportToXLSButton, #id_exportToCSVButton' : 'setWaitingMessage',
 		'click #id_refreshButton, #id_retryButton' : 'onRefreshButtonClicked',
-
+        'click #id_heatmapButton': 'onHeatmapClicked'
 	},
 
 	events: function() {
@@ -58,9 +58,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		// Init Sidebars
 		this.initSidebars();
 
-		// Render
-		this.render();
-
 		// Handle Visualization Resize
 		this.bindVisualizationResize();
 		this.handleVisualizationResize();
@@ -72,12 +69,14 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		var self = this;
 		this.$window = $(window);
 
-		this.$window.on('resize', function () {
-			if(this.resizeTo) clearTimeout(this.resizeTo);
-			this.resizeTo = setTimeout(function() {
-				self.handleVisualizationResize.call(self);
-			}, 500);
-		});
+		this.$window.on('load', function(){
+			self.$window.on('resize', function () {
+				if(self.resizeTo) clearTimeout(self.resizeTo);
+				self.resizeTo = setTimeout(function() {
+					self.handleVisualizationResize.call(self);
+				}, 500);
+			});	
+		})
 
 	},
 
@@ -123,6 +122,22 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		});
 	},
 
+    onHeatmapClicked: function(event){
+        var button = event.currentTarget;
+
+        if ( $(button).hasClass('active') ) {
+            $(button).removeClass('active');
+        } else {
+            $(button).addClass('active');
+        }
+
+        this.toggleHeatMap();
+    },
+        
+    toggleHeatMap: function(){
+        this.chartView.chartInstance.toggleHeatMap();
+    },
+    
 	onViewMoreDescriptionLinkClicked: function(event){
 		this.onOpenSidebarButtonClicked(event);
 		this.toggleDescriptionLink();

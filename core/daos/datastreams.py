@@ -65,7 +65,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             language=fields['language'],
             title=fields['title'].strip().replace('\n', ' '),
             description=fields['description'].strip().replace('\n', ' '),
-            notes=fields['notes'].strip() if 'notes' in fields else ''
+            notes=fields['notes'].strip() if 'notes' in fields and fields['notes'] else ''
         )
 
         if 'tags' in fields:
@@ -78,9 +78,12 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         return datastream, datastream_revision
 
     def update(self, datastream_revision, changed_fields, **fields):
-        fields['title'] = fields['title'].strip().replace('\n', ' ')
-        fields['description'] = fields['description'].strip().replace('\n', ' ')
-        fields['notes'] = fields['notes'].strip()
+        if 'title' in fields:
+            fields['title'] = fields['title'].strip().replace('\n', ' ')
+        if 'description' in fields:
+            fields['description'] = fields['description'].strip().replace('\n', ' ')
+        if 'notes' in fields and fields['notes']:
+            fields['notes'] = fields['notes'].strip()
 
         datastream_revision.update(changed_fields, **fields)
 
@@ -165,6 +168,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             account_id=datastream_revision.user.account.id,
             category_id=datastream_revision.category.id,
             category_name=category.name,
+            category_slug=category.slug,
             end_point=dataset_revision.end_point,
             filename=dataset_revision.filename,
             collect_type=dataset_revision.dataset.type,
@@ -541,8 +545,6 @@ class DatastreamHitsDAO():
         except IntegrityError:
             # esta correcto esta excepcion?
             raise DataStreamNotFoundException()
-
-        logger.info("DatastreamHitsDAO hit! (guid: %s)" % ( guid))
 
         # armo el documento para actualizar el index.
         doc={'docid':"DS::%s" % guid,
