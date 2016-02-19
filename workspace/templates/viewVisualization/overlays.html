@@ -29,7 +29,7 @@
       <div class="ov-buttons">
          <a id="id_unpublishResource" class="button" title="{% trans 'APP-UNPUBLISH-RESOURCE-TEXT' %}" data-action="unpublish">{% trans 'APP-UNPUBLISH-RESOURCE-TEXT' %}</a>
 
-{% if visualization_revision.last_revision_id == visualization_revision.last_published_revision_id %}
+{% if visualization_revision.last_revision_id == visualization_revision.last_published_revision_id and visualization_revision.cant > 1 %}
          <a id="id_unpublishRevision" class="button primary" title="{% trans 'APP-UNPUBLISH-REVISION-TEXT' %}" data-action="unpublish">{% trans 'APP-UNPUBLISH-REVISION-TEXT' %}</a>
 {% endif %}
       </div>
