@@ -75,7 +75,10 @@ class DataStreamSerializer(ResourceSerializer):
             if 'table_id' in data:
                 table_id = data.pop('table_id')
                 data['select_statement'] = SelectStatementBuilder().build(table_id)
-                data['data_source'] = DataSourceBuilder().build(table_id,
+                header_row = None
+                if 'header_row' in data:
+                    header_row = data.pop('header_row')
+                data['data_source'] = DataSourceBuilder().build(table_id, header_row,
                     data['dataset'].last_revision_id, 'microsites')
 
         if 'category' in data and data['category']:

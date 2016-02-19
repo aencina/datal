@@ -14,7 +14,7 @@ class SelectStatementBuilder(object):
 
 
 class DataSourceBuilder(object):
-    def build(self, table_id, dataset_revision_id, app):
+    def build(self, table_id, header_row, dataset_revision_id, app):
 
         data = {'pId': dataset_revision_id, 'pLimit': 50}
         command = AbstractCommandFactory(app).create("load", "dt", [data])
@@ -33,7 +33,12 @@ class DataSourceBuilder(object):
             logger.error("DataSourceBuilder ERROR --> %s" % result[0])
             raise
 
-        impl_details_xml = '<dataSource><DataStructure><Field id="%s"><type></type><format><languaje></languaje><country></country><style></style></format><Table>' % (table_id or 'table0')
+
+        header = ''
+        if header_row is not None:
+            header = "<Headers><Row>row%s</Row></Headers>" % header_row
+
+        impl_details_xml = '<dataSource><DataStructure><Field id="%s">%s<type></type><format><languaje></languaje><country></country><style></style></format><Table>' % ((table_id or 'table0'), header)
         for i in range(number_of_columns):
             impl_details_xml = impl_details_xml + '<Field id="column%d"><alias></alias><type></type><format><languaje></languaje><country></country><style></style></format></Field>' % i
         impl_details_xml = impl_details_xml + '</Table></Field></DataStructure></dataSource>'
