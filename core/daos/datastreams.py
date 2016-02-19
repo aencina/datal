@@ -57,6 +57,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             status=fields['status'],
             category=fields['category'],
             data_source=fields['data_source'],
+            meta_text=fields['meta_text'],
             select_statement=fields['select_statement']
         )
 
@@ -449,8 +450,10 @@ class DatastreamSearchDAO():
 
         meta_text=[]
         if self.datastream_revision.meta_text != "":
-            for data in json.loads(self.datastream_revision.meta_text)['field_values']:
-                meta_text.append(data)
+            meta_json = json.loads(self.datastream_revision.meta_text)
+            if 'field_values' in meta_json:
+                for data in meta_json['field_values']:
+                    meta_text.append(data)
 
         document = {
                 'docid' : self._get_id(),

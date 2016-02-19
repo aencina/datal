@@ -13,6 +13,7 @@ from django.conf import settings
 
 import logging
 import urllib
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +35,9 @@ class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin,
         order = order and order.strip('-')
         page_num = int(offset)/int(limit) + 1 if limit else 0
         categories= request.query_params.get('categories', None)
+        meta_data= request.query_params.get('meta', None)
+        if meta_data:
+            meta_data = json.loads(meta_data)
         category_filters = map(lambda x: urllib.unquote(x), categories.split(',')) if categories else None
 
         if order == 'viewed': order = 'web_top'
@@ -49,6 +53,7 @@ class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin,
             user_id=request.user.id,
             resource=self.get_data_types(),
             order=order,
+            meta_data=meta_data,
             category_filters=category_filters ,
             reverse=reverse)
 
