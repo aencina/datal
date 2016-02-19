@@ -170,7 +170,19 @@ td.hot-sel-header.hot-sel-cell{
 .argumentsOverlay .buttons a{margin:0 5px;cursor:pointer;}
 
 .preview-datastream {
-	table {
+
+	table.text, 
+	table.number, 
+	table.null{height:200px;width:100%;
+		td{border:1px solid #efefef;font-size:22px;text-align:center;font-weight:bold;color:#4d4d4d;padding:0;margin:0;vertical-align:middle;line-height:normal;}
+	}
+	table.text td{font-weight:normal;}
+	table.number td{font-size:50px;}
+	table.null td{color:#aaa;
+		span{display:block;font-size:14px;padding-top:4px;font-weight:normal;}
+		a{cursor:pointer;}
+	}
+	table.array {
 		min-width:100%;
 		tr{
 			background-color:#FFF;

@@ -121,7 +121,7 @@ visualizationModel.parse({
 
     title: '{{ visualization_revision.title }}',
     description: '{{ visualization_revision.description }}',
-    notes: '{{ visualization_revision.notes }}',
+    notes: '{{ visualization_revision.notes|escapejs }}',
     lib: '{{ visualization_revision.lib }}',
 
     data: '{{ visualization_revision.data }}',

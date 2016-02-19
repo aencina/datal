@@ -23,8 +23,9 @@ class DataStreamSerializer(ResourceSerializer):
     title = serializers.CharField(
         help_text=_(u'Título del conjunto de datos'))
     description = serializers.CharField(
+
         help_text=_(u'Descripción del conjunto de datos'))
-    category = serializers.ChoiceField(tuple(),
+    category = serializers.CharField(
         help_text=_(u'Nombre de la categoría para clasificar los recursos. Debe coincidir con alguna de las categorías de la cuenta'))
     notes = serializers.CharField(
         required=False,
@@ -51,15 +52,6 @@ class DataStreamSerializer(ResourceSerializer):
         allow_null=True,
         help_text=_(u'Tags separados por coma'))
 
-    def __init__(self, *args, **kwargs):
-        super(DataStreamSerializer, self).__init__(*args, **kwargs)
-
-        self.fields['category']= serializers.ChoiceField(
-            self.getAccountCategoriesChoices(),
-            help_text=self.fields['category'].help_text
-        )
-        
-
     def to_representation(self, obj):
         answer= super(DataStreamSerializer, self).to_representation(obj)
         self.tryKeysOnDict(answer, 'parameters', obj, ['parameters'])
@@ -83,7 +75,10 @@ class DataStreamSerializer(ResourceSerializer):
             if 'table_id' in data:
                 table_id = data.pop('table_id')
                 data['select_statement'] = SelectStatementBuilder().build(table_id)
-                data['data_source'] = DataSourceBuilder().build(table_id,
+                header_row = None
+                if 'header_row' in data:
+                    header_row = data.pop('header_row')
+                data['data_source'] = DataSourceBuilder().build(table_id, header_row,
                     data['dataset'].last_revision_id, 'microsites')
 
         if 'category' in data and data['category']:
@@ -150,8 +145,17 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
     def data(self, request, pk=None, format=None,  *args, **kwargs):
         instance = self.get_object()
         DatastreamHitsDAO(instance).add(1)
-        if format == 'json' or not format:
-            return self.engine_call(request, 'invoke')
+        if format in ['json', 'pjson', 'ajson'] or not format:
+            return self.engine_call(request, 'invoke', format)
         return self.engine_call(request, 'invoke', format, 
             serialize=False, form_class=DatastreamRequestForm,
             download=False)
+
+    @detail_route(methods=['post'])
+    def clone(self, request,  *args, **kwargs):
+        instance = self.get_object()
+        dsr = DatastreamLifeCycleManager(request.user, datastream_id=instance['datastream_id']).clone()
+        dsdao = DataStreamDBDAO().get(user=request.user, datastream_revision_id=dsr.id, published=False)
+        serializer = self.get_serializer(dsdao)
+        return Response(serializer.data)
+

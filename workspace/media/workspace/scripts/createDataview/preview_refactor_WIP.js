@@ -8,7 +8,29 @@ if(result.fType != 'ARRAY'){
 			value = '<table class="text"><tr><td>' + str + '</td></tr></table>';
 			break;
 		case "DATE":
-			value = '<table class="number"><tr><td></td></tr></table>';
+			case "DATE":
+			var format = result.fDisplayFormat;
+			var number = result.fNum;
+			var str = '';
+			if (! _.isUndefined(format)){
+				// sometimes are seconds, sometimes miliseconds
+				if (number < 100000000000) number = number * 1000;
+				var dt = new Date(number);
+				dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+				var local = format.fLocale;
+				//(?) if I use "en" doesn't work, I must use "" for "en"
+				if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+				if (local === "es" || local.indexOf("es_")) local = "es";
+				str = $.datepicker.formatDate(format.fPattern, dt, {
+					dayNamesShort: $.datepicker.regional[local].dayNamesShort,
+					dayNames: $.datepicker.regional[local].dayNames,
+					monthNamesShort: $.datepicker.regional[local].monthNamesShort,
+					monthNames: $.datepicker.regional[local].monthNames
+				});
+			}else{
+				str = String(number);
+			}
+			value = '<table class="number"><tr><td>'+ str +'</td></tr></table>';
 			break;
 		case "NUMBER":
 			var format = result.fDisplayFormat;
@@ -41,13 +63,6 @@ if(result.fType != 'ARRAY'){
 			var cell = result.fArray[i],
 				value = '';
 
-			if (cell.fType == "TEXT" && ! _.isUndefined(cell.fDisplayFormat))	{
-				fmt = cell.fDisplayFormat.fPattern;
-				if (fmt.indexOf("#") == -1) {
-					cell.fType = "DATE";
-				}
-			}
-
 			switch(cell.fType){
 				case "TEXT":
 					value = ( cell.fStr.length != 1 ) ? cell.fStr : cell.fStr.replace('-', '&nbsp;');
@@ -60,6 +75,7 @@ if(result.fType != 'ARRAY'){
 						// sometimes are seconds, sometimes miliseconds
 						if (number < 100000000000) number = number * 1000;
 						var dt = new Date(number);
+						dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
 						var local = format.fLocale;
 						//(?) if I use "en" doesn't work, I must use "" for "en"
 						if (undefined === local || local === "en" || local.indexOf("en_")) local = "";

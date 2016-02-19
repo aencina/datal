@@ -7,6 +7,7 @@ var dataTableView = Backbone.View.extend({
 	
 	events:{
 		'click a[id^="id_changeParam"]': 'onChangeParamButtonClicked',
+		'click #id_retryButton': 'invoke'
 	},
 
 	$parameters: null,
@@ -93,10 +94,10 @@ var dataTableView = Backbone.View.extend({
 
 		var dataStream = this.dataStream.attributes;
 
-	  var data = "&limit=" + this.model.get("rows") + "&page=" + this.model.get("page");
+		var data = "&limit=" + this.model.get("rows") + "&page=" + this.model.get("page");
 
-	  // Add DataStream pArguments
-	  var params = [],
+		// Add DataStream pArguments
+		var params = [],
 			n = 0;
 
 		while( dataStream['parameter' + n ] != undefined ){
@@ -107,16 +108,16 @@ var dataTableView = Backbone.View.extend({
 		if(params.length > 0){
 			data += params.join('');
 		}
-	    
-	  var ajax = $.ajax({ 
+
+		var ajax = $.ajax({ 
 			url: '/rest/datastreams/' + dataStream.id + '/data.json/', 
-		  type:'GET', 
-		  data: data, 
-		  dataType: 'json', 
-		  beforeSend: _.bind(this.onInvokeBeforeSend, this),
-		  success: _.bind(this.onInvokeSuccess, this), 
-		  error: _.bind(this.onInvokeError, this)
-	  });
+			type:'GET', 
+			data: data, 
+			dataType: 'json', 
+			beforeSend: _.bind(this.onInvokeBeforeSend, this),
+			success: _.bind(this.onInvokeSuccess, this), 
+			error: _.bind(this.onInvokeError, this)
+		});
 
 	},
 
@@ -125,8 +126,9 @@ var dataTableView = Backbone.View.extend({
 		// Prevent override of global beforeSend
 		$.ajaxSettings.beforeSend(xhr, settings);
 
-    this.updateParametersButtonsValues();
-    this.setLoading();
+		this.updateParametersButtonsValues();
+		this.setLoading();
+
 	},
 	
 	onInvokeSuccess: function(response){
@@ -170,16 +172,40 @@ var dataTableView = Backbone.View.extend({
 
 	setTableHeight:function(){
 
-		// Set Flexigrid Height
-		var self = this;
 
-	  $(document).ready(function(){
+		$(window).resize(function(){
 
-	  	var otherHeights = 0;
+	      var table = $('.resource-detail, #id_datastreamResult .result table'),
+	          windowHeight = $(window).height();
 
-		  self.parentView.setHeights( '#id_datastreamResult .result table', otherHeights );
+	        var tableHeight =
+	          windowHeight
+	        - parseFloat( $('.global-navigation').height() )
+	        - parseFloat( $('.context-menu').height() )
+        	- parseFloat( $('.section-content').css('padding-top').split('px')[0] )
+	        - 40 // As margin bottom
+	        ;
 
-		});	
+	        table.css('height', tableHeight+'px');
+
+	    }).resize();
+
+
+
+
+
+
+
+		// // Set Flexigrid Height
+		// var self = this;
+
+	 //  $(document).ready(function(){
+
+	 //  	var otherHeights = 0;
+
+		//   //self.parentView.setHeights( '#id_datastreamResult .result table', otherHeights );
+
+		// });	
 
 	},
 
@@ -349,19 +375,20 @@ var dataTableView = Backbone.View.extend({
 		// Set Flexigrid Height
 	    $(window).resize(function(){
 
-		  	var otherHeights = 
-		  		  parseFloat( $('.resource-detail').height() )
-		  		- parseFloat( $('.flexigrid .hDiv').height() )
-			    - parseFloat( $('.flexigrid .pDiv').height() )
-			    - parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
-			    - parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] );
+	    	if( $('.flexigrid').length > 0 ){
 
-			  $( '.flexigrid div.bDiv').css({ 'height': otherHeights });
+				var otherHeights = 
+					  parseFloat( $('.resource-detail').height() )
+					- parseFloat( $('.flexigrid .hDiv').height() )
+					- parseFloat( $('.flexigrid .pDiv').height() )
+					- parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
+					- parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] );
 
-			  console.log( $('.resource-detail').height() );
-			  console.log(otherHeights);
+				$('.flexigrid div.bDiv').css({ 'height': otherHeights });
 
-	    }).resize();
+			}
+
+		}).resize();
 
 	},
 

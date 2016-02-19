@@ -3,7 +3,7 @@ from django.db.models import F, Max
 from django.db import transaction
 
 from core.builders.datasets import DatasetImplBuilderWrapper
-from core.choices import ActionStreams, StatusChoices
+from core.choices import ActionStreams, StatusChoices, CollectTypeChoices
 from core.daos.datasets import DatasetDBDAO, DatasetSearchDAOFactory
 from core.exceptions import DatasetNotFoundException, IllegalStateException
 from core.lib.datastore import *
@@ -331,6 +331,13 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
         self._delete_cache(cache_key='my_total_datasets_%d' % self.dataset.user.id)
         self._delete_cache(cache_key='account_total_datasets_%d' % self.dataset.user.account.id)
 
+    def has_source_changed(self, fields, old_end_point, old_file_name):
+        if self.dataset.type == CollectTypeChoices.SELF_PUBLISH:
+            return 'file_name' in fields and fields['file_name'] and fields['file_name'] != old_file_name
+        else:
+            return 'end_point' in fields and fields['end_point'] and fields['end_point'] != old_end_point
+        return False
+
     def edit(self, allowed_states=EDIT_ALLOWED_STATES, changed_fields=None, **fields):
         """ Create new revision or update it """
         old_status = self.dataset_revision.status
@@ -356,6 +363,7 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
 
         impl_details = DatasetImplBuilderWrapper(**fields).build()
         old_end_point = self.dataset_revision.end_point
+        old_file_name = self.dataset_revision.filename
 
         if old_status in [StatusChoices.PUBLISHED,StatusChoices.APPROVED]:
             logger.info('[LifeCycle - Dataset - Edit] Rev. {} Creo nueva revision por estar en PUBLISHED or APPROVED.'.format(
@@ -369,7 +377,8 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             logger.info('[LifeCycle - Dataset - Edit] Rev. {} Muevo sus hijos a PENDING_REVISION.'.format(
                 self.dataset_revision.id
             ))
-            if 'end_point' in fields and fields['end_point'] and fields['end_point'] != old_end_point:
+            
+            if self.has_source_changed(fields, old_end_point, old_file_name):
                 self._move_childs_to_status()
             self._update_last_revisions()
         else:

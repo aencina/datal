@@ -106,8 +106,69 @@ var ModalView = Backbone.View.extend({
             memo[m.get('name')] = _.compact(_.map(m.get('excelRange'), function(ele) { return DataTableUtils.toServerExcelRange(ele)})).join(',');
             return memo;
         }, {});
+        // Revisar los filtros para pedir el mejor mapa posible
+        result = this.fixMapInitialData(result);
         this.model.set(result);
         this.close();
+    },
+
+    // al aplicar estos resultados se llamará al motor para traer los datos.
+    // si es un mapa, tomar los datos (el primer punto), definirlo como centro 
+    // y definir un zoom menor    
+    fixMapInitialData: function(result) {
+        var type = this.model.get('type'), geoType = this.model.get('geoType');
+
+        if (type === 'mapchart') {
+            data = this.dataStreamModel.data;
+            // defs
+            row = data.attributes.rows[1]; //tomo la primera fila
+            center = {lat: 0, long: 0};
+            bounds = [85,180,-85,-180];
+            if (geoType === 'points') {
+                latRange = result.latitudSelection;
+                lonRange = result.longitudSelection;
+                lars = latRange.split(':');
+                lors = lonRange.split(':');
+                if (lars[0] == 'Column') { // Column:F por ejemplo
+                    center.lat = parseFloat(row[lars[1].charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    center.long = parseFloat(row[lors[1].charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                else { // F3:F28 por ejemplo
+                    // separar numeros de letras
+                    letter1 = lars[0].split('')[0];
+                    letter2 = lors[0].split('')[0];
+                    rown = parseInt(lars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    row = data.attributes.rows[rown]; 
+                    center.lat = parseFloat(row[letter1.charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    center.long = parseFloat(row[letter2.charCodeAt(0) - 65]); // A = 0, B = 1, etc
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                        
+            } else if (geoType === 'traces') {
+                traceRange = result.traceSelection
+                tars = traceRange.split(':');
+                if (tars[0] == 'Column') { // Column:F por ejemplo
+                    trace = row[tars[1].charCodeAt(0) - 65]; // A = 0, B = 1, etc
+                    // al parecer son una serie de puntos LAT, LONG ...
+                    center.lat = parseFloat(trace.split(',')[1]); 
+                    center.long = parseFloat(trace.split(',')[0]); 
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+                else { // F3:F28 por ejemplo
+                    // separar numeros de letras
+                    letter = tars[0].split('')[0];
+                    rown = parseInt(tars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    row = data.attributes.rows[rown]; 
+                    trace = row[letter.charCodeAt(0) - 65]; // A = 0, B = 1, etc
+                    center.lat = parseFloat(trace.split(',')[1]); 
+                    center.long = parseFloat(trace.split(',')[0]);
+                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+                }
+            }
+            result.options = {zoom: 13, center: center, bounds: bounds};
+        }
+    return result;
     },
 
     onClickCancel: function (e) {
@@ -116,6 +177,7 @@ var ModalView = Backbone.View.extend({
         this.close();
     },
 
+    /* se cargaron los datos del datastream, estan en dataviewModel.toJSON() */
     onLoadDataStream: function (dataviewModel) {
         this.dataTableView = new DataTableView({
             el: this.$('.data-table-view'),
@@ -124,7 +186,11 @@ var ModalView = Backbone.View.extend({
         });
         this.dataTableView.render();
         this.collection.setMaxCols(this.dataTableView.table.countCols());
-        this.collection.setMaxRows(this.dataTableView.table.countSourceRows());
+        var totalRows = this.dataStreamModel.response.fLength;
+        if (!totalRows){ // sometimes it's zero
+            totalRows = this.dataTableView.table.countSourceRows(); //probably always 50 by limit)
+            }
+        this.collection.setMaxRows(totalRows);
         this.listenTo(this.dataTableView, 'afterSelection', function (range) {
             this.addSelection(this._cacheFocusedInput);
         }, this);

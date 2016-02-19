@@ -20,7 +20,6 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 		'click #id_permalink, #id_GUID': 'onInputClicked',
 		'click #id_downloadLink, #id_exportToXLSButton, #id_exportToCSVButton': 'setWaitingMessage',
 		'click #id_openNotesLink': 'onViewMoreDescriptionLinkClicked'
-
 	},
 
 	events: function() {
@@ -82,7 +81,7 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 	onGoogleSpreadSheetButtonClicked: function(){
 		new googleSpreadsheetDataStreamView({model: new googleSpreadsheetDataStream(), dataStream: this.model});
 	},
-
+        
 	onViewMoreDescriptionLinkClicked: function(event){
 		this.onOpenSidebarButtonClicked(event);
 		this.toggleDescriptionLink();

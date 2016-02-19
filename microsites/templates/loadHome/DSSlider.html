@@ -55,7 +55,7 @@
 
                         title: '{{ resource.title }}',
                         description: '{{ resource.description }}',
-                        notes: '{{ resource.notes }}',
+                        notes: '{{ resource.notes|escapejs }}',
                         lib: '{{ resource.lib }}',
 
                         data: '{{ resource.data }}',

@@ -126,7 +126,7 @@ $(document).ready(function(){
     description: "{{datastream.description|escapejs}}",
     sources: [{% for source in datastream.sources %}{"name":"{{ source.source__name }}"},{% endfor %}],
     tags: [{% for tag in datastream.tags %}{"name":"{{ tag.tag__name }}"},{% endfor %}],
-    notes: "{{datastream.notes}}",
+    notes: "{{datastream.notes|escapejs}}",
     sourceUrl: '/rest/sources.json/',
     tagUrl: '/rest/tags.json/',
     editUrl: "{% url 'manageDataviews.edit' %}{{datastream.datastream_revision_id}}/",

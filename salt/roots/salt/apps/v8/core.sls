@@ -31,25 +31,16 @@ extract_microsites_v8_war:
   cmd.wait:
     - cwd: /var/lib/tomcat7/webapps/microsites/AgileOfficeServer/
     - name: unzip -o /root/AgileOfficeServer.war -d /var/lib/tomcat7/webapps/microsites/AgileOfficeServer/
-    - onlyif: test -e /root/AgileOfficeServer.war
-    - watch:
-      - file: download_v8
 
 extract_workspace_v8_war:
   cmd.wait:
     - cwd: /var/lib/tomcat7/webapps/workspace/AgileOfficeServer/
     - name: unzip -o /root/AgileOfficeServer.war -d /var/lib/tomcat7/webapps/workspace/AgileOfficeServer/
-    - onlyif: test -e /root/AgileOfficeServer.war
-    - watch:
-      - file: download_v8
 
 extract_scraper_v8_war:
   cmd.wait:
     - cwd: /var/lib/tomcat7/webapps/workspace/AgileOfficeScraperServices/
     - name: unzip -o /root/AgileOfficeScraperServices.war -d /var/lib/tomcat7/webapps/workspace/AgileOfficeScraperServices/
-    - onlyif: test -e /root/AgileOfficeScraperServices.war
-    - watch:
-      - file: download_v8
 
 v8_change_ownership:
   file.directory:

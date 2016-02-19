@@ -93,7 +93,7 @@ $(document).ready(function(){
 
   var finishModel = new FinishWebserviceModel({
     name: 'finish',
-    saveUrl: "{% url 'manageDatasets.edit' %}/{{dataset.dataset_revision_id}}/",
+    saveUrl: "{% url 'manageDatasets.edit' %}{{dataset.dataset_revision_id}}/",
     sourceUrl: '/rest/sources.json/',
     tagUrl: '/rest/tags.json/',
 
@@ -102,7 +102,7 @@ $(document).ready(function(){
     description: '{{ dataset.description }}',
     category: '{{ dataset.category_id }}',
     status: '{{ dataset.status }}',
-    notes: '{{ dataset.notes }}',
+    notes: '{{ dataset.notes|escapejs }}',
     tags: [{% for tag in dataset.tags %}{"name":"{{ tag.tag__name }}"},{% endfor %}],
     sources: [{% for source in dataset.sources %}{"name":"{{ source.source__name }}"},{% endfor %}]
     

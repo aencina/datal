@@ -152,9 +152,7 @@ var ChartView = StepViewSPA.extend({
 
 	updatePreviewClass: function(type){
 		this.clearClassesChartBg();
-		if(!this.ChartViewClass){
-			this.chartContent.addClass(this.bgClasses[type]);
-		}
+		this.chartContent.addClass(this.bgClasses[type]);
 	},
 
 	clearClassesChartBg: function(){

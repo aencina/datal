@@ -2547,7 +2547,7 @@ msgid "APP-LASTPUBLISHDATE-TEXT"
 msgstr "Última versión publicada:"
 
 msgid "APP-VIEWONSITE-TEXT"
-msgstr "Ver en sitio"
+msgstr "Ver en portal de datos abiertos"
 
 msgid "APP-SENDREJECTEDNOTE-TEXT"
 msgstr "¿Motivo del rechazo?"
@@ -3253,3 +3253,6 @@ msgstr "Ir a la página de inicio"
 
 msgid "APP-GO-PORTAL-TEXT"
 msgstr "Ir al portal de datos abiertos"
+
+msgid "APP-ACCOUNT-NAME-NOT-VALID"
+msgstr "Nombre de la Organización no válido"

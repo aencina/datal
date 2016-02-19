@@ -21,7 +21,7 @@ $(document).ready(function(){
         $form.find('#id_email').val(email);
         $form.find('#id_confirm_email').val(email);
         $form.find('#id_role').val(role);
-        $form.attr('action', '/admin/edit_user');
+        $form.attr('action', '/admin/edit_user/');
         $formContainer.data('overlay').load();
     });
 
@@ -34,7 +34,7 @@ $(document).ready(function(){
         $form.find('#id_email').val('');
         $form.find('#id_confirm_email').val('');
         $form.find('#id_role').val('');
-        $form.attr('action', '/admin/create_user');
+        $form.attr('action', '/admin/create_user/');
 
         $formContainer.data('overlay').load();
     });

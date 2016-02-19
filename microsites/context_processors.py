@@ -1,5 +1,6 @@
 import json
 from django.conf import settings
+from core import VERSION
 
 def request_context(request):
     obj = {}
@@ -37,4 +38,5 @@ def request_context(request):
 
     obj['microsite_domain']=msdomain
     obj['microsite_uri']=msprotocol
+    obj['core_version']=VERSION
     return obj

@@ -26,6 +26,10 @@ from workspace.decorators import *
 from workspace.templates import DatasetList
 from workspace.manageDatasets.forms import *
 
+
+from workspace.manageDatasets.serializers import ChildDataStreamSerializer, ChildVisualizationSerializer, MimeTypeSerializer
+from rest_framework.renderers import JSONRenderer
+
 logger = logging.getLogger(__name__)
 
 
@@ -259,7 +263,7 @@ def remove(request, dataset_revision_id, type="resource"):
         lifecycle.remove(killemall=True)
 
         # Send signal
-        dataset_removed.send_robust(sender='remove_view', id=lifecycle.dataset.id, rev_id=lifecycle.dataset_revision.id)
+        dataset_removed.send_robust(sender='remove_view', id=lifecycle.dataset.id, rev_id=-1)
 
         response = DefaultAnswer().render(
             status=True,
@@ -494,7 +498,39 @@ def check_endpoint_url(request):
         url = mimetype_form.cleaned_data['url']
         mimetype, status, url = mimetype_form.get_mimetype(url)
         sources = {"mimetype" : mimetype, "status" : status, "url" : url }
+        serializer = MimeTypeSerializer(sources)
 
-        return HttpResponse(json.dumps(sources), content_type='application/json')
-    else:
-        raise Http404
+        return HttpResponse(JSONRenderer().render(serializer.data, renderer_context={'indent':4}), content_type='application/json')
+
+    raise Http404
+
+@login_required
+@require_GET
+def get_childs(request, revision_id):
+    """
+    get all childs of a dataset
+    :param request:
+    :param revision_id:
+    :return: JSON Object
+    """
+
+    language = request.auth_manager.language
+    dataset_revision = DatasetRevision.objects.get(pk=revision_id)
+
+    try:
+        childs = DatasetDBDAO().query_childs(language=language, dataset_id=dataset_revision.dataset.id)
+    except DatasetRevision.DoesNotExist:
+        raise DatasetNotFoundException()
+
+    data = {}
+    for key in childs.keys():
+        data[key]=[]
+        for child in childs[key]:
+            try:
+                serializer=ChildDataStreamSerializer(child)
+                data[key].append(serializer.data)
+            except KeyError:
+                serializer=ChildVisualizationSerializer(child)
+                data[key].append(serializer.data)
+
+    return HttpResponse(JSONRenderer().render(data, renderer_context={'indent':4}), content_type='application/json')

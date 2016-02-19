@@ -3,12 +3,12 @@ from django.forms.formsets import formset_factory
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from core.plugins_point import DatalPluginPoint
-from core.utils import slugify
 
 from core.auth import forms as auth_forms
 from core.models import ObjectGrant
 
 register = template.Library()
+
 
 @register.simple_tag(takes_context=True)
 def permalink(context, obj_type, pk, slug):
@@ -35,8 +35,8 @@ def permalink(context, obj_type, pk, slug):
             if permalink.doc_type == obj_type:
                 return permalink.permalink(pk, slug)
 
-
     return None
+
 
 @register.filter(name="embedlink")
 def embedlink(guid, obj_type):
@@ -48,6 +48,7 @@ def embedlink(guid, obj_type):
         )
     else:
         return None
+
 
 @register.filter(name="download")
 def download(dataset_revision):

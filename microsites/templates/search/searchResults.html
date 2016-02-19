@@ -36,9 +36,10 @@ s            	{% if category %}<span class="font">{% trans "APP-INCATEGORY-TEXT"
                     {%endfor%}
 
                 <div class="pagButtons clearfix pagination">
+
                 {% if paginator.has_previous %}
                     {% if category %}
-                        <a href="{% url "search.browse" category_slug=category_slug|lower page=paginator.previous_page_number %}" id="id_dataServicesPreviousButton" title="{% trans 'APP-PREVIOUS-TEXT' %}" class="Btn Ant">{% trans "APP-PREVIOUS-TEXT" %}</a>
+                        <a href="{% url "search.search" category=category %}?q={{query|default:""|urlencode}}&page={{paginator.previous_page_number}}" id="id_dataServicesPreviousButton" title="{% trans 'APP-PREVIOUS-TEXT' %}" class="Btn Ant">{% trans "APP-PREVIOUS-TEXT" %}</a>
                     {% else %}
                         <a id="id_dataServicesPreviousButton" href="{{search_url}}?q={{query|default:""|urlencode}}&page={{paginator.previous_page_number}}" title="{% trans 'APP-PREVIOUS-TEXT' %}" class="Btn Ant">{% trans "APP-PREVIOUS-TEXT" %}</a>
                     {% endif %}
@@ -46,7 +47,7 @@ s            	{% if category %}<span class="font">{% trans "APP-INCATEGORY-TEXT"
 
                   {% for page in paginator.page_range %}
                     {% if category %}
-                        <a href="{% url "search.browse" category_slug=category_slug|lower page=page %}" id="id_dataServicesPageButton_{{page}}" class="number{% ifequal paginator.page page %} act{% endifequal %}" title="{% trans 'APP-PAGE-TEXT' %} {{page}}">{{page}}</a>
+                        <a href="{% url "search.search" category=category %}?q={{query|default:""|urlencode}}&page={{page}}" id="id_dataServicesPageButton_{{page}}" class="number{% ifequal paginator.page page %} act{% endifequal %}" title="{% trans 'APP-PAGE-TEXT' %} {{page}}">{{page}}</a>
                     {% else %}
                         <a href="{{search_url}}?q={{query|default:""|urlencode}}&page={{page}}" id="id_dataServicesPageButton_{{page}}" class="number{% ifequal paginator.page page %} act{% endifequal %}" title="{% trans 'APP-PAGE-TEXT' %} {{page}}">{{page}}</a>
                     {% endif %}
@@ -55,7 +56,7 @@ s            	{% if category %}<span class="font">{% trans "APP-INCATEGORY-TEXT"
 
                 {% if paginator.has_next %}
                     {% if category %}
-                        <a href="{% url "search.browse" category_slug=category_slug|lower page=paginator.next_page_number %}" id="id_dataServicesNextButton" title="{% trans 'APP-NEXT-TEXT' %}" class="Btn Sig">{% trans "APP-NEXT-TEXT" %}</a>
+                        <a href="{% url "search.search" category=category %}?q={{query|default:""|urlencode}}&page={{paginator.next_page_number}}" id="id_dataServicesNextButton" title="{% trans 'APP-NEXT-TEXT' %}" class="Btn Sig">{% trans "APP-NEXT-TEXT" %}</a>
                     {% else %}
                         <a id="id_dataServicesNextButton" href="{{search_url}}?q={{query|default:""|urlencode}}&page={{paginator.next_page_number}}" title="{% trans 'APP-NEXT-TEXT' %}" class="Btn Sig">{% trans "APP-NEXT-TEXT" %}</a>
                     {% endif %}

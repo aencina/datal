@@ -27,6 +27,13 @@ charts.views.GoogleLineChart = charts.views.LineChart.extend({
         }
         var options = this.model.get('options');
 
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
+
         this.chart = new google.visualization.LineChart(this.el);
 
         this.chart.draw(dataTable, options);
@@ -60,6 +67,13 @@ charts.views.GoogleAreaChart = charts.views.AreaChart.extend({
         var options = this.model.get('options');
 
         options.isStacked = true;
+
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
 
         this.chart = new google.visualization.AreaChart(this.el);
 
@@ -96,6 +110,13 @@ charts.views.GoogleBarChart = charts.views.BarChart.extend({
 
         options.isStacked = false;
 
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
+
         this.chart = new google.visualization.BarChart(this.el);
 
         this.chart.draw(dataTable, options);
@@ -130,6 +151,13 @@ charts.views.GoogleColumnChart = charts.views.ColumnChart.extend({
         var options = this.model.get('options');
 
         options.isStacked = false;
+
+        var showLegend = this.model.checkLegend();
+
+        if( !showLegend ){
+            options.legend = {}
+            options.legend.position = 'none';
+        }
 
         this.chart = new google.visualization.ColumnChart(this.el);
 
