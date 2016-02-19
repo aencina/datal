@@ -447,6 +447,11 @@ class DatastreamSearchDAO():
         text.extend(tags) # datastream has a table for tags but seems unused. I define get_tags funcion for dataset.
         text = ' '.join(text)
 
+        meta_text=[]
+        if self.datastream_revision.meta_text != "":
+            for data in json.loads(self.datastream_revision.meta_text)['field_values']:
+                meta_text.append(data)
+
         document = {
                 'docid' : self._get_id(),
                 'fields' :
@@ -468,7 +473,8 @@ class DatastreamSearchDAO():
                      'api_hits': 0,
                      'end_point': self.datastream_revision.dataset.last_published_revision.end_point,
                     },
-                'categories': {'id': unicode(category.category_id), 'name': category.name}
+                'categories': {'id': unicode(category.category_id), 'name': category.name},
+                'meta_text': meta_text,
                 }
 
         return document

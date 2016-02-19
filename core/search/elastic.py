@@ -136,6 +136,13 @@ class ElasticsearchFinder(Finder):
                 "resource_id": filter(None,self.ids.split(","))
             }})
 
+        if self.meta_data:
+            key=self.meta_data.keys()[0]
+            value=self.meta_data.values()[0]
+            if type(value) not in (type(list()), type(tuple())):
+                value=[value]
+            filters.append({"terms": {key: value}})
+
         query = {
             "query": {
                 "filtered": {
@@ -160,6 +167,7 @@ class ElasticsearchFinder(Finder):
                 }
             }
         }
+        print query
         return query
 
 class ElasticFinderManager(FinderManager):
