@@ -113,6 +113,10 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 						'modifiedAt': response.result.modified_at,
 					});
 
+                    self.datastreamEditItemModel.set({
+                        'status': response.result.status,
+                    });
+
 					// Set OK Message
 					$.gritter.add({
 						title: response.messages.title,

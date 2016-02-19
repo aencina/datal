@@ -649,7 +649,8 @@ class DatasetRevision(RevisionModel):
 
         for tag_data in tags:
             if tag_data:
-                tag, is_new = Tag.objects.get_or_create(name=tag_data['name'])
+                tag_name = tag_data if isinstance(tag_data, str) else tag_data['name']
+                tag, is_new = Tag.objects.get_or_create(name=tag_name)
                 tag_data_set, is_new = TagDataset.objects.get_or_create(tag=tag, datasetrevision=self)
                 self.tagdataset_set.add(tag_data_set)
         self.save()

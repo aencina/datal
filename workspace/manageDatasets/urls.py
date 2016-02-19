@@ -18,4 +18,5 @@ urlpatterns = patterns(
     url(r'^change_status/(?P<dataset_revision_id>\d+)/$', change_status, name='manageDatasets.change_status'),
     url(r'^download_file/$', download_file, name='manageDatasets.download_file'),
     url(r'^check_endpoint_url/$', check_endpoint_url, name='check_endpoint_url'),
+    url(r'^(?P<revision_id>\d+)/get_childs/$', get_childs, name='manageDatasets.dataset.get_childs'),
 )
