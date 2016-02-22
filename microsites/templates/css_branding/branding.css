@@ -51,21 +51,18 @@
 /*BUTTON*/
     
     /*BACKGROUND COLOR*/
-    a.genericButton,
-    a.genericButton.moreButton,
+    .button,
     .theme6 .buttonsSection li a.buttonContent{background:{{preferences.account_button_bg_color|default:"#ccc"}} !important;}
 
     /*BORDER COLOR*/
-    a.genericButton,
-    a.genericButton.moreButton,
+    .button,
     .theme6 .buttonsSection li a.buttonContent,
     .theme6 .searchForm input[type=text]{border-color:{{preferences.account_button_border_color|default:"#999"}} !important;}
 
     /*FONT COLOR*/
-    a.genericButton,
-    a.genericButton.moreButton
-    a.genericButton span,
-    a.genericButton.moreButton span,
+    .button,
+    .button span,
+    .button.moreButton span,
     .theme6 .buttonsSection li a.buttonContent span{color:{{preferences.account_button_font_color|default:"#fff"}} !important;}
 
 /*HEADER*/

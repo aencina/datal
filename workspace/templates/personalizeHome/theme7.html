@@ -296,10 +296,27 @@
     </fieldset>
   </div>
 
+  <!-- Resources table -->
+  <div class="formBox">
+    <header class="clearfix">
+      <div class="num">8</div>
+      <hgroup>
+        <h1><%= gettext('ADMIN-HOME-SECTION-RESOURCESTITLE') %></h1>
+        <h2><%= gettext('ADMIN-HOME-SECTION-RESOURCESDESCRIPTION') %></h2>
+      </hgroup>
+    </header>
+    <fieldset>
+      <div class="row">
+        <input type="checkbox" id="id_themeResourcesTable" name="id_themeResourcesTable" data-bind="checked:resourcesTable" />
+        <%= gettext('ADMIN-HOME-SECTION-RESOURCESCHECKBOX') %>
+      </div>
+    </fieldset>
+  </div>
+
   <!-- Links section -->
   <div class="formBox linksSection">
     <header class="clearfix">
-      <div class="num">8</div>
+      <div class="num">9</div>
       <hgroup>
         <h1><%= gettext('ADMIN-HOME-SECTION-LINKSTITLE') %></h1>
         <h2><%= gettext('ADMIN-HOME-SECTION-LINKSDESCRIPTION') %></h2>
@@ -314,5 +331,7 @@
       </div>
     </fieldset>
   </div>
+
+  
 
 </script>

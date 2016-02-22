@@ -12,7 +12,6 @@ def request_context(request):
         'VERSION_JS_CSS': settings.VERSION_JS_CSS,
         'WORKSPACE_URI': settings.WORKSPACE_URI,
         'DOMAINS': settings.DOMAINS,
-        'DOC_API_URL': settings.DOC_API_URL,
         'APPLICATION_DETAILS': settings.APPLICATION_DETAILS,
         'MSPROTOCOL': 'http',
         'APIPROTOCOL': 'http',
