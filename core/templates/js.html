@@ -24,7 +24,12 @@
 <script type="text/javascript" src="/js_core/libs/epoxy/backbone.epoxy.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.gritter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-<!-- Placeholder -->
-<!--[if IE]>
+<!-- Placeholder Pollyfill -->
+<!--[if lt IE 10]>
 <script type="text/javascript" src="/js_core/base_modules/placeholder.js?id={{settings.VERSION_JS_CSS}}"></script>
+<![endif]-->
+
+<!-- Mutation Observer Pollyfill -->
+<!--[if lt IE 11]>
+<script type="text/javascript" src="/js_core/base_modules/mutationobserver.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <![endif]-->
