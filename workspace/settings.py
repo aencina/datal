@@ -60,6 +60,7 @@ if DEBUG:
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.contrib.messages.context_processors.messages',
+    'workspace.context_processors.request_context',
 )
 
 REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] = (
