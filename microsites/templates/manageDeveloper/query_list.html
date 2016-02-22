@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 <div class="description">
-                    <p>{% trans "DEV-CREATEREQUEST-TEX1" %}:<br/><code><span class="blue">http://{{preferences.account_api_domain}}/api/v2/datastreams/{{example_guid}}/data.json/?auth_key=YOUR_API_KEY</span></code></p>
+                    <p>{% trans "DEV-CREATEREQUEST-TEX1" %}:<br/><code><span class="blue">{{preferences.account_api_https|yesno:"https,http"}}://{{preferences.account_api_domain}}/api/v2/datastreams/{{example_guid}}/data.json/?auth_key=YOUR_API_KEY</span></code></p>
                     <p>{% trans "DEV-CREATEREQUEST-TEX3" %}:</p>
                     <p><code><span class="blue">{% trans "DEV-CREATEREQUEST-TEX4" %}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX5" %} <a target="_blank" href="{% if not 'favicon'|inplugin %}http://junar.github.io/junar-manual/api-es/build/html/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="{% trans 'DEV-CREATEREQUEST-TEX6' %}" rel="nofollow">{% trans "DEV-CREATEREQUEST-TEX6" %}</a>.</p>
                     <p><code><span class="black">{{example_guid}}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX8" %}.</p>
