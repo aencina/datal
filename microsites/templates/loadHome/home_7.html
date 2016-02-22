@@ -432,6 +432,15 @@
 
     </div>
 
+    <!-- RESOURCES TABLE -->
+    {% if config.resourcesTable %}
+    <div class="resourcesTable">
+        <div class="container">
+            {% include "loadHome/resourcesTable.html" %}
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Footer section -->
     {% if config.links %}
     <div class="links">

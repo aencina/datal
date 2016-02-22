@@ -91,6 +91,15 @@ class DataStreamSerializer(ResourceSerializer):
             else:
                 data.pop('tags')
 
+        if 'meta_text' in data:
+            meta_data = self.context['request'].auth['account'].meta_data
+            if meta_data:
+                meta_form = MetaForm(request.POST, metadata = meta_data)
+                if meta_form.is_valid():
+                    data['meta_text'] = meta_text.output_json()
+                else:
+                    raise exceptions.ValidationError({'meta_text':'Invalid'})
+
         data['status'] = StatusChoices.PENDING_REVIEW
 
         data['language'] = self.context['request'].auth['language']

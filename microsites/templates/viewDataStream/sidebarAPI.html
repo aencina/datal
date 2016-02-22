@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load extra_tags components %}
+{% load extra_tags components plugins_tags %}
 
 <div class="box apiBox" id="id_apiSidebar">
 	<header class="title clearfix">
@@ -21,7 +21,7 @@
 				<h1>GUID:</h1>
 				<input type="text" id="id_GUID" value="{{datastream.guid}}" readonly />
 			</header>
-			<p>{% trans 'VIEWDS-API-DOCUMENTATION-1' %} <a href="{{settings.DOC_API_URL}}" target="_blank" title="{% trans 'VIEWDS-API-DOCUMENTATION-TITLE' %}">{% trans 'VIEWDS-API-DOCUMENTATION-2' %}</a>.</p>
+			<p>{% trans 'VIEWDS-API-DOCUMENTATION-1' %} <a href="{% if not 'favicon'|inplugin %}http://junar.github.io/junar-manual/api-es/build/html/{% else %}{% plugins_call 'api_url' %}{% endif %}" target="_blank" title="{% trans 'VIEWDS-API-DOCUMENTATION-TITLE' %}">{% trans 'VIEWDS-API-DOCUMENTATION-2' %}</a>.</p>
 		</article>
 
 		<!-- Examples -->

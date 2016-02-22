@@ -29,6 +29,7 @@ var theme7Model = Backbone.Model.extend({
         rightBottomSectionLink:'',
         rightBottomSectionBackgroundColor:'',
         links:[],
+        resourcesTable:false,
     },
     initialize: function(attr){ 
         if (!_.isUndefined(attr)){
@@ -120,6 +121,9 @@ var theme7Model = Backbone.Model.extend({
             if (!_.isUndefined(themeConfig.links)){
                 this.set('links', themeConfig.links)
             }  
+            if (!_.isUndefined(themeConfig.resourcesTable)){
+                this.set('resourcesTable', themeConfig.resourcesTable)
+            }
         }
         else{
             this.clear().set(this.defaults);

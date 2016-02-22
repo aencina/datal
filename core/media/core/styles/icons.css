@@ -70,6 +70,12 @@ li:hover .button .icon-settings{background-position:-12px -228px;}
 li.active .icon-settings{background-position:-48px -228px;}
 .icon-settings.inactive{background-position:-84px -228px;}
 
+.icon-user-manual,
+li:hover .button .icon-user-manual{background-position:-12px -1632px;}
+.icon-user-manual:hover,
+li.active .icon-user-manual{background-position:-48px -1632px;}
+.icon-user-manual.inactive{background-position:-84px -1632px;}
+
 /* General icons */
 .icon-view-site{background-position:-12px -696px;}
 .button:hover .icon-view-site{background-position:-48px -696px;}

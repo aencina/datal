@@ -225,7 +225,6 @@ SEARCH_INDEX = {
 # Settings Keys
 HOT_DATASTREAMS = 'HOT_DATASTREAMS'
 HOT_VISUALIZATIONS = 'HOT_VISUALIZATIONS'
-DOC_API_URL = 'https://github.com/datal-org/datal/tree/develop/docs/api'
 
 # develop & staging sentry
 SENTRY_DSN = 'http://sentrydsn@sentry.com/1'
