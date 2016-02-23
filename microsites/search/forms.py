@@ -9,6 +9,7 @@ class SearchForm(forms.Form):
     tag = forms.RegexField(label='Tag', required=False, regex = r'[a-zA-Z0-9]+')
     order = forms.CharField(label='Order', required=False)
     reverse = forms.CharField(label='Reverse', required=False)
+    meta_data = forms.CharField(label='Meta Data', required=False)
 
     def clean_page(self):
         # default page

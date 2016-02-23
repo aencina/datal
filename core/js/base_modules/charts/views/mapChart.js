@@ -167,7 +167,11 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.heatMapPoints = new google.maps.MVCArray([]);
         this.heatMapLayer = new google.maps.visualization.HeatmapLayer({data: this.heatMapPoints , radius: 20, opacity: 0.8});
 
-        this.infoWindow = new google.maps.InfoWindow();
+        this.infoWindow = new google.maps.InfoWindow({
+            disableAutoPan: true,
+            maxWidth: 700,
+            maxHeight: 400,
+            });
         this.bindMapEvents();
     },
 
