@@ -1,6 +1,6 @@
 from rest_framework import renderers
 from babel import numbers, dates
-from rest_framework.renderers import JSONRenderer
+from core.rest.renderers import UTF8JSONRenderer
 import json
 from lxml import html, etree
 from lxml.cssselect import CSSSelector
@@ -18,6 +18,7 @@ select_cells = CSSSelector(".ao-cell-selectable")
 
 
 class EngineRenderer(renderers.BaseRenderer):
+    charset = 'utf-8'
     def render(self, data, media_type=None, renderer_context=None):
         return data
 
@@ -31,11 +32,11 @@ class TSVEngineRenderer(EngineRenderer):
     media_type="text/tab-separated-values"
     format = "tsv"
 
-class PJSONEngineRenderer(JSONRenderer):
+class PJSONEngineRenderer(UTF8JSONRenderer):
     format = "pjson"
 
 
-class AJSONEngineRenderer(JSONRenderer):
+class AJSONEngineRenderer(UTF8JSONRenderer):
     format = "ajson"
 
 
@@ -44,7 +45,7 @@ class XLSEngineRenderer(EngineRenderer):
     format = "xls"
 
 
-class XLSNonRedirectEngineRenderer(JSONRenderer):
+class XLSNonRedirectEngineRenderer(UTF8JSONRenderer):
     format = "xls"
 
 

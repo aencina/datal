@@ -7,6 +7,7 @@ from rest_framework import renderers
 from core.v8.renderers import (CSVEngineRenderer, XLSEngineRenderer, 
                                HTMLEngineRenderer, GridEngineRenderer)
 from core.rest.mixins import ResourceHitsMixin
+from core.rest.renderers import UTF8JSONRenderer
 
 class RestDataStreamViewSet(ResourceHitsMixin, ResourceViewSet):
     queryset = DataStreamDBDAO() 
@@ -19,7 +20,7 @@ class RestDataStreamViewSet(ResourceHitsMixin, ResourceViewSet):
     hits_dao_class = DatastreamHitsDAO
     
     @detail_route(methods=['get'], renderer_classes=[
-        renderers.JSONRenderer,
+        UTF8JSONRenderer,
         renderers.BrowsableAPIRenderer,
         CSVEngineRenderer,
         XLSEngineRenderer,
