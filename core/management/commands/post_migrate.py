@@ -143,9 +143,9 @@ class Command(BaseCommand):
             spaces = ('latitudSelection', 'longitudSelection', 'traceSelection', 'data')
 
             for s in spaces:
-                if s in imp['chart']:
+                if s in imp['chart'] and not isinstance(imp['chart'][s], list):
                     imp['chart'][s] = imp['chart'][s].replace(' ', '')
-                elif s in imp:
+                elif s in imp and not isinstance(imp[s], list):
                     imp[s] = imp[s].replace(' ', '')
 
             renames=( ("zoomLevel", "zoom"),
