@@ -167,7 +167,6 @@ class ElasticsearchFinder(Finder):
                 }
             }
         }
-        print query
         return query
 
 class ElasticFinderManager(FinderManager):
