@@ -10,6 +10,7 @@ class SearchForm(forms.Form):
     order = forms.CharField(label='Order', required=False)
     reverse = forms.CharField(label='Reverse', required=False)
     meta_data = forms.CharField(label='Meta Data', required=False)
+    resource = forms.CharField(label='resource', required=False)
 
     def clean_page(self):
         # default page

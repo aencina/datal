@@ -45,6 +45,11 @@ def search(request, category=None):
         page = form.cleaned_data.get('page')
         order = form.cleaned_data.get('order')
         reverse = form.cleaned_data.get('reverse')
+        resource = form.cleaned_data.get('resource')
+
+        if not resource or resource not in ("dt","ds","vz","db"):
+            resource="all"
+
         try:
             meta_data= json.loads(form.cleaned_data.get('meta_data'))
         except ValueError:
@@ -53,10 +58,9 @@ def search(request, category=None):
         accounts_ids = [x['id'] for x in account.account_set.values('id').all()] + [account.id]
 
         try:
-            resources = "all"
             results, search_time, facets = FinderManager().search(
                 query=query, account_id=accounts_ids, category_filters=category, order=order,
-                resource=resources, reverse=reverse, meta_data=meta_data
+                resource=resource, reverse=reverse, meta_data=meta_data
             )
         except InvalidPage:
             raise InvalidPage

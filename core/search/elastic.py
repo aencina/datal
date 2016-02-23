@@ -101,7 +101,7 @@ class ElasticsearchFinder(Finder):
             self.resource.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
 
         # previene un error al pasarle un string y no un LIST
-        if isinstance(self.resource, str):
+        if type(self.resource) not in (type([]), type(())):
             self.resource = [self.resource]
 
         # algunas busquedas, sobre todo las federadas,
