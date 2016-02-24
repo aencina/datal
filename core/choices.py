@@ -166,7 +166,6 @@ class SourceImplementationChoices():
     ODP = 8
     ODS = 9
     CSV = 10
-    TXT = 10
     KML = 11
     KMZ = 12
     GIS0 = 13
@@ -178,7 +177,7 @@ class SourceImplementationChoices():
     ZIP = 19
     TSV = 20
     PUS = 21
-    
+    TXT = 22
 
 SOURCE_IMPLEMENTATION_CHOICES = (
      (SourceImplementationChoices.HTML, 'HTML')
@@ -217,7 +216,7 @@ SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
     ,(SourceImplementationChoices.ODT, ["odt"])
     #,(SourceImplementationChoices.ODP, 'ODP')
     ,(SourceImplementationChoices.ODS, ["ods"])
-    ,(SourceImplementationChoices.CSV, ["csv"])
+    ,(SourceImplementationChoices.CSV, ["csv", "txt"])
     ,(SourceImplementationChoices.KML, ["kml"])
     ,(SourceImplementationChoices.KMZ, ["kmz"])
     #,(SourceImplementationChoices.GIS0, 'geoportal/GetRecords')
@@ -229,7 +228,7 @@ SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
     ,(SourceImplementationChoices.ZIP, ["zip", "gz", "tar"])
     ,(SourceImplementationChoices.TSV, ["tsv", "tab"])
     #,(SourceImplementationChoices.PUS, 'PublicStuff')
-    ,(SourceImplementationChoices.TXT, ["txt"])
+    #,(SourceImplementationChoices.TXT, ["txt"])
 )
 
 SOURCE_EXTENSION_LIST = sorted([extension for source_id, extensions in SOURCE_IMPLEMENTATION_EXTENSION_CHOICES
@@ -250,7 +249,8 @@ SOURCE_IMPLEMENTATION_MIMETYPE_CHOICES = (
     #,(SourceImplementationChoices.ODP, 'ODP')
     ,(SourceImplementationChoices.ODS, ["application/vnd.oasis.opendocument.spreadsheet"])
     ,(SourceImplementationChoices.CSV, ["text/x-comma-separated-values",
-                                        "text/csv"])
+                                        "text/csv",
+                                        "text/plain"])
     ,(SourceImplementationChoices.KML, ["application/vnd.google-earth.kml+xml"])
     #,(SourceImplementationChoices.KMZ, 'KMZ')
     #,(SourceImplementationChoices.GIS0, 'geoportal/GetRecords')
@@ -266,7 +266,6 @@ SOURCE_IMPLEMENTATION_MIMETYPE_CHOICES = (
                                         "application/x-tar"])
     ,(SourceImplementationChoices.TSV, ["text/tab-separated-values"])
     #,(SourceImplementationChoices.PUS, 'PublicStuff')
-    ,(SourceImplementationChoices.TXT, ["text/plain"])
 )
 
 SOURCE_MIMETYPE_LIST = sorted([mimetype for source_id, mimetypes in SOURCE_IMPLEMENTATION_MIMETYPE_CHOICES
