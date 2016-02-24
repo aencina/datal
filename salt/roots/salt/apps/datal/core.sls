@@ -180,9 +180,9 @@ reindex:
   cmd.run:
     - user: {{ user }}
     - group: {{ group }}
-    - cwd: {{install_dir}}{{ pillar['application']['path'] }}
+    - cwd: {{ pillar['application']['path'] }}
     - names:
-      - PATH="{{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/:$PATH"; python manage.py index --settings=workspace.settings --all --flush --debug
+      - PATH="{{ pillar['virtualenv']['path'] }}/bin/:$PATH"; python manage.py index --settings=workspace.settings --all --flush --debug
 
 log_activity:
   cmd.run:
