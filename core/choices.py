@@ -166,7 +166,6 @@ class SourceImplementationChoices():
     ODP = 8
     ODS = 9
     CSV = 10
-    TXT = 10
     KML = 11
     KMZ = 12
     GIS0 = 13
@@ -178,7 +177,7 @@ class SourceImplementationChoices():
     ZIP = 19
     TSV = 20
     PUS = 21
-    
+    TXT = 22
 
 SOURCE_IMPLEMENTATION_CHOICES = (
      (SourceImplementationChoices.HTML, 'HTML')
