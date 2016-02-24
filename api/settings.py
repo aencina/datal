@@ -57,7 +57,7 @@ REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = (
 )
 
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
-    'rest_framework.renderers.JSONRenderer',
+    'core.rest.renderers.UTF8JSONRenderer',
     'rest_framework_jsonp.renderers.JSONPRenderer',
     'rest_framework.renderers.BrowsableAPIRenderer',
 )
