@@ -101,7 +101,7 @@ class ElasticsearchFinder(Finder):
             self.resource.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
 
         # previene un error al pasarle un string y no un LIST
-        if isinstance(self.resource, str):
+        if type(self.resource) not in (type([]), type(())):
             self.resource = [self.resource]
 
         # algunas busquedas, sobre todo las federadas,
@@ -135,6 +135,13 @@ class ElasticsearchFinder(Finder):
             filters.append({"terms": {
                 "resource_id": filter(None,self.ids.split(","))
             }})
+
+        if self.meta_data:
+            key=self.meta_data.keys()[0]
+            value=self.meta_data.values()[0]
+            if type(value) not in (type(list()), type(tuple())):
+                value=[value]
+            filters.append({"terms": {key: value}})
 
         query = {
             "query": {

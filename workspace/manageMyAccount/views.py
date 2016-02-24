@@ -32,6 +32,7 @@ def signup(request):
 
 def create(request):
     form = forms.SignUpForm(request.POST)
+
     if form.is_valid():
 
         account = Account()

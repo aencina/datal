@@ -28,7 +28,7 @@ from workspace.manageDatasets.forms import *
 
 
 from workspace.manageDatasets.serializers import ChildDataStreamSerializer, ChildVisualizationSerializer, MimeTypeSerializer
-from rest_framework.renderers import JSONRenderer
+from core.rest.renderers import UTF8JSONRenderer
 
 logger = logging.getLogger(__name__)
 
@@ -500,7 +500,7 @@ def check_endpoint_url(request):
         sources = {"mimetype" : mimetype, "status" : status, "url" : url }
         serializer = MimeTypeSerializer(sources)
 
-        return HttpResponse(JSONRenderer().render(serializer.data, renderer_context={'indent':4}), content_type='application/json')
+        return HttpResponse(UTF8JSONRenderer().render(serializer.data, renderer_context={'indent':4}), content_type='application/json')
 
     raise Http404
 

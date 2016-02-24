@@ -105,6 +105,13 @@ class ElasticsearchIndex():
                                  "index" : "not_analyzed" }
                     }
                   }, # categories
+
+                  "meta_text" : {
+                    "properties" : {
+                      "field_name" : { "type" : "string" },
+                      "field_value" : { "type" : "string"}
+                    }
+                  }, # meta_text
                   "docid" : { "type" : "string" },
                   "fields" : {
                     "properties" : {
@@ -154,6 +161,12 @@ class ElasticsearchIndex():
                                  "index" : "not_analyzed" }
                     }
                   }, # categories
+                  "meta_text" : {
+                    "properties" : {
+                      "field_name" : { "type" : "string" },
+                      "field_value" : { "type" : "string"}
+                    }
+                  }, # meta_text
                   "docid" : { "type" : "string" },
                   "fields" : {
                     "properties" : {
@@ -204,6 +217,12 @@ class ElasticsearchIndex():
                                  "index" : "not_analyzed" }
                     }
                   }, # categories
+                  "meta_text" : {
+                    "properties" : {
+                      "field_name" : { "type" : "string" },
+                      "field_value" : { "type" : "string"}
+                    }
+                  }, # meta_text
                   "docid" : { "type" : "string" },
                   "fields" : {
                     "properties" : {

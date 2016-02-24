@@ -1,6 +1,7 @@
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy
 from core.models import User
 import hashlib
@@ -8,12 +9,7 @@ from core import choices
 
 
 class SignUpForm(forms.Form):
-    account_name = forms.CharField(required=True, label=ugettext_lazy('APP-ACCOUNT-NAME-TEXT'), max_length=80,
-                                   validators=[RegexValidator(
-                                       regex='/^\w+$/',
-                                       message=ugettext_lazy('APP-ACCOUNT-NAME-NOT-VALID'),
-                                   ),
-    ])
+    account_name = forms.CharField(required=True, label=ugettext_lazy('APP-ACCOUNT-NAME-TEXT'), max_length=80)
     admin_url = forms.CharField(required=True, label=ugettext_lazy('APP-ADMIN-URL-TEXT'))
     nick = forms.CharField(required=True, label=ugettext_lazy('APP-USERNICK-TEXT'))
     name = forms.CharField(required=True, label=ugettext_lazy('APP-USERNAME-TEXT'))
@@ -30,6 +26,13 @@ class SignUpForm(forms.Form):
 
     def clean_password(self):
         return hashlib.md5(self.cleaned_data.get('password')).hexdigest()
+
+
+    def clean_account_name(self):
+        # Solo \w+
+        if self.cleaned_data['account_name'].isalpha():
+            return self.cleaned_data['account_name']
+        raise ValidationError(ugettext_lazy('APP-ACCOUNT-NAME-NOT-VALID'))
 
 
 class SignInForm(forms.Form):
