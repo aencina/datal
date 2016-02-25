@@ -29,9 +29,9 @@ Handsontable.renderers.registerRenderer('selectedLinkRenderer', function () {
 
 var DataTableView = Backbone.View.extend({
 
-  events: {
-    'mousedown .ht_clone_top_left_corner.handsontable': 'onClickCorner'
-  },
+  //events: {
+  //  'mousedown .ht_clone_top_left_corner.handsontable': 'onClickCorner'
+  //},
 
   typeToRenderer: {
     TEXT: 'selectedTextRenderer',
@@ -51,6 +51,8 @@ var DataTableView = Backbone.View.extend({
     this.utils = DataTableUtils;
 
     this._selectedCoordsCache = [];
+
+    this._ctrlPressed = false;
 
     // Si el
     if (tableData.columns) {
@@ -78,7 +80,7 @@ var DataTableView = Backbone.View.extend({
       readOnlyCellClassName: 'htDimmed-datal', // the regular class paints text cells grey
       // renderAllRows: true, // Turns off virtual rendering
       allowInsertRow: false, allowInsertColumn: false,
-      disableVisualSelection: ['current', 'area'],
+      disableVisualSelection: ['current'],
       colWidths: 80,
       columns: columns,
       manualColumnResize: true,
@@ -87,22 +89,28 @@ var DataTableView = Backbone.View.extend({
       viewportRowRenderingOffset: 60
     });
 
-    this.table.addHook('afterSelection', function (r1, c1, r2, c2) {
-      var selection = self.parseSelection(r1, c1, r2, c2)
-      self.paintCoords(selection)
-    });
+    //this.table.addHook('afterSelection', function (r1, c1, r2, c2) {
+      //var selection = self.parseSelection(r1, c1, r2, c2)
+      //self.paintCoords(selection)
+    //});
     // Selects a range
     this.table.addHook('afterSelectionEnd', function (r1, c1, r2, c2) {
       var selection = self.parseSelection(r1, c1, r2, c2);
       self.cacheSelection(selection);
+      self.paintCoords(selection)
       self.trigger('afterSelection', {});
     });
     
     this.table.addHook('afterOnCellMouseOver', function (event, coords, TD) {
-      self._fullTableMode = false;
       self._fullColumnMode = (coords.row === -1 && coords.col !== -1);
       self._fullRowMode = (coords.col === -1 && coords.row !== -1);
-      self._fullTableMode = (coords.col === -1 && coords.row === -1);
+    });
+
+    this.table.addHook('beforeOnCellMouseDown', function (event, coords, TD) {
+      if (!self._ctrlPressed) {
+        self.cacheSelection()
+        self.trigger('afterSelection', {});
+      }
     });
 
     
@@ -110,6 +118,12 @@ var DataTableView = Backbone.View.extend({
     this.listenTo(this.collection, 'remove', this.onRmSelected, this);
     this.listenTo(this.collection, 'reset', this.onReset, this);
     this.listenTo(this.collection, 'change', this.onChageSelected, this);
+
+    $(window).keydown(function(evt) {
+      if (evt.which == 17) self._ctrlPressed = true;
+    }).keyup(function(evt) {
+      if (evt.which == 17) self._ctrlPressed = false; 
+    });
 
     this.setTableHeight();
   },
@@ -154,7 +168,17 @@ var DataTableView = Backbone.View.extend({
           to: {row: r2, col: c2}
         };
       }
-      return selection;
+      
+      var minRow = _.min([selection.from.row, selection.to.row])
+      var minCol = _.min([selection.from.col, selection.to.col])
+      var maxRow = _.max([selection.from.row, selection.to.row])
+      var maxCol = _.max([selection.from.col, selection.to.col])
+
+
+      return  {
+          from: {row: minRow, col: minCol},
+          to: {row: maxRow, col: maxCol}
+        };
   },
 
   render: function () {
@@ -197,19 +221,14 @@ var DataTableView = Backbone.View.extend({
 
   cacheSelection: function (coords) {
     if (coords) {
-      this._selectedCoordsCache.push(coords);
+      if (this._ctrlPressed) {
+        this._selectedCoordsCache.push(coords);
+      } else {
+        this._selectedCoordsCache = [coords] 
+      }
     } else {
       this._selectedCoordsCache = []
     }
-  },
-
-  onClickCorner: function (e) {
-    this.cacheSelection({
-      from: {row: -1, col: -1},
-      to: {row: -1, col: -1}
-    });
-    this._fullTableMode = true;
-    this.trigger('afterSelection');
   },
 
   coordsToCells: function (coords) {
@@ -283,9 +302,7 @@ var DataTableView = Backbone.View.extend({
     var mode;
     var self = this;
 
-    if (this._fullTableMode) {
-      mode = 'table';
-    } else if (this._fullColumnMode) {
+    if (this._fullColumnMode) {
       mode = 'col';
     } else if (this._fullRowMode) {
       mode = 'row';
