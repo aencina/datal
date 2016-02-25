@@ -21,8 +21,9 @@ class EngineViewSetMixin(object):
             format = 'json_array' if format == 'ajson' else format
             mutable_get['output'] = format 
 
-        if limit and not 'limit' in mutable_get:
-            mutable_get['limit'] = 1000
+        # TODO: Comentado temportalmente
+        #if limit and not 'limit' in mutable_get:
+        #    mutable_get['limit'] = 1000
         
         resource = {}
         if is_detail:
