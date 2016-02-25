@@ -18,6 +18,7 @@ from core.v8.forms import DatastreamRequestForm
 from rest_framework import renderers
 from core.builders.datastreams import SelectStatementBuilder, DataSourceBuilder
 from core.v8.renderers import *
+from core.rest.renderers import *
 
 class DataStreamSerializer(ResourceSerializer):
     title = serializers.CharField(
@@ -91,6 +92,15 @@ class DataStreamSerializer(ResourceSerializer):
             else:
                 data.pop('tags')
 
+        if 'meta_text' in data:
+            meta_data = self.context['request'].auth['account'].meta_data
+            if meta_data:
+                meta_form = MetaForm(request.POST, metadata = meta_data)
+                if meta_form.is_valid():
+                    data['meta_text'] = meta_text.output_json()
+                else:
+                    raise exceptions.ValidationError({'meta_text':'Invalid'})
+
         data['status'] = StatusChoices.PENDING_REVIEW
 
         data['language'] = self.context['request'].auth['language']
@@ -135,7 +145,7 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
 
     @detail_route(methods=['get'], renderer_classes=[
         renderers.BrowsableAPIRenderer,
-        renderers.JSONRenderer,
+        UTF8JSONRenderer,
         CSVEngineRenderer,
         XLSNonRedirectEngineRenderer,
         #TSVEngineRenderer,
@@ -146,10 +156,10 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
         instance = self.get_object()
         DatastreamHitsDAO(instance).add(1)
         if format in ['json', 'pjson', 'ajson'] or not format:
-            return self.engine_call(request, 'invoke', format)
+            return self.engine_call(request, 'invoke', format, limit=True)
         return self.engine_call(request, 'invoke', format, 
             serialize=False, form_class=DatastreamRequestForm,
-            download=False)
+            download=False, limit=True)
 
     @detail_route(methods=['post'])
     def clone(self, request,  *args, **kwargs):

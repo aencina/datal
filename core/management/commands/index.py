@@ -150,38 +150,41 @@ class Command(BaseCommand):
         if self.options['datastreams']:
             if self.options['debug']: print "[Iniciando datastreams]"
             for datastream in DataStream.objects.filter(last_published_revision__status=StatusChoices.PUBLISHED):
-                datastreamrevision=datastream.last_published_revision
-                datastream_rev = DataStreamDBDAO().get(datastreamrevision.user,
-                    datastream_revision_id=datastreamrevision.id,
-                    published=True
-                )
-                search_dao = DatastreamSearchDAOFactory().create(datastreamrevision)
                 try:
-                    search_dao.add()
-                except DatastreamI18n.MultipleObjectsReturned:
-                    print "[ERROR ds] DatastreamI18n.MultipleObjectsReturned (ds.id= %s)" % datastream.id
-                    continue
-                except AttributeError:
-                    print "[ERROR ds] self.datastream.last_published_revision == None (ds= %s)" % datastream.id
-                    continue
+                    datastreamrevision=datastream.last_published_revision
+                    datastream_rev = DataStreamDBDAO().get(datastreamrevision.user,
+                        datastream_revision_id=datastreamrevision.id,
+                        published=True
+                    )
+                    search_dao = DatastreamSearchDAOFactory().create(datastreamrevision)
+                    try:
+                        search_dao.add()
+                    except DatastreamI18n.MultipleObjectsReturned:
+                        print "[ERROR ds] DatastreamI18n.MultipleObjectsReturned (ds.id= %s)" % datastream.id
+                        continue
+                    except AttributeError:
+                        print "[ERROR ds] self.datastream.last_published_revision == None (ds= %s)" % datastream.id
+                        continue
 
-                h = DatastreamHitsDAO(datastream_rev)
+                    h = DatastreamHitsDAO(datastream_rev)
 
-                doc={
-                    'docid': "DS::%s" % datastreamrevision.datastream.guid,
-                    "type": "ds",
-                    "doc": {
-                        "fields": {
-                            "hits": h.count(),
-                            "web_hits": h.count(channel_type=0),
-                            "api_hits": h.count(channel_type=1)
+                    doc={
+                        'docid': "DS::%s" % datastreamrevision.datastream.guid,
+                        "type": "ds",
+                        "doc": {
+                            "fields": {
+                                "hits": h.count(),
+                                "web_hits": h.count(channel_type=0),
+                                "api_hits": h.count(channel_type=1)
+                            }
                         }
                     }
-                }
-                try:
-                    self.es.update(doc)
+                    try:
+                        self.es.update(doc)
+                    except:
+                        if self.options['debug']: print "[ERROR]: No se pudo ejecutar: ",doc
                 except:
-                    if self.options['debug']: print "[ERROR]: No se pudo ejecutar: ",doc
+                    print "[ERROR ds] Fallo al indexar ID {} de la cuenta: {}".format(datastream.id, datastream.user.account.name)
 
     def index_dashboards(self):
         if self.options['dashboards']:

@@ -7,6 +7,7 @@ from workspace.v8.forms import DatastreamPreviewForm
 from rest_framework import renderers
 from core.v8.renderers import (CSVEngineRenderer, XLSEngineRenderer, 
                                HTMLEngineRenderer, GridEngineRenderer)
+from core.rest.renderers import UTF8JSONRenderer
 
 class RestDataStreamViewSet(ResourceViewSet):
     queryset = DataStreamDBDAO() 
@@ -19,7 +20,7 @@ class RestDataStreamViewSet(ResourceViewSet):
     published = False
     
     @detail_route(methods=['get'], renderer_classes=[
-        renderers.JSONRenderer,
+        UTF8JSONRenderer,
         renderers.BrowsableAPIRenderer,
         GridEngineRenderer])
     def data(self, request, format=None, *args, **kwargs):

@@ -48,7 +48,8 @@
             'modules':[{
               'name':'visualization',
               'version':'1',
-              'packages':['corechart']
+              'packages':['corechart'],
+              'language': '{{ preference.account_language }}'
             }]
     }"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
@@ -148,7 +149,7 @@
 
 <script type="text/javascript">
 
-google.load('visualization', '1', {packages: ['corechart', 'geomap']});
+google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
 
 var viewVisualizationModel = {
     title: "{{visualization_revision.title}}", 

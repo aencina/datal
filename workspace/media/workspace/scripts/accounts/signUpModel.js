@@ -4,7 +4,8 @@ var SignUpModel = Backbone.Model.extend({
 
 		account_name: {
 			required: true,
-			msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
+			pattern: /^[a-zA-Z0-9\-]+$/,
+			msg: gettext('APP-ACCOUNT-NAME-NOT-VALID')
 		},
 
 		admin_url: [{
@@ -81,7 +82,7 @@ var SignUpModel = Backbone.Model.extend({
 	},
 
 	ifNickExists: function() {
-		var url = '/admin/check_username';
+		var url = '/admin/check_username/';
 		var msg = false;
 		var data = { csrfmiddlewaretoken: csrfmiddlewaretoken }
 		data['nick'] = this.get('nick');
@@ -101,7 +102,7 @@ var SignUpModel = Backbone.Model.extend({
 	},
 
 	ifEmailExists: function() {
-		var url = '/admin/check_email';
+		var url = '/admin/check_email/';
 		var msg = false;
 		var data = { csrfmiddlewaretoken: csrfmiddlewaretoken }
 		data['email'] = this.get('email');

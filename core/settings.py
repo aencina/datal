@@ -225,7 +225,6 @@ SEARCH_INDEX = {
 # Settings Keys
 HOT_DATASTREAMS = 'HOT_DATASTREAMS'
 HOT_VISUALIZATIONS = 'HOT_VISUALIZATIONS'
-DOC_API_URL = 'https://github.com/datal-org/datal/tree/develop/docs/api'
 
 # develop & staging sentry
 SENTRY_DSN = 'http://sentrydsn@sentry.com/1'
@@ -373,7 +372,7 @@ BOWER_INSTALLED_APPS = (
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
+        'core.rest.renderers.UTF8JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
