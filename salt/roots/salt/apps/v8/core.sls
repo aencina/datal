@@ -28,17 +28,17 @@ v8_apps_directory:
     - group: tomcat7
 
 extract_microsites_v8_war:
-  cmd.wait:
+  cmd.run:
     - cwd: /var/lib/tomcat7/webapps/microsites/AgileOfficeServer/
     - name: unzip -o /root/AgileOfficeServer.war -d /var/lib/tomcat7/webapps/microsites/AgileOfficeServer/
 
 extract_workspace_v8_war:
-  cmd.wait:
+  cmd.run:
     - cwd: /var/lib/tomcat7/webapps/workspace/AgileOfficeServer/
     - name: unzip -o /root/AgileOfficeServer.war -d /var/lib/tomcat7/webapps/workspace/AgileOfficeServer/
 
 extract_scraper_v8_war:
-  cmd.wait:
+  cmd.run:
     - cwd: /var/lib/tomcat7/webapps/workspace/AgileOfficeScraperServices/
     - name: unzip -o /root/AgileOfficeScraperServices.war -d /var/lib/tomcat7/webapps/workspace/AgileOfficeScraperServices/
 
