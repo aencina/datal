@@ -99,6 +99,93 @@ class DataStreamOutputBigDataTemplate(Template):
 
         return res
 
+
+class DatasetOutputBigDataTemplate(Template):
+
+    def __init__(self, template):
+        # add my filters
+        template = "%s\n%s\n%s\n" % ("{% load mint_tags %}", "{% load semantic %}", template)
+        super(DatasetOutputBigDataTemplate, self).__init__(template)
+
+    def render(self, csv_data, request, metadata={}):
+        headers = {}
+        rows = []
+        rows_array = [] = []
+        summ = {} # all  columns added
+
+
+        import csv
+        reader = csv.DictReader(csv_data.splitlines()) # , delimiter=',', quotechar='"')
+
+        # headers
+        h = 0
+        # for header in reader[0].keys():
+        for header in reader.fieldnames:
+            headers['column%d' % h] = header
+            summ['column%d' % h] = 0.0
+            h = h + 1
+                    
+        index = 0
+        row_number = 0
+        for line in reader:
+            row  = {}
+            row_array = []
+            column_number = 0
+            # desordenado! for key, value in line.iteritems():
+            for header in reader.fieldnames:
+                key = header
+                value = line[header]
+                
+                dat = {"fType": "TEXT", "fStr": value} # emula el sistema anterior
+                #summ function for all fields
+                try:
+                    summ['column%s' % column_number] = summ['column%s' % column_number] + float(value)
+                except:
+                    pass
+                    
+                row['column%s' % column_number] = value
+                row['data%s' % column_number] = dat # add extra data in case we need it.
+                row_array.append(value)
+                
+                column_number = column_number + 1
+                index = index + 1
+                
+            row_number = row_number + 1
+                
+            rows.append(row)
+            rows_array.append(row_array)
+
+        total_rows = row_number
+        
+        # extra data
+        metadata['summ'] = summ
+        metadata['total_rows'] = total_rows
+        metadata['total_cols'] = column_number
+        metadata['rows_array'] = rows_array
+        
+        
+        # define extra values required
+        owner = request.owner
+        publisher = request.publisher
+        author = request.author
+        # JP-17/04/2014 We must define default values for owner, publisher and author that make sense (why /junar.com/cities instead of just simply junar.com/tim os something more generic?)
+        # or raise a new Exception called TemplateMissingArgumentsError.
+        # retrieve key values using request.GET[key]
+        # Pass the KeyError exception as an argument to the constructor.
+
+        try:
+            res = super(DatasetOutputBigDataTemplate, self).render(Context({"rows": rows, "owner": owner, 
+                                                                               "publisher": publisher, "author" : author, 
+                                                                               "metadata": metadata, "headers": headers}))
+        except Exception,e:
+            import traceback
+            tb = traceback.format_exc()
+            self.render_errors = 'ERROR: %s -- TRACE %s' % ( str(e), tb )
+            res = False
+
+        return res
+        
+
 class MintTemplateResponse(Template):
 
     def __init__(self, template='json'): # json or HTML
