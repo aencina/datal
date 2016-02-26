@@ -52,7 +52,7 @@
                     <select id="id_filter_category" name="id_filter_category">
                         <option value="" selected="selected">{% trans "FILTER-CATEGORY-OPTION" %}</option>
                         {% for category in categories %}
-                        <option value="{{category.id}}" id="id_category_{{category.id}}">{{category.name}}</option>
+                        <option value="{{category.name}}" id="id_category_{{category.id}}">{{category.name}}</option>
                         <script type="text/javascript">
                             $('#id_category_{{category.id}}').data("category", "{{category.name}}");
                         </script>
