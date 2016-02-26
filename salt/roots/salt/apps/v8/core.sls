@@ -4,8 +4,8 @@ include:
 download_v8:
   cmd.run:
     - names:
-      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/AgileOfficeServer.war
-      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/AgileOfficeScraperServices.war
+      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/dev/AgileOfficeServer.war
+      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/dev/AgileOfficeScraperServices.war
     - cwd: /root
   file.managed:
     - user: tomcat7
