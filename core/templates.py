@@ -127,11 +127,15 @@ class DatasetOutputBigDataTemplate(Template):
                     
         index = 0
         row_number = 0
-        column_number = 0
         for line in reader:
             row  = {}
             row_array = []
-            for key, value in line.iteritems():
+            column_number = 0
+            # desordenado! for key, value in line.iteritems():
+            for header in reader.fieldnames:
+                key = header
+                value = line[header]
+                
                 dat = {"fType": "TEXT", "fStr": value} # emula el sistema anterior
                 #summ function for all fields
                 try:
