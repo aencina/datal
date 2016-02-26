@@ -11,7 +11,6 @@ base:
     - core.tomcat
     - core.elasticsearch
     - nginx.ng
-    - core.selenium
     - core.bower
     - core.grunt
     - apps.v8.core
