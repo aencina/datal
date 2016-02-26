@@ -30,7 +30,7 @@ var SelectedCellRangeView = Backbone.View.extend({
 		_.each(inputs, function (name) {
 			this.$('[data-name="' + name + '"].input-row ').removeClass('hidden');
 		});
-		//this.$('.input-row:not(.hidden) input[type="text"]').first().focus();
+		this.$('.input-row:not(.hidden) input[type="text"]').first().focus();
 	},
 	focus: function () {
 	},
