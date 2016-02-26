@@ -45,7 +45,7 @@ charts.views.MapChart = charts.views.Chart.extend({
         var points = this.model.data.get('points');
         var clusters = this.model.data.get('clusters');
         
-        var styles = this.model.data.get('styles');
+        var styles = this.model.data.get('mapStyles');
         var styledPoints = this.mergePointsAndStyles(points, styles);
 
         if(!_.isUndefined(points) && points.length !== 0){
@@ -80,42 +80,41 @@ charts.views.MapChart = charts.views.Chart.extend({
     mergePointsAndStyles: function (points, styles) {
         var self = this,
             result;
+        var mapStyles={}
+         _.each(styles, function (style) {
+            mapStyles[style.id]=style;
+         });
 
-        // _.each(styles, function (style) {
-        //     if (points[style.rows[0]]) {
-        //         points[style.rows[0]].styles = style.styles;
-        //     };
-        // });
-        if (_.isUndefined(styles) || styles.length === 0) {
+        if (_.isUndefined(mapStyles) || mapStyles.length === 0) {
             result = points;
         } else {
             result = _.map(points, function (point, index) {
-                point.styles = self.lookupStyle(point, index, styles);
+
+                // si  no tiene un hash en el hashmap, usa el estilo default
+                if ( ! _.isUndefined(mapStyles[point.mapStyle]) ){
+
+                    var mapStyle= mapStyles[point.mapStyle];
+
+                    // si no viene con styles
+                    if ( _.isEmpty(mapStyle.styles)){
+                        var style={}
+                        for (var firstKey in mapStyles[point.mapStyle].pairs) {
+                            style[mapStyles[point.mapStyle].pairs[firstKey]]={"style":mapStyles[firstKey].styles};
+                        };
+                        point.styles = style['normal'].style;
+
+                    // si el mapStyle trae style, usamos ese
+                    }else{
+                        point.styles = mapStyle.styles;
+                    }
+                }
+    
                 return point;
             });
-        }
+ 
+       }
 
         return result;
-    },
-
-    lookupStyle: function (point, pointIndex, styles) {
-        var result = styles[0].styles;
-        // Find style by ID
-
-        // Find style by row number
-        var style;
-
-        _.each(styles, function (item) {
-            if (item.rows.indexOf(pointIndex) !== -1) {
-                style = item;
-            }
-        });
-        if (!_.isUndefined(style)) {
-            result = style.styles;
-        }
-
-        return result;
-
     },
 
     onChangeMapType: function (model, type) {
