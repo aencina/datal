@@ -80,7 +80,7 @@ class RequestProcessor:
             key = 'pArgument%d' % parameter['position']
             value = self.request.REQUEST.get(key, '')
             if value == '':
-                parameter['value'] = parameter['default']
+                parameter['value'] = unicode(parameter['default']).encode('utf-8')
                 args[key] = parameter['value']
             else:
                 parameter['value'] = unicode(value).encode('utf-8')
