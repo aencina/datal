@@ -86,7 +86,14 @@ var DataTableView = Backbone.View.extend({
       manualColumnResize: true,
       manualRowResize: true,
       stretchH: 'all',
-      viewportRowRenderingOffset: 60
+      viewportRowRenderingOffset: 60,
+      afterInit: function () {
+        $(window).keydown(function(evt) {
+          if (evt.ctrlKey || evt.metaKey || evt.which == 17) self._ctrlPressed = true;
+        }).keyup(function(evt) {
+          if (evt.ctrlKey || evt.metaKey || evt.which == 17) self._ctrlPressed = false; 
+        });
+      },
     });
 
     //this.table.addHook('afterSelection', function (r1, c1, r2, c2) {
@@ -118,12 +125,6 @@ var DataTableView = Backbone.View.extend({
     this.listenTo(this.collection, 'remove', this.onRmSelected, this);
     this.listenTo(this.collection, 'reset', this.onReset, this);
     this.listenTo(this.collection, 'change', this.onChageSelected, this);
-
-    $(window).keydown(function(evt) {
-      if (evt.which == 17) self._ctrlPressed = true;
-    }).keyup(function(evt) {
-      if (evt.which == 17) self._ctrlPressed = false; 
-    });
 
     this.setTableHeight();
   },
