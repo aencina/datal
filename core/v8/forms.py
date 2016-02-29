@@ -50,7 +50,7 @@ class UpdateGridRequestForm(RequestForm):
 
 class RequestFormSet(BaseFormSet):
     _is_multi_argument=re.compile("(?P<argument>\D+)(?P<order>\d+)").match
-    _is_primitive_argument=re.compile("argument(?P<order>\d+)").match
+    _is_primitive_argument=re.compile("pArgument(?P<order>\d+)").match
 
     def __init__(self, *args, **kwargs):
         new_args=[]
