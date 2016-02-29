@@ -2,6 +2,7 @@ from django import forms
 from django.forms.forms import Form
 from core.models import *
 import urllib2
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -14,11 +15,7 @@ class MetaForm(Form):
     def metadata_to_fields(self, p_meta_data):
         l_fieldInputs = {}
 
-        try:
-            import simplejson
-            p_response = simplejson.loads(p_meta_data)
-        except:
-            return l_fieldInputs
+        p_response = json.loads(p_meta_data)
 
         for l_field in p_response['fields']:
             l_name = l_field['name']
@@ -31,12 +28,6 @@ class MetaForm(Form):
 
     def output_json(self):
         l_lists = {}
-
-        try:
-            import simplejson
-        except:
-            return l_lists
-
         l_lists["field_values"] = []
         for name, field in self.fields.items():
             l_row  = {}
@@ -44,16 +35,12 @@ class MetaForm(Form):
             l_row[name] = value
             l_lists["field_values"].append(l_row)
 
-        return simplejson.dumps(l_lists)
+        return json.dumps(l_lists)
 
     def set_values(self, p_meta_data):
         l_fieldInputs = {}
 
-        try:
-            import simplejson
-            p_response = simplejson.loads(p_meta_data)
-        except:
-            return l_fieldInputs
+        p_response = json.loads(p_meta_data)
 
         for l_field in p_response['field_values']:
             for key in l_field.keys():
