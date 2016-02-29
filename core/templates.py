@@ -216,7 +216,13 @@ class DatasetOutputBigDataTemplate(Template):
         bucket_name = account.get_preference('account_bucket_name') if account.get_preference('account_bucket_name') else settings.AWS_BUCKET_NAME
 
         datasetrevision = self.datasetrevision
-        self.csv_url = active_datastore.build_url(bucket_name, datasetrevision.end_point.replace("file://", ""))
+        # detect local vs URL
+        end_point = datasetrevision.end_point
+        if end_point.find('file://') == 0:
+            self.csv_url = active_datastore.build_url(bucket_name, datasetrevision.end_point.replace("file://", ""))
+        else:
+            self.csv_url = end_point
+            
         csv_data = None
         logger.info('OPEN CSV. url:{}'.format(self.csv_url))
         try:
