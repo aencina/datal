@@ -566,4 +566,105 @@
         "key": "account.id"
     }
 }
+,
+{
+    "pk": 81, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "2", 
+        "key": "account.url"
+    }
+},
+{
+    "pk": 82, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "junarprueba.site.staging.junar.com", 
+        "key": "account.domain"
+    }
+},
+{
+    "pk": 83, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "http://junarprueba.site.staging.junar.com/", 
+        "key": "account.link"
+    }
+},
+{
+    "pk": 84, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "junarprueba.api.staging.junar.com", 
+        "key": "account.api.domain"
+    }
+},
+{
+    "pk": 85, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "prueba", 
+        "key": "account.name"
+    }
+},
+{
+    "pk": 86, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "es", 
+        "key": "account.language"
+    }
+},
+{
+    "pk": 87, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "on", 
+        "key": "enable.junar.footer"
+    }
+},
+{
+    "pk": 88, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "prueba", 
+        "key": "account.page.titles"
+    }
+},
+{
+    "pk": 89, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "40982", 
+        "key": "account.default.category"
+    }
+},
+{
+    "pk": 90, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "{\"config\":{\"mainTitle\":\"Bienvenido\",\"mainSection\":\"Test text\",\"coverUrl\":\"http:\\/\\/datastore.dev:8080\\/resources\\/datal_cdn\\/\\/1\\/datal-portada.jpg\",\"sliderSection\":[],\"linkSection\":[],\"resourcesTable\":true},\"theme\":\"4\",\"type\":\"save\"}", 
+        "key": "account.home"
+    }
+},
+{
+    "pk": 91, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "True", 
+        "key": "account.has.home"
+    }
+}
+
 ]
