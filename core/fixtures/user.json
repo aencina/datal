@@ -112,5 +112,25 @@
         "password": "5aee9dbd2a188839105073571bee1b1f",
         "ocupation": "03"
     }
+} ,
+{
+    "pk": 1648, 
+    "model": "core.user", 
+    "fields": {
+        "account": 2, 
+        "name": "JunarFederada", 
+        "language": "es", 
+        "country": "US", 
+        "created_at": "2016-02-26T14:57:05", 
+        "last_visit": "2016-02-26T15:03:40", 
+        "email": "adminjunar@admin.com", 
+        "nick": "adminjunar", 
+        "roles": [
+            1
+        ], 
+        "password": "200ceb26807d6bf99fd6f4f0d1ca54d4",
+        "ocupation": ""
+    }
 }
+
 ]

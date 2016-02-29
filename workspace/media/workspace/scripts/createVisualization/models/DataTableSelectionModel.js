@@ -1,17 +1,22 @@
 var DataTableSelectionModel = Backbone.Model.extend({
     validate: function (attrs, options) {
-        var excelRange = attrs.excelRange,
-            r = /^(([a-zA-Z]*)?(\d*)?:([a-zA-Z]*)?(\d*)?)?$/,
+        var excelRanges = attrs.excelRange,
+            r = /^(([a-zA-Z]*)?(\d*){1}:([a-zA-Z]*)?(\d*)?){1}$/,
             validRange = true;
 
-        if (excelRange === undefined) {
-            return;
-        } else {
-            validRange = r.test(excelRange);
-            validRange = validRange && this.validateMaxCol();
-            validRange = validRange && this.validateMaxRow();
-            if (!validRange) {
-                return 'invalid-range';
+        if (excelRanges) {
+            for (i = 0; i < excelRanges.length; i++) { 
+                excelRange = excelRanges[i];
+                if (excelRange === undefined) {
+                    return;
+                } else {
+                    validRange = r.test(excelRange);
+                    validRange = validRange && this.validateMaxCol();
+                    validRange = validRange && this.validateMaxRow();
+                    if (!validRange) {
+                        return 'invalid-range';
+                    }
+                }
             }
         }
     },
@@ -25,25 +30,25 @@ var DataTableSelectionModel = Backbone.Model.extend({
         if (_.isUndefined(excelRange)) {
             return undefined;
         } else {
-            return DataTableUtils.excelToRange(this.get('excelRange'));
+            return _.compact(_.map(this.get('excelRange'), function(ele) {return DataTableUtils.excelToRange(ele);}));
         }
     },
 
     validateMaxCol: function () {
-        var range = this.getRange(),
+        var ranges = this.getRange(),
             max = this.collection.maxCols;
 
-        if (!_.isUndefined(range)) {
-            return (range.from.col < max && range.to.col < max);
+        if (!_.isUndefined(ranges)) {
+            return _.every(ranges, function(range) {return (range.from.col < max && range.to.col < max) })
         }
     },
 
     validateMaxRow: function () {
-        var range = this.getRange(),
+        var ranges = this.getRange(),
             max = this.collection.maxRows;
 
-        if (!_.isUndefined(range)) {
-            return (range.from.row < max && range.to.row < max);
+        if (!_.isUndefined(ranges)) {
+            return _.every(ranges, function(range) {return (range.from.row < max && range.to.row < max) })
         }
     },
 
@@ -52,7 +57,7 @@ var DataTableSelectionModel = Backbone.Model.extend({
             result;
         if (prevExcelRange !== undefined && prevExcelRange !== '') {
             try {
-                result = DataTableUtils.excelToRange(prevExcelRange);
+                result = _.compact(_.map(prevExcelRange, function(ele) {return DataTableUtils.excelToRange(ele);}));
             } catch (exception) {
                 console.error(exception);
             }
