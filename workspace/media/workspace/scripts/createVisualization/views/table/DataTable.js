@@ -94,6 +94,9 @@ var DataTableView = Backbone.View.extend({
           if (evt.ctrlKey || evt.metaKey || evt.which == 17) self._ctrlPressed = false; 
         });
       },
+      beforeKeyDown: function(evt) {
+        if (evt.ctrlKey || evt.metaKey || evt.which == 17) self._ctrlPressed = true;
+      },
     });
 
     //this.table.addHook('afterSelection', function (r1, c1, r2, c2) {
