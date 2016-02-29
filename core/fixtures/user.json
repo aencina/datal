@@ -117,7 +117,7 @@
     "pk": 1648, 
     "model": "core.user", 
     "fields": {
-        "account": 5755, 
+        "account": 2, 
         "name": "JunarFederada", 
         "language": "es", 
         "country": "US", 
