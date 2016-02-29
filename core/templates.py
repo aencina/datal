@@ -102,6 +102,12 @@ class DataStreamOutputBigDataTemplate(Template):
 
 class DatasetOutputBigDataTemplate(Template):
 
+    # for process CSV files
+    csv_url = ''
+    account = None
+    datasetrevision = None 
+    last_error = '' # for return none and show details
+    
     def __init__(self, template):
         # add my filters
         template = "%s\n%s\n%s\n" % ("{% load mint_tags %}", "{% load semantic %}", template)
@@ -112,7 +118,7 @@ class DatasetOutputBigDataTemplate(Template):
         rows = []
         rows_array = [] = []
         summ = {} # all  columns added
-
+        params = metadata['params']
 
         import csv
         reader = csv.DictReader(csv_data.splitlines()) # , delimiter=',', quotechar='"')
@@ -184,6 +190,48 @@ class DatasetOutputBigDataTemplate(Template):
             res = False
 
         return res
+
+
+    def prepare_csv(datasetrevision):
+        self.datasetrevision = datasetrevision
+        self.account = datasetrevision.user.account
+    
+    def yield_csv():
+        """ huge CSV must be a problem, get data it row by row  """
+        # get the CSV file.
+        # csv_url = datasetrevision.end_point
+        # el API no tiene IOC para cargar al request con el bucket_name
+        account = self.account
+        bucket_name = account.get_preference('account_bucket_name') if account.get_preference('account_bucket_name') else settings.AWS_BUCKET_NAME
+
+        datasetrevision = self.datasetrevision
+        csv_url = active_datastore.build_url(bucket_name, datasetrevision.end_point.replace("file://", ""))
+        csv_data = None
+        try:
+            csv_file = urllib2.urlopen(csv_url)
+        except Exception, e:
+            logger.error(e)
+            return None
+
+        if csv_file:
+            status_code = csv_file.getcode()
+            if status_code == 200:
+                csv_data = csv_file.read()
+            else:
+                csv_file.close()
+                error = 'CSV status getting %s' % str(status_code)
+                html_result = MintTemplateResponse(request.format).render(rdf='', template='', errors=error, result='FAIL', 
+                                                    message='CSV do not exists', results_length=0)
+                return None
+        
+
+            csv_file.close()
+    
+        
+        with open('names.csv') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                print(row['first_name'], row['last_name'])
         
 
 class MintTemplateResponse(Template):
