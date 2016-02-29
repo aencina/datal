@@ -281,6 +281,7 @@ POST /api/v2/datastreams
 - **category**: Slug de la categoría para clasificar los recursos. Debe coincidir con alguna de las categorías de la cuenta
 - **notes**: Opcional. Texto de la nota del conjunto de datos
 - **table_id**: Opcional. Indice de la tabla en el conjunto de datos, comenzando de cero.
+- **meta_text (solo en datastreams)**: Meta text del dataastream.
 - **header_row**: Opcional. Indice de la fila a usar como cabecera de la tabla comenzando de cero. Por defecto es vacio
 - **dataset**: GUID del conjunto de datos asociado a la vista
 - **tags**: Opcional. Tags separados por coma.
