@@ -1,5 +1,7 @@
 from django.template import Context, Template
+from django.conf import settings
 import json
+import csv
 import datetime
 import logging 
 logger = logging.getLogger(__name__)
@@ -104,6 +106,10 @@ class DatasetOutputBigDataTemplate(Template):
 
     # for process CSV files
     csv_url = ''
+    csv_local_file = ''
+    csv_reader = None # DictReader Object
+    total_rows = 0
+    final_csv_data = []  # csv data used
     account = None
     datasetrevision = None 
     last_error = '' # for return none and show details
@@ -113,32 +119,37 @@ class DatasetOutputBigDataTemplate(Template):
         template = "%s\n%s\n%s\n" % ("{% load mint_tags %}", "{% load semantic %}", template)
         super(DatasetOutputBigDataTemplate, self).__init__(template)
 
-    def render(self, csv_data, request, metadata={}):
+    def render(self, request, metadata={}):
         headers = {}
         rows = []
-        rows_array = [] = []
+        rows_array = []
         summ = {} # all  columns added
         params = metadata['params']
+        page = params.get('page', None)
+        limit = params.get('limit', None)
+        
+        self.open_csv()
 
-        import csv
-        reader = csv.DictReader(csv_data.splitlines()) # , delimiter=',', quotechar='"')
-
-        # headers
-        h = 0
-        # for header in reader[0].keys():
-        for header in reader.fieldnames:
-            headers['column%d' % h] = header
-            summ['column%d' % h] = 0.0
-            h = h + 1
-                    
         index = 0
         row_number = 0
-        for line in reader:
+        self.final_csv_data = []
+        
+        for line in self.yield_csv(page, limit):
+            self.final_csv_data.append(line)
+            if row_number == 0: # headers
+                total_cols = len(self.csv_reader.fieldnames)
+                h = 0
+                # for header in reader[0].keys():
+                for header in self.csv_reader.fieldnames:
+                    headers['column%d' % h] = header
+                    summ['column%d' % h] = 0.0
+        
+            # normal rows
             row  = {}
             row_array = []
             column_number = 0
-            # desordenado! for key, value in line.iteritems():
-            for header in reader.fieldnames:
+            # desordenado! -> for key, value in line.iteritems():
+            for header in self.csv_reader.fieldnames:
                 key = header
                 value = line[header]
                 
@@ -161,12 +172,10 @@ class DatasetOutputBigDataTemplate(Template):
             rows.append(row)
             rows_array.append(row_array)
 
-        total_rows = row_number
-        
         # extra data
         metadata['summ'] = summ
-        metadata['total_rows'] = total_rows
-        metadata['total_cols'] = column_number
+        metadata['total_rows'] = self.total_rows
+        metadata['total_cols'] = total_cols
         metadata['rows_array'] = rows_array
         
         
@@ -192,47 +201,61 @@ class DatasetOutputBigDataTemplate(Template):
         return res
 
 
-    def prepare_csv(datasetrevision):
+    def prepare_csv(self, datasetrevision):
         self.datasetrevision = datasetrevision
         self.account = datasetrevision.user.account
-    
-    def yield_csv():
-        """ huge CSV must be a problem, get data it row by row  """
+
+    def open_csv(self, ):
         # get the CSV file.
         # csv_url = datasetrevision.end_point
         # el API no tiene IOC para cargar al request con el bucket_name
+        from core.lib.datastore import active_datastore
+        import urllib
+        
         account = self.account
         bucket_name = account.get_preference('account_bucket_name') if account.get_preference('account_bucket_name') else settings.AWS_BUCKET_NAME
 
         datasetrevision = self.datasetrevision
-        csv_url = active_datastore.build_url(bucket_name, datasetrevision.end_point.replace("file://", ""))
+        self.csv_url = active_datastore.build_url(bucket_name, datasetrevision.end_point.replace("file://", ""))
         csv_data = None
+        logger.info('OPEN CSV. url:{}'.format(self.csv_url))
         try:
-            csv_file = urllib2.urlopen(csv_url)
+            # csv_file = urllib2.urlopen(csv_url)
+            self.csv_local_file, headers = urllib.urlretrieve(self.csv_url)
+            logger.info('OPEN CSV. local:{}'.format(self.csv_local_file))
         except Exception, e:
             logger.error(e)
             return None
 
-        if csv_file:
-            status_code = csv_file.getcode()
-            if status_code == 200:
-                csv_data = csv_file.read()
-            else:
-                csv_file.close()
-                error = 'CSV status getting %s' % str(status_code)
-                html_result = MintTemplateResponse(request.format).render(rdf='', template='', errors=error, result='FAIL', 
-                                                    message='CSV do not exists', results_length=0)
-                return None
-        
+        return self.csv_local_file
 
-            csv_file.close()
     
+    def yield_csv(self, page=0, limit=10):
+        """ huge CSV must be a problem, get data it row by row  """
+        if settings.DEBUG: logger.info('YIELD CSV {} {}'.format(page, limit))
         
-        with open('names.csv') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                print(row['first_name'], row['last_name'])
+        self.total_rows = 0
+        page_size = limit
+        actual_row = 0
+        actual_page = 0
+        rows_sended = 0
         
+        with open(self.csv_local_file, "rb") as csvfile:
+            self.csv_reader = csv.DictReader(csvfile)
+            
+            for row in self.csv_reader:
+                self.total_rows += 1
+                actual_row += 1
+
+                actual_page = actual_row / page_size
+                
+                if actual_page == page:
+                    rows_sended += 1
+                    yield row
+                
+            if settings.DEBUG: logger.info('YIELD CSV ends {}/{}'.format(rows_sended, self.total_rows))
+            return
+                
 
 class MintTemplateResponse(Template):
 
