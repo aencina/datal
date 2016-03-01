@@ -9,6 +9,7 @@ application:
     # Base Django Settings
     secret_key: '1'
     root_urlconf: 'workspace.urls'
+    workspace_protocol: 'http'
 
     pagination_results_per_page: 10
 
