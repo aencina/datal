@@ -103,7 +103,9 @@ class DataStreamOutputBigDataTemplate(Template):
 
 
 class DatasetOutputBigDataTemplate(Template):
-
+    """ procesar un archivo CSV a traves de un template para producir un RDF 
+    Tener en cuenta la posibilidad de archivos muy grandes que no quepan en memoria
+    """
     # for process CSV files
     csv_url = ''
     csv_local_file = ''
@@ -205,7 +207,7 @@ class DatasetOutputBigDataTemplate(Template):
         self.datasetrevision = datasetrevision
         self.account = datasetrevision.user.account
 
-    def open_csv(self, ):
+    def open_csv(self):
         # get the CSV file.
         # csv_url = datasetrevision.end_point
         # el API no tiene IOC para cargar al request con el bucket_name
@@ -223,11 +225,23 @@ class DatasetOutputBigDataTemplate(Template):
         else:
             self.csv_url = end_point
             
-        csv_data = None
         logger.info('OPEN CSV. url:{}'.format(self.csv_url))
+        # guardar el archivo con un nombre vinculado a su URL para no repetir esta descarga
+        # en procesos de paginado
+        import base64, os.path, tempfile
+        filename = os.path.join(tempfile.gettempdir(), base64.b64encode(self.csv_url))
+        
+        
+        exists = os.path.isfile(filename)
+        self.csv_local_file = filename
+        logger.info('OPEN CSV check file:{} ({})'.format(filename, exists))
+        
+        if exists:
+            return self.csv_local_file
+            
         try:
             # csv_file = urllib2.urlopen(csv_url)
-            self.csv_local_file, headers = urllib.urlretrieve(self.csv_url)
+            self.csv_local_file, headers = urllib.urlretrieve(self.csv_url, self.csv_local_file)
             logger.info('OPEN CSV. local:{}'.format(self.csv_local_file))
         except Exception, e:
             logger.error(e)
