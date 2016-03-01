@@ -500,6 +500,15 @@ msgstr "API resource documentation"
 msgid "DEV-GETKEY-TEXT4"
 msgstr "to get in touch with the requests and methods you can use"
 
+msgid "DEV-GETKEY-TEXT5"
+msgstr "Or jump right into the"
+
+msgid "DEV-GETKEY-TEXT6"
+msgstr "old API resource documentation"
+
+msgid "DEV-GETKEY-TEXT7"
+msgstr "to get in touch with the old requests and methods you can use."
+
 msgid "DEV-CREATEREQUEST-TITLE"
 msgstr "Create a Request"
 

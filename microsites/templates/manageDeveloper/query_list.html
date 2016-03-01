@@ -122,6 +122,14 @@
                     {% else %}
                         <a target="_blank" href=" http://junar.github.io/junar-manual/api-en/build/html/" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
                     {% endif %}
+
+                    <p>{% trans "DEV-GETKEY-TEXT5" %}
+                    {% if preferences.account_language == 'es' %}
+                        <a target="_blank" href="http://wiki.junar.com/index.php/API" title="{% trans 'DEV-GETKEY-TEXT6' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT6" %}</a> {% trans "DEV-GETKEY-TEXT7" %}.</p>
+                    {% else %}
+                        <a target="_blank" href="http://en.wiki.junar.com/index.php/API" title="{% trans 'DEV-GETKEY-TEXT6' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT6" %}</a> {% trans "DEV-GETKEY-TEXT7" %}.</p>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
