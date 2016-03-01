@@ -238,7 +238,7 @@ class DatasetOutputBigDataTemplate(Template):
     
     def yield_csv(self, page=0, limit=10):
         """ huge CSV must be a problem, get data it row by row  """
-        if settings.DEBUG: logger.info('YIELD CSV {} {}'.format(page, limit))
+        if settings.DEBUG: logger.info('YIELD CSV START {} {}'.format(page, limit))
         
         self.total_rows = 0
         page_size = limit
@@ -247,7 +247,22 @@ class DatasetOutputBigDataTemplate(Template):
         rows_sended = 0
         
         with open(self.csv_local_file, "rb") as csvfile:
-            self.csv_reader = csv.DictReader(csvfile)
+            # detectar el delimitador
+            # NOT WORKING dialect = csv.Sniffer().sniff(csvfile.read(1024), [',', ';', '\t'])
+            delimiters = [',', ';', '\t']
+            first_line = csvfile.readline()
+            max_count = 0
+            final_delimiter = ',' # def value
+            for delimiter in delimiters:
+                count = first_line.count(delimiter)
+                if count > max_count:
+                    final_delimiter = delimiter
+                    
+                    
+            if settings.DEBUG: logger.info('CSV Delimiter {}'.format( str(final_delimiter) ) )
+            csvfile.seek(0)
+            
+            self.csv_reader = csv.DictReader(csvfile, delimiter=final_delimiter)
             
             for row in self.csv_reader:
                 self.total_rows += 1
@@ -259,7 +274,7 @@ class DatasetOutputBigDataTemplate(Template):
                     rows_sended += 1
                     yield row
                 
-            if settings.DEBUG: logger.info('YIELD CSV ends {}/{}'.format(rows_sended, self.total_rows))
+            if settings.DEBUG: logger.info('YIELD CSV ENDS {}/{}'.format(rows_sended, self.total_rows))
             return
                 
 
