@@ -10,16 +10,6 @@
     }
 },
 {
-    "pk": 69575, 
-    "model": "core.datastream", 
-    "fields": {
-        "guid": "SUCUR-CHILE-A-LO-LARGO", 
-        "user": 1472, 
-        "last_published_revision": 672, 
-        "last_revision": 672
-    }
-},
-{
     "pk": 69620, 
     "model": "core.datastream", 
     "fields": {
@@ -210,42 +200,42 @@
     }
 },
 {
-    "pk": 78701,
-    "model": "core.datastream",
+    "pk": 78701, 
+    "model": "core.datastream", 
     "fields": {
-        "guid": "TRAFF-COUNT",
-        "user": 2,
-        "last_published_revision": null,
+        "guid": "TRAFF-COUNT", 
+        "user": 2, 
+        "last_published_revision": null, 
         "last_revision": 61460
     }
 },
 {
-    "pk": 78703,
-    "model": "core.datastream",
+    "pk": 78703, 
+    "model": "core.datastream", 
     "fields": {
-        "guid": "TRAFF-INCID",
-        "user": 2,
-        "last_published_revision": 61462,
+        "guid": "TRAFF-INCID", 
+        "user": 2, 
+        "last_published_revision": 61462, 
         "last_revision": 61462
     }
 },
 {
-    "pk": 78706,
-    "model": "core.datastream",
+    "pk": 78706, 
+    "model": "core.datastream", 
     "fields": {
-        "guid": "311-MONTH-DATA",
-        "user": 2,
-        "last_published_revision": 61464,
+        "guid": "311-MONTH-DATA", 
+        "user": 2, 
+        "last_published_revision": 61464, 
         "last_revision": 61464
     }
 },
 {
-    "pk": 78709,
-    "model": "core.datastream",
+    "pk": 78709, 
+    "model": "core.datastream", 
     "fields": {
-        "guid": "PURCH-ORDER",
-        "user": 2,
-        "last_published_revision": 61467,
+        "guid": "PURCH-ORDER", 
+        "user": 2, 
+        "last_published_revision": 61467, 
         "last_revision": 61467
     }
 }

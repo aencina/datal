@@ -12,18 +12,6 @@
     }
 },
 {
-    "pk": 899, 
-    "model": "core.dataseti18n", 
-    "fields": {
-        "description": "Descripcion del conjuto de datos", 
-        "language": "es", 
-        "title": "Sucursales ChileAtiende", 
-        "created_at": "2012-05-14T15:27:45", 
-        "dataset_revision": 899, 
-        "notes": ""
-    }
-},
-{
     "pk": 61700, 
     "model": "core.dataseti18n", 
     "fields": {
@@ -48,110 +36,110 @@
     }
 },
 {
-    "pk": 79899,
-    "model": "core.dataseti18n",
+    "pk": 79899, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "City historical traffic counts",
-        "language": "en",
-        "title": "Traffic Counts",
-        "created_at": "2015-11-10T10:39:22",
-        "dataset_revision": 79899,
+        "description": "City historical traffic counts", 
+        "language": "en", 
+        "title": "Traffic Counts", 
+        "created_at": "2015-11-10T10:39:22", 
+        "dataset_revision": 79899, 
         "notes": "This dataset contains several thousand records of data and it's updated daily through an automated process that uses the city API to push data from internal services.<br>"
     }
 },
 {
-    "pk": 79900,
-    "model": "core.dataseti18n",
+    "pk": 79900, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "City historical traffic counts",
-        "language": "en",
-        "title": "Traffic Counts_edicion",
-        "created_at": "2015-11-10T10:41:48",
-        "dataset_revision": 79900,
+        "description": "City historical traffic counts", 
+        "language": "en", 
+        "title": "Traffic Counts_edicion", 
+        "created_at": "2015-11-10T10:41:48", 
+        "dataset_revision": 79900, 
         "notes": "This dataset contains several thousand records of data and it's updated daily through an automated process that uses the city API to push data from internal services.<br>"
     }
 },
 {
-    "pk": 79902,
-    "model": "core.dataseti18n",
+    "pk": 79902, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "Georeferenced data on traffic accidents registered by the city.",
-        "language": "en",
-        "title": "Traffic Incidents",
-        "created_at": "2015-11-10T10:53:50",
-        "dataset_revision": 79902,
+        "description": "Georeferenced data on traffic accidents registered by the city.", 
+        "language": "en", 
+        "title": "Traffic Incidents", 
+        "created_at": "2015-11-10T10:53:50", 
+        "dataset_revision": 79902, 
         "notes": ""
     }
 },
 {
-    "pk": 79903,
-    "model": "core.dataseti18n",
+    "pk": 79903, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "Yearly information",
-        "language": "en",
-        "title": "Energy Information",
-        "created_at": "2015-11-10T11:44:49",
-        "dataset_revision": 79903,
+        "description": "Yearly information", 
+        "language": "en", 
+        "title": "Energy Information", 
+        "created_at": "2015-11-10T11:44:49", 
+        "dataset_revision": 79903, 
         "notes": ""
     }
 },
 {
-    "pk": 79904,
-    "model": "core.dataseti18n",
+    "pk": 79904, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "Aggregated data",
-        "language": "en",
-        "title": "311 Data",
-        "created_at": "2015-11-10T11:48:29",
-        "dataset_revision": 79904,
+        "description": "Aggregated data", 
+        "language": "en", 
+        "title": "311 Data", 
+        "created_at": "2015-11-10T11:48:29", 
+        "dataset_revision": 79904, 
         "notes": ""
     }
 },
 {
-    "pk": 79905,
-    "model": "core.dataseti18n",
+    "pk": 79905, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "description",
-        "language": "en",
-        "title": "title",
-        "created_at": "2015-11-10T12:12:49",
-        "dataset_revision": 79905,
+        "description": "description", 
+        "language": "en", 
+        "title": "title", 
+        "created_at": "2015-11-10T12:12:49", 
+        "dataset_revision": 79905, 
         "notes": "here we can put extra info<div>We can also add links like <a href=\"http://data.cityofsacramento.org/home/\" title=\"\" target=\"_blank\">this one</a>.</div><div>We can also add bullet points</div><div><ul><li><span style=\"line-height: 15px;\">Bullet</span></li><li><span style=\"line-height: 15px;\">Point</span></li></ul><div>It allows for a lot of flexibility when adding <b>extra metadata</b></div></div>"
     }
 },
 {
-    "pk": 79906,
-    "model": "core.dataseti18n",
+    "pk": 79906, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "Relevant info on year to date and annual crime stats",
-        "language": "en",
-        "title": "Sacramento Crime DATA",
-        "created_at": "2015-11-10T12:22:54",
-        "dataset_revision": 79906,
+        "description": "Relevant info on year to date and annual crime stats", 
+        "language": "en", 
+        "title": "Sacramento Crime DATA", 
+        "created_at": "2015-11-10T12:22:54", 
+        "dataset_revision": 79906, 
         "notes": "Notes can be added to include extra metadata.<div>It can go in</div><div><ol><li><span style=\"line-height: 15px;\">Bullet</span></li><li><span style=\"line-height: 15px;\">Points</span></li></ol><div>And it can also include <a href=\"http://data.cityofsacramento.org/home/\" title=\"\" target=\"_blank\">links</a>.</div></div>"
     }
 },
 {
-    "pk": 79907,
-    "model": "core.dataseti18n",
+    "pk": 79907, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "Details for what is the city purchasing",
-        "language": "en",
-        "title": "Purchase Orders",
-        "created_at": "2015-11-10T12:41:42",
-        "dataset_revision": 79907,
+        "description": "Details for what is the city purchasing", 
+        "language": "en", 
+        "title": "Purchase Orders", 
+        "created_at": "2015-11-10T12:41:42", 
+        "dataset_revision": 79907, 
         "notes": ""
     }
 },
 {
-    "pk": 79908,
-    "model": "core.dataseti18n",
+    "pk": 79908, 
+    "model": "core.dataseti18n", 
     "fields": {
-        "description": "Details for what is the city purchasing",
-        "language": "en",
-        "title": "Purchase Orders",
-        "created_at": "2015-11-10T12:47:15",
-        "dataset_revision": 79908,
+        "description": "Details for what is the city purchasing", 
+        "language": "en", 
+        "title": "Purchase Orders", 
+        "created_at": "2015-11-10T12:47:15", 
+        "dataset_revision": 79908, 
         "notes": ""
     }
 }

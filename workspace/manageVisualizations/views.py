@@ -20,8 +20,7 @@ from core.daos.visualizations import VisualizationDBDAO
 from core.lifecycle.visualizations import VisualizationLifeCycleManager
 from core.exceptions import VisualizationNotFoundException
 from core.exceptions import DataStreamNotFoundException
-from core.signals import visualization_changed, visualization_removed, visualization_unpublished, \
-    visualization_rev_removed
+from core.signals import visualization_changed, visualization_removed, visualization_unpublished, datastream_removed
 from workspace.manageVisualizations import forms
 from workspace.decorators import *
 from .forms import VisualizationForm, ViewChartForm
@@ -125,7 +124,7 @@ def remove(request, visualization_revision_id, type="resource"):
     :param request:
     """
     lifecycle = VisualizationLifeCycleManager(user=request.user, visualization_revision_id=visualization_revision_id)
-
+    resource_id = lifecycle.visualization.id
     if type == 'revision':
         lifecycle.remove()
         # si quedan revisiones, redirect a la ultima revision, si no quedan, redirect a la lista.
@@ -135,8 +134,7 @@ def remove(request, visualization_revision_id, type="resource"):
             last_revision_id = -1
 
         # Send signal
-        visualization_rev_removed.send_robust(sender='remove_view', id=lifecycle.visualization.id,
-                                       rev_id=visualization_revision_id)
+        visualization_removed.send_robust(sender='remove_view', id=resource_id, rev_id=visualization_revision_id)
 
         return JSONHttpResponse(json.dumps({
             'status': True,
@@ -148,7 +146,7 @@ def remove(request, visualization_revision_id, type="resource"):
         lifecycle.remove(killemall=True)
 
         # Send signal
-        visualization_removed.send_robust(sender='remove_view', id=lifecycle.visualization.id, rev_id=-1)
+        visualization_removed.send_robust(sender='remove_view', id=resource_id, rev_id=-1)
 
         return HttpResponse(json.dumps({
             'status': True,

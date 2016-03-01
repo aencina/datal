@@ -165,6 +165,7 @@ def remove(request, datastream_revision_id, type="resource"):
     :param request:
     """
     lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=datastream_revision_id)
+    resource_id = lifecycle.datastream.id
 
     if type == 'revision':
         lifecycle.remove()
@@ -175,8 +176,7 @@ def remove(request, datastream_revision_id, type="resource"):
             last_revision_id = -1
 
         # Send signal
-        datastream_rev_removed.send_robust(sender='remove_view', id=lifecycle.datastream.id,
-                                           rev_id=datastream_revision_id)
+        datastream_removed.send_robust(sender='remove_view', id=resource_id, rev_id=datastream_revision_id)
 
         return JSONHttpResponse(json.dumps({
             'status': True,
