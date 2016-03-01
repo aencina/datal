@@ -120,8 +120,11 @@ var ModalView = Backbone.View.extend({
 
         if (type === 'mapchart') {
             data = this.dataStreamModel.data;
-            // defs
-            row = data.attributes.rows[1]; //tomo la primera fila
+            //tomo la primera fila tratando de evitar headers
+            if (data.attributes.rows.length == 1) {
+                row = data.attributes.rows[0]}
+            else {
+                row = data.attributes.rows[1]; }
             center = {lat: 0, long: 0};
             bounds = [85,180,-85,-180];
             if (geoType === 'points') {
@@ -138,7 +141,9 @@ var ModalView = Backbone.View.extend({
                     // separar numeros de letras
                     letter1 = lars[0].split('')[0];
                     letter2 = lors[0].split('')[0];
-                    rown = parseInt(lars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    rown = parseInt(lars[0].split('').slice(1).join('')); // evitar posible header
+                    // FOR ONE ROW RESOURCES
+                    if (rown > (data.attributes.rows.length - 1) ) rown = data.attributes.rows.length - 1;
                     row = data.attributes.rows[rown]; 
                     center.lat = parseFloat(row[letter1.charCodeAt(0) - 65]); // A = 0, B = 1, etc
                     center.long = parseFloat(row[letter2.charCodeAt(0) - 65]); // A = 0, B = 1, etc
@@ -158,7 +163,9 @@ var ModalView = Backbone.View.extend({
                 else { // F3:F28 por ejemplo
                     // separar numeros de letras
                     letter = tars[0].split('')[0];
-                    rown = parseInt(tars[0].split('').slice(1).join('')) + 1; // evitar posible header
+                    rown = parseInt(tars[0].split('').slice(1).join('')); // evitar posible header
+                    // FOR ONE ROW RESOURCES
+                    if (rown > (data.attributes.rows.length - 1) ) rown = data.attributes.rows.length - 1;
                     row = data.attributes.rows[rown]; 
                     trace = row[letter.charCodeAt(0) - 65]; // A = 0, B = 1, etc
                     center.lat = parseFloat(trace.split(',')[1]); 
