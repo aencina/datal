@@ -1,4 +1,4 @@
-from django.core.paginator import InvalidPage, Paginator
+from django.core.paginator import EmptyPage, InvalidPage, Paginator
 from django.conf import settings
 from django.http import Http404
 from core.shortcuts import render_to_response
@@ -66,7 +66,11 @@ def search(request, category=None):
             raise InvalidPage
 
         paginator = Paginator(results, settings.PAGINATION_RESULTS_PER_PAGE)
-        page_results = paginator.page(page).object_list
+
+        try:
+            page_results = paginator.page(page).object_list
+        except EmptyPage:
+            page_results = []
 
         pref_search_tips = preferences['account_search_tips']
         if pref_search_tips: 
