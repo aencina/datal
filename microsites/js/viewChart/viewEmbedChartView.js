@@ -17,6 +17,17 @@ var viewEmbedChartView = Backbone.View.extend({
         // Set Heights
         this.handleVisualizationResize();
 
+        this.model.on('change', this.setMiniLoading, this);
+        this.model.on('data_updated', this.unsetLoading, this)
+
+    },
+
+    setMiniLoading: function(){
+        $("#id_miniLoading").show();
+    },
+
+    unsetLoading: function(){
+        $("#id_miniLoading").hide();
     },
 
     render : function() {
