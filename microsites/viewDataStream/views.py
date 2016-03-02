@@ -2,21 +2,14 @@ import logging
 import urllib
 
 from django.conf import settings
-from django.http import Http404
-from django.http import HttpResponse
-from django.utils.translation import ugettext_lazy
-from django.template import loader, Context
-from django.views.decorators.http import require_http_methods
 from django.views.decorators.clickjacking import xframe_options_exempt
 
-from core.http import get_domain_with_protocol
-from core.models import DataStream, Account, DataStreamRevision
+from core.models import DataStreamRevision
 from core.helpers import RequestProcessor
 from core.choices import ChannelTypes
 from core.daos.datastreams import DatastreamHitsDAO, DataStreamDBDAO
 from core.shortcuts import render_to_response
 from core.lib.datastore import *
-from microsites.viewDataStream import forms
 
 
 def view(request, id, slug):
@@ -39,6 +32,7 @@ def view(request, id, slug):
     notes = datastream['notes']
 
     return render_to_response('viewDataStream/index.html', locals())
+
 
 @xframe_options_exempt
 def embed(request, guid):

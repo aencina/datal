@@ -12,18 +12,6 @@
     }
 },
 {
-    "pk": 669, 
-    "model": "core.datastreami18n", 
-    "fields": {
-        "description": "Listado total de oficinas geolocalizadas de ChileAtiende a lo largo de Chile", 
-        "language": "es", 
-        "title": "Sucursales ChileAtiende En todo Chile", 
-        "created_at": "2012-05-14T15:27:45", 
-        "datastream_revision": 672, 
-        "notes": ""
-    }
-},
-{
     "pk": 61554, 
     "model": "core.datastreami18n", 
     "fields": {
@@ -48,50 +36,50 @@
     }
 },
 {
-    "pk": 61562,
-    "model": "core.datastreami18n",
+    "pk": 61562, 
+    "model": "core.datastreami18n", 
     "fields": {
-        "description": "A custom selection of the parent dataset.",
-        "language": "en",
-        "title": "Traffic Counts",
-        "created_at": "2015-11-10T10:43:10",
-        "datastream_revision": 61460,
+        "description": "A custom selection of the parent dataset.", 
+        "language": "en", 
+        "title": "Traffic Counts", 
+        "created_at": "2015-11-10T10:43:10", 
+        "datastream_revision": 61460, 
         "notes": ""
     }
 },
 {
-    "pk": 61564,
-    "model": "core.datastreami18n",
+    "pk": 61564, 
+    "model": "core.datastreami18n", 
     "fields": {
-        "description": "Georeferenced data.",
-        "language": "en",
-        "title": "Traffic Incidents",
-        "created_at": "2015-11-10T10:55:01",
-        "datastream_revision": 61462,
+        "description": "Georeferenced data.", 
+        "language": "en", 
+        "title": "Traffic Incidents", 
+        "created_at": "2015-11-10T10:55:01", 
+        "datastream_revision": 61462, 
         "notes": ""
     }
 },
 {
-    "pk": 61566,
-    "model": "core.datastreami18n",
+    "pk": 61566, 
+    "model": "core.datastreami18n", 
     "fields": {
-        "description": "All 311 calls received during this year, disaggregated by month.",
-        "language": "en",
-        "title": "311 Monthly Data",
-        "created_at": "2015-11-10T11:49:33",
-        "datastream_revision": 61464,
+        "description": "All 311 calls received during this year, disaggregated by month.", 
+        "language": "en", 
+        "title": "311 Monthly Data", 
+        "created_at": "2015-11-10T11:49:33", 
+        "datastream_revision": 61464, 
         "notes": ""
     }
 },
 {
-    "pk": 61569,
-    "model": "core.datastreami18n",
+    "pk": 61569, 
+    "model": "core.datastreami18n", 
     "fields": {
-        "description": "All public purchases made for the City.",
-        "language": "en",
-        "title": "Purchase Orders",
-        "created_at": "2015-11-10T12:48:28",
-        "datastream_revision": 61467,
+        "description": "All public purchases made for the City.", 
+        "language": "en", 
+        "title": "Purchase Orders", 
+        "created_at": "2015-11-10T12:48:28", 
+        "datastream_revision": 61467, 
         "notes": ""
     }
 }

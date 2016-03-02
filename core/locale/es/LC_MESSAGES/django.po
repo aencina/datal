@@ -492,6 +492,15 @@ msgstr "documentación de la API"
 msgid "DEV-GETKEY-TEXT4"
 msgstr "para conocer los métodos y los request que puedes usar"
 
+msgid "DEV-GETKEY-TEXT5"
+msgstr "O conoce inmediatamente la"
+
+msgid "DEV-GETKEY-TEXT6"
+msgstr "documentación vieja de la API"
+
+msgid "DEV-GETKEY-TEXT7"
+msgstr "para conocer los antiguos métodos y los antiguos request que puedes usar"
+
 msgid "DEV-CREATEREQUEST-TITLE"
 msgstr "Crea un Request"
 

@@ -19,6 +19,9 @@ from rest_framework import renderers
 from core.builders.datastreams import SelectStatementBuilder, DataSourceBuilder
 from core.v8.renderers import *
 from core.rest.renderers import *
+from core.forms import MetaForm
+
+import json
 
 class DataStreamSerializer(ResourceSerializer):
     title = serializers.CharField(
@@ -95,11 +98,19 @@ class DataStreamSerializer(ResourceSerializer):
         if 'meta_text' in data:
             meta_data = self.context['request'].auth['account'].meta_data
             if meta_data:
-                meta_form = MetaForm(request.POST, metadata = meta_data)
+                try:
+                    meta_text_json = json.loads(data['meta_text'])
+                except:
+                    raise exceptions.ValidationError({'meta_text': 'Invalid Json'})
+                meta_form = MetaForm(meta_text_json, metadata = meta_data)
                 if meta_form.is_valid():
-                    data['meta_text'] = meta_text.output_json()
+                    data['meta_text'] = meta_form.output_json()
                 else:
-                    raise exceptions.ValidationError({'meta_text':'Invalid'})
+                    raise exceptions.ValidationError({'meta_text':'Invalid %s' % meta_form.errors.as_text()})
+            else:
+                data['meta_text'] = ''
+        else:
+            data['meta_text'] = ''
 
         data['status'] = StatusChoices.PENDING_REVIEW
 
