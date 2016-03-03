@@ -4,7 +4,7 @@ from optparse import make_option
 
 from core.models import (Account, Tag, TagDataset, TagDatastream, TagVisualization)
 from core.choices import StatusChoices
-import json
+import json, os
 from django.db.models import Q
 
 
@@ -70,6 +70,9 @@ class Command(BaseCommand):
                 except:
                     pass
 
-            f = open('/tmp/{}/tag.json'.format(options['account']), 'w')
-            json.dump(fixed_tags, f)
-            f.close()
+            if fixed_tags:
+                f = open('/tmp/{}/tag.json'.format(options['account']), 'w')
+                json.dump(fixed_tags, f)
+                f.close()
+            else:
+                os.remove('/tmp/{}/tag.json'.format(options['account']))
