@@ -414,6 +414,7 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('account.pivottable', 'account.pivottable')
     ,('account.bucket.name', 'account.bucket.name')
     ,('account.dataset.download', 'account.dataset.download')
+    ,('account.dataset.show', 'account.dataset.show')
     ,('account.hidelastupdate', 'account.hidelastupdate')
     ,('account.has.db.sidebar', 'account.has.db.sidebar')
     ,('account.embed.powered.by', 'account.embed.powered.by')

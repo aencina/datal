@@ -77,7 +77,7 @@ register.inclusion_tag('datatable_manager/pagination_widget.html')(datatable_pag
 
 
 def datatable_filter(categories=None, table_prefix='', tab_prefix='', source_choices=None, choices=None,
-                     auth_manager=None, **kwargs):
+                     auth_manager=None, account_show_dataset=None, **kwargs):
     filter_button_template = None
     filter_button_file = 'filter_button.html'
     extra_filters_template = None

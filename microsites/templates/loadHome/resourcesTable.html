@@ -5,7 +5,7 @@
             <div class="CL sidebar">
                 <div class="sidebarInner referencesContainer">
                     {% if has_federated_accounts %}
-                        {% datatable_filter categories 'home' 'microsites' source_choices choices auth_manager federated_accounts=federated_accounts %}
+                        {% datatable_filter categories 'home' 'microsites' source_choices choices auth_manager federated_accounts=federated_accounts account_show_dataset=account_show_dataset%}
                     {% else %}
                         {% include "loadHome/resources/filter_categories.html" %}
                     {% endif %}
