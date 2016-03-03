@@ -106,9 +106,12 @@ class Command(BaseCommand):
         if self.options['datasets']:
             if self.options['debug']: print "[Iniciando datasets]"
             for dataset in Dataset.objects.filter(last_published_revision__status=StatusChoices.PUBLISHED):
-                datasetrevision=dataset.last_published_revision
-                search_dao = DatasetSearchDAOFactory().create(datasetrevision)
-                search_dao.add()
+                try:
+                    datasetrevision=dataset.last_published_revision
+                    search_dao = DatasetSearchDAOFactory().create(datasetrevision)
+                    search_dao.add()
+                except:
+                    print "[ERROR dt] Fallo al indexar Dataset. ID: {} Account: {}".format(dataset.id, dataset.user.account.name)
 
     def index_visualizations(self):
         if self.options['visualizations']:
