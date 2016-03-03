@@ -269,7 +269,7 @@ class ElasticsearchIndex():
         """
 
         if document:
-            self.logger.info('Elasticsearch: Agregar al index %s' % str(document))
+            # self.logger.info('Elasticsearch: Agregar al index %s' % str(document))
             try:
                 return self.es.create(
                     index=settings.SEARCH_INDEX['index'],
