@@ -61,6 +61,9 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		// Handle Visualization Resize
 		this.bindVisualizationResize();
 		this.handleVisualizationResize();
+		
+		this.model.on('change', this.setMiniLoading, this);
+ -		this.model.on('data_updated', this.unsetLoading, this)
 
 	},
 
@@ -96,13 +99,13 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			$(this.chartContainer).html('<div class="result"><div class="loading">'+ gettext('APP-LOADING-TEXT') + '</div></div>');
 	},
 
-	// setMiniLoading: function(){
-	// 	$("#id_miniLoading").show();
-	// },
+	setMiniLoading: function(){
+	 	$("#id_miniLoading").show();
+	},
 
-	// unsetLoading: function(){
-	// 	$("#id_miniLoading").hide();
-	// },
+	unsetLoading: function(){
+	 	$("#id_miniLoading").hide();
+	},
 
 	render : function() {
 		this.chartView.render();
