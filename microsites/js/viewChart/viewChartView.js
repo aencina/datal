@@ -62,9 +62,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		this.bindVisualizationResize();
 		this.handleVisualizationResize();
 
-		this.model.on('change', this.setMiniLoading, this);
-		this.model.on('data_updated', this.unsetLoading, this)
-
 	},
 
 	bindVisualizationResize: function () {
@@ -99,19 +96,17 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			$(this.chartContainer).html('<div class="result"><div class="loading">'+ gettext('APP-LOADING-TEXT') + '</div></div>');
 	},
 
-	setMiniLoading: function(){
-		$("#id_miniLoading").show();
-	},
+	// setMiniLoading: function(){
+	// 	$("#id_miniLoading").show();
+	// },
 
-	unsetLoading: function(){
-		$("#id_miniLoading").hide();
-	},
+	// unsetLoading: function(){
+	// 	$("#id_miniLoading").hide();
+	// },
 
 	render : function() {
-		this.setMiniLoading()
 		this.chartView.render();
 		//this.setChartContainerHeight();
-		
 		return this;
 	},
 
@@ -397,15 +392,9 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 	},
 			
 	onRefreshButtonClicked : function() {
+	    this.setLoading();
+	    this.model.fetchData();
 		this.render();
-		// // by now only maps has an ajax function activated.
-		// var chType = this.model.attributes.chart_type;
-		// if (chType != "mapchart")
-		// 	window.location.reload();
-		// else {
-		// 	this.setMiniLoading();
-		// 	this.refreshData(true);
-		// }
 	},
 
 	updateExportsURL: function(){
