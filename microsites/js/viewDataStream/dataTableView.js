@@ -56,7 +56,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 			i++;
 		} 
 	  
-	  //this.invoke();
+	  this.invoke();
 	},
 	
 	render: function() {
