@@ -46,7 +46,8 @@ class SignInForm(forms.Form):
         return reverse('accounts.login')
 
     def clean_password(self):
-        return hashlib.md5(self.cleaned_data.get('password')).hexdigest()
+        password = self.cleaned_data.get('password').encode("utf-8")
+        return hashlib.md5(password).hexdigest()
 
     def clean(self):
         cleaned_data = super(SignInForm, self).clean()
@@ -109,13 +110,13 @@ class MyAccountForm(forms.ModelForm):
         return hashlib.md5(self.cleaned_data.get('old_password')).hexdigest()
 
     def clean_new_password(self):
-        new_password = self.cleaned_data.get('new_password')
+        new_password = self.cleaned_data.get('new_password').encode("utf-8")
         if new_password:
             return hashlib.md5(new_password).hexdigest()
         return new_password
 
     def clean_new_password_again(self):
-        new_password_again = self.cleaned_data.get('new_password_again')
+        new_password_again = self.cleaned_data.get('new_password_again').encode("utf-8")
         if new_password_again:
             return hashlib.md5(new_password_again).hexdigest()
         return new_password_again
