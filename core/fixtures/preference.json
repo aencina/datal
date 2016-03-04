@@ -665,6 +665,14 @@
         "value": "True", 
         "key": "account.has.home"
     }
+},
+{
+    "pk": 92, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "True", 
+        "key": "account.dataset.show"
+    }
 }
-
 ]
