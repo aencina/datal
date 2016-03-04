@@ -8,11 +8,15 @@ import logging
 class ElasticsearchIndex():
     """ Gestor para indice elasticsearch"""
     
-    def __init__(self):
+    def __init__(self, url=None):
 
         # establecemos conexión
-        self.es = Elasticsearch(settings.SEARCH_INDEX['url'])
-
+        if url:
+            print "[WARNING] ignorando config %s, usamos url %s" % (settings.SEARCH_INDEX['url'], url)
+            self.es = Elasticsearch(url)
+        else:
+            self.es = Elasticsearch(settings.SEARCH_INDEX['url'])
+ 
         es_conf= { "settings": {
                 "analysis": {
                   "filter": {
