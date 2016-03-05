@@ -33,7 +33,7 @@
 			<p>{% trans 'VIEWDS-API-EXAMPLES-1' %}</p>
 			<code>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/datastreams/{{datastream.guid}}/data.json/?auth_key=YOUR_API_KEY&amp;limit=1000</code>
 			<p>{% trans 'VIEWDS-API-EXAMPLES-2' %}</p>
-			<code>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/datastreams/{{datastream.guid}}/data.json/?auth_key=YOUR_API_KEY&amp;limit=1000&amp;output=json_array</code>
+			<code>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/datastreams/{{datastream.guid}}/data.ajson/?auth_key=YOUR_API_KEY&amp;limit=50&amp;</code>
 			{% if datastream.parameters %}
 			<p>{% trans 'VIEWDS-API-EXAMPLES-3' %}</p>
 			<code>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/datastreams/{{datastream.guid}}/data.json/?auth_key=YOUR_API_KEY&amp;limit=1000&amp;pArgument0=VALUE</code>
