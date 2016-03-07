@@ -25,3 +25,7 @@ def uuid(value):
 	"""
 	string = unicode(value)+"-"+unicode(uuid4())
 	return mark_safe(string)
+
+@register.assignment_tag(name='equals')
+def equals(val1, val2):
+    return val1 == val2
