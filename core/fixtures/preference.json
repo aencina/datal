@@ -521,6 +521,7 @@
         "key": "account.dataset.download"
     }
 },
+
 {
     "pk": 76, 
     "model": "core.preference", 
@@ -548,6 +549,15 @@
         "key": "account.dataset.download"
     }
 },
+{
+    "model": "core.preference", 
+    "fields": {
+        "account": 5754, 
+        "value": "True", 
+        "key": "account.dataset.show"
+    }
+},
+
 {
     "pk": 79, 
     "model": "core.preference", 
@@ -665,6 +675,14 @@
         "value": "True", 
         "key": "account.has.home"
     }
+},
+{
+    "pk": 92, 
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "True", 
+        "key": "account.dataset.show"
+    }
 }
-
 ]

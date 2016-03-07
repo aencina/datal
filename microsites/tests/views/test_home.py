@@ -11,7 +11,18 @@ class HomeViewTestCase(SimpleTestCase):
     def setUp(self):
         call_command('loaddata', '../core/fixtures/accountlevel.json', verbosity=0)
         call_command('loaddata', '../core/fixtures/account.json', verbosity=0)
+        call_command('loaddata', '../core/fixtures/preference.json', verbosity=0)
+        call_command('loaddata', '../core/fixtures/category.json', verbosity=0)
+        call_command('loaddata', '../core/fixtures/categoryi18n.json', verbosity=0)
 
     def test_ok(self):
         resp = self.client.get('/', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+    def test_update_list_ok(self):
+        resp = self.client.post('/home/update_list', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+    def test_update_categories_ok(self):
+        resp = self.client.get('/home/update_categories', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 200)

@@ -38,7 +38,7 @@
                     <label for="id_filter_type">{% trans "FILTER-TYPE-LABEL" %}</label>
                     <select id="id_filter_type" name="id_filter_type">
                         <option value="" selected="selected">{% trans "FILTER-TYPE-OPTION" %}</option>
-                        {% if ds_enabled %} {# just show dataset if preference enable #}
+                        {% if account_show_dataset %}
                         <option value="dt">{% trans 'APP-DATASETS-TEXT' %}</option>
                         {% endif %}
                         <option value="ds">{% trans 'APP-DATAVIEWS-TEXT' %}</option>

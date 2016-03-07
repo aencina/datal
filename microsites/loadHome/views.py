@@ -5,7 +5,10 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.template import loader, Context
 from core.models import *
 from core.managers import *
-from core.shortcuts import render_to_response
+#from core.shortcuts import render_to_response
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
 from core.http import add_domains_to_permalinks
 from microsites.loadHome.forms import QueryDatasetForm
 from core.communitymanagers import *
@@ -20,9 +23,9 @@ from django.views.decorators.cache import cache_page
 import json
 import logging
 
+from core.plugins_point import DatalPluginPoint
 
 logger = logging.getLogger(__name__)
-
 
 @require_GET
 @cache_page(60*5, cache='pages')
@@ -39,6 +42,12 @@ def load(request):
 
     builder = ThemeBuilder(preferences, is_preview, language, request.user)
 
+    resources = ["ds", "vz"]
+    resources.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
+
+    if account.get_preference("account.dataset.show"):
+        resources.append("dt")
+
     if is_preview or preferences["account_home"]:
         """ shows the home page new version"""
         data = builder.parse()
@@ -48,7 +57,7 @@ def load(request):
             accounts_ids=data['federated_accounts_ids'] + [account.id]
 
             queryset = FinderQuerySet(FinderManager(HomeFinder), 
-                max_results=250, account_id=accounts_ids )
+                max_results=250, account_id=accounts_ids, resource=resources )
 
             paginator = Paginator(queryset, 25)
             revisions = paginator.page(1)
@@ -68,13 +77,9 @@ def load(request):
                 key = str(cat['id'])
                 context['categories_dict'][key] = cat['name']
 
-            return render_to_response(data['template_path'], context)
-        else:
-            # For the moment, redirect to search
-            return redirect('/search/')
-    else:
-        # For the moment, redirect to search, but this needs to be erased
-        return redirect('/search/')
+            return render_to_response(data['template_path'], context, context_instance=RequestContext(request))
+       
+    return redirect('/search/')
 
 
 @require_POST
@@ -99,7 +104,12 @@ def update_list(request):
         reverse = order_type.lower() == 'ascending'
 
 
-        resources = ['ds', 'db', 'vz', 'dt']
+        resources = ["ds", "vz"]
+        resources.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
+    
+        if account.get_preference("account.dataset.show"):
+            resources.append("dt")
+
         category_filters = form.cleaned_data.get('category_filters')
         if category_filters:
             category_filters=category_filters.split(",")

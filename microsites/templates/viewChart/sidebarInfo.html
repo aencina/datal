@@ -73,7 +73,7 @@
 		</article>
 		{% endif %}
 
-		{% if datastream.get_tags %}
+		{% if datastream.tags %}
 		<!-- Tags -->
 		<article class="tags">
 			<i></i>
@@ -82,8 +82,8 @@
 			</header>
 			<ul class="list">
 				{% url "search.search" as search_url %}
-				{% for tag in datastream.get_tags %}
-				<li class="clearfix"><a href="{{ search_url }}?tag={{tag|prepareTagForSearch}}" title="{{tag|capfirst}}" rel="nofollow tag">{{tag|capfirst}}</a></li>
+				{% for tag in datastream.tags %}
+				<li class="clearfix"><a href="{{ search_url }}?tag={{tag.tag__name|prepareTagForSearch}}" title="{{tag.tag__name|capfirst}}" rel="nofollow tag">{{tag.tag__name|capfirst}}</a></li>
         {% endfor %}
 			</ul>
 		</article>

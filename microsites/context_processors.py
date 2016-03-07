@@ -36,6 +36,7 @@ def request_context(request):
         msprotocol = 'http'
         msdomain=settings.DOMAINS['microsites']
 
+    obj['account_show_dataset']=account.get_preference('account.dataset.show')
     obj['microsite_domain']=msdomain
     obj['microsite_uri']=msprotocol
     obj['core_version']=VERSION

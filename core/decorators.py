@@ -12,6 +12,8 @@ from core.exceptions import ApplicationNotAdmin
 from core.models import Application
 # from django.utils.encoding import smart_str
 
+from django.core.exceptions import PermissionDenied
+
 
 def public_keys_forbidden(view_func):
     """ 'application' means users by auth_key access """
@@ -91,3 +93,18 @@ def calculate_user_limit(request, code):
         return response
     else:
         return ''
+
+def has_preference(code):
+    def _method_wrapper(view_method):
+        def _arguments_wrapper(request, *args, **kwargs) :
+            """ decorador para verificar preferencias """
+
+            # si tiene la preferencia y es True, sigue
+            if request.account.get_preference(code):
+                return view_method(request, *args, **kwargs)
+
+            raise PermissionDenied
+
+        return _arguments_wrapper
+
+    return _method_wrapper

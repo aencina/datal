@@ -8,6 +8,8 @@ from microsites.managers import *
 from microsites.exceptions import *
 from core.exceptions import *
 from microsites.exceptions import *
+from core.plugins_point import DatalPluginPoint
+
 
 import logging
 
@@ -47,8 +49,20 @@ def search(request, category=None):
         reverse = form.cleaned_data.get('reverse')
         resource = form.cleaned_data.get('resource')
 
-        if not resource or resource not in ("dt","ds","vz","db"):
-            resource="all"
+        all_resources = ["dt", "ds", "vz"]
+        all_resources.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
+
+        # si no se pasa resource o es cualquier cosa
+        # utiliza el all_resources
+        if not resource or resource not in all_resources:
+            
+            # en caso de que la preferencia este en False, se excluye el DT
+            if not account.get_preference("account.dataset.show"):
+                all_resources.remove("dt")
+            resource=all_resources
+        # no puede buscar por dt si account.dataset.show == False
+        elif resource == "dt" and not account.get_preference("account.dataset.show"):
+            raise InvalidPage
 
         try:
             meta_data= json.loads(form.cleaned_data.get('meta_data'))
