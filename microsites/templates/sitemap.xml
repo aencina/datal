@@ -13,7 +13,7 @@
     {% for d in dss %}
     <url>
       <loc></loc>
-      <loc>http://{{domain}}{% permalink 'datastream' d.datastream_id d.slug %}</loc>
+      <loc>http://{{domain}}{% permalink 'datastream' d.datastream__id d.slug %}</loc>
       <lastmod>{{ d.created_at|date:"c" }}</lastmod>
     </url>
     {% endfor %}
@@ -21,7 +21,7 @@
     {% for v in vss %}
     <url>
       <loc></loc>
-      <loc>http://{{domain}}{% permalink 'visualization' v.visualization_id v.slug %}</loc>
+      <loc>http://{{domain}}{% permalink 'visualization' v.visualization__id v.slug %}</loc>
       <lastmod>{{ v.created_at|date:"c" }}</lastmod>
     </url>
     {% endfor %}

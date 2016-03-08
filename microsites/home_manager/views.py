@@ -13,7 +13,7 @@ def sitemap(request):
 
     domain = get_domain_by_request(request)
     now = datetime.datetime.now()
-    dss = DataStreamDBDAO().query(account_id=account.id, language=language, filters_dict=dict(status=[3]))
-    vss = VisualizationDBDAO().query(account_id=account.id, language=language, filters_dict=dict(status=[3]))
+    dss = DataStreamDBDAO().query(account_id=account.id, language=language, filters_dict=dict(status=[3]))[0]
+    vss = VisualizationDBDAO().query(account_id=account.id, language=language, filters_dict=dict(status=[3]))[0]
 
     return render_to_response('sitemap.xml', locals(), mimetype="application/xml")
