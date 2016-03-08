@@ -550,15 +550,6 @@
     }
 },
 {
-    "model": "core.preference", 
-    "fields": {
-        "account": 5754, 
-        "value": "True", 
-        "key": "account.dataset.show"
-    }
-},
-
-{
     "pk": 79, 
     "model": "core.preference", 
     "fields": {
@@ -681,6 +672,15 @@
     "model": "core.preference", 
     "fields": {
         "account": 1, 
+        "value": "True", 
+        "key": "account.dataset.show"
+    }
+},
+{
+    "pk": 93,
+    "model": "core.preference", 
+    "fields": {
+        "account": 5754, 
         "value": "True", 
         "key": "account.dataset.show"
     }
