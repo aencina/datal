@@ -14,11 +14,6 @@ from core.plugins_point import DatalPluginPoint
 import logging
 
 
-def action_browse(request, category_slug=None, page=1):
-    logger = logging.getLogger(__name__)
-    logger.error('action_browse')
-
-
 def browse(request, category_slug=None, page=1):
     account = request.account
     preferences = request.preferences
