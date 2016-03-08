@@ -681,8 +681,17 @@
     "model": "core.preference", 
     "fields": {
         "account": 5754, 
-        "value": "True", 
+        "value": "False", 
         "key": "account.dataset.show"
+    }
+},
+{
+    "pk": 93,
+    "model": "core.preference", 
+    "fields": {
+        "account": 5754, 
+        "value": "{\"config\": \"algo\"}", 
+        "key": "account.search.tips"
     }
 }
 ]

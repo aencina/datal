@@ -7,7 +7,6 @@ from core import models
 #coverage report --skip-covered -m
 
 class HomeViewTestCase(SimpleTestCase):
-    fixtures = ['accountlevel.json', 'account.json']
 
     def setUp(self):
         call_command('loaddata', '../core/fixtures/accountlevel.json', verbosity=0)
