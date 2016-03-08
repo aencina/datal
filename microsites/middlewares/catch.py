@@ -32,14 +32,15 @@ class ExceptionManager(object):
 
     def get_mime_type(self, request):
         content_type = self.get_content_type(request)
-        if content_type.lower().startswith('application/json'):
-            return 'application/json'
+        if content_type:
+            if content_type.lower().startswith('application/json'):
+                return 'application/json'
 
-        if content_type.lower().startswith('multipart/form-data') and request.method == 'POST':
-            return 'application/json'
+            if content_type.lower().startswith('multipart/form-data') and request.method == 'POST':
+                return 'application/json'
 
-        if content_type.lower().startswith('application/x-www-form-urlencoded') and request.method == 'POST':
-            return 'application/json'
+            if content_type.lower().startswith('application/x-www-form-urlencoded') and request.method == 'POST':
+                return 'application/json'
 
         return "text/html"
 
