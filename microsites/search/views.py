@@ -63,13 +63,10 @@ def search(request, category=None):
 
         accounts_ids = [x['id'] for x in account.account_set.values('id').all()] + [account.id]
 
-        try:
-            results, search_time, facets = FinderManager().search(
-                query=query, account_id=accounts_ids, category_filters=category, order=order,
-                resource=resource, reverse=reverse, meta_data=meta_data
-            )
-        except InvalidPage:
-            raise InvalidPage
+        results, search_time, facets = FinderManager().search(
+            query=query, account_id=accounts_ids, category_filters=category, order=order,
+            resource=resource, reverse=reverse, meta_data=meta_data
+        )
 
         paginator = Paginator(results, settings.PAGINATION_RESULTS_PER_PAGE)
 
