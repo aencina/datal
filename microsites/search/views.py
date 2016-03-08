@@ -21,10 +21,7 @@ def browse(request, category_slug=None, page=1):
     category = Category.objects.get_for_browse(category_slug, account.id, preferences['account_language'])
     accounts_ids =  [x['id'] for x in account.account_set.values('id').all()] + [account.id]
 
-    try:
-        results, search_time, facets = FinderManager().search(category_id=category['id'], account_id=[account.id]+accounts_ids)
-    except InvalidPage:
-        raise InvalidPage
+    results, search_time, facets = FinderManager().search(category_id=category['id'], account_id=[account.id]+accounts_ids)
 
     paginator = Paginator(results, settings.PAGINATION_RESULTS_PER_PAGE)
     page_results = paginator.page(page).object_list
