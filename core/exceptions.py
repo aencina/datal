@@ -321,45 +321,45 @@ class JunarException(Exception):
         return json.dumps(self.info)
 
 
-class Http400(JunarException):
+class JunarHttp400(JunarException):
     """ Bad Request Exception """
 
     def __init__(self, description):
         self.info = dict()
         self.info[ERROR_KEY] = 'Bad request'
         self.info[DESCRIPTION_KEY] = description
-        super(Http400, self).__init__(self.info)
+        super(JunarHttp400, self).__init__(self.info)
 
 
-class MintTemplateURLError(Http400):
+class MintTemplateURLError(JunarHttp400):
 
     def __init__(self, description = 'The template URL is wrong or empty'):
         super(MintTemplateURLError, self).__init__(description)
 
-class MintTemplateNotFoundError(Http400):
+class MintTemplateNotFoundError(JunarHttp400):
 
     def __init__(self, description = 'The template was not found'):
         super(MintTemplateNotFoundError, self).__init__(description)
 
-class ApplicationNotAdmin(Http400):
+class ApplicationNotAdmin(JunarHttp400):
 
     def __init__(self, description = 'The auth key is not for admin'):
         super(ApplicationNotAdmin, self).__init__(description)
 
-class Http401(JunarException):
+class JunarHttp401(JunarException):
     """ Unauthorized Exception """
 
     def __init__(self, description='Unauthorized to access requested resource.'):
         self.info = dict()
         self.info[ERROR_KEY] = 'Unauthorized'
         self.info[DESCRIPTION_KEY] = description
-        super(Http401, self).__init__(self.info)
+        super(JunarHttp401, self).__init__(self.info)
 
-class InvalidKey(Http401):
+class InvalidKey(JunarHttp401):
     def __init__(self, description = 'The auth key is not valid'):
         super(InvalidKey, self).__init__(description)
 
-class Http405(JunarException):
+class JunarHttp405(JunarException):
     """ Not Allowed Exception """
 
     def __init__(self, p_methods=['GET']):
@@ -368,27 +368,27 @@ class Http405(JunarException):
         self.info[ERROR_KEY] = 'Not allowed'
         self.info[DESCRIPTION_KEY] = 'Method not allowed.'
         self.methods = p_methods
-        super(Http405, self).__init__(self.info)
+        super(JunarHttp405, self).__init__(self.info)
 
-class Http404(JunarException):
+class JunarHttp404(JunarException):
     """ Not Found Exception """
 
     def __init__(self, description='Resource not found'):
         self.info = dict()
         self.info[ERROR_KEY] = 'Not found error'
         self.info[DESCRIPTION_KEY] = description
-        super(Http404, self).__init__(self.info)
+        super(JunarHttp404, self).__init__(self.info)
 
-class Http500(JunarException):
+class JunarHttp500(JunarException):
     """ Internal Server Error Exception """
 
     def __init__(self, description):
         self.info = dict()
         self.info[ERROR_KEY] = 'Server error'
         self.info[DESCRIPTION_KEY] = description
-        super(Http500, self).__init__(self.info)
+        super(JunarHttp500, self).__init__(self.info)
 
-class BigdataNamespaceNotDefined(Http500):
+class BigdataNamespaceNotDefined(JunarHttp500):
     """ The preference 'namespace' is not defined
         for this account.
     """
@@ -397,7 +397,7 @@ class BigdataNamespaceNotDefined(Http500):
         description = 'Bigdata namespace account preference must be defined.'
         super(BigdataNamespaceNotDefined, self).__init__(description)
 
-class BigdataCrossNamespaceForbidden(Http401):
+class BigdataCrossNamespaceForbidden(JunarHttp401):
     """ Cross namespace requests to bigdata are not allowed
     """
 
@@ -405,19 +405,19 @@ class BigdataCrossNamespaceForbidden(Http401):
         description = 'Cross namespace requests are not allowed.'
         super(BigdataCrossNamespaceForbidden, self).__init__(description)
 
-class BigDataInsertError(Http500):
+class BigDataInsertError(JunarHttp500):
 
     def __init__(self, namespace, context="", extras=""):
         description = 'BigData insertion fails. Namespace: [%s] Context: [%s] Detail [%s]' % (namespace, context, extras)
         super(BigDataInsertError, self).__init__(description)
 
-class BigDataDeleteError(Http500):
+class BigDataDeleteError(JunarHttp500):
 
     def __init__(self, namespace, context="", extras=""):
         description = 'BigData delete fails. Failed DELETE RDF-context [%s]-[%s] --  %s' % (context, namespace, extras)
         super(BigDataDeleteError, self).__init__(description)
 
-class BigDataInvalidQuery(Http401):
+class BigDataInvalidQuery(JunarHttp401):
 
     def __init__(self, error):
         # description = 'BigData unauthorized query. %s' % error
