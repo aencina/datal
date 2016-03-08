@@ -37,6 +37,10 @@ class HomeViewTestCase(SimpleTestCase):
         resp = self.client.get('/search/?page=4', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 200)
 
+        # caracteres raors
+        resp = self.client.get('/search/?q=-?', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
         # invlid form       
         resp = self.client.get('/search/?page=18', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 404)
