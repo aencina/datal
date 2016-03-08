@@ -32,10 +32,7 @@ def view(request, id, slug=None):
             published=True
         )
 
-        # verify if this account is the owner of this viz
-        visualization = Visualization.objects.get(pk=id)
-        if account.id != visualization.user.account.id:
-            raise NotAccesVisualization
+        visualization = visualization_revision['visualization']
 
         #for datastream sidebar functions (downloads and others)
         datastream = DataStreamDBDAO().get(request.user,
@@ -97,6 +94,3 @@ def embed(request, guid):
     visualization_revision_parameters = urllib.urlencode(visualization_revision_parameters)
 
     return render_to_response('viewChart/embed.html', locals())
-
-def visualization_error_404(request,id):
-    raise VisualizationRevisionDoesNotExist
