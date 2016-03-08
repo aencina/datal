@@ -86,6 +86,7 @@ class Command(BaseCommand):
 
     def dataset_preferences(self):
         Preference.objects.get_or_create(account=self.account, key="account.dataset.download", value="on")
+        Preference.objects.get_or_create(account=self.account, key="account.dataset.show", value="True")
 
     def handle(self, *args, **options):
         self.account = None
