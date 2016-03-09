@@ -374,6 +374,10 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         return self.datastream_revision
 
     def __clean_cache(self, revision):
+        """Elimina el recurso de redis
+        :param fields:
+        :return:
+        """
         reader = Redis(host=settings.REDIS_READER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
         writer = Redis(host=settings.REDIS_WRITER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
         
