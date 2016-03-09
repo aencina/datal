@@ -27,7 +27,6 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'workspace', 'templates'),
 ) + TEMPLATE_DIRS
 
-SEARCH_MAX_RESULTS = 40
 PAGINATION_RESULTS_PER_PAGE = 10
 
 SECOND_LANGUAGE = 'es'

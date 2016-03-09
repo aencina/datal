@@ -17,7 +17,7 @@ class SearchForm(forms.Form):
     order       = forms.CharField(required=False)
 
     def clean_max_results(self):
-        l_default_max_results = settings.DEFAULT_SEARCH_MAX_RESULTS
+        l_default_max_results = 999
         try:
             max_results = int(self.cleaned_data['max_results'])
             return max_results <= l_default_max_results and max_results or l_default_max_results

@@ -18,7 +18,7 @@ class IndexTankFinder(Finder):
         self.account_id = kwargs.get('account_id')
         self.resource = kwargs.get('resource', 'all')
         page = kwargs.get('page', 0)
-        max_results = kwargs.get('max_results', settings.SEARCH_MAX_RESULTS)
+        max_results = kwargs.get('max_results', 99999)
         slice = kwargs.get('slice', settings.PAGINATION_RESULTS_PER_PAGE)
 
         if page == 0:

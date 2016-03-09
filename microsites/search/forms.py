@@ -14,12 +14,9 @@ class SearchForm(forms.Form):
 
     def clean_page(self):
         # default page
-        page = self.cleaned_data['page']
+        page = int(self.cleaned_data['page'])
         if not page:
             return 1
-        page = abs(page)
-        if page > settings.SEARCH_MAX_RESULTS / settings.PAGINATION_RESULTS_PER_PAGE:
-            raise forms.ValidationError("Max page number")
         return page
 
     def clean_q(self):

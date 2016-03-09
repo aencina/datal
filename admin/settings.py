@@ -31,7 +31,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 STATIC_URL = '/media/'
 
-SEARCH_MAX_RESULTS = 10
 PAGINATION_RESULTS_PER_PAGE = 10
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'

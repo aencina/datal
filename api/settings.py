@@ -29,7 +29,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages"
 )
 
-#SEARCH_MAX_RESULTS = 100
 #PAGINATION_RESULTS_PER_PAGE = 50
 #API_TYPE = dict()
 #API_TYPE['00'] = {'max_calls_per_month': 1000,    'calls_per_day': 34,    'lapse_between_calls': 5}
