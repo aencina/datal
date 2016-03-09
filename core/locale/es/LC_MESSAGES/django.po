@@ -779,6 +779,9 @@ msgstr "Copia y Pega el código de abajo donde quieras mostrar esta visualizaci�
 msgid "ERROR-DUPLICATED-CATEGORY"
 msgstr "Categoría duplicada"
 
+msgid "APP-KPI-TEXT"
+msgstr "Metricas"
+
 # —————————— Exceptions
 msgid "EXCEPTION-ACTION-GENERIC"
 msgstr "Si el problema persiste contactarnos."

@@ -976,6 +976,9 @@ msgstr "Copy &amp; Paste the code below anywhere you want to show this Visualiza
 msgid "ERROR-DUPLICATED-CATEGORY"
 msgstr "Duplicated category"
 
+msgid "APP-KPI-TEXT"
+msgstr "KPI"
+
 msgid "EXCEPTION-TITLE-UNKNOWN"
 msgstr "Unknown Error"
 
