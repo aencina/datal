@@ -14,7 +14,7 @@ class SearchForm(forms.Form):
 
     def clean_page(self):
         # default page
-        page = int(self.cleaned_data['page'])
+        page = self.cleaned_data['page']
         if not page:
             return 1
         return page
