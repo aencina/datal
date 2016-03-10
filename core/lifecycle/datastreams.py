@@ -8,6 +8,7 @@ from core.lib.datastore import *
 from core.exceptions import IllegalStateException, DataStreamNotFoundException
 from core.daos.datastreams import DataStreamDBDAO, DatastreamSearchDAOFactory
 from .visualizations import VisualizationLifeCycleManager
+from redis import Redis
 
 
 logger = logging.getLogger(__name__)
@@ -345,6 +346,10 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             else:
                 self._update_last_revisions()
         else:
+
+            # limpiamos el cache antes de salvar el cambio
+            self.__clean_cache(self.datastream_revision)
+
             # Actualizo sin el estado
             self.datastream_revision = DataStreamDBDAO().update(
                 self.datastream_revision,
@@ -367,6 +372,30 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
         self._log_activity(ActionStreams.EDIT)
         return self.datastream_revision
+
+    def __clean_cache(self, revision):
+        """Elimina el recurso de redis
+        :param fields:
+        :return:
+        """
+        reader = Redis(host=settings.REDIS_READER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
+        writer = Redis(host=settings.REDIS_WRITER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
+        
+        try:
+            writer.delete(revision.id)
+        except:
+            if settings.DEBUG: logger.warning("_clean_cache: no existe id: %s" % revision.id)
+        else:
+            if settings.DEBUG: logger.info("_clean_cache: cleaned id: %s" % revision.id)
+
+        keys = reader.keys(str(revision.id)+"::*")
+        for key in keys:
+            try:
+                writer.delete(key)
+            except:
+                if settings.DEBUG: logger.warning("_clean_cache: no existe key: %s" % key)
+            else:
+                if settings.DEBUG: logger.info("_clean_cache: cleaned key: %s" % key)
 
     def _move_childs_to_status(self, status=StatusChoices.PENDING_REVIEW):
 
