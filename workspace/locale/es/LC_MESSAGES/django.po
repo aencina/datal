@@ -2543,6 +2543,9 @@ msgstr "Nuevo conjunto de datos"
 msgid "APP-ADDNEWDATAVIEW-TEXT"
 msgstr "Nueva vista"
 
+msgid "APP-ADDNEWKPI-TEXT"
+msgstr "Nueva metrica"
+
 msgid "APP-LASTPUBLISHDATE-TEXT"
 msgstr "Última versión publicada:"
 

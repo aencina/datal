@@ -782,6 +782,9 @@ msgstr "Categoría duplicada"
 msgid "APP-KPI-TEXT"
 msgstr "Metricas"
 
+msgid "APP-ADDNEWKPI-TEXT"
+msgstr "Nueva Metrica"
+
 # —————————— Exceptions
 msgid "EXCEPTION-ACTION-GENERIC"
 msgstr "Si el problema persiste contactarnos."
