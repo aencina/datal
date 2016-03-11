@@ -8,6 +8,7 @@ from core.exceptions import IllegalStateException
 from core.lib.datastore import *
 from core.models import User
 from core.cache import Cache
+from redis import Redis
 
 
 class AbstractLifeCycleManager():
@@ -91,6 +92,30 @@ class AbstractLifeCycleManager():
                                           resource_title=resource_title, 
                                           action_id=action_id, 
                                           resource_category=resource_category)
+
+    def clean_cache(self):
+        """Elimina el recurso de redis
+        :param fields:
+        :return:
+        """
+        reader = Redis(host=settings.REDIS_READER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
+        writer = Redis(host=settings.REDIS_WRITER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
+        
+        try:
+            writer.delete(self.revision.id)
+        except:
+            if settings.DEBUG: logger.warning("_clean_cache: no existe id: %s" % self.revision.id)
+        else:
+            if settings.DEBUG: logger.info("_clean_cache: cleaned id: %s" % self.revision.id)
+
+        keys = reader.keys(str(self.revision.id)+"::*")
+        for key in keys:
+            try:
+                writer.delete(key)
+            except:
+                if settings.DEBUG: logger.warning("_clean_cache: no existe key: %s" % key)
+            else:
+                if settings.DEBUG: logger.info("_clean_cache: cleaned key: %s" % key)
 
     @abstractmethod
     def _update_last_revisions(self):

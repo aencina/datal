@@ -8,7 +8,6 @@ from core.lib.datastore import *
 from core.exceptions import IllegalStateException, DataStreamNotFoundException
 from core.daos.datastreams import DataStreamDBDAO, DatastreamSearchDAOFactory
 from .visualizations import VisualizationLifeCycleManager
-from redis import Redis
 
 
 logger = logging.getLogger(__name__)
@@ -58,6 +57,12 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
                 datastream_revision=self.datastream_revision,
                 language=self.datastream.user.language
             )
+
+        # compatibilidad con un lifecycle unico que use internamente
+        # las variables resource y revision en vez de especializarse
+        # con un tipoderecurso_
+        self.resource=self.datastream
+        self.revision=self.datastream_revision
 
     def create(self, allowed_states=CREATE_ALLOWED_STATES, **fields):
         """ Create a new DataStream """
@@ -348,7 +353,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         else:
 
             # limpiamos el cache antes de salvar el cambio
-            self.__clean_cache(self.datastream_revision)
+            self.clean_cache()
 
             # Actualizo sin el estado
             self.datastream_revision = DataStreamDBDAO().update(
@@ -372,31 +377,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
         self._log_activity(ActionStreams.EDIT)
         return self.datastream_revision
-
-    def __clean_cache(self, revision):
-        """Elimina el recurso de redis
-        :param fields:
-        :return:
-        """
-        reader = Redis(host=settings.REDIS_READER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
-        writer = Redis(host=settings.REDIS_WRITER_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
-        
-        try:
-            writer.delete(revision.id)
-        except:
-            if settings.DEBUG: logger.warning("_clean_cache: no existe id: %s" % revision.id)
-        else:
-            if settings.DEBUG: logger.info("_clean_cache: cleaned id: %s" % revision.id)
-
-        keys = reader.keys(str(revision.id)+"::*")
-        for key in keys:
-            try:
-                writer.delete(key)
-            except:
-                if settings.DEBUG: logger.warning("_clean_cache: no existe key: %s" % key)
-            else:
-                if settings.DEBUG: logger.info("_clean_cache: cleaned key: %s" % key)
-
     def _move_childs_to_status(self, status=StatusChoices.PENDING_REVIEW):
 
         with transaction.atomic():

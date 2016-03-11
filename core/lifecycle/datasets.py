@@ -87,6 +87,9 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             self.dataseti18n = DatasetI18n.objects.get(dataset_revision=self.dataset_revision,
                                                        language=self.dataset.user.language)
 
+        self.resource=self.dataset
+        self.revision=self.dataset_revision
+
     def create(self, collect_type='index', allowed_states=CREATE_ALLOWED_STATES, language=None, **fields):
         """ Create a new Dataset
         :param fields:
@@ -394,6 +397,9 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
                 **fields
             )
 
+        # quitamos del cache a sus hijos DS en DRAFT
+        self._clean_childs_cache()
+
         self._log_activity(ActionStreams.EDIT)
         return self.dataset_revision
 
@@ -442,6 +448,17 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
 
             for revision in visualization_revs:
                 VisualizationLifeCycleManager(self.user, visualization_revision_id=revision.id).save_as_status(status)
+
+    def _clean_childs_cache(self):
+        """
+        Se quitan los DS en DRAFT del cache
+        :return:
+        """
+        datastream_revisions = DataStreamRevision.objects.filter(dataset=self.dataset.id, status=StatusChoices.DRAFT)
+
+        for datastream_revision in datastream_revisions:
+            DatastreamLifeCycleManager(self.user, datastream_revision_id=datastream_revision.id).clean_cache()
+
 
     def save_as_status(self, status=StatusChoices.DRAFT):
         self.dataset_revision.clone(status)
