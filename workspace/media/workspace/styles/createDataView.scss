@@ -202,3 +202,17 @@ td.hot-sel-header.hot-sel-cell{
 		}
 	}
 }
+
+/* Cómo seleccionar */
+  .helpTips{
+    float:left;width:100%;
+
+    div:first-child{margin-top:15px;}
+    div{
+      float:left;width:100%;
+
+      p.select{padding-top:25px;}
+      p.column{padding-top:61px;}
+      p.row{padding-top:42px;}
+    }
+  }
