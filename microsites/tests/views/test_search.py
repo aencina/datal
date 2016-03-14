@@ -42,5 +42,5 @@ class HomeViewTestCase(SimpleTestCase):
         self.assertEqual(resp.status_code, 200)
 
         # invlid form       
-        resp = self.client.get('/search/?page=18', follow=True, SERVER_NAME="microsites.dev:8080")
+        resp = self.client.get('/search/?tag=--', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 404)
