@@ -1,5 +1,5 @@
 {% extends 'base_workspace.html' %}
-{% load i18n extra_tags components compress staticfiles sass_tags plugins%}
+{% load i18n extra_tags components compress staticfiles sass_tags plugins plugins_tags%}
 
 {% block meta %}
 {% compress css %}
@@ -28,6 +28,7 @@
 				<li><a  href="{% url 'manageDatasets.create_type' 'file' %}" class="button primary" title="{% trans 'APP-UPLOAD-FILE-TEXT' %}">{% trans 'APP-UPLOAD-FILE-TEXT' %}</a></li>
 				<li><a href="{% url 'manageDatasets.create_type' 'url' %}" class="button primary" title="{% trans 'APP-WEBSITE-TEXT' %}">{% trans 'APP-WEBSITE-TEXT' %}</a></li>
 				<li><a href="{% url 'manageDatasets.create_type' 'webservice' %}" class="button primary" title="{% trans 'APP-WEBSERVICE-TEXT' %}">{% trans 'APP-WEBSERVICE-TEXT' %}</a></li>
+				{% plugins_call 'workspace_custom_collect_type_pulldown' %}
 			</ul>
 		</div>
 		{% endif %}
