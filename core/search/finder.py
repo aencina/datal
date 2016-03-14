@@ -161,7 +161,7 @@ class Finder:
         data = dict (id=id, revision_id=document['datastream__revision_id'], title=title, description=document['description'], parameters=parameters,
                              tags=[ tag.strip() for tag in document['tags'].split(',') ], permalink=permalink,
                              type=document['type'], category=document['category_id'], category_name=document['category_name'], guid=document['docid'].split("::")[1]
-                             ,end_point=document['end_point'], timestamp=document['timestamp'], owner_nick=document['owner_nick'])
+                             ,end_point=document['end_point'], created_at=document['created_at'], owner_nick=document['owner_nick'])
 
         return data
 
@@ -179,9 +179,9 @@ class Finder:
 
         dataset = dict(id=dataset_id, revision_id=document['datasetrevision_id'], title=title, description=document['description'], parameters=parameters,
                           tags=[ tag.strip() for tag in document['tags'].split(',') ], permalink=permalink,
-                          #type=document['type'],end_point=document['end_point'], timestamp=document['timestamp'])
+                          #type=document['type'],end_point=document['end_point'], created_at=document['created_at'])
                              type=document['type'], category=document['category_id'], category_name=document['category_name'], guid=document['docid'].split("::")[1]
-                             ,end_point=document['end_point'], timestamp=document['timestamp'], owner_nick=document['owner_nick'])
+                             ,end_point=document['end_point'], created_at=document['created_at'], owner_nick=document['owner_nick'])
         return dataset
 
     def get_visualization_dictionary(self, document):
@@ -205,7 +205,7 @@ class Finder:
                              parameters=parameters, tags=[tag.strip() for tag in document['tags'].split(',')],
                              permalink=permalink,
                              type=document['type'], category=document['category_id'], category_name=document['category_name'], guid=document['docid'].split("::")[1]
-                             ,end_point=document.get('end_point', None), timestamp=document['timestamp'], owner_nick=document['owner_nick'])
+                             ,end_point=document.get('end_point', None), created_at=document['created_at'], owner_nick=document['owner_nick'])
         return visualization
 
     def _get_query(self, values, boolean_operator = 'AND'):

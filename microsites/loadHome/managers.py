@@ -11,7 +11,7 @@ class HomeFinder(elastic.ElasticsearchFinder):
         title = doc['title']
         slug = slugify(title)
         permalink = reverse('viewDataStream.view', kwargs={'id': id, 'slug': slug})
-        created_at = datetime.datetime.fromtimestamp(int(doc['timestamp']))
+        created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
 
         return dict(
             id=id,
@@ -30,7 +30,7 @@ class HomeFinder(elastic.ElasticsearchFinder):
         slug = slugify(title)
         permalink = reverse('manageDatasets.view', urlconf='microsites.urls', kwargs={'dataset_id': dataset_id,
                                                                                                'slug': slug})
-        created_at = datetime.datetime.fromtimestamp(int(doc['timestamp']))
+        created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
 
         return dict(id=dataset_id
                     , title = title
@@ -47,7 +47,7 @@ class HomeFinder(elastic.ElasticsearchFinder):
         title = doc['title']
         slug = slugify(title)
         permalink = reverse('chart_manager.view', kwargs={'id': id, 'slug': slug})
-        created_at = datetime.datetime.fromtimestamp(int(doc['timestamp']))
+        created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
 
         return dict(id=id
                     , title = title

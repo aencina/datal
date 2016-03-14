@@ -470,7 +470,7 @@ class DatastreamSearchDAO():
                      'tags' : ','.join(tags),
                      'account_id' : self.datastream_revision.user.account.id,
                      'parameters': "",
-                     'timestamp': int(time.mktime(self.datastream_revision.created_at.timetuple())),
+                     'created_at': int(time.mktime(self.datastream_revision.created_at.timetuple())),
                      'hits': 0,
                      'web_hits': 0,
                      'api_hits': 0,
