@@ -633,6 +633,7 @@ class VisualizationSearchDAO():
                      'tags' : ','.join(tags),
                      'account_id' : self.visualization_revision.user.account.id,
                      'parameters': "",
+                     'timestamp': 0,
                      'created_at': int(time.mktime(self.visualization_revision.created_at.timetuple())),
                      'hits': 0,
                      'web_hits': 0,

@@ -445,6 +445,7 @@ class DatasetSearchIndexDAO():
                      'hits': 0,
                      'web_hits': 0,
                      'api_hits': 0,
+                     'timestamp': 0,
                      'created_at': int(time.mktime(self.dataset_revision.created_at.timetuple())),
                      'end_point': self.dataset_revision.end_point,
                     },
