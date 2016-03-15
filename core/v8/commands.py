@@ -69,12 +69,16 @@ class EngineCommand(object):
                         mimetype = '{0}; {1}'.format(response.info().gettype(), response.info().getplist()[0])
                     else:
                         mimetype = 'application; json'
-
-                    # obtenemos el json para sacar el ftimestamp
-                    aux = json.loads(ret)
-                    if "fTimestamp" in aux.keys():
-                        if settings.DEBUG: self.logger.info('Salvamos el fTimestamp de %s (endpoint: %s)' % (aux["fTimestamp"],self.endpoint))
-                        print aux["fTimestamp"]
+                
+                    try:
+                        # obtenemos el json para sacar el ftimestamp
+                        aux = json.loads(ret)
+                        if "fTimestamp" in aux.keys():
+                            if settings.DEBUG: self.logger.info('Salvamos el fTimestamp de %s (endpoint: %s)' % (aux["fTimestamp"],self.endpoint))
+                            print aux["fTimestamp"]
+                    except ValueError:
+                        if settings.DEBUG: self.logger.warning('ret no es un json')
+                
                     return ret, mimetype
 
             raise IOError('Error code %d at %s+%s' % (response.getcode(), url, str(params)))
