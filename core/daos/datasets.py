@@ -445,7 +445,8 @@ class DatasetSearchIndexDAO():
                      'hits': 0,
                      'web_hits': 0,
                      'api_hits': 0,
-                     'timestamp': int(time.mktime(self.dataset_revision.created_at.timetuple())),
+                     'timestamp': 0,
+                     'created_at': int(time.mktime(self.dataset_revision.created_at.timetuple())),
                      'end_point': self.dataset_revision.end_point,
                     },
                 'categories': {'id': unicode(category.category_id), 'name': category.name}

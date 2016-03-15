@@ -448,6 +448,10 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     # https for microsites or api
     ('account.microsite.https', 'account.microsite.https'),
     ('account.api.https', 'account.api.https'),
+
+    # office365
+    ('account.office365.authcode', 'account.office365.authcode'),  
+    ('account.office365.refreshtoken', 'account.office365.refreshtoken'),   
 )
 
 API_APPLICATION_TYPE_CHOICES = (

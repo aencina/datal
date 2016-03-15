@@ -26,7 +26,7 @@ class ResourceSerializer(serializers.Serializer):
         self.tryKeysOnDict(answer, 'description', obj, ['description'])
         self.tryKeysOnDict(answer, 'user', obj, ['author', 'owner_nick'])
         self.tryKeysOnDict(answer, 'tags', obj, ['tags'])
-        self.tryKeysOnDict(answer, 'created_at', obj, ['created_at', 'timestamp'])
+        self.tryKeysOnDict(answer, 'created_at', obj, ['created_at'])
         self.tryKeysOnDict(answer, 'endpoint', obj, ['endpoint', 'end_point'])
         self.tryKeysOnDict(answer, 'link', obj, ['permalink'])
         self.tryKeysOnDict(answer, 'category_name', obj, ['category_name'])

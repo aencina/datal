@@ -180,7 +180,7 @@ var ModalView = Backbone.View.extend({
 
     onClickCancel: function (e) {
         this.collection.revert();
-        this.onClickDone();
+        //this.onClickDone();
         this.close();
     },
 

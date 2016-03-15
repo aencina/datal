@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 class ElasticsearchFinder(Finder):
 
-    order_by = "timestamp:desc,title_lower_sort:asc,_score"
+    order_by = "created_at:desc,title_lower_sort:asc,_score"
 
     def search(self, *args, **kwargs):
 
@@ -33,7 +33,7 @@ class ElasticsearchFinder(Finder):
         elif self.order and self.order=='api_top':
             self.sort = "api_hits:%s" % ("asc" if reverse else "desc")
         elif self.order and self.order=='last':
-            self.sort =  "timestamp:%s" % ("asc" if reverse else "desc")
+            self.sort =  "created_at:%s" % ("asc" if reverse else "desc")
         elif self.order and self.order=='title':
             self.sort = "title_lower_sort:%s" % ("asc" if reverse else "desc")
         elif self.order:

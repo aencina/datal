@@ -5,13 +5,12 @@ from core.http import get_domain_with_protocol
 from django.core.cache import cache
 from django.conf import settings
 from core.v8.factories import *
+import json
 
 from django.forms.formsets import formset_factory
 import memcache
 import urllib
 import logging
-
-
 
 class EngineCommand(object):
     endpoint = 'defalt_endpoint'
@@ -70,6 +69,16 @@ class EngineCommand(object):
                         mimetype = '{0}; {1}'.format(response.info().gettype(), response.info().getplist()[0])
                     else:
                         mimetype = 'application; json'
+                
+                    try:
+                        # obtenemos el json para sacar el ftimestamp
+                        aux = json.loads(ret)
+                        if "fTimestamp" in aux.keys():
+                            if settings.DEBUG: self.logger.info('Salvamos el fTimestamp de %s (endpoint: %s)' % (aux["fTimestamp"],self.endpoint))
+                            print aux["fTimestamp"]
+                    except ValueError:
+                        if settings.DEBUG: self.logger.warning('ret no es un json')
+                
                     return ret, mimetype
 
             raise IOError('Error code %d at %s+%s' % (response.getcode(), url, str(params)))
