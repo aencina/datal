@@ -48,6 +48,7 @@ class DependencyInjector(object):
             request.session['django_language'] = language
             request.auth_manager.language = language
 
+        # TODO: Esto debería ir en una url y hacer el redirect
         if settings.DOMAINS['microsites'] == domain:
             if request.META.get('REQUEST_URI') == '/':
                 return redirect(get_domain_with_protocol('microsites') + "/home")
