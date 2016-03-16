@@ -19,8 +19,7 @@ def custom_pages(request, page):
     try:
         preferences = request.account.get_preferences()
         url = preferences['account_url']
-        cv = CustomView.as_view(template_name="custom/{0}/{1}.html".format(url, page), extra_content=locals())
-        return cv(request)
+        return render_to_response("custom/{0}/{1}.html".format(url, page), locals())
     except TemplateDoesNotExist:
         raise Http404()
 
@@ -44,11 +43,7 @@ def get_js(request, url_name, id):
 
 def get_key(url_name):
     logger = logging.getLogger(__name__)
-    
-    if not url_name:
-        logger.error('No url_name')
-        raise Http404
-
+  
     #TODO encontrar la forma de llevar esto al plugin en ds.detail y en chart.detail hay cosas de plugins.
     if url_name in ['viewDataStream.view', 'viewCustomViews.customviews_list', 'viewCustomViews.save', 'viewCustomViews.view']:
         key = 'ds.detail'
@@ -104,8 +99,9 @@ def get_new_css(request, url_name, id):
         # Joaco!, remove when the branding migration ...
         default_chart_css = '.chartBox .chartTitle a:hover{background:#ccc !important;} .chartBox .chartTitle a:hover{border-color:#999 !important;} .chartBox .chartTitle a:hover{color:#fff !important;}'
         return HttpResponse(default_chart_css, content_type='text/css')
-    except AttributeError:
-        return HttpResponse('', content_type='text/css')
+    except AttributeError: # pragma: no cover.
+        # TODO: No se como hacer para levantar este reror
+        return HttpResponse('', content_type='text/css') # pragma: no cover.
 
 
 def is_live(request):
@@ -159,13 +155,3 @@ def get_catalog_xml(request):
         resources.append(ds)
 
     return render_to_response('catalog.xml', locals(), mimetype='application/xml')
-
-
-class CustomView(TemplateView):
-
-    extra_content = {}
-
-    def get_context_data(self, **kwargs):
-        context = super(TemplateView, self).get_context_data(**kwargs)
-        context.update(self.extra_content)
-        return context
