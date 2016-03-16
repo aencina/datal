@@ -2378,7 +2378,7 @@ msgid "APP-OVERLAY-DELETE-VISUALIZATION-TEXT"
 msgstr "This action cannot be undone. Please, confirm how to proceed:"
 
 msgid "APP-DELETE-REVISION-TEXT"
-msgstr "Delete actual revision"
+msgstr "Delete current revision"
 
 msgid "APP-DELETE-RESOURCE-TEXT"
 msgstr "Delete all revisions"
@@ -2483,7 +2483,7 @@ msgid "APP-OVERLAY-BULK-DELETE-DATASET-TEXT"
 msgstr "These actions cannot be undone. Please, confirm how to proceed:"
 
 msgid "APP-DELETE-BULK-REVISIONS-TEXT"
-msgstr "Delete actual revision"
+msgstr "Delete current revision"
 
 msgid "APP-DELETE-BULK-RESOURCES-TEXT"
 msgstr "Delete all revisions"

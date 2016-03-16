@@ -33,7 +33,7 @@ class HomeViewTestCase(SimpleTestCase):
     def setUp(self):
         call_command('loaddata', *self.fixtures)
         
-    def test_chart_coverage(self):
+    def test_visualization_coverage(self):
         # Basic path
         resp = self.client.get('/visualizations/1736/-', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 200)
@@ -46,7 +46,7 @@ class HomeViewTestCase(SimpleTestCase):
         resp = self.client.get('/visualizations/1742/-', follow=True, SERVER_NAME="opencity.site.demo.junar.com")
         self.assertEqual(resp.status_code, 200)
     
-    def test_embed_coverage(self):
+    def test_visualization_embed_coverage(self):
         # Basic path
         resp = self.client.get('/visualizations/embed/NOMIN-DE-INICI-DE-INVER/', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 200)
@@ -58,3 +58,45 @@ class HomeViewTestCase(SimpleTestCase):
         # mapchart
         #resp = self.client.get('/visualizations/embed/MAP-OF-TRAFF-ACCID/-', follow=True, SERVER_NAME="opencity.site.demo.junar.com")
         #self.assertEqual(resp.status_code, 200) 
+
+    def test_datastream_coverage(self):
+        # Basic path
+        resp = self.client.get('/datastreams/43445/-', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+    
+    def test_datastream_embed_coverage(self):
+        # Basic path
+        resp = self.client.get('/datastreams/embed/OPERA-DEL-EN-MILLO-DE/', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        # not found 404
+        resp = self.client.get('/datastreams/embed/ASDFJASDFAS/', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+    def test_dataset_coverage(self):
+        # Basic path
+        resp = self.client.get('/datasets/61634/-', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+    
+    def test_dataset_download_coverage(self):
+        # url descarga
+        resp = self.client.get('/datasets/72539-a.download/', SERVER_NAME="opencity.site.demo.junar.com")
+        self.assertEqual(resp.status_code, 302)
+
+        # url no descarga
+        resp = self.client.get('/datasets/72545-a.download/', SERVER_NAME="opencity.site.demo.junar.com")
+        self.assertEqual(resp.status_code, 403)
+
+        # Self-publish descarga
+        with self.settings(USE_DATASTORE=''):
+            resp = self.client.get('/datasets/72543-a.download/', SERVER_NAME="opencity.site.demo.junar.com")
+            self.assertEqual(resp.status_code, 200)
+
+        # Self-publish No descarga
+        resp = self.client.get('/datasets/72537-a.download/', SERVER_NAME="opencity.site.demo.junar.com")
+        self.assertEqual(resp.status_code, 403)
+
+        # not found 404
+        resp = self.client.get('/datasets/23414231-a.download', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 404)
+        

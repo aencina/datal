@@ -142,5 +142,17 @@
         "dataset_revision": 79908, 
         "notes": ""
     }
+},
+{
+    "pk": 79909, 
+    "model": "core.dataseti18n", 
+    "fields": {
+        "description": "Georeferenced data on traffic accidents registered by the city.", 
+        "language": "en", 
+        "title": "Traffic Incidents", 
+        "created_at": "2015-11-10T10:53:50", 
+        "dataset_revision": 79909, 
+        "notes": ""
+    }
 }
 ]
