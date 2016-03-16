@@ -11,6 +11,7 @@ from core.http import get_domain_with_protocol
 from core.exceptions import *
 from microsites.exceptions import *
 from core.models import AccountAnonymousUser
+from django.http import HttpResponseForbidden
 
 class DependencyInjector(object):
     """ Gets the current site & account """
@@ -24,7 +25,7 @@ class DependencyInjector(object):
         except Account.DoesNotExist:
             logger = logging.getLogger(__name__)
             logger.error('The account do not exists: %s' % domain)
-            raise AccountDoesNotExist
+            return HttpResponseForbidden('') 
 
         request.account = account
 
