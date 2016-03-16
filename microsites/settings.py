@@ -19,6 +19,7 @@ MIDDLEWARE_CLASSES += (
     'microsites.middlewares.ioc.DependencyInjector',
     'microsites.middlewares.catch.ExceptionManager',
     'django.middleware.locale.LocaleMiddleware',
+    'microsites.middlewares.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware'
 )
 
