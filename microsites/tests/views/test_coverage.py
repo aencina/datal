@@ -138,7 +138,7 @@ class CommonViewTestCase(SimpleTestCase):
         self.assertEqual(resp.status_code, 200)
 
         # no existe
-        resp = self.client.get('/a/asdfasdf/', follow=True, SERVER_NAME="junarprueba.site.staging.junar.com")
+        resp = self.client.get('/a/asdfasdf', follow=True, SERVER_NAME="junarprueba.site.staging.junar.com")
         self.assertEqual(resp.status_code, 404)
 
     def test_is_live_coverage(self):
@@ -211,3 +211,60 @@ class CommonViewTestCase(SimpleTestCase):
         # not found 404
         resp = self.client.get('/datasets/23414231-a.download', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 404)
+
+    def test_rest_datastream_coverage(self):
+        # Basic path
+        resp = self.client.get('/rest/datastreams/61453/data.json?page=0&rp=50&sortname=&sortorder=asc&query=', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        # Basic path
+        resp = self.client.get('/rest/datastreams/61453/data.grid?page=0&rp=50&sortname=&sortorder=asc&query=', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+    def test_rest_visualization_coverage(self):
+        # Basic path
+        resp = self.client.get('/rest/charts/5608/data.json', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        # maps
+        resp = self.client.get('/rest/maps/5608/data.json', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+
+    def test_branded_coverage(self):
+        # Basic path
+        resp = self.client.get('/branded/css/viewDataStream.view/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/js/viewDataStream.embed/1.js', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/css/search.search/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/css/chart_manager.embed/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/js/loadHome.load/1.js', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/css/manageDeveloper.filter/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/css/chart_manager.view/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/js/viewDashboards.view/1.js', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/css/manageDatasets.view/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get('/branded/css/asdfasf/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp.status_code, 404)
+
+        resp2 = self.client.get('/branded/newcss/manageDatasets.view/1.css', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(resp2.status_code, 200)
+
+        resp2 = self.client.get('/branded/newcss/manageDatasets.view/1.css', follow=True, SERVER_NAME="junarprueba.site.staging.junar.com")
+        self.assertEqual(resp2.status_code, 200)
