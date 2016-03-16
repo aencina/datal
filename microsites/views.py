@@ -139,13 +139,7 @@ def get_catalog_xml(request):
 
     resources = []
     for datastream_revision_id, in datastreams_revision_ids:
-        try:
-            ds = DataStreamDBDAO().get(user, datastream_revision_id=datastream_revision_id)
-        except:
-            logger.error('catalog ERROR %s %s' % (datastream_revision_id, language))
-            continue
-
-        print ds
+        ds = DataStreamDBDAO().get(user, datastream_revision_id=datastream_revision_id)
         permalink = reverse('viewDataStream.view', urlconf='microsites.urls', kwargs={'id': ds['resource_id'], 'slug': ds['slug']}) 
         ds['link'] = '{}://{}{}'.format(msprotocol, domain, permalink)
         ds['export_csv_link'] = '{}://{}{}'.format(msprotocol, domain,reverse('datastreams-data', kwargs={'id': ds['resource_id'],'format':'csv'}))
@@ -158,11 +152,7 @@ def get_catalog_xml(request):
             status=StatusChoices.PUBLISHED
         )
         for visualization_revision_id, in visualization_revision_ids:
-            try:
-                vz = VisualizationDBDAO().get(user, visualization_revision_id=visualization_revision_id)
-            except:
-                logger.error('catalog VIZ ERROR %s %s' % (visualization_revision_id, language))
-                continue
+            vz = VisualizationDBDAO().get(user, visualization_revision_id=visualization_revision_id)
             permalink = reverse('chart_manager.view', urlconf='microsites.urls', kwargs={'id': vz['resource_id'], 'slug': vz['slug']})
             vz['link'] = msprotocol + '://' + domain + permalink
             ds['visualizations'].append(vz)
