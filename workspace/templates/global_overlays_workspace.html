@@ -43,3 +43,26 @@
 	</div>
 </div>
 {% endoverlay %}
+
+<!-- TODO vbk: Move to KPI plugin -->
+<!-- Add KPI -->
+{% overlay id_addKpi %}
+<div class="In clearfix">
+	<h4>{% trans 'APP-SELECT-KPI-TEXT' %}</h4>
+	<div class="ov-content">
+		<p>{% trans 'APP-ADD-KPI-HINT' %}</p>
+	</div>
+	<section>
+		<div id="kpi_list">
+			<div id="kpi_grid"></div>
+		</div>
+	</section>
+	<div class="ov-bottom">
+		<div id="id_filter_kpi"></div>
+		<!-- Pagination -->
+		<div class="pagination FR clearfix" id="id_pagination_kpi">
+			<div id="kpi_paginator"></div>
+		</div>
+	</div>
+</div>
+{% endoverlay %}
