@@ -19,6 +19,7 @@ MIDDLEWARE_CLASSES += (
     'microsites.middlewares.ioc.DependencyInjector',
     'microsites.middlewares.catch.ExceptionManager',
     'django.middleware.locale.LocaleMiddleware',
+    'microsites.middlewares.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware'
 )
 
@@ -67,6 +68,7 @@ except ImportError:
     pass
 
 
+# TODO Esto no deberia ir en salt?
 # Agregamos la config para usar cache por pagina
 if not DEBUG:
     CACHES['pages']={
