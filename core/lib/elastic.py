@@ -337,6 +337,20 @@ class ElasticsearchIndex():
 
         return [documents_deleted, documents_not_deleted]
 
+    def search(self, doc_type, query, fields="*" ):
+        """Search by query
+        :param doc_type:
+        :param query:
+        :param fields:
+        """
+
+        try:
+            return self.es.search(index=settings.SEARCH_INDEX['index'], doc_type=doc_type, body=query, _source_include=fields)
+        except RequestError,e:
+            raise RequestError(e)
+        except NotFoundError,e:
+            raise NotFoundError,(e)
+
     def update(self, document):
         """ Update by id
         :param document:

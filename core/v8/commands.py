@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from core.http import get_domain_with_protocol
+from core.lib.elastic import ElasticsearchIndex
 from django.core.cache import cache
 from django.conf import settings
 from core.v8.factories import *
@@ -70,15 +71,26 @@ class EngineCommand(object):
                     else:
                         mimetype = 'application; json'
                 
-                    try:
-                        # obtenemos el json para sacar el ftimestamp
-                        aux = json.loads(ret)
-                        if "fTimestamp" in aux.keys():
-                            if settings.DEBUG: self.logger.info('Salvamos el fTimestamp de %s (endpoint: %s)' % (aux["fTimestamp"],self.endpoint))
-                            print aux["fTimestamp"]
-                    except ValueError:
-                        if settings.DEBUG: self.logger.warning('ret no es un json')
-                
+
+                    # solo si es un json
+                    if mimetype.split(";")[0] == 'application/json':
+                        try:
+                            # obtenemos el json para sacar el ftimestamp
+                            aux = json.loads(ret)
+                            if "fTimestamp" in aux.keys():
+     
+                                pId = filter(None, map(lambda x: x[0]=='pId' and x[1], query))[0]
+                                if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
+     
+                                try:
+                                    es = ElasticsearchIndex()
+                                    doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": pId}}}, fields="_id")['hits']['hits'][0]['_id']
+                                    es.update({'doc': {'fields': {'timestamp': aux['fTimestamp']}}, 'docid': doc_id, 'type': "ds"})
+                                except IndexError:
+                                    self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado')
+                        except ValueError:
+                            self.logger.error('[ENGINE COMMAND] ret no es un json')
+                 
                     return ret, mimetype
 
             raise IOError('Error code %d at %s+%s' % (response.getcode(), url, str(params)))
