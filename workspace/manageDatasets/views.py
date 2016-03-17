@@ -304,7 +304,7 @@ def create(request, collect_type='index'):
         if form.is_valid():
             lifecycle = DatasetLifeCycleManager(user=request.user)
             dataset_revision = lifecycle.create(collect_type=request.POST.get('collect_type'), language=language,
-                                                **form.cleaned_data)
+                                                account_id=account_id, **form.cleaned_data)
 
             # TODO: Create a CreateDatasetResponse object
             data = dict(status='ok', messages=[ugettext('APP-DATASET-CREATEDSUCCESSFULLY-TEXT')],
