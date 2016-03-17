@@ -105,7 +105,11 @@ def isDate(value):
 @register.filter(name='jreplace', arg="")
 def jreplace(value, arg):
     vals = arg.split("|")
-    return value.replace(vals[0], vals[1])
+    if type(value) != str and type(value) != unicode: # fail on integer and float
+        value = str(value)
+        
+    ret = value.replace(vals[0], vals[1])    
+    return ret
 
 # ---------------------- GRAVES
 # import re
