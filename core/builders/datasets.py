@@ -2,6 +2,7 @@
 import logging
 from django.conf import settings
 from core.choices import SourceImplementationChoices
+from core.plugins_point import DatalPluginPoint
 
 logger = logging.getLogger(__name__)
 
@@ -9,15 +10,17 @@ logger = logging.getLogger(__name__)
 class DatasetImplBuilderWrapper:
 
     def __init__(self, **fields):
+        self.builder = DefaultImplBuilder(**fields)
         if int(fields['impl_type']) == SourceImplementationChoices.REST:
             self.builder = RESTImplBuilder(**fields)
         elif int(fields['impl_type']) == SourceImplementationChoices.SOAP:
             self.builder = SOAPImplBuilder(**fields)
         else:
-            self.builder = DefaultImplBuilder(**fields)
+            for impl_builder in DatalPluginPoint.get_active_with_att('impl_builder'):
+                if int(fields['impl_type']) == impl_builder.impl_type:
+                    self.builder = impl_builder(**fields)
 
     def build(self):
-
         return self.builder is None and '' or self.builder.build()
 
 

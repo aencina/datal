@@ -456,6 +456,11 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     # office365
     ('account.office365.authcode', 'account.office365.authcode'),  
     ('account.office365.refreshtoken', 'account.office365.refreshtoken'),   
+
+    # Analytics
+    ('account.ga.tracking', 'account.ga.tracking'),   
+    ('account.ga', 'account.ga'),   
+    
 )
 
 API_APPLICATION_TYPE_CHOICES = (

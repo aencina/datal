@@ -68,6 +68,7 @@ except ImportError:
     pass
 
 
+# TODO Esto no deberia ir en salt?
 # Agregamos la config para usar cache por pagina
 if not DEBUG:
     CACHES['pages']={
