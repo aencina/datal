@@ -89,6 +89,13 @@ def update_list(request):
     preferences     = account.get_preferences()
     language        = request.auth_manager.language
 
+    resources = ["ds", "vz"]
+    resources.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
+        
+    if account.get_preference("account.dataset.show"):
+        resources.append("dt")
+
+
     form = QueryDatasetForm(request.POST)
     if form.is_valid():
         query = form.cleaned_data.get('search')
@@ -102,13 +109,6 @@ def update_list(request):
 
         order_type = form.cleaned_data.get('order_type')
         reverse = order_type.lower() == 'ascending'
-
-
-        resources = ["ds", "vz"]
-        resources.extend([finder.doc_type for finder in DatalPluginPoint.get_active_with_att('finder')])
-    
-        if account.get_preference("account.dataset.show"):
-            resources.append("dt")
 
         category_filters = form.cleaned_data.get('category_filters')
         if category_filters:
@@ -127,7 +127,8 @@ def update_list(request):
 
             typef = form.cleaned_data.get('type_filters')
             if typef:
-                resources = [typef]
+                if typef in resources:
+                    resources = [typef]
 
             queryset = FinderQuerySet(FinderManager(HomeFinder), 
                 query = query,
@@ -143,9 +144,12 @@ def update_list(request):
             all_resources = form.cleaned_data.get('all')
             if not all_resources:
                 resources_type = form.cleaned_data.get('type')
-                resources = []
+                aux = []
                 for resource_name in resources_type.split(','):
-                    resources.append(resource_name)
+                    if resource_name in resources:
+                        aux.append(resource_name)
+
+                resources=aux
 
             queryset = FinderQuerySet(FinderManager(HomeFinder), 
                 category_filters= category_filters,
