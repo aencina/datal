@@ -762,7 +762,7 @@
     "model": "core.preference", 
     "fields": {
         "account": 1, 
-        "value": "uname", 
+        "value": "datal", 
         "key": "account.bucket.name"
     }
 }
