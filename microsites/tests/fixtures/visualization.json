@@ -1,0 +1,79 @@
+[
+{
+    "pk": 1736, 
+    "model": "core.visualization", 
+    "fields": {
+        "datastream": 69645, 
+        "guid": "NOMIN-DE-INICI-DE-INVER", 
+        "user": 1647, 
+        "last_published_revision": 5605, 
+        "last_revision": 5605
+    }
+},
+{
+    "pk": 1737, 
+    "model": "core.visualization", 
+    "fields": {
+        "datastream": 69620, 
+        "guid": "IEP-PRIME-TRIME-2012-MINIS", 
+        "user": 1647, 
+        "last_published_revision": 5606, 
+        "last_revision": 5606
+    }
+},
+{
+    "pk": 1738, 
+    "model": "core.visualization", 
+    "fields": {
+        "datastream": 43445, 
+        "guid": "INGRE-DE-OPERA-DE-GOBIE", 
+        "user": 1647, 
+        "last_published_revision": 5607, 
+        "last_revision": 5607
+    }
+},
+{
+    "pk": 1739, 
+    "model": "core.visualization", 
+    "fields": {
+        "datastream": 43445, 
+        "guid": "GASTO-DE-OPERA-DE-GOBIE", 
+        "user": 1647, 
+        "last_published_revision": 5608, 
+        "last_revision": 5608
+    }
+},
+{
+    "pk": 1742,
+    "model": "core.visualization",
+    "fields": {
+        "datastream": 78703,
+        "guid": "MAP-OF-TRAFF-ACCID",
+        "user": 2,
+        "last_published_revision": 5615,
+        "last_revision": 5615
+    }
+},
+{
+    "pk": 1743,
+    "model": "core.visualization",
+    "fields": {
+        "datastream": 78706,
+        "guid": "HOW-MANY-CALLS-IS-THE",
+        "user": 2,
+        "last_published_revision": null,
+        "last_revision": 5616
+    }
+},
+{
+    "pk": 1746,
+    "model": "core.visualization",
+    "fields": {
+        "datastream": 43445,
+        "guid": "PRUEB",
+        "user": 1647,
+        "last_published_revision": 5619,
+        "last_revision": 5619
+    }
+}
+]

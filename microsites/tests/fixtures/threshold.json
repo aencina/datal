@@ -1,0 +1,99 @@
+[{
+    "pk": 1,
+    "model": "core.threshold",
+    "fields": {
+        "account": 1,
+        "description": "",
+        "limit": -1,
+        "name": "api.account_monthly_calls",
+        "account_level": null
+    }
+},
+{
+    "pk": 2,
+    "model": "core.threshold",
+    "fields": {
+        "account": 1,
+        "description": "dataset limit",
+        "limit": 500,
+        "name": "workspace.create_dataset_limit",
+        "account_level": null
+    }
+},
+{
+    "pk": 3,
+    "model": "core.threshold",
+    "fields": {
+        "account": 1,
+        "description": "Users limit",
+        "limit": 10,
+        "name": "workspace.create_user_limit",
+        "account_level": null
+    }
+},{
+    "pk": 4,
+    "model": "core.threshold",
+    "fields": {
+        "account": 5754,
+        "description": "",
+        "limit": -1,
+        "name": "api.account_monthly_calls",
+        "account_level": null
+    }
+},
+{
+    "pk": 5,
+    "model": "core.threshold",
+    "fields": {
+        "account": 5754,
+        "description": "dataset limit",
+        "limit": 500,
+        "name": "workspace.create_dataset_limit",
+        "account_level": null
+    }
+},
+{
+    "pk": 6,
+    "model": "core.threshold",
+    "fields": {
+        "account": 5754,
+        "description": "Users limit",
+        "limit": 10,
+        "name": "workspace.create_user_limit",
+        "account_level": null
+    }
+},
+{
+    "pk": 7,
+    "model": "core.threshold",
+    "fields": {
+        "account": null,
+        "description": "Datasets limit",
+        "limit": 500,
+        "name": "workspace.create_dataset_limit",
+        "account_level": 1
+    }
+},
+{
+    "pk": 8,
+    "model": "core.threshold",
+    "fields": {
+        "account": null,
+        "description": "API calls",
+        "limit": 5000,
+        "name": "api.account_monthly_calls",
+        "account_level": 1
+    }
+},
+{
+    "pk": 9,
+    "model": "core.threshold",
+    "fields": {
+        "account": null,
+        "description": "Users Limit",
+        "limit": 50,
+        "name": "workspace.create_user_limit",
+        "account_level": 1
+    }
+}
+]
