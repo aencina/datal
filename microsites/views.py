@@ -14,16 +14,6 @@ from core.http import get_domain_by_request
 from core.shortcuts import render_to_response
 from core.models import AccountAnonymousUser
 
-
-def custom_pages(request, page):
-    try:
-        preferences = request.account.get_preferences()
-        url = preferences['account_url']
-        return render_to_response("custom/{0}/{1}.html".format(url, page), locals())
-    except TemplateDoesNotExist:
-        raise Http404()
-
-
 def get_css(request, url_name, id):
     key = get_key(url_name)
     try:

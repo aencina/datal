@@ -30,6 +30,10 @@ class CommonViewTestCase(SimpleTestCase):
         '../core/fixtures/visualizationrevision.json',
     ]
 
+
+    def setUp(self):
+        call_command('loaddata', *self.fixtures)
+
     def test_home_coverage(self):
         # Basic path
         resp = self.client.get('/', follow=True, SERVER_NAME="microsites.dev:8080")
@@ -130,16 +134,6 @@ class CommonViewTestCase(SimpleTestCase):
         resp = self.client.get('/sitemap', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 200)
 
-    def setUp(self):
-        call_command('loaddata', *self.fixtures)
-
-    def test_custom_coverage(self):
-        resp = self.client.get('/a/comoUsarlo', follow=True, SERVER_NAME="junarprueba.site.staging.junar.com")
-        self.assertEqual(resp.status_code, 200)
-
-        # no existe
-        resp = self.client.get('/a/asdfasdf', follow=True, SERVER_NAME="junarprueba.site.staging.junar.com")
-        self.assertEqual(resp.status_code, 404)
 
     def test_is_live_coverage(self):
         resp = self.client.get('/is_live', follow=True, SERVER_NAME="opencity.site.demo.junar.com")
@@ -229,7 +223,6 @@ class CommonViewTestCase(SimpleTestCase):
         # maps
         resp = self.client.get('/rest/maps/5608/data.json', follow=True, SERVER_NAME="microsites.dev:8080")
         self.assertEqual(resp.status_code, 200)
-
 
     def test_branded_coverage(self):
         # Basic path

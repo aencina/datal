@@ -8,7 +8,15 @@
           <h4 class="title">
           	<div class="innerTitle clearfix">
 				<strong>{% trans "APP-SEARCHRESULTS-TEXT" %}</strong>
-            	{% if query %}<span class="font">{% trans "APP-FOR-TEXT" %} <em>{{query}} - {{paginator.count}} {% trans "APP-MATCHES-TEXT" %} - {% trans "APP-TIME-TEXT" %}: {{search_time.search_time}}</em></span>{% endif %}
+            	<span class="font"><em>{% if category %}{% trans "APP-INCATEGORY-TEXT" %} {{category }} - {% endif %}{% trans "APP-FOR-TEXT" %} {{query}} - {{paginator.count}} {% trans "APP-MATCHES-TEXT" %} - {% trans "APP-TIME-TEXT" %}: {{search_time.search_time}}</em></span>
+
+                {% comment %} 
+
+                -------------------------------------------
+
+                por favor, solucionar por qué no se ve la linea de abajo, que muestra la categoría
+
+                {% endcomment %}
 s            	{% if category %}<span class="font">{% trans "APP-INCATEGORY-TEXT" %} <em>{{category.name}} - {{paginator.count}} {% trans "APP-MATCHES-TEXT" %} - {% trans "APP-TIME-TEXT" %}: {{search_time.search_time}}</em></span>{% endif %}
             	<div class="transparency"></div>
 			</div>
