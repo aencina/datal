@@ -8,26 +8,26 @@ from core import models
 
 class CommonViewTestCase(SimpleTestCase):
     fixtures = [
-        '../core/fixtures/accountlevel.json',
-        '../core/fixtures/account.json',
-        '../core/fixtures/preference.json',
-        '../core/fixtures/user.json',
-        '../core/fixtures/role.json',
-        '../core/fixtures/privilege.json',
-        '../core/fixtures/grant.json',
-        '../core/fixtures/application.json',
-        '../core/fixtures/category.json',
-        '../core/fixtures/categoryi18n.json',
-        '../core/fixtures/dataset.json',
-        '../core/fixtures/dataseti18n.json',
-        '../core/fixtures/datasetrevision.json',
-        '../core/fixtures/datastream.json',
-        '../core/fixtures/datastreami18n.json',
-        '../core/fixtures/datastreamrevision.json',
-        '../core/fixtures/tag.json',
-        '../core/fixtures/visualization.json',
-        '../core/fixtures/visualizationi18n.json',
-        '../core/fixtures/visualizationrevision.json',
+        './tests/fixtures/accountlevel.json',
+        './tests/fixtures/account.json',
+        './tests/fixtures/preference.json',
+        './tests/fixtures/user.json',
+        './tests/fixtures/role.json',
+        './tests/fixtures/privilege.json',
+        './tests/fixtures/grant.json',
+        './tests/fixtures/application.json',
+        './tests/fixtures/category.json',
+        './tests/fixtures/categoryi18n.json',
+        './tests/fixtures/dataset.json',
+        './tests/fixtures/dataseti18n.json',
+        './tests/fixtures/datasetrevision.json',
+        './tests/fixtures/datastream.json',
+        './tests/fixtures/datastreami18n.json',
+        './tests/fixtures/datastreamrevision.json',
+        './tests/fixtures/tag.json',
+        './tests/fixtures/visualization.json',
+        './tests/fixtures/visualizationi18n.json',
+        './tests/fixtures/visualizationrevision.json',
     ]
 
 
@@ -85,7 +85,7 @@ class CommonViewTestCase(SimpleTestCase):
         self.assertEqual(resp.status_code, 200)
 
         # No federated account
-        resp = self.client.post('/home/update_list', data={ 'order': 1, 'category_filters': 'Finanzas'}, follow=True, SERVER_NAME="opencity.site.demo.junar.com")
+        resp = self.client.post('/home/update_list', data={ 'order': 1, 'category_filters': 'Finanzas', 'type':'vz,'}, follow=True, SERVER_NAME="opencity.site.demo.junar.com")
         self.assertEqual(resp.status_code, 200)
 
         # Validation fail
@@ -182,6 +182,7 @@ class CommonViewTestCase(SimpleTestCase):
     def test_dataset_coverage(self):
         # Basic path
         resp = self.client.get('/datasets/61634/-', follow=True, SERVER_NAME="microsites.dev:8080")
+        self.assertEqual(models.Account.objects.get(pk=1).get_preference('account.dataset.show'), True)
         self.assertEqual(resp.status_code, 200)
     
     def test_dataset_download_coverage(self):

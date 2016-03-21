@@ -1,0 +1,86 @@
+[
+{
+    "pk": 6, 
+    "model": "core.visualizationi18n", 
+    "fields": {
+        "description": "Visualizaci\u00f3n de n\u00f3minas de Iniciativas de Inversi\u00f3n", 
+        "language": "es", 
+        "title": "N\u00f3minas de Iniciativas de Inversi\u00f3n (M$) Biblioteca del Congreso Nacional", 
+        "notes": "N\u00f3minas de Iniciativas de Inversi\u00f3n (M$) Biblioteca del Congreso Nacional<br>", 
+        "visualization_revision": 5605, 
+        "created_at": "2015-10-28T12:02:55"
+    }
+},
+{
+    "pk": 7, 
+    "model": "core.visualizationi18n", 
+    "fields": {
+        "description": "Visualizaci\u00f3n IEP Primer Trimestre 2012", 
+        "language": "es", 
+        "title": "IEP Primer Trimestre 2012 Ministerio de Defensa Nacional", 
+        "notes": "Visualizaci\u00f3n IEP Primer Trimestre 2012 Ministerio de Defensa Nacional <br>", 
+        "visualization_revision": 5606, 
+        "created_at": "2015-10-28T12:06:29"
+    }
+},
+{
+    "pk": 8, 
+    "model": "core.visualizationi18n", 
+    "fields": {
+        "description": "Visualizaci\u00f3n de Ingresos de Operaciones de Gobierno  1990 A 2010", 
+        "language": "es", 
+        "title": "Ingresos de Operaciones de Gobierno  1990 A 2010", 
+        "notes": "Visualizaci\u00f3n de Ingresos de Operaciones de Gobierno&nbsp; 1990 A 2010<br>", 
+        "visualization_revision": 5607, 
+        "created_at": "2015-10-28T12:17:15"
+    }
+},
+{
+    "pk": 9, 
+    "model": "core.visualizationi18n", 
+    "fields": {
+        "description": "Visualizaci\u00f3n de Gastos de Operaciones de Gobierno 1990 A 2010", 
+        "language": "es", 
+        "title": "Gastos de Operaciones de Gobierno 1990 A 2010", 
+        "notes": "Visualizaci\u00f3n de Gastos de Operaciones de Gobierno 1990 A 2010<br>", 
+        "visualization_revision": 5608, 
+        "created_at": "2015-10-28T12:25:27"
+    }
+},
+{
+    "pk": 16,
+    "model": "core.visualizationi18n",
+    "fields": {
+        "description": "Display of points where accidents are happening in the city.",
+        "language": "en",
+        "title": "Map of Traffic Accidents",
+        "notes": "",
+        "visualization_revision": 5615,
+        "created_at": "2015-11-10T10:58:53"
+    }
+},
+{
+    "pk": 17,
+    "model": "core.visualizationi18n",
+    "fields": {
+        "description": "This visualization displays the total calls received on the 311 service this year.",
+        "language": "en",
+        "title": "How many calls is the 311 service receiving per month",
+        "notes": "",
+        "visualization_revision": 5616,
+        "created_at": "2015-11-10T11:57:47"
+    }
+},
+{
+    "pk": 20,
+    "model": "core.visualizationi18n",
+    "fields": {
+        "description": "Prueba Grande",
+        "language": "es",
+        "title": "Prueba",
+        "notes": "",
+        "visualization_revision": 5619,
+        "created_at": "2015-11-10T13:20:53"
+    }
+}
+]

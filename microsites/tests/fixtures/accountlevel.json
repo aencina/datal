@@ -1,0 +1,11 @@
+[
+  {
+    "pk": 1,
+    "model": "core.accountlevel", 
+    "fields": {
+        "code": "level_5", 
+        "name": "Ilimitado",
+        "description": ""
+    }
+  }
+]
