@@ -13,7 +13,7 @@
 			"category_id":"{{resource.category__id}}", 
 			"dataset_id": {{resource.dataset__id}}, 
 			"category":"{{resource.category__categoryi18n__name}}", 
-			"title":"{{resource.dataseti18n__title|capfirst}}", 
+			"title":"{{resource.dataseti18n__title|capfirst|escapejs}}", 
 			"description":"{{resource.dataseti18n__description|escapejs|capfirst}}", 
 			"last_revision_id":"{{resource.dataset__last_revision_id}}", 
 			"last_published_revision_id":"{{resource.dataset__last_published_revision.id}}", 
