@@ -665,6 +665,32 @@
         "value": "True", 
         "key": "account.has.home"
     }
+},
+{
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "True", 
+        "key": "account.dataset.show"
+    }
+},
+{
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "True", 
+        "key": "account.dataset.show"
+    }
+},
+{
+    "model": "core.preference", 
+    "fields": {
+        "account": 5754, 
+        "value": "True", 
+        "key": "account.dataset.show"
+    }
 }
+
+
 
 ]
