@@ -13,7 +13,7 @@
         , "category_id":"{{resource.category__id}}"
         , "datastream_id": {{resource.datastream__id}}
         , "category":"{{resource.category__categoryi18n__name}}"
-        , "title":"{{resource.datastreami18n__title|capfirst}}"
+        , "title":"{{resource.datastreami18n__title|capfirst|escapejs}}"
         , "description":"{{resource.datastreami18n__description|capfirst|escapejs}}"
         , "last_revision_id":"{{resource.datastream__last_revision_id}}"
         , "last_published_revision_modified_at":"{{resource.datastream__last_published_revision__modified_at|date:'F d, Y'|capfirst}}"
@@ -24,7 +24,7 @@
         , "id": {{resource.id}}
         , "dataset_id": {{resource.datastream__last_revision_id}}
         , "dataset_url": "{{resource.dataset_url}}"
-        , "dataset_title": "{{resource.dataset__last_revision__dataseti18n__title|capfirst}}"
+        , "dataset_title": "{{resource.dataset__last_revision__dataseti18n__title|capfirst|escapejs}}"
         , "dataset_impl_type": "{{resource.dataset__last_revision__impl_type}}"
         , "cant": "{{resource.cant }}"
     }
