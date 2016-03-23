@@ -32,6 +32,8 @@ class ResourceSerializer(serializers.Serializer):
         self.tryKeysOnDict(answer, 'category_name', obj, ['category_name'])
         self.tryKeysOnDict(answer, 'parameters', obj, ['parameters'])
         self.tryKeysOnDict(answer, 'result', obj, ['result'])
+        self.tryKeysOnDict(answer, 'timestamp', obj, ['timestamp'])
+        self.tryKeysOnDict(answer, 'category_id', obj, ['category', 'category_id'])
 
         try:
             if 'format' in obj and obj['format'].startswith('application/json'):
