@@ -35,20 +35,24 @@ var dataTableView = Backbone.View.extend({
 	},
 	
 	render: function() {
+		if (this.model.attributes.result.fType == 'LOADING') {
+			this.setLoading()
+		} else {
 
-		var dataStream = this.dataStream.attributes;
+			var dataStream = this.dataStream.attributes;
 
-		// Set Template
-		this.$el.find('#id_datastreamResult > div').html(this.template(this.model.attributes));
+			// Set Template
+			this.$el.find('#id_datastreamResult > div').html(this.template(this.model.attributes));
 
-		// If Array, Init Flexigrid
-		if(this.model.attributes.result.fType == 'ARRAY'){
-			this.initFlexigrid(this.model.attributes.result);
-		}else{
-			this.setTableHeight();
+			// If Array, Init Flexigrid
+			if(this.model.attributes.result.fType == 'ARRAY'){
+				this.initFlexigrid(this.model.attributes.result);
+			}else{
+				this.setTableHeight();
+			}
 		}
 
-    return this;
+    	return this;
 
 	},
 	
@@ -127,7 +131,7 @@ var dataTableView = Backbone.View.extend({
 		$.ajaxSettings.beforeSend(xhr, settings);
 
 		this.updateParametersButtonsValues();
-		this.setLoading();
+		this.model.set('result', { fType: 'LOADING'})
 
 	},
 	
