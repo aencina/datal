@@ -79,15 +79,16 @@ class EngineCommand(object):
                             aux = json.loads(ret)
                             if "fTimestamp" in aux.keys():
      
-                                pId = filter(None, map(lambda x: x[0]=='pId' and x[1], query))[0]
-                                if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
-     
-                                try:
-                                    es = ElasticsearchIndex()
-                                    doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": pId}}}, fields="_id")['hits']['hits'][0]['_id']
-                                    es.update({'doc': {'fields': {'timestamp': aux['fTimestamp']}}, 'docid': doc_id, 'type': "ds"})
-                                except IndexError:
-                                    self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado')
+                                pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
+                                if len(pids) > 0:
+                                    if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
+         
+                                    try:
+                                        es = ElasticsearchIndex()
+                                        doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": pId}}}, fields="_id")['hits']['hits'][0]['_id']
+                                        es.update({'doc': {'fields': {'timestamp': aux['fTimestamp']}}, 'docid': doc_id, 'type': "ds"})
+                                    except IndexError:
+                                        self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado')
                         except ValueError:
                             self.logger.error('[ENGINE COMMAND] ret no es un json')
                  
