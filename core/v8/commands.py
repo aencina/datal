@@ -77,7 +77,7 @@ class EngineCommand(object):
                         try:
                             # obtenemos el json para sacar el ftimestamp
                             aux = json.loads(ret)
-                            if "fTimestamp" in aux.keys():
+                            if type(aux) == type({}) and "fTimestamp" in aux.keys():
      
                                 pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
                                 if len(pids) > 0:
