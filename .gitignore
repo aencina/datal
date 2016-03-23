@@ -82,3 +82,6 @@ components/bower_components/
 plugins/
 components/
 celeryev.pid
+
+.directory
+

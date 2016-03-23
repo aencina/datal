@@ -1,11 +1,10 @@
-from django.core.management.base import BaseCommand
+import json
 
+from django.core.management.base import BaseCommand
 from optparse import make_option
 
-from core.models import (Account, Tag, TagDataset, TagDatastream, TagVisualization)
-from core.choices import StatusChoices
-import json
-from django.db.models import Q
+from plugins.dashboards.models import Dashboard
+
 
 
 class Command(BaseCommand):
@@ -19,6 +18,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options['account']:
+
+            # Fix de los dataset
             guids = []
 
             f = open('/tmp/{}/dataset.json'.format(options['account']), 'r')
@@ -38,5 +39,21 @@ class Command(BaseCommand):
                     fixture['fields']['guid'] = new_guid
                 new_fixtures.append(fixture)
             f = open('/tmp/{}/dataset.json'.format(options['account']), 'w')
+            json.dump(new_fixtures, f)
+            f.close()
+
+            # Fix de los dashboards
+            f = open('/tmp/{}/dashboard.json'.format(options['account']), 'r')
+            fixtures = json.load(f)
+            f.close()
+            new_fixtures = []
+
+            for fixture in fixtures:
+                if Dashboard.objects.filter(guid=fixture['fields']['guid']):
+                    fixture['fields']['guid'] += '1'
+
+                new_fixtures.append(fixture)
+
+            f = open('/tmp/{}/dashboard.json'.format(options['account']), 'w')
             json.dump(new_fixtures, f)
             f.close()
