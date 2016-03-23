@@ -141,6 +141,7 @@ class ElasticsearchIndex():
                                 "text_spanish": {"type":"string", "analyzer": "spanish"}
                         },
                       },
+                      "created_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
@@ -197,6 +198,7 @@ class ElasticsearchIndex():
                         },
                       },
  
+                      "created_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
@@ -256,6 +258,7 @@ class ElasticsearchIndex():
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },
+                      "created_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "title" : { "type" : "string" ,
                         "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
@@ -333,6 +336,20 @@ class ElasticsearchIndex():
         documents_not_deleted=filter(self.__filterNotDeleted,result)
 
         return [documents_deleted, documents_not_deleted]
+
+    def search(self, doc_type, query, fields="*" ):
+        """Search by query
+        :param doc_type:
+        :param query:
+        :param fields:
+        """
+
+        try:
+            return self.es.search(index=settings.SEARCH_INDEX['index'], doc_type=doc_type, body=query, _source_include=fields)
+        except RequestError,e:
+            raise RequestError(e)
+        except NotFoundError,e:
+            raise NotFoundError,(e)
 
     def update(self, document):
         """ Update by id

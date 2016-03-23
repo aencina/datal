@@ -178,6 +178,7 @@ class SourceImplementationChoices():
     TSV = 20
     PUS = 21
     TXT = 22
+    O365 = 23
 
 SOURCE_IMPLEMENTATION_CHOICES = (
      (SourceImplementationChoices.HTML, 'HTML')
@@ -203,6 +204,7 @@ SOURCE_IMPLEMENTATION_CHOICES = (
     ,(SourceImplementationChoices.TSV, 'TSV')
     ,(SourceImplementationChoices.PUS, 'PublicStuff')
     ,(SourceImplementationChoices.TXT, 'TXT')
+    ,(SourceImplementationChoices.O365, 'Office365')
 )
 
 SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
@@ -287,7 +289,7 @@ DATASTREAM_IMPL_NOT_VALID_CHOICES = list( set(dict(SOURCE_IMPLEMENTATION_CHOICES
 
 WEBSERVICE_IMPLEMENTATION_CHOICES = (
     (SourceImplementationChoices.REST, 'REST/JSON'),
-    (SourceImplementationChoices.SOAP, 'SOAP/XML')
+    (SourceImplementationChoices.SOAP, 'SOAP/XML'),
 )
 
 
@@ -295,11 +297,21 @@ class CollectTypeChoices():
     SELF_PUBLISH = 0 # an uploaded file
     URL = 1 # a web page for scrape internal tables
     WEBSERVICE = 2 # api or webservice
+    OFFICE_365 = 3 
+
+COLLECT_TYPE_SLUGS = (
+     ('index', -1)
+    ,('file', CollectTypeChoices.SELF_PUBLISH)
+    ,('url', CollectTypeChoices.URL) 
+    ,('webservice', CollectTypeChoices.WEBSERVICE)
+    ,('office365', CollectTypeChoices.OFFICE_365) 
+)
 
 COLLECT_TYPE_CHOICES = (
      (CollectTypeChoices.SELF_PUBLISH, 'SELF PUBLISH') # an uploaded file
     ,(CollectTypeChoices.URL, 'URL') # a web page for scrape internal tables
     ,(CollectTypeChoices.WEBSERVICE, 'WEBSERVICE') # api or webservice
+    ,(CollectTypeChoices.OFFICE_365, 'OFFICE_365') 
 )
 
 COLLECT_TYPE_FILTERABLES = [
@@ -421,7 +433,11 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('account.pivottable.helplink', 'account.pivottable.helplink')
     ,('account.footer.opendatalicense', 'account.footer.opendatalicense')
     ,('account.preview', 'account.preview')
+    
+    # API blazegraph plugin
     ,('account.bigdata.namespace', 'account.bigdata.namespace')
+    ,('account.blazegraph.domain', 'account.blazegraph.domain')
+     
     ,('account.transparency.domain', 'account.transparency.domain')
     ,('account.transparency.country', 'account.transparency.country')
     ,('account.transparency.createdcategories', 'account.transparency.createdcategories')
@@ -436,6 +452,15 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     # https for microsites or api
     ('account.microsite.https', 'account.microsite.https'),
     ('account.api.https', 'account.api.https'),
+
+    # office365
+    ('account.office365.authcode', 'account.office365.authcode'),  
+    ('account.office365.refreshtoken', 'account.office365.refreshtoken'),   
+
+    # Analytics
+    ('account.ga.tracking', 'account.ga.tracking'),   
+    ('account.ga', 'account.ga'),   
+    
 )
 
 API_APPLICATION_TYPE_CHOICES = (

@@ -283,11 +283,8 @@ def create(request, collect_type='index'):
     account_id = auth_manager.account_id
     language = auth_manager.language
     extensions_list = SOURCE_EXTENSION_LIST
-
-    # TODO: Put line in a common place
-    collect_types = {'index': -1, 'file': 0, 'url': 1, 'webservice': 2}
-
-    collect_type_id = collect_types[collect_type]
+    
+    collect_type_id = next(x[1] for x in COLLECT_TYPE_SLUGS if x[0] == collect_type)
 
     if request.method == 'GET':
         form = DatasetFormFactory(collect_type_id).create(
@@ -307,7 +304,7 @@ def create(request, collect_type='index'):
         if form.is_valid():
             lifecycle = DatasetLifeCycleManager(user=request.user)
             dataset_revision = lifecycle.create(collect_type=request.POST.get('collect_type'), language=language,
-                                                **form.cleaned_data)
+                                                account_id=account_id, **form.cleaned_data)
 
             # TODO: Create a CreateDatasetResponse object
             data = dict(status='ok', messages=[ugettext('APP-DATASET-CREATEDSUCCESSFULLY-TEXT')],

@@ -1,0 +1,136 @@
+[
+{
+    "pk": 1,
+    "model": "core.user",
+    "fields": {
+        "account": 5754,
+        "name": "Jane Publisher",
+        "language": "en",
+        "country": "US",
+        "created_at": "2011-10-20T00:36:51",
+        "last_visit": "2013-02-09T12:44:32",
+        "email": "publisher@test.com",
+        "nick": "publisher",
+        "roles": [
+            3
+        ],
+        "password": "52aded165360352a0f5857571d96d68f",
+        "ocupation": "03"
+    }
+},
+{
+    "pk": 2,
+    "model": "core.user",
+    "fields": {
+        "account": 5754,
+        "name": "John Administrator",
+        "language": "en",
+        "country": "US",
+        "created_at": "2011-12-06T12:20:30",
+        "last_visit": "2015-04-07T14:35:08",
+        "email": "administrator@test.com",
+        "nick": "administrator",
+        "roles": [
+            1, 99
+        ],
+        "password": "200ceb26807d6bf99fd6f4f0d1ca54d4",
+        "ocupation": "04"
+    }
+},
+{
+    "pk": 1472,
+    "model": "core.user", 
+    "fields": {
+        "account": 1,
+        "name": "Juana Publicadora", 
+        "language": "es", 
+        "country": "CL", 
+        "created_at": "2011-10-20T00:36:51", 
+        "last_visit": "2013-02-09T12:44:32", 
+        "email": "publicador@test.com", 
+        "nick": "publicador", 
+        "roles": [
+            3
+        ], 
+        "password": "925ccfdd6aaf753167f3eb0b9c06a692", 
+        "ocupation": "03"
+    }
+},
+{
+    "pk": 1647,
+    "model": "core.user", 
+    "fields": {
+        "account": 1, 
+        "name": "Juan Administrador", 
+        "language": "es", 
+        "country": "CL", 
+        "created_at": "2011-12-06T12:20:30", 
+        "last_visit": "2015-04-07T14:35:08", 
+        "email": "administrador@test.com", 
+        "nick": "administrador", 
+        "roles": [
+            1, 99
+        ], 
+        "password": "91f5167c34c400758115c2a6826ec2e3", 
+        "ocupation": "04"
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.user", 
+    "fields": {
+        "account": 1, 
+        "name": "Roberto Editor", 
+        "language": "es", 
+        "country": "CL", 
+        "created_at": "2011-10-20T00:36:51", 
+        "last_visit": "2013-02-09T12:44:32", 
+        "email": "editor@test.com", 
+        "nick": "editor", 
+        "roles": [
+            2
+        ], 
+        "password": "5aee9dbd2a188839105073571bee1b1f", 
+        "ocupation": "03"
+    }
+},
+{
+    "pk": 4,
+    "model": "core.user",
+    "fields": {
+        "account": 1,
+        "name": "Robert Editor",
+        "language": "en",
+        "country": "US",
+        "created_at": "2011-10-20T00:36:51",
+        "last_visit": "2013-02-09T12:44:32",
+        "email": "editor_en@test.com",
+        "nick": "editor_en",
+        "roles": [
+            2
+        ],
+        "password": "5aee9dbd2a188839105073571bee1b1f",
+        "ocupation": "03"
+    }
+} ,
+{
+    "pk": 1648, 
+    "model": "core.user", 
+    "fields": {
+        "account": 2, 
+        "name": "JunarFederada", 
+        "language": "es", 
+        "country": "US", 
+        "created_at": "2016-02-26T14:57:05", 
+        "last_visit": "2016-02-26T15:03:40", 
+        "email": "adminjunar@admin.com", 
+        "nick": "adminjunar", 
+        "roles": [
+            1
+        ], 
+        "password": "200ceb26807d6bf99fd6f4f0d1ca54d4",
+        "ocupation": ""
+    }
+}
+
+]

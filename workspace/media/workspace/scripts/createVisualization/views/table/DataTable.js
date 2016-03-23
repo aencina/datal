@@ -24,7 +24,7 @@ Handsontable.renderers.registerRenderer('selectedDateRenderer', function () {
 
 Handsontable.renderers.registerRenderer('selectedLinkRenderer', function () {
   HandsontableClassRendererPatch(arguments[1], arguments[6]);
-  return Handsontable.renderers.NumericRenderer.apply(this, arguments);
+  return Handsontable.renderers.HtmlRenderer.apply(this, arguments);
 });
 
 var DataTableView = Backbone.View.extend({
@@ -75,7 +75,8 @@ var DataTableView = Backbone.View.extend({
     }
 
     this.table = new Handsontable(this.$('.table-view').get(0), {
-      rowHeaders: true, colHeaders: true,
+      colHeaders: true, 
+      rowHeaders: true,
       readOnly: true,
       readOnlyCellClassName: 'htDimmed-datal', // the regular class paints text cells grey
       // renderAllRows: true, // Turns off virtual rendering

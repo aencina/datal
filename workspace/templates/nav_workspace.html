@@ -28,6 +28,7 @@
 						<li><a  href="{% url 'manageDatasets.create_type' 'file' %}">{% trans 'APP-UPLOAD-FILE-LINK' %}</a></li>
 						<li><a href="{% url 'manageDatasets.create_type' 'url' %}">{% trans 'APP-WEBSITE-LINK' %}</a></li>
 						<li><a href="{% url 'manageDatasets.create_type' 'webservice' %}">{% trans 'APP-WEBSERVICE-LINK' %}</a></li>
+						{% plugins_call 'workspace_custom_collect_type_nav' %}
 					</ul>
 				</li>
 			</ul>

@@ -32,9 +32,10 @@ def request_context(request):
                 obj.update({'ga': json.dumps(final)})
         else:
             obj = {}
-    else:
-        msprotocol = 'http'
-        msdomain=settings.DOMAINS['microsites']
+    else: # pragma: no cover.
+        # TODO: No se como testear este error.
+        msprotocol = 'http' 
+        msdomain=settings.DOMAINS['microsites'] 
 
     obj['account_show_dataset']=account.get_preference('account.dataset.show')
     obj['microsite_domain']=msdomain

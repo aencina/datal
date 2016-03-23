@@ -521,7 +521,6 @@
         "key": "account.dataset.download"
     }
 },
-
 {
     "pk": 76, 
     "model": "core.preference", 
@@ -668,7 +667,6 @@
     }
 },
 {
-    "pk": 92, 
     "model": "core.preference", 
     "fields": {
         "account": 1, 
@@ -677,21 +675,22 @@
     }
 },
 {
-    "pk": 93,
     "model": "core.preference", 
     "fields": {
-        "account": 5754, 
-        "value": "False", 
+        "account": 2, 
+        "value": "True", 
         "key": "account.dataset.show"
     }
 },
 {
-    "pk": 93,
     "model": "core.preference", 
     "fields": {
         "account": 5754, 
-        "value": "{\"config\": \"algo\"}", 
-        "key": "account.search.tips"
+        "value": "True", 
+        "key": "account.dataset.show"
     }
 }
+
+
+
 ]

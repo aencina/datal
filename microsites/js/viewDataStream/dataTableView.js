@@ -61,28 +61,32 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	
 	render: function() {
 
-		var dataStream = this.options.dataStream.attributes;
+		if (this.model.attributes.result.fType == 'LOADING') {
+			this.setLoading()
+		} else {
+			var dataStream = this.options.dataStream.attributes;
 
-		// Set Template
-		this.$el.find('#id_datastreamResult > div').html(this.template(this.model.attributes));
+			// Set Template
+			var $result = this.$el.find('#id_datastreamResult > div')
+			$result.html(this.template(this.model.attributes));
 
-		// Set Max Width for Title
-		this.setTitleMaxWidth();
+			// Set Max Width for Title
+			this.setTitleMaxWidth();
 
-		// If Array, Init Flexigrid
-		if(this.model.attributes.result.fType == 'ARRAY'){
+			// If Array, Init Flexigrid
+			if(this.model.attributes.result.fType == 'ARRAY'){
 
-			// Trigger init on flexigrid to listenTo on plugins
-			this.trigger('flexigrid-init', this.model.attributes.result);
+				// Trigger init on flexigrid to listenTo on plugins
+				this.trigger('flexigrid-init', this.model.attributes.result);
 
-			// Init flexigrid
-			this.initFlexigrid(this.model.attributes.result);
+				// Init flexigrid
+				this.initFlexigrid(this.model.attributes.result);
 
-		}else{
-			this.setTableHeight();
+			} else {
+				this.setTableHeight();
+			}
 		}
-
-    return this;
+	    return this;
 
 	},
 
@@ -183,8 +187,8 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	},
 
 	onInvokeBeforeSend: function(){
-    this.updateParametersButtonsValues();
-    this.setLoading();
+	    this.updateParametersButtonsValues();
+	    this.model.set('result', { fType: 'LOADING'})
 	},
 	
 	onInvokeSuccess: function(response){

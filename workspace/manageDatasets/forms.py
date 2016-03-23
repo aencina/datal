@@ -14,6 +14,7 @@ from core.choices import SOURCE_EXTENSION_LIST, SOURCE_IMPLEMENTATION_CHOICES, S
 from core.exceptions import FileTypeNotValidException
 from workspace.common.forms import TagForm, SourceForm
 from django.conf import settings
+from core.plugins_point import DatalPluginPoint
 
 
 logger = logging.getLogger(__name__)
@@ -391,7 +392,9 @@ class DatasetFormFactory:
         elif int(self.collect_type) == choices.CollectTypeChoices().URL:
             form = URLForm
         else:
-            form = DatasetForm
+            for plugin_form in DatalPluginPoint.get_active_with_att('dataset_form'):
+                if (int(self.collect_type) == plugin_form.collect_type): 
+                    form = plugin_form
         return request is None and form(*args, **kwargs) or form(request.POST, request.FILES, *args, **kwargs)
 
 

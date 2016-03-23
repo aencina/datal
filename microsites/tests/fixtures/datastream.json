@@ -1,0 +1,242 @@
+[
+{
+    "pk": 43445, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "OPERA-DEL-EN-MILLO-DE", 
+        "user": 1472, 
+        "last_published_revision": 404, 
+        "last_revision": 404
+    }
+},
+{
+    "pk": 69620, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "IEP-PRIME-MINIS-DE-DEFEN", 
+        "user": 1472, 
+        "last_published_revision": 61452, 
+        "last_revision": 61452
+    }
+},
+{
+    "pk": 69645, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NOMIN-DE-BIBLI-DEL-12877", 
+        "user": 1472, 
+        "last_published_revision": 61453, 
+        "last_revision": 61453
+    }
+},
+{
+    "pk": 69655, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-TOTAL-PAIS", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69656, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-TOTAL-12360", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69657, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-TOTAL-71583", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69661, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-TOTAL-59588", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69662, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-TOTAL-48689", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69667, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-REGIO-METRO", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69668, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-REGIO-85173", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69669, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-REGIO-39347", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69670, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-REGIO-73138", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69671, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-RENDI-REGIO-22518", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 69672, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-DE-CALIF-TOTAL-PAIS", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 78654, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-RENDI-2006-AL-2012", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 78658, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-RENDI-2006-AL-87472", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 78662, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-RENDI-2006-AL-15809", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 78667, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-RENDI-2006-AL-90712", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 78673, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-RENDI-2006-AL-11436", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 78694, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "NIVEL-CALIF-2006-AL-2010", 
+        "user": 1472, 
+        "last_published_revision": null, 
+        "last_revision": null
+    }
+},
+{
+    "pk": 78701, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "TRAFF-COUNT", 
+        "user": 2, 
+        "last_published_revision": null, 
+        "last_revision": 61460
+    }
+},
+{
+    "pk": 78703, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "TRAFF-INCID", 
+        "user": 2, 
+        "last_published_revision": 61462, 
+        "last_revision": 61462
+    }
+},
+{
+    "pk": 78706, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "311-MONTH-DATA", 
+        "user": 2, 
+        "last_published_revision": 61464, 
+        "last_revision": 61464
+    }
+},
+{
+    "pk": 78709, 
+    "model": "core.datastream", 
+    "fields": {
+        "guid": "PURCH-ORDER", 
+        "user": 2, 
+        "last_published_revision": 61467, 
+        "last_revision": 61467
+    }
+}
+]
