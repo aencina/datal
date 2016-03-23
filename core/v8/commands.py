@@ -81,6 +81,7 @@ class EngineCommand(object):
      
                                 pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
                                 if len(pids) > 0:
+                                    pId = pids[0]
                                     if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
          
                                     try:
