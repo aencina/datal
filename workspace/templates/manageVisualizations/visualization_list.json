@@ -7,7 +7,7 @@
     {% for item in items %}
     {
       "id": {{ item.id }},
-      "title": "{{ item.visualizationi18n__title }}",
+      "title": "{{ item.visualizationi18n__title|escapejs }}",
       "description": "{{ item.visualizationi18n__description }}",
       "status": {{ item.status }},
       "status_name": "{{ item.status|status_str|capfirst }}",
@@ -15,7 +15,7 @@
       "user": "{{ item.visualization__user__name }}",
       "category_id": {{ item.visualization__datastream__last_revision__category__id }},
       "category": "{{ item.visualization__datastream__last_revision__category__categoryi18n__name }}",
-      "datastream_title": "{{ item.visualization__datastream__last_revision__datastreami18n__title}}",
+      "datastream_title": "{{ item.visualization__datastream__last_revision__datastreami18n__title|escapejs}}",
       "datastream_url": "{{ item.datastream_url }}",
       "visualization_id": {{ item.visualization__id }},
       "last_revision_id": {{ item.visualization__last_revision_id }},

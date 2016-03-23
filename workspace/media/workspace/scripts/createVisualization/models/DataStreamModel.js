@@ -13,13 +13,15 @@ var DataStreamModel = Backbone.Model.extend({
 
     parse: function (response) {
         this.response = response;
-        var columns = _.first(response.fArray, response.fCols),
+        var headers = _.filter(response.fArray, function(x){ return x.fHeader; }),
+            data = _.filter(response.fArray, function(x){ return !x.fHeader; }),
             rows = _.map(_.range(0, response.fRows), function (i) {
               var row = response.fArray.slice(i*response.fCols, (i+1)*response.fCols);
               return this.formatRow(row);
             }, this);
 
-        this.data.set('columns', columns);
+        this.data.set('headers', _.first(headers, response.fCols))
+        this.data.set('columns', _.first(data, response.fCols));
         this.data.set('rows', rows);
     },
 

@@ -88,8 +88,8 @@ google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language'
 
 var chartModel = new charts.models.Chart({
     
-    title: "{{visualization_revision.title}}", 
-    description: "{{visualization_revision.description|escapejs}}", 
+    title: "{{visualization_revision.title|capfirst}}", 
+    description: "{{visualization_revision.description|escapejs|capfirst}}", 
     visualizationJson : '{{result|escapejs}}',
     chartJson : '{{visualization_revision.impl_details|escapejs }}',
     chartLib: "{{visualization_revision.lib}}",
@@ -116,8 +116,8 @@ chartModel.parse({
     id: {{ visualization_revision.visualization_id }},
     revision_id: {{ visualization_revision.visualization_revision_id }},
 
-    title: '{{ visualization_revision.title }}',
-    description: '{{ visualization_revision.description }}',
+    title: '{{ visualization_revision.title|capfirst }}',
+    description: '{{ visualization_revision.description|capfirst }}',
     notes: '{{ visualization_revision.notes|escapejs }}',
     lib: '{{ visualization_revision.lib }}',
 

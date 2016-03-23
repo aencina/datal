@@ -1,0 +1,254 @@
+[
+    {
+        "pk": 1,
+        "model": "core.category",
+        "fields": {
+            "account": 5754
+        }
+    },
+    {
+        "pk": 2,
+        "model": "core.category",
+        "fields": {
+            "account": 5754
+        }
+    },
+    {
+        "pk": 3,
+        "model": "core.category",
+        "fields": {
+            "account": 5754
+        }
+    },
+    {
+        "pk": 41,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 42,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 67,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 69,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 70,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+      {
+        "pk": 38767,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 38919,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 38920,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 38922,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 39512,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 40437,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 40605,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 40619,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 40723,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+      {
+        "pk": 40870,
+        "model": "core.category",
+        "fields": {
+          "account": 5754
+        }
+      },
+    {
+        "pk": 40484,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40524,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40822,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40823,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40824,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40825,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40826,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40827,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40828,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40829,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40830,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40831,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40832,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40833,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40834,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40835,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40895,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    },
+    {
+        "pk": 40981,
+        "model": "core.category",
+        "fields": {
+            "account": 1
+        }
+    }
+]

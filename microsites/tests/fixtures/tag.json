@@ -1,0 +1,354 @@
+[
+{
+    "pk": 3, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "Chile"
+    }
+},
+{
+    "pk": 181, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2010"
+    }
+},
+{
+    "pk": 421, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "South America"
+    }
+},
+{
+    "pk": 1087, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2009"
+    }
+},
+{
+    "pk": 7714, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2005"
+    }
+},
+{
+    "pk": 8184, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2008"
+    }
+},
+{
+    "pk": 10168, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2006"
+    }
+},
+{
+    "pk": 10231, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2002"
+    }
+},
+{
+    "pk": 11706, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2007"
+    }
+},
+{
+    "pk": 11730, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "IEP"
+    }
+},
+{
+    "pk": 12138, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "oficinas"
+    }
+},
+{
+    "pk": 13056, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "salud"
+    }
+},
+{
+    "pk": 13170, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2012"
+    }
+},
+{
+    "pk": 13838, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "region metropolitana"
+    }
+},
+{
+    "pk": 16901, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "datos"
+    }
+},
+{
+    "pk": 17743, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "2000"
+    }
+},
+{
+    "pk": 18185, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "actividad"
+    }
+},
+{
+    "pk": 21617, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "Educacion"
+    }
+},
+{
+    "pk": 22138, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "trabajo"
+    }
+},
+{
+    "pk": 25093, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "rendimiento"
+    }
+},
+{
+    "pk": 26811, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "Baltimore"
+    }
+},
+{
+    "pk": 28860, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": "presupuesto"
+    }
+},
+{
+    "pk": 28947, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "ejecucion presupuestaria"
+    }
+},
+{
+    "pk": 29109, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "sexo"
+    }
+},
+{
+    "pk": 29141, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Minsal"
+    }
+},
+{
+    "pk": 30147, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Mortalidad"
+    }
+},
+{
+    "pk": 31583, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "chileatiende"
+    }
+},
+{
+    "pk": 31599, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Accidente"
+    }
+},
+{
+    "pk": 31600, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Ministerio de Defensa"
+    }
+},
+{
+    "pk": 31601, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Defensa"
+    }
+},
+{
+    "pk": 31614, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": " Inversi\u00f3n"
+    }
+},
+{
+    "pk": 31615, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": " Presupuesto"
+    }
+},
+{
+    "pk": 31616, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": " 2012"
+    }
+},
+{
+    "pk": 31617, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": " DIPRES"
+    }
+},
+{
+    "pk": 31618, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": " Datos"
+    }
+},
+{
+    "pk": 31619, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 1, 
+        "name": " Biblioteca del Congreso Nacional"
+    }
+},
+{
+    "pk": 31628, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "SAINT VITUS"
+    }
+},
+{
+    "pk": 31629, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Pentagram"
+    }
+},
+{
+    "pk": 31634, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Total pa s"
+    }
+},
+{
+    "pk": 31635, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "Nivel rendimiento"
+    }
+},
+{
+    "pk": 31636, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "nivel calificaciones"
+    }
+},
+{
+    "pk": 31739, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "georeferenciada"
+    }
+},
+{
+    "pk": 31740, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "atiende"
+    }
+},
+{
+    "pk": 36135, 
+    "model": "core.tag", 
+    "fields": {
+        "status": 0, 
+        "name": "nivel"
+    }
+}
+]

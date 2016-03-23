@@ -1,0 +1,434 @@
+[
+    {
+        "pk": 1,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 1,
+            "description": "",
+            "language": "en",
+            "created_at": "2012-07-03T00:38:57",
+            "slug": "census-data",
+            "name": "Census Data"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 2,
+            "description": "",
+            "language": "en",
+            "created_at": "2012-07-03T00:38:57",
+            "slug": "general",
+            "name": "General"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 3,
+            "description": "",
+            "language": "en",
+            "created_at": "2012-07-03T00:38:57",
+            "slug": "financial",
+            "name": "Financial"
+        }
+    },
+    {
+        "pk": 383,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 41,
+            "description": "",
+            "language": "es",
+            "created_at": "2012-07-03T00:38:57",
+            "slug": "vivienda",
+            "name": "Vivienda"
+        }
+    },
+    {
+        "pk": 384,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 42,
+            "description": "",
+            "language": "es",
+            "created_at": "2012-07-03T00:38:57",
+            "slug": "salud",
+            "name": "Salud"
+        }
+    },
+    {
+        "pk": 385,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 67,
+            "description": "",
+            "language": "es",
+            "created_at": "2012-07-03T00:38:58",
+            "slug": "general",
+            "name": "General"
+        }
+    },
+    {
+        "pk": 386,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 69,
+            "description": "",
+            "language": "es",
+            "created_at": "2012-07-03T00:38:58",
+            "slug": "educacion",
+            "name": "Educaci\u00f3n"
+        }
+    },
+    {
+        "pk": 387,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 70,
+            "description": "",
+            "language": "es",
+            "created_at": "2012-07-03T00:38:58",
+            "slug": "finanzas",
+            "name": "Finanzas"
+        }
+    },
+    {
+        "pk": 38248,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40484,
+            "description": "",
+            "language": "es",
+            "created_at": "2013-08-02T10:48:56",
+            "slug": "medio-ambiente",
+            "name": "Medio Ambiente"
+        }
+    },
+    {
+        "pk": 38288,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40524,
+            "description": "",
+            "language": "es",
+            "created_at": "2013-09-05T12:12:16",
+            "slug": "seguridad-publica",
+            "name": "Seguridad P\u00fablica"
+        }
+    },
+    {
+        "pk": 38586,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40822,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "marco-normativo",
+            "name": "Marco normativo"
+        }
+    },
+    {
+        "pk": 38587,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40823,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "estructura-organica",
+            "name": "Estructura Org\u00e1nica"
+        }
+    },
+    {
+        "pk": 38588,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40824,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "dotacion-de-personal",
+            "name": "Dotaci\u00f3n de Personal"
+        }
+    },
+    {
+        "pk": 38589,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40825,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "actos-y-resoluciones",
+            "name": "Actos y Resoluciones"
+        }
+    },
+    {
+        "pk": 38590,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40826,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "compras-y-adquisiciones",
+            "name": "Compras y Adquisiciones"
+        }
+    },
+    {
+        "pk": 38591,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40827,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "transferencias",
+            "name": "Transferencias"
+        }
+    },
+    {
+        "pk": 38592,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40828,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "informacion-presupuestaria",
+            "name": "Informaci\u00f3n Presupuestaria"
+        }
+    },
+    {
+        "pk": 38593,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40829,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "auditorias-al-ejerc-presup",
+            "name": "Auditorias al Ejerc Presup"
+        }
+    },
+    {
+        "pk": 38594,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40830,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "tramites-del-organismo",
+            "name": "Tr\u00e1mites del Organismo"
+        }
+    },
+    {
+        "pk": 38595,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40831,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "participacion-ciudadana",
+            "name": "Participaci\u00f3n Ciudadana"
+        }
+    },
+    {
+        "pk": 38596,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40832,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "subsidios-y-beneficios",
+            "name": "Subsidios y Beneficios"
+        }
+    },
+    {
+        "pk": 38597,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40833,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "vinculos-institucionales",
+            "name": "V\u00ednculos Institucionales"
+        }
+    },
+    {
+        "pk": 38598,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40834,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "derecho-de-acc-a-la-inf-pub",
+            "name": "Derecho de Acc a la Inf Pub"
+        }
+    },
+    {
+        "pk": 38599,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40835,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-05-23T11:51:22",
+            "slug": "costos-directos-de-reprod",
+            "name": "Costos Directos de Reprod"
+        }
+    },
+    {
+        "pk": 38659,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40895,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-07-18T16:47:48",
+            "slug": "cplt",
+            "name": "CPLT"
+        }
+    },
+    {
+        "pk": 38745,
+        "model": "core.categoryi18n",
+        "fields": {
+            "category": 40981,
+            "description": "",
+            "language": "es",
+            "created_at": "2014-10-14T11:55:21",
+            "slug": "mercado-publico",
+            "name": "Mercado P\u00fablico"
+        }
+    },
+      {
+    "pk": 36531,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 38767,
+      "description": "",
+      "language": "en",
+      "created_at": "2013-05-22T14:21:16",
+      "slug": "other",
+      "name": "Other"
+    }
+  },
+  {
+    "pk": 36683,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 38919,
+      "description": "Maps and geographic information systems data",
+      "language": "en",
+      "created_at": "2013-05-27T11:08:53",
+      "slug": "gis",
+      "name": "GIS"
+    }
+  },
+  {
+    "pk": 36684,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 38920,
+      "description": "",
+      "language": "en",
+      "created_at": "2013-05-27T11:09:11",
+      "slug": "public-safety",
+      "name": "Public Safety"
+    }
+  },
+  {
+    "pk": 36686,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 38922,
+      "description": "",
+      "language": "en",
+      "created_at": "2013-05-27T11:09:51",
+      "slug": "financial",
+      "name": "Financial"
+    }
+  },
+  {
+    "pk": 37276,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 39512,
+      "description": "CDD data set",
+      "language": "en",
+      "created_at": "2013-05-30T14:49:34",
+      "slug": "community-development",
+      "name": "Community Development"
+    }
+  },
+  {
+    "pk": 38201,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 40437,
+      "description": "",
+      "language": "en",
+      "created_at": "2013-06-06T12:57:15",
+      "slug": "311-service-requests",
+      "name": "311 Service Requests"
+    }
+  },
+  {
+    "pk": 38369,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 40605,
+      "description": "",
+      "language": "en",
+      "created_at": "2013-10-31T17:04:27",
+      "slug": "census-data",
+      "name": "Census Data"
+    }
+  },
+  {
+    "pk": 38383,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 40619,
+      "description": "Animal Shelter related datasets",
+      "language": "en",
+      "created_at": "2013-11-15T15:12:27",
+      "slug": "animal-shelter",
+      "name": "Animal Shelter"
+    }
+  },
+  {
+    "pk": 38487,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 40723,
+      "description": "",
+      "language": "en",
+      "created_at": "2014-02-25T22:46:05",
+      "slug": "transportation",
+      "name": "Transportation"
+    }
+  },
+  {
+    "pk": 38634,
+    "model": "core.categoryi18n",
+    "fields": {
+      "category": 40870,
+      "description": "",
+      "language": "en",
+      "created_at": "2014-07-01T12:35:41",
+      "slug": "council-expenses",
+      "name": "Council Expenses"
+    }
+  }
+]

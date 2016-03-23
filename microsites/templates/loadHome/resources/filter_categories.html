@@ -5,9 +5,11 @@
         <dd class="filter_all filter_who filter-active DN">
             <span title="{% trans 'APP-ALL-TEXT' %}">{% trans 'APP-ALL-TEXT' %}</span>
         </dd>
+{% if account_show_dataset %}
         <dd class="filter_type" data="dt">
             <span class="type DST" title="{% trans 'APP-DATASETS-TEXT' %}">{% trans 'APP-DATASETS-TEXT' %}</span>
         </dd>
+{% endif %}
         <dd class="filter_type" data="ds">
             <span class="type DS" title="{% trans 'APP-DATAVIEWS-TEXT' %}">{% trans 'APP-DATAVIEWS-TEXT' %}</span>
         </dd>

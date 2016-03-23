@@ -521,6 +521,7 @@
         "key": "account.dataset.download"
     }
 },
+
 {
     "pk": 76, 
     "model": "core.preference", 
@@ -572,7 +573,7 @@
     "model": "core.preference", 
     "fields": {
         "account": 2, 
-        "value": "2", 
+        "value": "opendatalatam", 
         "key": "account.url"
     }
 },
@@ -667,6 +668,7 @@
     }
 },
 {
+    "pk": 92, 
     "model": "core.preference", 
     "fields": {
         "account": 1, 
@@ -675,22 +677,94 @@
     }
 },
 {
+    "pk": 93,
     "model": "core.preference", 
     "fields": {
-        "account": 2, 
-        "value": "True", 
+        "account": 5754, 
+        "value": "False", 
         "key": "account.dataset.show"
     }
 },
 {
+    "pk": 93,
     "model": "core.preference", 
     "fields": {
         "account": 5754, 
-        "value": "True", 
-        "key": "account.dataset.show"
+        "value": "{\"config\": \"algo\"}", 
+        "key": "account.search.tips"
+    }
+},
+{
+    "pk": 94,
+    "model": "core.preference", 
+    "fields": {
+        "account": 5754, 
+        "value": "http://thisisalink.com", 
+        "key": "account.footer.uri"
+    }
+},
+{
+    "pk": 95,
+    "model": "core.preference", 
+    "fields": {
+        "account": 5754, 
+        "value": "300", 
+        "key": "account.footer.height"
+    }
+},
+{
+    "pk": 96,
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "/pivotaltab.html", 
+        "key": "account.pivottable"
+    }
+},
+{
+    "pk": 97,
+    "model": "core.preference", 
+    "fields": {
+        "account": 2, 
+        "value": "<div>header</div>", 
+        "key": "branding.header"
+    }
+},
+{
+    "pk": 98,
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "http://algunlink.com", 
+        "key": "account.header.uri"
+    }
+},
+{
+    "pk": 99,
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "300", 
+        "key": "account.header.height"
+    }
+},
+{
+    "pk": 100,
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "{\"dashboard_view\": [{\"trigger\": \"analytics::dashboard_chart_embed\", \"event\": \"dashboard_chart_embed\", \"ga\": \"coleccion-embed-viz\", \"selector\": \"a[id*=id_embedChartButton_]\"}, {\"trigger\": \"analytics::dashboard_csv\", \"event\": \"dashboard_csv\", \"ga\": \"coleccion-export\", \"selector\": \"#id_exportDashboardCSV\"}, {\"trigger\": \"analytics::dashboard_dv_embed\", \"event\": \"dashboard_dv_embed\", \"ga\": \"coleccion-embed-vista\", \"selector\": \"a[id*=id_addEmbedDataServiceButton_]\"}, {\"trigger\": \"analytics::dashboard_dv_reload\", \"event\": \"dashboard_dv_reload\", \"ga\": \"coleccion-reload\", \"selector\": \"a[id*=id_resetDashboardDataServiceButton_]\"}, {\"trigger\": \"analytics::dashboard_guid\", \"event\": \"dashboard_guid\", \"ga\": \"coleccion-guid\", \"selector\": \"#id_guidButton\"}, {\"trigger\": \"analytics::dashboard_spreadsheet\", \"event\": \"dashboard_spreadsheet\", \"ga\": \"coleccion-gspreadsheet\", \"selector\": \"a[id*=id_googlespreadsheetDataStreamButton_]\"}, {\"trigger\": \"analytics::dashboard_source\", \"event\": \"dashboard_source\", \"ga\": \"coleccion-sources\", \"selector\": \"div[id*=id_dashboard_dataservice_goToSource_]\"}, {\"trigger\": \"analytics::dashboard_dv_csv\", \"event\": \"dashboard_dv_csv\", \"ga\": \"coleccion-export-vista\", \"selector\": \"a[id*=id_exportToCSV_]\"}, {\"trigger\": \"analytics::dashboard_details\", \"event\": \"dashboard_details\", \"ga\": \"coleccion-details\", \"selector\": \"a[id*=dashboard_widget_link_]\"}, {\"trigger\": \"analytics::dashboard_chart_reload\", \"event\": \"dashboard_chart_reload\", \"ga\": \"coleccion-reload-viz\", \"selector\": \"a[id*=id_refreshChartButton_]\"}, {\"trigger\": \"analytics::dashboard_dv_guid\", \"event\": \"dashboard_dv_guid\", \"ga\": \"coleccion-guid-vista\", \"selector\": \"a[id*=id_guidDataStreamButton_]\"}], \"dataview_view\": [{\"trigger\": \"analytics::dataview_spreadsheet\", \"event\": \"dataview_spreadsheet\", \"ga\": \"gspreadsheet\", \"selector\": \"a[id*=id_googlespreadsheetDataStreamButton_]\"}, {\"trigger\": \"analytics::dataview_csv\", \"event\": \"dataview_csv\", \"ga\": \"export\", \"selector\": \".ic_CSV\"}, {\"trigger\": \"analytics::dataview_embed\", \"event\": \"dataview_embed\", \"ga\": \"embed\", \"selector\": \"a[id*=id_addEmbedDataServiceButton_]\"}, {\"trigger\": \"analytics::dataview_source\", \"event\": \"dataview_source\", \"ga\": \"source\", \"selector\": \".sourcesBox a\"}, {\"trigger\": \"analytics::dataview_reload\", \"event\": \"dataview_reload\", \"ga\": \"reload\", \"selector\": \"a[id*=id_resetDataServiceButton_]\"}], \"search_view\": [{\"trigger\": \"analytics::search\", \"event\": \"search\", \"ga\": \"search\", \"selector\": \"#junar_search_button\"}]}", 
+        "key": "account.ga"
+    }
+},
+{
+    "pk": 101,
+    "model": "core.preference", 
+    "fields": {
+        "account": 1, 
+        "value": "datal", 
+        "key": "account.bucket.name"
     }
 }
-
-
 
 ]
