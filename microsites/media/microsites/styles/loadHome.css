@@ -153,7 +153,7 @@ body,
 .featuredSlider .sliderHome,
 .featuredSlider .caroufredsel_wrapper,
 .featuredSlider .panel{width:940px;height:300px;overflow:hidden;float:left;position:relative;}
-.featuredSlider .btn{display:block;background:url(http://www.junar.com/media_website/images/home/btn-slider.png) no-repeat;height:43px;width:26px;position:absolute;top:128px;cursor:pointer;z-index:1;}
+.featuredSlider .btn{display:block;background:url(/static/microsites/images/homeManager/btn-slider.png) no-repeat;height:43px;width:26px;position:absolute;top:128px;cursor:pointer;z-index:1;}
 .featuredSlider .btn.izq{background-position:0 0;left:-26px;}
 .featuredSlider .btn.der{background-position:-26px 0;right:-26px;}
 .featuredSlider .btn.izq:hover{background-position:0 -43px;}
@@ -161,7 +161,7 @@ body,
 .featuredSlider .panel{width:940px;height:300px;}
 .featuredSlider .img{height:300px;width:940px;}
 
-.shadowSlider {height: 18px;background: url(http://www.junar.com/media_website/images/common/sh-slider.png) no-repeat;}
+.shadowSlider {height: 18px;background: url(/static/microsites/images/homeManager/sh-slider.png) no-repeat;}
 
 /* Theme 0 */
 .theme0{}
@@ -343,7 +343,7 @@ body .theme2 .caroufredsel_wrapper{border:0 !important;}
        -moz-box-sizing:border-box;
             box-sizing:border-box;
   }
-  .theme6 .searchForm input.image{position:absolute;right:10px;top:5px;background-image:url(/static/core/images/microsites/bt_dataTable.png);background-position:0 -174px;width:22px;height:22px;border:0;outline:none;}
+  .theme6 .searchForm input.image{position:absolute;right:10px;top:5px;background-image:url(/static/microsites/images/microsites/bt_dataTable.png);background-position:0 -174px;width:22px;height:22px;border:0;outline:none;}
   .theme6 .searchForm input.image:hover{background-position:0 -196px;}
 
   /* Buttons section */
