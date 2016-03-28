@@ -6,7 +6,7 @@
         <dct:title>{{resource.title}}</dct:title>
         <dct:description>{{resource.description}}</dct:description>
         <dct:identifier>{{resource.guid}}</dct:identifier>
-        {% for tag in resource.tags %}<dcat:keyword>{{tag}}</dcat:keyword>{% endfor %}
+        {% for tag in resource.tags %}<dcat:keyword>{{tag.tag__name}}</dcat:keyword>{% endfor %}
         <dcat:distribution><dcat:Download>
         <dcat:accessURL rdf:resource="{{resource.export_csv_link}}"/></dcat:Download></dcat:distribution>
         <dcat:distribution><dcat:Download>
@@ -42,7 +42,7 @@
         <dct:description>{{dashboard.description}}</dct:description>
         <dct:identifier>{{dashboard.guid}}</dct:identifier>
         <dcat:accessURL>{{dashboard.link}}</dcat:accessURL>
-        {% for tag in dashboard.tags %}<dcat:keyword>{{tag}}</dcat:keyword>{% endfor %}
+        {% for tag in dashboard.tags %}<dcat:keyword>{{tag.tag_name}}</dcat:keyword>{% endfor %}
         <ods:created>{{dashboard.created_at|date:"c"}}Z</ods:created>
         <ods:last_modified>{{dashboard.created_at|date:"c"}}Z</ods:last_modified>
         {% for widget in dashboard.get_widgets %}
