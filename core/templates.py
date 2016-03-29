@@ -260,7 +260,7 @@ class DatasetOutputBigDataTemplate(Template):
         actual_page = 0
         rows_sended = 0
         
-        with open(self.csv_local_file, "rb") as csvfile:
+        with open(self.csv_local_file, "rU") as csvfile:
             # detectar el delimitador
             # NOT WORKING dialect = csv.Sniffer().sniff(csvfile.read(1024), [',', ';', '\t'])
             delimiters = [',', ';', '\t']
