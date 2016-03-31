@@ -229,8 +229,8 @@ class DatasetOutputBigDataTemplate(Template):
         # guardar el archivo con un nombre vinculado a su URL para no repetir esta descarga
         # en procesos de paginado
         import base64, os.path, tempfile
-        filename = os.path.join(tempfile.gettempdir(), base64.b64encode(self.csv_url))
-        
+        # full /tmp disk filename = os.path.join(tempfile.gettempdir(), base64.b64encode(self.csv_url))
+        filename = os.path.join('/mnt', base64.b64encode(self.csv_url))
         
         exists = os.path.isfile(filename)
         self.csv_local_file = filename
