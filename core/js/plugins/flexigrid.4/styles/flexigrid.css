@@ -20,7 +20,7 @@
 }
 
 .flexigrid div.nDiv {
-	background: #eee url(/js_core/plugins/flexigrid.4/styles/images/line.gif) repeat-y -1px top;
+	background: #eee url(images/line.gif) repeat-y -1px top;
 	border: 1px solid #ccc;
 	border-top: 0px;
 	overflow: auto;
@@ -258,7 +258,7 @@
 }
 
 .flexigrid div.cDrag div:hover,.flexigrid div.cDrag div.dragging {
-	background: url(/js_core/plugins/flexigrid.4/styles/images/line.gif) repeat-y 2px center;
+	background: url(images/line.gif) repeat-y 2px center;
 }
 
 .flexigrid div.iDiv {
@@ -301,7 +301,7 @@
 	right: 0px;
 	height: 5px;
 	width: 5px;
-	background: url(/js_core/plugins/flexigrid.4/styles/images/line.gif) repeat-x center;
+	background: url(images/line.gif) repeat-x center;
 	margin-right: 1px;
 	cursor: col-resize;
 }

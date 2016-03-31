@@ -2,7 +2,7 @@
 .flexigrid{font-family:Arial, Helvetica, sans-serif;font-size:11px;position:relative;border:0 solid #eee;overflow:hidden;color:#000}
 .flexigrid.hideBody{height:26px!important;border-bottom:1px solid #ccc}
 .ie6fullwidthbug{border-right:0 solid #ccc;padding-right:2px}
-.flexigrid div.nDiv{background:#eee url(/js_core/plugins/flexigrid.4/styles/images/line.gif) repeat-y -1px top;border:1px solid #ccc;border-top:0;overflow:auto;left:0;position:absolute;z-index:999;float:left}
+.flexigrid div.nDiv{background:#eee url(images/line.gif) repeat-y -1px top;border:1px solid #ccc;border-top:0;overflow:auto;left:0;position:absolute;z-index:999;float:left}
 .flexigrid div.nDiv table{margin:2px}
 .flexigrid div.hDivBox{float:left;padding-right:40px}
 .flexigrid div.bDiv table{margin-bottom:10px;border-bottom:1px solid #ccc}
@@ -37,12 +37,12 @@
 .flexigrid div.hDiv table{border-right:1px solid #fff}
 .flexigrid div.cDrag{float:left;position:absolute;z-index:2;overflow:visible}
 .flexigrid div.cDrag div{float:left;background:none;display:block;position:absolute;height:24px;width:5px;cursor:col-resize}
-.flexigrid div.cDrag div:hover,.flexigrid div.cDrag div.dragging{background:url(/js_core/plugins/flexigrid.4/styles/images/line.gif) repeat-y 2px center}
+.flexigrid div.cDrag div:hover,.flexigrid div.cDrag div.dragging{background:url(images/line.gif) repeat-y 2px center}
 .flexigrid div.iDiv{border:1px solid #316ac5;position:absolute;overflow:visible;background:none}
 .flexigrid div.iDiv input,.flexigrid div.iDiv select,.flexigrid div.iDiv textarea{font-family:Arial, Helvetica, sans-serif;font-size:11px}
 .flexigrid div.iDiv input.tb{border:0;width:100%;height:100%;background:none;padding:0}
 .flexigrid div.bDiv{border:1px solid #ccc;border-top:0;background:#fff;overflow:auto;position:relative}
-.flexigrid div.hGrip{position:absolute;top:0;right:0;height:5px;width:5px;background:url(/js_core/plugins/flexigrid.4/styles/images/line.gif) repeat-x center;margin-right:1px;cursor:col-resize}
+.flexigrid div.hGrip{position:absolute;top:0;right:0;height:5px;width:5px;background:url(images/line.gif) repeat-x center;margin-right:1px;cursor:col-resize}
 .flexigrid div.hGrip:hover,.flexigrid div.hGrip.hgOver{border-right:1px solid #999;margin-right:0}
 .flexigrid div.vGrip{height:5px;overflow:hidden;position:relative;background:#fafafa url(images/wbg.gif) repeat-x 0 -1px;border:1px solid #ccc;border-top:0;text-align:center;cursor:row-resize}
 .flexigrid div.vGrip span{display:block;width:20px;height:1px;overflow:hidden;border-top:1px solid #aaa;border-bottom:1px solid #aaa;background:none;margin:1px auto}
