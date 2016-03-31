@@ -176,6 +176,11 @@ var CollectFileModel = StepModel.extend({
 			case "tsv":
 				impl_type = 20;
 				break;
+				
+            // 24 = RDF
+			case "rdf":
+				impl_type = 24;
+				break;
 			
 		}
 

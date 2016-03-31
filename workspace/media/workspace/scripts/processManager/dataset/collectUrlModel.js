@@ -160,6 +160,11 @@ var CollectUrlModel = StepModel.extend({
 			case "text/tab-separated-values":
 				impl_type = 20;
 				break;
+				
+            // 24 = RDF
+			case "text/turtle":
+				impl_type = 24;
+				break;
 
 			// Spreadsheet or Word processor
 			case "application/octet-stream" :
@@ -263,6 +268,11 @@ var CollectUrlModel = StepModel.extend({
 			// 20 = TSV
 			case "tsv":
 				impl_type = 20;
+				break;
+				
+			// 24 = RDF
+			case "rdf":
+				impl_type = 24;
 				break;
 			
 		}
