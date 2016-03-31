@@ -230,7 +230,7 @@ class DatasetOutputBigDataTemplate(Template):
         # en procesos de paginado
         import base64, os.path, tempfile
         # full /tmp disk filename = os.path.join(tempfile.gettempdir(), base64.b64encode(self.csv_url))
-        filename = os.path.join('/mnt', base64.b64encode(self.csv_url))
+        filename = os.path.join('/mnt/all', base64.b64encode(self.csv_url))
         
         exists = os.path.isfile(filename)
         self.csv_local_file = filename
