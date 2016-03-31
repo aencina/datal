@@ -70,7 +70,7 @@ class s3(Datastore):
         end_point = "%s/%s/%d" %(str(account_id)[::-1], str(user_id)[::-1], UUID())
         self._save(bucket_name, end_point, file_data)
 
-        logger.error('S3 saved to: %s ' % end_point)
+        logger.info('S3 saved to: %s ' % end_point)
 
         return end_point
         #except Exception, e:
@@ -139,7 +139,7 @@ class datastore_sftp(datastore):
     def connect(self):
         """ don't use at INIT because it hangs all application"""
         logger = logging.getLogger(__name__)
-        logger.error('Connecting SFTP %s:%s (%s, %s)' %(
+        logger.info('Connecting SFTP %s:%s (%s, %s)' %(
             settings.SFTP_DATASTORE_HOSTNAME,
             settings.SFTP_DATASTORE_PORT,
             settings.SFTP_DATASTORE_USER,
@@ -168,7 +168,7 @@ class datastore_sftp(datastore):
         # list all buckets (folders)
         try:
             self.buckets = self.sftp.listdir(path=self.base_folder)
-            logger.error('Buckets: %s' %str(self.buckets))
+            logger.info('Buckets: %s' %str(self.buckets))
         except Exception, e:
             logger.error('Error Connecting SFTP %s' % str(e))
             self.sftp.close()
