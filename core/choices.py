@@ -179,6 +179,8 @@ class SourceImplementationChoices():
     PUS = 21
     TXT = 22
     O365 = 23
+    RDF = 24
+    
 
 SOURCE_IMPLEMENTATION_CHOICES = (
      (SourceImplementationChoices.HTML, 'HTML')
@@ -205,6 +207,8 @@ SOURCE_IMPLEMENTATION_CHOICES = (
     ,(SourceImplementationChoices.PUS, 'PublicStuff')
     ,(SourceImplementationChoices.TXT, 'TXT')
     ,(SourceImplementationChoices.O365, 'Office365')
+    ,(SourceImplementationChoices.RDF, 'Turtle RDF')
+    
 )
 
 SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
@@ -231,6 +235,8 @@ SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
     ,(SourceImplementationChoices.TSV, ["tsv", "tab"])
     #,(SourceImplementationChoices.PUS, 'PublicStuff')
     #,(SourceImplementationChoices.TXT, ["txt"])
+    ,(SourceImplementationChoices.RDF, ["rdf"])
+    
 )
 
 SOURCE_EXTENSION_LIST = sorted([extension for source_id, extensions in SOURCE_IMPLEMENTATION_EXTENSION_CHOICES
@@ -268,6 +274,8 @@ SOURCE_IMPLEMENTATION_MIMETYPE_CHOICES = (
                                         "application/x-tar"])
     ,(SourceImplementationChoices.TSV, ["text/tab-separated-values"])
     #,(SourceImplementationChoices.PUS, 'PublicStuff')
+    ,(SourceImplementationChoices.RDF, ["text/turtle"])
+    
 )
 
 SOURCE_MIMETYPE_LIST = sorted([mimetype for source_id, mimetypes in SOURCE_IMPLEMENTATION_MIMETYPE_CHOICES
@@ -282,7 +290,8 @@ DATASTREAM_IMPL_VALID_CHOICES = [
     SourceImplementationChoices.KMZ, 
     SourceImplementationChoices.DOC,
     SourceImplementationChoices.TSV,
-    SourceImplementationChoices.TXT]
+    SourceImplementationChoices.TXT,
+    SourceImplementationChoices.RDF]
 
 # These are the impl_type that are not valid to create a Data View from Self Publish
 DATASTREAM_IMPL_NOT_VALID_CHOICES = list( set(dict(SOURCE_IMPLEMENTATION_CHOICES).keys()) - set(DATASTREAM_IMPL_VALID_CHOICES) )
@@ -434,7 +443,7 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('account.footer.opendatalicense', 'account.footer.opendatalicense')
     ,('account.preview', 'account.preview')
     
-    # API blazegraph plugin
+    # API blazegraph plugin # TODO: Mover al plugin
     ,('account.bigdata.namespace', 'account.bigdata.namespace')
     ,('account.blazegraph.domain', 'account.blazegraph.domain')
      
