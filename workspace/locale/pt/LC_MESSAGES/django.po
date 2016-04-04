@@ -2508,8 +2508,14 @@ msgstr "Carrousel & Buttons"
 msgid "ACCOUNT-ENABLE-DOWNLOADS-LABEL"
 msgstr "Enable downloads"
 
+msgid "ACCOUNT-ENABLE-DATASET-SHOW-LABEL"
+msgstr "Enable Datasets in the Portal"
+
 msgid "SOCIAL-DOWNLOADS-TIP"
 msgstr "Allow users to download your Datasets."
+
+msgid "SOCIAL-DATASET-SHOW-TIP"
+msgstr "Permitir aos utilizadores visualizar o seu conjuntos de dados no portal."
 
 msgid "APP-DATASETCANTBEUSEDTOCREATECHILD-TEXT"
 msgstr "This Dataset cannot be used to create a Data View."

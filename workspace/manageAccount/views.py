@@ -265,7 +265,7 @@ def edit_branding_update(request):
 def edit_social(request):
     account = request.auth_manager.get_account()
     preferences = account.get_preferences()
-    keys = ['account.comments', 'enable.embed.options', 'account.enable.sharing', 'account.enable.notes', 'account.dataset.download']
+    keys = ['account.comments', 'enable.embed.options', 'account.enable.sharing', 'account.enable.notes', 'account.dataset.download', 'account.dataset.show']
     form = forms.AccountSocialForm(initial=get_initial(account, keys))
     social = True
     return render_to_response('admin_manager/social.html', locals())

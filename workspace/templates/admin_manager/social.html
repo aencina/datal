@@ -65,6 +65,14 @@
                                     </div>
                                     <p class="tip socialTip">{% trans "SOCIAL-DOWNLOADS-TIP" %}</p>
                                 </div>
+                                <div class="settingsBox">
+                                    <div class="formErrorMessageContainer">
+                                        {{form.account_dataset_show}}
+                                        <label for="{{form.account_dataset_show.auto_id}}">{{form.account_dataset_show.label}}</label>
+                                    </div>
+                                    <p class="tip socialTip">{% trans "SOCIAL-DATASET-SHOW-TIP" %}</p>
+                                </div>
+ 
                             </div>
                         </fieldset>
                     </div>
