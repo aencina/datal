@@ -3164,6 +3164,9 @@ msgstr "Número"
 msgid "APP-DATE-TEXT"
 msgstr "Fecha"
 
+msgid "APP-LINK-TEXT"
+msgstr "Enlace"
+
 msgid "APP-DATASET-PARAMETERS"
 msgstr "Parámetros del conjunto de datos"
 

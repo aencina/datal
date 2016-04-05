@@ -129,6 +129,7 @@ var FormatsView = Backbone.Epoxy.View.extend({
         }
     },
 
+
     onChangeColumn: function (model, value) {
         this.$('.row-data-type').toggleClass('hidden', value === '');
         if (value !== '') {
@@ -141,11 +142,10 @@ var FormatsView = Backbone.Epoxy.View.extend({
     },
 
     onChangeType: function (model, value) {
-        this.$('.input-output-view').toggleClass('hidden', value === 'TEXT');
-        this.$('.number-display-locale').toggleClass('hidden', value !== 'NUMBER');
-        this.$('.date-display-locale').toggleClass('hidden', value !== 'DATE');
-        this.$('.separators').toggleClass('hidden', value !== 'NUMBER');
-        this.$('.symbols-locale-option').toggleClass('hidden', value !== 'NUMBER');
+        this.$('[show-on]').each(function(index, el) {
+            $el = $(el)
+            $el.toggleClass('hidden', !_.contains($el.attr('show-on').split(','), value));
+        });
 
         this.model.set('outputPattern', '');
         this.model.set('inputPattern', '');

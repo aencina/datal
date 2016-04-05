@@ -20,6 +20,7 @@ var DataStreamModel = Backbone.Model.extend({
               return this.formatRow(row);
             }, this);
 
+        this.data.set('rows_data', response.fArray)
         this.data.set('headers', _.first(headers, response.fCols))
         this.data.set('columns', _.first(data, response.fCols));
         this.data.set('rows', rows);

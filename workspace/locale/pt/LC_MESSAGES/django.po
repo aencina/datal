@@ -3171,6 +3171,9 @@ msgstr "Number"
 msgid "APP-DATE-TEXT"
 msgstr "Date"
 
+msgid "APP-LINK-TEXT"
+msgstr "Link"
+
 msgid "APP-NAME-TEXT"
 msgstr "Name"
 
