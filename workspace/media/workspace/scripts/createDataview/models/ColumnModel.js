@@ -26,19 +26,22 @@ var ColumnModel = Backbone.Epoxy.Model.extend({
                 msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
             }
         ],
-        inputPattern: [
-            {
-                required: true,
-                msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
-            }
-        ],
 
-        outputPattern: [
-            {
-                required: true,
-                msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
+        inputPattern: function(value, attr) {
+            if (_.contains(["NUMBER", "DATE"], this.get('type'))) {
+                if(_.isUndefined(value) || value === '') {
+                    return gettext('VALIDATE-REQUIREDFIELD-TEXT');
+                }
             }
-        ],
+        },
+
+        outputPattern: function(value, attr) {
+            if (_.contains(["NUMBER", "DATE"] , this.get('type'))) {
+                if(_.isUndefined(value) || value === '') {
+                    return gettext('VALIDATE-REQUIREDFIELD-TEXT');
+                }
+            }
+        },
 
         inputCustomPattern: function(value, attr) {
             if (this.get('inputPattern') === 'custom') {

@@ -628,11 +628,12 @@
       <select class="form-control select-data-type" name="type">
           <option value="NUMBER">{% trans 'APP-NUMBER-TEXT' %}</option>
           <option value="DATE">{% trans 'APP-DATE-TEXT' %}</option>
+          <option value="LINK">{% trans 'APP-LINK-TEXT' %}</option>
       </select>
     </div>
   </div>
 
-  <div class="input-output-view<%= (!_.isUndefined(column.type) && column.type === 'TEXT')? ' hidden': '' %>">
+  <div class="input-output-view<%= (!_.isUndefined(column.type) && column.type === 'TEXT')? ' hidden': '' %>" show-on="NUMBER,DATE">
 
     <p><strong>{% trans 'APP-CONFIGURE-ORIGIN-FORMAT' %}</strong></p>
     <div role="separator" class="divider divider-xs"></div>
@@ -653,7 +654,7 @@
               </div>
             </div>
 
-            <div class="form-group clearfix symbols-locale-option<%= (!_.isUndefined(column.type) && column.type !== 'NUMBER')? ' hidden': '' %>">
+            <div class="form-group clearfix symbols-locale-option<%= (!_.isUndefined(column.type) && column.type !== 'NUMBER')? ' hidden': '' %>" show-on="NUMBER">
               <label>{% trans 'APP-THOUSANDS-DECIMALS-INDICATORS' %}</label>
 
                 <div class="list-group">
@@ -672,7 +673,7 @@
                     </div>
                   </div>
 
-                  <div class="list-radio-content separators<%= (!_.isUndefined(column.type) && column.type !== 'NUMBER')? ' hidden': '' %>">
+                  <div class="list-radio-content separators<%= (!_.isUndefined(column.type) && column.type !== 'NUMBER')? ' hidden': '' %>" show-on="NUMBER">
 
                     <div class="form-group">
                         <label>{% trans 'APP-THOUSAND-INDICATOR' %}</label>
@@ -874,7 +875,7 @@
               </div>
             </div>
 
-            <div class="number-display-locale<%= (!_.isUndefined(column.type) && column.type !== 'NUMBER')? ' hidden': '' %>">
+            <div class="number-display-locale<%= (!_.isUndefined(column.type) && column.type !== 'NUMBER')? ' hidden': '' %>" show-on="NUMBER">
               <div class="form-group">
                 <label>{% trans 'APP-LOCALE' %}</label>
                 <div class="input-group">
@@ -917,7 +918,7 @@
               </div>
             </div>
 
-            <div class="date-display-locale<%= (!_.isUndefined(column.type) && column.type !== 'DATE')? ' hidden': '' %>">
+            <div class="date-display-locale<%= (!_.isUndefined(column.type) && column.type !== 'DATE')? ' hidden': '' %>" show-on="DATE">
               <div class="form-group">
                 <label>{% trans 'APP-LOCALE' %}</label>
                 <div class="input-group">

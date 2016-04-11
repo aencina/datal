@@ -122,7 +122,9 @@
 
 					<%= lastPublishDate %>, 
 
+                    {% if preference.account_dataset_show %}
 					<a href="<%= publicUrl %>" class="link black" title="{% trans 'APP-VIEWONSITE-TEXT' %}" target="_blank">{% trans 'APP-VIEWONSITE-TEXT' %}<span class="icon icon-inline icon-new-tab icon-right"></span></a>
+                    {% endif %}
 
 				<% }else{ %>
 

@@ -226,9 +226,6 @@ SEARCH_INDEX = {
 HOT_DATASTREAMS = 'HOT_DATASTREAMS'
 HOT_VISUALIZATIONS = 'HOT_VISUALIZATIONS'
 
-# develop & staging sentry
-SENTRY_DSN = 'http://sentrydsn@sentry.com/1'
-
 TWITTER_PROFILE_URL = 'https://twitter.com/tuCuenta'
 FACEBOOK_PROFILE_URL = 'https://facebook.com/tuFanPage'
 MAIL_LIST = {'LIST_COMPANY' : '', 'LIST_DESCRIPTION': '', 
