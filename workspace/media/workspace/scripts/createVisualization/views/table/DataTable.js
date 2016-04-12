@@ -88,6 +88,7 @@ var DataTableView = Backbone.View.extend({
       manualColumnResize: true,
       manualRowResize: true,
       stretchH: 'all',
+      data: [],
       viewportRowRenderingOffset: 60,
       afterInit: function () {
         $(window).keydown(function(evt) {
