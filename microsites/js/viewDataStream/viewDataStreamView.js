@@ -60,6 +60,7 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 			this.listenTo(this.model, "change:"+name, this.onParamChanged);
 			i++;
 		}
+		this.listenTo(this.model, "change:timestamp", this.updateTimestamp);
 
 		// init Sidebars
 		this.initInfoSidebar();
@@ -351,6 +352,67 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 		this.model.set('filter', '');
 		this.updateExportsURL();
 
+	},
+
+	updateTimestamp: function(){
+
+		var timestamp = this.model.get('timestamp');
+
+		console.log( timestamp );
+
+		console.log( new Date() );
+
+		if( !_.isUndefined( timestamp ) ){
+
+			var dFormat = 'MM dd, yy',
+				tFormat = 'hh:mm TT',
+				dt;
+
+			// sometimes are seconds, sometimes miliseconds
+			if(timestamp < 100000000000){
+				timestamp = timestamp * 1000;	
+			}
+
+			// if 0, date/time is now
+			if( timestamp == 0 ){
+				dt = new Date();
+			}else{
+				dt = new Date(timestamp);
+			}			
+
+			// Set timezone
+			dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+
+			// Get locale from lang attribute un <html>
+			var local = $('html').attr('lang');
+
+			//(?) if I use "en" doesn't work, I must use "" for "en"
+			if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+			if (local === "es" || local.indexOf("es_")) local = "es";
+
+			dateFormatted = $.datepicker.formatDate(dFormat, dt, {
+				dayNamesShort: $.datepicker.regional[local].dayNamesShort,
+				dayNames: $.datepicker.regional[local].dayNames,
+				monthNamesShort: $.datepicker.regional[local].monthNamesShort,
+				monthNames: $.datepicker.regional[local].monthNames
+			});
+
+			timeFormatted = $.datepicker.formatTime(tFormat, dt);
+
+			timestamp = dateFormatted + ', ' + timeFormatted;
+
+			//var dateFormat = $.datepicker.parseDate( "@", timestamp );
+			//timestamp = $.datepicker.formatDate( 'mm/dd/yy', dateFormat );
+		
+			console.log(timestamp);
+
+			var template = _.template( $("#id_timestampTemplate").html() );
+
+			console.log( template( {'timestamp': timestamp} ) );
+
+			this.$el.find('#id_lastModified').after( template( {'timestamp': timestamp} ) );
+
+		}
 	}
 
 });

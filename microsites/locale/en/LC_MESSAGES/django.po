@@ -647,3 +647,6 @@ msgstr "Go to the home page"
 
 msgid "APP-GO-PORTAL-TEXT"
 msgstr "Go to open data site"
+
+msgid "VIEWDS-INFO-LASTMODIFIED"
+msgstr "Last published:"

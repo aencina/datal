@@ -63,7 +63,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		this.handleVisualizationResize();
 		
 		this.model.on('change', this.setMiniLoading, this);
- -		this.model.on('data_updated', this.unsetLoading, this)
+		this.model.on('data_updated', this.unsetLoading, this);
 
 	},
 
@@ -81,10 +81,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			});	
 		})
 
-	},
-
-	loadDatatable: function(){
-		this.theDataTable = new dataTableView({model: new dataTable(), dataStream: this.model, parentView: this});
 	},
 
 	setLoading : function() {

@@ -22,10 +22,12 @@
 		<!-- Last Update -->
 		<article class="lastUpdate">
 			<i></i>
-			<header>
-				<h1>{% trans 'VIEWDS-INFO-LASTUPDATE' %}</h1>
-			</header>
-			<p id="id_lastUpdate">{{visualization_revision.modified_at|date:'F d, Y, h:i A'}}</p>
+			<div id="id_lastModified">
+				<header>
+					<h1>{% trans 'VIEWDS-INFO-LASTUPDATE' %}</h1>
+				</header>
+				<p>{{visualization_revision.modified_at|date:'F d, Y, h:i A'}}</p>
+			</div>
 		</article>
 
 		<!-- Data Collected From -->
