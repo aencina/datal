@@ -190,7 +190,7 @@ def add_value(context, value, addvalue):
     if errors:
         logger = logging.getLogger(__name__)
         err_detail = u'WITH ERRORS: {} => ({} + {})'.format(error_log, orig[0], orig[1])
-        logger.error(err_detail)
+        logger.info(err_detail)
         res = context[value] # return unmodified files
     else:
         res = val + addvalue
