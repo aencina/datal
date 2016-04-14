@@ -20,6 +20,12 @@ sass_install:
   gem.installed:
     - name: sass
 
+pillow_datal_deps:
+  pkg.installed:
+    - refresh: True
+    - pkgs:
+      - libjpeg-dev
+
 clean_caches:
   cmd.run:
     - names:
