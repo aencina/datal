@@ -149,7 +149,7 @@ class ElasticsearchFinder(Finder):
                     "query": {
                         "query_string": {
                             "query": self.query,
-                            "fields": ["title", "text", "text_english_stemmer", "text_spanish_stemmer", "categories.name"]
+                            "fields": ["title", "text", "text_english_stemmer", "text_spanish_stemmer", "category_spanish_stemmer", "category_english_stemmer"]
                         }
                     },
                     "filter": {
