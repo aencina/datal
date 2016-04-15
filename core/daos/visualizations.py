@@ -582,8 +582,8 @@ class VisualizationSearchDAO():
 
     TYPE="vz"
 
-    def __init__(self, visualization_revision):
-        self.visualization_revision=visualization_revision
+    def __init__(self, revision):
+        self.revision=revision
         self.search_index = SearchifyIndex()
 
     def _get_type(self):
@@ -591,20 +591,20 @@ class VisualizationSearchDAO():
     
     def _get_id(self):
         """ Get Tags """
-        return "%s::%s" %(self.TYPE.upper(),self.visualization_revision.visualization.guid)
+        return "%s::%s" %(self.TYPE.upper(),self.revision.visualization.guid)
 
     def _get_tags(self):
         """ Get Tags """
-        return self.visualization_revision.tagvisualization_set.all().values_list('tag__name', flat=True)
+        return self.revision.tagvisualization_set.all().values_list('tag__name', flat=True)
 
     def _get_category(self):
         """ Get category name """
         #al final quedó cortito el método, eh!
-        return self.visualization_revision.visualization.datastream.last_published_revision.category.categoryi18n_set.all()[0]
+        return self.revision.visualization.datastream.last_published_revision.category.categoryi18n_set.all()[0]
 
     def _get_i18n(self):
         """ Get category name """
-        return VisualizationI18n.objects.get(visualization_revision=self.visualization_revision)
+        return VisualizationI18n.objects.get(visualization_revision=self.revision)
         
     def _build_document(self):
 
@@ -613,7 +613,7 @@ class VisualizationSearchDAO():
         category = self._get_category()
         visualizationi18n = self._get_i18n()
 
-        text = [visualizationi18n.title, visualizationi18n.description, self.visualization_revision.user.nick, self.visualization_revision.visualization.guid]
+        text = [visualizationi18n.title, visualizationi18n.description, self.revision.user.nick, self.revision.visualization.guid]
         text.extend(tags) # visualization has a table for tags but seems unused. I define get_tags funcion for dataset.
         text = ' '.join(text)
         
@@ -621,21 +621,21 @@ class VisualizationSearchDAO():
                 'docid' : self._get_id(),
                 'fields' :
                     {'type' : self.TYPE,
-                     'resource_id': self.visualization_revision.visualization.id,
-                     'revision_id': self.visualization_revision.id,
-                     'visualization_id': self.visualization_revision.visualization.id,
-                     'visualization_revision_id': self.visualization_revision.id,
-                     'datastream_id': self.visualization_revision.visualization.datastream.id,
+                     'resource_id': self.revision.visualization.id,
+                     'revision_id': self.revision.id,
+                     'visualization_id': self.revision.visualization.id,
+                     'visualization_revision_id': self.revision.id,
+                     'datastream_id': self.revision.visualization.datastream.id,
                      'title': visualizationi18n.title,
                      'text': text,
                      'description': visualizationi18n.description,
-                     'owner_nick' :self.visualization_revision.user.nick,
+                     'owner_nick' :self.revision.user.nick,
                      'tags' : ','.join(tags),
-                     'account_id' : self.visualization_revision.user.account.id,
+                     'account_id' : self.revision.user.account.id,
                      'parameters': "",
                      'timestamp': 0,
-                     'created_at': int(time.mktime(self.visualization_revision.created_at.timetuple())),
-                     'modified_at': int(time.mktime(self.dataset_revision.modified_at.timetuple())),
+                     'created_at': int(time.mktime(self.revision.created_at.timetuple())),
+                     'modified_at': int(time.mktime(self.revision.modified_at.timetuple())),
                      'hits': 0,
                      'web_hits': 0,
                      'api_hits': 0,
@@ -648,22 +648,22 @@ class VisualizationSearchDAO():
 
 class VisualizationSearchifyDAO(VisualizationSearchDAO):
     """ class for manage access to datasets' searchify documents """
-    def __init__(self, visualization_revision):
-        self.visualization_revision=visualization_revision
+    def __init__(self, revision):
+        self.revision=revision
         self.search_index = SearchifyIndex()
         
     def add(self):
         self.search_index.indexit(self._build_document())
         
-    def remove(self, visualization_revision):
+    def remove(self, revision):
         self.search_index.delete_documents([self._get_id()])
 
 
 class VisualizationElasticsearchDAO(VisualizationSearchDAO):
     """ class for manage access to datasets' elasticsearch documents """
 
-    def __init__(self, visualization_revision):
-        self.visualization_revision=visualization_revision
+    def __init__(self, revision):
+        self.revision=revision
         self.search_index = ElasticsearchIndex()
         
     def add(self):
