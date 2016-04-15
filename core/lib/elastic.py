@@ -142,6 +142,7 @@ class ElasticsearchIndex():
                         },
                       },
                       "created_at" : { "type" : "long" },
+                      "modified_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
@@ -199,6 +200,7 @@ class ElasticsearchIndex():
                       },
  
                       "created_at" : { "type" : "long" },
+                      "modified_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
@@ -259,6 +261,7 @@ class ElasticsearchIndex():
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },
                       "created_at" : { "type" : "long" },
+                      "modified_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "title" : { "type" : "string" ,
                         "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}

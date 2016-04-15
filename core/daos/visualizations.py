@@ -635,6 +635,7 @@ class VisualizationSearchDAO():
                      'parameters': "",
                      'timestamp': 0,
                      'created_at': int(time.mktime(self.visualization_revision.created_at.timetuple())),
+                     'modified_at': int(time.mktime(self.dataset_revision.modified_at.timetuple())),
                      'hits': 0,
                      'web_hits': 0,
                      'api_hits': 0,
