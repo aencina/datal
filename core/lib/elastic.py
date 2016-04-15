@@ -157,9 +157,18 @@ class ElasticsearchIndex():
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },
-                      "title" : { "type" : "string" ,
-                        "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                          },
+                      "tile" : {
+                        "type" : "string",
+                        "fields": {
+                                "title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "title_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "title_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "title_english": {"type":"string", "analyzer": "english"},
+                                "title_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
+                      },
                       "type" : { "type" : "string" }
                     }
                   } # fields
@@ -209,9 +218,19 @@ class ElasticsearchIndex():
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },
-                      "title" : { "type" : "string" ,
-                        "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                          },
+                      "tile" : {
+                        "type" : "string",
+                        "fields": {
+                                "title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "title_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "title_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "title_english": {"type":"string", "analyzer": "english"},
+                                "title_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
+                      },
+ 
                       "type" : { "type" : "string" }
                     }
                   } # fields
@@ -261,9 +280,19 @@ class ElasticsearchIndex():
                       "created_at" : { "type" : "long" },
                       "modified_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
-                      "title" : { "type" : "string" ,
-                        "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                          },
+                      "tile" : {
+                        "type" : "string",
+                        "fields": {
+                                "title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "title_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "title_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "title_english": {"type":"string", "analyzer": "english"},
+                                "title_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
+                      },
+ 
                       "type" : { "type" : "string" }
                     }
                   } # fields
