@@ -162,7 +162,7 @@ class ElasticsearchFinder(Finder):
             "facets": {
                 "type": {
                     "terms": {
-                        "field": "categories.name"
+                        "field": "category_name_not_analyzed"
                     }
                 }
             }
