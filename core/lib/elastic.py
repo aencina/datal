@@ -14,7 +14,8 @@ class ElasticsearchIndex():
                                  "fields": {
                                     "lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
                                     "category_english_stemmer": {"type":"string", "analyzer": "english"},
-                                    "category_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                    "category_spanish_stemmer": {"type":"string", "analyzer": "spanish"},
+                                    "category_name_not_analyzed" : { "type" : "string", "index" : "not_analyzed" }
                                  },
                                  "properties": { 
                                     "category_english": {"type":"string", "analyzer": "english"},

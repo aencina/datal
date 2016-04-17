@@ -127,7 +127,7 @@ class ElasticsearchFinder(Finder):
                 self.category_filters=[self.category_filters]
 
             filters.append({"terms": {
-                "categories.name": self.category_filters
+                "category_name_not_analyzed": self.category_filters
             }})
 
         if self.ids:
