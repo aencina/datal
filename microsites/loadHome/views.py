@@ -112,7 +112,7 @@ def update_list(request):
 
         category_filters = form.cleaned_data.get('category_filters')
         if category_filters:
-            category_filters=category_filters.split(",")
+            category_filters=category_filters.lower().split(",")
 
         builder = ThemeBuilder(preferences, False, language, request.user)
         data = builder.parse()

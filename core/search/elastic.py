@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 class ElasticsearchFinder(Finder):
 
-    order_by = "created_at:desc,title_lower_sort:asc,_score"
+    order_by = "created_at:desc,title:asc,_score"
 
     def search(self, *args, **kwargs):
 
