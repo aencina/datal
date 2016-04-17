@@ -159,7 +159,7 @@ class Finder:
                             kwargs={'id': id, 'slug': slug})
 
         data = dict (id=id, revision_id=document['datastream__revision_id'], title=title, description=document['description'], parameters=parameters,
-                             tags=[ tag.strip() for tag in document['tags'].split(',') ], permalink=permalink,
+                             tags=[ tag.strip() for tag in document['tags'].split(',') ], permalink=permalink, modified_at=document['modified_at'],
                              type=document['type'], category=document['category_id'], category_name=document['category_name'], guid=document['docid'].split("::")[1]
                              ,end_point=document['end_point'], created_at=document['created_at'], owner_nick=document['owner_nick'], timestamp=document['timestamp'])
 
@@ -178,7 +178,7 @@ class Finder:
         permalink = reverse('manageDatasets.view', urlconf='microsites.urls', kwargs={'dataset_id': dataset_id,'slug': slug})
 
         dataset = dict(id=dataset_id, revision_id=document['datasetrevision_id'], title=title, description=document['description'], parameters=parameters,
-                       tags=[ tag.strip() for tag in document['tags'].split(',') ], permalink=permalink,
+                       tags=[ tag.strip() for tag in document['tags'].split(',') ], permalink=permalink, modified_at=document['modified_at'],
                        type=document['type'], category=document['category_id'], category_name=document['category_name'], guid=document['docid'].split("::")[1]
                        ,end_point=document['end_point'], created_at=document['created_at'], owner_nick=document['owner_nick'], timestamp=document['timestamp'])
         return dataset
@@ -202,7 +202,7 @@ class Finder:
 
         visualization = dict(id=document['visualization_id'], revision_id=document['visualization_revision_id'], title=title, description=document['description'],
                              parameters=parameters, tags=[tag.strip() for tag in document['tags'].split(',')],
-                             permalink=permalink, timestamp=document['timestamp'],
+                             permalink=permalink, timestamp=document['timestamp'], modified_at=document['modified_at'],
                              type=document['type'], category=document['category_id'], category_name=document['category_name'], guid=document['docid'].split("::")[1],
                              end_point=document.get('end_point', None), created_at=document['created_at'], owner_nick=document['owner_nick'])
         return visualization

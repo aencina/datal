@@ -7,6 +7,22 @@ import logging
 
 class ElasticsearchIndex():
     """ Gestor para indice elasticsearch"""
+
+    __categories={ "properties" : {
+                      "id" : { "type" : "string" },
+                      "name" : { "type" : "string",
+                                 "fields": {
+                                    "lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                    "category_english_stemmer": {"type":"string", "analyzer": "english"},
+                                    "category_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                 },
+                                 "properties": { 
+                                    "category_english": {"type":"string", "analyzer": "english"},
+                                    "category_spanish": {"type":"string", "analyzer": "spanish"}
+                                 },
+ 
+                      } } }
+
     
     def __init__(self, url=None):
 
@@ -102,13 +118,7 @@ class ElasticsearchIndex():
     def __get_datastream_mapping(self):
         return {"ds" : {
                 "properties" : {
-                  "categories" : {
-                    "properties" : {
-                      "id" : { "type" : "string" },
-                      "name" : { "type" : "string", 
-                                 "index" : "not_analyzed" }
-                    }
-                  }, # categories
+                  "categories" : self.__categories, # categories
 
                   "meta_text" : {
                     "properties" : {
@@ -142,13 +152,23 @@ class ElasticsearchIndex():
                         },
                       },
                       "created_at" : { "type" : "long" },
+                      "modified_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },
-                      "title" : { "type" : "string" ,
-                        "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                          },
+                      "title" : {
+                        "type" : "string",
+                        "fields": {
+                                "title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "title_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "title_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "title_english": {"type":"string", "analyzer": "english"},
+                                "title_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
+                      },
                       "type" : { "type" : "string" }
                     }
                   } # fields
@@ -159,13 +179,7 @@ class ElasticsearchIndex():
     def __get_dataset_mapping(self):
         return {"dt" : {
                 "properties" : {
-                  "categories" : {
-                    "properties" : {
-                      "id" : { "type" : "string" },
-                      "name" : { "type" : "string",
-                                 "index" : "not_analyzed" }
-                    }
-                  }, # categories
+                  "categories" : self.__categories, # categories
                   "meta_text" : {
                     "properties" : {
                       "field_name" : { "type" : "string" },
@@ -199,13 +213,24 @@ class ElasticsearchIndex():
                       },
  
                       "created_at" : { "type" : "long" },
+                      "modified_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
                       "hits" : { "type" : "integer" },
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },
-                      "title" : { "type" : "string" ,
-                        "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                          },
+                      "title" : {
+                        "type" : "string",
+                        "fields": {
+                                "title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "title_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "title_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "title_english": {"type":"string", "analyzer": "english"},
+                                "title_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
+                      },
+ 
                       "type" : { "type" : "string" }
                     }
                   } # fields
@@ -216,13 +241,7 @@ class ElasticsearchIndex():
     def __get_visualization_mapping(self):
         return {"vz" : {
                 "properties" : {
-                  "categories" : {
-                    "properties" : {
-                      "id" : { "type" : "string" },
-                      "name" : { "type" : "string",
-                                 "index" : "not_analyzed" }
-                    }
-                  }, # categories
+                  "categories" : self.__categories, # categories
                   "meta_text" : {
                     "properties" : {
                       "field_name" : { "type" : "string" },
@@ -259,10 +278,21 @@ class ElasticsearchIndex():
                       "web_hits" : { "type" : "integer" },
                       "api_hits" : { "type" : "integer" },
                       "created_at" : { "type" : "long" },
+                      "modified_at" : { "type" : "long" },
                       "timestamp" : { "type" : "long" },
-                      "title" : { "type" : "string" ,
-                        "fields": {"title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"}}
-                          },
+                      "title" : {
+                        "type" : "string",
+                        "fields": {
+                                "title_lower_sort": {"type":"string", "analyzer": "case_insensitive_sort"},
+                                "title_english_stemmer": {"type":"string", "analyzer": "english"},
+                                "title_spanish_stemmer": {"type":"string", "analyzer": "spanish"}
+                                },
+                        "properties": { 
+                                "title_english": {"type":"string", "analyzer": "english"},
+                                "title_spanish": {"type":"string", "analyzer": "spanish"}
+                        },
+                      },
+ 
                       "type" : { "type" : "string" }
                     }
                   } # fields
