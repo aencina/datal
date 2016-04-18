@@ -39,6 +39,11 @@
 <script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 
+{# add spanish support for dates #}
+<script type="text/javascript" src="/js_core/libs/jquery_ui/jquery.ui.datepicker-es.js?id={{settings.VERSION_JS_CSS}}"></script>
+{# addon for formating time #}
+<script type="text/javascript" src="/js_core/plugins/jquery-ui-timepicker-addon.js?id={{settings.VERSION_JS_CSS}}"></script>
+
 <!-- Lib items from plugins -->
 {% plugins_call 'microsites_view_visualization_libs' %}
 
@@ -140,6 +145,9 @@
   </div>
 </div>
 
+{# templates backbone #}
+{% include "viewChart/templates.html" %}
+
 <!-- plugins templates backbone -->
 {% plugins_call 'microsites_view_visualization_templates_backbone' %}
 
@@ -151,56 +159,60 @@
 
 google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
 
-var viewVisualizationModel = {
-    title: "{{visualization_revision.title}}", 
-    description: "{{visualization_revision.description|escapejs}}", 
-    visualizationJson : '{{result|escapejs}}',
-    chartJson : '{{visualization_revision.impl_details|escapejs}}',
-    chartLib: "{{visualization_revision.lib}}",
-    status : '{{visualization_revision.status}}',
-    createdAt: "{{ visualization_revision.created_at|date:'F d, Y, h:i A'|capfirst }}",
-    modifiedAt: "{{ visualization_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}",
-    lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-    publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
-    lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
-    guid: "{{visualization_revision.guid}}",
+$(document).ready(function(){
 
-    // Revisar
-    id: "{{ visualization_revision.last_published_revision_id }}",
-    visualization_id: "{{ visualization_revision.visualization_id }}",
-    embedUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% url 'viewChart.embed' visualization_revision.guid %}"
-}
+  var viewVisualizationModel = {
+      title: "{{visualization_revision.title}}", 
+      description: "{{visualization_revision.description|escapejs}}", 
+      visualizationJson : '{{result|escapejs}}',
+      chartJson : '{{visualization_revision.impl_details|escapejs}}',
+      chartLib: "{{visualization_revision.lib}}",
+      status : '{{visualization_revision.status}}',
+      createdAt: "{{ visualization_revision.created_at|date:'F d, Y, h:i A'|capfirst }}",
+      modifiedAt: "{{ visualization_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}",
+      lastPublishDate: "{{visualization_revision.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
+      publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
+      lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
+      guid: "{{visualization_revision.guid}}",
 
-// Plugins - Extend Main Model
-{% plugins_call 'microsites_view_visualization_js_extend_main_model' %}
+      // Revisar
+      id: "{{ visualization_revision.last_published_revision_id }}",
+      visualization_id: "{{ visualization_revision.visualization_id }}",
+      embedUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% url 'viewChart.embed' visualization_revision.guid %}"
+  }
 
-var visualizationModel = new charts.models.Chart( viewVisualizationModel );
+  // Plugins - Extend Main Model
+  {% plugins_call 'microsites_view_visualization_js_extend_main_model' %}
 
-var formatDict = {{ visualization_revision.format | jsonify }};
+  var visualizationModel = new charts.models.Chart( viewVisualizationModel );
 
-visualizationModel.parse({
-    id: {{ visualization_revision.visualization_id }},
-    revision_id: {{ visualization_revision.visualization_revision_id }},
-    datastream_revision_id: {{datastream.datastream_revision_id}},
-    
-    title: '{{ visualization_revision.title }}',
-    description: '{{ visualization_revision.description }}',
-    notes: '{{ visualization_revision.notes|escapejs }}',
-    lib: '{{ visualization_revision.lib }}',
+  var formatDict = {{ visualization_revision.format | jsonify }};
 
-    data: '{{ visualization_revision.data }}',
+  visualizationModel.parse({
+      id: {{ visualization_revision.visualization_id }},
+      revision_id: {{ visualization_revision.visualization_revision_id }},
+      datastream_revision_id: {{datastream.datastream_revision_id}},
+      
+      title: '{{ visualization_revision.title }}',
+      description: '{{ visualization_revision.description }}',
+      notes: '{{ visualization_revision.notes|escapejs }}',
+      lib: '{{ visualization_revision.lib }}',
 
-    format: formatDict,
-    chart: {{ visualization_revision.chart | jsonify }},
+      data: '{{ visualization_revision.data }}',
 
-    silent: formatDict.type === 'mapchart',
-}); 
+      format: formatDict,
+      chart: {{ visualization_revision.chart | jsonify }},
 
-// Plugins- Extend Main Model After Parse
-{% plugins_call 'microsites_view_visualization_js_extend_main_model_after_parse' %}
+      silent: formatDict.type === 'mapchart',
+  }); 
 
-var visualizationView = new viewVisualizationView({
-    model: visualizationModel
+  // Plugins- Extend Main Model After Parse
+  {% plugins_call 'microsites_view_visualization_js_extend_main_model_after_parse' %}
+
+  var visualizationView = new viewVisualizationView({
+      model: visualizationModel
+  });
+
 });
 
 </script>

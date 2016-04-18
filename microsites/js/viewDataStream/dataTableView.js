@@ -42,6 +42,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	initialize: function() {
 
 		this.parentView = this.options.parentView;
+		this.dataStream = this.options.dataStream;
 
 		$parameters = this.$el.find('a[id^="id_changeParam"]');
 		this.template = _.template( $("#id_dataTableTemplate").html() );
@@ -52,7 +53,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	  var i=0;
 		while(i < $parameters.size()){
 			var name = 'parameter' + i;
-			this.listenTo(this.options.dataStream, "change:"+name, this.invoke);
+			this.listenTo(this.dataStream, "change:"+name, this.invoke);
 			i++;
 		} 
 	  
@@ -64,7 +65,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 		if (this.model.attributes.result.fType == 'LOADING') {
 			this.setLoading()
 		} else {
-			var dataStream = this.options.dataStream.attributes;
+			var dataStream = this.dataStream.attributes;
 
 			// Set Template
 			var $result = this.$el.find('#id_datastreamResult > div')
@@ -123,7 +124,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 
 		// If not disabled
 		if( !$(button).parents('.parameters').hasClass('isDisabled') ){
-			new changeDataStreamParametersView({model: new changeDataStreamParameters(), dataStream: this.options.dataStream});
+			new changeDataStreamParametersView({model: new changeDataStreamParameters(), dataStream: this.dataStream});
 		}
 		
 	},
@@ -134,7 +135,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 
 		// If not disabled
 		if( !$(button).hasClass('isDisabled') ){
-			this.options.dataStream.set('filter', '');
+			this.dataStream.set('filter', '');
 			this.invoke();
 		}
 
@@ -142,7 +143,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 
 	updateParametersButtonsValues: function(){
 
-		var dataStream = this.options.dataStream;
+		var dataStream = this.dataStream;
 
 		var i=0;
 		while(i < $parameters.size()){
@@ -193,6 +194,9 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	
 	onInvokeSuccess: function(response){
 		this.model.set('result', response);
+		if( !_.isUndefined( response.fTimestamp ) ){
+			this.dataStream.set('timestamp', response.fTimestamp);
+		}
 	},
 	
 	onInvokeError: function(){
@@ -267,7 +271,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 
 	initFlexigrid: function(result){
 
-		var dataStream = this.options.dataStream.attributes,
+		var dataStream = this.dataStream.attributes,
 			tableWidth = $('#id_datastreamResult > div').width(),
 	    cellWidth = 100,
 	    colModel = [],
