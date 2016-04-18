@@ -64,6 +64,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		
 		this.model.on('change', this.setMiniLoading, this);
 		this.model.on('data_updated', this.unsetLoading, this);
+		this.model.on('data_updated', this.setTimestamp, this);
+		this.model.on('change:timestamp', this.updateTimestamp, this);
 
 	},
 
@@ -448,6 +450,71 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		});
 		this.render();
 	},
+
+	setTimestamp: function(){
+		if(
+			!_.isUndefined( this.model.data ) &&
+			!_.isUndefined( this.model.data.get('response') ) &&
+			!_.isUndefined( this.model.data.get('response').timestamp )
+		){
+			var timestamp = this.model.data.get('response').timestamp;
+			this.model.set('timestamp', timestamp);
+		}
+	},
+
+	updateTimestamp: function(){
+
+		var timestamp = this.model.get('timestamp');
+
+		if( !_.isUndefined( timestamp ) ){
+
+			var dFormat = 'MM dd, yy',
+				tFormat = 'hh:mm TT',
+				dt;
+
+			// sometimes are seconds, sometimes miliseconds
+			if(timestamp < 100000000000){
+				timestamp = timestamp * 1000;	
+			}
+
+			// if 0, date/time is now
+			if( timestamp == 0 ){
+				dt = new Date();
+			}else{
+				dt = new Date(timestamp);
+			}			
+
+			// Set timezone
+			dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+
+			// Get locale from lang attribute un <html>
+			var local = $('html').attr('lang');
+
+			//(?) if I use "en" doesn't work, I must use "" for "en"
+			if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+			if (local === "es" || local.indexOf("es_")) local = "es";
+
+			console.log(local);
+			console.log($.datepicker.regional);
+			console.log($.datepicker.regional[local]);
+
+			dateFormatted = $.datepicker.formatDate(dFormat, dt, {
+				dayNamesShort: $.datepicker.regional[local].dayNamesShort,
+				dayNames: $.datepicker.regional[local].dayNames,
+				monthNamesShort: $.datepicker.regional[local].monthNamesShort,
+				monthNames: $.datepicker.regional[local].monthNames
+			});
+
+			timeFormatted = $.datepicker.formatTime(tFormat, dt);
+
+			timestamp = dateFormatted + ', ' + timeFormatted;
+
+			var template = _.template( $("#id_timestampTemplate").html() );
+
+			this.$el.find('#id_lastModified').after( template( {'timestamp': timestamp} ) );
+
+		}
+	}
 
 });
 

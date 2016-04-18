@@ -358,10 +358,6 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 
 		var timestamp = this.model.get('timestamp');
 
-		console.log( timestamp );
-
-		console.log( new Date() );
-
 		if( !_.isUndefined( timestamp ) ){
 
 			var dFormat = 'MM dd, yy',
@@ -401,14 +397,7 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 
 			timestamp = dateFormatted + ', ' + timeFormatted;
 
-			//var dateFormat = $.datepicker.parseDate( "@", timestamp );
-			//timestamp = $.datepicker.formatDate( 'mm/dd/yy', dateFormat );
-		
-			console.log(timestamp);
-
 			var template = _.template( $("#id_timestampTemplate").html() );
-
-			console.log( template( {'timestamp': timestamp} ) );
 
 			this.$el.find('#id_lastModified').after( template( {'timestamp': timestamp} ) );
 
