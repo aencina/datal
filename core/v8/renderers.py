@@ -93,10 +93,20 @@ class GridEngineRenderer(EngineRenderer):
         try:
             strlocale=strlocale.split("_")
             # We need MILISECONDS but sometimes we receive seconds
-            if seconds > 1000000000000: #ejemplos 1.399.488.910 | 1.399.047.696.818
-                seconds = seconds/1000
+            #if seconds > 1000000000000: #ejemplos 1.399.488.910 | 1.399.047.696.818
+            #    print "div / 1000"
+            #    seconds = seconds/1000
             #REQUIRE sudo pip install babel
-            myutc = datetime.datetime.utcfromtimestamp(seconds)
+
+            # dejo que sea datetime el que falle por un valor fuera de rango
+            # y ahi intento ejecutar el datetime otra vez dividiendo por 1000
+            # si el valor sigue mal, fallara otra vez e ira al except general
+            # del metodo
+            try:
+                myutc = datetime.datetime.utcfromtimestamp(seconds)
+            except ValueError:
+                myutc = datetime.datetime.utcfromtimestamp(seconds/1000)
+
             #some patterns are differents from JS to python babel
             strformat = strformat.replace("DD", "EEEE").replace("D", "E").replace("yy", "Y")
             if strformat.find("MM") > -1:
