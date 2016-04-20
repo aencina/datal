@@ -640,10 +640,13 @@ msgid "APP-BACK-TEXT"
 msgstr "Back"
 
 msgid "APP-ERROR-400-TEXT"
-msgstr "Houve um erro"
+msgstr "There was an error"
 
 msgid "APP-GO-HOME-TEXT"
-msgstr "Ir para a página inicial"
+msgstr "Go to the home page"
 
 msgid "APP-GO-PORTAL-TEXT"
-msgstr "Abrir o site de dados"
+msgstr "Go to open data site"
+
+msgid "VIEWDS-INFO-LASTMODIFIED"
+msgstr "Last published:"
