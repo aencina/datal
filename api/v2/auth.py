@@ -10,6 +10,7 @@ import re
 
 logger = logging.getLogger(__name__)
 
+
 class DatalApiAuthentication(authentication.TokenAuthentication):
     def authenticate(self, request):
         self.request = request
@@ -36,7 +37,6 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
             if not self.check_referer(self.request, application):
                 raise exceptions.AuthenticationFailed('Invalid referer')
 
-
         preferences = account.get_preferences()
         
         user = self.resolve_user(application, account, preferences['account.language'])
@@ -51,7 +51,6 @@ class DatalApiAuthentication(authentication.TokenAuthentication):
                 'microsite_domain': get_domain(account.id),
             }
         )
-
 
     def authenticate_header(self, request):
         return 'Token'

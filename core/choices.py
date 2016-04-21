@@ -457,7 +457,7 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
 
     # TODO: Mover al plugin
     ('account.featured.dashboards', 'account.featured.dashboards'),
-    ('account.plugins.faceapp', 'account.plugins.faceapp'),
+    ('account.plugin.trivia', 'account.plugin.trivia'),
 
 
     # https for microsites or api
