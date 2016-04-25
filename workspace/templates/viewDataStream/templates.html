@@ -66,19 +66,18 @@
 									<span class="required">*</span>
 							 </div>
 
+							 {# status #}
+							 <div class="row clearfix">
+									<label for="id_description">{% trans 'APP-STATUS-TEXT' %}</label>
+									<input type="hidden" name="status" id="id_resource_status" data-bind="value:status" tabindex="0">
+									<span class="required">*</span>
+							 </div>
+
 							 {# category #}
 							 <div class="row clearfix divider">
 									<label for="id_datastream_category">{% trans 'APP-CATEGORY-TEXT' %}</label>
 									<select name="category" id="id_datastream_category" data-bind="value:category,options:allCategories" tabindex="0">
 									</select>
-							 </div>
-
-							 {# status #}
-							 <div class="row clearfix divider" style="display:none;">
-									<label for="id_status">{% trans 'APP-STATUS-TEXT' %}</label>
-									<select name="status" class="FL" id="id_datastream_status" data-bind="value:status,options:allStatus">
-									</select>
-									<span class="required">*</span>
 							 </div>
 
 							 {# Sources #}
