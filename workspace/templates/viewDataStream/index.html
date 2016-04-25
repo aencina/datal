@@ -123,6 +123,7 @@ $(document).ready(function(){
     allCategories: [{% for category in categories %}{"label":"{{category.name}}", "value":"{{category.category__id}}"},{% endfor %}],
     status: "{{datastream.status}}",
     allStatus: [{% for key, value in status_options %}{"label":"{{value}}", "value":"{{key}}"},{% endfor %}],
+    allStatus: [{"label":"no status", "value":"{{datastream.status}}"},],
     description: "{{datastream.description|escapejs}}",
     sources: [{% for source in datastream.sources %}{"name":"{{ source.source__name }}"},{% endfor %}],
     tags: [{% for tag in datastream.tags %}{"name":"{{ tag.tag__name }}"},{% endfor %}],
