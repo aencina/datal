@@ -78,7 +78,7 @@
 					 {# status #}
 					 <div class="row clearfix divider" style="display:none;">
 							<label for="id_status">{% trans 'APP-STATUS-TEXT' %}</label>
-							<select name="status" class="FL" id="id_datastream_status" data-bind="value:status,options:allStatus"></select>
+							<input type="hidden" name="status" id="id_resource_status" data-bind="value:status" tabindex="0">
 							<span class="required">*</span>
 					 </div>
 
