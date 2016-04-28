@@ -2,7 +2,7 @@
     {% for resource in resources %}
     <dcat:Dataset rdf:about="{{resource.link}}">
         <ods:created>{{resource.created_at|date:"c"}}Z</ods:created>
-        <ods:last_modified>{{resource.created_at|date:"c"}}Z</ods:last_modified>
+        <ods:last_modified>{{resource.modified_at|date:"c"}}Z</ods:last_modified>
         <dct:title>{{resource.title}}</dct:title>
         <dct:description>{{resource.description}}</dct:description>
         <dct:identifier>{{resource.guid}}</dct:identifier>
@@ -44,7 +44,7 @@
         <dcat:accessURL>{{dashboard.link}}</dcat:accessURL>
         {% for tag in dashboard.tags %}<dcat:keyword>{{tag.tag_name}}</dcat:keyword>{% endfor %}
         <ods:created>{{dashboard.created_at|date:"c"}}Z</ods:created>
-        <ods:last_modified>{{dashboard.created_at|date:"c"}}Z</ods:last_modified>
+        <ods:last_modified>{{dashboard.modified_at|date:"c"}}Z</ods:last_modified>
         {% for widget in dashboard.get_widgets %}
         {% with resource=widget.get %}
         <ods:dataset>http://{{domain}}{{resource.permalink}}</ods:dataset>

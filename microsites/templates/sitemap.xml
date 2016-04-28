@@ -14,7 +14,7 @@
     <url>
       <loc></loc>
       <loc>http://{{domain}}{% permalink 'datastream' d.datastream__id '-' %}</loc>
-      <lastmod>{{ d.created_at|date:"c" }}</lastmod>
+      <lastmod>{{ d.modified_at|date:"c" }}</lastmod>
     </url>
     {% endfor %}
 
@@ -22,7 +22,7 @@
     <url>
       <loc></loc>
       <loc>http://{{domain}}{% permalink 'visualization' v.visualization__id '-' %}</loc>
-      <lastmod>{{ v.created_at|date:"c" }}</lastmod>
+      <lastmod>{{ v.modified_at|date:"c" }}</lastmod>
     </url>
     {% endfor %}
 
