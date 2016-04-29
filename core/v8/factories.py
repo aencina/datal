@@ -125,14 +125,14 @@ class PreviewCommandFactory(CommandFactory):
     def create(self, items, app):
         if self.resourse_type == 'ds':
             return EnginePreviewCommand(self._process_items(items), app)
-        elif self.resourse_type == 'vz':
+        elif self.resourse_type == 'vz' or self.resourse_type == 'kp':
             return EnginePreviewChartCommand(self._process_items(items), app)
         
 class InvokeCommandFactory(CommandFactory):
     def create(self, items, app):
         if self.resourse_type == 'ds':
             return EngineInvokeCommand(self._process_items(items), app)
-        elif self.resourse_type == 'vz':
+        elif self.resourse_type == 'vz' or self.resourse_type == 'kp':
             return EngineChartCommand(self._process_items(items), app)
 
 class AbstractCommandFactory(object):
