@@ -5,3 +5,4 @@ base:
     - core.redis
     - core.memcached
     - core.mysql
+    - core.elasticsearch.init
