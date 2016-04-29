@@ -1,15 +1,4 @@
-local_hosts:
-  host.present:
-    - ip: 127.0.0.1
-    - names:
-      - '*.api.dev'
-      - api.dev
-      - admin.dev
-      - workspace.dev
-      - '*.microsites.dev'
-      - microsites.dev
-      - microsite.dev
-      - datastore.dev
+# Install base system software
 
 system_tools:
   pkg.installed:
@@ -18,6 +7,7 @@ system_tools:
       - unzip
       - python-software-properties
       - gettext
-      - git
-      - libxslt1-dev
+      - libcurl4-gnutls-dev
       - libxml2-dev
+      - libxslt1-dev
+      - libssl-dev
