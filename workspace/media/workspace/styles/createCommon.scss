@@ -17,7 +17,7 @@
 .create .navigation a i{background-image:url(/static/workspace/images/common/ic_navigationArrows.png);width:4px;height:25px;}
 .create .navigation a i.left-arrow{background-position: 0 center;}
 .create .navigation a i.right-arrow{background-position: -4px center;margin: 0 0 0 8px;}
-.create .required{color:#d21717;padding-left:5px;font-size:16px;vertical-align:top;}
+.create .required{color:#d21717;font-size:14px;}
 .create header .required{padding-left:0;vertical-align:baseline;font-size:inherit;}
 
 .create .wrapper1, .create .wrapper2, .create .wrapper3{height:100%;width:100%;
@@ -59,7 +59,7 @@
   .create .box .boxCreate{height:142px;}
 }
 
-.create .row label{font-size:12px;display:inline-block;padding-right:8px;padding-top:7px;text-shadow:0 1px 0 #fff;float:left;
+.create .row label{font-size:14px;display:inline-block;padding-top:7px;padding-bottom:10px;text-shadow:0 1px 0 #fff;
   -webkit-box-sizing:border-box;
      -moz-box-sizing:border-box;
           box-sizing:border-box;
@@ -73,7 +73,8 @@
 .create .formContent .row input[type="file"], 
 .create .formContent .row input[type="url"],
 .create .formContent .row input[type="email"],
-.create .formContent .row select{width:480px;display:inline-block;
+.create .formContent .row input[type="number"],
+.create .formContent .row select{width:100%;display:block;
   -webkit-box-sizing:border-box;
      -moz-box-sizing:border-box;
           box-sizing:border-box;
@@ -85,22 +86,22 @@
     .input-button{position:relative;overflow:hidden;width:480px;height:28px;cursor:pointer;display:inline-block;
       .button{height:28px;line-height:25px;right:0;position:absolute;top:0;width:95px;z-index:1;@include border-radius(3px 0 0 3px);border-top-color:transparent;border-right-color:transparent;border-bottom-color:transparent;border-left-color:#e2e0e0;background:none;@include transition(border-right, 0.30s, ease-in-out);}
     }
-    .sourcesContent,
-    .tagsContent{padding-left:115px;}
   }
 }
 
-.create .formContent .row label{font-size:$form-label-size;line-height:inherit;height:inherit;color:$form-label-color;width:115px;}
-.create .formContent .row p.has-error{padding-left:115px;clear:both;float:left;}
-.create .formContent .row textarea{width:480px;}
-.create .formContent .row .textarea{background:#fff;border:1px solid #e2e0e0;}
+.create .formContent .row label{line-height:inherit;height:inherit;color:$form-label-color;}
+.create .formContent .row p.has-error{clear:both;float:left;}
+.create .formContent .row textarea{width:100%;}
+.create .formContent .row .nicEdit-main{font-size:14px;padding:5px;width:100% !important;}
+.create .formContent .row .textarea{background:#fff;border:1px solid #e2e0e0;width:100% !important;}
+.create .formContent .row .textarea > div{width:100% !important;}
 .create .formContent .row .textarea > div,
 .create .formContent .row .textarea > div > .nicEdit-panelContain{border:0 !important;}
 .create .formContent .row.checkbox{}
-.create .formContent .row.checkbox input[type=checkbox]{width:auto;float:left;position:relative;top:6px;}
-.create .formContent .row.checkbox p.tip{margin-left:0;float:left;clear:none;margin-top:8px;}
-.create p.tip{clear:both;color:$font-color-light;font-size:$font-size-s;text-shadow:0 1px 0 #fff;padding:5px 0 10px 115px;}
-.create .nolabel{margin-left:115px;position:relative;top:3px;}
+.create .formContent .row.checkbox input[type=checkbox]{width:auto;float:left;position:relative;top:5px;left: -2px;}
+.create .formContent .row.checkbox p.tip{margin-left:0;clear:none;padding:0 0 0 20px;}
+.create p.tip{clear:both;color:$font-color-light;font-size:$font-size-s;text-shadow:0 1px 0 #fff;padding:5px 0 10px 0;}
+.create .nolabel{margin-left:30px;position:relative;top:3px;}
 
 .sticky{position:fixed;width:100%;top:0;z-index:100;border-top:0;} 
 
