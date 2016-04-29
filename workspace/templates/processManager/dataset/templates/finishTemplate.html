@@ -7,22 +7,22 @@
 	{# title #}
 	<div class="row clearfix">
 		{{ form.title.label_tag }}
-		{{ form.title }}
 		<span class="required">*</span>
+		{{ form.title }}
 	</div>
 	
 	{# description #}
 	<div class="row clearfix">
 		{{ form.description.label_tag }}
-		{{ form.description }}
 		<span class="required">*</span>
+		{{ form.description }}
 	</div>
 	
 	{# category #}
 	<div class="row clearfix">
 		{{ form.category.label_tag }}
-		{{ form.category }}
 		{# <span class="required">*</span> #}
+		{{ form.category }}
 	</div>
 	
 	<hr class="separator">
@@ -49,7 +49,7 @@
 	{# notes #}
 	<div class="row clearfix" id='notes_reference' data-ver=4 data-max_length='{{form.notes.field.max_length}}'>
 		{{ form.notes.label_tag }}
-		<div class="textarea clearfix FL">
+		<div class="textarea clearfix">
 			{{ form.notes }}
 		</div>
 	</div>

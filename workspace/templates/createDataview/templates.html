@@ -77,86 +77,81 @@
     <header>
       <h3 id="id_dataHeader">{% trans 'CREATE-STEP3-SUBTITLE' %}</h3>
     </header>
-    <div class="columns clearfix">
+    <div class="formContent">
 
-      <div class="CL formContent">
-
-        <fieldset>
-
-          <div class="row clearfix">
-            <label for="title">{% trans "APP-TITLE-TEXT" %}</label>
-            <input type="text" class="title" name="title" maxlength="80" data-bind="" autofocus="autofocus">
-            <span class="required">*</span>
-          </div>
-
-          <div class="row clearfix">
-            <label for="description">{% trans "APP-DESCRIPTION-TEXT" %}</label>
-            <input type="text" class="description" name="description" maxlength="140" data-bind="">
-            <span class="required">*</span>
-          </div>
-
-          <div class="row clearfix">
-            <label>{% trans 'APP-CATEGORY-TEXT' %}</label>
-            <select class="category" name="category">
-              <% _.each(categories, function (category, index) { %>
-                <option value="<%= category[0] %>"><%= category[1] %></option>
-              <% }); %>
-            </select>
-          </div>
-
-        </fieldset>
-
-        <hr class="separator">
+      <fieldset>
 
         <div class="row clearfix">
-          <label for="">{% trans "APP-SOURCES-TEXT" %}:</label>
-          <div>
-            <input name="source-name" type="text" class="input-source" maxlength="80"/>
-            <p class="tip">{% trans "EDITDS-SOURCE-TIP1" %} <a class="add-source">{% trans "EDITDS-SOURCE-TIP2" %}</a>.</p>
-            <div class="sourcesContent sources-view">
-            </div>
+          <label for="title">{% trans "APP-TITLE-TEXT" %}</label>
+          <span class="required">*</span>
+          <input type="text" class="title" name="title" maxlength="80" data-bind="" autofocus="autofocus">
+        </div>
+
+        <div class="row clearfix">
+          <label for="description">{% trans "APP-DESCRIPTION-TEXT" %}</label>
+          <span class="required">*</span>
+          <input type="text" class="description" name="description" maxlength="140" data-bind="">
+        </div>
+
+        <div class="row clearfix">
+          <label>{% trans 'APP-CATEGORY-TEXT' %}</label>
+          <select class="category" name="category">
+            <% _.each(categories, function (category, index) { %>
+              <option value="<%= category[0] %>"><%= category[1] %></option>
+            <% }); %>
+          </select>
+        </div>
+
+      </fieldset>
+
+      <hr class="separator">
+
+      <div class="row clearfix">
+        <label for="">{% trans "APP-SOURCES-TEXT" %}:</label>
+        <div>
+          <input name="source-name" type="text" class="input-source" maxlength="80"/>
+          <p class="tip">{% trans "EDITDS-SOURCE-TIP1" %} <a class="add-source">{% trans "EDITDS-SOURCE-TIP2" %}</a>.</p>
+          <div class="sourcesContent sources-view">
+          </div>
+        </div>
+      </div>
+
+      <div class="edit-source-view"></div>
+
+      <div class="tags-view"></div>
+
+      <hr class="separator">
+
+      <fieldset class="form clearfix">
+
+        <div class="row clearfix notes-field">
+          <label for="id_notes_2">{% trans "APP-NOTES-TEXT" %}</label>
+          <div class="textarea clearfix">
+            <textarea id="id_notes_2" class="notes" maxlength="2048"></textarea>
           </div>
         </div>
 
-        <div class="edit-source-view"></div>
+      </fieldset>
 
-        <div class="tags-view"></div>
-
-        <hr class="separator">
-
-        <fieldset class="form clearfix">
-
-          <div class="row clearfix notes-field">
-            <label for="id_notes_2">{% trans "APP-NOTES-TEXT" %}</label>
-            <div class="textarea clearfix FL">
-              <textarea id="id_notes_2" class="notes" maxlength="2048"></textarea>
-            </div>
-          </div>
-
-        </fieldset>
-
-        <div class="params-view"></div>
-
-      </div>
+      <div class="params-view"></div>
 
     </div>
+
   </div>
 </div>
 </script>
 
 <script type="text/template" id="edit_source_template">
-  <div class="FL">
-    <div class="nolabel">
-      <div class="insetFormTitle">{% trans "APP-ADDNEWSOURCE-TEXT" %}</div>
-      <div class="row clearfix">
-        <input class="source__name" name="source__name" type="text" maxlength="80"/ placeholder="{% trans "MODEL-NAME-TEXT" %}">
-      </div>
-      <div class="row clearfix">
-        <input class="source__url" name="source__url" type="text" placeholder="{% trans "MODEL-URL-TEXT" %}">
-      </div>
-      <div class="row clearfix">
-        <a class="button small FL btn-add" title="{% trans 'APP-ADD-TEXT' %}"><span>{% trans "APP-ADD-TEXT" %}</span></a>
-      </div>
+  <div class="nolabel">
+    <div class="insetFormTitle">{% trans "APP-ADDNEWSOURCE-TEXT" %}</div>
+    <div class="row clearfix">
+      <input class="source__name" name="source__name" type="text" maxlength="80"/ placeholder="{% trans "MODEL-NAME-TEXT" %}">
+    </div>
+    <div class="row clearfix">
+      <input class="source__url" name="source__url" type="text" placeholder="{% trans "MODEL-URL-TEXT" %}">
+    </div>
+    <div class="row clearfix">
+      <a class="button small FL btn-add" title="{% trans 'APP-ADD-TEXT' %}"><span>{% trans "APP-ADD-TEXT" %}</span></a>
     </div>
   </div>
   <div role="separator" class="divider divider-lg"></div>

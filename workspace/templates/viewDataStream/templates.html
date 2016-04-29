@@ -2,11 +2,10 @@
 
 {# Edit - Add New Source #}
 <script type="text/template" id="id_AddNewSourceTemplate">
-	<div class="FL">  
-		<div class="nolabel">
-			<div class="insetFormTitle">{% trans 'APP-ADDNEW-TEXT' %}</div>
-		</div>
-
+	<div class="nolabel">
+		
+		<div class="insetFormTitle">{% trans 'APP-ADDNEW-TEXT' %}</div>
+	
 		<div class="row clearfix">
 			<label for="id_name"></label>
 			<input type="text" name="name" id="id_name" placeholder="{% trans 'APP-NAME-TEXT' %}">
@@ -18,8 +17,9 @@
 		</div>
 
 		<div class="row clearfix">
-			<a title="{% trans 'APP-ADD-TEXT' %}" class="button small nolabel FL" id="id_addNewSourceButton">{% trans 'APP-ADD-TEXT' %}</a>
+			<a title="{% trans 'APP-ADD-TEXT' %}" class="button small FL" id="id_addNewSourceButton">{% trans 'APP-ADD-TEXT' %}</a>
 		</div>
+
 	</div>
 </script>
 
@@ -49,21 +49,22 @@
 <script type="text/template" id="id_editTemplate">
 	<form novalidate>
 		 <div class="ov-content">
-			<div class="col-1">
+			<div class="col-xs-12"> 
+
 				 <fieldset>
 
 					 {# title #}
 					 <div class="row clearfix">
 							<label for="id_title">{% trans 'APP-TITLE-TEXT' %}</label>
-							<input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" autofocus>
 							<span class="required">*</span>
+							<input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" autofocus>
 					 </div>
 
 					 {# description #}
 					 <div class="row clearfix">
 							<label for="id_description">{% trans 'APP-DESCRIPTION-TEXT' %}</label>
-							<input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0">
 							<span class="required">*</span>
+							<input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0">
 					 </div>
 
 					 {# category #}
@@ -99,11 +100,6 @@
 							</div>
 					 </div>
 
-				 </fieldset>
-				</div>
-
-				<div class="col-2 col-border">
-				 <fieldset>
 					 {# Notes #}
 					 <div class="row clearfix">
 							<label for="id_notes">{% trans 'APP-NOTES-TEXT' %}</label>
@@ -114,15 +110,16 @@
 							</div>
 					 </div>
 				 </fieldset>
-				</div>
-		 </div>
 
-		 <div class="ov-bottom">
-				<div class="ov-buttons">
-					 <a id="id_edit_cancel" class="cancel button" title="{% trans 'APP-OVERLAY-CANCEL' %}">{% trans 'APP-OVERLAY-CANCEL' %}</a>
-					 <a id="id_edit_save" class="button primary" title="{% trans 'APP-SAVE-TEXT' %}">{% trans 'APP-SAVE-TEXT' %}</a>
-				</div>
-		 </div>
+			</div>
+		</div>
+
+		<div class="ov-bottom">
+			<div class="ov-buttons">
+				 <a id="id_edit_cancel" class="cancel button" title="{% trans 'APP-OVERLAY-CANCEL' %}">{% trans 'APP-OVERLAY-CANCEL' %}</a>
+				 <a id="id_edit_save" class="button primary" title="{% trans 'APP-SAVE-TEXT' %}">{% trans 'APP-SAVE-TEXT' %}</a>
+			</div>
+		</div>
 
 	</form>
 </script>

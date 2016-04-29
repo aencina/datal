@@ -15,7 +15,7 @@
 .ao-tabs .tabs-in li{position:relative;}
 
 /*FORMS*/
-.dataStreamForm .form .row label{font-size:$form-label-size;width:160px;float:left;text-shadow:0 1px 0 #fff;color:$form-label-color;line-height:normal;padding-top:5px;}
+.dataStreamForm .form .row label{font-size:$form-label-size;width:160px;float:left;text-shadow:0 1px 0 #fff;color:$form-label-color;line-height:normal;padding-top:10px;}
 .dataStreamForm .form .row input, 
 .dataStreamForm .form .row textarea,
 .dataStreamForm .form .row select{width:350px;}
@@ -27,7 +27,7 @@
 .dataStreamForm .form .row .iframeSettings input{width:238px;}
 .dataStreamForm .form .row .heightContainer{float:left;margin-left:10px;}
 .dataStreamForm .form .row .heightContainer label{width:54px;}
-.dataStreamForm .form .row .heightContainer input{width:30px;}
+.dataStreamForm .form .row .heightContainer input{width:48px;}
 .dataStreamForm .form .row .heightContainer p{margin:7px 0 0 4px;float:left;}
 .socialForm .form .row input[type=checkbox],
 .homeForm .form .row input[type=checkbox]{position:relative;top:0;float:left;}
@@ -94,6 +94,7 @@
 .imgContainer .img span{display:block;overflow:hidden;} 
 .imgContainer .imgLogo span{max-height:80px;} 
 .imgContainer .imgLogo img{max-width:136px;}
+.imgContainer .imgFavicon{margin-left:0;}
 .imgContainer .imgFavicon span{max-height:16px;} 
 .imgContainer .imgFavicon img{max-width:16px;}
 .dataStreamForm .imgContainer .textContainer input[type="file"]{width:350px !important;}
