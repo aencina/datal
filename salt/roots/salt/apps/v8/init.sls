@@ -4,8 +4,8 @@ include:
 download_v8:
   cmd.run:
     - names:
-      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/dev/AgileOfficeServer.war
-      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/dev/AgileOfficeScraperServices.war
+      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/prod/AgileOfficeServer.war
+      - wget -c -N https://s3.amazonaws.com/salt.files/Wars/prod/AgileOfficeScraperServices.war
     - cwd: /root
   file.managed:
     - user: tomcat7
@@ -98,6 +98,12 @@ tomcat_conf:
   file.managed:
     - name: /var/lib/tomcat7/conf/server.xml
     - source: salt://apps/v8/server.xml
+    - template: jinja
+
+tomcat_default_conf:
+  file.managed:
+    - name: /etc/default/tomcat7
+    - source: salt://apps/v8/tomcat7.default
     - template: jinja
 
 tomcat-service:

@@ -1,0 +1,19 @@
+{% set vhost = salt['pillar.get']('nginx:vhosts:api', None) %}
+
+server {
+    server_name {{ vhost['name'] }};
+    access_log /var/log/nginx/api-access.log;
+    error_log /var/log/nginx/api-error.log;
+    client_max_body_size 48m;
+    proxy_buffer_size 256k;
+    proxy_buffers 4 512k;
+    proxy_busy_buffers_size 512k;
+    proxy_read_timeout 180s;
+    proxy_send_timeout 180s;
+    location / {
+        uwsgi_pass 127.0.0.1:3018;
+        uwsgi_read_timeout 300;
+        uwsgi_send_timeout 300;
+        include /etc/nginx/uwsgi_params;
+    }
+}

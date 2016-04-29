@@ -3,7 +3,22 @@ system:
   user: vagrant
   group: vagrant
   home: /home/vagrant
+  # V8
+  processors: 2
 
+nginx:
+  server:
+    sendfile: 'off'
+  vhosts:
+    admin:
+      name: admin.dev
+    api:
+      name: api.dev *.api.dev
+    microsites:
+      name: microsites.dev *.microsites.dev
+    workspace:
+      name: workspace.dev
+      
 # Searcher
 searchers:
   elastic:
@@ -44,4 +59,86 @@ database:
   host: localhost
   port: 3306
   engine: mysql
-  
+
+# General
+datastore:
+  use: 'sftp'
+  bucket: 'datal'
+  temporary_bucket: 'datal_temp'
+  cdn_bucket: 'datal_cdn'
+  sftp:
+    host: 'localhost'
+    port: 22
+    user: vagrant
+    password: datal
+    privateKey:
+    passphrase:
+    remote_base_folder: datastore/resources/
+    local_tmp_folder: datastore/tmp/
+    public_base_url: 'http://datastore.dev:8888/resources'
+
+# Amazon settings
+amazon:
+  accesskey: ''
+  secretkey: ''
+
+domains:
+  microsites: 'microsites.dev'
+  workspace: 'workspace.dev'
+  api: 'api.dev'
+  admin: 'admin.dev'
+
+tomcat-manager:
+  user: webappsuser
+  passwd: 123456
+
+java_opts:
+  Xms: 512m
+  Xmx: 1024m
+  MaxPermSize: 512m
+  PermSize: 256m
+  G1HeapRegionSize: 512M
+  Xss: 128m
+  ParallelGCThreads: 0
+  ConcGCThreads: 0
+
+# Redis configuration
+redis:
+  read_host: localhost
+  read_port: 6379
+  write_host: localhost
+  write_port: 6379
+
+jaxer:
+  endpoint: 'http://jaxer-balancer-383544228.us-west-1.elb.amazonaws.com:8081/agileoffice/AjaxScraper.html'
+
+crawler:
+  media: http://workspace.dev:8080/static/core/styles
+
+scraper:
+  maxcols: 50
+  maxcolsever: 20
+  maxrows: 100
+  maxrowsbynode: 5000
+  maxrowsever: 5000
+
+xml:
+  maxrowsbynode: 1000
+
+reducer:
+  maxcolsbyrow: 50
+
+xls:
+  maxrowsinmemory: 1000
+
+processor:
+  maxrows: 100
+  maxcols: 50
+
+alchemist:
+  maxmarkers: 1000
+  maxrows: 50
+
+scrapper:
+  proxy_scrapers_domain: 'http://workspace.dev:8080'
+

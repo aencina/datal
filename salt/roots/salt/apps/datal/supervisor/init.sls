@@ -13,15 +13,3 @@ uwsgi_conf:
 supervisor:
   pkg:
     - installed
-  service.running:
-    - require:
-      - pkg: supervisor
-    - watch:
-      - file: /etc/supervisor/supervisord.conf
-      - file: /etc/supervisor/conf.d/uwsgi.conf
-      - file: /etc/uwsgi/admin.ini
-      - file: /etc/uwsgi/api.ini
-      - file: /etc/uwsgi/microsite.ini
-      - file: /etc/uwsgi/workspace.ini
-      - file: /tmp/datal.log
-

@@ -1,0 +1,62 @@
+{% set vhost = salt['pillar.get']('nginx:vhosts:workspace', None) %}
+{% set install_dir = salt['pillar.get']('application:install_dir', None) %}
+{% set environment = salt['pillar.get']('environment', None) %}
+
+server {
+    listen 80;
+    server_name {{ vhost['name'] }};
+    
+    access_log /var/log/nginx/workspace-access.log;
+    error_log /var/log/nginx/workspace-error.log;
+    client_max_body_size 256m;
+    proxy_buffer_size 128k;
+    proxy_buffers 4 256k;
+    proxy_busy_buffers_size 256k;
+    proxy_read_timeout 120s;
+    proxy_send_timeout 120s;
+
+    location /media_core {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/core/media;
+    }
+
+    location /media_workspace {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/workspace/media;
+    }
+
+    location /js_core {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/core/js;
+    }
+
+    location /js_workspace {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/workspace/js;
+    }
+
+    location /static {
+        alias {{install_dir}}{{ pillar['application']['statics_dir'] }};
+    }
+
+    location /AgileOfficeServer {
+        proxy_pass http://127.0.0.1:8080/AgileOfficeServer;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    {% if environment != 'dev' %}
+    location /signup {
+        uwsgi_pass 127.0.0.1:3015;
+        uwsgi_read_timeout 120;
+        uwsgi_send_timeout 120;
+        include /etc/nginx/uwsgi_params;
+        auth_basic      "Restricted";
+        auth_basic_user_file /etc/nginx/workspace.pass;
+    }
+    {% endif %}
+    
+    location / {
+        uwsgi_pass 127.0.0.1:3015;
+        uwsgi_read_timeout 120;
+        uwsgi_send_timeout 120;
+        include /etc/nginx/uwsgi_params;
+    }
+}

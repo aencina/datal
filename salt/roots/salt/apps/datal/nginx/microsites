@@ -1,0 +1,76 @@
+{% set vhost = salt['pillar.get']('nginx:vhosts:microsites', None) %}
+{% set install_dir = salt['pillar.get']('application:install_dir', None) %}
+
+server {
+    server_name {{ vhost['name'] }};
+    access_log /var/log/nginx/microsites-access.log;
+    error_log /var/log/nginx/microsites-error.log;
+    client_max_body_size 48m;
+    proxy_buffer_size 256k;
+    proxy_buffers 4 512k;
+    proxy_busy_buffers_size 512k;
+    proxy_read_timeout 120s;
+    proxy_send_timeout 120s;
+
+    location /static {
+        alias {{install_dir}}{{ pillar['application']['statics_dir'] }};
+    }
+    
+    location /media_core {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/core/media;
+    }
+
+    location /media_community {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/community/media;
+    }
+
+    location /media_microsites {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/microsites/media;
+    }
+
+    location /media_website {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/website/media;
+    }
+
+    location /media_workspace {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/workspace/media;
+    }
+
+    location /robots.txt {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/robots.txt;
+    }
+
+    location /js_core {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/core/js;
+    }
+
+    location /js_community {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/community/js;
+    }
+
+    location /js_microsites {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/microsites/js;
+    }
+
+    location /js_workspace {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/workspace/js;
+    }
+
+    location /js_website {
+        alias {{install_dir}}{{ pillar['application']['path'] }}/website/js;
+    }
+
+    location /AgileOfficeServer {
+        proxy_pass http://127.0.0.1:8080/AgileOfficeServer;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location / {
+        uwsgi_pass 127.0.0.1:3017;
+        uwsgi_read_timeout 120;
+        uwsgi_send_timeout 120;
+        include /etc/nginx/uwsgi_params;
+    }
+}
