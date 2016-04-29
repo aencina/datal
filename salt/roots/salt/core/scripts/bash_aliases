@@ -1,0 +1,36 @@
+{% set install_dir = salt['pillar.get']('application:install_dir', None) %}
+
+# ejemplo:
+#	es_search -d '{"django_id": 66891}'
+#
+alias es_search="curl -XGET  '{{  pillar['searchers']['elastic']['url'] }}/{{  pillar['searchers']['elastic']['index'] }}/'"
+alias es_showall="curl -XGET '{{  pillar['searchers']['elastic']['url'] }}/{{  pillar['searchers']['elastic']['index'] }}/_search?pretty'"
+alias es_show_ds="curl -XGET '{{  pillar['searchers']['elastic']['url'] }}/{{  pillar['searchers']['elastic']['index'] }}/_search?pretty&q=_type=ds'"
+alias es_show_dt="curl -XGET '{{  pillar['searchers']['elastic']['url'] }}/{{  pillar['searchers']['elastic']['index'] }}/_search?pretty&q=_type=dt'"
+alias es_show_vz="curl -XGET '{{  pillar['searchers']['elastic']['url'] }}/{{  pillar['searchers']['elastic']['index'] }}/_search?pretty&q=_type=vz'"
+alias es_show_db="curl -XGET '{{  pillar['searchers']['elastic']['url'] }}/{{  pillar['searchers']['elastic']['index'] }}/_search?pretty&q=_type=db'"
+alias es_mapping="curl -XGET '{{  pillar['searchers']['elastic']['url'] }}/{{  pillar['searchers']['elastic']['index'] }}/_mapping?pretty'"
+
+alias microsites="python manage.py runserver 0.0.0.0:3017 --settings=microsites.settings"
+alias microsites-shell="python manage.py shell --settings=microsites.settings"
+
+alias workspace="python manage.py runserver 0.0.0.0:3015 --settings=workspace.settings"
+alias workspace-shell="python manage.py shell --settings=workspace.settings"
+
+alias admin="python manage.py runserver 0.0.0.0:3016 --settings=admin.settings"
+alias api="python manage.py runserver 0.0.0.0:3018 --settings=api.settings"
+
+alias core-shell="python manage.py shell --settings=core.settings"
+
+alias reindex="python manage.py index --settings=workspace.settings --debug"
+
+alias compile-msg-core="{{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/python {{install_dir}}{{ pillar['application']['path'] }}/manage.py compilemessages --settings='core.settings'"
+alias compile-msg-workspace="{{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/python {{install_dir}}{{ pillar['application']['path'] }}/manage.py compilemessages --settings='workspace.settings'"
+alias compile-msg-microsites="{{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/python {{install_dir}}{{ pillar['application']['path'] }}/manage.py compilemessages --settings='microsites.settings'"
+
+alias collectstatic-core="echo yes | {{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/python {{install_dir}}{{ pillar['application']['path'] }}/manage.py collectstatic --settings=core.settings"
+alias collectstatic-workspace="echo yes | {{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/python {{install_dir}}{{ pillar['application']['path'] }}/manage.py collectstatic --settings=workspace.settings"
+alias collectstatic-microsites="echo yes | {{install_dir}}{{ pillar['virtualenv']['path'] }}/bin/python {{install_dir}}{{ pillar['application']['path'] }}/manage.py collectstatic --settings=microsites.settings"
+alias collectstatic-all="echo yes | collectstatic-core -c; echo yes | collectstatic-workspace ; echo yes | collectstatic-microsites "
+
+alias clear_pyco='find ~/app/ -iname "*.py[co]" -exec rm -f {} \;'
