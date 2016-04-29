@@ -53,6 +53,7 @@ class AccountSocialForm(forms.Form):
     account_enable_sharing = forms.BooleanField(label=ugettext_lazy('ACCOUNT-ENABLE-SHARING-LABEL'), required=False)
     account_enable_notes = forms.BooleanField(label=ugettext_lazy('ACCOUNT-ENABLE-NOTES-LABEL'), required=False)
     account_dataset_download = forms.BooleanField(label=ugettext_lazy('ACCOUNT-ENABLE-DOWNLOADS-LABEL'), required=False)
+    account_dataset_show = forms.BooleanField(label=ugettext_lazy('ACCOUNT-ENABLE-DATASET-SHOW-LABEL'), required=False)
 
     def action(self):
         return reverse('admin_manager.edit_social_update')

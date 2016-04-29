@@ -34,10 +34,10 @@ var DataTableView = Backbone.View.extend({
   //},
 
   typeToRenderer: {
-    TEXT: 'selectedTextRenderer',
-    LINK: 'selectedLinkRenderer',
-    NUMBER: 'selectedNumericRenderer',
-    DATE: 'selectedDateRenderer'
+    TEXT: Handsontable.renderers.TextRenderer,
+    LINK: Handsontable.renderers.HtmlRenderer,
+    NUMBER: Handsontable.renderers.NumericRenderer,
+    DATE: Handsontable.renderers.DateRenderer
   },
 
   initialize: function (options) {
@@ -54,20 +54,21 @@ var DataTableView = Backbone.View.extend({
 
     this._ctrlPressed = false;
 
-    // Si el
-    if (tableData.columns) {
-      columns = _.map(tableData.columns, function (col) {
-        return {
-          renderer: self.typeToRenderer[col.fType]
-        };
-      });
-    } else {
-      columns = _.map(tableData.rows[0] || [], function (cell) {
-        return {
-          renderer: self.typeToRenderer['TEXT']
-        };
-      });
-    }
+    columns = _.map(tableData.columns, function (col) {
+      return {
+        renderer: function (instance, td, row, col, prop, value, cellProperties) {
+          if (cellProperties.classArray) {
+            td.className = '';
+            for (var i = 0; i < cellProperties.classArray.length; i++) {
+              td.classList.add('hot-sel-' + cellProperties.classArray[i]);
+            }
+          }
+          if (tableData.rows_data)
+            return self.typeToRenderer[tableData.rows_data[(row*tableData.columns.length)+col].fType](instance, td, row, col, prop, value, cellProperties)  
+          return self.typeToRenderer['TEXT'](instance, td, row, col, prop, value, cellProperties)
+        }
+      };
+    });
 
     this.data = tableData.rows;
     if (columns.length === 0) {
@@ -87,6 +88,7 @@ var DataTableView = Backbone.View.extend({
       manualColumnResize: true,
       manualRowResize: true,
       stretchH: 'all',
+      data: [],
       viewportRowRenderingOffset: 60,
       afterInit: function () {
         $(window).keydown(function(evt) {

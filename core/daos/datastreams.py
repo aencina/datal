@@ -139,7 +139,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         try:
             datastream_revision = DataStreamRevision.objects.select_related().get(condition & resource_language & category_language & status_condition & account_condition & last_revision_condition)
         except DataStreamRevision.DoesNotExist:
-            logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s %s %s %s)'% (condition, resource_language, category_language, status_condition, account_condition, last_revision_condition))
+            logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s %s account_id: %s %s)'% (condition, resource_language, category_language, status_condition, user.account.id, last_revision_condition))
             raise
 
 
@@ -415,27 +415,27 @@ class DatastreamSearchDAO():
     """ class for manage access to datastream index"""
 
     TYPE="ds"
-    def __init__(self, datastream_revision):
-        self.datastream_revision=datastream_revision
+    def __init__(self, revision):
+        self.revision=revision
         self.search_index = SearchifyIndex()
 
     def _get_type(self):
         return self.TYPE
     def _get_id(self):
         """ Get Tags """
-        return "%s::%s" %(self.TYPE.upper(),self.datastream_revision.datastream.guid)
+        return "%s::%s" %(self.TYPE.upper(),self.revision.datastream.guid)
 
     def _get_tags(self):
         """ Get Tags """
-        return self.datastream_revision.tagdatastream_set.all().values_list('tag__name', flat=True)
+        return self.revision.tagdatastream_set.all().values_list('tag__name', flat=True)
 
     def _get_category(self):
         """ Get category name """
-        return self.datastream_revision.category.categoryi18n_set.all()[0]
+        return self.revision.category.categoryi18n_set.all()[0]
 
     def _get_i18n(self):
         """ Get category name """
-        return DatastreamI18n.objects.get(datastream_revision=self.datastream_revision)
+        return DatastreamI18n.objects.get(datastream_revision=self.revision)
         
     def _build_document(self):
 
@@ -444,13 +444,13 @@ class DatastreamSearchDAO():
         category = self._get_category()
         datastreami18n = self._get_i18n()
 
-        text = [datastreami18n.title, datastreami18n.description, self.datastream_revision.user.nick, self.datastream_revision.datastream.guid]
+        text = [datastreami18n.title, datastreami18n.description, self.revision.user.nick, self.revision.datastream.guid]
         text.extend(tags) # datastream has a table for tags but seems unused. I define get_tags funcion for dataset.
         text = ' '.join(text)
 
         meta_text=[]
-        if self.datastream_revision.meta_text != "":
-            meta_json = json.loads(self.datastream_revision.meta_text)
+        if self.revision.meta_text != "":
+            meta_json = json.loads(self.revision.meta_text)
             if 'field_values' in meta_json:
                 for data in meta_json['field_values']:
                     meta_text.append(data)
@@ -459,23 +459,24 @@ class DatastreamSearchDAO():
                 'docid' : self._get_id(),
                 'fields' :
                     {'type' : self.TYPE,
-                     'resource_id': self.datastream_revision.datastream.id,
-                     'revision_id': self.datastream_revision.id,
-                     'datastream_id': self.datastream_revision.datastream.id,
-                     'datastream__revision_id': self.datastream_revision.id,
+                     'resource_id': self.revision.datastream.id,
+                     'revision_id': self.revision.id,
+                     'datastream_id': self.revision.datastream.id,
+                     'datastream__revision_id': self.revision.id,
                      'title': datastreami18n.title,
                      'text': text,
                      'description': datastreami18n.description,
-                     'owner_nick' :self.datastream_revision.user.nick,
+                     'owner_nick' :self.revision.user.nick,
                      'tags' : ','.join(tags),
-                     'account_id' : self.datastream_revision.user.account.id,
+                     'account_id' : self.revision.user.account.id,
                      'parameters': "",
                      'timestamp': 0,
-                     'created_at': int(time.mktime(self.datastream_revision.created_at.timetuple())),
+                     'created_at': int(time.mktime(self.revision.created_at.timetuple())),
+                     'modified_at': int(time.mktime(self.revision.modified_at.timetuple())),
                      'hits': 0,
                      'web_hits': 0,
                      'api_hits': 0,
-                     'end_point': self.datastream_revision.dataset.last_published_revision.end_point,
+                     'end_point': self.revision.dataset.last_published_revision.end_point,
                     },
                 'categories': {'id': unicode(category.category_id), 'name': category.name},
                 'meta_text': meta_text,
@@ -500,14 +501,14 @@ class DatastreamSearchifyDAO(DatastreamSearchDAO):
 class DatastreamElasticsearchDAO(DatastreamSearchDAO):
     """ class for manage access to datastreams elasticsearch documents """
 
-    def __init__(self, datastream_revision):
-        self.datastream_revision=datastream_revision
+    def __init__(self, revision):
+        self.revision=revision
         self.search_index = ElasticsearchIndex()
         
     def add(self):
         output=self.search_index.indexit(self._build_document())
 
-        return (self.datastream_revision.id, self.datastream_revision.datastream.id, output)
+        return (self.revision.id, self.revision.datastream.id, output)
         
     def remove(self):
         return self.search_index.delete_documents([{"type": self._get_type(), "docid": self._get_id()}])

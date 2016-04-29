@@ -2504,8 +2504,14 @@ msgstr "Carrousel y Botones"
 msgid "ACCOUNT-ENABLE-DOWNLOADS-LABEL"
 msgstr "Habilitar descargas"
 
+msgid "ACCOUNT-ENABLE-DATASET-SHOW-LABEL"
+msgstr "Habilitar ver Datasets en el Portal"
+
 msgid "SOCIAL-DOWNLOADS-TIP"
 msgstr "Permitir a los usuarios descargar Datasets."
+
+msgid "SOCIAL-DATASET-SHOW-TIP"
+msgstr "Permitir a los usuarios ver Datasets en el Portal."
 
 msgid "APP-DATASETCANTBEUSEDTOCREATECHILD-TEXT"
 msgstr "Este Conjunto de Datos no puede ser usado para crear una Vista de Datos."
@@ -3160,6 +3166,9 @@ msgstr "Número"
 
 msgid "APP-DATE-TEXT"
 msgstr "Fecha"
+
+msgid "APP-LINK-TEXT"
+msgstr "Enlace"
 
 msgid "APP-DATASET-PARAMETERS"
 msgstr "Parámetros del conjunto de datos"

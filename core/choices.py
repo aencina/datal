@@ -179,6 +179,8 @@ class SourceImplementationChoices():
     PUS = 21
     TXT = 22
     O365 = 23
+    RDF = 24
+
 
 SOURCE_IMPLEMENTATION_CHOICES = (
      (SourceImplementationChoices.HTML, 'HTML')
@@ -205,6 +207,8 @@ SOURCE_IMPLEMENTATION_CHOICES = (
     ,(SourceImplementationChoices.PUS, 'PublicStuff')
     ,(SourceImplementationChoices.TXT, 'TXT')
     ,(SourceImplementationChoices.O365, 'Office365')
+    ,(SourceImplementationChoices.RDF, 'Turtle RDF')
+
 )
 
 SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
@@ -231,6 +235,8 @@ SOURCE_IMPLEMENTATION_EXTENSION_CHOICES = (
     ,(SourceImplementationChoices.TSV, ["tsv", "tab"])
     #,(SourceImplementationChoices.PUS, 'PublicStuff')
     #,(SourceImplementationChoices.TXT, ["txt"])
+    ,(SourceImplementationChoices.RDF, ["rdf"])
+
 )
 
 SOURCE_EXTENSION_LIST = sorted([extension for source_id, extensions in SOURCE_IMPLEMENTATION_EXTENSION_CHOICES
@@ -268,6 +274,8 @@ SOURCE_IMPLEMENTATION_MIMETYPE_CHOICES = (
                                         "application/x-tar"])
     ,(SourceImplementationChoices.TSV, ["text/tab-separated-values"])
     #,(SourceImplementationChoices.PUS, 'PublicStuff')
+    ,(SourceImplementationChoices.RDF, ["text/turtle"])
+
 )
 
 SOURCE_MIMETYPE_LIST = sorted([mimetype for source_id, mimetypes in SOURCE_IMPLEMENTATION_MIMETYPE_CHOICES
@@ -275,14 +283,15 @@ SOURCE_MIMETYPE_LIST = sorted([mimetype for source_id, mimetypes in SOURCE_IMPLE
 
 DATASTREAM_IMPL_VALID_CHOICES = [
     SourceImplementationChoices.HTML,
-    SourceImplementationChoices.XML, 
-    SourceImplementationChoices.XLS, 
-    SourceImplementationChoices.CSV, 
-    SourceImplementationChoices.KML, 
-    SourceImplementationChoices.KMZ, 
+    SourceImplementationChoices.XML,
+    SourceImplementationChoices.XLS,
+    SourceImplementationChoices.CSV,
+    SourceImplementationChoices.KML,
+    SourceImplementationChoices.KMZ,
     SourceImplementationChoices.DOC,
     SourceImplementationChoices.TSV,
-    SourceImplementationChoices.TXT]
+    SourceImplementationChoices.TXT,
+    SourceImplementationChoices.RDF]
 
 # These are the impl_type that are not valid to create a Data View from Self Publish
 DATASTREAM_IMPL_NOT_VALID_CHOICES = list( set(dict(SOURCE_IMPLEMENTATION_CHOICES).keys()) - set(DATASTREAM_IMPL_VALID_CHOICES) )
@@ -297,21 +306,21 @@ class CollectTypeChoices():
     SELF_PUBLISH = 0 # an uploaded file
     URL = 1 # a web page for scrape internal tables
     WEBSERVICE = 2 # api or webservice
-    OFFICE_365 = 3 
+    OFFICE_365 = 3
 
 COLLECT_TYPE_SLUGS = (
      ('index', -1)
     ,('file', CollectTypeChoices.SELF_PUBLISH)
-    ,('url', CollectTypeChoices.URL) 
+    ,('url', CollectTypeChoices.URL)
     ,('webservice', CollectTypeChoices.WEBSERVICE)
-    ,('office365', CollectTypeChoices.OFFICE_365) 
+    ,('office365', CollectTypeChoices.OFFICE_365)
 )
 
 COLLECT_TYPE_CHOICES = (
      (CollectTypeChoices.SELF_PUBLISH, 'SELF PUBLISH') # an uploaded file
     ,(CollectTypeChoices.URL, 'URL') # a web page for scrape internal tables
     ,(CollectTypeChoices.WEBSERVICE, 'WEBSERVICE') # api or webservice
-    ,(CollectTypeChoices.OFFICE_365, 'OFFICE_365') 
+    ,(CollectTypeChoices.OFFICE_365, 'OFFICE_365')
 )
 
 COLLECT_TYPE_FILTERABLES = [
@@ -353,7 +362,7 @@ THRESHOLD_NAME_CHOICES = (
 
 ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     #STRING codigo CSS ---------------------------
-     ('ds.detail.full.css', 'ds.detail.full.css') 
+     ('ds.detail.full.css', 'ds.detail.full.css')
     ,('ds.embed.full.css', 'ds.embed.full.css')
     ,('chart.detail.full.css', 'chart.detail.full.css')
     ,('chart.embed.full.css', 'chart.embed.full.css')
@@ -364,7 +373,7 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('dataset.full.css', 'dataset.full.css')
 
     # STRING codigo JS ---------------------------
-    ,('ds.detail.full.javascript', 'ds.detail.full.javascript') 
+    ,('ds.detail.full.javascript', 'ds.detail.full.javascript')
     ,('ds.embed.full.javascript', 'ds.embed.full.javascript')
     ,('chart.detail.full.javascript', 'chart.detail.full.javascript')
     ,('chart.embed.full.javascript', 'chart.embed.full.javascript')
@@ -374,9 +383,9 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('developers.full.javascript', 'developers.full.javascript')
     ,('dataset.full.javascript', 'dataset.full.javascript')
 
-    
-    ,('account.name', 'account.name') 
-    ,('account.bio', 'account.bio') 
+
+    ,('account.name', 'account.name')
+    ,('account.bio', 'account.bio')
     ,('account.link', 'account.link')
     ,('account.logo', 'account.logo')
     ,('account.url', 'account.url')
@@ -433,34 +442,36 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('account.pivottable.helplink', 'account.pivottable.helplink')
     ,('account.footer.opendatalicense', 'account.footer.opendatalicense')
     ,('account.preview', 'account.preview')
-    
-    # API blazegraph plugin
+
+    # API blazegraph plugin # TODO: Mover al plugin
     ,('account.bigdata.namespace', 'account.bigdata.namespace')
     ,('account.blazegraph.domain', 'account.blazegraph.domain')
-     
+
     ,('account.transparency.domain', 'account.transparency.domain')
     ,('account.transparency.country', 'account.transparency.country')
     ,('account.transparency.createdcategories', 'account.transparency.createdcategories')
     ,('account.transparency.categories', 'account.transparency.categories')
     ,('account.contact.dataperson.email', 'account.contact.dataperson.email')
     ,('account.description.enhancement', 'account.description.enhancement')
-    ,('account.search.tips', 'account.search.tips')
+    ,('account.search.tips', 'account.search.tips'),
 
     # TODO: Mover al plugin
-    ,('account.featured.dashboards', 'account.featured.dashboards'),
+    ('account.featured.dashboards', 'account.featured.dashboards'),
+    ('account.plugin.trivia', 'account.plugin.trivia'),
+
 
     # https for microsites or api
     ('account.microsite.https', 'account.microsite.https'),
     ('account.api.https', 'account.api.https'),
 
     # office365
-    ('account.office365.authcode', 'account.office365.authcode'),  
-    ('account.office365.refreshtoken', 'account.office365.refreshtoken'),   
+    ('account.office365.authcode', 'account.office365.authcode'),
+    ('account.office365.refreshtoken', 'account.office365.refreshtoken'),
 
     # Analytics
-    ('account.ga.tracking', 'account.ga.tracking'),   
-    ('account.ga', 'account.ga'),   
-    
+    ('account.ga.tracking', 'account.ga.tracking'),
+    ('account.ga', 'account.ga'),
+
 )
 
 API_APPLICATION_TYPE_CHOICES = (

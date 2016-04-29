@@ -7,6 +7,8 @@ oracle-java7-installer:
     - name: "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main"
     - dist: trusty
     - file: /etc/apt/sources.list.d/webup8team.list
+    - keyid: EEA14886
+    - keyserver: keyserver.ubuntu.com
   pkg.installed:
     - require:
       - pkgrepo: oracle-java7-installer

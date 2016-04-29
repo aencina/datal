@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 class ElasticsearchFinder(Finder):
 
-    order_by = "created_at:desc,title_lower_sort:asc,_score"
+    order_by = "created_at:desc,title:asc,_score"
 
     def search(self, *args, **kwargs):
 
@@ -127,7 +127,7 @@ class ElasticsearchFinder(Finder):
                 self.category_filters=[self.category_filters]
 
             filters.append({"terms": {
-                "categories.name": self.category_filters
+                "category_name_not_analyzed": self.category_filters
             }})
 
         if self.ids:
@@ -149,7 +149,7 @@ class ElasticsearchFinder(Finder):
                     "query": {
                         "query_string": {
                             "query": self.query,
-                            "fields": ["title", "text", "text_english_stemmer", "text_spanish_stemmer"]
+                            "fields": ["title", "title_english_stemmer","title_spanish_stemmer","text", "text_english_stemmer", "text_spanish_stemmer", "category_spanish_stemmer", "category_english_stemmer"]
                         }
                     },
                     "filter": {
@@ -162,7 +162,7 @@ class ElasticsearchFinder(Finder):
             "facets": {
                 "type": {
                     "terms": {
-                        "field": "categories.name"
+                        "field": "category_name_not_analyzed"
                     }
                 }
             }

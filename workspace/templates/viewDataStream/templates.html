@@ -48,82 +48,83 @@
 {# Edit - Tag #}
 <script type="text/template" id="id_editTemplate">
 	<form novalidate>
-				 <div class="ov-content">
-						<div class="col-1">
-						 <fieldset>
+		 <div class="ov-content">
+			<div class="col-1">
+				 <fieldset>
 
-							 {# title #}
-							 <div class="row clearfix">
-									<label for="id_title">{% trans 'APP-TITLE-TEXT' %}</label>
-									<input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" autofocus>
-									<span class="required">*</span>
-							 </div>
+					 {# title #}
+					 <div class="row clearfix">
+							<label for="id_title">{% trans 'APP-TITLE-TEXT' %}</label>
+							<input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" autofocus>
+							<span class="required">*</span>
+					 </div>
 
-							 {# description #}
-							 <div class="row clearfix">
-									<label for="id_description">{% trans 'APP-DESCRIPTION-TEXT' %}</label>
-									<input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0">
-									<span class="required">*</span>
-							 </div>
+					 {# description #}
+					 <div class="row clearfix">
+							<label for="id_description">{% trans 'APP-DESCRIPTION-TEXT' %}</label>
+							<input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0">
+							<span class="required">*</span>
+					 </div>
 
-							 {# category #}
-							 <div class="row clearfix divider">
-									<label for="id_datastream_category">{% trans 'APP-CATEGORY-TEXT' %}</label>
-									<select name="category" id="id_datastream_category" data-bind="value:category,options:allCategories" tabindex="0">
-									</select>
-							 </div>
+					 {# category #}
+					 <div class="row clearfix">
+							<label for="id_datastream_category">{% trans 'APP-CATEGORY-TEXT' %}</label>
+							<select name="category" id="id_datastream_category" data-bind="value:category,options:allCategories" tabindex="0">
+							</select>
+					 </div>
 
-							 {# status #}
-							 <div class="row clearfix divider" style="display:none;">
-									<label for="id_status">{% trans 'APP-STATUS-TEXT' %}</label>
-									<select name="status" class="FL" id="id_datastream_status" data-bind="value:status,options:allStatus">
-									</select>
-									<span class="required">*</span>
-							 </div>
+					 <div class="divider"></div>
 
-							 {# Sources #}
-							 <div class="row clearfix">
-									<div id="sourceForm">
-										 <div id="addSource"></div>
-										 <div class="sourcesContent"></div>
-										 <div id="addNewSource"></div>
-									</div>
-							 </div>
+					 {# status #}
+					 <div class="row clearfix divider" style="display:none;">
+							<label for="id_status">{% trans 'APP-STATUS-TEXT' %}</label>
+							<input type="hidden" name="status" id="id_resource_status" data-bind="value:status" tabindex="0">
+							<span class="required">*</span>
+					 </div>
 
-							 {# Tags #}
-							 <div class="row clearfix">
-									<div id="tagForm">
-										 <div id="addTag"></div>
-										 <div class="tagsContent"></div>
-									</div>
-							 </div>
+					 {# Sources #}
+					 <div class="row clearfix">
+							<div id="sourceForm">
+								 <div id="addSource"></div>
+								 <div class="sourcesContent"></div>
+								 <div id="addNewSource"></div>
+							</div>
+					 </div>
 
-						 </fieldset>
-						</div>
+					 {# Tags #}
+					 <div class="row clearfix">
+							<div id="tagForm">
+								 <div id="addTag"></div>
+								 <div class="tagsContent"></div>
+							</div>
+					 </div>
 
-						<div class="col-2 col-border">
-						 <fieldset>
-							 {# Notes #}
-							 <div class="row clearfix">
-									<label for="id_notes">{% trans 'APP-NOTES-TEXT' %}</label>
-							 </div>
-							 <div class="row clearfix">
-									<div class="textarea clearfix FL">
-										 <textarea name="notes" id="id_notes" rows="10" data-bind="value:notes,events:['keyup']" tabindex="0"><%= notes %></textarea>
-									</div>
-							 </div>
-						 </fieldset>
-						</div>
-				 </div>
+				 </fieldset>
+				</div>
 
-				 <div class="ov-bottom">
-						<div class="ov-buttons">
-							 <a id="id_edit_cancel" class="cancel button" title="{% trans 'APP-OVERLAY-CANCEL' %}">{% trans 'APP-OVERLAY-CANCEL' %}</a>
-							 <a id="id_edit_save" class="button primary" title="{% trans 'APP-SAVE-TEXT' %}">{% trans 'APP-SAVE-TEXT' %}</a>
-						</div>
-				 </div>
+				<div class="col-2 col-border">
+				 <fieldset>
+					 {# Notes #}
+					 <div class="row clearfix">
+							<label for="id_notes">{% trans 'APP-NOTES-TEXT' %}</label>
+					 </div>
+					 <div class="row clearfix">
+							<div class="textarea clearfix FL">
+								 <textarea name="notes" id="id_notes" rows="10" data-bind="value:notes,events:['keyup']" tabindex="0"><%= notes %></textarea>
+							</div>
+					 </div>
+				 </fieldset>
+				</div>
+		 </div>
 
-			</form>
+		 <div class="ov-bottom">
+				<div class="ov-buttons">
+					 <a id="id_edit_cancel" class="cancel button" title="{% trans 'APP-OVERLAY-CANCEL' %}">{% trans 'APP-OVERLAY-CANCEL' %}</a>
+					 <a id="id_edit_save" class="button primary" title="{% trans 'APP-SAVE-TEXT' %}">{% trans 'APP-SAVE-TEXT' %}</a>
+				</div>
+		 </div>
+
+	</form>
 </script>
 
 {# Context Menu #}

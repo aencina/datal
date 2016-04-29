@@ -9,6 +9,7 @@
         "account_id": {{obj.account_id}},
         "title": "{{obj.title}}",
         "created_at": "{{obj.created_at|date:'Y-m-d\Th:i:s'|capfirst}}",
+        "modified_at": "{{obj.modified_at|date:'Y-m-d\Th:i:s'|capfirst}}",
         "type": "{{obj.type}}",
         "id": {{obj.id}}
     }{% if not forloop.last %},{% endif %}

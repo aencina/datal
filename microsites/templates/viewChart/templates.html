@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load extra_tags components %}
+
+<script type="text/html" id="id_timestampTemplate">
+  <div id="id_lastUpdate">
+    <header>
+      <h1><%= gettext('VIEWDS-INFO-LASTUPDATE') %></h1>
+    </header>
+    <p><%= timestamp %></p>
+  </div>
+</script>

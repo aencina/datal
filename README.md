@@ -7,7 +7,7 @@ Plataforma de publicación de Datos Abiertos de código abierto bajo licencia BS
 Herramientas
 ------------
 
-Vangrant (Version 1.7.2):https://www.vagrantup.com/download-archive/v1.7.2.html
+Vangrant: https://www.vagrantup.com/
 
 VirtualBox: https://www.virtualbox.org/
 

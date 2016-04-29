@@ -100,6 +100,7 @@ $(document).ready(function(){
     permaLink: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'dataset' dataset.dataset_id dataset.slug %}{%if url_query%}?{{url_query}}{%endif%}",
     embedUrl: "{{settings.MSPROTOCOL}}://{{ dataset.embedUrl }}?header_row=0&fixed_column=0{%if url_query%}&{{url_query}}{%endif%}" ,
     createdAt: "{{dataset.created_at|date:'c'}}"
+    modifiedAt: "{{dataset.modified_at|date:'c'}}"
   });
 
   var datasetView = new viewDatasetView({model: datasetModel});

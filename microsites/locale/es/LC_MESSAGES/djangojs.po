@@ -155,3 +155,8 @@ msgstr "La altura debe ser un número"
 
 msgid "EMBED-WIDTH-ERROR"
 msgstr "El ancho debe ser un número"
+
+msgid "VIEWDS-INFO-LASTUPDATE"
+msgstr "Última consulta al origen de los datos:"
+
+
