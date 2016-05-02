@@ -105,14 +105,7 @@ div.errorFormValidation{color:#f45f64;padding-top:7px;font-size:12px;text-shadow
 /*LABEL*/
 label.labelField{text-align:right;font-size:14px;color:#767676;font-weight:normal;padding-top:7px;font-weight:bold;display:block;}
 .form label{font-size:14px;display:inline-block;height:30px;line-height:30px;}
-
-/*ERROR VALIDATION*/
-/*
-.formErrorMessageContainer,
-.formErrorMessageContainerLeft{position:relative;}
-.formErrorMessageContainer div.errorFormValidation,
-.formErrorMessageContainerLeft div.errorFormValidation{background:#FFF1AF;border:1px solid #FFF;color:#E18211;font-size:12px;font-weight:bold;text-align:left;padding:1px 10px !important;position:absolute;top:-2px;left:250px;z-index:200;width:auto;width:-moz-max-content;min-width:144px;height:30px;line-height:30px;overflow:hidden;white-space:nowrap;opacity:0.9;filter:alpha(opacity=90);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;-moz-box-shadow:2px 2px 5px rgba(0, 0, 0, 0.4);-webkit-box-shadow:2px 2px 5px rgba(0, 0, 0, 0.4);box-shadow:2px 2px 5px rgba(0, 0, 0, 0.4);}
-*/
+.row label span.tip{font-size:11px;}
   
 /*PASSWORD STRENGTH*/
 .is0{background:url(/static/core/images/common/fd_passwordStrength.gif) no-repeat 0 0;width:68px;height:7px;overflow:hidden;}
