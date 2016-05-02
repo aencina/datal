@@ -96,22 +96,6 @@
     }
 },
 {
-    "pk": 5619, 
-    "model": "core.visualizationrevision", 
-    "fields": {
-        "status": 3, 
-        "visualization": 1746, 
-        "datastream": 43445, 
-        "parameters": "", 
-        "lib": "d3", 
-        "created_at": "2015-11-10T13:20:53", 
-        "modified_at": "2015-12-24T18:18:41", 
-        "user": 1647, 
-        "meta_text": "", 
-        "impl_details": "{\"title\": \"Prueba\", \"data\": \"D8:X22\", \"chart\": {\"geoType\": \"\", \"is3D\": \"false\", \"labelSelection\": \"B22:B9\", \"latitudSelection\": \"\", \"headerSelection\": \"D6:X6\", \"zoom\": null, \"bounds\": \"\", \"mapType\": \"\", \"longitudSelection\": \"\", \"traceSelection\": \"\"}, \"format\": {\"showLegend\": \"checked\", \"chartTemplate\": \"basicchart\", \"nullValuePreset\": \"\", \"invertData\": \"\", \"invertedAxis\": \"\", \"nullValueAction\": \"exclude\", \"type\": \"areachart\", \"correlativeData\": \"false\"}}"
-    }
-},
-{
     "pk": 5620, 
     "model": "core.visualizationrevision", 
     "fields": {
