@@ -1,4 +1,4 @@
-{% set environment = salt['pillar.get']('environment', None) %}
+
 DOMAINS = {
     'api': '{{  pillar["application"]["settings"]["domains"]["api"] }}',
     'microsites': '{{  pillar["application"]["settings"]["domains"]["microsites"] }}',
@@ -13,7 +13,7 @@ DOMAINS_ENGINE = {
 }
 
 WORKSPACE_PLUGIN_MIDDLEWARE_CLASSES = (
-    'plugins.dashboards.middlewares.ioc.DependenciesInjector',
+
 )
 
 RAVEN_CONFIG = {

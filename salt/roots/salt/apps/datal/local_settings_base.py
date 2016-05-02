@@ -1,4 +1,3 @@
-{% set environment = salt['pillar.get']('environment', None) %}
 {% set user = pillar['system']['user'] %}
 import os
 PROJECT_PATH, FILENAME = os.path.split(os.path.abspath(os.path.dirname(__file__)))
@@ -67,12 +66,6 @@ EMAIL_HOST_PASSWORD = '{{  pillar["email"]["password"] }}'
 EMAIL_PORT = '{{ pillar["email"]["port"] }}'
 EMAIL_USE_TLS = {{ pillar["email"]["tls"] }}
 
-{% if environment == 'prod' %}
-POST_OFFICE = {
-    'EMAIL_BACKEND': 'django.core.mail.backends.smtp.EmailBackend'
-}
-{% endif %}
-
 BIGDATA_HOST = 'http://bigdata.junar.com'
 BIGDATA_PORT = '8080'
 BIGDATA_API_ENDPOINT = '/bigdata'
@@ -135,33 +128,15 @@ MEMCACHED_API_END_POINT = ['{{ pillar["memcached"]["api"] }}']
 
 # Listado de los plugins disponibles
 INSTALLED_PLUGINS = (
-    'plugins.advanced_filtering',
-    'plugins.dashboards',
-    'plugins.reports',
-    'plugins.apiv1',
-    'plugins.theme_junar',
-    'plugins.kpi',
-    'plugins.faceapp',
+
 )
 
 PLUGIN_LOCALES = (
-    os.path.join(PROJECT_PATH, 'plugins', 'advanced_filtering', 'locale'),
-    os.path.join(PROJECT_PATH, 'plugins', 'dashboards', 'locale'),
-    os.path.join(PROJECT_PATH, 'plugins', 'reports', 'locale'),
-    os.path.join(PROJECT_PATH, 'plugins', 'apiv1', 'locale'),
-    os.path.join(PROJECT_PATH, 'plugins', 'theme_junar', 'locale'),
-    os.path.join(PROJECT_PATH, 'plugins', 'kpi', 'locale'),
-    os.path.join(PROJECT_PATH, 'plugins', 'faceapp', 'locale'),
+
 )
 
 PLUGIN_STATIC_DIRS = (
-    os.path.join(PROJECT_PATH, 'plugins', 'advanced_filtering', 'static'),
-    os.path.join(PROJECT_PATH, 'plugins', 'dashboards', 'static'),
-    os.path.join(PROJECT_PATH, 'plugins', 'reports', 'static'),
-    os.path.join(PROJECT_PATH, 'plugins', 'apiv1', 'static'),
-    os.path.join(PROJECT_PATH, 'plugins', 'theme_junar', 'static'),
-    os.path.join(PROJECT_PATH, 'plugins', 'kpi', 'static'),
-    os.path.join(PROJECT_PATH, 'plugins', 'faceapp', 'static'),
+
 )
 
 APPLICATION_DETAILS = {
@@ -173,17 +148,3 @@ APPLICATION_DETAILS = {
 SEARCH_INDEX = { 'url': ['{{  pillar["searchers"]["elastic"]["url"] }}',], 'index': '{{  pillar["searchers"]["elastic"]["index"] }}' }
 
 COMPRESS_CSS_HASHING_METHOD = None
-
-{% if environment == 'prod' %}
-#AWS_ACCESS_KEY_ID = 'AKIAI652OHJ6H2VI25OA'
-#AWS_SECRET_ACCESS_KEY = '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'
-#AWS_STORAGE_BUCKET_NAME = 'statics.junar'
-
-#COMPRESS_URL = "https://s3.amazonaws.com/statics.junar/"
-#COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
-#STATIC_URL = COMPRESS_URL
-#COMPRESS_ROOT = STATIC_ROOT
-#STATICFILES_STORAGE = COMPRESS_STORAGE
-#AWS_S3_HOST = "s3.amazonaws.com"
-{% endif %}

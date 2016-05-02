@@ -21,9 +21,17 @@ nginx:
       
 # Searcher
 searchers:
+  searchify:
+    api_url: 'http://localhost:20220'
+    index: 'idx'
   elastic:
-    url: 'http://10.198.67.167:9200'
+    url: 'http://localhost:9200'
     index: 'datal'
+
+sentry_dns: ''
+sentry_dns_microsites: ''
+sentry_dns_workspace: ''
+sentry_dns_api: ''
 
 application:
   install_dir: /home/vagrant/
@@ -142,3 +150,38 @@ alchemist:
 scrapper:
   proxy_scrapers_domain: 'http://workspace.dev:8080'
 
+memcached:
+  api: 127.0.0.1:11211
+  microsites: 127.0.0.1:11211
+  engine: 127.0.0.1:11211
+
+email:
+    host: ''
+    port: ''
+    user: ''
+    password: ''
+    tls: True
+
+queues:
+  request_queue: 'test_requests_queue'
+
+social:
+  twitter_profile_url: ''
+  facebook_profile_url: ''
+
+mail_list:
+  list_company: ''
+  list_description: ''
+  list_unsubscribe: ''
+  list_update_profile: ''
+  welcome_template_es: ''
+  welcome_template_en: ''
+  mailchimp:
+    uri: 'https://us2.api.mailchimp.com/2.0/'
+    api_key: ''
+    lists:
+      workspace_users_list:
+        es_id: ''
+        en_id: ''
+  mandrill:
+    api_key: ''
