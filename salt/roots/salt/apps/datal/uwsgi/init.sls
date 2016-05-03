@@ -15,7 +15,6 @@ api_uwsgi_conf:
     - source: salt://apps/datal/uwsgi/api.ini
     - template: jinja
 
-
 microsite_uwsgi_conf:
   file.managed:
     - name: /etc/uwsgi/microsite.ini
@@ -33,13 +32,3 @@ uwsgi_log_dir_structure:
   file.directory:
     - name: /var/log/uwsgi
     - mode: 777
-
-uwsgi:
-  service.running:
-    - require:
-      - pkg: uwsgi
-    - watch:
-      - file: /etc/uwsgi/admin.ini
-      - file: /etc/uwsgi/api.ini
-      - file: /etc/uwsgi/microsite.ini
-      - file: /etc/uwsgi/workspace.ini

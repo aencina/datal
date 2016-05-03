@@ -2,11 +2,10 @@
 
 {# Edit - Add New Source #}
 <script type="text/template" id="id_AddNewSourceTemplate">
-	<div class="FL">  
-		<div class="nolabel">
-			<div class="insetFormTitle">{% trans 'APP-ADDNEW-TEXT' %}</div>
-		</div>
-
+	<div class="nolabel">
+		
+		<div class="insetFormTitle">{% trans 'APP-ADDNEW-TEXT' %}</div>
+	
 		<div class="row clearfix">
 			<label for="id_name"></label>
 			<input type="text" name="name" id="id_name" placeholder="{% trans 'APP-NAME-TEXT' %}">
@@ -18,8 +17,9 @@
 		</div>
 
 		<div class="row clearfix">
-			<a title="{% trans 'APP-ADD-TEXT' %}" class="button small nolabel FL" id="id_addNewSourceButton">{% trans 'APP-ADD-TEXT' %}</a>
+			<a title="{% trans 'APP-ADD-TEXT' %}" class="button small FL" id="id_addNewSourceButton">{% trans 'APP-ADD-TEXT' %}</a>
 		</div>
+
 	</div>
 </script>
 
@@ -48,81 +48,80 @@
 {# Edit - Tag #}
 <script type="text/template" id="id_editTemplate">
 	<form novalidate>
-				 <div class="ov-content">
-						<div class="col-1">
-						 <fieldset>
+		 <div class="ov-content">
+			<div class="col-xs-12"> 
 
-							 {# title #}
-							 <div class="row clearfix">
-									<label for="id_title">{% trans 'APP-TITLE-TEXT' %}</label>
-									<input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" autofocus>
-									<span class="required">*</span>
-							 </div>
+				 <fieldset>
 
-							 {# description #}
-							 <div class="row clearfix">
-									<label for="id_description">{% trans 'APP-DESCRIPTION-TEXT' %}</label>
-									<input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0">
-									<span class="required">*</span>
-							 </div>
+					 {# title #}
+					 <div class="row clearfix">
+							<label for="id_title">{% trans 'APP-TITLE-TEXT' %}</label>
+							<span class="required">*</span>
+							<input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" autofocus>
+					 </div>
 
-							 {# status #}
-							 <div class="row clearfix">
-									<label for="id_description">{% trans 'APP-STATUS-TEXT' %}</label>
-									<input type="hidden" name="status" id="id_resource_status" data-bind="value:status" tabindex="0">
-									<span class="required">*</span>
-							 </div>
+					 {# description #}
+					 <div class="row clearfix">
+							<label for="id_description">{% trans 'APP-DESCRIPTION-TEXT' %}</label>
+							<span class="required">*</span>
+							<input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0">
+					 </div>
 
-							 {# category #}
-							 <div class="row clearfix divider">
-									<label for="id_datastream_category">{% trans 'APP-CATEGORY-TEXT' %}</label>
-									<select name="category" id="id_datastream_category" data-bind="value:category,options:allCategories" tabindex="0">
-									</select>
-							 </div>
+					 {# category #}
+					 <div class="row clearfix">
+							<label for="id_datastream_category">{% trans 'APP-CATEGORY-TEXT' %}</label>
+							<select name="category" id="id_datastream_category" data-bind="value:category,options:allCategories" tabindex="0">
+							</select>
+					 </div>
 
-							 {# Sources #}
-							 <div class="row clearfix">
-									<div id="sourceForm">
-										 <div id="addSource"></div>
-										 <div class="sourcesContent"></div>
-										 <div id="addNewSource"></div>
-									</div>
-							 </div>
+					 <div class="divider"></div>
 
-							 {# Tags #}
-							 <div class="row clearfix">
-									<div id="tagForm">
-										 <div id="addTag"></div>
-										 <div class="tagsContent"></div>
-									</div>
-							 </div>
+					 {# status #}
+					 <div class="row clearfix divider" style="display:none;">
+							<label for="id_status">{% trans 'APP-STATUS-TEXT' %}</label>
+							<input type="hidden" name="status" id="id_resource_status" data-bind="value:status" tabindex="0">
+							<span class="required">*</span>
+					 </div>
 
-						 </fieldset>
-						</div>
+					 {# Sources #}
+					 <div class="row clearfix">
+							<div id="sourceForm">
+								 <div id="addSource"></div>
+								 <div class="sourcesContent"></div>
+								 <div id="addNewSource"></div>
+							</div>
+					 </div>
 
-						<div class="col-2 col-border">
-						 <fieldset>
-							 {# Notes #}
-							 <div class="row clearfix">
-									<label for="id_notes">{% trans 'APP-NOTES-TEXT' %}</label>
-							 </div>
-							 <div class="row clearfix">
-									<div class="textarea clearfix FL">
-										 <textarea name="notes" id="id_notes" rows="10" data-bind="value:notes,events:['keyup']" tabindex="0"><%= notes %></textarea>
-									</div>
-							 </div>
-						 </fieldset>
-						</div>
-				 </div>
+					 {# Tags #}
+					 <div class="row clearfix">
+							<div id="tagForm">
+								 <div id="addTag"></div>
+								 <div class="tagsContent"></div>
+							</div>
+					 </div>
 
-				 <div class="ov-bottom">
-						<div class="ov-buttons">
-							 <a id="id_edit_cancel" class="cancel button" title="{% trans 'APP-OVERLAY-CANCEL' %}">{% trans 'APP-OVERLAY-CANCEL' %}</a>
-							 <a id="id_edit_save" class="button primary" title="{% trans 'APP-SAVE-TEXT' %}">{% trans 'APP-SAVE-TEXT' %}</a>
-						</div>
-				 </div>
+					 {# Notes #}
+					 <div class="row clearfix">
+							<label for="id_notes">{% trans 'APP-NOTES-TEXT' %}</label>
+					 </div>
+					 <div class="row clearfix">
+							<div class="textarea clearfix FL">
+								 <textarea name="notes" id="id_notes" rows="10" data-bind="value:notes,events:['keyup']" tabindex="0"><%= notes %></textarea>
+							</div>
+					 </div>
+				 </fieldset>
 
-			</form>
+			</div>
+		</div>
+
+		<div class="ov-bottom">
+			<div class="ov-buttons">
+				 <a id="id_edit_cancel" class="cancel button" title="{% trans 'APP-OVERLAY-CANCEL' %}">{% trans 'APP-OVERLAY-CANCEL' %}</a>
+				 <a id="id_edit_save" class="button primary" title="{% trans 'APP-SAVE-TEXT' %}">{% trans 'APP-SAVE-TEXT' %}</a>
+			</div>
+		</div>
+
+	</form>
 </script>
 
 {# Context Menu #}

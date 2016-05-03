@@ -1,17 +1,16 @@
-#remove_old_indextank:
-#  file.directory:
-#    - name: /usr/share/indextank-engine
-#    - clean: True
+{% set user = pillar['system']['user'] %}
+{% set group = pillar['system']['group'] %}
 
-git:
-  pkg:
-    - installed
-python-git:
-  pkg:
-    - installed
-python-dev:
-  pkg:
-    - installed
+include:
+  - core.users
+  - core.java
+  - core.git
+
+elastic_deps:
+  pkg.installed:
+    - pkgs:
+      - python-git
+      - python-dev
 
 elasticsearch-ubuntu:
   pkgrepo.managed:
@@ -44,18 +43,9 @@ elasticsearch:
     - mode: 755
     - makedirs: True
 
-#alias para facilitar el debug
-elasticsearch_alias:
-   file.managed:
-     - source: salt://core/elasticsearch/.bash_aliases
-     - name: /home/vagrant/.bash_aliases 
-     - mode: 644
-     - user: vagrant
-     - group: vagrant
-
 /etc/elasticsearch/elasticsearch.yml:
  file.append:
-    - text: 
+    - text:
         - "script.inline: on"
         - "script.indexed: on"
 

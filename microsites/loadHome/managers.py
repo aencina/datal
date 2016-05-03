@@ -12,12 +12,14 @@ class HomeFinder(elastic.ElasticsearchFinder):
         slug = slugify(title)
         permalink = reverse('viewDataStream.view', kwargs={'id': id, 'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
+        modified_at= datetime.datetime.fromtimestamp(int(doc['modified_at']))
 
         return dict(
             id=id,
             title=title,
             category=doc['category_name'],
             created_at=created_at,
+            modified_at=modified_at,
             permalink=permalink,
             type=doc['type'].upper(),
             account_id=int(doc['account_id'])
@@ -31,11 +33,13 @@ class HomeFinder(elastic.ElasticsearchFinder):
         permalink = reverse('manageDatasets.view', urlconf='microsites.urls', kwargs={'dataset_id': dataset_id,
                                                                                                'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
+        modified_at = datetime.datetime.fromtimestamp(int(doc['modified_at']))
 
         return dict(id=dataset_id
                     , title = title
                     , category = doc['category_name']
                     , created_at = created_at
+                    , modified_at=modified_at 
                     , permalink = permalink
                     , type=doc['type'].upper()
                     , account_id = int(doc['account_id'])
@@ -48,11 +52,13 @@ class HomeFinder(elastic.ElasticsearchFinder):
         slug = slugify(title)
         permalink = reverse('chart_manager.view', kwargs={'id': id, 'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
+        modified_at = datetime.datetime.fromtimestamp(int(doc['modified_at']))
 
         return dict(id=id
                     , title = title
                     , category = doc['category_name']
                     , created_at = created_at
+                    , modified_at = modified_at
                     , permalink = permalink
                     , type=doc['type'].upper()
                     , account_id = int(doc['account_id'])

@@ -1,0 +1,20 @@
+{% set vhost = salt['pillar.get']('nginx:vhosts:admin', None) %}
+{% set install_dir = salt['pillar.get']('application:install_dir', None) %}
+
+server {
+    server_name {{ vhost['name'] }};
+    listen 80;
+    access_log /var/log/nginx/admin-access.log;
+    error_log /var/log/nginx/admin-error.log;
+    client_max_body_size 30m;
+    proxy_buffer_size 128k;
+    proxy_buffers 4 256k;
+    proxy_busy_buffers_size 256k;
+    location /media {
+        alias {{install_dir}}{{ pillar['virtualenv']['path'] }}/lib/python2.7/site-packages/django/contrib/admin/static;
+    }
+    location / {
+        uwsgi_pass 127.0.0.1:3016;
+        include /etc/nginx/uwsgi_params;
+    }
+}

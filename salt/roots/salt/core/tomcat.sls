@@ -1,3 +1,6 @@
+include:
+  - core.java
+
 tomcat7:
   pkg.installed:
     - pkgs:

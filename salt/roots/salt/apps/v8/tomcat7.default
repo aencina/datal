@@ -1,0 +1,5 @@
+JAVA_OPTS="-Djava.awt.headless=true"
+JAVA_OPTS="$JAVA_OPTS -Xms{{ pillar['java_opts']['Xms'] }} -Xmx{{ pillar['java_opts']['Xmx'] }} -XX:MaxPermSize={{ pillar['java_opts']['MaxPermSize'] }} -XX:PermSize={{ pillar['java_opts']['PermSize'] }} -XX:G1HeapRegionSize={{ pillar['java_opts']['G1HeapRegionSize'] }} -Xss{{ pillar['java_opts']['Xss'] }}"
+JAVA_OPTS="$JAVA_OPTS -XX:+UseG1GC {% if pillar['java_opts']['ParallelGCThreads'] %}-XX:ParallelGCThreads={{ pillar['java_opts']['ParallelGCThreads'] }}{% endif %} {% if pillar['java_opts']['ConcGCThreads'] %}-XX:ConcGCThreads={{ pillar['java_opts']['ConcGCThreads'] }}{% endif %} -XX:InitiatingHeapOccupancyPercent=90"
+JAVA_OPTS="$JAVA_OPTS -XX:MaxGCPauseMillis=10 -XX:GCPauseIntervalMillis=150"
+JAVA_OPTS="$JAVA_OPTS -Xloggc:/var/log/tomcat7/garbage.log"

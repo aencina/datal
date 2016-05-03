@@ -1,9 +1,12 @@
+# Get salt from local
 file_client: local
 
+# Salts location
 file_roots:
   base:
     - /srv/salt/salt
 
+# Pillar locations 
 pillar_roots:
   base:
     - /srv/salt/pillar
