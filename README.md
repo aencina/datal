@@ -13,9 +13,14 @@ VirtualBox: https://www.virtualbox.org/
 
 En Windows también se debe instalar GIT: http://git-scm.com/download/win
 
+Instalacion sin vagrant
+-----------------------
 
-Instalacion
------------
+curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
+
+
+Instalacion en vagrant
+----------------------
 
 Luego de haber clonado el repositorio, dentro del mismo ejecutar:
 
