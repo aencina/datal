@@ -42,7 +42,7 @@ class Datastore:
         pass
 
     @abstractmethod 
-    def build_url(self, **kwargs):
+    def build_url(self, *args, **kwargs):
         pass
 
     @abstractmethod     
@@ -56,7 +56,7 @@ class s3(Datastore):
     def __init__(self):
         self.connection = S3Connection(settings.AWS_ACCESS_KEY, settings.AWS_SECRET_KEY)
 
-    def build_url(self, **kwargs):
+    def build_url(self, *args, **kwargs):
         """ Genera una url para poder acceder a un archivo desde afuera """
         key = kwargs['key']
         response_headers = kwargs.get('response_headers', None)
