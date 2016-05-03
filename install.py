@@ -2,7 +2,7 @@
 import apt
 import sys
 import os
-import requests
+import urllib2
 
 from subprocess import call
 
@@ -80,8 +80,9 @@ def salt_configuration():
     # Get Pillars
     fname = '{}/general.sls'.format(MINION_PILLAR_DIR)
     url = 'https://raw.githubusercontent.com/Junar/datal-formula/master/pillar.example'
-    r = requests.get(url)
-    open(fname, 'w').write(r.content)
+    response = urllib2.urlopen(url)
+    content = response.read()
+    open(fname, 'w').write(content)
 
     # Minion pillar top file content
     f = open(MINION_PILLAR_DIR + '/top.sls', 'w')
