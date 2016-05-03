@@ -6,6 +6,7 @@ import urllib2
 
 from subprocess import call
 
+SALT_HIGHSTATE_COMMAND = 'salt-call state.highstate'
 SALT_INSTALLER_COMMAND = "curl -L https://bootstrap.saltstack.com | sudo sh"
 SALT_RESTART_COMMAND = "service salt-minion restart"
 python_git_pkg = 'python-git'
@@ -89,7 +90,13 @@ def salt_configuration():
     f.writelines(MINION_PILLAR_TOP_FILE_CONTENT)
     f.close()
 
+
+def run_highstate():
+    print("Instalando Datal / Installing Datal")
+    return call(SALT_HIGHSTATE_COMMAND, shell=True)
+
 install_salt()
 install_deps()
 salt_configuration()
 restart_salt()
+run_highstate()
