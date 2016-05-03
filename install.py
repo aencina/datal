@@ -1,6 +1,8 @@
 #! /usr/bin/python
 import apt
 import sys
+import os
+import requests
 
 from subprocess import call
 
@@ -8,6 +10,31 @@ SALT_INSTALLER_COMMAND = "curl -L https://bootstrap.saltstack.com | sudo sh"
 SALT_RESTART_COMMAND = "service salt-minion restart"
 python_git_pkg = 'python-git'
 minion_file = '/etc/salt/minion'
+MINION_FILE_CONTENT = """
+file_client: local
+
+fileserver_backend:
+  - git
+
+gitfs_base: master
+
+gitfs_remotes:
+  - https://github.com/Junar/datal-formula.git
+
+pillar_roots:
+  base:
+    - /srv/salt/pillar
+
+"""
+MINION_PILLAR_DIR = '/srv/salt/pillar'
+MINION_PILLAR_TOP_FILE_CONTENT = """
+base:
+  '*':
+    - general
+    {% if salt['file.file_exists']('/srv/salt/pillar/local.sls') %}
+    - local
+    {% endif %}
+"""
 
 
 def install_salt():
@@ -40,17 +67,25 @@ def install_deps():
 
 def salt_configuration():
     print("Configurando SaltStack / Setting up SaltStack")
-    minion = """
-fileserver_backend:
-  - git
 
-gitfs_base: master
-
-gitfs_remotes:
-  - https://github.com/Junar/datal-formula.git
-    """
+    # Minion file content
     f = open(minion_file, 'w')
-    f.writelines(minion)
+    f.writelines(MINION_FILE_CONTENT)
+    f.close()
+
+    # Pillar directory
+    if not os.path.exists(MINION_PILLAR_DIR):
+        os.makedirs(MINION_PILLAR_DIR)
+
+    # Get Pillars
+    fname = '{}/general.sls'.format(MINION_PILLAR_DIR)
+    url = 'https://raw.githubusercontent.com/Junar/datal-formula/master/pillar.example'
+    r = requests.get(url)
+    open(fname, 'w').write(r.content)
+
+    # Minion pillar top file content
+    f = open(MINION_PILLAR_DIR + '/top.sls', 'w')
+    f.writelines(MINION_PILLAR_TOP_FILE_CONTENT)
     f.close()
 
 install_salt()
