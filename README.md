@@ -13,29 +13,32 @@ VirtualBox: https://www.virtualbox.org/
 
 En Windows también se debe instalar GIT: http://git-scm.com/download/win
 
+Instalacion sin vagrant
+-----------------------
 
-Instalacion
------------
+curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
+
+
+Instalacion en vagrant
+----------------------
 
 Luego de haber clonado el repositorio, dentro del mismo ejecutar:
 
-1. git submodule init
-2. git submodule update
-3. Agregar los siguientes hosts a nuestro archivo de hosts apuntando a localhost. Ejemplo suponiendo que el IP local es 127.0.0.1
+1. Agregar los siguientes hosts a nuestro archivo de hosts apuntando a localhost. Ejemplo suponiendo que el IP local es 127.0.0.1
 
     127.0.0.1 admin.dev api.dev datastore.dev microsite.dev microsites.dev  workspace.dev
 
-4. Iniciar la virtual con el comando:
+2. Iniciar la virtual con el comando:
 
     vagrant up --provision
 
-5. Iniciar el servicio Web:
+3. Iniciar el servicio Web:
 
     vagrant ssh
     
     sudo supervisorctl start uwsgi
 
-6. Para probar la demo, en tu navegador ingresá a http://workspace.dev:8080/
+4. Para probar la demo, en tu navegador ingresá a http://workspace.dev:8080/
 
 
 Usuarios y claves para acceder a la demo
