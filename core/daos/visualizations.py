@@ -633,7 +633,7 @@ class VisualizationSearchDAO():
                      'tags' : ','.join(tags),
                      'account_id' : self.revision.user.account.id,
                      'parameters': "",
-                     'timestamp': int(time.mktime(self.revision.modified_at.timetuple())),
+                     'timestamp': int(round(time.mktime(self.revision.modified_at.timetuple())*1000)),
                      'created_at': int(time.mktime(self.revision.created_at.timetuple())),
                      'modified_at': int(time.mktime(self.revision.modified_at.timetuple())),
                      'hits': 0,
