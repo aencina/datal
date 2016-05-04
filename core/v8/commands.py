@@ -79,16 +79,14 @@ class EngineCommand(object):
                             # obtenemos el json para sacar el ftimestamp
                             aux = json.loads(ret)
 
+                            pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
+                            if len(pids) > 0:
+                                pId = pids[0]
+                                if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
+
                             # si tiene timestamp
                             if type(aux) == type({}) and "fTimestamp" in aux.keys():
-     
-                                pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
-                                if len(pids) > 0:
-                                    pId = pids[0]
-                                    if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
-                                
                                 timestamp=aux['fTimestamp']
-                            
                             # si no tiene
                             else:
                                 timestamp=int(round(time.time() * 1000))
