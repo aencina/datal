@@ -1,6 +1,4 @@
 #! /usr/bin/python
-import apt
-import sys
 import os
 import urllib2
 
