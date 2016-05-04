@@ -50,20 +50,7 @@ def restart_salt():
 
 def install_deps():
     print("Instalando dependencias / Installing deps")
-    # Update APT Cache
-    cache = apt.cache.Cache()
-    cache.update()
-
-    pkg = cache[python_git_pkg]
-    if pkg.is_installed:
-        print "{pkg_name} already installed".format(pkg_name=python_git_pkg)
-    else:
-        pkg.mark_install()
-
-        try:
-            cache.commit()
-        except Exception, arg:
-            print >> sys.stderr, "Sorry, package installation failed [{err}]".format(err=str(arg))
+    return call('apt-get install {}'.format(python_git_pkg), shell=True)
 
 
 def salt_configuration():
