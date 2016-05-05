@@ -27,6 +27,8 @@ class CSVEngineRenderer(EngineRenderer):
     media_type="text/csv"
     format = "csv"
 
+class FlexEngineRenderer(CSVEngineRenderer):
+    format = "flex"
 
 class TSVEngineRenderer(EngineRenderer):
     media_type="text/tab-separated-values"

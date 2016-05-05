@@ -12,6 +12,7 @@ from django.forms.formsets import formset_factory
 import memcache
 import urllib
 import logging
+import time
 
 class EngineCommand(object):
     endpoint = 'defalt_endpoint'
@@ -77,19 +78,27 @@ class EngineCommand(object):
                         try:
                             # obtenemos el json para sacar el ftimestamp
                             aux = json.loads(ret)
+
+                            pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
+                            if len(pids) > 0:
+                                pId = pids[0]
+                                if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
+
+                            # si tiene timestamp
                             if type(aux) == type({}) and "fTimestamp" in aux.keys():
-     
-                                pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
-                                if len(pids) > 0:
-                                    pId = pids[0]
-                                    if settings.DEBUG: self.logger.info('[ENGINE COMMAND] Salvamos el fTimestamp de %s (pId: %s)' % (aux["fTimestamp"],pId))
-         
-                                    try:
-                                        es = ElasticsearchIndex()
-                                        doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": pId}}}, fields="_id")['hits']['hits'][0]['_id']
-                                        es.update({'doc': {'fields': {'timestamp': aux['fTimestamp']}}, 'docid': doc_id, 'type': "ds"})
-                                    except IndexError:
-                                        self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado')
+                                timestamp=aux['fTimestamp']
+                            # si no tiene
+                            else:
+                                timestamp=int(round(time.time() * 1000))
+
+                            if len(pids) > 0:
+                                try:
+                                    es = ElasticsearchIndex()
+                                    doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": pId}}}, fields="_id")['hits']['hits'][0]['_id']
+                                    es.update({'doc': {'fields': {'timestamp': timestamp}}, 'docid': doc_id, 'type': "ds"})
+                                except IndexError:
+                                    self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado')
+
                         except ValueError:
                             self.logger.error('[ENGINE COMMAND] ret no es un json')
                  
