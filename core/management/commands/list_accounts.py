@@ -34,4 +34,7 @@ class Command(BaseCommand):
                 status=999
             except urllib2.HTTPError:
                 status=404
+            except urllib2.URLError:
+                uri="-"
+                status=999
             print "%s;%s;%s;%s;%s;%s;%s;%s" % (account.id,account.name, account.get_status_display(), account.level, domain, api_domain,uri,status)
