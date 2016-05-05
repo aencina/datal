@@ -11,7 +11,7 @@ from django import template
 register = template.Library()
 
 @register.filter(is_safe=True)
-def literal(value, arg=None):
+def literal(value='', arg=None):
 	"""
 	Returns a literal version of a string, espcaed and doble quoted
 	"""
