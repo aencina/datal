@@ -48,7 +48,7 @@ def restart_salt():
 
 def install_deps():
     print("Instalando dependencias / Installing deps")
-    return call('apt-get install {}'.format(python_git_pkg), shell=True)
+    return call('apt-get install {} -y'.format(python_git_pkg), shell=True)
 
 
 def salt_configuration():
