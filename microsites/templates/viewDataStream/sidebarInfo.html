@@ -61,7 +61,7 @@
             
         </article>
 
-        {% if datastream.get_sources %}
+        {% if datastream.sources %}
         <!-- Sources -->
         <article class="sources">
             <i></i>
@@ -69,8 +69,8 @@
                 <h1>{% trans 'VIEWDS-INFO-SOURCES' %}</h1>
             </header>
             <ul class="list">
-                {% for source in datastream.get_sources %}
-                <li class="clearfix"><a href="{{source.url|addhttp}}" target="_blank" title="{{source.name|capfirst}}">{{source.name|capfirst}}</a></li>
+                {% for source in datastream.sources %}
+                <li class="clearfix"><a href="{{source.source__url|addhttp}}" target="_blank" title="{{source.source__name|capfirst}}">{{source.source__name|capfirst}}</a></li>
         {%endfor%}
             </ul>
         </article>
