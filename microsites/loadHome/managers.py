@@ -13,6 +13,7 @@ class HomeFinder(elastic.ElasticsearchFinder):
         permalink = reverse('viewDataStream.view', kwargs={'id': id, 'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
         modified_at= datetime.datetime.fromtimestamp(int(doc['modified_at']))
+        timestamp = datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
 
         return dict(
             id=id,
@@ -20,6 +21,7 @@ class HomeFinder(elastic.ElasticsearchFinder):
             category=doc['category_name'],
             created_at=created_at,
             modified_at=modified_at,
+            timestamp=timestamp,
             permalink=permalink,
             type=doc['type'].upper(),
             account_id=int(doc['account_id'])
@@ -34,12 +36,14 @@ class HomeFinder(elastic.ElasticsearchFinder):
                                                                                                'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
         modified_at = datetime.datetime.fromtimestamp(int(doc['modified_at']))
+        timestamp = datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
 
         return dict(id=dataset_id
                     , title = title
                     , category = doc['category_name']
                     , created_at = created_at
                     , modified_at=modified_at 
+                    , timestamp=timestamp
                     , permalink = permalink
                     , type=doc['type'].upper()
                     , account_id = int(doc['account_id'])
@@ -53,12 +57,14 @@ class HomeFinder(elastic.ElasticsearchFinder):
         permalink = reverse('chart_manager.view', kwargs={'id': id, 'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
         modified_at = datetime.datetime.fromtimestamp(int(doc['modified_at']))
+        timestamp = datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
 
         return dict(id=id
                     , title = title
                     , category = doc['category_name']
                     , created_at = created_at
                     , modified_at = modified_at
+                    , timestamp=timestamp
                     , permalink = permalink
                     , type=doc['type'].upper()
                     , account_id = int(doc['account_id'])
