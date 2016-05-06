@@ -11,8 +11,10 @@ from .visualizations import VisualizationLifeCycleManager
 
 
 logger = logging.getLogger(__name__)
-CREATE_ALLOWED_STATES = [StatusChoices.DRAFT, StatusChoices.PENDING_REVIEW, StatusChoices.APPROVED, StatusChoices.PUBLISHED]
-PUBLISH_ALLOWED_STATES = [StatusChoices.DRAFT, StatusChoices.PENDING_REVIEW, StatusChoices.APPROVED, StatusChoices.PUBLISHED]
+CREATE_ALLOWED_STATES = [StatusChoices.DRAFT, StatusChoices.PENDING_REVIEW, StatusChoices.APPROVED,
+                         StatusChoices.PUBLISHED]
+PUBLISH_ALLOWED_STATES = [StatusChoices.DRAFT, StatusChoices.PENDING_REVIEW, StatusChoices.APPROVED,
+                          StatusChoices.PUBLISHED]
 UNPUBLISH_ALLOWED_STATES = [StatusChoices.DRAFT, StatusChoices.PUBLISHED]
 SEND_TO_REVIEW_ALLOWED_STATES = [StatusChoices.DRAFT]
 ACCEPT_ALLOWED_STATES = [StatusChoices.PENDING_REVIEW]
@@ -166,7 +168,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
                                     to_state=to_status,
                                     allowed_states=allowed_states)
 
-
         if killemall:
             self._unpublish_all(to_status=to_status)
         else:
@@ -290,7 +291,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self._delete_cache(cache_key='my_total_datastreams_%d' % self.datastream.user.id)
         self._delete_cache(cache_key='account_total_datastreams_%d' % self.datastream.user.account.id)
 
-
     def _remove_all(self):
 
         for visualization_revision in VisualizationRevision.objects.filter(datastream=self.datastream_revision.datastream):
@@ -377,6 +377,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
         self._log_activity(ActionStreams.EDIT)
         return self.datastream_revision
+
     def _move_childs_to_status(self, status=StatusChoices.PENDING_REVIEW):
 
         with transaction.atomic():
@@ -401,7 +402,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             for visualization in visualizations:
                VisualizationLifeCycleManager(self.user, visualization_revision_id=visualization.id).clone()
 
-
     def clone(self):
         dsr = self.datastream_revision.clone(self.datastream_revision.status)
         if dsr.status == StatusChoices.PUBLISHED:
@@ -409,8 +409,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self._update_last_revisions()
         self._clone_childs()
         return dsr
-
-
 
     def _log_activity(self, action_id):
         title = self.datastreami18n.title if self.datastreami18n else ''
