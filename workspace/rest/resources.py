@@ -157,7 +157,7 @@ class MultipleResourceViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                         page = page,
                         full=True
                     )
-                    for result in answer:
+                    for result in list(queryset):
                         result['resource_type'] = res_type
                         answer.append(result)
                         added += 1
