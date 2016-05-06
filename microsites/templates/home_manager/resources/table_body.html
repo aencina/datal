@@ -4,8 +4,8 @@
             {% if revision.account_name %}<span class='sep'> | </span>  {{ revision.account_name }} {% endif %}
             <span class='sep'> | </span>  {{ revision.category }}
 </td>
-<td class="date" data-sort-value="{{ revision.modified_at|date:"U" }}">
+<td class="date" data-sort-value="{{ revision.timestamp|date:"U" }}">
     <span class="longDateFormat">
-    {{revision.modified_at|date:"DATE_FORMAT"}}
+    {{revision.timestamp|date:"DATE_FORMAT"}}
     </span>
 </td>

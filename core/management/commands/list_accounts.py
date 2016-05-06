@@ -13,15 +13,8 @@ class Command(BaseCommand):
         for account in Account.objects.all():
             try:
                 domain= Preference.objects.get(account=account, key="account.domain").value
-            except Preference.DoesNotExist:
-                domain = "Sin Definir"
-
-            try:
                 api_domain= Preference.objects.get(account=account, key="account.api.domain").value
-            except Preference.DoesNotExist:
-                api_domain = "Sin Definir"
 
-            try:
                 if Preference.objects.filter(account=account, key="account.microsite.https", value__in=["ok","on","true","True","On"]).count():
                     uri="https://"
                 else:
@@ -29,12 +22,9 @@ class Command(BaseCommand):
 
                 uri+="%s/home" % domain
                 status = urllib2.urlopen(uri, timeout=20).getcode()
-            except Preference.DoesNotExist:
-                uri="-"
-                status=999
-            except urllib2.HTTPError:
-                status=404
-            except urllib2.URLError:
+            except:
+                domain = "Sin Definir"
+                api_domain = "Sin Definir"
                 uri="-"
                 status=999
             print "%s;%s;%s;%s;%s;%s;%s;%s" % (account.id,account.name, account.get_status_display(), account.level, domain, api_domain,uri,status)
