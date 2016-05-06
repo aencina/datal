@@ -146,7 +146,7 @@ class MultipleResourceViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             if res_type in resources_types:
                 added, total, page = 0, 1, 0
                 while (added < total):
-                    queryset, total = queryset.query(
+                    datos, total = queryset.query(
                         account_id=self.request.auth['account'].id,
                         language=self.request.auth['language'],
                         filter_status=status_id,
@@ -157,7 +157,7 @@ class MultipleResourceViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                         page = page,
                         full=True
                     )
-                    for result in list(queryset):
+                    for result in list(datos):
                         result['resource_type'] = res_type
                         answer.append(result)
                         added += 1
