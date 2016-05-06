@@ -58,7 +58,7 @@ def search(request, category=None):
 
         # si no se informa ningun order
         if not order:
-            order="_score:desc,title:asc;timestamp:desc"
+            order="_score:desc,title:asc,timestamp:desc"
 
         try:
             meta_data= json.loads(form.cleaned_data.get('meta_data'))
