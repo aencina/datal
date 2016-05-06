@@ -168,6 +168,8 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             
         search_dao = DatasetSearchDAOFactory().create(self.dataset_revision)
         search_dao.add()
+
+        self._clean_childs_cache()
             
         self._log_activity(ActionStreams.PUBLISH)
 
