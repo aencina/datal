@@ -97,7 +97,9 @@ class EngineCommand(object):
                                     doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": pId}}}, fields="_id")['hits']['hits'][0]['_id']
                                     es.update({'doc': {'fields': {'timestamp': timestamp}}, 'docid': doc_id, 'type': "ds"})
                                 except IndexError:
-                                    self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado')
+                                    self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado' % pId)
+                                except:
+                                    self.logger.warning('[ENGINE COMMAND] error desconocido')
 
                         except ValueError:
                             self.logger.error('[ENGINE COMMAND] ret no es un json')
