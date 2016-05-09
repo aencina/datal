@@ -36,14 +36,18 @@
             <header>
                 <h1>{% trans 'VIEWDS-INFO-DATACOLLECTEDFROM' %}</h1>
             </header>
-      <p class="clearfix">
+            <p class="clearfix">
             {% if  datastream.collect_type|collect_type_nice == 'WEBSERVICE' %}
                 <span class="icon WS {{ datastream.impl_type|impl_type_nice }}">{% trans "APP-WEBSERVICE-TEXT" %}</span>
             {% else %}
                 {% if preferences.account_dataset_download %}
                     {% if datastream.collect_type|collect_type_nice == 'URL' %}
 
-                        <a class="icon URL {{ datastream.impl_type|impl_type_nice }}" id="id_gotosource" href="{{datastream.end_point}}" target="_blank" rel="nofollow" title="{{datastream.end_point}}">{{datastream.end_point}}</a>
+                        {% if 'ftp://' in datastream.end_point %}
+                            <span class="icon URL {{ datastream.impl_type|impl_type_nice }}">{% trans "APP-DATAFROMFTP-TEXT" %}</span>    
+                        {% else %}
+                            <a class="icon URL {{ datastream.impl_type|impl_type_nice }}" id="id_gotosource" href="{{datastream.end_point}}" target="_blank" rel="nofollow" title="{{datastream.end_point}}">{{datastream.end_point}}</a>
+                        {% endif %}
 
                     {% elif datastream.collect_type|collect_type_nice == 'SELF-PUBLISH' %}
                          
@@ -51,7 +55,15 @@
                     {% endif %}
                 {% else %}
                     {% if datastream.collect_type|collect_type_nice == 'URL' %}
-                        <span class="icon URL {{ datastream.impl_type|impl_type_nice }}">{{datastream.end_point}}</span>
+
+                        <span class="icon URL {{ datastream.impl_type|impl_type_nice }}">
+                            {% if 'ftp://' in datastream.end_point %}
+                                {% trans "APP-DATAFROMFTP-TEXT" %}
+                            {% else %}
+                                {{datastream.end_point}}
+                            {% endif %}
+                        </span>
+                        
                     {% elif datastream.collect_type|collect_type_nice == 'SELF-PUBLISH' %}
                         <span class="icon FILE {{ datastream.impl_type|impl_type_nice }}">{{datastream.filename}}</a>
                     {% endif %}
