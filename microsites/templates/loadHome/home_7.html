@@ -45,7 +45,7 @@
                             {% endif %}
 
                             {% if config.welcomeSectionTitle or config.welcomeSectionDescription or config.welcomeSectionLink %}
-                            <div class="screen" style="
+                            <div class="screen{% if config.welcomeSectionLink and config.welcomeSectionLinkLabel %} cursor-pointer{% endif %}" style="
                                 background:-webkit-linear-gradient(bottom, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
                                 background:-o-linear-gradient(top, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
                                 background:-moz-linear-gradient(top, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
@@ -54,7 +54,7 @@
                                 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                             ">
                             </div>
-                            <div class="caption">
+                            <div class="caption{% if config.welcomeSectionLink and config.welcomeSectionLinkLabel %} cursor-pointer{% endif %}">
                                 
                                 {% if config.welcomeSectionTitle %}
                                 <div class="title">{{ config.welcomeSectionTitle }}</div>

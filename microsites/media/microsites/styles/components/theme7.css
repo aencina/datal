@@ -37,8 +37,9 @@
     /* Caption */
     .theme7 .welcome .screen,
     .theme7 .welcome .caption{
-      cursor:pointer;width:100%;min-height:100%;z-index:1;padding:50px 15px 0 15px;position:absolute;color:#FFF;text-align:center;
+      width:100%;min-height:100%;z-index:1;padding:50px 15px 0 15px;position:absolute;color:#FFF;text-align:center;
     }
+    .theme7 .cursor-pointer{cursor:pointer;}
     .theme7 .welcome .screen{
       background-repeat:no-repeat !important;
       background:-webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.8) 90%); 
