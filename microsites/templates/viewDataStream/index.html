@@ -152,7 +152,6 @@ $(document).ready(function(){
     description: "{{datastream.description|escapejs}}",
     guid: "{{datastream.guid}}",
     type: "{{datastream.type}}",
-    source: "{{datastream.end_point|escapejs}}",
     {% for parameter in datastream.parameters %}
     parameter{{forloop.counter0}}: {name: "{{parameter.name}}", value: "{{parameter.default}}"},
     {% endfor %}
