@@ -9,7 +9,7 @@
 {% if preferences.account_enable_sharing %}
   <script type="text/javascript" charset="utf-8" src="{{settings.MSPROTOCOL}}://bit.ly/javascript-api.js?version=latest&amp;login=junar&amp;apiKey=R_4da011b2ee9f2ee2cf80ed8122b73391"></script>
   <script type="text/javascript" src="{{settings.MSPROTOCOL}}://w.sharethis.com/button/buttons.js"></script>
-  <script type="text/javascript">stLight.options({publisher: "b6aba428-3562-4003-b6a8-018086ce7af4", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+  <script type="text/javascript">stLight.options({publisher: "b6aba428-3562-4003-b6a8-018086ce7af4", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
 {% endif%}
 <link type="text/css" rel="stylesheet" media="screen" href="/static/microsites/styles/components/theme7.css?id={{settings.VERSION_JS_CSS}}"/>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
@@ -45,7 +45,7 @@
                             {% endif %}
 
                             {% if config.welcomeSectionTitle or config.welcomeSectionDescription or config.welcomeSectionLink %}
-                            <div class="screen" style="
+                            <div class="screen{% if config.welcomeSectionLink and config.welcomeSectionLinkLabel %} cursor-pointer{% endif %}" style="
                                 background:-webkit-linear-gradient(bottom, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
                                 background:-o-linear-gradient(top, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
                                 background:-moz-linear-gradient(top, rgba({{ config.welcomeSectionBackgroundColor }},0), rgba({{ config.welcomeSectionBackgroundColor }},0.8) 90%);
@@ -54,7 +54,7 @@
                                 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                             ">
                             </div>
-                            <div class="caption">
+                            <div class="caption{% if config.welcomeSectionLink and config.welcomeSectionLinkLabel %} cursor-pointer{% endif %}">
                                 
                                 {% if config.welcomeSectionTitle %}
                                 <div class="title">{{ config.welcomeSectionTitle }}</div>

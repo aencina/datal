@@ -44,36 +44,25 @@
     }
 },
 {
-    "pk": 1742,
-    "model": "core.visualization",
+    "pk": 1742, 
+    "model": "core.visualization", 
     "fields": {
-        "datastream": 78703,
-        "guid": "MAP-OF-TRAFF-ACCID",
-        "user": 2,
-        "last_published_revision": 5615,
+        "datastream": 78703, 
+        "guid": "MAP-OF-TRAFF-ACCID", 
+        "user": 2, 
+        "last_published_revision": 5615, 
         "last_revision": 5615
     }
 },
 {
-    "pk": 1743,
-    "model": "core.visualization",
+    "pk": 1743, 
+    "model": "core.visualization", 
     "fields": {
-        "datastream": 78706,
-        "guid": "HOW-MANY-CALLS-IS-THE",
-        "user": 2,
-        "last_published_revision": null,
+        "datastream": 78706, 
+        "guid": "HOW-MANY-CALLS-IS-THE", 
+        "user": 2, 
+        "last_published_revision": null, 
         "last_revision": 5616
-    }
-},
-{
-    "pk": 1746,
-    "model": "core.visualization",
-    "fields": {
-        "datastream": 43445,
-        "guid": "PRUEB",
-        "user": 1647,
-        "last_published_revision": 5619,
-        "last_revision": 5619
     }
 }
 ]

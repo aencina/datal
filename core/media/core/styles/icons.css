@@ -76,6 +76,12 @@ li:hover .button .icon-user-manual{background-position:-12px -1632px;}
 li.active .icon-user-manual{background-position:-48px -1632px;}
 .icon-user-manual.inactive{background-position:-84px -1632px;}
 
+.icon-trivia,
+li:hover .button .icon-trivia{background-position:-12px -1668px;}
+.icon-trivia:hover,
+li.active .icon-trivia{background-position:-48px -1668px;}
+.icon-trivia.inactive{background-position:-84px -1668px;}
+
 /* General icons */
 .icon-view-site{background-position:-12px -696px;}
 .button:hover .icon-view-site{background-position:-48px -696px;}

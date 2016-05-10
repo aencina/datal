@@ -644,3 +644,6 @@ msgstr "Ir a portal de datos abiertos"
 
 msgid "VIEWDS-INFO-LASTMODIFIED"
 msgstr "Publicado por última vez:"
+
+msgid "APP-DATAFROMFTP-TEXT"
+msgstr "Procolo de transferencia de archivos (FTP)"

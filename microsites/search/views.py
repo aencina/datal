@@ -56,6 +56,10 @@ def search(request, category=None):
         elif resource == "dt" and not account.get_preference("account.dataset.show"):
             raise InvalidPage
 
+        # si no se informa ningun order
+        if not order:
+            order="_score:desc,title:asc,timestamp:desc"
+
         try:
             meta_data= json.loads(form.cleaned_data.get('meta_data'))
         except ValueError:

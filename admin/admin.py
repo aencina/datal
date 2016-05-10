@@ -220,3 +220,39 @@ class DataStreamCommentAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 admin.site.register(DataStreamComment, DataStreamCommentAdmin)
+
+try:
+    # Esto no deberia estar aca, hay que pasarlo a los plugins
+    from plugins.dashboards.models import Dashboard, DashboardI18n, DashboardRevision, DashboardWidget
+
+    # Dashboard
+    class DashboardAdmin(admin.ModelAdmin):
+        list_per_page = 25
+
+    admin.site.register(Dashboard, DashboardAdmin)
+
+
+    # DashboardI18n
+    class DashboardI18nAdmin(admin.ModelAdmin):
+        list_per_page = 25
+
+
+    admin.site.register(DashboardI18n, DashboardI18nAdmin)
+
+
+    # DashboardRevision
+    class DashboardRevisionAdmin(admin.ModelAdmin):
+        list_per_page = 25
+
+
+    admin.site.register(DashboardRevision, DashboardRevisionAdmin)
+
+
+    # DashboardWidget
+    class DashboardWidgetAdmin(admin.ModelAdmin):
+        list_per_page = 25
+
+
+    admin.site.register(DashboardWidget, DashboardWidgetAdmin)
+except:
+    pass

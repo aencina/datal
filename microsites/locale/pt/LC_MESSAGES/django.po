@@ -650,3 +650,6 @@ msgstr "Go to open data site"
 
 msgid "VIEWDS-INFO-LASTMODIFIED"
 msgstr "Last published:"
+
+msgid "APP-DATAFROMFTP-TEXT"
+msgstr "File transfer protocol (FTP)"

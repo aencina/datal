@@ -143,19 +143,25 @@ class MultipleResourceViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         answer=[]
         for queryset in querysets:
             res_type = types[type(queryset)]
-            if  res_type in resources_types:
-                queryset, total = queryset.query(
-                    account_id=self.request.auth['account'].id,
-                    language=self.request.auth['language'],
-                    filter_status=status_id,
-                    filter_category=category,
-                    filter_text=query,
-                    filter_user=user,
-                    full=True
-                )
-                for result in list(queryset):
-                    result['resource_type'] = res_type
-                    answer.append(result)
+            if res_type in resources_types:
+                added, total, page = 0, 1, 0
+                while (added < total):
+                    datos, total = queryset.query(
+                        account_id=self.request.auth['account'].id,
+                        language=self.request.auth['language'],
+                        filter_status=status_id,
+                        filter_category=category,
+                        filter_text=query,
+                        filter_user=user,
+                        itemsxpage=100,
+                        page = page,
+                        full=True
+                    )
+                    for result in list(datos):
+                        result['resource_type'] = res_type
+                        answer.append(result)
+                        added += 1
+                    page += 1
 
 
         return self.order_queryset(answer)

@@ -79,8 +79,8 @@ docs/_build/
 
 node_modules/
 components/bower_components/
-plugins/
-components/components/*
+/plugins/
+components/
 celeryev.pid
 
 .directory
