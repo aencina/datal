@@ -3,42 +3,24 @@ Datal
 =====
 Plataforma de publicación de Datos Abiertos de código abierto bajo licencia BSD 3.
 
+Requerimientos
+--------------
 
-Herramientas
-------------
+Acceso libre a internet, 2 GB de RAM.
 
-Vangrant: https://www.vagrantup.com/
 
-VirtualBox: https://www.virtualbox.org/
+Instalación
+-----------
 
-En Windows también se debe instalar GIT: http://git-scm.com/download/win
+El instalador fué testeado en Ubuntu Trusty, próximamente se irán agregando más plataformas.
 
-Instalacion sin vagrant
------------------------
+1. Ejecutar como usuario root
 
 curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
 
-
-Instalacion en vagrant
-----------------------
-
-Luego de haber clonado el repositorio, dentro del mismo ejecutar:
-
-1. Agregar los siguientes hosts a nuestro archivo de hosts apuntando a localhost. Ejemplo suponiendo que el IP local es 127.0.0.1
+2. Agregar los siguientes hosts a nuestro archivo de hosts apuntando a localhost. Ejemplo suponiendo que el IP local es 127.0.0.1
 
     127.0.0.1 admin.dev api.dev datastore.dev microsite.dev microsites.dev  workspace.dev
-
-2. Iniciar la virtual con el comando:
-
-    vagrant up --provision
-
-3. Iniciar el servicio Web:
-
-    vagrant ssh
-    
-    sudo supervisorctl start uwsgi
-
-4. Para probar la demo, en tu navegador ingresá a http://workspace.dev:8080/
 
 
 Usuarios y claves para acceder a la demo
@@ -49,15 +31,6 @@ Administrador: administrador/administrador
 Editor: editor/editor
 
 Publicador: publicador/publicador
-
-
-Acceso a la virtual
--------------------
-
-
-Para acceder a la virtual via SSH
-
-  vagrant ssh
 
 
 Logs
@@ -76,8 +49,9 @@ Logs
 Actualizacion
 -------------
 
-1. git pull origin master
-2. vagrant provision (si la virtual esta corriendo) o vagrant up --provision (si la virtual esta apagada)
+1. Ejecutar como usuario root
+
+curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
 
 
 Personalización de aspectos gráficos
