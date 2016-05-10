@@ -780,10 +780,10 @@ msgid "ERROR-DUPLICATED-CATEGORY"
 msgstr "Categoría duplicada"
 
 msgid "APP-KPI-TEXT"
-msgstr "Metricas"
+msgstr "Métricas"
 
 msgid "APP-ADDNEWKPI-TEXT"
-msgstr "Nueva Metrica"
+msgstr "Nueva Métrica"
 
 # —————————— Exceptions
 msgid "EXCEPTION-ACTION-GENERIC"
