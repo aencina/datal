@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles plugins_tags %}
 
 <!--[if lt IE 9]>
 <script src="/js_core/plugins/html5.js" type="text/javascript"></script>
@@ -10,10 +10,6 @@
 <script type="text/javascript" src="/js_core/libs/jquery_ui/jquery-ui-1.9.2.custom.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.twitter.like.alert.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.bgiframe.js?id={{settings.VERSION_JS_CSS}}"></script>
-<!--
-<script type="text/javascript" src="/js_core/libs/underscore/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
-<script type="text/javascript" src="/js_core/libs/backbone/backbone-min.js?id={{settings.VERSION_JS_CSS}}"></script>
--->
 
 <!-- NEW -->
 <script type="text/javascript" src="/js_core/constants.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -28,3 +24,5 @@
 <!--[if lt IE 10]>
 <script type="text/javascript" src="/js_core/base_modules/placeholder.js?id={{settings.VERSION_JS_CSS}}"></script>
 <![endif]-->
+
+{% plugins_call 'core_plugin_js' %}
