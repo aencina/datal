@@ -16,6 +16,7 @@ from rest_framework.response import Response
 from core.choices import StatusChoices
 from core.v8.forms import DatastreamRequestForm
 from rest_framework import renderers
+from rest_framework_jsonp.renderers import JSONPRenderer
 from core.builders.datastreams import SelectStatementBuilder, DataSourceBuilder
 from core.v8.renderers import *
 from core.rest.renderers import *
@@ -162,7 +163,8 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
         #TSVEngineRenderer,
         XMLEngineRenderer,
         PJSONEngineRenderer,
-        AJSONEngineRenderer,])
+        AJSONEngineRenderer,
+        JSONPRenderer,])
     def data(self, request, pk=None, format=None,  *args, **kwargs):
         instance = self.get_object()
         DatastreamHitsDAO(instance).add(1)
