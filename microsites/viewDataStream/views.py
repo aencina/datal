@@ -30,8 +30,10 @@ def view(request, id, slug):
     DatastreamHitsDAO(datastream).add(ChannelTypes.WEB)
 
     notes = datastream['notes']
-
-    return render_to_response('viewDataStream/index.html', locals())
+    if request.GET.get('embedded', False) == 'true':
+        return render_to_response('viewDataStream/embedded.html', locals())
+    else:
+        return render_to_response('viewDataStream/index.html', locals())
 
 
 @xframe_options_exempt
