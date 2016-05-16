@@ -78,7 +78,12 @@ def load(request):
                 context['categories_dict'][key] = cat['name']
 
             return render_to_response(data['template_path'], context, context_instance=RequestContext(request))
-       
+    
+    for redirect_home in DatalPluginPoint.get_active_with_att('redirect_home'):
+        redirect_url = redirect_home(preferences)
+        if redirect_url:
+            return redirect(redirect_url)
+
     return redirect('/search/')
 
 

@@ -67,6 +67,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		this.model.on('data_updated', this.setTimestamp, this);
 		this.model.on('change:timestamp', this.updateTimestamp, this);
 
+		console.log(this.model.toJSON());
+
 	},
 
 	bindVisualizationResize: function () {
@@ -98,16 +100,23 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 	},
 
 	setMiniLoading: function(){
-	 	$("#id_miniLoading").show();
+		if( !_.isUndefined( this.model.get('type') )){
+			if(this.model.get('type') == 'mapchart' ){
+	 			$("#id_miniLoading").show();
+	 		}
+	 	}
 	},
 
 	unsetLoading: function(){
-	 	$("#id_miniLoading").hide();
+		if( !_.isUndefined( this.model.get('type') )){
+			if(this.model.get('type') == 'mapchart' ){
+	 			$("#id_miniLoading").hide();
+	 		}
+	 	}
 	},
 
 	render : function() {
 		this.chartView.render();
-		//this.setChartContainerHeight();
 		return this;
 	},
 
@@ -493,10 +502,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			//(?) if I use "en" doesn't work, I must use "" for "en"
 			if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
 			if (local === "es" || local.indexOf("es_")) local = "es";
-
-			console.log(local);
-			console.log($.datepicker.regional);
-			console.log($.datepicker.regional[local]);
 
 			dateFormatted = $.datepicker.formatDate(dFormat, dt, {
 				dayNamesShort: $.datepicker.regional[local].dayNamesShort,
