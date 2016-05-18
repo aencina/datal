@@ -55,8 +55,10 @@ def view(request, id, slug=None):
         visualization_revision_parameters = urllib.urlencode(visualization_revision_parameters)
 
         notes = visualization_revision['notes']
-
-        return render_to_response('viewChart/index.html', locals())
+        if request.GET.get('embedded', False) == 'true':
+            return render_to_response('viewChart/embedded.html', locals())
+        else:
+            return render_to_response('viewChart/index.html', locals())
 
 
 @xframe_options_exempt
