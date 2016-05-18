@@ -1,19 +1,12 @@
 # -*- coding: utf-8 -*-
-
-import re
-
-from django import forms
-from django.forms.formsets import BaseFormSet
-from core.primitives import PrimitiveComputer
 from core.v8.commands import *
-from django.forms.formsets import formset_factory
-from core.v8.forms import RequestFormSet
 import json
+
 
 class CommandFactory(object):
     """Factory de comandos"""
 
-    CONV_DICT={
+    CONV_DICT = {
         "rp": "pLimit",
         "page": "pPage",
         "limit": "pLimit",
@@ -21,30 +14,30 @@ class CommandFactory(object):
         "revision_id": "pId",
         "uniqueBy": "pUniqueBy",
         "output": "pOutput",
-        'data':'pData',
-        'headers':'pHeaderSelection',
-        'labels':'pLabelSelection',
-        'type':'pType',
-        'invertData':'pInvertData',
-        'invertedAxis':'pInvertedAxis',
-        'nullValueAction':'pNullValueAction',
-        'nullValuePreset':'pNullValuePreset',
-        'zoom':'pZoom',
-        'bounds':'pBounds',
-        'traces':'pTraceSelection',
-        'lat':'pLatitudSelection',
-        'lon':'pLongitudSelection',
-        'whereExpr':'pWhereExpr',
-        'where':'pWhereExpr',
-        'ifModified':'pIfModified',
-        'format':'pTableFormat',
+        'data': 'pData',
+        'headers': 'pHeaderSelection',
+        'labels': 'pLabelSelection',
+        'type': 'pType',
+        'invertData': 'pInvertData',
+        'invertedAxis': 'pInvertedAxis',
+        'nullValueAction': 'pNullValueAction',
+        'nullValuePreset': 'pNullValuePreset',
+        'zoom': 'pZoom',
+        'bounds': 'pBounds',
+        'traces': 'pTraceSelection',
+        'lat': 'pLatitudSelection',
+        'lon': 'pLongitudSelection',
+        'whereExpr': 'pWhereExpr',
+        'where': 'pWhereExpr',
+        'ifModified': 'pIfModified',
+        'format': 'pTableFormat',
 
-        'end_point':'pEndPoint',
-        'datasource':'pDataSource',
-        'select_statement':'pSelectStatement',
-        'impl_details':'pImplDetails',
-        'impl_type':'pImplType',
-        'bucket_name':'pBucketName',
+        'end_point': 'pEndPoint',
+        'datasource': 'pDataSource',
+        'select_statement': 'pSelectStatement',
+        'impl_details': 'pImplDetails',
+        'impl_type': 'pImplType',
+        'bucket_name': 'pBucketName',
     }
 
     def __init__(self, resourse_type):
@@ -52,17 +45,17 @@ class CommandFactory(object):
 
     def _fix_params(self, filters):
         """ fix filters and other params """
-       
-        new=[]
+
+        new = []
         for item in filters:
             if item[0] in self.CONV_DICT:
-                new.append( (self.CONV_DICT[item[0]], item[1]) )
+                new.append((self.CONV_DICT[item[0]], item[1]))
             elif item[0].startswith('filter'):
                 v1 = item[1]
-                new.append((item[0].replace('filter', 'pFilter'),self._parseOperator(value=v1)))
+                new.append((item[0].replace('filter', 'pFilter'), self._parseOperator(value=v1)))
             elif item[0].startswith('pFilter'):
                 v1 = item[1]
-                new.append((item[0].replace('filter', 'pFilter'),self._parseOperator(value=v1)))
+                new.append((item[0].replace('filter', 'pFilter'), self._parseOperator(value=v1)))
             elif item[0].startswith('order'):
                 new.append((item[0].replace('order', 'pOrder'), item[1]))
             elif item[0].startswith('uniqueBy'):
@@ -90,16 +83,16 @@ class CommandFactory(object):
         value = value.replace('[notinlist]', '[11]')
         value = value.replace('[notcontainsany]', '[12]')
         value = value.replace('[containsall]', '[13]')
-                
+
         return value
 
     def _process_items(self, items):
-        post_query=[]
-        no_fix=[]
+        post_query = []
+        no_fix = []
         for item in items:
             # buscamos que sea un tipo de argumento (ej.: pArgument o filter)
             if "name" in item.keys():
-                post_query.append((item['name'],item['value'].encode('utf-8')))
+                post_query.append((item['name'], item['value'].encode('utf-8')))
             else:
                 for i in item.keys():
                     # filtra los parametros vacios
@@ -110,16 +103,17 @@ class CommandFactory(object):
                             no_fix.append((wi, wval))
                     else:
                         post_query.append((i, item[i]))
-    
 
         fixed_params = self._fix_params(post_query)
         fixed_params.extend(no_fix)
         return fixed_params
 
+
 class LoadCommandFactory(CommandFactory):
     def create(self, items, app):
         if self.resourse_type == 'dt':
             return EngineLoadCommand(self._process_items(items), app)
+
 
 class PreviewCommandFactory(CommandFactory):
     def create(self, items, app):
@@ -127,7 +121,8 @@ class PreviewCommandFactory(CommandFactory):
             return EnginePreviewCommand(self._process_items(items), app)
         elif self.resourse_type == 'vz':
             return EnginePreviewChartCommand(self._process_items(items), app)
-        
+
+
 class InvokeCommandFactory(CommandFactory):
     def create(self, items, app):
         if self.resourse_type == 'ds':
@@ -135,11 +130,10 @@ class InvokeCommandFactory(CommandFactory):
         elif self.resourse_type == 'vz':
             return EngineChartCommand(self._process_items(items), app)
 
+
 class AbstractCommandFactory(object):
-
     def __init__(self, app):
-        self.app = app 
-
+        self.app = app
 
     def create(self, command_type, resourse_type, data={}):
         engine = None

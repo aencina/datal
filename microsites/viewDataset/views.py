@@ -25,7 +25,10 @@ def view(request, dataset_id, slug):
 
     dataset = DatasetDBDAO().get(request.user, dataset_id=dataset_id, published=True)
 
-    return render_to_response('viewDataset/index.html', locals())
+    if request.GET.get('embedded', False) == 'true':
+        return render_to_response('viewDataset/embedded.html', locals())
+    else:
+        return render_to_response('viewDataset/index.html', locals())
 
 @has_preference("account.dataset.download")
 @require_http_methods(["GET"])
