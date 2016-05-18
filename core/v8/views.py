@@ -19,6 +19,7 @@ class EngineViewSetMixin(object):
         if format is not None:
             format = 'prettyjson' if format == 'pjson' else format
             format = 'json_array' if format == 'ajson' else format
+            format = 'json' if format == 'jsonp' else format
             mutable_get['output'] = format 
 
         if limit and not 'limit' in mutable_get:
