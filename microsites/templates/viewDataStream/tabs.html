@@ -2,21 +2,21 @@
 
 <ul class="icons">
 	<li>
-		<a class="icon info border-box sidebarIcon" id="id_openInfoButton" rel="id_infoSidebar">
+		<a class="icon info border-box sidebarIcon" id="id_openInfoButton" rel="id_infoSidebar" title="{% trans 'VIEWDS-TABS-INFO' %}">
 			<i></i> 
 			<span>{% trans 'VIEWDS-TABS-INFO' %}</span>
 		</a>
 	</li>
 	{% if notes and preferences.account_enable_notes and preferences.account_description_enhancement %}
 	<li>
-		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar">
+		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar" title="{% trans 'VIEWDS-TABS-DESCRIPTION' %}">
 			<i></i>
 			<span>{% trans 'VIEWDS-TABS-DESCRIPTION' %}</span>
 		</a>
 	</li>
 	{% endif %}
 	<li>
-		<a class="icon refresh border-box" id="id_refreshButton">
+		<a class="icon refresh border-box" id="id_refreshButton" title="{% trans 'VIEWDS-TABS-REFRESH' %}">
 			<i></i>
 			<span>{% trans 'VIEWDS-TABS-REFRESH' %}</span>
 		</a>
@@ -27,7 +27,7 @@
 
 	{% if preferences.account_pivottable %}
 	<li>
-		<a class="icon pivot border-box" id="id_pivotComponentButton">
+		<a class="icon pivot border-box" id="id_pivotComponentButton" title="{% trans 'VIEWDS-TABS-PIVOTTABLE' %}">
 			<i></i>
 			<span>{% trans 'VIEWDS-TABS-PIVOTTABLE' %}</span>
 		</a>
@@ -35,7 +35,7 @@
 	{% endif %}
 	{% if preferences.enable_embed_options %}
 	<li>
-		<a class="icon embed border-box" id="id_embedButton">
+		<a class="icon embed border-box" id="id_embedButton" title="{% trans 'VIEWDS-TABS-EMBED' %}">
 			<i></i>
 			<span>{% trans 'VIEWDS-TABS-EMBED' %}</span>
 		</a>
@@ -43,20 +43,20 @@
 	{% endif %}
 	{% if notes and preferences.account_enable_notes %}
 	<li style="{%if preferences.account_description_enhancement %}display:none;{% endif %}">
-		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar">
+		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar" title="{% trans 'VIEWDS-TABS-NOTES' %}">
 			<i></i>
 			<span>{% trans 'VIEWDS-TABS-NOTES' %}</span>
 		</a>
 	</li>
 	{% endif %}
 	<li>
-		<a class="icon api border-box sidebarIcon" id="id_openAPIButton" rel="id_apiSidebar">
+		<a class="icon api border-box sidebarIcon" id="id_openAPIButton" rel="id_apiSidebar" title="{% trans 'VIEWDS-TABS-API' %}">
 			<i></i> 
 			<span>{% trans 'VIEWDS-TABS-API' %}</span>
 		</a>
 	</li>
 	<li class="relative">
-		<a class="icon export border-box" id="id_exportButton" rel="id_tooltipExport">
+		<a class="icon export border-box" id="id_exportButton" rel="id_tooltipExport" title="{% trans 'VIEWDS-TABS-EXPORT' %}">
 			<i></i> 
 			<span>{% trans 'VIEWDS-TABS-EXPORT' %}</span>
 		</a>

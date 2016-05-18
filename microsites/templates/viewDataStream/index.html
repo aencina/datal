@@ -1,4 +1,5 @@
 {% extends 'base_microsites.html' %}
+
 {% load i18n extra_tags core_components components compress staticfiles sass_tags local_tags plugins_tags %}
 
 {% block SEO %}
@@ -21,6 +22,7 @@
 {% compress css %}
 <!-- CSS -->
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/plugins/jquery.gritter.css' %}" />
+<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/detailPage.scss' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewDataStream.css' %}"/>
 {% endcompress %}
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/plugins/jquery-ui-timepicker-addon.css' %}" />
@@ -90,6 +92,8 @@
 <script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
 
 {% endblock %}
+
+{% block bodyClass %}detail_page{% endblock %}
 
 {% block messageBar %}
 

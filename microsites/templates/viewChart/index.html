@@ -21,6 +21,7 @@
 
 {% compress css %}
 <!-- CSS -->
+<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/detailPage.scss' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewDataStream.css' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewVisualization.css' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'c3/c3.min.css' %}"/>
@@ -112,6 +113,8 @@
 {% plugins_call 'microsites_view_visualization_message_bar' %}
 
 {% endblock %}
+
+{% block bodyClass %}detail_page{% endblock %}
 
 {% block content %}
   

@@ -237,7 +237,11 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	  		parseFloat( $('.dataTable header').height() )
 	    	+ parseFloat( $('.dataTable header').css('padding-top').split('px')[0] )
 	    	+ parseFloat( $('.dataTable header').css('padding-bottom').split('px')[0] )
-	    	+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] );
+	    	+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] )
+	    	+ parseFloat( $('.dataTable .data').css('padding-top').split('px')[0] )
+			+ parseFloat( $('.dataTable .data').css('padding-bottom').split('px')[0] )
+			+ parseFloat( $('.dataTable #id_datastreamResult').css('border-top-width').split('px')[0] )
+			+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] );
 			//+ 2;// Fix to perfection;
 
 		  self.parentView.setHeights( '#id_datastreamResult .result table', otherHeights );
@@ -256,11 +260,15 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 				parseFloat( $('.dataTable header').height() )
 				+ parseFloat( $('.dataTable header').css('padding-top').split('px')[0] )
 				+ parseFloat( $('.dataTable header').css('padding-bottom').split('px')[0] )
+				+ parseFloat( $('.dataTable .data').css('padding-top').split('px')[0] )
+				+ parseFloat( $('.dataTable .data').css('padding-bottom').split('px')[0] )
 				+ parseFloat( $('.dataTable header').css('border-bottom-width').split('px')[0] )
 				+ parseFloat( $('.flexigrid .hDiv').height() )
 				+ parseFloat( $('.flexigrid .pDiv').height() )
 				+ parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
 				+ parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] )
+				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-top-width').split('px')[0] )
+				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] );
 				//+ 2;// Fix to perfection;
 
 			self.parentView.setHeights( '.flexigrid div.bDiv', otherHeights );
@@ -273,7 +281,7 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 
 		var dataStream = this.dataStream.attributes,
 			tableWidth = $('#id_datastreamResult > div').width(),
-	    cellWidth = 100,
+	    cellWidth = 150,
 	    colModel = [],
 	    searchArray = [],
 	    self = this;
