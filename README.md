@@ -12,11 +12,15 @@ Acceso libre a internet, 2 GB de RAM.
 Instalación
 -----------
 
-El instalador fué testeado en Ubuntu Trusty, próximamente se irán agregando más plataformas.
+El instalador fué testeado en Ubuntu 16.04, próximamente se irán agregando más plataformas.
 
 1. Ejecutar como usuario root
 
-curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
+.. code:: console
+
+    curl -o bootstrap_salt.sh -L https://bootstrap.saltstack.com
+    sh bootstrap_salt.sh daily
+    curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
 
 2. Agregar los siguientes hosts a nuestro archivo de hosts apuntando a localhost. Ejemplo suponiendo que el IP local es 127.0.0.1
 
