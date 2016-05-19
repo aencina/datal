@@ -16,7 +16,6 @@ El instalador fué testeado en Ubuntu 16.04, próximamente se irán agregando m�
 
 1. Ejecutar como usuario root
 
-.. code:: console
 
     curl -o bootstrap_salt.sh -L https://bootstrap.saltstack.com
     sh bootstrap_salt.sh daily
