@@ -66,53 +66,23 @@ class Command(BaseCommand):
         self.es = Elasticsearch(settings.SEARCH_INDEX['url'])
 
         if options['resource_id']:
-            query= {
-                "query": {
-                    "filtered": {
-                        "filter": {
-                            "bool": {
-                                "must": [
-                                    {"terms": {"type": resources}},
-                                    {"terms": {"resource_id": options['resource_id']}},
-                                    ],
-                            }
-                        }
-                    }
-                }
-            }
-
             query={"query": {
                 "bool": {
                     "must":[
                         {"match": {"resource_id": options['resource_id']} },
-                        #{"match": {"type": resources} },
                     ],
                 }
             } }
 
 
         elif options['revision_id']:
-            query= {
-                "query": {
-                    "filtered": {
-                        "query": {
-                            "query_string": {
-                                "query": "*",
-                                "fields": ["title", "text"]
-                            }
-                        },
-                        "filter": {
-                            "bool": {
-                                "must": [
-                                    {"terms": {"type": resources}},
-                                    {"terms": {"revision_id": options['revision_id']}}
-                                    ]
-                            }
-                        }
-                    }
+            query={"query": {
+                "bool": {
+                    "must":[
+                        {"match": {"revision_id": options['revision_id']} },
+                    ],
                 }
-            }
-
+            } }
 
         elif options['query']:
             query= {
