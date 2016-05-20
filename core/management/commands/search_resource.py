@@ -70,6 +70,7 @@ class Command(BaseCommand):
                 "bool": {
                     "must":[
                         {"match": {"resource_id": options['resource_id']} },
+                        {"terms": {"type": resources} },
                     ],
                 }
             } }
@@ -80,6 +81,7 @@ class Command(BaseCommand):
                 "bool": {
                     "must":[
                         {"match": {"revision_id": options['revision_id']} },
+                        {"terms": {"type": resources} },
                     ],
                 }
             } }
