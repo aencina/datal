@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class EngineViewSetMixin(object):
     def engine_call(self, request, engine_method, format=None, is_detail=True, 
-                    form_class=RequestForm, serialize=True, download=True, limit=False):
+                    form_class=RequestForm, serialize=True, download=True, limit=None):
         mutable_get = request.GET.copy()
         mutable_get.update(request.POST.copy())
         mutable_get['output'] = 'json'
@@ -23,7 +23,7 @@ class EngineViewSetMixin(object):
             mutable_get['output'] = format 
 
         if limit and not 'limit' in mutable_get:
-            mutable_get['limit'] = 1000
+            mutable_get['limit'] = limit
         
         resource = {}
         if is_detail:
