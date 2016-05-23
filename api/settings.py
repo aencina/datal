@@ -5,7 +5,7 @@ USE_L10N = False
 
 MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 )
 
@@ -15,7 +15,7 @@ ROOT_URLCONF = 'api.urls'
 
 INSTALLED_APPS += (
     'api',
-    'corsheaders',
+    #'corsheaders',
     'jsonify',
 )
 
