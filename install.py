@@ -5,7 +5,8 @@ import urllib2
 from subprocess import call
 
 SALT_HIGHSTATE_COMMAND = 'salt-call state.highstate'
-SALT_INSTALLER_COMMAND = "curl -L https://bootstrap.saltstack.com | sudo sh"
+SALT_INSTALLER_COMMAND = "sudo sh /tmp/bootstrap_salt.sh git 2016.3"
+SALT_DOWNLOAD_COMMAND = "curl -o /tmp/bootstrap_salt.sh -L https://bootstrap.saltstack.com"
 SALT_RESTART_COMMAND = "service salt-minion restart"
 python_git_pkg = 'python-git'
 minion_file = '/etc/salt/minion'
@@ -38,7 +39,8 @@ base:
 
 def install_salt():
     print("Instalando SaltStack / Installing SaltStack")
-    return call(SALT_INSTALLER_COMMAND, shell=True)
+    call(SALT_DOWNLOAD_COMMAND, shell=True)
+    call(SALT_INSTALLER_COMMAND, shell=True)
 
 
 def restart_salt():
