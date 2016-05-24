@@ -32,7 +32,11 @@ class RestDataStreamViewSet(ResourceHitsMixin, ResourceViewSet):
         if format == 'grid':
             return self.engine_call( request, 'invoke', 'json',
                 form_class=UpdateGridRequestForm,
-                serialize=False)    
+                serialize=False, limit=50)   
+        elif format == 'json':
+            return self.engine_call( request, 'invoke', format,
+                form_class=DatastreamRequestForm,
+                serialize=False, limit=50)
         return self.engine_call( request, 'invoke', format,
             form_class=DatastreamRequestForm,
             serialize=False)
