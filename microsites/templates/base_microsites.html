@@ -22,9 +22,13 @@
 	<script type="text/javascript" src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/modules/base.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/modules/header.js?id={{settings.VERSION_JS_CSS}}"></script>
+	
+	{% comment %}
 	<script type="text/javascript" src="/js_microsites/analytics_manager/events.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/analytics_manager/listener.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/analytics_manager/queryList.js?id={{settings.VERSION_JS_CSS}}"></script>
+	{% endcomment %}
+
 {% endblock %}
 
 {% block facebook %}
@@ -65,14 +69,21 @@
 	
 	<script type="text/javascript">
 		/* <![CDATA[ */
+		
+	{% comment %}
+		
 		{% if ga %}
 	        junar_ga = $.parseJSON('{{ga|safe}}');
 	    {% else %}
 	        junar_ga = [];
 	    {% endif %}
+
+	{% endcomment %}
+
 	    {% if tracking_id %}
 	        tracking_id = '{{tracking_id}}';
 	    {% endif %}
+
 		csrfmiddlewaretoken = '{{ csrf_token }}';
 		
 		{% if auth_manager %}
@@ -129,7 +140,6 @@
   }
 
   _gaq.push(['_setAccount', tracking_id]);
-  //_gaq.push(['_setDomainName', 'junar.com']);
   _gaq.push(['_trackPageview']);
  
   (function() {
