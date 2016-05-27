@@ -3273,3 +3273,6 @@ msgstr "Go to open data site"
 
 msgid "APP-ACCOUNT-NAME-NOT-VALID"
 msgstr "Invalid organizacion name"
+
+msgid "DSCRE-MAX-FILE-TIP"
+msgstr "Max upload file size: 300 MB"

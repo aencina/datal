@@ -1186,6 +1186,9 @@ msgstr "Estos son los formatos de archivo permitidos que deben estar encodeados 
 msgid "HOME-SEARCH-TIP"
 msgstr "Para que una URL sea una fuente de datos, debe ser una página web que contenga etiquetas &lt;table&gt;.<br/>Los archivos CSV, KML, KMZ, TSV, TXT, XLS, XLSX, XML también pueden ser fuentes de datos."
 
+msgid "DSCRE-MAX-FILE-TIP"
+msgstr "Tamaño de archivo máximo: 300 MB"
+
 msgid "APP-LOADING-TEXT"
 msgstr "cargando"
 
