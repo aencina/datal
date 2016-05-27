@@ -20,7 +20,7 @@ var viewDatasetView = Backbone.View.extend({
 		this.initResourcesList();
 
 		// Set resources list height
-		this.setResourcesListHeight();
+		//this.setResourcesListHeight();
 
 	},
 	
@@ -122,25 +122,25 @@ var viewDatasetView = Backbone.View.extend({
 
 	},
 
-	setResourcesListHeight: function(){
+	// setResourcesListHeight: function(){
 
-		var self = this;
+	// 	var self = this;
 
-		$(document).ready(function(){
+	// 	$(document).ready(function(){
 
-			var otherHeights =
-				parseFloat( $('.section .box').css('border-top-width').split('px')[0] )
-				+ parseFloat( $('.section .box').css('border-bottom-width').split('px')[0] )
-				+ parseFloat( $('.section .border-box').css('border-bottom-width').split('px')[0] )
-				+ parseFloat( $('.section .border-box').css('padding-top').split('px')[0] )
-				+ parseFloat( $('.section .border-box').css('padding-bottom').split('px')[0] )
-				+ parseFloat( $('.section .border-box').height() );
+	// 		var otherHeights =
+	// 			parseFloat( $('.section .box').css('border-top-width').split('px')[0] )
+	// 			+ parseFloat( $('.section .box').css('border-bottom-width').split('px')[0] )
+	// 			+ parseFloat( $('.section .border-box').css('border-bottom-width').split('px')[0] )
+	// 			+ parseFloat( $('.section .border-box').css('padding-top').split('px')[0] )
+	// 			+ parseFloat( $('.section .border-box').css('padding-bottom').split('px')[0] )
+	// 			+ parseFloat( $('.section .border-box').height() );
 			  		
-			self.setHeights( '.section .resources-list', otherHeights );
+	// 		self.setHeights( '.section .resources-list', otherHeights );
 
-		});
+	// 	});
 
-	},
+	// },
 
 	permalinkHelper: function(){
 
