@@ -3,7 +3,7 @@
 
 <ul class="icons">
 	<li>
-		<a class="icon info border-box sidebarIcon" id="id_openInfoButton" rel="id_infoSidebar">
+		<a class="icon info border-box sidebarIcon" id="id_openInfoButton" rel="id_infoSidebar" title="{% trans 'VIEWDS-TABS-INFO' %}">
 			<i></i> 
 			<span>{% trans 'VIEWDS-TABS-INFO' %}</span>
 		</a>
@@ -11,7 +11,7 @@
 	{% if dataset.collect_type == choices.CollectTypeChoices.URL and preferences.account_dataset_download %}
 	<li>
 		<a href="{{ dataset|download }}" target="_blank" class="icon download border-box sidebarIcon" id="id_openDownloadButton"
-		   rel="id_downloadSidebar">
+		   rel="id_downloadSidebar" title="{% trans 'APP-GOTO-PAGE-TEXT' %}">
 			<i></i> 
 			<span>{% trans 'APP-GOTO-PAGE-TEXT' %}</span>
 		</a>
@@ -19,7 +19,7 @@
 	{% elif dataset.collect_type == choices.CollectTypeChoices.SELF_PUBLISH  and preferences.account_dataset_download %}
 	<li>
 		<a href="{{ dataset|download }}" class="icon download border-box sidebarIcon" id="id_openDownloadButton"
-		   rel="id_downloadSidebar">
+		   rel="id_downloadSidebar" title="{% trans 'APP-DOWNLOAD-TEXT' %}">
 			<i></i> 
 			<span>{% trans 'APP-DOWNLOAD-TEXT' %}</span>
 		</a>
@@ -29,7 +29,7 @@
 
     {% if dataset.notes and preferences.account_enable_notes %}
 	<li>
-		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar">
+		<a class="icon notes border-box sidebarIcon" id="id_openNotesButton" rel="id_notesSidebar" title="{% trans 'VIEWDS-TABS-NOTES' %}">
 			<i></i> 
 			<span>{% trans 'VIEWDS-TABS-NOTES' %}</span>
 		</a>
