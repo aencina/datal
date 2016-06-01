@@ -438,8 +438,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 							+ $chartHeader.outerHeight(true) 
 							+ $miniFooterJunar.height() 
 							+ parseFloat( $('.dataTable .data').css('padding-top').split('px')[0] ) 
-							+ parseFloat( $('.dataTable .data').css('padding-bottom').split('px')[0] ) 
-							+ 14; // Fix perfection
+							+ parseFloat( $('.dataTable .data').css('padding-bottom').split('px')[0] );
+							//+ 14; // Fix perfection
 
 		//Ajusta overflow si se está mostrando el sidebar		
 		if( $('#id_columns').hasClass('showSidebar') ){

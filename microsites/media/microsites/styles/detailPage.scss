@@ -55,14 +55,15 @@ body .brandingFooter{display:none !important;}
 .wrapperInner{width:100%;float:left;margin:0 0 0 -85px;}
 .tabs{width:85px;float:left;}
 .columns{width:100%;float:right;margin:0 -85px 0 0;background:#fff;}
-.sidebar{overflow:hidden;width:0;}
+.sidebar{overflow:hidden;width:0;display:none;}
 .section{padding-left:0;}
 	
 	/* Show Sidebar */
 	/*.showSidebar .section .dataTable{border-left:1px solid #dadada;}*/
+	.showSidebar .sidebar{display:block;}
 	.showSidebar .sidebar,
 	.sidebar .box{width:330px;}
-	.showSidebar .section{padding-left:330px;}
+	.showSidebar .section{padding-left:331px;}
 
 	/* Tabs in ES need to be wider */
 	/*html[lang=es-ES] .contentInner{padding-left:80px;}
@@ -370,6 +371,7 @@ body.detail_page{background:url(/static/microsites/images/microsites/bg_body.gif
 
 .sidebar{border-left:1px solid #dadada;}
 .sidebar article header h1{font-size:12px;color:#333;}
+.sidebar .title{text-transform: uppercase;margin-bottom: 0;color: #999;font-family: robotolight, Helvetica, sans-serif;font-size: 15px !important;padding: 0 0 10px;line-height: 21px;}
 .sidebar article li, .sidebar article p{font-size:12px; color:#999;}
 .sidebar .infoBox article > i{top:20px;left:8px;}
 .sidebar .infoBox article.permalink > i{top:27px;}
@@ -380,7 +382,4 @@ body.detail_page{background:url(/static/microsites/images/microsites/bg_body.gif
 .box .title {height:74px;padding-top:17px;padding-bottom:17px;}
 .box .title h1{height:40px;font-size:16px;line-height:40px;padding-left:20px}
 .box .title .close{border-left:0;top: 4px;position: relative;right: 10px;}
-
-
-
 
