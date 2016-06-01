@@ -221,8 +221,8 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 		    	+ parseFloat( $('.dataTable .data').css('padding-top').split('px')[0] )
 				+ parseFloat( $('.dataTable .data').css('padding-bottom').split('px')[0] )
 				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-top-width').split('px')[0] )
-				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] )
-				+ 14;// Fix to perfection;
+				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] );
+				//+ 14;// Fix to perfection;
 
 			self.parentView.setHeights('#id_datastreamResult .loading', otherHeights);
 
@@ -245,8 +245,8 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 	    	+ parseFloat( $('.dataTable .data').css('padding-top').split('px')[0] )
 			+ parseFloat( $('.dataTable .data').css('padding-bottom').split('px')[0] )
 			+ parseFloat( $('.dataTable #id_datastreamResult').css('border-top-width').split('px')[0] )
-			+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] )
-			+ 14;// Fix to perfection;
+			+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] );
+			//+ 14;// Fix to perfection;
 
 		  self.parentView.setHeights( '#id_datastreamResult .result table', otherHeights );
 
@@ -272,8 +272,8 @@ _.extend(dataTableView.prototype, Backbone.View.prototype, {
 				+ parseFloat( $('.flexigrid .pDiv').css('border-top-width').split('px')[0] )
 				+ parseFloat( $('.flexigrid .pDiv').css('border-bottom-width').split('px')[0] )
 				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-top-width').split('px')[0] )
-				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] )
-				+ 14;// Fix to perfection;
+				+ parseFloat( $('.dataTable #id_datastreamResult').css('border-bottom-width').split('px')[0] );
+				//+ 14;// Fix to perfection;
 
 			self.parentView.setHeights( '.flexigrid div.bDiv', otherHeights );
 
