@@ -11,8 +11,18 @@ import logging
 logger = logging.getLogger(__name__)
 
 class EngineViewSetMixin(object):
+    def get_max_rows(self, request):
+        preferences = request.auth['preferences']
+        if not preferences:
+            return settings.MAX_ROWS_BY_REQUEST
+
+        max_rows = preferences['account.api.maxrowsbyrequest']
+        if max_rows is None:
+            return settings.MAX_ROWS_BY_REQUEST
+        return max_rows
+
     def engine_call(self, request, engine_method, format=None, is_detail=True, 
-                    form_class=RequestForm, serialize=True, download=True, limit=None):
+                    form_class=RequestForm, serialize=True, download=True, limit=False):
         mutable_get = request.GET.copy()
         mutable_get.update(request.POST.copy())
         mutable_get['output'] = 'json'
@@ -22,9 +32,12 @@ class EngineViewSetMixin(object):
             format = 'json' if format == 'jsonp' else format
             mutable_get['output'] = format 
 
-        if limit and not 'limit' in mutable_get:
-            mutable_get['limit'] = limit
-        
+        if limit:
+            max_rows = self.get_max_rows(request)
+            param_rows = mutable_get.get('limit', None)
+            if not param_rows or param_rows <= 0 or param_rows > max_rows:
+                mutable_get['limit'] = max_rows
+             
         resource = {}
         if is_detail:
             resource = self.get_object()
