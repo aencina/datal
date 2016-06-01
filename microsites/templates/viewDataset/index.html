@@ -73,14 +73,14 @@
   
     <div class="columns clearfix" id="id_columns">
 
-      <aside class="sidebar FL transition">
+      <aside class="sidebar FL">
         {% include "viewDataset/sidebarInfo.html" %}
         {% if dataset.notes and preferences.account_enable_notes %}
           {% include "viewDataset/sidebarNotes.html" %}
         {% endif %}
       </aside>
 
-      <section class="section transition">
+      <section class="section">
         {% include "viewDataset/dataTable.html" %}
       </section>
 
