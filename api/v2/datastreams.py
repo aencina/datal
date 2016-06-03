@@ -168,11 +168,11 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
     def data(self, request, pk=None, format=None,  *args, **kwargs):
         instance = self.get_object()
         DatastreamHitsDAO(instance).add(1)
-        if format in ['json', 'pjson', 'ajson'] or not format:
-            return self.engine_call(request, 'invoke', format, limit=1000)
+        if format in ['json', 'pjson', 'ajson', 'jsonp'] or not format:
+            return self.engine_call(request, 'invoke', format, limit=True)
         return self.engine_call(request, 'invoke', format, 
             serialize=False, form_class=DatastreamRequestForm,
-            download=False, limit=1000)
+            download=False, limit=True)
 
     @detail_route(methods=['post'])
     def clone(self, request,  *args, **kwargs):
