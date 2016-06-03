@@ -41,15 +41,12 @@ def download(request, dataset_id, slug):
     else:
         if dataset['collect_type'] == choices.CollectTypeChoices.SELF_PUBLISH:
             try:
-                response = HttpResponse(mimetype='application/force-download')
-                response['Content-Disposition'] = 'attachment; filename="{}"'.format(dataset['filename'].encode('utf-8'))
-                response.write(urllib2.urlopen(dataset['end_point_full_url']).read())
-                return response
+                return redirect(dataset['end_point_full_url'])
             except Exception as e:
                 logger.exception("Error en descarga de archivo %s" % dataset['end_point_full_url'])
         elif dataset['collect_type'] == choices.CollectTypeChoices.URL:
             try:
                 return redirect(dataset['end_point'])
             except Exception as e:
-                logger.exception("Error en descarga de archivo %s" % dataset['end_point_full_url'])
+                logger.exception("Error en descarga de archivo %s" % dataset['end_point'])
         raise PermissionDenied 
