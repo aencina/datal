@@ -227,6 +227,8 @@ try:
 
     # Dashboard
     class DashboardAdmin(admin.ModelAdmin):
+        list_display = ('id','guid', 'last_revision', 'last_published_revision')
+        search_fields = ('guid',)
         list_per_page = 25
 
     admin.site.register(Dashboard, DashboardAdmin)
@@ -234,6 +236,9 @@ try:
 
     # DashboardI18n
     class DashboardI18nAdmin(admin.ModelAdmin):
+        list_display = ('id','dashboard_revision', 'language', 'title', 'created_at')
+        search_fields = ('dashboard_revision',)
+        list_filter = ('language',)
         list_per_page = 25
 
 
@@ -242,17 +247,19 @@ try:
 
     # DashboardRevision
     class DashboardRevisionAdmin(admin.ModelAdmin):
+        list_display = ('id','dashboard', 'user', 'category', 'status', 'created_at')
+        search_fields = ('dashboard',)
+        list_filter = ('user','status','dashboard',)
         list_per_page = 25
-
-
     admin.site.register(DashboardRevision, DashboardRevisionAdmin)
 
 
     # DashboardWidget
     class DashboardWidgetAdmin(admin.ModelAdmin):
+        list_display = ('id','order', 'dashboard_revision', 'datastream', 'visualization')
+        search_fields = ('dashboard_revision',)
+        list_filter = ('dashboard_revision',)
         list_per_page = 25
-
-
     admin.site.register(DashboardWidget, DashboardWidgetAdmin)
 except:
     pass
