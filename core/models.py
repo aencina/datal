@@ -602,18 +602,8 @@ class DatasetRevision(RevisionModel):
         return  unicode(self.id)
 
     def get_endpoint_full_url(self):
-        if settings.USE_DATASTORE == 'sftp':
-            # We MUST rewrite all file storage logic very SOON
-            return '{}/{}/{}'.format(
-                settings.SFTP_BASE_URL,
-                settings.AWS_BUCKET_NAME,
-                self.end_point.replace('file://', '')
-            )
-
-        if settings.USE_DATASTORE == 's3':
-            return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''))
-
-        return self.end_point
+        return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
+            {'response-content-disposition': 'attachment; filename="{0}"'.format(self.filename.encode('utf-8'))})
 
     def is_pending_review(self):
         return True if self.status == choices.StatusChoices.PENDING_REVIEW else False
