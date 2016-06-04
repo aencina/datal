@@ -17,7 +17,7 @@ class EngineViewSetMixin(object):
             return settings.MAX_ROWS_BY_REQUEST
 
         max_rows = preferences['account.api.maxrowsbyrequest']
-        if max_rows is None:
+        if max_rows is None or max_rows == '':
             return settings.MAX_ROWS_BY_REQUEST
         return max_rows
 
@@ -33,9 +33,9 @@ class EngineViewSetMixin(object):
             mutable_get['output'] = format 
 
         if limit:
-            max_rows = self.get_max_rows(request)
+            max_rows = int(self.get_max_rows(request))
             param_rows = mutable_get.get('limit', None)
-            if not param_rows or param_rows <= 0 or param_rows > max_rows:
+            if not param_rows or int(param_rows) <= 0 or int(param_rows) > max_rows:
                 mutable_get['limit'] = max_rows
              
         resource = {}
