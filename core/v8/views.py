@@ -22,7 +22,8 @@ class EngineViewSetMixin(object):
         return max_rows
 
     def engine_call(self, request, engine_method, format=None, is_detail=True, 
-                    form_class=RequestForm, serialize=True, download=True, limit=False):
+                    form_class=RequestForm, serialize=True, download=True, 
+                    limit=False, extra_args=None):
         mutable_get = request.GET.copy()
         mutable_get.update(request.POST.copy())
         mutable_get['output'] = 'json'
@@ -43,6 +44,9 @@ class EngineViewSetMixin(object):
             resource = self.get_object()
             mutable_get['revision_id'] = resource[self.dao_pk]
            
+        if extra_args and isinstance(extra_args, dict):
+            mutable_get.update(extra_args)
+
         items = dict(mutable_get.items())
         
         formset=formset_factory(form_class, formset=RequestFormSet)
