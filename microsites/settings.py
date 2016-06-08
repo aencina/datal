@@ -44,6 +44,8 @@ BASE_URI = 'microsites'
 MEDIA_URI = BASE_URI
 WORKSPACE_URI = 'workspace'
 
+MAX_ROWS_BY_REQUEST=50
+
 BOTS = ['Googlebot', 'AdsBot-Google'] #, 'Googlebot-Mobile', 'Googlebot-Image', 'Mediapartners-Google', 'Slurp', 'YahooSeeker/M1A1-R2D2', 'MSNBot', 'MSNBot-Media', 'MSNBot-NewsBlogs', 'MSNBot-Products', 'MSNBot-Academic', 'Teoma']
 
 STATICFILES_DIRS += ( os.path.join(PROJECT_PATH,'microsites/media/'),)

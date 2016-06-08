@@ -14,7 +14,9 @@ def status_str(status):
 
 @register.filter
 def frequency_str(frequency):
-    return ODATA_FREQUENCY[frequency]
+    if frequency in ODATA_FREQUENCY:
+        return ODATA_FREQUENCY[frequency]
+    return frequency
 
 
 @register.filter(name='type_str')

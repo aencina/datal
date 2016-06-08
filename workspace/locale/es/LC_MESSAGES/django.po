@@ -2346,7 +2346,7 @@ msgid "APP-OTHER-TEXT"
 msgstr "Otro"
 
 msgid "APP-OTHER-FREQUENCY-TEXT"
-msgstr "Por favor, introduzca la frecuencia de actualización personalizada de este conjunto de datos."
+msgstr "Por favor, introduzca un frecuencia en el formato <a target='_blank' href='http://en.wikipedia.org/wiki/Cron#Format'>cron</a>."
 
 msgid "APP-CREATE-DATASET-FINISH-SUBTITLE"
 msgstr "Háganos saber de que se trata este conjunto de datos. Los campos marcados con (<span class='required'>*</span>) son requeridos."
