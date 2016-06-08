@@ -17,12 +17,13 @@ class EngineViewSetMixin(object):
             return settings.MAX_ROWS_BY_REQUEST
 
         max_rows = preferences['account.api.maxrowsbyrequest']
-        if max_rows is None:
+        if max_rows is None or max_rows == '':
             return settings.MAX_ROWS_BY_REQUEST
         return max_rows
 
     def engine_call(self, request, engine_method, format=None, is_detail=True, 
-                    form_class=RequestForm, serialize=True, download=True, limit=False):
+                    form_class=RequestForm, serialize=True, download=True, 
+                    limit=False, extra_args=None):
         mutable_get = request.GET.copy()
         mutable_get.update(request.POST.copy())
         mutable_get['output'] = 'json'
@@ -33,9 +34,9 @@ class EngineViewSetMixin(object):
             mutable_get['output'] = format 
 
         if limit:
-            max_rows = self.get_max_rows(request)
+            max_rows = int(self.get_max_rows(request))
             param_rows = mutable_get.get('limit', None)
-            if not param_rows or param_rows <= 0 or param_rows > max_rows:
+            if max_rows > 0 and (not param_rows or int(param_rows) <= 0 or int(param_rows) > max_rows):
                 mutable_get['limit'] = max_rows
              
         resource = {}
@@ -43,6 +44,9 @@ class EngineViewSetMixin(object):
             resource = self.get_object()
             mutable_get['revision_id'] = resource[self.dao_pk]
            
+        if extra_args and isinstance(extra_args, dict):
+            mutable_get.update(extra_args)
+
         items = dict(mutable_get.items())
         
         formset=formset_factory(form_class, formset=RequestFormSet)

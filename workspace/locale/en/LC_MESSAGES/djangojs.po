@@ -502,6 +502,9 @@ msgstr "Correct the errors in the fields below to continue."
 msgid "VALIDATE-URLNOTVALID-TEXT"
 msgstr "Enter a valid URL."
 
+msgid "VALIDATE-CRONNOTVALID-TEXT"
+msgstr "Enter a valid cron format."
+
 msgid "VALIDATE-PROTOCOLNOTALLOWED-TEXT"
 msgstr "Enter a supported protocol (http:// https:// ftp:// ftps:// sftp:// sftps://)"
 

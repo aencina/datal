@@ -52,7 +52,7 @@ class DataSetSerializer(ResourceSerializer):
     frequency = serializers.ChoiceField(ODATA_FREQUENCY,
         allow_null=True, 
         required=False,
-        help_text=_(u'Tipo de licencia que aplica sobre el conjunto de datos'))
+        help_text=_(u'Frecuencia de actualización de datos'))
     mbox = serializers.EmailField(
         allow_null=True, 
         required=False,
