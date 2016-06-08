@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.forms import Textarea
 from core.models import *
 
 
@@ -94,12 +95,15 @@ class PreferenceAdmin(admin.ModelAdmin):
     list_display = ('account', 'key', 'value')
     list_filter = ('account',)
     list_per_page = 25
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={"rows": 80, "cols": 220}), },
+    }
 
 admin.site.register(Preference, PreferenceAdmin)
 
 
 class DataStreamAdmin(admin.ModelAdmin):
-    list_display = ('user', 'guid')
+    list_display = ('id','user', 'guid')
     list_filter = ('user',)
     list_per_page = 25
 
@@ -107,7 +111,7 @@ admin.site.register(DataStream, DataStreamAdmin)
 
 
 class DataStreamRevisionAdmin(admin.ModelAdmin):
-    list_display = ('datastream', 'user', 'status')
+    list_display = ('id','datastream', 'user', 'category', 'status','created_at')
     list_filter = ('datastream', 'user')
     list_per_page = 25
 
@@ -115,7 +119,7 @@ admin.site.register(DataStreamRevision, DataStreamRevisionAdmin)
 
 
 class DatastreamI18nAdmin(admin.ModelAdmin):
-    list_display = ('datastream_revision', 'title')
+    list_display = ('id','datastream_revision', 'title')
     search_fields = ('title',)
     list_per_page = 25
 
@@ -139,7 +143,7 @@ admin.site.register(DataStreamParameter, DataStreamParameterAdmin)
 
 
 class DatasetAdmin(admin.ModelAdmin):
-    list_display = ('user', 'type', 'is_dead')
+    list_display = ('user', 'type', 'is_dead','guid','created_at')
     search_fields = ('user', 'type')
     list_per_page = 25
 
@@ -227,6 +231,8 @@ try:
 
     # Dashboard
     class DashboardAdmin(admin.ModelAdmin):
+        list_display = ('id','guid', 'last_revision', 'last_published_revision')
+        search_fields = ('guid',)
         list_per_page = 25
 
     admin.site.register(Dashboard, DashboardAdmin)
@@ -234,6 +240,9 @@ try:
 
     # DashboardI18n
     class DashboardI18nAdmin(admin.ModelAdmin):
+        list_display = ('id','dashboard_revision', 'language', 'title', 'created_at')
+        search_fields = ('dashboard_revision',)
+        list_filter = ('language',)
         list_per_page = 25
 
 
@@ -242,17 +251,19 @@ try:
 
     # DashboardRevision
     class DashboardRevisionAdmin(admin.ModelAdmin):
+        list_display = ('id','dashboard', 'user', 'category', 'status', 'created_at')
+        search_fields = ('dashboard',)
+        list_filter = ('user','status','dashboard',)
         list_per_page = 25
-
-
     admin.site.register(DashboardRevision, DashboardRevisionAdmin)
 
 
     # DashboardWidget
     class DashboardWidgetAdmin(admin.ModelAdmin):
+        list_display = ('id','order', 'dashboard_revision', 'datastream', 'visualization')
+        search_fields = ('dashboard_revision',)
+        list_filter = ('dashboard_revision',)
         list_per_page = 25
-
-
     admin.site.register(DashboardWidget, DashboardWidgetAdmin)
 except:
     pass
