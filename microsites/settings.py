@@ -70,14 +70,10 @@ except ImportError:
 
 # TODO Esto no deberia ir en salt?
 # Agregamos la config para usar cache por pagina
+CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
 if not DEBUG:
     CACHES['pages']={
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
             'LOCATION': '127.0.0.1:11211',
+            'KEY_FUNCTION': 'core.decorators.datal_make_key',
         }
-else:
-    # disable cache_page
-    CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
-
-#queda deshabilitado hasta nuevo aviso
-CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
