@@ -35,7 +35,7 @@ class EngineViewSetMixin(object):
         if limit:
             max_rows = int(self.get_max_rows(request))
             param_rows = mutable_get.get('limit', None)
-            if max_rows > 0 and not param_rows or int(param_rows) <= 0 or int(param_rows) > max_rows:
+            if max_rows > 0 and (not param_rows or int(param_rows) <= 0 or int(param_rows) > max_rows):
                 mutable_get['limit'] = max_rows
              
         resource = {}
