@@ -291,7 +291,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		var heightContainer = String(theContainer),
 			tabsHeight = parseFloat( $('.tabs').height() ),
 			otherHeight = theHeight,
-			minHeight = tabsHeight - otherHeight;
+			minHeight = 500;
 
 		$(heightContainer).css('min-height', minHeight+ 'px');
 
@@ -448,12 +448,12 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 
 		//Calcula el alto que deberá tener el contenedor del chart
 		var height = this.$window.height() - otherHeights;
-		//var tabsHeight = this.$el.find('#id_wrapper .tabs').height() - $chartHeader.outerHeight(true);
+		var tabsHeight = this.$el.find('#id_wrapper .tabs').height() - $chartHeader.outerHeight(true);
 
 		// Min height para que no sea mas chico que las tabs
-		// if( height < tabsHeight ){
-		// 	height = tabsHeight;
-		// }
+		if( height < 500 ){
+			height = 500;
+		}
 
 		this.chartView.$el.css({
 			height: height + 'px',
