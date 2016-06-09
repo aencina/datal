@@ -22,6 +22,8 @@ var viewDatasetView = Backbone.View.extend({
 		// Set resources list height
 		this.setResourcesListHeight();
 
+        this.initMap()
+
 	},
 	
 	render: function(){
@@ -56,6 +58,21 @@ var viewDatasetView = Backbone.View.extend({
 	  $('.tabs .sidebarIcon').removeClass('active');
 	  $('#id_columns').removeClass('showSidebar');
 	},
+
+    initMap: function() {
+      var $obj = $("#kmlmap")
+      if ($obj.length > 0) {
+          var map = new google.maps.Map($obj.get(0), {
+            zoom: 11,
+            center: {lat: 41.876, lng: -87.624}
+          });
+
+          var ctaLayer = new google.maps.KmlLayer({
+            url: $obj.data('endpoint'),
+            map: map
+          });
+      }
+    },
 	
 	initInfoSidebar: function(){
 

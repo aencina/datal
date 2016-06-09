@@ -24,6 +24,7 @@ def view(request, dataset_id, slug):
     preferences = request.preferences
 
     dataset = DatasetDBDAO().get(request.user, dataset_id=dataset_id, published=True)
+    impl_choices = choices.SourceImplementationChoices
 
     if request.GET.get('embedded', False) == 'true':
         return render_to_response('viewDataset/embedded.html', locals())

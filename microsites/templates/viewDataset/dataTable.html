@@ -83,6 +83,15 @@
                 {% endif %}
                 </tbody>
               </table>
+
+              
         </div>
+    {% if dataset.impl_type == impl_choices.KML %}
+      <div id='kmlmap' data-endpoint="{{dataset.end_point_full_url}}" style="height:400px">
+      
+      </div>
+      
+    {% endif %}
     </div>
+
 </div>
