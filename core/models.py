@@ -602,9 +602,12 @@ class DatasetRevision(RevisionModel):
         return u"DT_REV:%s:%s" %(self.id, self.impl_type)
 
     def get_endpoint_full_url(self):
-        from django.utils.encoding import smart_str
-        return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
-            {'response-content-disposition': 'attachment; filename="{0}"'.format(smart_str(self.filename))})
+        if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:
+            from django.utils.encoding import smart_str
+            return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
+                {'response-content-disposition': 'attachment; filename="{0}"'.format(smart_str(self.filename))})
+        else:
+            return self.end_point
 
     def is_last_published_revision(self):
         return (self.dataset and self.dataset.last_published_revision and 
