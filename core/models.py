@@ -605,6 +605,14 @@ class DatasetRevision(RevisionModel):
         return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
             {'response-content-disposition': 'attachment; filename="{0}"'.format(self.filename.encode('utf-8'))})
 
+    def is_last_published_revision(self):
+        return (self.dataset and self.dataset.last_published_revision and 
+            self.dataset.last_published_revision_id == self.id)
+
+    def is_last_revision(self):
+        return (self.dataset and self.dataset.last_revision and 
+            self.dataset.last_revision_id == self.id)
+
     def is_pending_review(self):
         return True if self.status == choices.StatusChoices.PENDING_REVIEW else False
 
