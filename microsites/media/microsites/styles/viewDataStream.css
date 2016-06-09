@@ -64,7 +64,7 @@ div.colCopy{border-bottom:1px solid #ccc !important;}
 	.flexigrid tr.trSelected td.sorted,
 	.flexigrid tr.trSelected td{background:#eee !important;border-left:0 !important;border-bottom-color:#ccc !important;border-right:1px dotted #ccc !important;}
 	.flexigrid div.hDiv th.thOver div,
-	.flexigrid div.hDiv th.sorted.thOver div{border-color:#fff !important;}
+	.flexigrid div.hDiv th.sorted.thOver div{border:0 !important;}
 
 	/* Drag & Drop */
 	.flexigrid div.hDiv th.thOver{background:#eaeaea;}

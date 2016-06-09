@@ -72,7 +72,7 @@ body .brandingFooter{display:none !important;}
 	html[lang=es-ES] .columns{margin:0 -80px 0 0;}*/
 	
 /* Background */
-body.detail_page{background:url(/static/microsites/images/microsites/bg_body.gif) repeat;}
+/*body.detail_page{background:url(/static/microsites/images/microsites/bg_body.gif) repeat;}*/
 
 /* Tooltip */
 .tooltip{padding:10px;background:#343434;background:rgba(30,30,30,.9);z-index:2;
@@ -362,9 +362,9 @@ body.detail_page{background:url(/static/microsites/images/microsites/bg_body.gif
 .tabs .icon:hover, 
 .tabs .icon.active{background: none;color: #444;-webkit-box-shadow: inset 0 0 0 0 rgba(0,0,0,0);-moz-box-shadow: inset 0 0 0 0 rgba(0,0,0,0);box-shadow: inset 0 0 0 0 rgba(0,0,0,0);}
 
-.dataTable{padding:0 90px;border-left:1px solid #dadada;}
-.dataTable .data{padding:30px 0 60px;}
-.dataTable header{padding-top:60px;border:0;position:relative;}
+.dataTable{padding:0 30px;border-left:1px solid #dadada;}
+.dataTable .data{padding:20px 0 30px;}
+.dataTable header{padding-top:35px;border:0;position:relative;}
 .dataTable header h1 strong{font-size:26px;text-overflow:initial;overflow:visible;white-space:normal;}
 .dataTable header h2{color:#bebebe;padding-top:10px;font-size:16px;}
 .dataTable .socialBox{bottom:18px;right:20px;top:auto;left:auto;position:absolute;}
