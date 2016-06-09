@@ -3,7 +3,8 @@ from django.forms import Textarea
 from django.core import urlresolvers
 from core.models import *
 from django.contrib.contenttypes.models import ContentType
-
+import logging
+logger = logging.getLogger(__name__)
 
 class ContentTypeAdmin(admin.ModelAdmin):
     list_display= ("app_label", "model", "name")
@@ -119,6 +120,7 @@ class DataStreamAdmin(admin.ModelAdmin):
     list_display = ('id','user', 'guid', "goto_last_revision", "goto_last_published_revision")
     list_filter = ('user',)
     list_per_page = 25
+    readonly_fields= ('user', "goto_last_revision", "goto_last_published_revision")
 
     def goto_last_revision(self, obj):
         model = obj.last_revision
@@ -150,6 +152,7 @@ class DataStreamRevisionAdmin(admin.ModelAdmin):
     list_display = ('id', 'goto_dataset','goto_datastream', 'user', 'category', 'status','created_at')
     list_filter = ('datastream', 'user')
     list_per_page = 25
+    readonly_fields= ('user', 'goto_dataset', 'goto_datastream',)
 
     def goto_dataset(self, obj):
         model = obj.dataset
@@ -232,6 +235,7 @@ class DatasetAdmin(admin.ModelAdmin):
     list_display = ('user', 'type', 'is_dead','guid','created_at', 'goto_last_revision', 'goto_last_published_revision')
     search_fields = ('user', 'type')
     list_per_page = 25
+    readonly_fields= ('user', 'goto_last_revision', 'goto_last_published_revision')
 
     def goto_last_revision(self, obj):
         model = obj.last_revision
@@ -279,6 +283,7 @@ class VisualizationAdmin(admin.ModelAdmin):
     list_display = ('id', 'guid', 'goto_datastream', 'user', 'goto_last_revision', 'goto_last_published_revision')
     search_fields = ('datastream', 'user')
     list_per_page = 25
+    readonly_fields= ('goto_datastream', 'user', 'datastream', 'goto_last_revision', 'goto_last_published_revision')
 
     def goto_last_revision(self, obj):
         model = obj.last_revision
@@ -322,6 +327,7 @@ class VisualizationRevisionAdmin(admin.ModelAdmin):
     list_display = ('goto_visualization', 'user', 'status')
     search_fields = ('visualization', 'user')
     list_per_page = 25
+    readonly_fields= ('goto_visualization',)
 
     def goto_visualization(self, obj):
         model = obj.visualization
@@ -390,6 +396,7 @@ try:
         list_display = ('id','user','guid', 'goto_last_revision', 'goto_last_published_revision')
         search_fields = ('guid',)
         list_per_page = 25
+        readonly_fields= ('goto_last_revision', 'goto_last_published_revision')
 
         def goto_last_revision(self, obj):
             model = obj.last_revision
@@ -423,6 +430,7 @@ try:
         search_fields = ('dashboard_revision',)
         list_filter = ('language',)
         list_per_page = 25
+        readonly_fields= ('goto_dashboard_revision',)
  
         def goto_dashboard_revision(self, obj):
             model = obj.dashboard_revision
@@ -439,13 +447,14 @@ try:
 
     admin.site.register(DashboardI18n, DashboardI18nAdmin)
 
-
+    
     # DashboardRevision
     class DashboardRevisionAdmin(admin.ModelAdmin):
         list_display = ('id','goto_dashboard', 'user', 'category', 'status', 'created_at')
         search_fields = ('dashboard',)
         list_filter = ('user','status','dashboard',)
         list_per_page = 25
+        readonly_fields= ("goto_dashboard",)        
  
         def goto_dashboard(self, obj):
             model = obj.dashboard
@@ -468,6 +477,7 @@ try:
         search_fields = ('dashboard_revision',)
         list_filter = ('dashboard_revision',)
         list_per_page = 25
+        readonly_fields= ('goto_dashboard_revision', 'goto_datastream', 'goto_visualization')
  
         def goto_dashboard_revision(self, obj):
             model = obj.dashboard_revision
@@ -502,5 +512,6 @@ try:
         goto_visualization.allow_tags=True
         goto_visualization.short_description='Visualization'
     admin.site.register(DashboardWidget, DashboardWidgetAdmin)
-except:
-    pass
+except Exception as e:
+    import sys, traceback
+    logger.error("\n".join(traceback.format_exception(*sys.exc_info())))
