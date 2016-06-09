@@ -602,8 +602,9 @@ class DatasetRevision(RevisionModel):
         return u"DT_REV:%s:%s" %(self.id, self.impl_type)
 
     def get_endpoint_full_url(self):
+        from django.utils.encoding import smart_str
         return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
-            {'response-content-disposition': 'attachment; filename="{0}"'.format(self.filename.encode('utf-8'))})
+            {'response-content-disposition': 'attachment; filename="{0}"'.format(smart_str(self.filename))})
 
     def is_pending_review(self):
         return True if self.status == choices.StatusChoices.PENDING_REVIEW else False
