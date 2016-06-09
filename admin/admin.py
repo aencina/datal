@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.forms import Textarea
+from django.core import urlresolvers
 from core.models import *
+from django.contrib.contenttypes.models import ContentType
 
+
+class ContentTypeAdmin(admin.ModelAdmin):
+    list_display= ("app_label", "model", "name")
+admin.site.register(ContentType, ContentTypeAdmin)
 
 class UserAdmin(admin.ModelAdmin):
     fields = ('name', 'nick', 'email', 'password', 'country', 'ocupation', 'language', 'roles', 'account')
@@ -92,44 +98,124 @@ admin.site.register(Account, AccountAdmin)
 
 
 class PreferenceAdmin(admin.ModelAdmin):
-    list_display = ('account', 'key', 'value')
+    list_display = ('key',"goto_account",  'value')
     list_filter = ('account',)
     list_per_page = 25
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={"rows": 80, "cols": 220}), },
     }
 
+    def goto_account(self, obj):
+        ct = ContentType.objects.get_for_model(obj.account.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[obj.account.id])
+        return u"<a href='%s'>%s</a>" % (link, obj.account)
+    goto_account.allow_tags=True
+    goto_account.short_description='Account'
+
 admin.site.register(Preference, PreferenceAdmin)
 
 
 class DataStreamAdmin(admin.ModelAdmin):
-    list_display = ('id','user', 'guid')
+    list_display = ('id','user', 'guid', "goto_last_revision", "goto_last_published_revision")
     list_filter = ('user',)
     list_per_page = 25
+
+    def goto_last_revision(self, obj):
+        model = obj.last_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_last_revision.allow_tags=True
+    goto_last_revision.short_description='Last Rev'
+
+    def goto_last_published_revision(self, obj):
+        model = obj.last_published_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_last_published_revision.allow_tags=True
+    goto_last_published_revision.short_description='Last Published Rev'
+
 
 admin.site.register(DataStream, DataStreamAdmin)
 
 
 class DataStreamRevisionAdmin(admin.ModelAdmin):
-    list_display = ('id','datastream', 'user', 'category', 'status','created_at')
+    list_display = ('id', 'goto_dataset','goto_datastream', 'user', 'category', 'status','created_at')
     list_filter = ('datastream', 'user')
     list_per_page = 25
+
+    def goto_dataset(self, obj):
+        model = obj.dataset
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_dataset.allow_tags=True
+    goto_dataset.short_description='Dataset'
+
+    def goto_datastream(self, obj):
+        model = obj.datastream
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_datastream.allow_tags=True
+    goto_datastream.short_description='Datastream'
+
+
 
 admin.site.register(DataStreamRevision, DataStreamRevisionAdmin)
 
 
 class DatastreamI18nAdmin(admin.ModelAdmin):
-    list_display = ('id','datastream_revision', 'title')
+    list_display = ('id','goto_datastream_revision', 'title')
     search_fields = ('title',)
     list_per_page = 25
+
+    def goto_datastream_revision(self, obj):
+        model = obj.datastream_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_datastream_revision.allow_tags=True
+    goto_datastream_revision.short_description='Datastream Rev'
+
+
 
 admin.site.register(DatastreamI18n, DatastreamI18nAdmin)
 
 
 class VisualizationI18nAdmin(admin.ModelAdmin):
-    list_display = ('visualization_revision', 'title')
+    list_display = ('id', 'goto_visualization_revision', 'title')
     search_fields = ('title',)
     list_per_page = 25
+
+    def goto_visualization_revision(self, obj):
+        model = obj.visualization_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_visualization_revision.allow_tags=True
+    goto_visualization_revision.short_description='Visualization Rev'
+
+
 
 admin.site.register(VisualizationI18n, VisualizationI18nAdmin)
 
@@ -143,9 +229,32 @@ admin.site.register(DataStreamParameter, DataStreamParameterAdmin)
 
 
 class DatasetAdmin(admin.ModelAdmin):
-    list_display = ('user', 'type', 'is_dead','guid','created_at')
+    list_display = ('user', 'type', 'is_dead','guid','created_at', 'goto_last_revision', 'goto_last_published_revision')
     search_fields = ('user', 'type')
     list_per_page = 25
+
+    def goto_last_revision(self, obj):
+        model = obj.last_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_last_revision.allow_tags=True
+    goto_last_revision.short_description='Last Rev'
+
+    def goto_last_published_revision(self, obj):
+        model = obj.last_published_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_last_published_revision.allow_tags=True
+    goto_last_published_revision.short_description='Last Published Rev'
+
 
 admin.site.register(Dataset, DatasetAdmin)
 
@@ -167,17 +276,64 @@ admin.site.register(DatasetI18n, DatasetI18nAdmin)
 
 
 class VisualizationAdmin(admin.ModelAdmin):
-    list_display = ('datastream', 'user')
+    list_display = ('id', 'guid', 'goto_datastream', 'user', 'goto_last_revision', 'goto_last_published_revision')
     search_fields = ('datastream', 'user')
     list_per_page = 25
+
+    def goto_last_revision(self, obj):
+        model = obj.last_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_last_revision.allow_tags=True
+    goto_last_revision.short_description='Last Rev'
+
+    def goto_last_published_revision(self, obj):
+        model = obj.last_published_revision
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_last_published_revision.allow_tags=True
+    goto_last_published_revision.short_description='Last Published Rev'
+
+    def goto_datastream(self, obj):
+        model = obj.datastream
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_datastream.allow_tags=True
+    goto_datastream.short_description='Datastream'
+
+
 
 admin.site.register(Visualization, VisualizationAdmin)
 
 
 class VisualizationRevisionAdmin(admin.ModelAdmin):
-    list_display = ('visualization', 'user', 'status')
+    list_display = ('goto_visualization', 'user', 'status')
     search_fields = ('visualization', 'user')
     list_per_page = 25
+
+    def goto_visualization(self, obj):
+        model = obj.visualization
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_visualization.allow_tags=True
+    goto_visualization.short_description='Visualization'
+
 
 admin.site.register(VisualizationRevision, VisualizationRevisionAdmin)
 
@@ -231,19 +387,54 @@ try:
 
     # Dashboard
     class DashboardAdmin(admin.ModelAdmin):
-        list_display = ('id','guid', 'last_revision', 'last_published_revision')
+        list_display = ('id','user','guid', 'goto_last_revision', 'goto_last_published_revision')
         search_fields = ('guid',)
         list_per_page = 25
+
+        def goto_last_revision(self, obj):
+            model = obj.last_revision
+    
+            if not model:
+                return ""
+            ct = ContentType.objects.get_for_model(model.__class__)
+            link=urlresolvers.reverse("%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+            return u"<a href='%s'>%s</a>" % (link, model)
+        goto_last_revision.allow_tags=True
+        goto_last_revision.short_description='Last Rev'
+    
+        def goto_last_published_revision(self, obj):
+            model = obj.last_published_revision
+    
+            if not model:
+                return ""
+            #ct = ContentType.objects.get_for_model(model.__class__)
+            #link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+            #return u"<a href='%s'>%s</a>" % (link, model)
+        goto_last_published_revision.allow_tags=True
+        goto_last_published_revision.short_description='Last Published Rev'
+
 
     admin.site.register(Dashboard, DashboardAdmin)
 
 
     # DashboardI18n
     class DashboardI18nAdmin(admin.ModelAdmin):
-        list_display = ('id','dashboard_revision', 'language', 'title', 'created_at')
+        list_display = ('id','goto_dashboard_revision', 'language', 'title', 'created_at')
         search_fields = ('dashboard_revision',)
         list_filter = ('language',)
         list_per_page = 25
+ 
+        def goto_dashboard_revision(self, obj):
+            model = obj.dashboard_revision
+    
+            if not model:
+                return ""
+            ct = ContentType.objects.get_for_model(model.__class__)
+            link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+            return u"<a href='%s'>%s</a>" % (link, model)
+        goto_dashboard_revision.allow_tags=True
+        goto_dashboard_revision.short_description='Dashboard Rev'
+
 
 
     admin.site.register(DashboardI18n, DashboardI18nAdmin)
@@ -251,19 +442,65 @@ try:
 
     # DashboardRevision
     class DashboardRevisionAdmin(admin.ModelAdmin):
-        list_display = ('id','dashboard', 'user', 'category', 'status', 'created_at')
+        list_display = ('id','goto_dashboard', 'user', 'category', 'status', 'created_at')
         search_fields = ('dashboard',)
         list_filter = ('user','status','dashboard',)
         list_per_page = 25
+ 
+        def goto_dashboard(self, obj):
+            model = obj.dashboard
+    
+            if not model:
+                return ""
+            ct = ContentType.objects.get_for_model(model.__class__)
+            link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+            return u"<a href='%s'>%s</a>" % (link, model)
+        goto_dashboard.allow_tags=True
+        goto_dashboard.short_description='Dashboard'
+
+
     admin.site.register(DashboardRevision, DashboardRevisionAdmin)
 
 
     # DashboardWidget
     class DashboardWidgetAdmin(admin.ModelAdmin):
-        list_display = ('id','order', 'dashboard_revision', 'datastream', 'visualization')
+        list_display = ('id','order', 'goto_dashboard_revision', 'goto_datastream', 'goto_visualization')
         search_fields = ('dashboard_revision',)
         list_filter = ('dashboard_revision',)
         list_per_page = 25
+ 
+        def goto_dashboard_revision(self, obj):
+            model = obj.dashboard_revision
+    
+            if not model:
+                return ""
+            ct = ContentType.objects.get_for_model(model.__class__)
+            link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+            return u"<a href='%s'>%s</a>" % (link, model)
+        goto_dashboard_revision.allow_tags=True
+        goto_dashboard_revision.short_description='Dashboard Rev'
+
+        def goto_datastream(self, obj):
+            model = obj.datastream
+    
+            if not model:
+                return ""
+            ct = ContentType.objects.get_for_model(model.__class__)
+            link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+            return u"<a href='%s'>%s</a>" % (link, model)
+        goto_datastream.allow_tags=True
+        goto_datastream.short_description='Datastream'
+
+        def goto_visualization(self, obj):
+            model = obj.visualization
+    
+            if not model:
+                return ""
+            ct = ContentType.objects.get_for_model(model.__class__)
+            link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+            return u"<a href='%s'>%s</a>" % (link, model)
+        goto_visualization.allow_tags=True
+        goto_visualization.short_description='Visualization'
     admin.site.register(DashboardWidget, DashboardWidgetAdmin)
 except:
     pass
