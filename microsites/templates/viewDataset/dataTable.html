@@ -24,6 +24,8 @@
 	<!-- Resources List -->
     <div class="resources-list">
         <div id="id_resourcesList">
+
+
             <!-- Table -->
             <table id='dataset_table_list' class='backgrid'>
                 <thead>
@@ -33,9 +35,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Vistas -->
 
-                {% if dataset.datastreams %}
+                {% if not dataset.datastreams and not dataset.visualizations %}
+
+                   <tr>
+                    <td class="cell-resource">
+                      
+                        <h3>{% trans "DATASET-NO-RESOURCES" %}</h3>
+                      
+                    </td>
+                    <td class="cell-last-update"></td>
+                  </tr>
+
+                {% else %}
+
+                  {% if dataset.datastreams %}
+                  <!-- Vistas -->
                     {% for datastream_revision in dataset.datastreams %}
 
                         {# Muestro solamente si es la ultima revision #}
@@ -56,10 +71,11 @@
                         </tr>
                         {% endif %}
                     {% endfor %}
-                {% endif %}
+                  {% endif %}
 
 
-                {% if dataset.visualizations %}
+                  {% if dataset.visualizations %}
+                  <!-- Visualizaciones -->
                     {% for visualizations_revision in dataset.visualizations %}
                         {# Muestro solamente si es la ultima revision #}
                         {% if visualizations_revision.id == visualizations_revision.visualization__last_published_revision %}
@@ -80,18 +96,22 @@
 
                         {% endif %}
                     {% endfor %}
+                  {% endif %}
+
                 {% endif %}
                 </tbody>
               </table>
 
-              
         </div>
-    {% if dataset.impl_type == impl_choices.KML %}
-      <div id='kmlmap' data-endpoint="{{dataset.end_point_full_url}}" style="height:400px">
-      
-      </div>
-      
-    {% endif %}
+
+        {% comment %}
+        {% if dataset.impl_type == impl_choices.KML %}
+          <div id='kmlmap' data-endpoint="{{dataset.end_point_full_url}}" style="height:400px">
+          
+          </div>
+          
+        {% endif %}
+        {% endcomment %}
     </div>
 
 </div>
