@@ -120,7 +120,8 @@ class DataStreamAdmin(admin.ModelAdmin):
     list_display = ('id','user', 'guid', "goto_last_revision", "goto_last_published_revision")
     list_filter = ('user',)
     list_per_page = 25
-    readonly_fields= ('user', "goto_last_revision", "goto_last_published_revision")
+    fields = ['guid', 'user', "goto_last_revision", "goto_last_published_revision"]
+    readonly_fields= ('user', "goto_last_revision", "goto_last_published_revision" )
 
     def goto_last_revision(self, obj):
         model = obj.last_revision
@@ -152,7 +153,8 @@ class DataStreamRevisionAdmin(admin.ModelAdmin):
     list_display = ('id', 'goto_dataset','goto_datastream', 'user', 'category', 'status','created_at')
     list_filter = ('datastream', 'user')
     list_per_page = 25
-    readonly_fields= ('user', 'goto_dataset', 'goto_datastream',)
+    fields =['goto_dataset','goto_datastream','category','user','data_source','select_statement','status','meta_text','rdf_template']
+    readonly_fields= ('user', 'goto_dataset', 'goto_datastream','status')
 
     def goto_dataset(self, obj):
         model = obj.dataset
@@ -235,6 +237,7 @@ class DatasetAdmin(admin.ModelAdmin):
     list_display = ('user', 'type', 'is_dead','guid','created_at', 'goto_last_revision', 'goto_last_published_revision')
     search_fields = ('user', 'type')
     list_per_page = 25
+    fields = ["type", "is_dead", "guid", 'user', 'goto_last_revision', 'goto_last_published_revision']
     readonly_fields= ('user', 'goto_last_revision', 'goto_last_published_revision')
 
     def goto_last_revision(self, obj):
@@ -264,9 +267,24 @@ admin.site.register(Dataset, DatasetAdmin)
 
 
 class DatasetRevisionAdmin(admin.ModelAdmin):
-    list_display = ('dataset', 'user', 'category', 'status')
+    list_display = ('id','goto_dataset', 'user', 'category', 'status')
     search_fields = ('user', 'dataset', 'category')
     list_per_page = 25
+    fields = ["goto_dataset", "user", "category", 'end_point', 'filename','impl_details', 'impl_type', 'status', 'size']
+    readonly_fields= ('user', 'goto_dataset','end_point', 'filename', 'status','size')
+
+    def goto_dataset(self, obj):
+        model = obj.dataset
+
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_dataset.allow_tags=True
+    goto_dataset.short_description='Dataset'
+
+
 
 admin.site.register(DatasetRevision, DatasetRevisionAdmin)
 
@@ -283,6 +301,7 @@ class VisualizationAdmin(admin.ModelAdmin):
     list_display = ('id', 'guid', 'goto_datastream', 'user', 'goto_last_revision', 'goto_last_published_revision')
     search_fields = ('datastream', 'user')
     list_per_page = 25
+    fields = ['goto_datastream', 'user', 'datastream', 'goto_last_revision', 'goto_last_published_revision']
     readonly_fields= ('goto_datastream', 'user', 'datastream', 'goto_last_revision', 'goto_last_published_revision')
 
     def goto_last_revision(self, obj):
@@ -324,10 +343,12 @@ admin.site.register(Visualization, VisualizationAdmin)
 
 
 class VisualizationRevisionAdmin(admin.ModelAdmin):
-    list_display = ('goto_visualization', 'user', 'status')
+    list_display = ('goto_visualization', 'user', 'status', 'goto_datastream')
     search_fields = ('visualization', 'user')
     list_per_page = 25
-    readonly_fields= ('goto_visualization',)
+    #fields = ['user','lib','impl_details','meta_text','status','parameters',]
+    fields = ['goto_visualization','user','goto_datastream','lib','impl_details','meta_text','status','parameters',]
+    readonly_fields= ('goto_visualization','user','goto_datastream','status')
 
     def goto_visualization(self, obj):
         model = obj.visualization
@@ -340,7 +361,16 @@ class VisualizationRevisionAdmin(admin.ModelAdmin):
     goto_visualization.allow_tags=True
     goto_visualization.short_description='Visualization'
 
+    def goto_datastream(self, obj):
+        model = obj.datastream
 
+        if not model:
+            return ""
+        ct = ContentType.objects.get_for_model(model.__class__)
+        link=urlresolvers.reverse("admin:%s_%s_change" %(ct.app_label, ct.model), args=[model.id])
+        return u"<a href='%s'>%s</a>" % (link, model)
+    goto_datastream.allow_tags=True
+    goto_datastream.short_description='Datastream'
 admin.site.register(VisualizationRevision, VisualizationRevisionAdmin)
 
 
