@@ -647,3 +647,6 @@ msgstr "Publicado por última vez:"
 
 msgid "APP-DATAFROMFTP-TEXT"
 msgstr "Procolo de transferencia de archivos (FTP)"
+
+msgid "DATASET-NO-RESOURCES"
+msgstr "Por el momento, no hay recursos creados basados en este conjunto de datos."
