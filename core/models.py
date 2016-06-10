@@ -603,9 +603,9 @@ class DatasetRevision(RevisionModel):
 
     def get_endpoint_full_url(self):
         if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:
-            from django.utils.encoding import smart_str
+            content_disposition = u'attachment; filename="{0}"'.format(self.filename)
             return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
-                {'response-content-disposition': 'attachment; filename="{0}"'.format(smart_str(self.filename))})
+                {'response-content-disposition': content_disposition.encode("utf-8", errors="ignore")})
         else:
             return self.end_point
 
