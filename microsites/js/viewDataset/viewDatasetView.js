@@ -63,13 +63,19 @@ var viewDatasetView = Backbone.View.extend({
       var $obj = $("#kmlmap")
       if ($obj.length > 0) {
           var map = new google.maps.Map($obj.get(0), {
-            zoom: 11,
-            center: {lat: 41.876, lng: -87.624}
+            zoom: 1
           });
 
           var ctaLayer = new google.maps.KmlLayer({
             url: $obj.data('endpoint'),
             map: map
+          });
+
+          ctaLayer.addListener('status_changed', function() {
+            status = ctaLayer.getStatus()
+            if (status!='OK') {
+                $obj.hide()
+            }
           });
       }
     },
