@@ -19,7 +19,9 @@ from core.exceptions import *
 from microsites.exceptions import *
 from core.search.finder import FinderQuerySet
 from core.builders.themes import ThemeBuilder
-from django.views.decorators.cache import cache_page
+#from django.views.decorators.cache import cache_page
+
+from core.decorators import datal_cache_page, cache_page
 import json
 import logging
 
@@ -28,7 +30,7 @@ from core.plugins_point import DatalPluginPoint
 logger = logging.getLogger(__name__)
 
 @require_GET
-@cache_page(60*5, cache='pages')
+#@datal_cache_page(60*5)
 def load(request):
     """
     Shows the microsite's home page

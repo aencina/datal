@@ -1,4 +1,5 @@
 {% extends 'base_microsites.html' %}
+
 {% load i18n extra_tags core_components components compress staticfiles sass_tags local_tags plugins_tags %}
 
 {% block SEO %}
@@ -21,6 +22,7 @@
 {% compress css %}
 <!-- CSS -->
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/plugins/jquery.gritter.css' %}" />
+<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/detailPage.scss' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewDataStream.css' %}"/>
 {% endcompress %}
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/plugins/jquery-ui-timepicker-addon.css' %}" />
@@ -91,6 +93,8 @@
 
 {% endblock %}
 
+{% block body_class %}detail_page{% endblock %}
+
 {% block messageBar %}
 
 <!-- Message Bar from plugins -->
@@ -109,7 +113,7 @@
 	
 		<div class="columns clearfix" id="id_columns">
 
-			<aside class="sidebar FL transition">
+			<aside class="sidebar FL">
 				{% include "viewDataStream/sidebarInfo.html" %}
 				{% include "viewDataStream/sidebarAPI.html" %}
 				{% if notes and preferences.account_enable_notes %}
@@ -121,7 +125,7 @@
 
 			</aside>
 
-			<section class="section transition">
+			<section class="section">
 				{% include "viewDataStream/dataTable.html" %}
 			</section>
 

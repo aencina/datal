@@ -1,0 +1,33 @@
+body.embedded{
+
+	.dataTable{border:0;}
+	.tabs{position:fixed;height:100%;border-right:1px solid #dadada;}
+	.sidebar{position:fixed;height:100%;border-left:0;}
+	.showSidebar .sidebar{border-right:1px solid #dadada;}
+
+	&.showMessageBar{padding-top:35px;
+		.messageBar{position:fixed;top:0;width:100%;z-index:100;}
+	}
+
+	.layout{width:100% !important;min-width:0;}
+
+	.ao-popup-overlay{box-shadow: 0 0 20px 0 rgba(0,0,0,.2);}
+
+	#exposeMask{background:rgb(255,255,255) !important;}
+
+	// View Dataset
+	&.viewDataset{
+
+	}
+
+	// View Data Stream
+	&.viewDataStream{
+
+	}
+
+	// View Visualization
+	&.viewVisualization{
+		
+	}
+
+}

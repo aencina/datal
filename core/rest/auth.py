@@ -12,7 +12,7 @@ class RestAuthentication(authentication.BaseAuthentication):
             return (
                 AccountAnonymousUser(account, request.auth_manager.language), {
                     'account': account,
-                    'preferences': None,
+                    'preferences': account.get_preferences(),
                     'language': request.auth_manager.language,
                     'microsite_domain': get_domain(account.id),
                 }

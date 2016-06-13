@@ -53,7 +53,7 @@ var DatatableHomeManager = DatatableManager.extend({
         var templ = "<tr id='id_<%= revision.id %>'>";
         
         templ += "<td class='viewInfo'>\
-                <div class='" + className + "'></div><a href='<%= revision.permalink %>' target='_blank'><strong><%= revision.title %></strong> </a> <% if(revision.account_name){ %> <span class='sep'> | </span> <%= revision.account_name %> <% } %> <span class='sep'> | </span>  <%= revision.category %></td>";
+                <div class='" + className + "'></div><a href='<%= revision.permalink %>' target='_blank'><strong><%= revision.title %></strong> </a> <% if(revision.account_name){ %> <span class='sep'> | </span> <%= revision.account_name %> <% } %> <span class='sep'> | </span>  <span class='category'><%= revision.category %></span></td>";
            
         var date = new Date(msg.timestamp);
         templ += "<td class='date' data-sort-value='" + date.getTime() + 

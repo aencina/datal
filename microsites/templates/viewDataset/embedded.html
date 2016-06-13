@@ -1,0 +1,17 @@
+{% extends 'viewDataset/index.html' %}
+
+{% load sass_tags compress staticfiles %}
+
+{% block header %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block miniFooter %}{% endblock %}
+
+{% block body_class %}embedded viewDataset{% endblock %}
+
+{% block css_includes %}
+	{% compress css %}
+	<link href="{% sass_src 'microsites/styles/embedded.scss' %}" type="text/css" rel="stylesheet" media="screen"/>
+	{% endcompress %}
+{% endblock %}

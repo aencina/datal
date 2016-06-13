@@ -18,70 +18,100 @@
 		<hgroup>
             <h1 class="clearfix"><strong class="FL">{{dataset.title|capfirst}}</strong></h1>
             <h2>{{dataset.description|capfirst}}</h2>
-            <h4>{% trans 'APP-RESOURCESCREATED-TEXT' %}</h4>
 		</hgroup>
 	</header>
 
 	<!-- Resources List -->
     <div class="resources-list">
         <div id="id_resourcesList">
+
+
             <!-- Table -->
             <table id='dataset_table_list' class='backgrid'>
                 <thead>
                 <tr>
-                    <th>{% trans 'APP-RESOURCE-TEXT' %}</th>
-                    <th>{% trans 'APP-LAST-UPDATE-TEXT' %}</th>
+                    <th class="cell-resource">{% trans 'APP-RESOURCESCREATED-TEXT' %}</th>
+                    <th class="cell-last-update">{% trans 'APP-LAST-UPDATE-TEXT' %}</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Vistas -->
 
-                {% if dataset.datastreams %}
+                {% if not dataset.datastreams and not dataset.visualizations %}
+
+                   <tr>
+                    <td class="cell-resource">
+                      
+                        <h3>{% trans "DATASET-NO-RESOURCES" %}</h3>
+                      
+                    </td>
+                    <td class="cell-last-update"></td>
+                  </tr>
+
+                {% else %}
+
+                  {% if dataset.datastreams %}
+                  <!-- Vistas -->
                     {% for datastream_revision in dataset.datastreams %}
 
                         {# Muestro solamente si es la ultima revision #}
                         {% if datastream_revision.id == datastream_revision.datastream__last_published_revision %}
                         <tr>
-                          <td>
-                            <i class="icon-resources dataview">
-                                <h3><a href="{% url 'viewDataStream.view' id=datastream_revision.datastream__id slug=datastream_revision.datastream__guid %}" title="{{ datastream_revision.datastreami18n__title }}">{{ datastream_revision.datastreami18n__title }}</a></h3>
-                                <p>{{ datastream_revision.datastreami18n__description }}</p>
-                              <div class="api_example">
+                          <td class="cell-resource">
+                            <div>
+                              <i class="icon-resources icon-dataview"></i>
+                              <h3><a href="{% url 'viewDataStream.view' id=datastream_revision.datastream__id slug=datastream_revision.datastream__guid %}" title="{{ datastream_revision.datastreami18n__title }}">{{ datastream_revision.datastreami18n__title }}</a></h3>
+                              <p>{{ datastream_revision.datastreami18n__description }}</p>
+                              <!-- <div class="api_example">
                                 <p>{% trans 'VIEWDS-API-EXAMPLES' %}</p>
                                 <p>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/datastreams/{{datastream_revision.datastream__guid}}/data.json/?auth_key=YOUR_API_KEY</p>
-                              </div>
-                            </i>
+                              </div> -->
+                            </div>
                           </td>
-                          <td>{{ datastream_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}</td>
+                          <td class="cell-last-update">{{ datastream_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}</td>
                         </tr>
                         {% endif %}
                     {% endfor %}
-                {% endif %}
+                  {% endif %}
 
 
-                {% if dataset.visualizations %}
+                  {% if dataset.visualizations %}
+                  <!-- Visualizaciones -->
                     {% for visualizations_revision in dataset.visualizations %}
                         {# Muestro solamente si es la ultima revision #}
                         {% if visualizations_revision.id == visualizations_revision.visualization__last_published_revision %}
                         <tr>
-                          <td>
-                            <i class="icon-resources visualization">
-                                <h3><a href="{% url 'chart_manager.view' id=visualizations_revision.visualization__id slug=visualizations_revision.visualization__guid %}" title="{{ visualizations_revision.visualizationi18n__title }}">{{ visualizations_revision.visualizationi18n__title }}</a></h3>
-                                <p>{{ visualizations_revision.visualizationi18n__description }}</p>
-                              <div class="api_example">
+                          <td class="cell-resource">
+                            <div>
+                              <i class="icon-resources icon-visualization"></i>
+                              <h3><a href="{% url 'chart_manager.view' id=visualizations_revision.visualization__id slug=visualizations_revision.visualization__guid %}" title="{{ visualizations_revision.visualizationi18n__title }}">{{ visualizations_revision.visualizationi18n__title }}</a></h3>
+                              <p>{{ visualizations_revision.visualizationi18n__description }}</p>
+                              <!-- <div class="api_example">
                                 <p>{% trans 'VIEWDS-API-EXAMPLES' %}</p>
                                 <p>{{settings.APIPROTOCOL}}://{{preferences.account_api_domain}}/api/v2/visualizations/{{visualizations_revision.visualization__guid}}/?auth_key=YOUR_API_KEY</p>
-                              </div>
-                            </i>
+                              </div> -->
+                            </div>
                           </td>
-                          <td>{{ visualizations_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}</td>
+                          <td class="cell-last-update">{{ visualizations_revision.modified_at|date:'F d, Y, h:i A'|capfirst }}</td>
                         </tr>
 
                         {% endif %}
                     {% endfor %}
+                  {% endif %}
+
                 {% endif %}
                 </tbody>
               </table>
+
         </div>
+
+        {% comment %}
+        {% if dataset.impl_type == impl_choices.KML %}
+          <div id='kmlmap' data-endpoint="{{dataset.end_point_full_url}}" style="height:400px">
+          
+          </div>
+          
+        {% endif %}
+        {% endcomment %}
     </div>
+
 </div>

@@ -27,10 +27,11 @@ class RestDataStreamViewSet(ResourceViewSet):
         if format == 'grid':
             return self.engine_call( request, 'invoke',
                 form_class=UpdateGridRequestForm,
-                serialize=False)    
+                serialize=False, limit=True)    
         return self.engine_call( request, 'invoke', 
             form_class=DatastreamRequestForm,
-            serialize=False)
+            serialize=False,
+            limit=format in ['json', 'pjson', 'ajson', 'jsonp'] or not format)
 
     @list_route(methods=['get', 'post'])
     def sample(self, request, format=None, *args, **kwargs):

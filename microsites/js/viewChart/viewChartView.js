@@ -291,7 +291,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		var heightContainer = String(theContainer),
 			tabsHeight = parseFloat( $('.tabs').height() ),
 			otherHeight = theHeight,
-			minHeight = tabsHeight - otherHeight;
+			minHeight = 500;
 
 		$(heightContainer).css('min-height', minHeight+ 'px');
 
@@ -434,7 +434,12 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			$miniFooterJunar = $('.miniFooterJunar');
 
 		//Calcula el alto de los headers
-		var otherHeights = $mainHeader.outerHeight(true) + $chartHeader.outerHeight(true) + $miniFooterJunar.height();
+		var otherHeights = 	$mainHeader.outerHeight(true) 
+							+ $chartHeader.outerHeight(true) 
+							+ $miniFooterJunar.height() 
+							+ parseFloat( $('.dataTable .data').css('padding-top').split('px')[0] ) 
+							+ parseFloat( $('.dataTable .data').css('padding-bottom').split('px')[0] );
+							//+ 14; // Fix perfection
 
 		//Ajusta overflow si se está mostrando el sidebar		
 		if( $('#id_columns').hasClass('showSidebar') ){
@@ -442,12 +447,12 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		}
 
 		//Calcula el alto que deberá tener el contenedor del chart
-		var height = this.$window.height() - otherHeights,
-			tabsHeight = this.$el.find('#id_wrapper .tabs').height() - $chartHeader.outerHeight(true);
+		var height = this.$window.height() - otherHeights;
+		var tabsHeight = this.$el.find('#id_wrapper .tabs').height() - $chartHeader.outerHeight(true);
 
 		// Min height para que no sea mas chico que las tabs
-		if( height < tabsHeight ){
-			height = tabsHeight;
+		if( height < 500 ){
+			height = 500;
 		}
 
 		this.chartView.$el.css({

@@ -368,6 +368,11 @@ def create_categories(request):
     if form.is_valid():
         auth_manager = request.auth_manager
         category_name = form.cleaned_data['name']
+
+        # limpiamos categoria de caracteres especiales
+        cleaner = re.compile('([^\s\w]|_)+', re.UNICODE)
+        category_name = cleaner.sub("", category_name)
+
         # check for duplicates in this account
         duplicated = CategoryI18n.objects.filter(name=category_name, category__account__id=auth_manager.account_id)
         if len(duplicated) > 0:

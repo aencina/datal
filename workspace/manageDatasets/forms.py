@@ -19,6 +19,9 @@ from core.plugins_point import DatalPluginPoint
 
 logger = logging.getLogger(__name__)
 
+class ChoiceFieldNoValidation(forms.ChoiceField):
+    def validate(self, value):
+        pass
 
 class RequestFileForm(forms.Form):
     dataset_revision_id = forms.IntegerField(required=True)
@@ -132,7 +135,7 @@ class DatasetForm(forms.Form):
     )
 
     # Frecuency
-    frequency = forms.ChoiceField(
+    frequency = ChoiceFieldNoValidation(
         required=False,
         choices=choices.ODATA_FREQUENCY,
         label=ugettext_lazy('APP-FREQUENCY-TEXT'),
@@ -313,6 +316,9 @@ class WebserviceForm(DatasetForm):
         self.param_formset = data is None and WebserviceParamFormSet(prefix='params') or WebserviceParamFormSet(data, prefix='params')
 
         self.fields['impl_type'].choices = kwargs.get('impl_type_choices', choices.WEBSERVICE_IMPLEMENTATION_CHOICES)
+
+
+        self.fields['frequency'].choices = choices.ODATA_FREQUENCY + [("other", ugettext_lazy('APP-OTHER-TEXT'))]
 
     def is_valid(self):
 

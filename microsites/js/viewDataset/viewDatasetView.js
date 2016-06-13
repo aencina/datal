@@ -22,6 +22,8 @@ var viewDatasetView = Backbone.View.extend({
 		// Set resources list height
 		this.setResourcesListHeight();
 
+        this.initMap()
+
 	},
 	
 	render: function(){
@@ -56,6 +58,21 @@ var viewDatasetView = Backbone.View.extend({
 	  $('.tabs .sidebarIcon').removeClass('active');
 	  $('#id_columns').removeClass('showSidebar');
 	},
+
+    initMap: function() {
+      var $obj = $("#kmlmap")
+      if ($obj.length > 0) {
+          var map = new google.maps.Map($obj.get(0), {
+            zoom: 11,
+            center: {lat: 41.876, lng: -87.624}
+          });
+
+          var ctaLayer = new google.maps.KmlLayer({
+            url: $obj.data('endpoint'),
+            map: map
+          });
+      }
+    },
 	
 	initInfoSidebar: function(){
 
@@ -83,7 +100,8 @@ var viewDatasetView = Backbone.View.extend({
 		var heightContainer = String(theContainer),
   		tabsHeight = parseFloat( $('.tabs').height() ),
 			otherHeight = theHeight,
-			minHeight = tabsHeight - otherHeight;
+			//minHeight = tabsHeight - otherHeight;
+			minHeight = 500;
 
 	  $(heightContainer).css('min-height', minHeight+ 'px');
 
@@ -98,7 +116,8 @@ var viewDatasetView = Backbone.View.extend({
 		    // - parseFloat( $('.brandingFooter').height() )
 		    - parseFloat( $('.miniFooterJunar').height() );
 
-		  $(heightContainer).height(height);
+		  //$(heightContainer).height(height);
+		  $(heightContainer).css({'min-height':height + 'px'});
 
   	}).resize();
 

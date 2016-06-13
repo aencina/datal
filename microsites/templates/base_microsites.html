@@ -22,42 +22,53 @@
 	<script type="text/javascript" src="/js_core/libs/jquery_tools/jquery.tools.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/modules/base.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/modules/header.js?id={{settings.VERSION_JS_CSS}}"></script>
+	
+	{% comment %}
 	<script type="text/javascript" src="/js_microsites/analytics_manager/events.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/analytics_manager/listener.js?id={{settings.VERSION_JS_CSS}}"></script>
 	<script type="text/javascript" src="/js_microsites/analytics_manager/queryList.js?id={{settings.VERSION_JS_CSS}}"></script>
+	{% endcomment %}
+
 {% endblock %}
 
 {% block facebook %}
-    <meta property="og:description" content="{{ settings.APPLICATION_DETAILS.name }} delivers the easiest to use, cloud-based, Open Data Platform that enables data-rich organizations to achieve greater transparency, citizen engagement, efficiencies and innovation." />
-    <meta property="og:image" content="{% static 'core/images/common/im_defaultAvatar_90x90.jpg' %}" />
+	<meta property="og:description" content="{{ settings.APPLICATION_DETAILS.name }} delivers the easiest to use, cloud-based, Open Data Platform that enables data-rich organizations to achieve greater transparency, citizen engagement, efficiencies and innovation." />
+	<meta property="og:image" content="{% static 'core/images/common/im_defaultAvatar_90x90.jpg' %}" />
 {% endblock %}
 
 {% block body %}
 	<div class="layout">
 		<div class="layoutInner clearfix">
+
 			{% block header %}
-	    	<!-- HEADER -->
-	    	{% include "header_microsites.html" %}
+				<!-- HEADER -->
+				{% include "header_microsites.html" %}
 			{% endblock %}
 
 			{# Used in viewDataStream / viewChart #}
 			{% block messageBar %}{% endblock %}
 		
-	    <!-- CONTENT -->
-	    <div class="content">
-	      <div class="contentInner">
-	        {% block content %}  {% endblock %}
-	      </div>
-	    </div>
+			<!-- CONTENT -->
+			<div class="content">
+			  <div class="contentInner">
+				{% block content %}{% endblock %}
+			  </div>
+			</div>
 
-	    <!-- FOOTER -->
-	    {% include "footer_microsites.html" %}
+			{% block footer %}
+				<!-- FOOTER -->
+				{% include "footer_microsites.html" %}
+			{% endblock %}
+
 			<div id="analytics_container" style="display:none;"></div>
+
 		</div>
 	</div>
 	
 	<!-- MINI FOOTER JUNAR -->
-	{% include "miniFooterJunar.html" %}
+	{% block miniFooter %}
+		{% include "miniFooterJunar.html" %}
+	{% endblock %}
 
 {% endblock %}
 
@@ -65,48 +76,55 @@
 	
 	<script type="text/javascript">
 		/* <![CDATA[ */
+		
+	{% comment %}
+		
 		{% if ga %}
 	        junar_ga = $.parseJSON('{{ga|safe}}');
 	    {% else %}
 	        junar_ga = [];
 	    {% endif %}
+
+	{% endcomment %}
+
 	    {% if tracking_id %}
 	        tracking_id = '{{tracking_id}}';
 	    {% endif %}
+
 		csrfmiddlewaretoken = '{{ csrf_token }}';
 		
 		{% if auth_manager %}
-		    var authManager = new AuthManager({
-		        id: {{auth_manager.id|default_if_none:"null"}}
-		        , nick: "{{auth_manager.nick}}"
-		        , roles: [{% for role in auth_manager.roles %}'{{role}}'{%if not forloop.last%}, {%endif%}{% endfor %}]
-		        , privileges: [{% for privilege in auth_manager.privileges %}'{{privilege}}'{%if not forloop.last%}, {%endif%}{% endfor %}]
-		        , isAuthenticated: {{ auth_manager.is_authenticated|lower }}
-		    });
-	    {% endif %}
+			var authManager = new AuthManager({
+				id: {{auth_manager.id|default_if_none:"null"}}
+				, nick: "{{auth_manager.nick}}"
+				, roles: [{% for role in auth_manager.roles %}'{{role}}'{%if not forloop.last%}, {%endif%}{% endfor %}]
+				, privileges: [{% for privilege in auth_manager.privileges %}'{{privilege}}'{%if not forloop.last%}, {%endif%}{% endfor %}]
+				, isAuthenticated: {{ auth_manager.is_authenticated|lower }}
+			});
+		{% endif %}
 		
-	    var User    = new Object();
-	    User.id     = "{{user_id}}";
-	    User.nick   = "{{nick}}";
-	    User.roles  = [{% for role in roles %}'{{role}}'{%if not forloop.last%}, {%endif%}{% endfor %}];
+		var User    = new Object();
+		User.id     = "{{user_id}}";
+		User.nick   = "{{nick}}";
+		User.roles  = [{% for role in roles %}'{{role}}'{%if not forloop.last%}, {%endif%}{% endfor %}];
 
-	    function hasRole(pRole){
-	        return (User.roles.indexOf(pRole) > -1);
-	    }
-    
-	    Configuration = {};
-	    Configuration.baseUri = "{{settings.BASE_URI}}";
-	    Configuration.apiUri = "{{settings.API_URI}}";
-	    Configuration.apiKey = "{{settings.PUBLIC_KEY}}";	    
-	    Configuration.language = "{{LANGUAGE_CODE}}";
-	    Configuration.showLastUpdate = {% if not preferences.account_hidelastupdate %}true{% else %}false{% endif %};
-	    {% if preferences.account_embed_powered_by %}
-	    Configuration.embedPoweredBy = ["{{settings.MSPROTOCOL}}://{{preferences.account_domain}}","{{preferences.account_name}}"];
-  		{% else %}
-  		Configuration.embedPoweredBy = ["{{ settings.APPLICATION_DETAILS.website }}","{{ settings.APPLICATION_DETAILS.name }}"];
-  		{% endif %}
+		function hasRole(pRole){
+			return (User.roles.indexOf(pRole) > -1);
+		}
+	
+		Configuration = {};
+		Configuration.baseUri = "{{settings.BASE_URI}}";
+		Configuration.apiUri = "{{settings.API_URI}}";
+		Configuration.apiKey = "{{settings.PUBLIC_KEY}}";	    
+		Configuration.language = "{{LANGUAGE_CODE}}";
+		Configuration.showLastUpdate = {% if not preferences.account_hidelastupdate %}true{% else %}false{% endif %};
+		{% if preferences.account_embed_powered_by %}
+		Configuration.embedPoweredBy = ["{{settings.MSPROTOCOL}}://{{preferences.account_domain}}","{{preferences.account_name}}"];
+		{% else %}
+		Configuration.embedPoweredBy = ["{{ settings.APPLICATION_DETAILS.website }}","{{ settings.APPLICATION_DETAILS.name }}"];
+		{% endif %}
 
-  		Configuration.APPLICATION_DETAILS = {}
+		Configuration.APPLICATION_DETAILS = {}
 			Configuration.APPLICATION_DETAILS.name = "{{ settings.APPLICATION_DETAILS.name }}";
 			Configuration.APPLICATION_DETAILS.website = "{{ settings.APPLICATION_DETAILS.website }}";
 			Configuration.APPLICATION_DETAILS.mail = "{{ settings.APPLICATION_DETAILS.mail }}";
@@ -125,17 +143,16 @@
 
   var _gaq = _gaq || [];
   if (tracking_id == undefined) {
-      var tracking_id = 'UA-15500152-1'
+	  var tracking_id = 'UA-15500152-1'
   }
 
   _gaq.push(['_setAccount', tracking_id]);
-  //_gaq.push(['_setDomainName', 'junar.com']);
   _gaq.push(['_trackPageview']);
  
   (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
  
 </script>

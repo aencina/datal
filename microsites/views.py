@@ -7,6 +7,7 @@ from django.template import TemplateDoesNotExist
 from django.views.generic import TemplateView
 
 from core.models import *
+from core.decorators import datal_cache_page
 from core.daos.datastreams import DataStreamDBDAO
 from core.daos.visualizations import VisualizationDBDAO
 from core.choices import StatusChoices
@@ -14,6 +15,8 @@ from core.http import get_domain_by_request
 from core.shortcuts import render_to_response
 from core.models import AccountAnonymousUser
 
+
+#@datal_cache_page(24*60*60, "pages", "css")
 def get_css(request, url_name, id):
     key = get_key(url_name)
     try:

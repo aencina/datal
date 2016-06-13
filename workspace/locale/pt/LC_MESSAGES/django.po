@@ -2350,7 +2350,7 @@ msgid "APP-OTHER-TEXT"
 msgstr "Other"
 
 msgid "APP-OTHER-FREQUENCY-TEXT"
-msgstr "Please, input the custom update frequency of this dataset."
+msgstr "Please input the custom update frequency using the <a target='_blank' href='http://en.wikipedia.org/wiki/Cron#Format'>cron</a> format."
 
 msgid "APP-CREATE-DATASET-FINISH-SUBTITLE"
 msgstr "Let us know what is your dataset about. Fields with (<span class='required'>*</span>) are mandatory."
@@ -3221,3 +3221,6 @@ msgstr "Abrir o site de dados"
 
 msgid "APP-ACCOUNT-NAME-NOT-VALID"
 msgstr "Invalid organizacion name"
+
+msgid "DSCRE-MAX-FILE-TIP"
+msgstr "Max upload file size: 300 MB"
