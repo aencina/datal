@@ -8,15 +8,13 @@
 	<link rel="canonical" href="{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{% permalink 'datastream' datastream.datastream_id datastream.slug %}" />
 {% endblock %}
 
-{% if preferences.account_enable_sharing %}
-	{% block facebook %}
-		<meta property="og:title" content="{{datastream.title}} &middot; {{preferences.account_page_titles}}" />
-		<meta property="og:description" content="{{ datastream.description }}" />
-		<meta property="og:image" content="{{preferences.account_logo}}" />
-		<meta property="og:type" content="article" />
-		<meta property="og:site_name" content="{{preferences.account_name}}" />
-	{% endblock %}
-{% endif %}
+{% block facebook %}
+	<meta property="og:title" content="{{datastream.title}} &middot; {{preferences.account_page_titles}}" />
+	<meta property="og:description" content="{{ datastream.description }}" />
+	<meta property="og:image" content="{{preferences.account_logo}}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:site_name" content="{{preferences.account_name}}" />
+{% endblock %}
 
 {% block meta %}
 {% compress css %}
