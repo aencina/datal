@@ -504,9 +504,18 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			// Get locale from lang attribute un <html>
 			var local = $('html').attr('lang');
 
-			//(?) if I use "en" doesn't work, I must use "" for "en"
-			if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
-			if (local === "es" || local.indexOf("es_")) local = "es";
+			console.log(local);
+
+			console.log(local.indexOf("es-"));
+
+			// If spanish
+			if(local === "es" || local.indexOf("es-") != -1 || local.indexOf("es_") != -1){
+				local = "es";
+			// else englishs
+			}else{
+				//(?) if I use "en" doesn't work, I must use "" for "en"
+				local = "";
+			}
 
 			dateFormatted = $.datepicker.formatDate(dFormat, dt, {
 				dayNamesShort: $.datepicker.regional[local].dayNamesShort,
@@ -514,6 +523,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 				monthNamesShort: $.datepicker.regional[local].monthNamesShort,
 				monthNames: $.datepicker.regional[local].monthNames
 			});
+
+			console.log(local);
 
 			timeFormatted = $.datepicker.formatTime(tFormat, dt);
 
