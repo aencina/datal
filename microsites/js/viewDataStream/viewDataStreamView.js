@@ -361,9 +361,7 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 
 		if( !_.isUndefined( timestamp ) ){
 
-			var dFormat = 'MM dd, yy',
-				tFormat = 'hh:mm TT',
-				dt;
+			var dFormat = 'MM dd, yy';
 
 			// sometimes are seconds, sometimes miliseconds
 			if(timestamp < 100000000000){
@@ -377,8 +375,6 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 				dt = new Date(timestamp);
 			}			
 
-			// Set timezone
-			dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
 
 			// Get locale from lang attribute un <html>
 			var local = $('html').attr('lang');
@@ -399,13 +395,12 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 				monthNames: $.datepicker.regional[local].monthNames
 			});
 
-			timeFormatted = $.datepicker.formatTime(tFormat, dt);
-
-			timestamp = dateFormatted + ', ' + timeFormatted;
+			//timeFormatted = $.datepicker.formatTime(tFormat, dt);
+			timeFormatted = ('0' + dt.getUTCHours()).slice(-2)+":"+('0' + dt.getUTCMinutes()).slice(-2)+" "+('0' + dt.getUTCSeconds()).slice(-2);
 
 			var template = _.template( $("#id_timestampTemplate").html() );
 
-			this.$el.find('#id_lastModified').after( template( {'timestamp': timestamp} ) );
+			this.$el.find('#id_lastModified').after( template( {'timestamp': dateFormatted + ', ' + timeFormatted} ) );
 
 		}
 	}
