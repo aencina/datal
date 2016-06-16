@@ -12,6 +12,7 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 		'click #id_delete': 'onDeleteButtonClicked',
 		'click #id_unpublish': 'onUnpublishButtonClicked',
 		'click #id_approve, #id_reject, #id_publish, #id_sendToReview': 'changeStatus',
+		'click #id_publish_all': 'onPublishAllClicked',
 		"click #id_edit": "onEditButtonClicked",
 	},
 
@@ -68,6 +69,18 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 		}).resize();
 
 	},  
+
+	onPublishAllClicked: function(event){
+       	this.publishChildResources = new Array();
+       	this.publishChildResources.push(this.model);
+       	var affectedResourcesCollection = new AffectedResourcesCollection();
+        var affectedResourcesCollectionPublishView = new AffectedResourcesCollectionPublishItemView({
+            collection: affectedResourcesCollection,
+            models: this.publishChildResources,
+            type: "datastreams",
+            parentView: this
+        });
+    },
 
 	changeStatus: function(event, killemall){
 

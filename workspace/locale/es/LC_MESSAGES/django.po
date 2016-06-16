@@ -3268,3 +3268,18 @@ msgstr "Ir al portal de datos abiertos"
 
 msgid "APP-ACCOUNT-NAME-NOT-VALID"
 msgstr "Nombre de la Organización no válido"
+
+msgid "APP-ACCEPT-AND-PUBLISH-TEXT"
+msgstr "Aceptar & Publicar"
+
+msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TITLE"
+msgstr "Aceptar los hijos de este Conjunto de Datos y Publicar"
+
+msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TEXT"
+msgstr "Los siguientes recursos se van a aprobar automáticamente y después se van a publicar junto con el Conjunto de Datos."
+
+msgid "APP-DATASET-PUBLISHALL-TITLE"
+msgstr "Conjunto de datos y sus hijos publicados."
+
+msgid "APP-DATASET-PUBLISHALL-TEXT"
+msgstr "El conjunto de datos y sus hijos sin publicar fueron publicados correctamente."

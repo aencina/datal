@@ -29,6 +29,57 @@ logger = logging.getLogger(__name__)
 
 class DatasetLifeCycleManager(AbstractLifeCycleManager):
     """ Manage a Dataset Life Cycle"""
+    revision_model = DatasetRevision
+    model = Dataset
+    search_model = DatasetSearchDAOFactory
+    dao_model = DatasetDBDAO
+    child_lifecycle_model = DatastreamLifeCycleManager
+    child_type = settings.TYPE_DATASTREAM
+    
+    def __init__(self, user, resource=None, language=None, dataset_id=0, dataset_revision_id=0):
+        super(DatasetLifeCycleManager, self).__init__(user, language)
+        # Internal used resources (optional). You could start by dataset or revision
+
+        try:
+            if type(resource) == Dataset:
+                self.dataset = resource
+                self.dataset_revision = DatasetRevision.objects.select_related().get(pk=self.dataset.last_revision_id)
+            elif type(resource) == DatasetRevision:
+                self.dataset_revision = resource
+                self.dataset=resource.dataset
+            elif dataset_id > 0:
+                self.dataset = Dataset.objects.get(pk=dataset_id)
+                self.dataset_revision = DatasetRevision.objects.select_related().get(pk=self.dataset.last_revision_id)
+            elif dataset_revision_id > 0:
+                self.dataset_revision = DatasetRevision.objects.select_related().get(pk=dataset_revision_id)
+                self.dataset = self.dataset_revision.dataset
+            else:
+                self.dataset_revision = None
+                self.dataset = None
+        except Dataset.DoesNotExist, DatasetRevision.DoesNotExist:
+            raise DatasetNotFoundException()
+
+        if self.dataset and self.dataset_revision:
+            self.dataseti18n = DatasetI18n.objects.get(dataset_revision=self.dataset_revision,
+                                                       language=self.dataset.user.language)
+
+        self.resource=self.dataset
+        self.revision=self.dataset_revision
+
+    def get_children_queryset(self, last=True, publish=False):
+        queryset = DataStreamRevision.objects.filter(
+            dataset=self.dataset.id)
+
+        if last:
+            queryset = queryset.filter(id=F('datastream__last_revision__id'))
+
+        if publish:
+            queryset = queryset.filter(datastream__last_published_revision__isnull=False)
+
+        return queryset
+
+    def get_revisions_queryset(self):
+        return DatasetRevision.objects.filter(dataset=self.dataset.id)
 
     def unpublish(self, killemall=False, allowed_states=UNPUBLISH_ALLOWED_STATES):
         """ Despublica la revision de un dataset
@@ -60,35 +111,6 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
 
         self._log_activity(ActionStreams.UNPUBLISH)
 
-    def __init__(self, user, resource=None, language=None, dataset_id=0, dataset_revision_id=0):
-        super(DatasetLifeCycleManager, self).__init__(user, language)
-        # Internal used resources (optional). You could start by dataset or revision
-
-        try:
-            if type(resource) == Dataset:
-                self.dataset = resource
-                self.dataset_revision = DatasetRevision.objects.select_related().get(pk=self.dataset.last_revision_id)
-            elif type(resource) == DatasetRevision:
-                self.dataset_revision = resource
-                self.dataset=resource.dataset
-            elif dataset_id > 0:
-                self.dataset = Dataset.objects.get(pk=dataset_id)
-                self.dataset_revision = DatasetRevision.objects.select_related().get(pk=self.dataset.last_revision_id)
-            elif dataset_revision_id > 0:
-                self.dataset_revision = DatasetRevision.objects.select_related().get(pk=dataset_revision_id)
-                self.dataset = self.dataset_revision.dataset
-            else:
-                self.dataset_revision = None
-                self.dataset = None
-        except Dataset.DoesNotExist, DatasetRevision.DoesNotExist:
-            raise DatasetNotFoundException()
-
-        if self.dataset and self.dataset_revision:
-            self.dataseti18n = DatasetI18n.objects.get(dataset_revision=self.dataset_revision,
-                                                       language=self.dataset.user.language)
-
-        self.resource=self.dataset
-        self.revision=self.dataset_revision
 
     def create(self, collect_type='index', allowed_states=CREATE_ALLOWED_STATES, language=None, **fields):
         """ Create a new Dataset
@@ -128,6 +150,9 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             frequency=fields.get('frequency', ''), mbox=fields.get('mbox', ''), tags=fields.get('tags', []),
             sources=fields.get('sources', []), params=fields.get('params', []), impl_details=impl_details)
 
+        self.resource = self.dataset
+        self.revision = self.dataset_revision
+
         self.dataseti18n = DatasetI18n.objects.get(
             dataset_revision=self.dataset_revision,
             language=self.dataset.user.language
@@ -141,66 +166,8 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
         else:
             self._update_last_revisions()
 
+
         return self.dataset_revision
-
-    def publish(self, allowed_states=PUBLISH_ALLOWED_STATES):
-        """ Publica una revision de dataset
-        :param allowed_states:
-        """
-        logger.info('[LifeCycle - Dataset - Publish] Publico Rev. {}.'.format(self.dataset_revision.id))
-        if self.dataset_revision.status not in allowed_states:
-            logger.info('[LifeCycle - Dataset - Edit] Rev. {} El estado {} no esta entre los estados de edicion permitidos.'.format(
-                self.dataset_revision.id, self.dataset_revision.status
-            ))
-            raise IllegalStateException(
-                                    from_state=self.dataset_revision.status,
-                                    to_state=StatusChoices.PUBLISHED,
-                                    allowed_states=allowed_states)
-
-        self.dataset_revision.status = StatusChoices.PUBLISHED
-        self.dataset_revision.save()
-            
-        self._update_last_revisions()
-
-        # si hay DataStreamRevision publicados, no dispara la publicacion en cascada
-        if DataStreamRevision.objects.filter(dataset=self.dataset, last_published_revision__isnull=True).exists():
-            self._publish_childs()
-            
-        search_dao = DatasetSearchDAOFactory().create(self.dataset_revision)
-        search_dao.add()
-
-        self._clean_childs_cache()
-            
-        self._log_activity(ActionStreams.PUBLISH)
-
-    def _publish_childs(self):
-        """ Intenta publicar la ultima revision de los datastreams hijos"""
-
-        with transaction.atomic():
-            datastream_revisions = DataStreamRevision.objects.select_for_update().filter(
-                dataset=self.dataset.id,
-                id=F('datastream__last_revision__id'),
-                status__in=[StatusChoices.APPROVED, StatusChoices.PENDING_REVIEW]
-            )
-            publish_fail = list()
-            for datastream_revision in datastream_revisions:
-                logger.info('[LifeCycle - Dataset - Publish Childs] Dataset {} Publico Datastream Rev. hijo {}.'.format(
-                    self.dataset.id, datastream_revision.id
-                ))
-                try:
-                    DatastreamLifeCycleManager(user=self.user, datastream_revision_id=datastream_revision.id).publish(
-                        allowed_states=[StatusChoices.APPROVED], parent_status=StatusChoices.PUBLISHED
-                    )
-                except IllegalStateException:
-                    # si no tiene ninguna revision publicada, que no lo agregue a la lista de fallas
-                    if datastream_revision.last_published_revision.exists():
-                        publish_fail.append(datastream_revision)
-
-
-            ## Aca deberia ir lo mismo que los ds, pero para las vz?
-
-            if publish_fail:
-                raise ChildNotApprovedException(self.dataset.last_revision, settings.TYPE_DATASTREAM)
 
     def _unpublish_all(self):
         """ Despublica todas las revisiones del dataset y la de todos sus datastreams hijos en cascada """
@@ -249,21 +216,6 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
 
             for datastream_revision in datastreams_revisions:
                 DatastreamLifeCycleManager(self.user, datastream_revision_id=datastream_revision.id).send_to_review()
-
-    def accept(self, allowed_states=ACCEPT_ALLOWED_STATES):
-        """ accept a dataset revision
-        :param allowed_states:
-        """
-        if self.dataset_revision.status != StatusChoices.APPROVED:
-            if self.dataset_revision.status not in allowed_states:
-                raise IllegalStateException(
-                                        from_state=self.dataset_revision.status,
-                                        to_state=StatusChoices.APPROVED,
-                                        allowed_states=allowed_states)
-
-            self.dataset_revision.status = StatusChoices.APPROVED
-            self.dataset_revision.save()
-            self._log_activity(ActionStreams.ACCEPT)
 
     def reject(self, allowed_states=REJECT_ALLOWED_STATES):
         """ reject a dataset revision
@@ -474,38 +426,3 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
                                                                   self.dataset_revision.id, 
                                                                   self.dataseti18n.title,
                                                                   resource_category)
-
-    def _update_last_revisions(self):
-        """ update last_revision_id and last_published_revision_id """
-
-        last_revision_id = DatasetRevision.objects.filter(dataset=self.dataset.id).aggregate(Max('id'))['id__max']
-
-        self.dataset.last_revision_id = last_revision_id
-        if last_revision_id:
-            self.dataset.last_revision = DatasetRevision.objects.get(pk=last_revision_id)
-            last_published_revision_id = DatasetRevision.objects.filter(
-                dataset=self.dataset.id,
-                status=StatusChoices.PUBLISHED).aggregate(Max('id')
-            )['id__max']
-
-            # si hay un last_published_revision_id, dejamos ese como ultimo publicado
-            # además mandamos al indexador esa version que estaba publicada
-            if last_published_revision_id:
-                self.dataset.last_published_revision = DatasetRevision.objects.get(pk=last_published_revision_id)                   
-                search_dao = DatasetSearchDAOFactory().create(self.dataset.last_published_revision)
-                search_dao.add()
-
-                # esto pasa cuando borras un DT rev que no esta publicado
-                # al volver a publicar la ultima rev, se ejecutaba el log_activity
-                # y fallaba porque self.dataset_revision esta en None (porque fue eliminado)
-                # pero ademas, en la actividad se mostraba que se publicaba una revision, que ya estaba publicada
-                if not self.dataset_revision:
-                    self._log_activity(ActionStreams.PUBLISH)
-            else:
-                self.dataset.last_published_revision = None
-
-            self.dataset.save()
-        else:
-            # Si fue eliminado pero falta el commit, evito borrarlo nuevamente
-            if self.dataset.id:
-                self.dataset.delete()

@@ -3276,3 +3276,18 @@ msgstr "Invalid organizacion name"
 
 msgid "DSCRE-MAX-FILE-TIP"
 msgstr "Max upload file size: 300 MB"
+
+msgid "APP-ACCEPT-AND-PUBLISH-TEXT"
+msgstr "Accept & Publish"
+
+msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TITLE"
+msgstr "Accept Dataset childrean and Publish"
+
+msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TEXT"
+msgstr "The following resources will be automatically approved and then published along with this Dataset."
+
+msgid "APP-DATASET-PUBLISHALL-TITLE"
+msgstr "Dataset and children published"
+
+msgid "APP-DATASET-PUBLISHALL-TEXT"
+msgstr "The dataset and it's unpublished children have been published."

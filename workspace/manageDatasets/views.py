@@ -129,6 +129,12 @@ def view(request, revision_id):
     except DatasetRevision.DoesNotExist:
         raise DatasetNotFoundException()
 
+    try:
+        lifecycle = DatasetLifeCycleManager(user=request.user, dataset_revision_id=revision_id)
+        dataset['can_publish_bof_children'] = lifecycle.can_publish_bof_children()
+    except Exception as e:
+        pass
+
     datastream_impl_not_valid_choices = DATASTREAM_IMPL_NOT_VALID_CHOICES
     return render_to_response('viewDataset/index.html', locals())
 
@@ -431,10 +437,10 @@ def change_status(request, dataset_revision_id=None):
             dataset_revision_id=dataset_revision_id
         )
         action = request.POST.get('action')
-        action = 'accept' if action == 'approve'else action # fix para poder llamar dinamicamente al metodo de lifecycle
+        action = 'accept' if action == 'approve' else action # fix para poder llamar dinamicamente al metodo de lifecycle
         killemall = True if request.POST.get('killemall', False) == 'true' else False
 
-        if action not in ['accept', 'reject', 'publish', 'unpublish', 'send_to_review']:
+        if action not in ['accept', 'reject', 'publish', 'unpublish', 'send_to_review', 'publish_all']:
             raise NoStatusProvidedException()
 
         if action == 'unpublish':
@@ -442,6 +448,8 @@ def change_status(request, dataset_revision_id=None):
             # Signal
             dataset_unpublished.send_robust(sender='change_status_view', id=lifecycle.dataset.id,
                                             rev_id=lifecycle.dataset_revision.id)
+        elif action == 'publish_all':
+            getattr(lifecycle, 'publish')(accept_children=True)
         else:
             getattr(lifecycle, action)()
 
@@ -463,6 +471,9 @@ def change_status(request, dataset_revision_id=None):
         elif action == 'send_to_review':
             title= ugettext('APP-DATASET-SENDTOREVIEW-TITLE'),
             description= ugettext('APP-DATASET-SENDTOREVIEW-TEXT')
+        elif action == 'publish_all':
+            title= ugettext('APP-DATASET-PUBLISHALL-TITLE'),
+            description= ugettext('APP-DATASET-PUBLISHALL-TEXT')
 
         response = dict(
             status='ok',

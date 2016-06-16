@@ -82,3 +82,21 @@
 
 <!-- Parameters overlay -->
 {% include "overlays/parameters.html" %}
+
+<!-- Accept and publis datastream Confirm Overlay -->
+{% overlay id_confirmPublishDatastream %}
+<div class="In clearfix">
+   <h4>{% trans 'APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TITLE' %}</h4>
+   <div class="ov-content">
+      <p class="text center">{% trans 'APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TEXT' %}</p>
+      <ul class="ul-overlay" id="id_affectedResourcesList"></ul>
+   </div>
+   <div class="ov-bottom">
+      <div class="ov-buttons">
+         <a class="button cancel" title="{% trans 'APP-OVERLAY-CANCEL' %}">{% trans 'APP-OVERLAY-CANCEL' %}</a>
+         <a id="id_publishRelatedResources" class="button primary" title="{% trans 'APP-ACCEPT-AND-PUBLISH-TEXT' %}" data-action="publish_all">{% trans 'APP-ACCEPT-AND-PUBLISH-TEXT' %}</a>
+      </div>
+   </div>
+</div>
+{% endoverlay %}
+

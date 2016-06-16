@@ -7,7 +7,8 @@ var datasetView = Backbone.Epoxy.View.extend({
 
 	events: {
 		'click #id_delete': 'onDeleteButtonClicked',
-		'click #id_approve, #id_reject, #id_publish, #id_sendToReview': 'changeStatus',
+		'click #id_approve, #id_reject, #id_sendToReview, #id_publish': 'changeStatus',
+		'click #id_publish_all': 'onPublishAllClicked',
 		'click #id_unpublish': 'onUnpublishButtonClicked'
 	},
 
@@ -40,6 +41,18 @@ var datasetView = Backbone.Epoxy.View.extend({
 				models: this.deleteListResources,
 				type: "datastreams"
 		});
+	},
+
+	onPublishAllClicked: function(event){
+		this.publishChildResources = new Array();
+		this.publishChildResources.push(this.model);
+		var affectedResourcesCollection = new AffectedResourcesCollection();
+        var affectedResourcesCollectionPublishView = new AffectedResourcesCollectionPublishItemView({
+            collection: affectedResourcesCollection,
+            models: this.publishChildResources,
+            type: "datastreams",
+            parentView: this
+        });
 	},
 
 	onUnpublishButtonClicked: function(){
@@ -115,13 +128,8 @@ var datasetView = Backbone.Epoxy.View.extend({
 
 			},
 			error:function(response){
-
-				datalEvents.trigger('datal:application-error', response);
-
-			},
-			complete:function(response){
-				// Hide Loading
 				$("#ajax_loading_overlay").hide();
+				datalEvents.trigger('datal:application-error', response);
 			}
 		});
 
