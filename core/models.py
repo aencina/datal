@@ -318,7 +318,7 @@ class DataStream(GuidModel):
         db_table = 'ao_datastreams'
 
     def __unicode__(self):
-        return self.guid
+        return "DS:%s:%s" %(self.id,self.guid)
 
     # Returns the current revision
     @property
@@ -370,7 +370,7 @@ class DataStreamRevision(RevisionModel):
         get_latest_by = 'created_at'
 
     def __unicode__(self):
-        return unicode(self.id)
+        return u"DS_REV:%s" %(self.id)
 
     def is_pending_review(self):
         return True if self.status == choices.StatusChoices.PENDING_REVIEW else False
@@ -511,7 +511,7 @@ class DatastreamI18n(models.Model):
         db_table = 'ao_datastream_i18n'
 
     def __unicode__(self):
-        return self.title
+        return u"DS_I18N:%s:%s" %(self.id, self.title)
 
     def update(self, changed_fields, **fields):
         if changed_fields:
@@ -560,7 +560,7 @@ class Dataset(GuidModel):
         db_table = 'ao_datasets'
 
     def __unicode__(self):
-        return unicode(self.id)
+        return u"DT:%s:%s" %(self.id, self.guid)
 
     @property
     def current(self):
@@ -599,21 +599,23 @@ class DatasetRevision(RevisionModel):
         get_latest_by = 'created_at'
 
     def __unicode__(self):
-        return  unicode(self.id)
+        return u"DT_REV:%s:%s" %(self.id, self.impl_type)
 
     def get_endpoint_full_url(self):
-        if settings.USE_DATASTORE == 'sftp':
-            # We MUST rewrite all file storage logic very SOON
-            return '{}/{}/{}'.format(
-                settings.SFTP_BASE_URL,
-                settings.AWS_BUCKET_NAME,
-                self.end_point.replace('file://', '')
-            )
+        if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:
+            content_disposition = u'attachment; filename="{0}"'.format(self.filename)
+            return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
+                {'response-content-disposition': content_disposition.encode("utf-8", errors="ignore")})
+        else:
+            return self.end_point
 
-        if settings.USE_DATASTORE == 's3':
-            return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''))
+    def is_last_published_revision(self):
+        return (self.dataset and self.dataset.last_published_revision and 
+            self.dataset.last_published_revision_id == self.id)
 
-        return self.end_point
+    def is_last_revision(self):
+        return (self.dataset and self.dataset.last_revision and 
+            self.dataset.last_revision_id == self.id)
 
     def is_pending_review(self):
         return True if self.status == choices.StatusChoices.PENDING_REVIEW else False
@@ -723,7 +725,7 @@ class DatasetI18n(models.Model):
         db_table = 'ao_dataset_i18n'
 
     def __unicode__(self):
-        return self.title
+        return u"DT_I18N:%s:%s" %(self.id, self.title)
 
     def update(self, changed_fields, **fields):
         if 'title' in changed_fields: self.title = fields['title']
@@ -746,7 +748,7 @@ class Visualization(GuidModel):
         db_table = 'ao_visualizations'
 
     def __unicode__(self):
-        return  unicode(self.id)
+        return u"VZ:%s:%s" %(self.id, self.guid)
 
     # Returns the current revision
     @property
@@ -779,7 +781,7 @@ class VisualizationRevision(RevisionModel):
         get_latest_by = 'created_at'
 
     def __unicode__(self):
-        return unicode(self.id)
+        return u"VZ_REV:%s" %(self.id)
 
     def get_guid(self):
         return self.visualization.guid
@@ -826,8 +828,7 @@ class VisualizationI18n(models.Model):
         db_table = 'ao_visualizations_i18n'
 
     def __unicode__(self):
-        return self.title
-
+        return u"VZ_I18N:%s:%s" %(self.id,self.title)
 
 class Category(models.Model):
     account = models.ForeignKey('Account', null=True)
@@ -837,7 +838,7 @@ class Category(models.Model):
         db_table = 'ao_categories'
 
     def __unicode__(self):
-        return unicode(self.id)
+        return u"CAT:%s" %(self.id)
 
 
 class CategoryI18n(models.Model):
@@ -852,7 +853,7 @@ class CategoryI18n(models.Model):
         db_table = 'ao_categories_i18n'
 
     def __unicode__(self):
-        return self.name
+        return u"CAT_I18N:%s:%s" %(self.id,self.slug)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

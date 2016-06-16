@@ -324,13 +324,23 @@ class ElasticsearchIndex():
 
         return False
         
-    def count(self, doc_type=None):
-        """return %d of documents in index, doc_type (opt) filter this document type"""
+    def count(self, account_id, doc_type=None):
+        """return %d of documents in index, doc_type (opt) filter this document type and account_id"""
+
+        body={
+            "query":{
+                "bool": {
+                    "must": [
+                        {"match": { "account_id": account_id } },
+                    ]
+                }
+            }
+        }
 
         if doc_type:
-            return self.es.count(index=settings.SEARCH_INDEX['index'], doc_type=doc_type)['count']
+            return self.es.count(index=settings.SEARCH_INDEX['index'], body=body, doc_type=doc_type)['count']
         else:
-            return self.es.count(index=settings.SEARCH_INDEX['index'])['count']
+            return self.es.count(index=settings.SEARCH_INDEX['index'], body=body)['count']
         
     def delete_document(self, document):
         """delete by ID"""

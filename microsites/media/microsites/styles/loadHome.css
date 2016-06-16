@@ -55,7 +55,7 @@ body,
 
   /*SECTION INFO*/
   .sectionInfo{border-bottom:1px solid #e0e0e0;padding-bottom:7px;}
-  .sectionInfo h2{font-size:18px;color:#333;font-weight:bold;padding-top:8px;display:inline-block;}
+  .sectionInfo h2{font-size:18px;color:#333;font-weight:bold;padding-top:13px;display:inline-block;}
   .sectionInfo .massive{border-left:1px solid #e0e0e0;padding-left:10px;margin:8px 0 0 10px;display:inline-block;}
   .sectionInfo .massive label{font-size:11px;padding:2px 8px 0 0;}
 
@@ -74,7 +74,7 @@ body,
   .sidebar .filters dd.filter-active{background:none;}  
 
   /*PAGINATION - ITEMS PER PAGE*/
-  .pagination{padding:26px 13px 0 0;background:none;}
+  .pagination{padding:26px 13px 26px 0;background:none;}
   .pagination-pages{height:21px;vertical-align:top;display:inline-block;}
   .itemsPerPage{padding-right:10px;}
   .itemsPerPage label{font-size:11px;padding:3px 8px 0 0;}
@@ -110,8 +110,8 @@ body,
 	#home_filter .optionFilter dd{border:0;}
 	#home_filter .optionFilter dd.row{padding-top:12px;}
 	#home_filter .optionFilter dd label{display:block;padding:10px 7px 5px;font-size:11px;color:#3a3a3a;font-weight:bold;}
-	#home_filter .optionFilter dd select{width:100%;font-size:11px;padding:5px 4px 4px;}
-	#home_filter .optionFilter dd a.button{display:block;text-align:center;margin-top:15px;height:25px;line-height:25px;}
+	#home_filter .optionFilter dd select{width:100%;font-size:11px;}
+	#home_filter .optionFilter dd a.button{display:block;text-align:center;margin-top:15px;height:40px;line-height:40px;padding:0;}
 		
 		/*SHORTER*/
 		#home_filter .optionFilter dd select.shorter{width:112px;}

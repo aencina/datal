@@ -456,7 +456,7 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
         Se quitan los DS en DRAFT del cache
         :return:
         """
-        datastream_revisions = DataStreamRevision.objects.filter(dataset=self.dataset.id, status=StatusChoices.DRAFT)
+        datastream_revisions = DataStreamRevision.objects.filter(dataset=self.dataset.id)
 
         for datastream_revision in datastream_revisions:
             DatastreamLifeCycleManager(self.user, datastream_revision_id=datastream_revision.id).clean_cache()

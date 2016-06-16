@@ -3,42 +3,27 @@ Datal
 =====
 Plataforma de publicación de Datos Abiertos de código abierto bajo licencia BSD 3.
 
+Requerimientos
+--------------
 
-Herramientas
-------------
-
-Vangrant: https://www.vagrantup.com/
-
-VirtualBox: https://www.virtualbox.org/
-
-En Windows también se debe instalar GIT: http://git-scm.com/download/win
-
-Instalacion sin vagrant
------------------------
-
-curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
+Acceso libre a internet, 2 GB de RAM.
 
 
-Instalacion en vagrant
-----------------------
+Instalación
+-----------
 
-Luego de haber clonado el repositorio, dentro del mismo ejecutar:
+El instalador fué testeado en Ubuntu 16.04, próximamente se irán agregando más plataformas.
 
-1. Agregar los siguientes hosts a nuestro archivo de hosts apuntando a localhost. Ejemplo suponiendo que el IP local es 127.0.0.1
+1. Ejecutar como usuario root
+
+
+    curl -o bootstrap_salt.sh -L https://bootstrap.saltstack.com
+    sh bootstrap_salt.sh daily
+    curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
+
+2. Agregar los siguientes hosts a nuestro archivo de hosts apuntando a localhost. Ejemplo suponiendo que el IP local es 127.0.0.1
 
     127.0.0.1 admin.dev api.dev datastore.dev microsite.dev microsites.dev  workspace.dev
-
-2. Iniciar la virtual con el comando:
-
-    vagrant up --provision
-
-3. Iniciar el servicio Web:
-
-    vagrant ssh
-    
-    sudo supervisorctl start uwsgi
-
-4. Para probar la demo, en tu navegador ingresá a http://workspace.dev:8080/
 
 
 Usuarios y claves para acceder a la demo
@@ -49,15 +34,6 @@ Administrador: administrador/administrador
 Editor: editor/editor
 
 Publicador: publicador/publicador
-
-
-Acceso a la virtual
--------------------
-
-
-Para acceder a la virtual via SSH
-
-  vagrant ssh
 
 
 Logs
@@ -76,8 +52,9 @@ Logs
 Actualizacion
 -------------
 
-1. git pull origin master
-2. vagrant provision (si la virtual esta corriendo) o vagrant up --provision (si la virtual esta apagada)
+1. Ejecutar como usuario root
+
+curl -L https://raw.githubusercontent.com/datal-org/datal/master/install.py | python
 
 
 Personalización de aspectos gráficos

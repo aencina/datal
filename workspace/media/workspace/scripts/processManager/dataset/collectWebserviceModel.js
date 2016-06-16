@@ -96,9 +96,17 @@ var CollectWebserviceModel = StepModel.extend({
 			}
 		],
 		frequency: function(value, attr, computedState){
-			if(value === 'other' && $.trim(computedState.frequency_other) === '' ) {
-				return gettext('VALIDATE-REQUIREDFIELD-TEXT');
-			}
+			if(value === 'other') {
+				trim_freq = $.trim(computedState.frequency_other)
+				if (trim_freq === '' ) {
+					return gettext('VALIDATE-REQUIREDFIELD-TEXT');
+				}
+				re = /(\*|[0-5]?[0-9]|\*\/[0-9]+)\s+(\*|1?[0-9]|2[0-3]|\*\/[0-9]+)\s+(\*|[1-2]?[0-9]|3[0-1]|\*\/[0-9]+)\s+(\*|[0-9]|1[0-2]|\*\/[0-9]+|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s+(\*\/[0-9]+|\*|[0-7]|sun|mon|tue|wed|thu|fri|sat)\s*(\*\/[0-9]+|\*|[0-9]+)?/i
+				parsed = re.exec(trim_freq)
+				if (parsed === null) {
+					return gettext('VALIDATE-CRONNOTVALID-TEXT');
+				}
+			} 
 		},
 		signature: {
 			maxLength: 256,

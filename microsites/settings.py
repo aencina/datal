@@ -44,6 +44,8 @@ BASE_URI = 'microsites'
 MEDIA_URI = BASE_URI
 WORKSPACE_URI = 'workspace'
 
+MAX_ROWS_BY_REQUEST=50
+
 BOTS = ['Googlebot', 'AdsBot-Google'] #, 'Googlebot-Mobile', 'Googlebot-Image', 'Mediapartners-Google', 'Slurp', 'YahooSeeker/M1A1-R2D2', 'MSNBot', 'MSNBot-Media', 'MSNBot-NewsBlogs', 'MSNBot-Products', 'MSNBot-Academic', 'Teoma']
 
 STATICFILES_DIRS += ( os.path.join(PROJECT_PATH,'microsites/media/'),)
@@ -70,14 +72,10 @@ except ImportError:
 
 # TODO Esto no deberia ir en salt?
 # Agregamos la config para usar cache por pagina
+CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
 if not DEBUG:
     CACHES['pages']={
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
             'LOCATION': '127.0.0.1:11211',
+            'KEY_FUNCTION': 'core.decorators.datal_make_key',
         }
-else:
-    # disable cache_page
-    CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }
-
-#queda deshabilitado hasta nuevo aviso
-CACHES['pages']={ 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', }

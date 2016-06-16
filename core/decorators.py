@@ -37,17 +37,16 @@ def datal_make_key(key, key_prefix, version):
     """
         sobre escribe el metodo make_key del cache para generar la key, ignorando key
     """
-    # en junar return smart_str(':'.join([key_prefix, str(version), key]))
     return ":".join([str(version), key_prefix])
 
 
-def datal_cache_page(**kwargs):
+#def datal_cache_page(**kwargs):
+def datal_cache_page(ttl, cache_key="default", key_prefix="default"):
     def _cache_page(viewfunc):
         @wraps(viewfunc, assigned=available_attrs(viewfunc))
         def _cache_page(request, *args, **kw):
-            params=str(hash(frozenset(sorted(request.REQUEST.items()))))
-            key_prefix = ":".join([request.path, params])
-            response = cache_page(60, cache='engine', key_prefix=key_prefix)(viewfunc)
+            key= "%s:%s:%s" % ( request.user.account.id, request.path, key_prefix)
+            response = cache_page(ttl, cache=cache_key, key_prefix=key)(viewfunc)
             return response(request, *args, **kw)
         return _cache_page
     return _cache_page

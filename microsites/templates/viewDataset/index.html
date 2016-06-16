@@ -7,26 +7,26 @@
   <link rel="canonical" href="http://{{preferences.account_domain}}{% permalink 'dataset' dataset.dataset_id dataset.slug %}" />
 {% endblock %}
 
-{% if preferences.account_enable_sharing %}
-  {% block facebook %}
+{% block facebook %}
     <meta property="og:title" content="{{dataset.title}} &middot; {{preferences.account_page_titles}}" />
     <meta property="og:description" content="{{ dataset.description }}" />
     <meta property="og:image" content="{{preferences.account_logo}}" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="{{preferences.account_name}}" />
-  {% endblock %}
-{% endif %}
+{% endblock %}
 
 {% block meta %}
 {% compress css %}
 <!-- CSS -->
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'workspace/styles/common.css' %}">
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'core/styles/plugins/jquery.gritter.css' %}" />
+<link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'microsites/styles/detailPage.scss' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewDataStream.css' %}"/>
 <link type="text/css" rel="stylesheet" media="screen" href="{% static 'microsites/styles/viewDataset.css' %}"/>
 {% endcompress %}
 
 <!-- JS LIBS -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
 <script type="text/javascript" src="/js_core/plugins/imagesPreLoader.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.gritter.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/libs/underscore151/underscore-min.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -58,8 +58,9 @@
 <!-- BRANDED JS -->
 <script type="text/javascript" src="{% url 'microsites.get_js' request.resolver_match.url_name preferences.account_id %}?id={{settings.VERSION_JS_CSS}}"></script>
 
-
 {% endblock %}
+
+{% block body_class %}detail_page{% endblock %}
 
 {% block content %}
 
@@ -71,14 +72,14 @@
   
     <div class="columns clearfix" id="id_columns">
 
-      <aside class="sidebar FL transition">
+      <aside class="sidebar FL">
         {% include "viewDataset/sidebarInfo.html" %}
         {% if dataset.notes and preferences.account_enable_notes %}
           {% include "viewDataset/sidebarNotes.html" %}
         {% endif %}
       </aside>
 
-      <section class="section transition">
+      <section class="section">
         {% include "viewDataset/dataTable.html" %}
       </section>
 

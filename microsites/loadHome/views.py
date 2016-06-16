@@ -8,6 +8,7 @@ from core.managers import *
 #from core.shortcuts import render_to_response
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 from core.http import add_domains_to_permalinks
 from microsites.loadHome.forms import QueryDatasetForm
@@ -19,7 +20,9 @@ from core.exceptions import *
 from microsites.exceptions import *
 from core.search.finder import FinderQuerySet
 from core.builders.themes import ThemeBuilder
-from django.views.decorators.cache import cache_page
+#from django.views.decorators.cache import cache_page
+
+from core.decorators import datal_cache_page, cache_page
 import json
 import logging
 
@@ -28,7 +31,7 @@ from core.plugins_point import DatalPluginPoint
 logger = logging.getLogger(__name__)
 
 @require_GET
-@cache_page(60*5, cache='pages')
+#@datal_cache_page(60*5)
 def load(request):
     """
     Shows the microsite's home page
@@ -56,7 +59,8 @@ def load(request):
 
             accounts_ids=data['federated_accounts_ids'] + [account.id]
 
-            queryset = FinderQuerySet(FinderManager(HomeFinder), 
+            finder_manager = FinderManager(HomeFinder)
+            queryset = FinderQuerySet(finder_manager, 
                 max_results=250, account_id=accounts_ids, resource=resources )
 
             paginator = Paginator(queryset, 25)
@@ -76,6 +80,12 @@ def load(request):
             for cat in context['categories']:
                 key = str(cat['id'])
                 context['categories_dict'][key] = cat['name']
+
+            context['format_str'] = {
+                'total': intcomma(finder_manager.finder.count(account.id))
+            }
+            for resource in resources:
+                context['format_str'][resource] = intcomma(finder_manager.finder.count(account.id, resource))
 
             return render_to_response(data['template_path'], context, context_instance=RequestContext(request))
     

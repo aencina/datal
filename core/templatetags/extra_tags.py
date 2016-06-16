@@ -11,6 +11,12 @@ from core.choices import AccountRoles, SOURCE_IMPLEMENTATION_CHOICES, COLLECT_TY
 
 register = template.Library()
 
+@register.filter(name='formatmix')
+@stringfilter
+def formatmix(obj, value):
+    if "%s" in obj:
+        return obj % value['total']
+    return obj % value
 
 @register.filter(name='split')
 @stringfilter

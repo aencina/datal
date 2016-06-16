@@ -27,13 +27,12 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-{% with number=paginator.count|intcomma %}
 <div class="homeContent w960 theme5" id="theme5">
 
     <!-- Breadcrumb -->
     {% if config.breadcrumbSection %}
     <div class="breadcrumb clearfix">
-        {{ config.breadcrumbSection|format:number|safe }}
+        {{ config.breadcrumbSection|formatmix:format_str|safe }}
     </div>
     {% endif %}
 
@@ -49,12 +48,12 @@
                 <article class="welcomeSection relative clearfix{% if config.welcomePopupTitle or config.welcomePopupText or config.welcomePopupFooter %} hasPopup{% endif %}">
                     <header>
                         <hgroup class="absolute">
-                            <h1 class="GM">{{ config.welcomeFirstTitle|format:number|safe }}</h1>
-                            <h2 class="GM">{{ config.welcomeSecondTitle|format:number|safe }}</h2>
+                            <h1 class="GM">{{ config.welcomeFirstTitle|formatmix:format_str|safe }}</h1>
+                            <h2 class="GM">{{ config.welcomeSecondTitle|formatmix:format_str|safe }}</h2>
                         </hgroup>
                     </header>
                     {% if config.welcomeImageUrl %}
-                    <img src="{{ config.welcomeImageUrl }}" alt="{{ config.welcomeFirstTitle|format:number|safe }} {{ config.welcomeSecondTitle|format:number|safe }}" class="FL relative roundedBox15"/>
+                    <img src="{{ config.welcomeImageUrl }}" alt="{{ config.welcomeFirstTitle|formatmix:format_str|safe }} {{ config.welcomeSecondTitle|formatmix:format_str|safe }}" class="FL relative roundedBox15"/>
                     {% endif %}
                 </article>
                 {% endif %}
@@ -75,11 +74,11 @@
                 <!-- Featured section -->
                 <article class="featuredSection">
                     {% if config.featuredLink %}
-                    <a href="{{ config.featuredLink }}" title="{{ config.featuredTitle|format:number|safe }}" class="clearfix" target="_blank">
+                    <a href="{{ config.featuredLink }}" title="{{ config.featuredTitle|formatmix:format_str|safe }}" class="clearfix" target="_blank">
                     {% endif %}
-                        <span class="GB roundedBox15 border-box">{{ config.featuredTitle|format:number|safe }}</span>
+                        <span class="GB roundedBox15 border-box">{{ config.featuredTitle|formatmix:format_str|safe }}</span>
                         {% if config.featuredImageUrl %}
-                        <img src="{{ config.featuredImageUrl }}" alt="{{ config.featuredTitle|format:number|safe }}" class="FL"/>
+                        <img src="{{ config.featuredImageUrl }}" alt="{{ config.featuredTitle|formatmix:format_str|safe }}" class="FL"/>
                         {% endif %}
                     {% if config.featuredLink %}
                     </a>
@@ -111,7 +110,7 @@
 
             {% for button in config.buttonSection %}                    
             <li style="width:{{ config.buttonsPerRowWidth }}%;" class="border-box">
-                <a href="{{ button.btnURL }}" title="{{ button.btnText|format:number|safe }}" style="background-color:{{ button.btnHexColor }};" class="GM roundedBox15" target="_blank"><span><span>{{ button.btnText|format:number|safe }}</span></span></a>
+                <a href="{{ button.btnURL }}" title="{{ button.btnText|formatmix:format_str|safe }}" style="background-color:{{ button.btnHexColor }};" class="GM roundedBox15" target="_blank"><span><span>{{ button.btnText|formatmix:format_str|safe }}</span></span></a>
             </li>
             {% endfor %}
 
@@ -126,11 +125,11 @@
             {% if config.leftBottomSectionLink or config.leftBottomSectionTitle or config.leftBottomSectionImageUrl %}
             <article class="leftBottom bottomSectionBox border-box FL">
                 {% if config.leftBottomSectionLink %}
-                <a href="{{ config.leftBottomSectionLink }}" title="{{ config.leftBottomSectionTitle|format:number|safe }}" class="clearfix" target="_blank">
+                <a href="{{ config.leftBottomSectionLink }}" title="{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}" class="clearfix" target="_blank">
                 {% endif %}
-                    <span class="GB border-box roundedBox15">{{ config.leftBottomSectionTitle|format:number|safe }}</span>
+                    <span class="GB border-box roundedBox15">{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}</span>
                     {% if config.leftBottomSectionImageUrl %}
-                    <img src="{{ config.leftBottomSectionImageUrl }}" alt="{{ config.leftBottomSectionTitle|format:number|safe }}" class="FL"/>
+                    <img src="{{ config.leftBottomSectionImageUrl }}" alt="{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                     {% endif %}
                 {% if config.leftBottomSectionLink %}
                 </a>
@@ -142,11 +141,11 @@
             {% if config.middleBottomSectionLink or config.middleBottomSectionTitle or config.middleBottomSectionImageUrl %}
             <article class="middleBottom bottomSectionBox border-box FL">
                 {% if config.middleBottomSectionLink %}
-                <a href="{{ config.middleBottomSectionLink }}" title="{{ config.middleBottomSectionTitle|format:number|safe }}" class="clearfix" target="_blank">
+                <a href="{{ config.middleBottomSectionLink }}" title="{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}" class="clearfix" target="_blank">
                 {% endif %}
-                    <span class="GB border-box roundedBox15">{{ config.middleBottomSectionTitle|format:number|safe }}</span>
+                    <span class="GB border-box roundedBox15">{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}</span>
                     {% if config.middleBottomSectionImageUrl %}
-                    <img src="{{ config.middleBottomSectionImageUrl }}" alt="{{ config.middleBottomSectionTitle|format:number|safe }}" class="FL"/>
+                    <img src="{{ config.middleBottomSectionImageUrl }}" alt="{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                     {% endif %}
                 {% if config.middleBottomSectionLink %}
                 </a>
@@ -158,11 +157,11 @@
             {% if config.rightBottomSectionLink or config.rightBottomSectionTitle or config.rightBottomSectionImageUrl %}
             <article class="rightBottom bottomSectionBox border-box FL">
                 {% if config.rightBottomSectionLink %}
-                <a href="{{ config.rightBottomSectionLink }}" title="{{ config.rightBottomSectionTitle|format:number|safe }}" class="clearfix" target="_blank">
+                <a href="{{ config.rightBottomSectionLink }}" title="{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}" class="clearfix" target="_blank">
                 {% endif %}
-                    <span class="GB border-box roundedBox15">{{ config.rightBottomSectionTitle|format:number|safe }}</span>
+                    <span class="GB border-box roundedBox15">{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}</span>
                     {% if config.rightBottomSectionImageUrl %}
-                    <img src="{{ config.rightBottomSectionImageUrl }}" alt="{{ config.rightBottomSectionTitle|format:number|safe }}" class="FL"/>
+                    <img src="{{ config.rightBottomSectionImageUrl }}" alt="{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                     {% endif %}
                 {% if config.rightBottomSectionLink %}
                 </a>
@@ -179,7 +178,7 @@
 
             {% for link in config.links %}  
             <li>
-                <a href="{{ link.linkURL }}" title="{{ link.linkText|format:number|safe }}" target="_blank">{{ link.linkText|format:number|safe }}</a>
+                <a href="{{ link.linkURL }}" title="{{ link.linkText|formatmix:format_str|safe }}" target="_blank">{{ link.linkText|formatmix:format_str|safe }}</a>
             </li>
             {% endfor %}
 
@@ -200,7 +199,6 @@ $(document).ready(function(){
     var theme5View = new Theme5View();
 });
 </script>
-{% endwith %}
 {% endblock %}
 
 {% block popupsOverlay %}
@@ -211,10 +209,10 @@ $(document).ready(function(){
         <!-- Welcome popup -->
         {% overlay id_welcomePopup %}
           <div class="In clearfix">
-            <h4>{{ config.welcomePopupTitle|format:number|safe }}</h4>
-            <p>{{ config.welcomePopupText|format:number|safe }}</p>
+            <h4>{{ config.welcomePopupTitle|formatmix:format_str|safe }}</h4>
+            <p>{{ config.welcomePopupText|formatmix:format_str|safe }}</p>
             <footer>
-                <p>{{ config.welcomePopupFooter|format:number|safe }}</p>
+                <p>{{ config.welcomePopupFooter|formatmix:format_str|safe }}</p>
             </footer>
           </div>
         {% endoverlay %}

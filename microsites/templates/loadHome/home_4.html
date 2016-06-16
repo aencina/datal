@@ -18,7 +18,6 @@
 {% endblock %}
 
 {% block themeContent %}
-{% with number=paginator.count|intcomma %}
 <div class="homeContent w960 theme4">
 
     {% if config.coverUrl or config.mainTitle %}
@@ -28,12 +27,12 @@
         <div class="topSection">
             <div class="photoSection" style="background-image:url({{config.coverUrl}});">
               <div class="w960">
-                <h1 class="font-rm">{{config.mainTitle|format:number|safe}}</h1>
+                <h1 class="font-rm">{{config.mainTitle|formatmix:format_str|safe}}</h1>
               </div>
             </div>
         </div>
         {% else %}
-            <h1 class="w960 font-rm" style="padding:30px 0 20px;">{{config.mainTitle|format:number|safe}}</h1>
+            <h1 class="w960 font-rm" style="padding:30px 0 20px;">{{config.mainTitle|formatmix:format_str|safe}}</h1>
         {% endif %}
 
     </div>
@@ -47,7 +46,7 @@
         <!-- COLUMN - Left -->
         <div class="CL FL">
             <div class="homeMainContent placeholder">
-                {{config.mainSection|format:number|safe}}
+                {{config.mainSection|formatmix:format_str|safe}}
             </div>
         </div>
         {% endif %}
@@ -95,5 +94,4 @@
     {% endif %}
     
 </div>
-{% endwith %}
 {% endblock %}

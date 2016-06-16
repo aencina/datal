@@ -12,6 +12,7 @@ from django.db import connection
 
 from datetime import datetime, timedelta, date
 
+from core.primitives import PrimitiveComputer
 from core.utils import slugify
 from core.cache import Cache
 from core.daos.resource import AbstractDataStreamDBDAO
@@ -142,12 +143,20 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             logger.error('[ERROR] DataStreamRev Not exist Revision (query: %s %s %s %s account_id: %s %s)'% (condition, resource_language, category_language, status_condition, user.account.id, last_revision_condition))
             raise
 
-
         tags = datastream_revision.tagdatastream_set.all().values('tag__name', 'tag__status', 'tag__id')
         sources = datastream_revision.sourcedatastream_set.all().values('source__name', 'source__url', 'source__id')
 
         try:
-            parameters = datastream_revision.datastreamparameter_set.all().values('name', 'default', 'position', 'description')
+            parameters = []
+            for parameter in datastream_revision.datastreamparameter_set.all().values(
+                    'name', 'default', 'position', 'description'):
+                parameters.append({
+                    'name': parameter['name'],
+                    'default': PrimitiveComputer().compute(parameter['default']),
+                    'position': parameter['position'],
+                    'description': parameter['description']
+                })
+
         except FieldError, e:
             parameters = []
 
