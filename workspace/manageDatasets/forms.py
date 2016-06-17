@@ -74,7 +74,7 @@ class DatasetForm(forms.Form):
     # Notes
     notes = forms.CharField(
         required=False,
-        max_length=2048,
+        max_length=10000,
         label=ugettext_lazy('APP-NOTES-TEXT'),
         widget=forms.Textarea(attrs={
             'data-bind':'value:notes,events:[\'keyup\']',
