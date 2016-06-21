@@ -1,22 +1,19 @@
+import urllib
+import json
+
 from django.conf import settings
-from django.http import HttpResponse, Http404
 from django.views.decorators.clickjacking import xframe_options_exempt
+
 from core.helpers import RequestProcessor
 from core.choices import ChannelTypes
 from core.models import *
 from core.daos.datastreams import DataStreamDBDAO
 from core.daos.visualizations import VisualizationDBDAO
-from core.http import get_domain_with_protocol
 from core.shortcuts import render_to_response
 from core.daos.visualizations import VisualizationHitsDAO
-from django.template import loader, Context
 from core.v8.factories import AbstractCommandFactory
-from core.exceptions import *
-from microsites.exceptions import *
+from microsites.exceptions import VisualizationRevisionDoesNotExist
 
-
-import urllib
-import json
 
 def view(request, id, slug=None):
     """
@@ -34,7 +31,7 @@ def view(request, id, slug=None):
 
         visualization = visualization_revision['visualization']
 
-        #for datastream sidebar functions (downloads and others)
+        # For datastream sidebar functions (downloads and others)
         datastream = DataStreamDBDAO().get(request.user,
             datastream_revision_id=visualization_revision["datastream_revision_id"]
         )
@@ -81,7 +78,7 @@ def embed(request, guid):
     except:
         return render_to_response('viewChart/embed404.html',{'settings': settings, 'request' : request})
 
-    #VisualizationHitsDAO(visualization_revision.visualization).add(ChannelTypes.WEB)
+    # VisualizationHitsDAO(visualization_revision.visualization).add(ChannelTypes.WEB)
     VisualizationHitsDAO(visualization_revision).add(ChannelTypes.WEB)
 
     width = request.REQUEST.get('width', False) # TODO get default value from somewhere
