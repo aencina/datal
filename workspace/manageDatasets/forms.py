@@ -53,7 +53,7 @@ class DatasetForm(forms.Form):
     description = forms.CharField(
         required=True,
         label=ugettext_lazy('APP-DESCRIPTION-TEXT'),
-        max_length=140,
+        max_length=250,
         widget=forms.TextInput(attrs={
             'data-bind':'value:description,events:[\'keyup\']',
             'tabindex':0
