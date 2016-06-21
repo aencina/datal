@@ -150,6 +150,7 @@ class ElasticsearchFinder(Finder):
                 value=[value]
             filters.append({"terms": {key: value}})
 
+
         query = {
             "query": {
                 "filtered": {
