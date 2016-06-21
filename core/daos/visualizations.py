@@ -2,36 +2,34 @@
 import operator
 import time
 import logging
-import json
 
 from django.db.models import Q, F
 from django.db import connection, IntegrityError
 from django.db.models import Count
-from django.core.serializers.json import DjangoJSONEncoder
+from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.core.exceptions import FieldError
 
 from datetime import datetime, date, timedelta
+
 from core.utils import slugify
-from django.conf import settings
 from core.cache import Cache
 from core.daos.resource import AbstractVisualizationDBDAO
-from core.models import VisualizationRevision, VisualizationHits, VisualizationI18n, Preference, Visualization, Setting
+from core.models import VisualizationRevision, VisualizationHits, VisualizationI18n, Visualization, Setting
 from core.exceptions import SearchIndexNotFoundException
-
+from workspace.exceptions import VisualizationNotFoundException
 from core.lib.elastic import ElasticsearchIndex
-from core.choices import STATUS_CHOICES, StatusChoices, ChannelTypes
+from core.choices import STATUS_CHOICES, StatusChoices
 from core.builders.visualizations import VisualizationImplBuilder
-
-from django.core.urlresolvers import reverse
 from core import helpers
+from core.primitives import PrimitiveComputer
 
-from datetime import date, timedelta
 
 logger = logging.getLogger(__name__)
 
 try:
     from core.lib.searchify import SearchifyIndex
 except ImportError:
-#    logger.warning("ImportError: No module named indextank.client.")
     pass
 
 
@@ -127,7 +125,20 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             'source__url',
             'source__id'
         )
-        parameters = []
+
+        try:
+            parameters = []
+            for parameter in visualization_revision.visualizationparameter_set.all().values(
+                    'name', 'default', 'position', 'description'):
+                parameters.append({
+                    'name': parameter['name'],
+                    'default': PrimitiveComputer().compute(parameter['default']),
+                    'position': parameter['position'],
+                    'description': parameter['description']
+                })
+
+        except FieldError, e:
+            parameters = []
 
         # Get category name
         category = visualization_revision.datastream.last_revision.category.categoryi18n_set.get(language=user.language)

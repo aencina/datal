@@ -175,6 +175,7 @@ $(document).ready(function(){
       publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
       lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
       guid: "{{visualization_revision.guid}}",
+      parameters: {{ visualization_revision.parameters | jsonify }},
 
       // Revisar
       id: "{{ visualization_revision.last_published_revision_id }}",
