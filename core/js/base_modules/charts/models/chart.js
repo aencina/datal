@@ -303,15 +303,16 @@ charts.models.Chart = Backbone.Model.extend({
 
     validateMetadata: function(){
         var validTitle = !_.isEmpty(this.get('title')),
-            validDescription = !_.isEmpty(this.get('description')),
-            validNotes = this.get('notes').length < 2048;
+            validDescription = !_.isEmpty(this.get('description'));
+            //validNotes = this.get('notes').length < 2048;
 
         return {
-                valid: (  validTitle &&  validDescription && validNotes ),
+                //valid: (  validTitle &&  validDescription && validNotes ),
+                valid: (  validTitle &&  validDescription ),
                 fields:{
                     'title':  !validTitle,
                     'description':  !validDescription,
-                    'notes': !validNotes
+                    //'notes': !validNotes
                 }
             };
     },

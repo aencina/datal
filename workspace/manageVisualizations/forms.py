@@ -9,7 +9,7 @@ from core.choices import VISUALIZATION_LIBS, VISUALIZATION_TYPES, VISUALIZATION_
 
 class VisualizationForm(forms.Form):
     title = forms.CharField(max_length=80, label=u'Title', required=True)
-    description = forms.CharField(max_length=140, required=False, label=u'Description')
+    description = forms.CharField(max_length=250, required=False, label=u'Description')
     notes = forms.CharField(required=False, label=u'Note')
     type = forms.ChoiceField(required=True, choices=VISUALIZATION_TYPES)
     chartTemplate = forms.ChoiceField(required=True, choices=VISUALIZATION_TEMPLATES)
