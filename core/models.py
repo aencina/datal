@@ -545,6 +545,27 @@ class DataStreamParameter(models.Model):
         return  unicode(self.id)
 
 
+class VisualizationParameter(models.Model):
+    revision = models.ForeignKey(
+        'VisualizationRevision',
+        verbose_name=ugettext_lazy('MODEL_VISUALIZATION_REVISION_LABEL'),
+        null=True
+    )
+    name = models.CharField(max_length=30, verbose_name=ugettext_lazy('MODEL_NAME_LABEL'))
+    default = models.CharField(max_length=100, verbose_name=ugettext_lazy('MODEL_DEFAULT_LABEL'))
+    position = models.PositiveSmallIntegerField()
+    impl_details = models.TextField(blank=True, verbose_name=ugettext_lazy('MODEL_IMPLEMENTATION_DETAILS_LABEL'))
+    description = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
+
+    class Meta:
+        db_table = 'ao_visualization_parameters'
+        ordering = ['position']
+        unique_together = ("revision", "name")
+
+    def __unicode__(self):
+        return  unicode(self.id)
+
+
 class Dataset(GuidModel):
     user = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), on_delete=models.PROTECT)
     type = models.IntegerField(choices=choices.COLLECT_TYPE_CHOICES)
