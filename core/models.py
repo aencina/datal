@@ -95,10 +95,10 @@ class GuidModel(models.Model):
 
 
 class AccountLevel(models.Model):
-    name        = models.CharField(max_length=30)
-    code        = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
+    code = models.CharField(max_length=30)
     description = models.TextField(blank=True)
-    objects     = managers.AccountLevelManager()
+    objects = managers.AccountLevelManager()
 
     class Meta:
         db_table = 'ao_account_levels'
@@ -503,7 +503,7 @@ class DatastreamI18n(models.Model):
         verbose_name=ugettext_lazy('MODEL_DATASTREAM_REVISION_LABEL')
     )
     title = models.CharField(max_length=80, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
-    description = models.CharField(max_length=140, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
+    description = models.CharField(max_length=250, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
     notes = models.TextField(blank=True, verbose_name=ugettext_lazy('MODEL_NOTE_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
 
@@ -717,7 +717,7 @@ class DatasetI18n(models.Model):
     language = models.CharField(max_length=2, choices=choices.LANGUAGE_CHOICES, verbose_name=ugettext_lazy('MODEL_LANGUAGE_LABEL'))
     dataset_revision = models.ForeignKey('DatasetRevision', verbose_name=ugettext_lazy('MODEL_DATASET_REVISION_LABEL'))
     title = models.CharField(max_length=80, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
-    description = models.CharField(max_length=140, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
+    description = models.CharField(max_length=250, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
     notes = models.TextField(blank=True, verbose_name=ugettext_lazy('MODEL_NOTE_LABEL'))
 
@@ -820,7 +820,7 @@ class VisualizationI18n(models.Model):
     language = models.CharField(max_length=2, choices=choices.LANGUAGE_CHOICES, verbose_name=ugettext_lazy('MODEL_LANGUAGE_LABEL'))
     visualization_revision = models.ForeignKey('VisualizationRevision', verbose_name=ugettext_lazy('MODEL_VISUALIZATION_REVISION_LABEL'))
     title = models.CharField(max_length=80, verbose_name=ugettext_lazy('MODEL_TITLE_LABEL'))
-    description = models.CharField(max_length=140, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
+    description = models.CharField(max_length=250, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
     notes = models.TextField(blank=True, verbose_name=ugettext_lazy('MODEL_NOTE_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
 
