@@ -114,7 +114,7 @@ def filter(request, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE):
 @login_required
 @require_privilege("workspace.can_delete_visualization")
 @requires_review
-@transaction.atomic
+@transaction.commit_on_success
 def remove(request, visualization_revision_id, type="resource"):
     """ remove resource
     :param type:
@@ -155,7 +155,7 @@ def remove(request, visualization_revision_id, type="resource"):
 
 @login_required
 @require_POST
-@transaction.atomic
+@transaction.commit_on_success
 def change_status(request, visualization_revision_id=None):
     """
     Change visualization status
@@ -221,7 +221,7 @@ def change_status(request, visualization_revision_id=None):
 @require_http_methods(['POST','GET'])
 @require_privilege("workspace.can_create_visualization")
 @requires_published_parent()
-@transaction.atomic
+@transaction.commit_on_success
 def create(request):
     
     if request.method == 'GET':
@@ -292,7 +292,7 @@ def view(request, revision_id):
 @require_privilege("workspace.can_edit_datastream")
 @requires_published_parent()
 @requires_review
-@transaction.atomic
+@transaction.commit_on_success
 def edit(request, revision_id=None):
     if request.method == 'GET':
         visualization_rev = VisualizationDBDAO().get(request.user,
