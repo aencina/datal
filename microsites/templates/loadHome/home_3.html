@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block themeContent %}
+{% with number=paginator.count|intcomma %}
 <div class="homeContent w960 theme3">
 
     {% if config.imageUrlCarrousel %}
@@ -41,7 +42,7 @@
             {% endif %}
 
             {% if config.mainSection %}
-                {{config.mainSection|formatmix:format_str|safe}}
+                {{config.mainSection|format:number|safe}}
             {% endif %}
         </div>
     </div>
@@ -53,4 +54,5 @@
     {% endif %}
     
 </div>
+{% endwith %}
 {% endblock %}

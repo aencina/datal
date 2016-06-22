@@ -18,6 +18,7 @@
 {% endblock %}
 
 {% block themeContent %}
+{% with number=paginator.count|intcomma %}
 <div class="homeContent w960 theme0">
 
     {% if config.mainTitle %}
@@ -35,7 +36,7 @@
         <!-- COLUMN - Left -->
         <div class="CL FL">
             <div class="homeMainContent placeholder">
-                {{config.mainSection|formatmix:format_str|safe}}
+                {{config.mainSection|format:number|safe}}
             </div>
         </div>
         {% endif %}
@@ -61,7 +62,7 @@
             <!-- SIDEBAR CONTAINER -->
             <div class="searchContainerContent boxContent">
                 <div class="homeSearchContent placeholder">
-                    {{config.sideBarSection|formatmix:format_str|safe}}
+                    {{config.sideBarSection|format:number|safe}}
                 </div>
             </div>
             {% endif %}
@@ -87,7 +88,7 @@
 
             <div class="placeholder boxContent">
                 <div class="homeFooterLeftContent placeholder">
-                    {{config.leftBottomSection|formatmix:format_str|safe}}
+                    {{config.leftBottomSection|format:number|safe}}
                 </div>
             </div>
 
@@ -100,7 +101,7 @@
 
             <div class="linksContainer boxContent">
                 <div class="homeFooterRightContent placeholder">
-                    {{config.rightBottomSection|formatmix:format_str|safe}}
+                    {{config.rightBottomSection|format:number|safe}}
                 </div>
             </div>
 
@@ -111,4 +112,5 @@
     {% endif %}
     
 </div>
+{% endwith %}
 {% endblock %}
