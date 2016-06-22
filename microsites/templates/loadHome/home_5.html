@@ -33,7 +33,7 @@
     <!-- Breadcrumb -->
     {% if config.breadcrumbSection %}
     <div class="breadcrumb clearfix">
-        {{ config.breadcrumbSection|formatmix:format_str|safe }}
+        {{ config.breadcrumbSection|format:number|safe }}
     </div>
     {% endif %}
 
