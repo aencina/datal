@@ -3269,17 +3269,29 @@ msgstr "Ir al portal de datos abiertos"
 msgid "APP-ACCOUNT-NAME-NOT-VALID"
 msgstr "Nombre de la Organización no válido"
 
-msgid "APP-ACCEPT-AND-PUBLISH-TEXT"
-msgstr "Aceptar & Publicar"
-
 msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TITLE"
-msgstr "Aceptar los hijos de este Conjunto de Datos y Publicar"
+msgstr "Es necesario aceptar los recursos asociados antes de publicar"
 
 msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TEXT"
-msgstr "Los siguientes recursos se van a aprobar automáticamente y después se van a publicar junto con el Conjunto de Datos."
+msgstr "Los siguientes recursos van a ser aceptados y publicados junto con el conjunto de Datos:"
 
 msgid "APP-DATASET-PUBLISHALL-TITLE"
-msgstr "Conjunto de datos y sus hijos publicados."
+msgstr "Todo fue publicado."
 
 msgid "APP-DATASET-PUBLISHALL-TEXT"
-msgstr "El conjunto de datos y sus hijos sin publicar fueron publicados correctamente."
+msgstr "El conjunto de datos y sus recursos asociados fueron publicados correctamente."
+
+msgid "APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TITLE"
+msgstr "Es necesario aceptar las visualizaciones asociadas antes de publicar"
+
+msgid "APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TEXT"
+msgstr "Los siguientes recursos van a ser aceptados y publicados junto con la vista:"
+
+msgid "APP-DATASTREAM-PUBLISHALL-TITLE"
+msgstr "Todo fue publicado."
+
+msgid "APP-DATASTREAM-PUBLISHALL-TEXT"
+msgstr "La vista y sus visualizaciones asociadas fueron publicadas correctamente."
+
+msgid "APP-PUBLISHALL-TEXT"
+msgstr "Publicar todo"

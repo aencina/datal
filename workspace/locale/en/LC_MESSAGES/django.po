@@ -3277,17 +3277,29 @@ msgstr "Invalid organizacion name"
 msgid "DSCRE-MAX-FILE-TIP"
 msgstr "Max upload file size: 300 MB"
 
-msgid "APP-ACCEPT-AND-PUBLISH-TEXT"
-msgstr "Accept & Publish"
-
 msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TITLE"
-msgstr "Accept Dataset childrean and Publish"
+msgstr "You need to accept the associated resources before publishing"
 
 msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TEXT"
-msgstr "The following resources will be automatically approved and then published along with this Dataset."
+msgstr "The following resources will be accepted and published together with this Dataset:"
 
 msgid "APP-DATASET-PUBLISHALL-TITLE"
-msgstr "Dataset and children published"
+msgstr "Everything was published."
 
 msgid "APP-DATASET-PUBLISHALL-TEXT"
-msgstr "The dataset and it's unpublished children have been published."
+msgstr "The dataset and its associated resources were published correctly."
+
+msgid "APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TITLE"
+msgstr "You need to accept the associated Visualizations before publishing"
+
+msgid "APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TEXT"
+msgstr "The following resources will be accepted and published together with this Data View:"
+
+msgid "APP-DATASTREAM-PUBLISHALL-TITLE"
+msgstr "Everything was published."
+
+msgid "APP-DATASTREAM-PUBLISHALL-TEXT"
+msgstr "The Data View and its associated visualizations were published correctly."
+
+msgid "APP-PUBLISHALL-TEXT"
+msgstr "Publish all"

@@ -92,7 +92,7 @@
 .create .formContent .row label{line-height:inherit;height:inherit;color:$form-label-color;}
 .create .formContent .row p.has-error{clear:both;float:left;}
 .create .formContent .row textarea{width:100%;}
-.create .formContent .row .nicEdit-main{font-size:14px;padding:5px;width:100% !important;}
+.create .formContent .row .nicEdit-main{font-size:14px;padding:5px;width:100% !important;overflow:auto !important;margin:0 !important;}
 .create .formContent .row .textarea{background:#fff;border:1px solid #e2e0e0;width:100% !important;}
 .create .formContent .row .textarea > div{width:100% !important;}
 .create .formContent .row .textarea > div,
