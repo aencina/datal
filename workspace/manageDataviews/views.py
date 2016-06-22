@@ -157,13 +157,13 @@ def retrieve_childs(request):
         list_result.append(associated_visualization)
 
     dump = json.dumps(list_result, cls=DjangoJSONEncoder)
-    return HttpResponse(dump, mimetype="application/json")
+    return HttpResponse(dump, content_type="application/json")
 
 
 @login_required
 @require_privilege("workspace.can_delete_datastream")
 @requires_review
-@transaction.commit_on_success
+@transaction.atomic
 def remove(request, datastream_revision_id, type="resource"):
     """ remove resource
     :param type:
@@ -208,7 +208,7 @@ def remove(request, datastream_revision_id, type="resource"):
 @require_privilege("workspace.can_create_datastream")
 @requires_dataset()
 @requires_published_parent()
-@transaction.commit_on_success
+@transaction.atomic
 def create(request):
     auth_manager = request.auth_manager
     if request.method == 'POST':
@@ -285,7 +285,7 @@ def create(request):
 @require_privilege("workspace.can_edit_datastream")
 @requires_published_parent()
 @requires_review
-@transaction.commit_on_success
+@transaction.atomic
 def edit(request, datastream_revision_id=None):
     if request.method == 'GET':
         account_id = request.auth_manager.account_id
@@ -339,7 +339,7 @@ def edit(request, datastream_revision_id=None):
 
 @login_required
 @require_POST
-@transaction.commit_on_success
+@transaction.atomic
 def change_status(request, datastream_revision_id=None):
     """
     Change dataview status
