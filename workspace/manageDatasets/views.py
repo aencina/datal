@@ -238,7 +238,7 @@ def get_filters_json(request):
 @requires_review
 @login_required
 @require_privilege("workspace.can_delete_dataset")
-@transaction.atomic
+@transaction.commit_on_success
 def remove(request, dataset_revision_id, type="resource"):
     """ remove resource
     :param type:
@@ -282,7 +282,7 @@ def remove(request, dataset_revision_id, type="resource"):
 @require_privilege("workspace.can_create_dataset")
 @requires_if_publish('dataset') #
 @require_http_methods(['POST', 'GET'])
-@transaction.atomic
+@transaction.commit_on_success
 def create(request, collect_type='index'):
 
     auth_manager = request.auth_manager
@@ -325,7 +325,7 @@ def create(request, collect_type='index'):
 @requires_if_publish('dataset')
 @requires_review
 @require_http_methods(['POST', 'GET'])
-@transaction.atomic
+@transaction.commit_on_success
 def edit(request, dataset_revision_id=None):
     account_id = request.auth_manager.account_id
     auth_manager = request.auth_manager
@@ -423,7 +423,7 @@ def retrieve_childs(request):
 
 @login_required
 @require_POST
-@transaction.atomic
+@transaction.commit_on_success
 def change_status(request, dataset_revision_id=None):
     """
     Change dataset status
