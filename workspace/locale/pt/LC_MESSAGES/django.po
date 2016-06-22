@@ -3184,40 +3184,40 @@ msgid "ADMIN-HOME-THEMES-THEME8-TEXT"
 msgstr "Catalog"
 
 msgid "APP-SELECTED-DATA-TEXT"
-msgstr "Dados seleccionado"
+msgstr "Data selected"
 
 msgid "APP-NUMBER-ORIGIN-FORMAT-TIP"
-msgstr "Use a formatação padrão EUA.<br><hr class='divider divider-xs'>0: Dígito <br>#: Dígito, de zero ausente <br>. (ponto): Separador decimal <br>, (coma): Separador de agrupamento <br>-: Signo menos"
+msgstr "Use the USA formatting pattern.<br><hr class='divider divider-xs'>0: Digit <br>#: Digit, zero absent <br>. (dot): Decimal separator <br>, (coma): Grouping separator <br>-: Minus symbol"
 
 msgid "APP-NUMBER-ORIGIN-SYMBOLS-TIP"
-msgstr "Selecione milhares e indicadores decimais exatamente como mostrado nesta coluna"
+msgstr "Select thousands and decimal indicators exactly as shown in this column"
 
 msgid "APP-NUMBER-ORIGIN-LOCATION-TIP"
-msgstr "Selecione os indicadores de localização representam milhares e decimais nesta coluna"
+msgstr "Select the location indicators representing thousands and decimals in this column"
 
 msgid "APP-NUMBER-OUTPUT-LOCATION-TIP"
-msgstr "Seleccionar o local para ser usado para representar o formato de saída de vista"
+msgstr "Select the location to be used to represent the output format of sight"
 
 msgid "APP-DATE-ORIGIN-FORMAT-TIP"
-msgstr "Use padrões de formatação de data e hora de <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Ano completo (Ej: 2001)<br> yy: Ano abreviado (Ej: 01)<br> MM: Mês começando com 0 (Ej: Julho 07)<br> M: Mês sem 0 (Ej: Julho 7)<br> dd: Dia começar com 0 (Ej: Abril 04)<br> d: Dia livre 0 (Ej: Abril 4)<br> - (guión) y / (bar) termos separados"
+msgstr "Use patterns formatting date and time from <a href='https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html' target='_blank'>Java 7</a>. <hr class='divider divider-xs'> yyyy: Whole year (Ej: 2001)<br> yy: Abbreviated year (Ej: 01)<br> MM: Month starting with 0 (Ej: July 07)<br> M: Month without 0 (Ej: July 7)<br> dd: Day start with 0 (Ej: April 04)<br> d: Day without 0 (Ej: April 4)<br> - (dash) y / (bar) separate terms"
 
 msgid "APP-DATE-OUTPUT-FORMAT-TIP"
-msgstr "Use padrões de formatação de data e hora de <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Dia do mês (sem zeros à esquerda) <br> dd: Dia do mês (dois dígitos) <br> o: Dia do ano (sem zeros à esquerda) <br> oo: Dia do ano (três dígitos) <br> D: Nome curto dia <br> DD: Nome longo dia <br> m: Mês do ano (sem zeros à esquerda) <br> mm: Mês do ano (dois dígitos) <br> M: Nome do mês curta <br> MM: Nome do mês de longo <br> y: Ano (dois dígitos) <br> yy: Ano (quatro dígitos) <br> @: Unix timestamp (mês a partir da 01/01/1970) <br> !: Windows ticks (100ns mês a partir da 01/01/0001) <br> '...': Texto literal <br> '': apóstrofo <br> Tudo o resto: Texto literal"
+msgstr "Use patterns formatting date and time from <a href='https://api.jqueryui.com/datepicker/#utility-formatDate' target='_blank'>jQuery UI DatePicker</a>. <hr class='divider divider-xs'> d: Day of the month (without leading zero) <br> dd: Day of the month (two digits) <br> o: Day of the year (without leading zero) <br> oo: Day of the year (three digits) <br> D: Short day name <br> DD: Long day name <br> m: Month of the year (without leading zero) <br> mm:Month of the year (two digits) <br> M: Short month name <br> MM: Long month name <br> y: Year (two digits) <br> yy: Year (four digits) <br> @: Unix timestamp (month from 01/01/1970) <br> !: Windows ticks (100ns from 01/01/0001) <br> '...': Literal text <br> '': Single quote <br> Everything else: Literal text"
 
 msgid "APP-ERR-NO-TABLES-FOUND"
-msgstr "O parâmetro não produzir resultados, tente um diferente."
+msgstr "The parameter does not yield results, try a different one."
 
 msgid "APP-DATASET-SHEET"
 msgstr "Table"
 
 msgid "APP-ERROR-400-TEXT"
-msgstr "Houve um erro"
+msgstr "There was an error"
 
 msgid "APP-GO-HOME-TEXT"
-msgstr "Ir para a página inicial"
+msgstr "Go to the home page"
 
 msgid "APP-GO-PORTAL-TEXT"
-msgstr "Abrir o site de dados"
+msgstr "Go to open data site"
 
 msgid "APP-ACCOUNT-NAME-NOT-VALID"
 msgstr "Invalid organizacion name"
@@ -3225,17 +3225,29 @@ msgstr "Invalid organizacion name"
 msgid "DSCRE-MAX-FILE-TIP"
 msgstr "Max upload file size: 300 MB"
 
-msgid "APP-ACCEPT-AND-PUBLISH-TEXT"
-msgstr "Accept & Publish"
-
 msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TITLE"
-msgstr "Accept Dataset childrean and Publish"
+msgstr "You need to accept the associated resources before publishing"
 
 msgid "APP-OVERLAY-PUBLISH-DATASET-CONFIRM-TEXT"
-msgstr "The following resources will be automatically approved and then published along with this Dataset."
+msgstr "The following resources will be accepted and published together with this Dataset:"
 
 msgid "APP-DATASET-PUBLISHALL-TITLE"
-msgstr "Dataset and children published"
+msgstr "Everything was published."
 
 msgid "APP-DATASET-PUBLISHALL-TEXT"
-msgstr "The dataset and it's unpublished children have been published."
+msgstr "The dataset and its associated resources were published correctly."
+
+msgid "APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TITLE"
+msgstr "You need to accept the associated Visualizations before publishing"
+
+msgid "APP-OVERLAY-PUBLISH-DATASTREAM-CONFIRM-TEXT"
+msgstr "The following resources will be accepted and published together with this Data View:"
+
+msgid "APP-DATASTREAM-PUBLISHALL-TITLE"
+msgstr "Everything was published."
+
+msgid "APP-DATASTREAM-PUBLISHALL-TEXT"
+msgstr "The Data View and its associated visualizations were published correctly."
+
+msgid "APP-PUBLISHALL-TEXT"
+msgstr "Publish all"
