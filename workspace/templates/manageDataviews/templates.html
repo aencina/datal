@@ -177,14 +177,14 @@
         <div class="row clearfix">
           <label for="id_title">{% trans 'APP-TITLE-TEXT' %}</label>
           <span class="required">*</span>
-          <input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" autofocus>
+          <input type="text" name="title" id="title" data-bind="value:title,events:['keyup']" tabindex="0" maxlength="80" autofocus>
         </div>
 
         {# description #}
         <div class="row clearfix">
           <label for="id_description">{% trans 'APP-DESCRIPTION-TEXT' %}</label>
           <span class="required">*</span>
-          <input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0">
+          <input type="text" name="description" id="id_description" data-bind="value:description,events:['keyup']" tabindex="0" maxlength="250">
         </div>
 
         {# category #}
