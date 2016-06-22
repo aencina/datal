@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-from core import choices
-from core.cache import Cache
-from django.conf import settings
-from core.models import User
-from core import http as LocalHelper
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext
-from core.plugins_point import DatalPluginPoint
 import redis
 import datetime
 import logging
+
+from django.core.urlresolvers import reverse
+from django.conf import settings
+from django.utils.translation import ugettext
+
+from core import choices
+from core.cache import Cache
+from core.models import User
+from core.plugins_point import DatalPluginPoint
 
 
 logger = logging.getLogger(__name__)
@@ -26,9 +27,9 @@ class ActivityStreamDAO:
         timeformat = "%s %s %s %s" % (ugettext('APP-ON-TEXT'), "%Y-%m-%d,", ugettext('APP-AT-TEXT'), "%H:%M")
         now = datetime.datetime.now()
         time = now.strftime(timeformat)
-        l_permalink=""
+        l_permalink = ""
 
-        #TODO check and fix al urls.
+        # TODO check and fix al urls.
         if int(action_id) != int(choices.ActionStreams.DELETE):
             if resource_type == settings.TYPE_DATASTREAM:
                 l_permalink = reverse('manageDataviews.view', urlconf='workspace.urls',
@@ -41,9 +42,8 @@ class ActivityStreamDAO:
                                       kwargs={'revision_id': revision_id})
             else:
                 for plugin in DatalPluginPoint.get_plugins():
-                    if (plugin.is_active() and hasattr(plugin, 'doc_type') and 
-                        plugin.doc_type == resource_type and 
-                        hasattr(plugin, 'workspace_permalink')):
+                    if (plugin.is_active() and hasattr(plugin, 'doc_type') and plugin.doc_type == resource_type and
+                            hasattr(plugin, 'workspace_permalink')):
                         l_permalink = plugin.workspace_permalink(revision_id)
             
         list_key = 'activity_stream::%s' % str(account_id)
@@ -68,7 +68,7 @@ class ActivityStreamDAO:
         list_key = 'activity_stream::%s' % str(account_id)
         activity_keys = c.lrange(str(list_key),0, limit)
         r = redis.Redis(host=settings.REDIS_READER_HOST, port=settings.REDIS_PORT,
-            db=settings.CACHE_DATABASES['activity_resources'])
+                        db=settings.CACHE_DATABASES['activity_resources'])
         pipeline=r.pipeline()
 
         for key in activity_keys:
