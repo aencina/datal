@@ -67,7 +67,7 @@ def download(request, dataset_id, slug):
         redirect['Content-Disposition'] = 'attachment; filename="{0}"'.format(filename)
         """
 
-        redirect = HttpResponse(content_type=content_type) # si no funcionara => redirect = HttpResponse(mimetype='application/force-download')
+        redirect = HttpResponse(content_type=content_type) # si no funcionara => redirect = HttpResponse(content_type='application/force-download')
         redirect['Content-Disposition'] = 'attachment; filename="{0}"'.format(filename)
         redir = urllib2.urlopen(url)
         status = redir.getcode()
@@ -87,7 +87,7 @@ def download_file(request):
     if form.is_valid():
         dataset_revision = DatasetRevision.objects.get(pk=form.cleaned_data['dataset_revision_id'])
         try:
-            response = HttpResponse(mimetype='application/force-download')
+            response = HttpResponse(content_type='application/force-download')
             response['Content-Disposition'] = 'attachment; filename="{}"'.format(dataset_revision.filename.encode('utf-8'))
             response.write(urllib2.urlopen(dataset_revision.get_endpoint_full_url()).read())
         except Exception:
@@ -216,7 +216,7 @@ def filter(request, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE):
 
     response = DatasetList().render(data)
 
-    return HttpResponse(response, mimetype="application/json")
+    return HttpResponse(response, content_type="application/json")
 
 
 @login_required
@@ -232,13 +232,13 @@ def get_filters_json(request):
                                     
     response = DefaultDictToJson().render(data=filters) # normalize=True #TODO check
     
-    return HttpResponse(response, mimetype="application/json")
+    return HttpResponse(response, content_type="application/json")
 
 
 @requires_review
 @login_required
 @require_privilege("workspace.can_delete_dataset")
-@transaction.commit_on_success
+@transaction.atomic
 def remove(request, dataset_revision_id, type="resource"):
     """ remove resource
     :param type:
@@ -263,7 +263,7 @@ def remove(request, dataset_revision_id, type="resource"):
             status=True,
             messages=[ugettext('APP-DELETE-DATASET-REV-ACTION-TEXT')],
             extras=[{"field": 'revision_id', "value": last_revision_id, "type": "literal"}])
-        return HttpResponse(response, mimetype="application/json")
+        return HttpResponse(response, content_type="application/json")
         
     else:
         lifecycle.remove(killemall=True)
@@ -275,14 +275,14 @@ def remove(request, dataset_revision_id, type="resource"):
             status=True,
             messages=[ugettext('APP-DELETE-DATASET-ACTION-TEXT')],
             extras=[{"field": 'revision_id', "value": -1, "type": "literal"}])
-        return HttpResponse(response, mimetype="application/json")
+        return HttpResponse(response, content_type="application/json")
 
 
 @login_required
 @require_privilege("workspace.can_create_dataset")
 @requires_if_publish('dataset') #
 @require_http_methods(['POST', 'GET'])
-@transaction.commit_on_success
+@transaction.atomic
 def create(request, collect_type='index'):
 
     auth_manager = request.auth_manager
@@ -325,7 +325,7 @@ def create(request, collect_type='index'):
 @requires_if_publish('dataset')
 @requires_review
 @require_http_methods(['POST', 'GET'])
-@transaction.commit_on_success
+@transaction.atomic
 def edit(request, dataset_revision_id=None):
     account_id = request.auth_manager.account_id
     auth_manager = request.auth_manager
@@ -418,12 +418,12 @@ def retrieve_childs(request):
         list_result.append(associated_resource)
 
     dump = json.dumps(list_result, cls=DjangoJSONEncoder)
-    return HttpResponse(dump, mimetype="application/json")
+    return HttpResponse(dump, content_type="application/json")
 
 
 @login_required
 @require_POST
-@transaction.commit_on_success
+@transaction.atomic
 def change_status(request, dataset_revision_id=None):
     """
     Change dataset status

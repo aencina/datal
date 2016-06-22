@@ -108,13 +108,13 @@ def filter(request, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE):
 
     data = render_to_string('manageVisualizations/visualization_list.json', dict(
         items=resources, total_entries=total_entries, total_resources=total_resources))
-    return HttpResponse(data, mimetype="application/json")
+    return HttpResponse(data, content_type="application/json")
 
 
 @login_required
 @require_privilege("workspace.can_delete_visualization")
 @requires_review
-@transaction.commit_on_success
+@transaction.atomic
 def remove(request, visualization_revision_id, type="resource"):
     """ remove resource
     :param type:
@@ -155,7 +155,7 @@ def remove(request, visualization_revision_id, type="resource"):
 
 @login_required
 @require_POST
-@transaction.commit_on_success
+@transaction.atomic
 def change_status(request, visualization_revision_id=None):
     """
     Change visualization status
@@ -221,7 +221,7 @@ def change_status(request, visualization_revision_id=None):
 @require_http_methods(['POST','GET'])
 @require_privilege("workspace.can_create_visualization")
 @requires_published_parent()
-@transaction.commit_on_success
+@transaction.atomic
 def create(request):
     
     if request.method == 'GET':
@@ -269,7 +269,7 @@ def retrieve_childs(request):
     )
 
     list_result = [associated_visualization for associated_visualization in visualizations]
-    return HttpResponse(json.dumps(list_result), mimetype="application/json")
+    return HttpResponse(json.dumps(list_result), content_type="application/json")
 
 
 @login_required
@@ -292,7 +292,7 @@ def view(request, revision_id):
 @require_privilege("workspace.can_edit_datastream")
 @requires_published_parent()
 @requires_review
-@transaction.commit_on_success
+@transaction.atomic
 def edit(request, revision_id=None):
     if request.method == 'GET':
         visualization_rev = VisualizationDBDAO().get(request.user,

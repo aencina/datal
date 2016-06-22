@@ -12,4 +12,4 @@ def render_to_response(template, dictionary, mimetype=settings.DEFAULT_CONTENT_T
         request = dictionary
     context_instance = RequestContext(request)
     dictionary['core_version']=VERSION
-    return django_render_to_response(template, dictionary, context_instance, mimetype=mimetype)
+    return django_render_to_response(template, dictionary, context_instance, content_type=mimetype)

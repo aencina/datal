@@ -147,4 +147,4 @@ def get_catalog_xml(request):
             ds['visualizations'].append(vz)
         resources.append(ds)
 
-    return render_to_response('catalog.xml', locals(), mimetype='application/xml')
+    return render_to_response('catalog.xml', locals(), content_type='application/xml')

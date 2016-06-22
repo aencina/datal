@@ -203,7 +203,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             self.visualizationi18n = self.visualization_revision.visualizationi18n_set.all()[0] # TODO at at DAO
 
         title = self.visualizationi18n.title
-        resource_category = self.visualization_revision.datastream.last_revision.category.categoryi18n_set.all()[0] # todo add language
+        resource_category = self.visualization_revision.datastream.last_revision.category.categoryi18n_set.all()[0].name
         
         return super(VisualizationLifeCycleManager, self)._log_activity(
             action_id,

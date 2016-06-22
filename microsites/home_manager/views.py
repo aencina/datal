@@ -16,4 +16,4 @@ def sitemap(request):
     dss = DataStreamDBDAO().query(account_id=account.id, language=language, filters_dict=dict(status=[3]))[0]
     vss = VisualizationDBDAO().query(account_id=account.id, language=language, filters_dict=dict(status=[3]))[0]
 
-    return render_to_response('sitemap.xml', locals(), mimetype="application/xml")
+    return render_to_response('sitemap.xml', locals(), content_type="application/xml")
