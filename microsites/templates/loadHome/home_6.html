@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block themeContent %}
-{% with number=paginator.count|intcomma %}
 
 <div class="homeContent w960 theme6">
 
@@ -62,7 +61,7 @@
     <!-- Search box -->
     <div class="searchBox roundedBox10 border-box">
         <form class="clearfix searchForm" action="/search/">
-            <input type="text" name="q" placeholder="{% if config.searchboxHintText %}{{ config.searchboxHintText|format:number|safe }}{% else %}{% trans 'APP-SEARCH-TEXT' %}{% endif %}" class="FL"/>
+            <input type="text" name="q" placeholder="{% if config.searchboxHintText %}{{ config.searchboxHintText|formatmix:format_str|safe }}{% else %}{% trans 'APP-SEARCH-TEXT' %}{% endif %}" class="FL"/>
             <input type="image" value="" title="{% trans 'APP-SEARCH-TEXT' %}" src="/static/core/images/common/im_transparentPixel.png" class="image"/> 
         </form>
     </div>
@@ -72,8 +71,8 @@
     <ul class="buttonsSection clearfix">         
         {% for button in config.buttonSection %}      
         <li style="width:{{ config.buttonsPerRowWidth }}%;" class="border-box">
-            <a href="{{button.href}}" title="{{ button.description|format:number|safe }}" class="buttonContent" target="_blank">
-                <img src="{{button.image}}" alt="{{ button.description|format:number|safe }}"/>
+            <a href="{{button.href}}" title="{{ button.description|formatmix:format_str|safe }}" class="buttonContent" target="_blank">
+                <img src="{{button.image}}" alt="{{ button.description|formatmix:format_str|safe }}"/>
                 <span>{{button.description}}</span>
             </a>
         </li>
@@ -89,11 +88,11 @@
         {% if config.leftBottomSectionLink or config.leftBottomSectionTitle or config.leftBottomSectionImageUrl %}
         <article class="leftBottom bottomSectionBox border-box FL">
             {% if config.leftBottomSectionLink %}
-            <a href="{{ config.leftBottomSectionLink }}" title="{{ config.leftBottomSectionTitle|format:number|safe }}" class="clearfix" target="_blank">
+            <a href="{{ config.leftBottomSectionLink }}" title="{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}" class="clearfix" target="_blank">
             {% endif %}
-                <span class="GB border-box roundedBox15">{{ config.leftBottomSectionTitle|format:number|safe }}</span>
+                <span class="GB border-box roundedBox15">{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}</span>
                 {% if config.leftBottomSectionImageUrl %}
-                <img src="{{ config.leftBottomSectionImageUrl }}" alt="{{ config.leftBottomSectionTitle|format:number|safe }}" class="FL"/>
+                <img src="{{ config.leftBottomSectionImageUrl }}" alt="{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                 {% endif %}
             {% if config.leftBottomSectionLink %}
             </a>
@@ -105,11 +104,11 @@
         {% if config.middleBottomSectionLink or config.middleBottomSectionTitle or config.middleBottomSectionImageUrl %}
         <article class="middleBottom bottomSectionBox border-box FL">
             {% if config.middleBottomSectionLink %}
-            <a href="{{ config.middleBottomSectionLink }}" title="{{ config.middleBottomSectionTitle|format:number|safe }}" class="clearfix" target="_blank">
+            <a href="{{ config.middleBottomSectionLink }}" title="{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}" class="clearfix" target="_blank">
             {% endif %}
-                <span class="GB border-box roundedBox15">{{ config.middleBottomSectionTitle|format:number|safe }}</span>
+                <span class="GB border-box roundedBox15">{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}</span>
                 {% if config.middleBottomSectionImageUrl %}
-                <img src="{{ config.middleBottomSectionImageUrl }}" alt="{{ config.middleBottomSectionTitle|format:number|safe }}" class="FL"/>
+                <img src="{{ config.middleBottomSectionImageUrl }}" alt="{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                 {% endif %}
             {% if config.middleBottomSectionLink %}
             </a>
@@ -121,11 +120,11 @@
         {% if config.rightBottomSectionLink or config.rightBottomSectionTitle or config.rightBottomSectionImageUrl %}
         <article class="rightBottom bottomSectionBox border-box FL">
             {% if config.rightBottomSectionLink %}
-            <a href="{{ config.rightBottomSectionLink }}" title="{{ config.rightBottomSectionTitle|format:number|safe }}" class="clearfix" target="_blank">
+            <a href="{{ config.rightBottomSectionLink }}" title="{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}" class="clearfix" target="_blank">
             {% endif %}
-                <span class="GB border-box roundedBox15">{{ config.rightBottomSectionTitle|format:number|safe }}</span>
+                <span class="GB border-box roundedBox15">{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}</span>
                 {% if config.rightBottomSectionImageUrl %}
-                <img src="{{ config.rightBottomSectionImageUrl }}" alt="{{ config.rightBottomSectionTitle|format:number|safe }}" class="FL"/>
+                <img src="{{ config.rightBottomSectionImageUrl }}" alt="{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                 {% endif %}
             {% if config.rightBottomSectionLink %}
             </a>
@@ -143,7 +142,6 @@
 
 
 </div>
-{% endwith %}
 {% endblock %}
 
 {% block popupsOverlay %}

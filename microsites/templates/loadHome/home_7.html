@@ -17,7 +17,6 @@
 {% endblock %}
 
 {% block themeContent %}
-{% with number=paginator.count|intcomma %}
 
 <div class="homeContent theme7">
 
@@ -276,12 +275,12 @@
                         <li class="col-xs-6 col-sm-4 col-md-3">
 
                             {% if button.href %}
-                            <a href="{{button.href}}" title="{{ button.description|format:number|safe }}" target="_blank">
+                            <a href="{{button.href}}" title="{{ button.description|formatmix:format_str|safe }}" target="_blank">
                             {% endif %}
 
                             {% if button.image %}
                             <div class="pic">
-                                <img src="{{button.image}}" alt="{{ button.description|format:number|safe }}"/>
+                                <img src="{{button.image}}" alt="{{ button.description|formatmix:format_str|safe }}"/>
                             </div>
                             {% endif %}
 
@@ -332,7 +331,7 @@
                     {% if config.leftBottomSectionLink or config.leftBottomSectionTitle or config.leftBottomSectionImageUrl %}
                     <article>
                         {% if config.leftBottomSectionLink %}
-                        <a href="{{ config.leftBottomSectionLink }}" title="{{ config.leftBottomSectionTitle|format:number|safe }}" target="_blank">
+                        <a href="{{ config.leftBottomSectionLink }}" title="{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}" target="_blank">
                         {% endif %}
 
                             {% if config.leftBottomSectionTitle %}
@@ -344,12 +343,12 @@
                                 -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                                 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                             ">
-                                <div class="title">{{ config.leftBottomSectionTitle|format:number|safe }}</div>
+                                <div class="title">{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}</div>
                             </div>
                             {% endif %}
 
                             {% if config.leftBottomSectionImageUrl %}
-                            <img src="{{ config.leftBottomSectionImageUrl }}" alt="{{ config.leftBottomSectionTitle|format:number|safe }}" class="FL"/>
+                            <img src="{{ config.leftBottomSectionImageUrl }}" alt="{{ config.leftBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                             {% endif %}
 
                         {% if config.leftBottomSectionLink %}
@@ -364,7 +363,7 @@
                     <article>
 
                         {% if config.middleBottomSectionLink %}
-                        <a href="{{ config.middleBottomSectionLink }}" title="{{ config.middleBottomSectionTitle|format:number|safe }}" target="_blank">
+                        <a href="{{ config.middleBottomSectionLink }}" title="{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}" target="_blank">
                         {% endif %}
 
                             {% if config.middleBottomSectionTitle %}
@@ -376,12 +375,12 @@
                                 -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                                 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                             ">
-                                <div class="title">{{ config.middleBottomSectionTitle|format:number|safe }}</div>
+                                <div class="title">{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}</div>
                             </div>
                             {% endif %}
 
                             {% if config.middleBottomSectionImageUrl %}
-                            <img src="{{ config.middleBottomSectionImageUrl }}" alt="{{ config.middleBottomSectionTitle|format:number|safe }}" class="FL"/>
+                            <img src="{{ config.middleBottomSectionImageUrl }}" alt="{{ config.middleBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                             {% endif %}
 
                         {% if config.middleBottomSectionLink %}
@@ -397,7 +396,7 @@
                     <article>
 
                         {% if config.rightBottomSectionLink %}
-                        <a href="{{ config.rightBottomSectionLink }}" title="{{ config.rightBottomSectionTitle|format:number|safe }}" target="_blank">
+                        <a href="{{ config.rightBottomSectionLink }}" title="{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}" target="_blank">
                         {% endif %}
 
                             {% if config.rightBottomSectionTitle %}
@@ -409,13 +408,13 @@
                                 -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                                 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000,endColorstr=#00000000);
                             ">
-                                <div class="title">{{ config.rightBottomSectionTitle|format:number|safe }}</div>
+                                <div class="title">{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}</div>
                             </div>
                             {% endif %}
 
 
                             {% if config.rightBottomSectionImageUrl %}
-                            <img src="{{ config.rightBottomSectionImageUrl }}" alt="{{ config.rightBottomSectionTitle|format:number|safe }}" class="FL"/>
+                            <img src="{{ config.rightBottomSectionImageUrl }}" alt="{{ config.rightBottomSectionTitle|formatmix:format_str|safe }}" class="FL"/>
                             {% endif %}
 
                         {% if config.rightBottomSectionLink %}
@@ -449,7 +448,7 @@
             <div class="links-list">
                 <ul>
                     {% for link in config.links %}
-                        <li><a href="{{ link.linkURL }}" title="{{ link.linkText|format:number|safe }}" target="_blank">{{ link.linkText|format:number|safe }}</a></li>
+                        <li><a href="{{ link.linkURL }}" title="{{ link.linkText|formatmix:format_str|safe }}" target="_blank">{{ link.linkText|formatmix:format_str|safe }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -471,5 +470,4 @@
 
 </div>
 
-{% endwith %}
 {% endblock %}

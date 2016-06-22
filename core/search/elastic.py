@@ -5,6 +5,7 @@ from core.search.finder import Finder, FinderManager
 import re
 import logging
 from core.plugins_point import DatalPluginPoint
+from elasticsearch import NotFoundError
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +14,10 @@ class ElasticsearchFinder(Finder):
 
     order_by = "created_at:desc,title:asc,_score"
     order_by = "timestamp:desc,modified_at:desc,title:asc,type:desc,_score"
+
+    def count(self, account_id, doc_type=None):
+        """return %d of documents in index, doc_type (opt) filter this document type"""
+        return self.index.count(account_id, doc_type=doc_type)
 
     def search(self, *args, **kwargs):
 

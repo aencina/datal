@@ -33,7 +33,7 @@
 
 {% block facebook %}
 	<meta property="og:description" content="{{ settings.APPLICATION_DETAILS.name }} delivers the easiest to use, cloud-based, Open Data Platform that enables data-rich organizations to achieve greater transparency, citizen engagement, efficiencies and innovation." />
-	<meta property="og:image" content="{% static 'core/images/common/im_defaultAvatar_90x90.jpg' %}" />
+	<meta property="og:image" content="{{preferences.account_logo}}" />
 {% endblock %}
 
 {% block body %}

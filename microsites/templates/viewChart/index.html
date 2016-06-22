@@ -7,15 +7,13 @@
     <link rel="canonical" href="{{settings.MSPROTOCOL}}://{{ preferences.account_domain}}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}" />
 {% endblock %}
 
-{% if preferences.account_enable_sharing %} 
-    {% block facebook %}
-        <meta property="og:title" content="{{visualization_revision.title}} &middot; {{preferences.account_page_titles}}" />
-        <meta property="og:description" content="{{ visualization_revision.description }}" />
-        <meta property="og:image" content="{{preferences.account_logo}}" />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="{{preferences.account_name}}" />
-    {% endblock %}
-{% endif %}
+{% block facebook %}
+    <meta property="og:title" content="{{visualization_revision.title}} &middot; {{preferences.account_page_titles}}" />
+    <meta property="og:description" content="{{ visualization_revision.description }}" />
+    <meta property="og:image" content="{{preferences.account_logo}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="{{preferences.account_name}}" />
+{% endblock %}
 
 {% block meta %}
 
