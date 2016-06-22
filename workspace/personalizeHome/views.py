@@ -171,4 +171,4 @@ def deleteFiles( request ):
             except ValidationError, err:
                 response = {'status': 'error', 'messages': [ugettext('ADMIN-HOME-DELETE-MESSAGE')]}
 
-            return HttpResponse(json.dumps(response), mimetype='application/json');
+            return HttpResponse(json.dumps(response), content_type='application/json');
