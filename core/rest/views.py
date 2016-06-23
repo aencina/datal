@@ -17,12 +17,14 @@ import json
 
 logger = logging.getLogger(__name__)
 
+from plugins.kpi.choices import TYPE_KPI # TODO kpi
+
 class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin, 
     viewsets.GenericViewSet):
     queryset = GuidModel
     lookup_field = 'guid'
     dao_filename = 'filename'
-    _data_types = [settings.TYPE_DATASET, settings.TYPE_DATASTREAM, settings.TYPE_VISUALIZATION]
+    _data_types = [settings.TYPE_DATASET, settings.TYPE_DATASTREAM, settings.TYPE_VISUALIZATION, TYPE_KPI] # TODO kpi
     app = 'workspace'
     published = True
         

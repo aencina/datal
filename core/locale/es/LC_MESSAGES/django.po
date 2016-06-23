@@ -207,6 +207,9 @@ msgstr "Url"
 msgid "MODEL-DASHBOARD-TEXT"
 msgstr "Colección"
 
+msgid "MODEL-KPI-TEXT"
+msgstr "Métrica"
+
 msgid "MODEL-DATASTREAM-TEXT"
 msgstr "Vista de Datos"
 

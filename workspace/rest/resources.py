@@ -17,12 +17,18 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
+from plugins.kpi.choices import TYPE_KPI # TODO kpi
+from plugins.kpi.daos.kpi import KpiDBDAO # TODO kpi
+
 class ResourceSerializer(serializers.Serializer):
     resources = (
         ('dataset', settings.TYPE_DATASET),
         ('datastream', settings.TYPE_DATASTREAM),
-        ('visualization', settings.TYPE_VISUALIZATION)
+        ('visualization', settings.TYPE_VISUALIZATION),
+        ('kpi', TYPE_KPI) # TODO kpi Get resources from plugins
     )
+
     resource_type = serializers.CharField()
     created_at = serializers.DateTimeField()
 
@@ -91,14 +97,17 @@ def order_method(dic):
         return obj[dic]
     return order_inner
 
+
 class MultipleResourceViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = ResourceSerializer
+
 
     def get_resources_types(self):
         resources_types = [
             (DatasetDBDAO, settings.TYPE_DATASET),
             (DataStreamDBDAO, settings.TYPE_DATASTREAM),
-            (VisualizationDBDAO, settings.TYPE_VISUALIZATION)
+            (VisualizationDBDAO, settings.TYPE_VISUALIZATION),
+            (KpiDBDAO, TYPE_KPI) # TODO kpi Get DAO from plugins
         ]
         for multiple_resources in DatalPluginPoint.get_active_with_att('multiple_resources'):
             resources_types.append(multiple_resources.get_resources_types())

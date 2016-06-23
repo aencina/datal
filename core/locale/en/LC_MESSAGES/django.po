@@ -208,6 +208,9 @@ msgstr "Url"
 msgid "MODEL-DASHBOARD-TEXT"
 msgstr "Dashboard"
 
+msgid "MODEL-KPI-TEXT"
+msgstr "KPI"
+
 msgid "MODEL-DATASTREAM-TEXT"
 msgstr "Data View"
 
