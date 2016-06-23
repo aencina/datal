@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block themeContent %}
+{% with number=paginator.count|intcomma %}
 <div class="homeContent w960 theme1">
 
     {% if config.mainTitle %}
@@ -17,7 +18,7 @@
     <!-- HOME COLUMNS -->
     <div class="homeColumns">
         <div class="homeMainContent placeholder">
-            {{config.mainSection|formatmix:format_str|safe}}
+            {{config.mainSection|format:number|safe}}
         </div>
     </div>
     {% endif %}
@@ -28,4 +29,5 @@
     {% endif %}
     
 </div>  
+{% endwith %}
 {% endblock %}

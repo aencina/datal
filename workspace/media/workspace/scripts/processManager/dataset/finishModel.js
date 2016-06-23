@@ -30,8 +30,8 @@ var FinishModel = StepModel.extend({
 				required: true,
 				msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
 			},{
-				maxLength: 140,
-				msg: gettext('VALIDATE-MAXLENGTH-TEXT-1') + ' 140 ' + gettext('VALIDATE-MAXLENGTH-TEXT-2')
+				maxLength: 250,
+				msg: gettext('VALIDATE-MAXLENGTH-TEXT-1') + ' 250 ' + gettext('VALIDATE-MAXLENGTH-TEXT-2')
 			},{
 				fn: function(value, attr, computedState){
 					if( $.trim(computedState.title) === $.trim(value) ) {
@@ -43,10 +43,12 @@ var FinishModel = StepModel.extend({
 	},
 
 	// notes use NicEditor, so can't be validated as always (?)
+	/*
 	validate_notes: function(){
 		max_length = $("#notes_reference").data('max_length');
 		return (this.get('data').notes.length < max_length)
 	},
+	*/
 
 	setData: function(){
 

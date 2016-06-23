@@ -20,6 +20,7 @@
 {% endblock %}
 
 {% block themeContent %}
+{% with number=paginator.count|intcomma %}
 
 <div class="homeContent theme8">
     <div class="container">
@@ -38,7 +39,7 @@
         <!-- COLUMN - Left -->
         <div class="CL FL">
             <div class="homeMainContent placeholder">
-                {{config.mainSection|formatmix:format_str|safe}}
+                {{config.mainSection|format:number|safe}}
             </div>
         </div>
         {% endif %}
@@ -142,4 +143,5 @@ $(document).ready(function(){
 });
 </script>
 
+{% endwith %}
 {% endblock %}

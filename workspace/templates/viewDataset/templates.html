@@ -36,7 +36,11 @@
 					<% if(status != StatusChoices.PUBLISHED){ %>
 
 						<!-- Secondary Action - Publish -->
-						<a id="id_publish" class="button FR" title="{% trans 'APP-PUBLISH-TEXT' %}" data-action="publish">{% trans 'APP-PUBLISH-TEXT' %}</a>
+						{% if dataset.can_publish_bof_children %}
+							<a id="id_publish" class="button FR" title="{% trans 'APP-PUBLISH-TEXT' %}" data-action="publish">{% trans 'APP-PUBLISH-TEXT' %} </a>
+						{% else %}
+							<a id="id_publish_all" class="button FR" title="{% trans 'APP-PUBLISH-TEXT' %}" data-action="publish-all">{% trans 'APP-PUBLISH-TEXT' %}</a>
+						{% endif %}
 
 					<% } %>
 

@@ -203,7 +203,7 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 			tabsHeight = parseFloat( $('.tabs').height() ),
 			otherHeight = theHeight,
 			//minHeight = tabsHeight - otherHeight;
-			minHeight = 500;
+			minHeight = 380;
 
 		$(heightContainer).css('min-height', minHeight+ 'px');
 

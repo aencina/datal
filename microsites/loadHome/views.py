@@ -216,4 +216,4 @@ def update_categories(request):
         # account_id is single account or a list of federated accounts
         categories = Category.objects.get_for_home(language, account_id)
 
-    return render_to_response('loadHome/categories.js', locals(), mimetype="text/javascript")
+    return render_to_response('loadHome/categories.js', locals(), content_type="text/javascript")

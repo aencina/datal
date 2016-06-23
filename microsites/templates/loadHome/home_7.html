@@ -17,6 +17,7 @@
 {% endblock %}
 
 {% block themeContent %}
+{% with number=paginator.count|intcomma %}
 
 <div class="homeContent theme7">
 
@@ -275,12 +276,12 @@
                         <li class="col-xs-6 col-sm-4 col-md-3">
 
                             {% if button.href %}
-                            <a href="{{button.href}}" title="{{ button.description|formatmix:format_str|safe }}" target="_blank">
+                            <a href="{{button.href}}" title="{{ button.description|format:number|safe }}" target="_blank">
                             {% endif %}
 
                             {% if button.image %}
                             <div class="pic">
-                                <img src="{{button.image}}" alt="{{ button.description|formatmix:format_str|safe }}"/>
+                                <img src="{{button.image}}" alt="{{ button.description|format:number|safe }}"/>
                             </div>
                             {% endif %}
 
@@ -469,5 +470,5 @@
     {% endif %}
 
 </div>
-
+{% endwith %}
 {% endblock %}

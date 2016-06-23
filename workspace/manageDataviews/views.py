@@ -38,6 +38,12 @@ def view(request, revision_id):
                                                                                                      'name')
     status_options = credentials.get_allowed_actions()
 
+    try:
+        lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=revision_id)
+        datastream['can_publish_bof_children'] = lifecycle.can_publish_bof_children()
+    except Exception as e:
+        pass 
+
     return render_to_response('viewDataStream/index.html', locals())
 
 
@@ -151,7 +157,7 @@ def retrieve_childs(request):
         list_result.append(associated_visualization)
 
     dump = json.dumps(list_result, cls=DjangoJSONEncoder)
-    return HttpResponse(dump, mimetype="application/json")
+    return HttpResponse(dump, content_type="application/json")
 
 
 @login_required
@@ -350,7 +356,7 @@ def change_status(request, datastream_revision_id=None):
         action = 'accept' if action == 'approve'else action # fix para poder llamar dinamicamente al metodo de lifecycle
         killemall = True if request.POST.get('killemall', False) == 'true' else False
 
-        if action not in ['accept', 'reject', 'publish', 'unpublish', 'send_to_review']:
+        if action not in ['accept', 'reject', 'publish', 'unpublish', 'send_to_review', 'publish_all']:
             raise NoStatusProvidedException()
 
         if action == 'unpublish':
@@ -358,6 +364,8 @@ def change_status(request, datastream_revision_id=None):
             # Signal
             datastream_unpublished.send_robust(sender='change_status_view', id=lifecycle.datastream.id,
                                                rev_id=lifecycle.datastream_revision.id)
+        elif action == 'publish_all':
+            getattr(lifecycle, 'publish')(accept_children=True)
         else:
             getattr(lifecycle, action)()
 
@@ -379,6 +387,9 @@ def change_status(request, datastream_revision_id=None):
         elif action == 'send_to_review':
             title = ugettext('APP-DATAVIEW-SENDTOREVIEW-TITLE'),
             description = ugettext('APP-DATAVIEW-SENDTOREVIEW-TEXT')
+        elif action == 'publish_all':
+            title= ugettext('APP-DATASTREAM-PUBLISHALL-TITLE'),
+            description= ugettext('APP-DATASTREAM-PUBLISHALL-TEXT')
 
         response = dict(
             status='ok',

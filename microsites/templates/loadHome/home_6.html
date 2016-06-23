@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block themeContent %}
-
+{% with number=paginator.count|intcomma %}
 <div class="homeContent w960 theme6">
 
     <!-- Slider section -->
@@ -71,8 +71,8 @@
     <ul class="buttonsSection clearfix">         
         {% for button in config.buttonSection %}      
         <li style="width:{{ config.buttonsPerRowWidth }}%;" class="border-box">
-            <a href="{{button.href}}" title="{{ button.description|formatmix:format_str|safe }}" class="buttonContent" target="_blank">
-                <img src="{{button.image}}" alt="{{ button.description|formatmix:format_str|safe }}"/>
+            <a href="{{button.href}}" title="{{ button.description|format:number|safe }}" class="buttonContent" target="_blank">
+                <img src="{{button.image}}" alt="{{ button.description|format:number|safe }}"/>
                 <span>{{button.description}}</span>
             </a>
         </li>
@@ -142,6 +142,7 @@
 
 
 </div>
+{% endwith %}
 {% endblock %}
 
 {% block popupsOverlay %}

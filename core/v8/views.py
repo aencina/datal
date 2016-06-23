@@ -75,7 +75,7 @@ class EngineViewSetMixin(object):
             context={'dao_filename': self.dao_filename})
 
         if download and 'redirect' in serializer.data and serializer.data['redirect']:
-            response = HttpResponse(mimetype='application/force-download')
+            response = HttpResponse(content_type='application/force-download')
             filename = serializer.data['filename']
             # UGLY HOTFIX
             # ENGINE SEND SOMETHING LIKE 

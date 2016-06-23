@@ -27,6 +27,12 @@ logger = logging.getLogger(__name__)
 
 class DatastreamLifeCycleManager(AbstractLifeCycleManager):
     """ Manage a Datastream revision Life Cycle"""
+    revision_model = DataStreamRevision
+    model = DataStream
+    search_model = DatastreamSearchDAOFactory
+    dao_model = DataStreamDBDAO
+    child_lifecycle_model = VisualizationLifeCycleManager
+    child_type = settings.TYPE_VISUALIZATION
 
     def __init__(self, user, resource=None, language=None, datastream_id=0, datastream_revision_id=0):
         super(DatastreamLifeCycleManager, self).__init__(user, language)
@@ -66,6 +72,26 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self.resource=self.datastream
         self.revision=self.datastream_revision
 
+    def get_children_queryset(self, last=True, publish=False):
+        queryset = VisualizationRevision.objects.filter(
+                visualization__datastream__id=self.datastream.id)
+
+        if last:
+            queryset = queryset.filter(
+                id=F('visualization__last_revision__id'))
+
+        if publish:
+            queryset = queryset.filter(
+                visualization__last_published_revision__isnull=False)
+
+        return queryset
+
+    def get_parents_list(self):
+        return [self.revision.dataset]
+
+    def get_revisions_queryset(self):
+        return DataStreamRevision.objects.filter(datastream=self.datastream)
+
     def create(self, allowed_states=CREATE_ALLOWED_STATES, **fields):
         """ Create a new DataStream """
 
@@ -86,6 +112,10 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             #language=language,
             **fields
         )
+
+        self.resource = self.datastream
+        self.revision = self.datastream_revision
+
         self.datastreami18n = self.datastream_revision.datastreami18n_set.all()[0]
         
         self._log_activity(ActionStreams.CREATE)
@@ -97,67 +127,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             self._update_last_revisions()
 
         return self.datastream_revision
-
-    def publish(self, allowed_states=PUBLISH_ALLOWED_STATES, parent_status=None):
-        """ Publica una revision de dataset """
-        logger.info('[LifeCycle - Datastreams - Publish] Publico Rev {}.'.format(
-            self.datastream_revision.id
-        ))
-        if self.datastream_revision.status not in allowed_states:
-            logger.info('[LifeCycle - Datastreams - Publish] Rev. {} El estado {} no esta entre los estados de edicion permitidos.'.format(
-                self.datastream_revision.id, self.datastream_revision.status
-            ))
-            raise IllegalStateException(
-                                    from_state=self.datastream_revision.status,
-                                    to_state=StatusChoices.PUBLISHED,
-                                    allowed_states=allowed_states)
-        if parent_status != StatusChoices.PUBLISHED:
-            if self.datastream_revision.dataset.last_revision.status != StatusChoices.PUBLISHED:
-                # en caso de que el padre no este publicado, lo dejamos como aprobado
-                self.datastream_revision.status = StatusChoices.APPROVED
-                self.datastream_revision.save()
-                transaction.commit()
-                raise ParentNotPublishedException(self.datastream_revision)
-
-        self.datastream_revision.status = StatusChoices.PUBLISHED
-        self.datastream_revision.save()
-
-        self._update_last_revisions()
-
-        self._publish_childs()
-
-        search_dao = DatastreamSearchDAOFactory().create(self.datastream_revision)
-        search_dao.add()
-
-        self._log_activity(ActionStreams.PUBLISH)
-
-    def _publish_childs(self):
-        """ Intenta publicar la ultima revision de los datastreams hijos"""
-        with transaction.atomic():
-            visualization_revisions = VisualizationRevision.objects.select_for_update().filter(
-                visualization__datastream__id=self.datastream.id,
-                id=F('visualization__last_revision__id'),
-                status__in=[StatusChoices.APPROVED, StatusChoices.PENDING_REVIEW]
-            )
-            publish_fail = list()
-            for visualization_revision in visualization_revisions:
-                logger.info('[LifeCycle - Datastream - Publish Childs] Datastream {} Publico Visualization Rev. hijo {}.'.format(
-                    self.datastream.id, visualization_revision.id
-                ))
-                try:
-                    VisualizationLifeCycleManager(
-                        user=self.user,
-                        visualization_revision_id=visualization_revision.id
-                    ).publish(
-                        allowed_states=[StatusChoices.APPROVED],
-                        parent_status=StatusChoices.PUBLISHED
-                    )
-                except IllegalStateException:
-                    publish_fail.append(visualization_revision)
-
-            if publish_fail:
-                raise ChildNotApprovedException(self.datastream.last_revision.dataset.last_revision, 
-                                                settings.TYPE_VISUALIZATION)
 
     def unpublish(self, killemall=False, allowed_states=UNPUBLISH_ALLOWED_STATES, to_status=StatusChoices.DRAFT):
         """ Despublica la revision de un dataset """
@@ -231,19 +200,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
             for visualization_rev in visualization_revs:
                VisualizationLifeCycleManager(self.user, visualization_revision_id=visualization_rev.id).send_to_review()
-
-    def accept(self, allowed_states=ACCEPT_ALLOWED_STATES):
-        """ accept a dataset revision """
-
-        if self.datastream_revision.status not in allowed_states:
-            raise IllegalStateException(
-                                    from_state=self.datastream_revision.status,
-                                    to_state=StatusChoices.APPROVED,
-                                    allowed_states=allowed_states)
-
-        self.datastream_revision.status = StatusChoices.APPROVED
-        self.datastream_revision.save()
-        self._log_activity(ActionStreams.ACCEPT)
 
     def reject(self, allowed_states=REJECT_ALLOWED_STATES):
         """ reject a dataset revision """
@@ -416,31 +372,3 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
         return super(DatastreamLifeCycleManager, self)._log_activity(action_id, self.datastream_revision.dataset.id,
             settings.TYPE_DATASTREAM, self.datastream_revision.id, title, resource_category)
-
-    def _update_last_revisions(self):
-        """ update last_revision_id and last_published_revision_id """
-
-        last_revision_id = DataStreamRevision.objects.filter(datastream=self.datastream).aggregate(Max('id'))['id__max']
-
-        if last_revision_id:
-            self.datastream.last_revision = DataStreamRevision.objects.get(pk=last_revision_id)
-            last_published_revision_id = DataStreamRevision.objects.filter(
-                datastream=self.datastream,
-                status=StatusChoices.PUBLISHED).aggregate(Max('id')
-            )['id__max']
-
-            if last_published_revision_id:
-                self.datastream.last_published_revision = DataStreamRevision.objects.get(
-                        pk=last_published_revision_id)
-                search_dao = DatastreamSearchDAOFactory().create(self.datastream.last_published_revision)
-                search_dao.add()
-            else:
-                self.datastream.last_published_revision = None
-
-            self.datastream.save()
-        else:
-            # Si fue eliminado pero falta el commit, evito borrarlo nuevamente
-            if self.datastream.id:
-                self.datastream.delete()
-            # si no se actualiza esto, luego falla en la vista al intentar actualizar el last_revision
-            self.datastream.last_revision_id=last_revision_id

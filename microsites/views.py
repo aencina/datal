@@ -87,7 +87,7 @@ def get_new_css(request, url_name, id):
 
         for key in keys_copy:
             if preferences[key.replace('.', '_')]:
-                return render_to_response('css_branding/branding.css', locals(), mimetype = 'text/css')
+                return render_to_response('css_branding/branding.css', locals(), content_type='text/css')
 
         # Joaco!, remove when the branding migration ...
         default_chart_css = '.chartBox .chartTitle a:hover{background:#ccc !important;} .chartBox .chartTitle a:hover{border-color:#999 !important;} .chartBox .chartTitle a:hover{color:#fff !important;}'
@@ -147,4 +147,4 @@ def get_catalog_xml(request):
             ds['visualizations'].append(vz)
         resources.append(ds)
 
-    return render_to_response('catalog.xml', locals(), mimetype='application/xml')
+    return render_to_response('catalog.xml', locals(), content_type='application/xml')

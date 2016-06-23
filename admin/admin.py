@@ -220,8 +220,6 @@ class VisualizationI18nAdmin(admin.ModelAdmin):
     goto_visualization_revision.allow_tags=True
     goto_visualization_revision.short_description='Visualization Rev'
 
-
-
 admin.site.register(VisualizationI18n, VisualizationI18nAdmin)
 
 
@@ -231,6 +229,14 @@ class DataStreamParameterAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 admin.site.register(DataStreamParameter, DataStreamParameterAdmin)
+
+
+class VisualizationParameterAdmin(admin.ModelAdmin):
+    list_display = ('revision', 'name')
+    search_fields = ('name',)
+    list_per_page = 25
+
+admin.site.register(VisualizationParameter, VisualizationParameterAdmin)
 
 
 class DatasetAdmin(admin.ModelAdmin):

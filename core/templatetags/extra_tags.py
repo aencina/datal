@@ -2,10 +2,10 @@ from django import template
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
-from django.utils import simplejson
 import hashlib
 import urllib
 import re
+import json
 from urlparse import urlparse
 from core.choices import AccountRoles, SOURCE_IMPLEMENTATION_CHOICES, COLLECT_TYPE_CHOICES
 
@@ -215,7 +215,7 @@ def jsonize(obj):
 
 @register.filter
 def jsonify(o):
-    return mark_safe(simplejson.dumps(o))
+    return mark_safe(json.dumps(o))
 
 
 @register.filter(name='key')

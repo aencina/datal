@@ -17,3 +17,7 @@
 .detail-container header h2{color:$font-color-light;font-size:$font-size-m;}
 .detail-container .resource-detail.box{margin-top:0;}
 .detail-container .resources-table{overflow-y:auto;position:relative;}
+
+/* Overlay accept and publish */
+#id_confirmPublishDataset.ao-popup-overlay .ov-content,
+#id_confirmPublishDatastream.ao-popup-overlay .ov-content{width:700px;}

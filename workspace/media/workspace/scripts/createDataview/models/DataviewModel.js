@@ -10,6 +10,8 @@ var select_statement_template = ['<selectStatement>',
             '<% _.each(cells, function (number) { %>',
                 '<Column>cell<%= number %></Column>',
             '<% }); %>',
+        '<% } else { %>',
+            '<Column>*</Column>',
         '<% } %>',
     '</Select>',
     '<From>',
@@ -233,8 +235,8 @@ var DataviewModel = Backbone.Model.extend({
                 required: true,
                 msg: gettext('VALIDATE-REQUIREDFIELD-TEXT')
             },{
-                maxLength: 140,
-                msg: gettext('VALIDATE-MAXLENGTH-TEXT-1') + ' 140 ' + gettext('VALIDATE-MAXLENGTH-TEXT-2')
+                maxLength: 250,
+                msg: gettext('VALIDATE-MAXLENGTH-TEXT-1') + ' 250 ' + gettext('VALIDATE-MAXLENGTH-TEXT-2')
             },{
                 fn: function(value, attr, computedState){
                     if( $.trim(computedState.title) === $.trim(value) ) {

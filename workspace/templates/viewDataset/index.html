@@ -14,6 +14,7 @@
 <script src="{% static 'workspace/scripts/viewDataset/affectedResourcesView.js' %}"></script>
 <script src="{% static 'workspace/scripts/viewDataset/affectedResourcesCollection.js' %}"></script>
 <script src="{% static 'workspace/scripts/viewDataset/affectedResourcesCollectionDeleteView.js' %}"></script>
+<script src="{% static 'workspace/scripts/viewDataset/affectedResourcesCollectionPublishItemView.js' %}"></script>
 <script src="{% static 'workspace/scripts/viewDataset/affectedResourcesCollectionUnpublishView.js' %}"></script>
 <script src="{% static 'workspace/scripts/viewDataset/datasetModel.js' %}"></script>
 <script src="{% static 'workspace/scripts/viewDataset/datasetView.js' %}"></script>
@@ -82,7 +83,8 @@ $(document).ready(function(){
     lastPublishDate: "{{dataset.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
     publicUrl: "{{settings.MSPROTOCOL}}://{{preference.account_domain}}{% permalink 'dataset' dataset.dataset_id dataset.slug %}",
     createdAt: "{{ dataset.created_at|date:'F d, Y, h:i A'|capfirst }}",
-    modifiedAt: "{{ dataset.modified_at|date:'F d, Y, h:i A'|capfirst }}"
+    modifiedAt: "{{ dataset.modified_at|date:'F d, Y, h:i A'|capfirst }}",
+    can_publish_bof_children: "{{ dataset.can_publish_bof_children|default:'null' }}"
   });
   var DatasetView = new datasetView({model: Dataset});
 });

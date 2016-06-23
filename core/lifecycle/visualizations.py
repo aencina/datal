@@ -52,6 +52,10 @@ EDIT_ALLOWED_STATES = [
 
 class VisualizationLifeCycleManager(AbstractLifeCycleManager):
     """ Manage a visualization Life Cycle"""
+    revision_model = VisualizationRevision
+    model = Visualization
+    search_model = VisualizationSearchDAOFactory
+    dao_model = VisualizationDBDAO
 
     def __init__(self, user, resource=None, language=None, visualization_id=0, visualization_revision_id=0):
         super(VisualizationLifeCycleManager, self).__init__(user, language)
@@ -85,6 +89,15 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
                 language=self.visualization.user.language
             )
 
+        self.resource=self.visualization
+        self.revision=self.visualization_revision
+
+    def get_parents_list(self):
+        return [self.resource.datastream, self.resource.datastream.last_revision.dataset]
+
+    def get_revisions_queryset(self):
+        return VisualizationRevision.objects.filter(visualization=self.visualization )
+
     def create(self, datastream_rev=None, language=None, **fields):
         """ Create a new Visualization """
 
@@ -94,6 +107,9 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             language=language,
             **fields
         )
+
+        self.resource = self.visualization
+        self.revision = self.visualization_revision
 
         self._log_activity(ActionStreams.CREATE)
         self._update_last_revisions()
@@ -153,44 +169,6 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
         self.visualization_revision.save()
         self._log_activity(ActionStreams.REJECT)
 
-    def _update_last_revisions(self):
-        """ update last_revision_id and last_published_revision_id """
-
-        last_revision_id = VisualizationRevision.objects.filter(
-            visualization=self.visualization
-        ).aggregate(Max('id'))['id__max']
-
-        if last_revision_id:
-            self.visualization.last_revision = VisualizationRevision.objects.get(pk=last_revision_id)
-            last_published_revision_id = VisualizationRevision.objects.filter(
-                visualization=self.visualization,
-                status=StatusChoices.PUBLISHED).aggregate(Max('id')
-            )['id__max']
-
-            if last_published_revision_id:
-                self.visualization.last_published_revision = VisualizationRevision.objects.get(
-                    pk=last_published_revision_id)
-                search_dao = VisualizationSearchDAOFactory().create(self.visualization.last_published_revision)
-                search_dao.add()
-            else:
-                self.visualization.last_published_revision = None
-
-            self.visualization.save()
-        else:
-            # Si fue eliminado pero falta el commit, evito borrarlo nuevamente
-            if self.visualization.id:
-                self.visualization.delete()
-            # si no se actualiza esto, luego falla en la vista al intentar actualizar el last_revision
-            self.visualization.last_revision_id=last_revision_id
-
-    def _publish_childs(self):
-        """
-        Publica todos los hijos
-        No se implementa ya que visualizaciones no tiene modelos hijo
-        :return:
-        """
-        pass
-
     def _send_childs_to_review(self):
         """
         No implementado ya que las visualizaciones no tienen hijos
@@ -225,7 +203,7 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             self.visualizationi18n = self.visualization_revision.visualizationi18n_set.all()[0] # TODO at at DAO
 
         title = self.visualizationi18n.title
-        resource_category = self.visualization_revision.datastream.last_revision.category.categoryi18n_set.all()[0] # todo add language
+        resource_category = self.visualization_revision.datastream.last_revision.category.categoryi18n_set.all()[0].name
         
         return super(VisualizationLifeCycleManager, self)._log_activity(
             action_id,
@@ -235,20 +213,6 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             title,
             resource_category
         )
-
-    def accept(self, allowed_states=ACCEPT_ALLOWED_STATES):
-        """ accept a visualization revision """
-
-        if self.visualization_revision.status not in allowed_states:
-            raise IllegalStateException(
-                from_state=self.visualization_revision.status,
-                to_state=StatusChoices.APPROVED,
-                allowed_states=allowed_states
-            )
-
-        self.visualization_revision.status = StatusChoices.APPROVED
-        self.visualization_revision.save()
-        self._log_activity(ActionStreams.ACCEPT)
 
     def _unpublish_all(self, to_status=StatusChoices.DRAFT):
         """
@@ -325,39 +289,6 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
         self._update_last_revisions()
 
         self._log_activity(ActionStreams.UNPUBLISH)
-
-    def publish(self, allowed_states=PUBLISH_ALLOWED_STATES, parent_status=None):
-        """ Publica una revision de visualizacion """
-        logger.info('[LifeCycle - Visualizations - Publish] Publico Rev {}.'.format(
-            self.visualization_revision.id
-        ))
-        if self.visualization_revision.status not in allowed_states:
-            logger.info('[LifeCycle - Visualizations - Publish] Rev. {} El estado {} no esta entre los estados de edicion permitidos.'.format(
-                self.visualization_revision.id, self.visualization_revision.status
-            ))
-            raise IllegalStateException(
-                from_state=self.visualization_revision.status,
-                to_state=StatusChoices.PUBLISHED,
-                allowed_states=allowed_states
-            )
-        if parent_status != StatusChoices.PUBLISHED:
-            if self.visualization_revision.visualization.datastream.last_revision.status != StatusChoices.PUBLISHED:
-                # en caso de que el padre no este publicado, lo dejamos como aprobado
-                self.visualization_revision.status = StatusChoices.APPROVED
-                self.visualization_revision.save()
-                transaction.commit()
-                raise VisualizationParentNotPublishedException(self.visualization_revision.visualization.datastream.last_revision)
-
-        self._publish_childs()
-        self.visualization_revision.status = StatusChoices.PUBLISHED
-        self.visualization_revision.save()
-
-        self._update_last_revisions()
-
-        search_dao = VisualizationSearchDAOFactory().create(self.visualization_revision)
-        search_dao.add()
-
-        self._log_activity(ActionStreams.PUBLISH)
 
     def send_to_review(self, allowed_states=SEND_TO_REVIEW_ALLOWED_STATES):
         """ Envia a revision un datastream """

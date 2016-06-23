@@ -107,7 +107,7 @@ var viewDatasetView = Backbone.View.extend({
   		tabsHeight = parseFloat( $('.tabs').height() ),
 			otherHeight = theHeight,
 			//minHeight = tabsHeight - otherHeight;
-			minHeight = 500;
+			minHeight = 380;
 
 	  $(heightContainer).css('min-height', minHeight+ 'px');
 

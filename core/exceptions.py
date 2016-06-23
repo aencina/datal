@@ -63,7 +63,7 @@ class ExceptionManager():
         logger = logging.getLogger(__name__)
         logger.warning('[CatchError]  %s. %s' % (self.exception.title, 
             self.exception.description))
-        return HttpResponse(self.response, mimetype=self.output, status=self.exception.status_code)
+        return HttpResponse(self.response, content_type=self.output, status=self.exception.status_code)
 
 class UnkownException(DATALException):
     title = _('EXCEPTION-TITLE-UNKNOWN')

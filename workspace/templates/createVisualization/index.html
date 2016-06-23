@@ -118,20 +118,30 @@
 <script type="text/javascript">
   var tags = [];
   {% for tag in datastream_revision.tags %}
-    tags.push({
-        id:'{{ tag.tag__id }}',
-        name:'{{ tag.tag__name }}',
-        status:'{{ tag.tag__status }}'
-      });
+  tags.push({
+      id:'{{ tag.tag__id }}',
+      name:'{{ tag.tag__name }}',
+      status:'{{ tag.tag__status }}'
+    });
   {% endfor %}
 
   var sources = [];
   {% for source in datastream_revision.sources %}
-    sources.push({
-        id:'{{ source.source__id }}',
-        name:'{{ source.source__name }}',
-        url:'{{ source.source__url }}'
-      });
+  sources.push({
+      id:'{{ source.source__id }}',
+      name:'{{ source.source__name }}',
+      url:'{{ source.source__url }}'
+    });
+  {% endfor %}
+
+  var params = [];
+  {% for param in datastream_revision.parameters %}
+  params.push({
+      name:'{{ param.name }}',
+      default:'{{ param.default }}',
+      position: {{ param.position }},
+      description:'{{ param.description }}'
+    });
   {% endfor %}
 
   var mainView = new MainView({
@@ -141,6 +151,7 @@
       datastream_tags: tags,
       datastream_category: '{{ datastream_revision.category_name }}',
       datastream_sources: sources,
+      datastream_params: params,
       {% if visualization_revision %}
         editMode: true,
         id: {{ visualization_revision.visualization_id }},

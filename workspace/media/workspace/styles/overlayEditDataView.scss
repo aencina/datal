@@ -17,7 +17,7 @@
           box-sizing:border-box;
 }
 .formContent .row textarea{width:100%;}
-.formContent .row .nicEdit-main{font-size:14px;padding:5px;width:100% !important;}
+.formContent .row .nicEdit-main{font-size:14px;padding:5px;width:100% !important;overflow:auto !important;margin:0 !important;}
 .formContent .row .textarea{background:#fff;width:100% !important;}
 .formContent .row .textarea > div{width:100% !important;}
 .formContent .nolabel{margin-left:30px;position:relative;top:3px;}

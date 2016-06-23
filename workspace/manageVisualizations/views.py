@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 import json
-import urllib
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.db import transaction
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
-
 from core.http import JSONHttpResponse
 from core.shortcuts import render_to_response
-from core.auth.decorators import login_required,privilege_required
-from core.helpers import RequestProcessor
+from core.auth.decorators import login_required
 from core.utils import DateTimeEncoder
 from core.choices import *
 from core.models import VisualizationRevision
@@ -20,10 +17,9 @@ from core.daos.visualizations import VisualizationDBDAO
 from core.lifecycle.visualizations import VisualizationLifeCycleManager
 from core.exceptions import VisualizationNotFoundException
 from core.exceptions import DataStreamNotFoundException
-from core.signals import visualization_changed, visualization_removed, visualization_unpublished, datastream_removed
-from workspace.manageVisualizations import forms
+from core.signals import visualization_changed, visualization_removed, visualization_unpublished
 from workspace.decorators import *
-from .forms import VisualizationForm, ViewChartForm
+from .forms import VisualizationForm
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +36,8 @@ def index(request):
     resources, total_resources = dao.query(account_id=request.account.id, language=request.user.language)
 
     for resource in resources:
-        resource['url'] = reverse('manageVisualizations.view', urlconf='workspace.urls', kwargs={'revision_id': resource['id']})
+        resource['url'] = reverse('manageVisualizations.view', urlconf='workspace.urls', kwargs={
+            'revision_id': resource['id']})
 
     filters = dao.query_filters(account_id=request.user.account.id,
                                     language=request.user.language)
@@ -79,7 +76,6 @@ def filter(request, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE):
     if bb_request.get('itemxpage') is not None and bb_request.get('itemxpage') != '':
         itemsxpage = int(bb_request.get('itemxpage'))
 
-
     if sort_by:
         if sort_by == "title":
             sort_by ="visualizationi18n__title"
@@ -107,10 +103,12 @@ def filter(request, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE):
 
     for resource in resources:
         resource['url'] = reverse('manageVisualizations.view', kwargs=dict(revision_id=resource['id']))
-        resource['datastream_url'] = reverse('manageDataviews.view', kwargs={'revision_id': resource['visualization__datastream__last_revision__id']})
+        resource['datastream_url'] = reverse('manageDataviews.view', kwargs={
+            'revision_id': resource['visualization__datastream__last_revision__id']})
 
-    data = render_to_string('manageVisualizations/visualization_list.json', dict(items=resources, total_entries=total_entries, total_resources=total_resources))
-    return HttpResponse(data, mimetype="application/json")
+    data = render_to_string('manageVisualizations/visualization_list.json', dict(
+        items=resources, total_entries=total_entries, total_resources=total_resources))
+    return HttpResponse(data, content_type="application/json")
 
 
 @login_required
@@ -174,7 +172,6 @@ def change_status(request, visualization_revision_id=None):
         action = 'accept' if action == 'approve'else action # fix para poder llamar dinamicamente al metodo de lifecycle
         killemall = True if request.POST.get('killemall', False) == 'true' else False
 
-
         if action not in ['accept', 'reject', 'publish', 'unpublish', 'send_to_review']:
             raise NoStatusProvidedException()
 
@@ -230,7 +227,8 @@ def create(request):
     if request.method == 'GET':
         datastream_revision_id = request.GET.get('datastream_revision_id', None)
         try:
-            datastream_rev = DataStreamDBDAO().get(request.user,
+            datastream_rev = DataStreamDBDAO().get(
+                request.user,
                 datastream_revision_id=datastream_revision_id,
                 published=False
             )
@@ -253,7 +251,6 @@ def create(request):
         # Formulario
         form = VisualizationForm(request.POST)
         if not form.is_valid():
-            logger.info(form._errors)
             raise VisualizationSaveException('Invalid form data: %s' % str(form.errors.as_text()))
 
         response = form.save(request, datastream_rev=datastream_rev)
@@ -272,7 +269,7 @@ def retrieve_childs(request):
     )
 
     list_result = [associated_visualization for associated_visualization in visualizations]
-    return HttpResponse(json.dumps(list_result), mimetype="application/json")
+    return HttpResponse(json.dumps(list_result), content_type="application/json")
 
 
 @login_required

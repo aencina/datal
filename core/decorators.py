@@ -63,7 +63,7 @@ def threshold(code):
             if response == '':
                 return func(request, *args, **kwargs)
             else:
-                return HttpResponse(json.dumps(response), mimetype='application/json', status=400)
+                return HttpResponse(json.dumps(response), content_type='application/json', status=400)
 
         return wraps(func)(inner_decorator)
 

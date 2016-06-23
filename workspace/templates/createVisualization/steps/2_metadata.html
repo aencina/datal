@@ -24,7 +24,7 @@
 					<div class="row clearfix">
 						<label for="description">{% trans "APP-DESCRIPTION-TEXT" %}</label>
 						<span class="required">*</span>
-						<input type="text" class="description" name="description" maxlength="140" data-bind="">
+						<input type="text" class="description" name="description" maxlength="250" data-bind="">
 						<p class="has-error validate-msg">{% trans 'VALIDATE-REQUIREDFIELD-TEXT' %}</p>
 					</div>
 
@@ -57,9 +57,10 @@
 					<div class="row clearfix notes-field">
 						<label for="id_notes">{% trans "APP-NOTES-TEXT" %}</label>
 						<div class="textarea clearfix FL">
-							<textarea id="id_notes" class="notes" maxlength="2048"></textarea>
+							<!-- <textarea id="id_notes" class="notes" maxlength="2048"></textarea> -->
+							<textarea id="id_notes" class="notes"></textarea>
 						</div>
-						<p class="has-error validate-msg">{% trans "VALIDATE-MAXLENGTH-TEXT-1" %} 2048 {% trans "VALIDATE-MAXLENGTH-TEXT-2" %}</p>
+						<!-- <p class="has-error validate-msg">{% trans "VALIDATE-MAXLENGTH-TEXT-1" %} 2048 {% trans "VALIDATE-MAXLENGTH-TEXT-2" %}</p> -->
 					</div>
 
 				</fieldset>

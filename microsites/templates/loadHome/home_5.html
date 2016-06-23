@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block themeContent %}
+{% with number=paginator.count|intcomma %}
 
 {# Facebook SDK #}
 <div id="fb-root"></div>
@@ -32,7 +33,7 @@
     <!-- Breadcrumb -->
     {% if config.breadcrumbSection %}
     <div class="breadcrumb clearfix">
-        {{ config.breadcrumbSection|formatmix:format_str|safe }}
+        {{ config.breadcrumbSection|format:number|safe }}
     </div>
     {% endif %}
 
@@ -199,6 +200,7 @@ $(document).ready(function(){
     var theme5View = new Theme5View();
 });
 </script>
+{% endwith %}
 {% endblock %}
 
 {% block popupsOverlay %}
@@ -210,9 +212,9 @@ $(document).ready(function(){
         {% overlay id_welcomePopup %}
           <div class="In clearfix">
             <h4>{{ config.welcomePopupTitle|formatmix:format_str|safe }}</h4>
-            <p>{{ config.welcomePopupText|formatmix:format_str|safe }}</p>
+            <p>{{ config.welcomePopupText|format:number|safe }}</p>
             <footer>
-                <p>{{ config.welcomePopupFooter|formatmix:format_str|safe }}</p>
+                <p>{{ config.welcomePopupFooter|format:number|safe }}</p>
             </footer>
           </div>
         {% endoverlay %}
