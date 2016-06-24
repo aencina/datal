@@ -1,4 +1,4 @@
-{% load i18n extra_tags components compress staticfiles sass_tags %}
+{% load i18n extra_tags components compress staticfiles sass_tags core_components %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +88,7 @@
 		              <span class="txt"><span class="titleDS"><strong>{{ datastream.title }}</strong>
 		              <br/> {{datastream.description|truncatechars:65}}
 		              {%for dataservice_argument in datastream.parameters%}
-		                  {% if forloop.first %}({% endif %}<span title="{{dataservice_argument.description}}">{%if dataservice_argument.value%}{{dataservice_argument.value}}{%else%}Enter a value for {{dataservice_argument.parameter_name}}{%endif%}</span>{% if not forloop.last %}, {%else%}){% endif %}
+		                  {% if forloop.first %}({% endif %}<span title="{{dataservice_argument.description}}">{%if dataservice_argument.value%}{{dataservice_argument.value|parameter_value}}{%else%}Enter a value for {{dataservice_argument.parameter_name}}{%endif%}</span>{% if not forloop.last %}, {%else%}){% endif %}
 		              {%endfor%}
 		              </span></span>
 		            </a>

@@ -159,7 +159,7 @@ $(document).ready(function(){
     guid: "{{datastream.guid}}",
     type: "{{datastream.type}}",
     {% for parameter in datastream.parameters %}
-    parameter{{forloop.counter0}}: {name: "{{parameter.name}}", value: "{{parameter.default}}"},
+    parameter{{forloop.counter0}}: {name: "{{parameter.name}}", value: "{{parameter.default|parameter_value}}"},
     {% endfor %}
     permaLink: "{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{% permalink 'datastream' datastream.datastream_id datastream.slug %}{%if url_query%}?{{url_query}}{%endif%}",
     embedUrl: "{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{{ datastream.guid|embedlink:'datastream' }}?header_row=0&fixed_column=0{%if url_query%}&{{url_query}}{%endif%}" ,
