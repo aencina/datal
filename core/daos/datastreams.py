@@ -157,7 +157,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
                     'description': parameter['description']
                 })
 
-        except FieldError, e:
+        except FieldError:
             parameters = []
 
         # Get category name

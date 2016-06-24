@@ -13,6 +13,13 @@ from core.lib.datastore import *
 
 
 def view(request, id, slug):
+    """
+    Get a datastream
+    :param request:
+    :param id:
+    :param slug:
+    :return:
+    """
     logger = logging.getLogger(__name__)
 
     account = request.account
@@ -38,6 +45,12 @@ def view(request, id, slug):
 
 @xframe_options_exempt
 def embed(request, guid):
+    """
+    Get an embedded datastream
+    :param request:
+    :param guid:
+    :return:
+    """
     account = request.account
     preferences = request.preferences
     msprotocol = 'https' if account.get_preference('account.microsite.https') else 'http'
@@ -46,7 +59,7 @@ def embed(request, guid):
     try:
         # parche horrible para usar account_language en vez del language del user
         user = request.user
-        user.language=preferences['account_language']
+        user.language = preferences['account_language']
 
         datastream = DataStreamDBDAO().get(user, guid=guid, published=True )
         parameters_query = RequestProcessor(request).get_arguments(datastream['parameters'])
