@@ -127,17 +127,10 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         )
 
         try:
-            parameters = []
-            for parameter in visualization_revision.visualizationparameter_set.all().values(
-                    'name', 'default', 'position', 'description'):
-                parameters.append({
-                    'name': parameter['name'],
-                    'default': PrimitiveComputer().compute(parameter['default']),
-                    'position': parameter['position'],
-                    'description': parameter['description']
-                })
+            parameters = visualization_revision.visualizationparameter_set.all().values('name', 'default', 'position',
+                                                                                        'description')
 
-        except FieldError, e:
+        except FieldError:
             parameters = []
 
         # Get category name

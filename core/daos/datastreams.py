@@ -147,16 +147,8 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         sources = datastream_revision.sourcedatastream_set.all().values('source__name', 'source__url', 'source__id')
 
         try:
-            parameters = []
-            for parameter in datastream_revision.datastreamparameter_set.all().values(
-                    'name', 'default', 'position', 'description'):
-                parameters.append({
-                    'name': parameter['name'],
-                    'default': PrimitiveComputer().compute(parameter['default']),
-                    'position': parameter['position'],
-                    'description': parameter['description']
-                })
-
+            parameters = datastream_revision.datastreamparameter_set.all().values('name', 'default', 'position',
+                                                                                  'description')
         except FieldError:
             parameters = []
 

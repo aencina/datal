@@ -28,7 +28,7 @@ def view(request, id, slug):
 
     # parche horrible para usar account_language en vez del language del user
     user = request.user
-    user.language=preferences['account_language']
+    user.language = preferences['account_language']
 
     datastream = DataStreamDBDAO().get(user, datastream_id=id, published=True)
 
