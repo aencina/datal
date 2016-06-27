@@ -12,13 +12,14 @@ class DefaultDataViewEdit(Template):
         tmpl = "{%% include '%s' %%}" % template
         super(DefaultDataViewEdit, self).__init__(tmpl)
 
-    def render(self, categories, status, allowed_status, datastream_revision, datastreami18n):
+    def render(self, categories, status, allowed_status, datastream_revision, datastreami18n, dao):
         ctx = Context({
             "categories": categories,
             "status": status,
             "allowed_status": allowed_status,
             "datastream_revision": datastream_revision,
-            'datastreami18n': datastreami18n
+            'datastreami18n': datastreami18n,
+            'dao': dao,
         })
         return super(DefaultDataViewEdit, self).render(ctx)
 

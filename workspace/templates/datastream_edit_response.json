@@ -30,6 +30,6 @@
     {"value":"{{ category.category__id }}","label":"{{ category.name }}"}{% if not forloop.last %},{%endif %}
 {% endfor %}
 ],
-"category": "{{datastream_revision.category}}",
+"category": "{{dao.category_id}}",
 "notes": "{{datastreami18n.notes|escapejs}}"
 }

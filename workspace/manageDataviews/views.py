@@ -298,11 +298,13 @@ def edit(request, datastream_revision_id=None):
         status_options = credentials.get_allowed_actions()
         lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=datastream_revision_id)
         status = lifecycle.datastream_revision.status
+        dao = DataStreamDBDAO().get(request.user, datastream_revision_id=datastream_revision_id)
         response = DefaultDataViewEdit(template='datastream_edit_response.json').render(
             categories, status,
             status_options,
             lifecycle.datastream_revision,
-            lifecycle.datastreami18n
+            lifecycle.datastreami18n,
+            dao
         )
 
         return JSONHttpResponse(response)
