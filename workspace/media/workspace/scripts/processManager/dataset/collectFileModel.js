@@ -88,10 +88,9 @@ var CollectFileModel = StepModel.extend({
 	},
 
 	checkExtension : function(filename){
-		//console.log(filename);
 		var filename = filename.split('/');
 		filename = filename[filename.length - 1];
-		var extension = filename.split('.')[1].toLowerCase();
+		var extension = filename.split('.').pop().toLowerCase();
 
 		var impl_type = '';
 		switch(extension) {
