@@ -15,8 +15,6 @@ from microsites.rest.charts import RestChartViewSet
 from microsites.rest.routers import MicrositeEngineRouter
 from core.plugins_point import DatalPluginPoint
 
-import warnings
-warnings.simplefilter('error', DeprecationWarning)
 
 router = MicrositeEngineRouter()
 router.register(r'datastreams', RestDataStreamViewSet, base_name='datastreams')
