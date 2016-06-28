@@ -18,6 +18,8 @@ from workspace.rest.resources import MultipleResourceViewSet
 from workspace.rest.categories import RestCategoryViewSet 
 from workspace.rest.users import RestUserViewSet 
 
+import warnings
+warnings.simplefilter('error', DeprecationWarning)
 
 router = routers.DefaultRouter()
 router.register(r'datastreams', RestDataStreamViewSet, base_name='datastreams')
