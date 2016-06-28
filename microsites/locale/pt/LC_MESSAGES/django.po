@@ -540,6 +540,9 @@ msgstr "Dataset"
 msgid "HOME-DB-TEXT"
 msgstr "Dashboard"
 
+msgid "HOME-KP-TEXT"
+msgstr "KPI"
+
 msgid "HOME-DS-TEXT"
 msgstr "Data View"
 

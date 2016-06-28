@@ -543,6 +543,9 @@ msgstr "Dashboard"
 msgid "HOME-DS-TEXT"
 msgstr "Data View"
 
+msgid "HOME-KP-TEXT"
+msgstr "KPI"
+
 msgid "HOME-VZ-TEXT"
 msgstr "Visualization"
 

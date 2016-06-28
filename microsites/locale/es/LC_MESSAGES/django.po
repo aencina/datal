@@ -534,6 +534,9 @@ msgstr "Conjunto de datos"
 msgid "HOME-DB-TEXT"
 msgstr "Colección"
 
+msgid "HOME-KP-TEXT"
+msgstr "Métrica"
+
 msgid "HOME-DS-TEXT"
 msgstr "Vista de datos"
 
