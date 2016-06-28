@@ -2,9 +2,23 @@ var DataStreamModel = Backbone.Model.extend({
     idAttribute: 'datastream_revision_id',
 
     url: function () {
+
+        var params = '';
+
+        if( !_.isUndefined(this.get('datastream_params')) ){
+
+            var datastream_params = this.get('datastream_params');
+
+            for(var i=0;i<datastream_params.length;i++){
+                params += '&pArgument'+datastream_params[i].position+'='+datastream_params[i].default;
+            }
+
+        }
+
         return ['/rest/datastreams/',
             this.get('datastream_revision_id'),
-            '/data.json/?limit=50&page=0'].join('');
+            '/data.json/?limit=50&page=0'+params].join('');
+            
     },
 
     initialize: function () {
