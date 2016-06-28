@@ -426,6 +426,14 @@ admin.site.register(DataStreamComment, DataStreamCommentAdmin)
 try:
     # Esto no deberia estar aca, hay que pasarlo a los plugins
     from plugins.dashboards.models import Dashboard, DashboardI18n, DashboardRevision, DashboardWidget
+    from plugins.faceapp.models import Faceapp
+
+
+    class FaceappAdmin(admin.ModelAdmin):
+        list_per_page = 25
+
+    admin.site.register(Faceapp, FaceappAdmin)
+
 
     # Dashboard
     class DashboardAdmin(admin.ModelAdmin):

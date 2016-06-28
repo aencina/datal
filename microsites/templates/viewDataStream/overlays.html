@@ -10,7 +10,7 @@
         <table class="ao-dialogue">
           <tr>
             <td>
-                <input id="id_googleSpreadsheetDataStreamInput" readonly="readonly" style="width: 400px;" value="=ImportHtml(&quot;{{base_uri}}{% url "datastreams-data" datastream.last_published_revision_id 'html' %}{%if url_query%}?{{url_query}}{%endif%}&quot; ; &quot;table&quot; ; 1)" />
+                <input id="id_googleSpreadsheetDataStreamInput" readonly="readonly" style="width: 400px;" value="=ImportHtml(&quot;{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{% url "datastreams-data" datastream.last_published_revision_id 'html' %}{%if url_query%}?{{url_query}}{%endif%}&quot; ; &quot;table&quot; ; 1)" />
             </td>
           </tr>
         </table>

@@ -2,12 +2,23 @@ from django import template
 from django.forms.formsets import formset_factory
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
-from core.plugins_point import DatalPluginPoint
 
+from core.plugins_point import DatalPluginPoint
+from core.primitives import PrimitiveComputer
 from core.auth import forms as auth_forms
 from core.models import ObjectGrant
 
 register = template.Library()
+
+
+@register.filter(name="parameter_value")
+def parameter_value(value):
+    """
+    Get value from parameter computing primitives
+    :param value:
+    :return:
+    """
+    return PrimitiveComputer().compute(value)
 
 
 @register.simple_tag(takes_context=True)

@@ -7,14 +7,23 @@ logger = logging.getLogger(__name__)
 
 class RequestProcessor:
 
+    """
+    Request Processor
+    """
+
     def __init__(self, request):
         self.request = request
 
-    def get_arguments(self, paramaters):
+    def get_arguments(self, parameters):
 
+        """
+
+        :param parameters:
+        :return:
+        """
         args = {}
 
-        for parameter in paramaters:
+        for parameter in parameters:
             key = 'pArgument%d' % parameter['position']
             value = self.request.REQUEST.get(key, '')
             if value == '':
@@ -27,7 +36,12 @@ class RequestProcessor:
 
         return args
 
-    def get_arguments_no_validation(self, query = None):
+    def get_arguments_no_validation(self, query=None):
+        """
+
+        :param query:
+        :return:
+        """
         counter = 0
 
         if not query:

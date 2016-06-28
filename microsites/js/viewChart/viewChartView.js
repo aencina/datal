@@ -451,8 +451,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		var tabsHeight = this.$el.find('#id_wrapper .tabs').height() - $chartHeader.outerHeight(true);
 
 		// Min height para que no sea mas chico que las tabs
-		if( height < 500 ){
-			height = 500;
+		if( height < 380 ){
+			height = 380;
 		}
 
 		this.chartView.$el.css({
