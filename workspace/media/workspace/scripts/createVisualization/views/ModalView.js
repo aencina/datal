@@ -1,7 +1,8 @@
 var ModalView = Backbone.View.extend({
 	events: {
         'click button.btn-done':'onClickDone',
-		'click button.btn-cancel':'onClickCancel'
+		'click button.btn-cancel':'onClickCancel',
+        'change #id_dataViewParameters .parameter .field':'updateDatastreamParams'
 	},
 
 	initialize: function(options){
@@ -43,6 +44,7 @@ var ModalView = Backbone.View.extend({
                 this.dataTableView.cacheSelection()
             }
         });
+        this.listenTo(this.dataStreamModel.datastream_params, 'change', this.onLoadDataStream, this);
 
         // initialization
         this.onChangeType();
@@ -50,6 +52,7 @@ var ModalView = Backbone.View.extend({
     },
 
     onOpen: function () {
+
         this.selectedCellRangeView.render();
 
         if (this.model.get('latitudSelection') && !_.isEmpty(this.model.get('latitudSelection'))) {
@@ -339,6 +342,25 @@ var ModalView = Backbone.View.extend({
         $('body').css('overflow', 'auto');
         this.$el.addClass('hidden');
         this.trigger('close');
+    },
+
+    updateDatastreamParams: function(event){
+        
+        var element = $(event.currentTarget),
+            value = element.val(),
+            position = element.attr('data-position');
+        
+        // get params from model
+        var params = this.dataStreamModel.get('datastream_params');
+
+        // set value on the position changed
+        params[position].default = value;
+
+        // update model
+        this.dataStreamModel.set('datastream_params', params);
+
+        console.log(this.dataStreamModel.get('datastream_params'));
+
     }
 
 });

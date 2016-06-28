@@ -1,0 +1,19 @@
+{% load i18n extra_tags core_components components %}
+
+{% if datastream_revision.parameters %}
+<!-- Data View Parameters -->
+<div class="row" id="id_dataViewParameters">
+	<h2>{% trans "APP-PARAMETERS-TEXT" %}</h2>
+	<!-- <button class="button small primary" id="id_updateParams">{% trans "APP-UPDATE-TEXT" %}</button> -->
+	<div class="params-container">
+		{% for param in datastream_revision.parameters %}
+		<div class="parameter">
+			<label for="id_param{{param.position}}">{{ param.name }}</label>
+			<input name="param{{param.position}}" id="id_param{{param.position}}" type="text" value="{{ param.default }}" class="field" data-position="{{param.position}}"/>
+			{% if param.description %}<p class="tip">{{ param.description }}</p>{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<h2>{% trans "APP-SELECTION-TEXT" %}</h2>
+{% endif %}
