@@ -71,6 +71,7 @@ var DataTableView = Backbone.View.extend({
     });
 
     this.data = tableData.rows;
+
     if (columns.length === 0) {
       return;
     }

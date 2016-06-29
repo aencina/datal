@@ -24,8 +24,6 @@
 				<div class="selected-ranges-view">
 					<form class="form" novalidate>
 
-						{% include "createVisualization/parameters.html" %}
-
 						<div class="row input-row" data-name="data">
 							<label>{% trans "APP-CUSTOMIZE-VISUALIZATION-SELECT-RANGE-TEXT" %}</label>
 							<div class="hot-sel-1">
@@ -66,6 +64,9 @@
 								<p class="validation-invalid-range hidden">{% trans "APP-INVALID-RANGE" %}</p>
 							</div>
 						</div>
+
+						{% include "createVisualization/parameters.html" %}
+
 					</form>
 				</div>
 
@@ -93,9 +94,10 @@
 
 		<div class="col-xs-9">
 			<div class="data-table-view">
-				<div class="table-view">
-				</div>
+				<div class="table-view"></div>
+				<div class="table-null-message" style="display:none;">{% trans "CREATEVIZ-NULLRESULTS-TEXT" %}</div>
 			</div>
+			<div class="table-loading loading light" style="display:none;">{% trans "APP-LOADINGDATAPLEASEWAIT-TEXT" %}</div>
 		</div>
 
 	</div>

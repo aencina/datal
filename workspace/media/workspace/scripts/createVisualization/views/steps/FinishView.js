@@ -67,18 +67,21 @@ var FinishView = StepViewSPA.extend({
 	},
 
 	onFinishButtonClicked: function(e){
-		if(!this.finishBtn.hasClass('saving')){
-			$("#ajax_loading_overlay").show();
-			this.finishBtn.addClass('saving');
-			var self=this;
-			var data = this.model.save().then(function (response) {
-				window.location = '/visualizations/'+response.revision_id + '/';
-			}).fail(function (rejection) {
-				self.finishBtn.removeClass('saving');
-				$("#ajax_loading_overlay").hide();
-				console.error(rejection);
-			});
-		}
+
+		console.log( this.model.toJSON() );
+
+		// if(!this.finishBtn.hasClass('saving')){
+		// 	$("#ajax_loading_overlay").show();
+		// 	this.finishBtn.addClass('saving');
+		// 	var self=this;
+		// 	var data = this.model.save().then(function (response) {
+		// 		window.location = '/visualizations/'+response.revision_id + '/';
+		// 	}).fail(function (rejection) {
+		// 		self.finishBtn.removeClass('saving');
+		// 		$("#ajax_loading_overlay").hide();
+		// 		console.error(rejection);
+		// 	});
+		// }
 
 	},
 

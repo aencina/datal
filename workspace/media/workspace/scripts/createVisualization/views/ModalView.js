@@ -2,7 +2,8 @@ var ModalView = Backbone.View.extend({
 	events: {
         'click button.btn-done':'onClickDone',
 		'click button.btn-cancel':'onClickCancel',
-        'change #id_dataViewParameters .parameter .field':'updateDatastreamParams'
+        'change #id_dataViewParameters .parameter .field':'updateDatastreamParams',
+        'keydown #id_dataViewParameters .parameter .field':'showMessageDatastreamParams'
 	},
 
 	initialize: function(options){
@@ -44,7 +45,7 @@ var ModalView = Backbone.View.extend({
                 this.dataTableView.cacheSelection()
             }
         });
-        this.listenTo(this.dataStreamModel.datastream_params, 'change', this.onLoadDataStream, this);
+       // this.listenTo(this.dataStreamModel.datastream_params, 'change', this.onLoadDataStream, this);
 
         // initialization
         this.onChangeType();
@@ -189,11 +190,32 @@ var ModalView = Backbone.View.extend({
 
     /* se cargaron los datos del datastream, estan en dataviewModel.toJSON() */
     onLoadDataStream: function (dataviewModel) {
-        this.dataTableView = new DataTableView({
-            el: this.$('.data-table-view'),
-            collection: this.collection,
-            dataview: dataviewModel.toJSON()
-        });
+
+        var rows = dataviewModel.toJSON().rows;
+
+        // Hide table loading
+        this.hideLoading();
+
+        // Si las filas estan vacias, muestro un mensaje
+        if( rows.length == 0 ){
+            this.showTableNullMsg();
+        }else{
+            this.hideTableNullMsg();
+        }
+
+        // No definido, entonces creo el datatable
+        if( _.isUndefined(this.dataTableView) ){
+            this.dataTableView = new DataTableView({
+                el: this.$('.data-table-view'),
+                collection: this.collection,
+                dataview: dataviewModel.toJSON()
+            });
+
+        // Ya esta definido, entonces actualizo el data
+        }else{
+            this.dataTableView.data = rows;
+        }
+
         this.dataTableView.render();
         this.collection.setMaxCols(this.dataTableView.table.countCols());
         var totalRows = this.dataStreamModel.response.fLength;
@@ -207,6 +229,8 @@ var ModalView = Backbone.View.extend({
         this.listenTo(this.dataTableView, 'afterSelectionEnd', function () {
             this.addSelection(this._cacheFocusedInput);
         }, this);
+
+        
     },
 
     addSelection: function (name) {
@@ -305,7 +329,8 @@ var ModalView = Backbone.View.extend({
         var self = this;
 
         var sidebar = this.$el.find('.sidebar'),
-            table = this.$el.find('.table-view');
+            table = this.$el.find('.table-view'),
+            loading = this.$el.find('.table-loading');
 
         $(window).resize(function(){
 
@@ -314,12 +339,14 @@ var ModalView = Backbone.View.extend({
             var sidebarHeight =
               windowHeight
             - parseFloat( self.$el.find('.context-menu').height() )
-            - parseFloat( sidebar.parent().css('padding-top').split('px')[0] )
-            - 50 // As margin bottom
-            ;
+            - parseFloat( sidebar.parent().css('padding-top').split('px')[0] );
 
             sidebar.css('height', sidebarHeight+'px');
-            table.css('height', sidebarHeight+'px');
+            table.css('height', sidebarHeight-50+'px'); // 50 as padding bottom
+            loading.css({
+                'height':sidebarHeight-50+'px',
+                'line-height':sidebarHeight+50+'px',
+            });
 
         }).resize();
     },
@@ -345,6 +372,9 @@ var ModalView = Backbone.View.extend({
     },
 
     updateDatastreamParams: function(event){
+
+        this.showLoading();
+        this.hideMessageDatastreamParams();
         
         var element = $(event.currentTarget),
             value = element.val(),
@@ -354,13 +384,46 @@ var ModalView = Backbone.View.extend({
         var params = this.dataStreamModel.get('datastream_params');
 
         // set value on the position changed
-        params[position].default = value;
+        for( var i=0;i<params.length;i++ ){
+            if( params[i].position == position ){
+                params[i].default = value;
+                break;
+            }
+        }
 
         // update model
         this.dataStreamModel.set('datastream_params', params);
 
-        console.log(this.dataStreamModel.get('datastream_params'));
+        this.dataStreamModel.fetch();
 
-    }
+    },
+
+    showMessageDatastreamParams: function(){
+        this.$el.find('.changeParamsTip').show();
+    },
+
+    hideMessageDatastreamParams: function(){
+        this.$el.find('.changeParamsTip').hide();
+    },
+
+    showLoading: function(){
+        this.$el.find('.table-loading').show();
+    },
+
+    hideLoading: function(){
+        this.$el.find('.table-loading').hide();
+    },
+
+    showTableNullMsg: function(){
+        this.$el.find('.table-null-message').show();
+        this.$el.find('.table-view').hide();
+        this.$el.find('.input-row input').attr('disabled','disabled');
+    },
+
+    hideTableNullMsg: function(){
+        this.$el.find('.table-null-message').hide();
+        this.$el.find('.table-view').show();
+        this.$el.find('.input-row input').removeAttr('disabled');
+    },
 
 });

@@ -3,9 +3,9 @@
 {% if datastream_revision.parameters %}
 <!-- Data View Parameters -->
 <div class="row" id="id_dataViewParameters">
-	<h2>{% trans "APP-PARAMETERS-TEXT" %}</h2>
-	<!-- <button class="button small primary" id="id_updateParams">{% trans "APP-UPDATE-TEXT" %}</button> -->
+	<div class="title">{% trans "APP-PARAMETERS-TEXT" %}</div>
 	<div class="params-container">
+		<p class="tip changeParamsTip" style="display:none;">{% trans "CREATEVIZ-CHANGEPARAMSTIP-TEXT" %}</p>
 		{% for param in datastream_revision.parameters %}
 		<div class="parameter">
 			<label for="id_param{{param.position}}">{{ param.name }}</label>
@@ -15,5 +15,4 @@
 		{% endfor %}
 	</div>
 </div>
-<h2>{% trans "APP-SELECTION-TEXT" %}</h2>
 {% endif %}
