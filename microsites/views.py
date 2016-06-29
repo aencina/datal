@@ -36,7 +36,7 @@ def get_js(request, url_name, id):
 
 def get_key(url_name):
     logger = logging.getLogger(__name__)
-  
+
     #TODO encontrar la forma de llevar esto al plugin en ds.detail y en chart.detail hay cosas de plugins.
     if url_name in ['viewDataStream.view', 'viewCustomViews.customviews_list', 'viewCustomViews.save', 'viewCustomViews.view']:
         key = 'ds.detail'
@@ -60,6 +60,8 @@ def get_key(url_name):
         key = 'db.detail'
     elif url_name in ['manageDatasets.view']:
         key = 'dataset'
+    elif url_name in ['kpi.view']:
+        key = 'kpi'
     else:
         #  http referer error http://microsites.dev:8080/dataviews/69620/iep-primer-trimestre-2012-ministerio-de-defensa-nacional
         logger.error('Url_name sin macheo %s' % url_name)
