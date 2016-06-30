@@ -27,6 +27,7 @@ charts.models.Chart = Backbone.Model.extend({
         datastream_category: undefined,
         datastream_sources: undefined,
         datastream_tags: undefined,
+        datastream_params: undefined,
 
         //data selection
         range_headers: undefined,
@@ -51,6 +52,10 @@ charts.models.Chart = Backbone.Model.extend({
 
     },
     initialize: function (options) {
+
+        console.log(this.toJSON());
+
+
         //Se inicializa acá para prevenir error en embed
         if(window.gettext){
             this.set('message',gettext("APP-CUSTOMIZE-VISUALIZATION-SELECT-DATA-TEXT"));
@@ -164,6 +169,11 @@ charts.models.Chart = Backbone.Model.extend({
             filters = this.getMapPreviewFilters();
         } else {
             filters = this.getChartPreviewFilters();
+        }
+
+        // Set de params al data model
+        if( !_.isUndefined( this.get('datastream_params') ) ){
+            this.data.set( 'datastream_params', this.get('datastream_params') );
         }
 
         this.data.set('filters', filters);
@@ -322,6 +332,8 @@ charts.models.Chart = Backbone.Model.extend({
             title: this.get('title'),
             description: this.get('description'),
             notes: this.get('notes'),
+
+            datastream_params: this.get('datastream_params'),
 
             type: this.get('type'),
             lib: this.get('lib'),

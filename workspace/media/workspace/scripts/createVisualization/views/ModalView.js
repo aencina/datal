@@ -113,6 +113,12 @@ var ModalView = Backbone.View.extend({
         // Revisar los filtros para pedir el mejor mapa posible
         result = this.fixMapInitialData(result);
         this.model.set(result);
+
+        // Set de params al chart model
+        if( !_.isUndefined( this.dataStreamModel.get('datastream_params') ) ){
+            this.model.set( 'datastream_params', this.dataStreamModel.get('datastream_params') );
+        }
+
         this.close();
     },
 
