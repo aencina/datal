@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load extra_tags components %}
+{% load extra_tags components core_components %}
 
 <div class="dataTable box" id="id_dataStreamContainer">
 	
@@ -23,7 +23,7 @@
 				<span class="parameters">
 					(
 					{% for parameter in datastream.parameters %}
-						{{parameter.name|capfirst}}: <a id="id_changeParam{{forloop.counter0}}Button" title="{% trans 'APP-EDITPARAM-TEXT' %}">{{parameter.default}}</a> {% if not forloop.last %}, {%endif%}
+						{{parameter.name|capfirst}}: <a id="id_changeParam{{forloop.counter0}}Button" title="{% trans 'APP-EDITPARAM-TEXT' %}">{{parameter.default|parameter_value}}</a> {% if not forloop.last %}, {%endif%}
 					{%endfor%}
 					)
 				</span>

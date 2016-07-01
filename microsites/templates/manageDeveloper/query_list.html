@@ -118,16 +118,9 @@
                     <p>{% trans "DEV-GETKEY-TEXT1" %}.</p>
                     <p>{% trans "DEV-GETKEY-TEXT2" %} 
                     {% if preferences.account_language == 'es' %}
-                        <a target="_blank" href="{% if not 'favicon'|inplugin %}http://junar.github.io/junar-manual/api-es/build/html/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
+                        <a target="_blank" href="{% if not 'favicon'|inplugin %}http://datal-org.github.io/datal/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
                     {% else %}
                         <a target="_blank" href=" http://junar.github.io/junar-manual/api-en/build/html/" title="{% trans 'DEV-GETKEY-TEXT3' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT3" %}</a> {% trans "DEV-GETKEY-TEXT4" %}.</p>
-                    {% endif %}
-
-                    <p>{% trans "DEV-GETKEY-TEXT5" %}
-                    {% if preferences.account_language == 'es' %}
-                        <a target="_blank" href="http://wiki.junar.com/index.php/API" title="{% trans 'DEV-GETKEY-TEXT6' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT6" %}</a> {% trans "DEV-GETKEY-TEXT7" %}.</p>
-                    {% else %}
-                        <a target="_blank" href="http://en.wiki.junar.com/index.php/API" title="{% trans 'DEV-GETKEY-TEXT6' %}" rel="nofollow">{% trans "DEV-GETKEY-TEXT6" %}</a> {% trans "DEV-GETKEY-TEXT7" %}.</p>
                     {% endif %}
 
                 </div>
@@ -152,7 +145,7 @@
                 <div class="description">
                     <p>{% trans "DEV-CREATEREQUEST-TEX1" %}:<br/><code><span class="blue">{{preferences.account_api_https|yesno:"https,http"}}://{{preferences.account_api_domain}}/api/v2/datastreams/{{example_guid}}/data.json/?auth_key=YOUR_API_KEY</span></code></p>
                     <p>{% trans "DEV-CREATEREQUEST-TEX3" %}:</p>
-                    <p><code><span class="blue">{% trans "DEV-CREATEREQUEST-TEX4" %}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX5" %} <a target="_blank" href="{% if not 'favicon'|inplugin %}http://junar.github.io/junar-manual/api-es/build/html/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="{% trans 'DEV-CREATEREQUEST-TEX6' %}" rel="nofollow">{% trans "DEV-CREATEREQUEST-TEX6" %}</a>.</p>
+                    <p><code><span class="blue">{% trans "DEV-CREATEREQUEST-TEX4" %}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX5" %} <a target="_blank" href="{% if not 'favicon'|inplugin %}http://datal-org.github.io/datal/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="{% trans 'DEV-CREATEREQUEST-TEX6' %}" rel="nofollow">{% trans "DEV-CREATEREQUEST-TEX6" %}</a>.</p>
                     <p><code><span class="black">{{example_guid}}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX8" %}.</p>
                     <p><code><span class="red">{% trans "DEV-CREATEREQUEST-TEX9" %}</span><span class="black">{% trans "DEV-CREATEREQUEST-TEX10" %}</span></code><br/>{% trans "DEV-CREATEREQUEST-TEX11" %}.</p>
                 </div>
@@ -175,7 +168,7 @@
                 </div>
                 <div class="description">
                     <p>{% trans "DEV-PROCESS-TEX1" %}.</p>
-                    <p>{% trans "DEV-PROCESS-TEX2" %} <a target="_blank" href="{% if not 'favicon'|inplugin %}http://junar.github.io/junar-manual/api-es/build/html/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="API resource documentation" rel="nofollow">{% trans "DEV-PROCESS-TEX3" %}</a>.</p>
+                    <p>{% trans "DEV-PROCESS-TEX2" %} <a target="_blank" href="{% if not 'favicon'|inplugin %}http://datal-org.github.io/datal/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="API resource documentation" rel="nofollow">{% trans "DEV-PROCESS-TEX3" %}</a>.</p>
                 </div>
             </div>
         </div>
@@ -197,7 +190,7 @@
                 <h5>{% trans "DEV-OV-SUBTITLE" %}!</h5>
                 <p>{% trans "DEV-OV-TEXT" %}: <strong class="key"><span id="id_urlLoader" class="ajaxLoader"><span class="DN">{% trans "APP-LOADING-TEXT" %}...</span></span></strong></p>
                 <ul>
-                    <li>{% trans "DEV-OV-TIP1" %} <a target="_blank" href="{% if not 'favicon'|inplugin %}http://junar.github.io/junar-manual/api-es/build/html/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="{% trans 'DEV-GETKEY-TEXT3' %}">{% trans "DEV-GETKEY-TEXT3" %}</a>, {% trans "DEV-OV-TIP2" %}.</li>
+                    <li>{% trans "DEV-OV-TIP1" %} <a target="_blank" href="{% if not 'favicon'|inplugin %}http://datal-org.github.io/datal/{% else %}{% plugins_call 'api_url' %}{% endif %}" title="{% trans 'DEV-GETKEY-TEXT3' %}">{% trans "DEV-GETKEY-TEXT3" %}</a>, {% trans "DEV-OV-TIP2" %}.</li>
                 </ul>
             </div>
         </div>
