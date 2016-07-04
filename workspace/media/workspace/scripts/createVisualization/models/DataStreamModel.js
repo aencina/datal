@@ -7,10 +7,10 @@ var DataStreamModel = Backbone.Model.extend({
 
         if( !_.isUndefined(this.get('datastream_params')) ){
 
-            var datastream_params = this.get('datastream_params');
+            var parameters = this.get('datastream_params');
 
-            for(var i=0;i<datastream_params.length;i++){
-                params += '&pArgument'+datastream_params[i].position+'='+datastream_params[i].default;
+            for(var i=0;i<parameters.length;i++){
+                params += '&pArgument'+parameters[i].position+'='+parameters[i].default;
             }
 
         }

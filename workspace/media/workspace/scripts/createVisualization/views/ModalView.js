@@ -397,7 +397,7 @@ var ModalView = Backbone.View.extend({
         }
 
         // update model
-        this.dataStreamModel.set('datastream_params', params);
+        this.dataStreamModel.set('params', params);
 
         this.dataStreamModel.fetch();
 

@@ -86,6 +86,18 @@
 google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
 
 
+var params = [];
+  {% for param in visualization_revision.parameters %}
+  params.push({
+      name:'{{ param.name }}',
+      default:'{{ param.default }}',
+      position: {{ param.position }},
+      description:'{{ param.description }}'
+    });
+  {% endfor %}
+
+
+
 var chartModel = new charts.models.Chart({
     
     title: "{{visualization_revision.title|capfirst}}", 
@@ -109,8 +121,9 @@ var chartModel = new charts.models.Chart({
     // Revisar
     id: "{{ visualization_revision.last_revision_id }}",
     visualization_id: "{{ visualization_revision.visualization_id }}",
-
 });
+
+console.log(chartModel);
 
 chartModel.parse({
     id: {{ visualization_revision.visualization_id }},
@@ -125,7 +138,11 @@ chartModel.parse({
 
     format: {{ visualization_revision.format | jsonify }},
     chart: {{ visualization_revision.chart | jsonify }},
+    parameters: params,
 });
+
+console.log(params);
+console.log(chartModel);
 
 var chartView = new MainView({
     model: chartModel
