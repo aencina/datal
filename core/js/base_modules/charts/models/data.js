@@ -282,12 +282,12 @@ charts.models.ChartData = Backbone.Model.extend({
 
         var params = '';
 
-        if( !_.isUndefined(this.get('datastream_params')) ){
+        if( !_.isUndefined(this.get('params')) ){
 
-            var datastream_params = this.get('datastream_params');
+            var params = this.get('params');
 
-            for(var i=0;i<datastream_params.length;i++){
-                params += '&pArgument'+datastream_params[i].position+'='+datastream_params[i].default;
+            for(var i=0;i<params.length;i++){
+                params += '&pArgument'+params[i].position+'='+params[i].default;
             }
 
         }

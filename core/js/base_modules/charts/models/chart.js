@@ -27,7 +27,7 @@ charts.models.Chart = Backbone.Model.extend({
         datastream_category: undefined,
         datastream_sources: undefined,
         datastream_tags: undefined,
-        datastream_params: undefined,
+        params: undefined,
 
         //data selection
         range_headers: undefined,
@@ -52,9 +52,6 @@ charts.models.Chart = Backbone.Model.extend({
 
     },
     initialize: function (options) {
-
-        console.log(this.toJSON());
-
 
         //Se inicializa acá para prevenir error en embed
         if(window.gettext){
@@ -172,8 +169,8 @@ charts.models.Chart = Backbone.Model.extend({
         }
 
         // Set de params al data model
-        if( !_.isUndefined( this.get('datastream_params') ) ){
-            this.data.set( 'datastream_params', this.get('datastream_params') );
+        if( !_.isUndefined( this.get('params') ) ){
+            this.data.set( 'params', this.get('params') );
         }
 
         this.data.set('filters', filters);
@@ -333,7 +330,7 @@ charts.models.Chart = Backbone.Model.extend({
             description: this.get('description'),
             notes: this.get('notes'),
 
-            datastream_params: this.get('datastream_params'),
+            params: this.get('params'),
 
             type: this.get('type'),
             lib: this.get('lib'),

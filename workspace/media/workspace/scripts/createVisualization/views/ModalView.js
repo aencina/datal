@@ -45,7 +45,6 @@ var ModalView = Backbone.View.extend({
                 this.dataTableView.cacheSelection()
             }
         });
-       // this.listenTo(this.dataStreamModel.datastream_params, 'change', this.onLoadDataStream, this);
 
         // initialization
         this.onChangeType();
@@ -115,8 +114,8 @@ var ModalView = Backbone.View.extend({
         this.model.set(result);
 
         // Set de params al chart model
-        if( !_.isUndefined( this.dataStreamModel.get('datastream_params') ) ){
-            this.model.set( 'datastream_params', this.dataStreamModel.get('datastream_params') );
+        if( !_.isUndefined( this.dataStreamModel.get('params') ) ){
+            this.model.set( 'params', this.dataStreamModel.get('params') );
         }
 
         this.close();
@@ -387,7 +386,7 @@ var ModalView = Backbone.View.extend({
             position = element.attr('data-position');
         
         // get params from model
-        var params = this.dataStreamModel.get('datastream_params');
+        var params = this.dataStreamModel.get('params');
 
         // set value on the position changed
         for( var i=0;i<params.length;i++ ){
@@ -398,7 +397,7 @@ var ModalView = Backbone.View.extend({
         }
 
         // update model
-        this.dataStreamModel.set('datastream_params', params);
+        this.dataStreamModel.set('params', params);
 
         this.dataStreamModel.fetch();
 
