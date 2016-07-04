@@ -265,14 +265,14 @@ charts.models.Chart = Backbone.Model.extend({
                 // example validation
                 // valid = (this.data.get('clusters').length >0);
                 valid = true;
-                console.log('valid',valid);
+                //console.log('valid',valid);
 
             } else if (this.get('type') === 'piechart') {
 
                 // TODO: agregar validacion 
                 // tenemos piechart que traen 'series' con unv alor y piecharts que no.
                 valid = true;
-                console.log('valid',valid);
+                //console.log('valid',valid);
             
             } else {
 
@@ -293,7 +293,7 @@ charts.models.Chart = Backbone.Model.extend({
                     //TODO specific validation for chart type
                     switch(this.get('type')){
                         case 'piechart':
-                            console.log('is pie chart');
+                            //console.log('is pie chart');
                             //validar que no haya números negativos en la primer serie que se usa para el pie
                         break;
                     }
@@ -395,7 +395,7 @@ charts.models.Chart = Backbone.Model.extend({
             dataType: 'json'
         }).then(function (response) {
             if(response.status=='ok'){
-                console.log(response);
+                //console.log(response);
                 return response;
             } else {
                 console.error(response);
