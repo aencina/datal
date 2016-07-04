@@ -2329,7 +2329,7 @@ msgid "APP-DATASET-INFORMATION-TEXT"
 msgstr "Dataset information"
 
 msgid "APP-YEARLY-TEXT"
-msgstr "Yearly"
+msgstr "Annualy"
 
 msgid "APP-MONTHLY-TEXT"
 msgstr "Monthly"
