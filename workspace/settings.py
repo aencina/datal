@@ -25,6 +25,7 @@ ROOT_URLCONF = 'workspace.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'workspace', 'templates'),
+    os.path.join(PROJECT_PATH, 'workspace', 'client', 'templates'),
 ) + TEMPLATE_DIRS
 
 PAGINATION_RESULTS_PER_PAGE = 10
@@ -50,7 +51,10 @@ PUBLICSTUFF_DOMAIN = "publicstuff.com"
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 
-STATICFILES_DIRS += (os.path.join(PROJECT_PATH, 'workspace/media/'),)
+STATICFILES_DIRS += (
+    os.path.join(PROJECT_PATH, 'workspace/media/'),
+    os.path.join(PROJECT_PATH, 'workspace/client/')
+)
 
 if DEBUG:
     INSTALLED_APPS += (

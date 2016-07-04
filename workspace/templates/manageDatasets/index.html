@@ -13,6 +13,8 @@
 <script type="text/javascript" src="/js_core/plugins/imagesPreLoader.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jshashtable-2.1.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/jquery.numberformatter-1.2.3.min.js?id={{settings.VERSION_JS_CSS}}"></script>
+<script src="{% static 'backbone.marionette/lib/backbone.marionette.min.js' %}"></script>
+<script src="{% static 'requirejs/require.js' %}"></script>
 
 {# JS for this screen #}
 <script src="{% static 'workspace/scripts/manageDatasets/resourceItemModel.js' %}"></script>
@@ -27,6 +29,10 @@
 <script src="{% static 'workspace/scripts/manageDatasets/filtersView.js' %}"></script>
 <script src="{% static 'workspace/scripts/manageDatasets/manageDatasetsModel.js' %}"></script>
 <script src="{% static 'workspace/scripts/manageDatasets/manageDatasetsView.js' %}"></script>
+
+<script src="{% static 'models/datasetCollection.js' %}"></script>
+<script src="{% static 'views/resourceCollectionItem.js' %}"></script>
+<script src="{% static 'views/resourceCollection.js' %}"></script>
 
 {# Left Navigation Selected Option #}
 <meta name="main-option" content="id_datasets_option"/>
@@ -98,19 +104,28 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		var manageDatasetsModel =  new ManageDatasetsModel({
+		/*var manageDatasetsModel =  new ManageDatasetsModel({
 			total_resources: {{ stats.account_total_datasets }}
 		});
 		var manageDatasetsView =  new ManageDatasetsView({
 			model: manageDatasetsModel,
 			datastreamImplValidChoices: {% if datastream_impl_valid_choices %}{{ datastream_impl_valid_choices }}{% else %}[]{% endif %},
 			filters: {{filters|jsonify}}
-		});
+		});*/
+
+		var collection = new DatasetCollection();
+		var view = new ResourceCollectionView({
+			collection: collection,
+			el: ".main-section"
+		})
+		view.render()
+		
 	});
 </script>
 
 {# templates backbone #}
 {% include "manageDatasets/templates.html" %}
+{% include "resourceCollectionItem.html" %}
 
 {% endblock %}
 
