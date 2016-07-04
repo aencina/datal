@@ -77,9 +77,11 @@ var MainView = Backbone.View.extend({
     },
 
     onClickSave: function () {
+        $("#ajax_loading_overlay").show();
         this.dataviewModel.save().then(function (response) {
             window.location.replace('/dataviews/' + response.datastream_revision_id + '/');
         }).fail(function (response) {
+            $("#ajax_loading_overlay").hide();
             this.stateModel.set('step', 2);
         });
     },
