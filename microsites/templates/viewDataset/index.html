@@ -42,8 +42,10 @@
   google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
 </script>
 
+{% comment %}
 <!-- Para Sentry:  should get included after any other libraries are included, but before your own scripts -->
 <script language="javascript" src="{% static 'raven-js/dist/raven.min.js' %}"></script>
+{% endcomment %}
 
 <!-- JS DATAL -->
 <script type="text/javascript" src="/js_core/models.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -93,7 +95,7 @@
 {% load i18n local_tags %}
 <script type="text/javascript">
 $(document).ready(function(){
-  Raven.config('http://7e94a6d546c84be78535a7c793a22948@sentry.junar.com/3').install()
+  //Raven.config('http://7e94a6d546c84be78535a7c793a22948@sentry.junar.com/3').install()
 
   var datasetModel = new dataset({
     id: "{{dataset.dataset_revision_id}}",
