@@ -242,10 +242,14 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 
 	},
 
-	permalinkHelper: function(){
+	permalinkHelper: function(new_permalink){
 
 		var permalink = this.model.attributes.permaLink,
 			self = this;
+
+        if ( new_permalink != null ){
+            permalink = new_permalink;
+        }
 
 		$('#id_permalink').val(permalink);
 
@@ -342,6 +346,10 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 		if(params.length > 0){
 			paramsQuery = params.join('');
 		}
+
+        // update permalink with new parameters
+        var new_permalink = this.model.attributes.permaLink.split("?")[0]+paramsQuery+filter;
+		this.permalinkHelper(new_permalink);
 
 		// Update Export href Values
 		$('#id_exportToCSVButton').attr('href',CSV+paramsQuery+filter);
