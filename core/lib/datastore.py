@@ -109,8 +109,8 @@ class s3(Datastore):
     def _save(self, bucket_name, end_point, File):
         k = Key(self.connection.get_bucket(bucket_name))
         k.key = end_point
-        if isinstance(s, str) or isinstance(s, unicode):
-            k.set_contents_from_string(s)
+        if isinstance(File, str) or isinstance(File, unicode):
+            k.set_contents_from_string(File)
         else:
             k.set_contents_from_file(File)
         
