@@ -35,7 +35,7 @@ factory-boy==2.6.1
 fake-factory==0.5.5
 greenlet==0.4.5
 ipaddress==1.0.16
-jdcal==1.0.1
+jdcal==1.2
 jsonfield==1.0.3
 kombu==3.0.26
 libsass==0.8.2
