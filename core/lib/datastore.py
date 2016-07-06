@@ -109,7 +109,10 @@ class s3(Datastore):
     def _save(self, bucket_name, end_point, File):
         k = Key(self.connection.get_bucket(bucket_name))
         k.key = end_point
-        k.set_contents_from_file(File)
+        if isinstance(s, str) or isinstance(s, unicode):
+            k.set_contents_from_string(s)
+        else:
+            k.set_contents_from_file(File)
         
         
 class datastore_sftp(datastore):
@@ -187,6 +190,7 @@ class datastore_sftp(datastore):
         logger.info(remote_path)
         logger.info(remote_file)
         self.sftp.putfo(file_data, remotepath=remote_file)
+        return remote_file
         
     def save_checking_path(self, uploaded_file, folder, file_name):
         """ ensure path and save """
