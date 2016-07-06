@@ -324,13 +324,21 @@ charts.models.Chart = Backbone.Model.extend({
             };
     },
 
+    paramsToURLString: function(parameters){
+        var result = [];
+        _.each(parameters, function(parameter){
+            result.push('pArgument' + parameter.position + '=' + parameter.default);
+        });
+        return result.join('&');
+    },
+
     getSettings: function(){
         var settings = {
             title: this.get('title'),
             description: this.get('description'),
             notes: this.get('notes'),
 
-            parameters: this.get('parameters'),
+            parameters: this.paramsToURLString(this.get('parameters')),
 
             type: this.get('type'),
             lib: this.get('lib'),

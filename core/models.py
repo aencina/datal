@@ -762,10 +762,7 @@ class Visualization(GuidModel):
 
 class VisualizationRevision(RevisionModel):
     visualization = models.ForeignKey('Visualization', verbose_name=ugettext_lazy('MODEL_VISUALIZATION_LABEL'))
-
-    datastream = models.ForeignKey('DataStream',
-                                            verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
-
+    datastream = models.ForeignKey('DataStream', verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
     user = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), on_delete=models.PROTECT)
     lib = models.CharField(max_length=10, choices=choices.VISUALIZATION_LIBS)
     impl_details = models.TextField(blank=True)
@@ -773,7 +770,7 @@ class VisualizationRevision(RevisionModel):
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
     modified_at = models.DateTimeField(editable=False, auto_now=True)
     status = models.IntegerField(choices=choices.STATUS_CHOICES, verbose_name=ugettext_lazy('MODEL_STATUS_LABEL'))
-    parameters = models.CharField(max_length=2048, verbose_name=ugettext_lazy( 'MODEL-URL-TEXT' ), blank=True)
+    parameters = models.CharField(max_length=2048, verbose_name=ugettext_lazy('MODEL-PARAMETER-TEXT'), blank=True)
 
     class Meta:
         db_table = 'ao_visualizations_revisions'
