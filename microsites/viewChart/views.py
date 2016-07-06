@@ -51,6 +51,8 @@ def view(request, id, slug=None):
             
         visualization_revision_parameters = urllib.urlencode(visualization_revision_parameters)
 
+        url_query = urllib.urlencode(RequestProcessor(request).get_arguments(visualization_revision['parameters']))
+
         notes = visualization_revision['notes']
         if request.GET.get('embedded', False) == 'true':
             return render_to_response('viewChart/embedded.html', locals())

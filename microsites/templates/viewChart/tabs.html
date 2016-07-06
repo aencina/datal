@@ -75,8 +75,8 @@
 			<span>{% trans 'VIEWDS-TABS-EXPORT' %}</span>
 		</a>
 		<ul class="tooltip border-box" style="display:none;" id="id_tooltipExport">
-      		<li><a id="id_exportToCSVButton" rel="id_tooltipExport" href="{% url "datastreams-data" datastream.last_published_revision_id 'csv' %}">{% trans 'VIEWDS-EXPORT-CSV' %}</a></li>
-      		<li><a id="id_exportToXLSButton" rel="id_tooltipExport" href="{% url "datastreams-data" datastream.last_published_revision_id 'xls' %}" title="{% trans 'APP-EXPORTDS-XLS' %}" class="Icon ic_XLS">{% trans 'VIEWDS-EXPORT-XLS' %}</a></li>
+      		<li><a id="id_exportToCSVButton" rel="id_tooltipExport" href="{% url 'datastreams-data' datastream.last_published_revision_id 'csv' %}{%if url_query%}?{{url_query}}{%endif%}">{% trans 'VIEWDS-EXPORT-CSV' %}</a></li>
+      		<li><a id="id_exportToXLSButton" rel="id_tooltipExport" href="{% url 'datastreams-data' datastream.last_published_revision_id 'xls' %}{%if url_query%}?{{url_query}}{%endif%}" title="{% trans 'APP-EXPORTDS-XLS' %}" class="Icon ic_XLS">{% trans 'VIEWDS-EXPORT-XLS' %}</a></li>
 		</ul>
 	</li>
 </ul>                                

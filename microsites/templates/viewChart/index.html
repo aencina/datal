@@ -168,6 +168,16 @@ google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language'
 $(document).ready(function(){
   //Raven.config('http://7e94a6d546c84be78535a7c793a22948@sentry.junar.com/3').install()
 
+  var params = [];
+  {% for param in visualization_revision.parameters %}
+  params.push({
+      name:'{{ param.name }}',
+      default:'{{ param.default }}',
+      position: {{ param.position }},
+      description:'{{ param.description }}'
+    });
+  {% endfor %}
+
   var viewVisualizationModel = {
       title: "{{visualization_revision.title}}", 
       description: "{{visualization_revision.description|escapejs}}", 
@@ -181,11 +191,12 @@ $(document).ready(function(){
       publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
       lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
       guid: "{{visualization_revision.guid}}",
+      parameters: params,
 
       // Revisar
       id: "{{ visualization_revision.last_published_revision_id }}",
       visualization_id: "{{ visualization_revision.visualization_id }}",
-      embedUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% url 'viewChart.embed' visualization_revision.guid %}"
+      embedUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% url 'viewChart.embed' visualization_revision.guid %}{%if url_query%}?{{url_query}}{%endif%}"
   }
 
   // Plugins - Extend Main Model

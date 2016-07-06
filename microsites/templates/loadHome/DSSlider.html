@@ -27,6 +27,16 @@
 
                 <script type="text/javascript">
 
+                    var params = [];
+                    {% for param in resource.parameters %}
+                    params.push({
+                      name:'{{ param.name }}',
+                      default:'{{ param.default }}',
+                      position: {{ param.position }},
+                      description:'{{ param.description }}'
+                    });
+                    {% endfor %}
+
                     var chartModel_{{resource.resource_id}} = new charts.models.Chart({
                         title: "{{resource.title}}", 
                         description: "{{resource.description|escapejs}}", 
@@ -37,8 +47,9 @@
                         createdAt: "{{ resource.created_at|date:'F d, Y, h:i A'|capfirst }}",
                         modifiedAt: "{{ resource.modified_at|date:'F d, Y, h:i A'|capfirst }}",
                         lastPublishDate: "{{resource.last_published_date|date:'F d, Y, h:i A'|capfirst}}",
-
                         lastPublishRevisionId: "{{ resource.last_published_revision_id }}",
+
+                        parameters: params,
 
                         // Validar si es necesario
                         guid: "{{resource.guid}}",

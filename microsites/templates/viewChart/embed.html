@@ -100,6 +100,16 @@
 
 google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
 
+var params = [];
+{% for param in visualization_revision.parameters %}
+params.push({
+  name:'{{ param.name }}',
+  default:'{{ param.default }}',
+  position: {{ param.position }},
+  description:'{{ param.description }}'
+});
+{% endfor %}
+
 var viewVisualizationModel = {
     title: "{{visualization_revision.title}}", 
     description: "{{visualization_revision.description|escapejs}}", 
@@ -113,6 +123,7 @@ var viewVisualizationModel = {
     publicUrl: "{{settings.MSPROTOCOL}}://{{ preferences.account_domain }}{% permalink 'visualization' visualization_revision.visualization_id visualization_revision.slug %}",
     lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
     guid: "{{visualization_revision.guid}}",
+    parameters: params,
 
     // Revisar
     id: "{{ visualization_revision.last_published_revision_id }}",
