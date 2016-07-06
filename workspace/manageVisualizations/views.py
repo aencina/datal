@@ -7,6 +7,8 @@ from django.views.decorators.http import require_GET, require_POST, require_http
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
+from rest_framework.parsers import JSONParser
+
 from core.http import JSONHttpResponse
 from core.shortcuts import render_to_response
 from core.auth.decorators import login_required
@@ -20,6 +22,7 @@ from core.exceptions import DataStreamNotFoundException
 from core.signals import visualization_changed, visualization_removed, visualization_unpublished
 from workspace.decorators import *
 from .forms import VisualizationForm
+from .serializers import VisualizationSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -247,13 +250,13 @@ def create(request):
         if not datastream_rev_id:
             raise Http404
         datastream_rev = DataStreamRevision.objects.get(pk=datastream_rev_id)
+        print(request.POST)
+        serializer = VisualizationSerializer(data=request.POST)
+        print(serializer.is_valid())
+        if not serializer.is_valid():
+            raise VisualizationSaveException('Invalid form data: %s' % str(serializer.errors.as_text()))
 
-        # Formulario
-        form = VisualizationForm(request.POST)
-        if not form.is_valid():
-            raise VisualizationSaveException('Invalid form data: %s' % str(form.errors.as_text()))
-
-        response = form.save(request, datastream_rev=datastream_rev)
+        response = serializer.save()
 
         return JSONHttpResponse(json.dumps(response))
     
