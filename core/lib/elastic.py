@@ -5,6 +5,8 @@ from core.plugins_point import DatalPluginPoint
 import logging
 
 
+import logging
+logger = logging.getLogger(__name__)
 class ElasticsearchIndex():
     """ Gestor para indice elasticsearch"""
 
@@ -96,6 +98,11 @@ class ElasticsearchIndex():
             if indices['acknowledged']:
                 for doc_type in ["ds","dt","vz"]:
                     self.es.indices.put_mapping(index=settings.SEARCH_INDEX['index'], doc_type=doc_type, body=self.__get_mapping(doc_type))
+
+                for doc_type in ["kp"]: # TODO kpi: move to for
+                    self.es.indices.put_mapping(index=settings.SEARCH_INDEX['index'], doc_type=doc_type,
+                                                body=self.__get_mapping(doc_type))
+
                 for finder in DatalPluginPoint.get_active_with_att('finder'):
                     self.es.indices.put_mapping(index=settings.SEARCH_INDEX['index'], doc_type=finder.doc_type, body=self.__get_mapping(finder.doc_type))
         # Ya existe un index
@@ -111,10 +118,74 @@ class ElasticsearchIndex():
             return self.__get_dataset_mapping()
         elif doc_type == "vz":
             return self.__get_visualization_mapping()
+        elif doc_type == "kp":  # TODO kpi: move to for
+            return self.__get_kpi_mapping()
 
         for finder in DatalPluginPoint.get_active_with_att('finder'):
             if finder.doc_type == doc_type:
                 return finder.get_mapping()
+
+    def __get_kpi_mapping(self): # TODO kpi move to plugin!!
+        return {"kp": {
+            "properties": {
+                "categories": self.__categories,  # categories
+                "meta_text": {
+                    "properties": {
+                        "field_name": {"type": "string"},
+                        "field_value": {"type": "string"}
+                    }
+                },  # meta_text
+                "docid": {"type": "string"},
+                "fields": {
+                    "properties": {
+                        "account_id": {"type": "long"},
+                        "resource_id": {"type": "long"},
+                        "revision_id": {"type": "long"},
+                        "kpi_revision_id": {"type": "long"},
+                        "kpi_id": {"type": "long"},
+                        "description": {"type": "string"},
+                        "end_point": {"type": "string"},
+                        "owner_nick": {"type": "string"},
+                        "parameters": {"type": "string"},
+                        "tags": {"type": "string"},
+                        "text": {
+                            "type": "string",
+                            "fields": {
+                                "text_lower_sort": {"type": "string", "analyzer": "case_insensitive_sort"},
+                                "text_english_stemmer": {"type": "string", "analyzer": "english"},
+                                "text_spanish_stemmer": {"type": "string", "analyzer": "spanish"}
+                            },
+                            "properties": {
+                                "text_english": {"type": "string", "analyzer": "english"},
+                                "text_spanish": {"type": "string", "analyzer": "spanish"}
+                            },
+                        },
+
+                        "hits": {"type": "integer"},
+                        "web_hits": {"type": "integer"},
+                        "api_hits": {"type": "integer"},
+                        "created_at": {"type": "long"},
+                        "modified_at": {"type": "long"},
+                        "timestamp": {"type": "long"},
+                        "title": {
+                            "type": "string",
+                            "fields": {
+                                "title_lower_sort": {"type": "string", "analyzer": "case_insensitive_sort"},
+                                "title_english_stemmer": {"type": "string", "analyzer": "english"},
+                                "title_spanish_stemmer": {"type": "string", "analyzer": "spanish"}
+                            },
+                            "properties": {
+                                "title_english": {"type": "string", "analyzer": "english"},
+                                "title_spanish": {"type": "string", "analyzer": "spanish"}
+                            },
+                        },
+
+                        "type": {"type": "string"}
+                    }
+                }  # fields
+            }
+        }
+    }
 
     def __get_datastream_mapping(self):
         return {"ds" : {

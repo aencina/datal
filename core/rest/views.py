@@ -17,27 +17,28 @@ import json
 
 logger = logging.getLogger(__name__)
 
-from plugins.kpi.choices import TYPE_KPI # TODO kpi
+from plugins.kpi.choices import TYPE_KPI  # TODO kpi
 
-class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin, 
-    viewsets.GenericViewSet):
+
+class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = GuidModel
     lookup_field = 'guid'
     dao_filename = 'filename'
-    _data_types = [settings.TYPE_DATASET, settings.TYPE_DATASTREAM, settings.TYPE_VISUALIZATION, TYPE_KPI] # TODO kpi
+    _data_types = [settings.TYPE_DATASET, settings.TYPE_DATASTREAM, settings.TYPE_VISUALIZATION, TYPE_KPI]  # TODO kpi
+
     app = 'workspace'
     published = True
         
     def list(self, request, format='json'):
-        rp = request.query_params.get('rp', None) # TODO check for rp arguemnt used in some grids
+        rp = request.query_params.get('rp', None)  # TODO check for rp arguement used in some grids
         limit = request.query_params.get('limit', rp)
         offset = request.query_params.get('offset', '0')
         order = request.query_params.get('order', None)
         reverse = order and order[0] == '-'
         order = order and order.strip('-')
         page_num = int(offset)/int(limit) + 1 if limit else 0
-        categories= request.query_params.get('categories', None)
-        meta_data= request.query_params.get('meta', None)
+        categories = request.query_params.get('categories', None)
+        meta_data = request.query_params.get('meta', None)
         if meta_data:
             meta_data = json.loads(meta_data)
         category_filters = map(lambda x: urllib.unquote(x), categories.split(',')) if categories else None
@@ -45,8 +46,8 @@ class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin,
         if order == 'viewed': order = 'web_top'
         elif order == 'downloaded': order = 'api_top'
 
-        # tenemos en cuenta los accounts federados
-        account_ids = [x['id'] for x in request.auth['account'].account_set.values('id').all()] + [request.auth['account'].id]
+        account_ids = [x['id'] for x in request.auth['account'].account_set.values('id').all()] + \
+                      [request.auth['account'].id]
         resources, time, facets = FinderManager(ElasticsearchFinder).search(
             query=request.query_params.get('query', ''),
             slice=int(limit) if limit else None,
@@ -56,7 +57,7 @@ class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin,
             resource=self.get_data_types(),
             order=order,
             meta_data=meta_data,
-            category_filters=category_filters ,
+            category_filters=category_filters,
             reverse=reverse)
 
         page = self.paginate_queryset(resources)
@@ -65,8 +66,7 @@ class ResourceViewSet(EngineViewSetMixin, mixins.RetrieveModelMixin,
             serializer = self.get_serializer(resources, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = self.get_serializer(resources, many=True,
-            context={'request':request} )
+        serializer = self.get_serializer(resources, many=True, context={'request': request})
 
         return Response(serializer.data)
 

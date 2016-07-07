@@ -126,6 +126,8 @@ class Finder:
             return "visualization_id"
         elif r == 'dt':
             return "dataset_id"
+        elif r == 'kp':  # TODO kpi
+            return "kpi_id"
 
         for finder in DatalPluginPoint.get_active_with_att('finder'):
             if finder.doc_type == r:
@@ -139,6 +141,9 @@ class Finder:
             return self.get_visualization_dictionary(doc)
         elif doc['type'] == 'dt':
             return self.get_dataset_dictionary(doc)
+        elif doc['type'] == 'kp':  # TODO kpi
+            return self.get_kpi_dictionary(doc)
+
 
         for finder in DatalPluginPoint.get_active_with_att('finder'):
             if finder.doc_type == doc['type']:
@@ -206,6 +211,45 @@ class Finder:
                              type=document['type'], category=document['category_id'], category_name=document['category_name'], guid=document['docid'].split("::")[1],
                              end_point=document.get('end_point', None), created_at=document['created_at'], owner_nick=document['owner_nick'])
         return visualization
+
+    # TODO kpi
+    def get_kpi_dictionary(self, document):
+        try:
+            if document['parameters']:
+                import json
+                parameters = json.loads(document['parameters'])
+            else:
+                parameters = []
+
+        except:
+            parameters = []
+
+        title = document['title']
+        slug = slugify(title)
+        permalink = reverse('kpi.view', urlconf='microsites.urls',
+                            kwargs={'id': document['kpi_id'], 'slug': slug})
+
+        kpi = dict(
+            resource_id=document['kpi_id'],
+            slug=slug,
+            id=document['kpi_id'],
+            revision_id=document['kpi_revision_id'],
+            title=title,
+            description=document['description'],
+            parameters=parameters,
+            tags=[tag.strip() for tag in document['tags'].split(',')],
+            permalink=permalink,
+            timestamp=document['timestamp'],
+            modified_at=document['modified_at'],
+            type=document['type'],
+            category=document['category_id'],
+            category_name=document['category_name'],
+            guid=document['docid'].split("::")[1],
+            end_point=document.get('end_point', None),
+            created_at=document['created_at'],
+            owner_nick=document['owner_nick']
+        )
+        return kpi
 
     def _get_query(self, values, boolean_operator = 'AND'):
         self._validate_boolean_operator(boolean_operator)
