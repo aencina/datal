@@ -15,7 +15,7 @@ from datetime import datetime, date, timedelta
 from core.utils import slugify
 from core.cache import Cache
 from core.daos.resource import AbstractVisualizationDBDAO
-from core.models import VisualizationRevision, VisualizationHits, VisualizationI18n, Visualization, Setting
+from core.models import VisualizationRevision, VisualizationHits, VisualizationI18n, Visualization, Setting, DataStreamParameter
 from core.exceptions import SearchIndexNotFoundException
 from workspace.exceptions import VisualizationNotFoundException
 from core.lib.elastic import ElasticsearchIndex
@@ -60,7 +60,8 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             user=user,
             status=StatusChoices.DRAFT,
             lib=fields['lib'],
-            impl_details=VisualizationImplBuilder(**fields).build()
+            impl_details=VisualizationImplBuilder(**fields).build(),
+            parameters=fields['parameters']
         )
 
         visualization_i18n = VisualizationI18n.objects.create(
@@ -126,12 +127,23 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             'source__id'
         )
 
-        try:
-            parameters = visualization_revision.visualizationparameter_set.all().values('name', 'default', 'position',
-                                                                                        'description')
-
-        except FieldError:
+        # Create parameters joining metadata from datastream parameters with visualization parameter 's values
+        if visualization_revision.parameters:
             parameters = []
+            for parameter_str in visualization_revision.parameters.split('&'):
+                parameter_split = parameter_str.split('=')
+                position = int(parameter_split[0].split('pArgument')[1])
+                original = DataStreamParameter.objects.get(
+                    datastream_revision=visualization_revision.datastream.last_revision,
+                    position=position
+                )
+                parameter = dict(
+                    default=parameter_split[1],
+                    position=position,
+                    name=original.name,
+                    description=original.description
+                )
+                parameters.append(parameter)
 
         # Get category name
         category = visualization_revision.datastream.last_revision.category.categoryi18n_set.get(language=user.language)
