@@ -127,23 +127,7 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             'source__id'
         )
 
-        # Create parameters joining metadata from datastream parameters with visualization parameter 's values
-        if visualization_revision.parameters:
-            parameters = []
-            for parameter_str in visualization_revision.parameters.split('&'):
-                parameter_split = parameter_str.split('=')
-                position = int(parameter_split[0].split('pArgument')[1])
-                original = DataStreamParameter.objects.get(
-                    datastream_revision=visualization_revision.datastream.last_revision,
-                    position=position
-                )
-                parameter = dict(
-                    default=parameter_split[1],
-                    position=position,
-                    name=original.name,
-                    description=original.description
-                )
-                parameters.append(parameter)
+        parameters = visualization_revision.get_full_parameters()
 
         # Get category name
         category = visualization_revision.datastream.last_revision.category.categoryi18n_set.get(language=user.language)
