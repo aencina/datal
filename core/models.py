@@ -786,6 +786,26 @@ class VisualizationRevision(RevisionModel):
     def get_latest_revision(self):
         return self.visualization.visualizationrevision_set.latest()
 
+    def get_full_parameters(self):
+        # Create parameters joining metadata from datastream parameters with visualization parameter 's values
+        parameters = []
+        if self.parameters:
+            for parameter_str in self.parameters.split('&'):
+                parameter_split = parameter_str.split('=')
+                position = int(parameter_split[0].split('pArgument')[1])
+                original = DataStreamParameter.objects.get(
+                    datastream_revision=self.datastream.last_revision,
+                    position=position
+                )
+                parameter = dict(
+                    default=parameter_split[1],
+                    position=position,
+                    name=original.name,
+                    description=original.description
+                )
+                parameters.append(parameter)
+        return parameters
+
     def clone(self, status=choices.StatusChoices.DRAFT):
         visualization_revision = VisualizationRevision(
             visualization=self.visualization,
