@@ -186,7 +186,7 @@ function onSuccessDataServiceExecute(pResponse){
                 var str = '';
                 if (! _.isUndefined(format)){
                     // sometimes are seconds, sometimes miliseconds
-                    if (number < 100000000000) number = number * 1000;
+                    if (number > 0 && number < 100000000000) number = number * 1000;
                     var dt = new Date(number);
                     dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
                     var local = format.fLocale;
@@ -239,7 +239,7 @@ function onSuccessDataServiceExecute(pResponse){
                         var number = lCell.fNum;
                         if (! _.isUndefined(format)){
                             // sometimes are seconds, sometimes miliseconds
-                            if (number < 100000000000) number = number * 1000;
+                            if (number > 0 && number < 100000000000) number = number * 1000;
                             var dt = new Date(number);
                             dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
                             var local = format.fLocale;
