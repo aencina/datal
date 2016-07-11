@@ -17,6 +17,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class ResourceSerializer(serializers.Serializer):
     resources = (
         ('dataset', settings.TYPE_DATASET),
@@ -45,7 +46,8 @@ class ResourceSerializer(serializers.Serializer):
                 settings.TYPE_VISUALIZATION: 'lib'
             },
             'parameters': {
-                settings.TYPE_DATASTREAM: 'parameters'
+                settings.TYPE_DATASTREAM: 'parameters',
+                settings.TYPE_VISUALIZATION: 'parameters'
             }
         }
         for multiple_resources in DatalPluginPoint.get_active_with_att('multiple_resources'):
@@ -57,7 +59,7 @@ class ResourceSerializer(serializers.Serializer):
     def get_impl_details(self, obj):
         if 'impl_details' in obj:
             return json.loads(obj['impl_details'])
-    
+
     def get_status_name(self, status_id):
         for id, valor in STATUS_CHOICES_REST:
             if id == status_id:
@@ -162,7 +164,6 @@ class MultipleResourceViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                         answer.append(result)
                         added += 1
                     page += 1
-
 
         return self.order_queryset(answer)
 
