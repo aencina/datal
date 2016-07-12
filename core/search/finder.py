@@ -226,8 +226,7 @@ class Finder:
 
         title = document['title']
         slug = slugify(title)
-        permalink = reverse('kpi.view', urlconf='microsites.urls',
-                            kwargs={'id': document['kpi_id'], 'slug': slug})
+        permalink = reverse('kpi.view', urlconf='microsites.urls', kwargs={'resource_id': document['kpi_id'], 'slug': slug})
 
         kpi = dict(
             resource_id=document['kpi_id'],
@@ -249,6 +248,8 @@ class Finder:
             created_at=document['created_at'],
             owner_nick=document['owner_nick']
         )
+
+
         return kpi
 
     def _get_query(self, values, boolean_operator = 'AND'):
