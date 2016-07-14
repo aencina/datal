@@ -980,7 +980,7 @@ msgid "ERROR-DUPLICATED-CATEGORY"
 msgstr "Duplicated category"
 
 msgid "APP-KPI-TEXT"
-msgstr "KPI"
+msgstr "KPIS"
 
 msgid "EXCEPTION-TITLE-UNKNOWN"
 msgstr "Unknown Error"

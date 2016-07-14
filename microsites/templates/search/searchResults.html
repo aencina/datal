@@ -17,7 +17,7 @@
 			<div class="DataBox">
 				{%if page_results %}
 					{% for item in page_results %}
-						
+
 						{% ifequal item.type 'ds' %}
 							{% include "search/datastream.html" %}
 						{% endifequal %}
