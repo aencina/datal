@@ -195,7 +195,6 @@ var ModalView = Backbone.View.extend({
 
     /* se cargaron los datos del datastream, estan en dataviewModel.toJSON() */
     onLoadDataStream: function (dataviewModel) {
-
         var rows = dataviewModel.toJSON().rows;
 
         // Hide table loading
@@ -218,6 +217,7 @@ var ModalView = Backbone.View.extend({
 
         // Ya esta definido, entonces actualizo el data
         }else{
+            this.dataTableView.tableData = dataviewModel.toJSON();
             this.dataTableView.data = rows;
         }
 

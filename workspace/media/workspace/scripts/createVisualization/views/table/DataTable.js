@@ -41,9 +41,10 @@ var DataTableView = Backbone.View.extend({
   },
 
   initialize: function (options) {
-    var self = this,
-      tableData = options.dataview,
-      columns;
+    var self = this;
+
+    this.tableData = options.dataview,
+    this.columns;
 
     this._enableFulllRowSelection   = options.enableFulllRowSelection || false;
 
@@ -54,7 +55,7 @@ var DataTableView = Backbone.View.extend({
 
     this._ctrlPressed = false;
 
-    columns = _.map(tableData.columns, function (col) {
+    this.columns = _.map(this.tableData.columns, function (col) {
       return {
         renderer: function (instance, td, row, col, prop, value, cellProperties) {
           if (cellProperties.classArray) {
@@ -63,16 +64,16 @@ var DataTableView = Backbone.View.extend({
               td.classList.add('hot-sel-' + cellProperties.classArray[i]);
             }
           }
-          if (tableData.rows_data)
-            return self.typeToRenderer[tableData.rows_data[(row*tableData.columns.length)+col].fType](instance, td, row, col, prop, value, cellProperties)  
+          if (self.tableData.rows_data)
+            return self.typeToRenderer[self.tableData.rows_data[(row*self.tableData.columns.length)+col].fType](instance, td, row, col, prop, value, cellProperties)  
           return self.typeToRenderer['TEXT'](instance, td, row, col, prop, value, cellProperties)
         }
       };
     });
 
-    this.data = tableData.rows;
+    this.data = this.tableData.rows;
 
-    if (columns.length === 0) {
+    if (this.columns.length === 0) {
       return;
     }
 
@@ -85,7 +86,7 @@ var DataTableView = Backbone.View.extend({
       allowInsertRow: false, allowInsertColumn: false,
       disableVisualSelection: ['current'],
       colWidths: 80,
-      columns: columns,
+      columns: this.columns,
       manualColumnResize: true,
       manualRowResize: true,
       stretchH: 'all',
@@ -383,6 +384,6 @@ var DataTableView = Backbone.View.extend({
       to = range.to;
 
     this.table.selectCell(from.row, from.col, to.row, to.col);
-  }
+  },
 
 });
