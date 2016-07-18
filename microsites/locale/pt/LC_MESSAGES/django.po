@@ -601,7 +601,7 @@ msgid "APP-READ-MORE-TEXT"
 msgstr "Read more"
 
 msgid "APP-YEARLY-TEXT"
-msgstr "Annualy"
+msgstr "Annually"
 
 msgid "APP-MONTHLY-TEXT"
 msgstr "Monthly"
