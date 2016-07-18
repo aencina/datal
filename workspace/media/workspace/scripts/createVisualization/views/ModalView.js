@@ -162,12 +162,11 @@ var ModalView = Backbone.View.extend({
             } else if (geoType === 'traces') {
                 traceRange = result.traceSelection
                 tars = traceRange.split(':');
+                
+                var trace;
+
                 if (tars[0] == 'Column') { // Column:F por ejemplo
                     trace = row[tars[1].charCodeAt(0) - 65]; // A = 0, B = 1, etc
-                    // al parecer son una serie de puntos LAT, LONG ...
-                    center.lat = parseFloat(trace.split(',')[1]); 
-                    center.long = parseFloat(trace.split(',')[0]); 
-                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
                 }
                 else { // F3:F28 por ejemplo
                     // separar numeros de letras
@@ -177,10 +176,19 @@ var ModalView = Backbone.View.extend({
                     if (rown > (data.attributes.rows.length - 1) ) rown = data.attributes.rows.length - 1;
                     row = data.attributes.rows[rown]; 
                     trace = row[letter.charCodeAt(0) - 65]; // A = 0, B = 1, etc
-                    center.lat = parseFloat(trace.split(',')[1]); 
-                    center.long = parseFloat(trace.split(',')[0]);
-                    bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
                 }
+
+                var testTrace = $.trim(trace).split(' ');
+                if(testTrace.length > 1 ){
+                    center.lat = parseFloat(trace.split(',')[1]); 
+                    center.long = parseFloat(trace.split(',')[0]); 
+                }else{
+                    center.lat = parseFloat(trace.split(',')[0]); 
+                    center.long = parseFloat(trace.split(',')[1]); 
+                }
+
+                bounds = [center.lat + 5, center.long + 5, center.lat - 5, center.long - 5];
+
             }
             result.options = {zoom: 13, center: center, bounds: bounds};
         }
