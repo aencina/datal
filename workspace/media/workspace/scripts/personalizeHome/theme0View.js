@@ -87,6 +87,53 @@ var theme0View = Backbone.Epoxy.View.extend({
 		});
 	},
 	
+	// initSliderSection: function(){
+	// 	var initialResources = [];
+	// 	var resourceQuery='';
+	// 	_.each(this.model.attributes.sliderSection, function(item, index){
+ //            resourceType=item.type;
+ //            resourceQuery += item.id+",";
+	// 	});		
+	// 	$.when(
+	// 			$.ajax({					
+	// 				url: "/admin/suggest",
+	// 				type: "GET",
+	// 				dataType: "json",
+	// 				contentType: "application/json; charset=utf-8",
+	// 				data: {term: resourceQuery, resources:['ds','vz']},            
+             
+	// 			})).done( function(data){
+	// 				$('#id_theme0NameSuggest').taggingSources({
+	// 					source:function(request, response) {
+	// 						    $.getJSON("/admin/suggest", { term: request.term, resources:['ds', 'vz']}, response);
+	// 					}
+	// 					, minLength: 3
+	// 					, sources:data							
+	// 				});
+	// 			});
+	// },
+	// setSliderSection: function(){
+	
+	// 	var resourceList = [];		
+	// 	var $lTags = $('[id*=id_tag][id$=_name]', '#id_source_container .tagsContent' );
+	// 	var $lSources = $('#id_source_container .tag');
+	//     var lData = '';
+	//     $lSources.each(function(i){
+	//     	var $lSource = $(this).find('.tagTxt');
+	//     	lData = $lSource.attr("id").split("_");
+	//         var id = lData[0];
+	//         var type = lData[1];
+	//         var obj = {
+	//                 id: id,
+	//                 type: type	                
+	//         };
+	//         resourceList.push(obj);	
+	//     });		
+	// 	this.model.set('sliderSection', resourceList)
+		
+		
+	// },
+
 	initSliderSection: function(){
 		var initialResources = [];
 		var resourceQuery='';
@@ -95,43 +142,42 @@ var theme0View = Backbone.Epoxy.View.extend({
             resourceQuery += item.id+",";
 		});		
 		$.when(
-				$.ajax({					
-					url: "/admin/suggest",
-					type: "GET",
-					dataType: "json",
-					contentType: "application/json; charset=utf-8",
-					data: {term: resourceQuery, resources:['ds','vz']},            
-             
-				})).done( function(data){
-					$('#id_theme0NameSuggest').taggingSources({
-						source:function(request, response) {
-							    $.getJSON("/admin/suggest", { term: request.term, resources:['ds', 'vz']}, response);
-						}
-						, minLength: 3
-						, sources:data							
-					});
+			$.ajax({					
+				url: "/admin/suggest",
+				type: "GET",
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				data: {ids: resourceQuery, resources:['ds','vz']},            
+			})).done( function(data){
+				$('#id_theme0NameSuggest').taggingSources({
+					source:function(request, response) {
+						$.getJSON("/admin/suggest", { term: request.term, resources: ['ds','vz']}, response);
+					}
+					, minLength: 3
+					, sources:data							
 				});
+			});
 	},
+
 	setSliderSection: function(){
 	
 		var resourceList = [];		
 		var $lTags = $('[id*=id_tag][id$=_name]', '#id_source_container .tagsContent' );
 		var $lSources = $('#id_source_container .tag');
-	    var lData = '';
-	    $lSources.each(function(i){
-	    	var $lSource = $(this).find('.tagTxt');
-	    	lData = $lSource.attr("id").split("_");
-	        var id = lData[0];
-	        var type = lData[1];
-	        var obj = {
-	                id: id,
-	                type: type	                
-	        };
-	        resourceList.push(obj);	
-	    });		
-		this.model.set('sliderSection', resourceList)
-		
-		
-	}
+		var lData = '';
+		$lSources.each(function(i){
+			var $lSource = $(this).find('.tagTxt');
+			lData = $lSource.attr("id").split("_");
+			var id = lData[0];
+			var type = lData[1];
+			var obj = {
+				id: id,
+				type: type
+			};
+			resourceList.push(obj);
+		});
+		this.model.set('sliderSection', resourceList);
+
+	},
 
 });
