@@ -16,11 +16,11 @@
             'modules':[{
               'name':'visualization',
               'version':'1',
-              'packages':['corechart'],
+              'packages':['corechart', 'geomap'],
               'language': '{{ preference.account_language }}'
             }]
     }"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
 
 <script type="text/javascript" src="{% static 'd3/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'c3/c3.min.js' %}"></script>
@@ -83,8 +83,17 @@
 <script src="{% static 'workspace/scripts/viewVisualization/MainView.js' %}"></script>
 <script type="text/javascript">
 
-google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
+// google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
 
+var params = [];
+  {% for param in visualization_revision.parameters %}
+  params.push({
+      name:'{{ param.name }}',
+      default:'{{ param.default }}',
+      position: {{ param.position }},
+      description:'{{ param.description }}'
+    });
+  {% endfor %}
 
 var chartModel = new charts.models.Chart({
     
@@ -102,6 +111,7 @@ var chartModel = new charts.models.Chart({
     changeStatusUrl: "{% url 'manageVisualizations.change_status' visualization_revision.visualization_revision_id %}",
     lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
     editUrl: "{% url 'manageVisualizations.edit' visualization_revision.last_revision_id %}",
+    parameters: params,
 
     // Validar si es necesario
     guid: "{{visualization_revision.guid}}",
@@ -109,7 +119,6 @@ var chartModel = new charts.models.Chart({
     // Revisar
     id: "{{ visualization_revision.last_revision_id }}",
     visualization_id: "{{ visualization_revision.visualization_id }}",
-
 });
 
 chartModel.parse({
@@ -131,7 +140,7 @@ var chartView = new MainView({
     model: chartModel
 });
 
-chartView.setLoading()
+chartView.setLoading();
 
 </script>
 {% endblock %}

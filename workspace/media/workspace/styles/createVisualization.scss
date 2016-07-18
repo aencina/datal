@@ -157,20 +157,38 @@ button{background-color:$accent-color;border:none;outline:none;border-radius:non
 
   .sidebar{overflow-y:auto;margin-right:20px;
 
+    h2{padding-bottom:15px;}
+
     .row{
-      padding-bottom:30px;margin-bottom:0;
+      padding-bottom:15px;margin-bottom:0;
+
 
       /* Sidebar */
       label{text-transform:uppercase;color:$font-color-base;font-family:$font-secondary-family;font-size:$font-size-base;font-weight:lighter;display:block;height:inherit;line-height:19px;}
 
       /* Tip */
-      p{color:$font-color-light;margin-left:15px;margin-right:15px;}
+      p{color:$font-color-light;margin:5px 15px 0;}
 
       input{
         width:75%;
         &.has-error{padding:0 10px;}
       }
     }
+
+    #id_dataViewParameters{
+      padding-top:25px;padding-bottom:40px;
+
+      .params-container{
+        .parameter{padding-top:10px;}
+        .parameter:first-child{padding-top:0;}
+        input{margin-top:10px;}
+        p.tip{margin:5px 0 0 0;}
+        p.changeParamsTip{display:none;margin:0 0 10px;}
+        p.changeParamsTip em{color:#333;}
+      }
+
+    }
+
   }
 
   /* Identificador por color */
@@ -181,7 +199,7 @@ button{background-color:$accent-color;border:none;outline:none;border-radius:non
     margin-top:10px;
 
     span.color{
-      float:left;height:30px;margin-right:10px;width:5px;}
+      float:left;height:40px;margin-right:10px;width:5px;}
   }
 
   .hot-sel-1 span.color,
@@ -224,3 +242,5 @@ button{background-color:$accent-color;border:none;outline:none;border-radius:non
 
 }
 .sidebar .row p:first-letter{text-transform:uppercase;}
+
+.table-loading{height:600px;z-index:200;text-align:center;font-size:18px;}

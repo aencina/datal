@@ -24,7 +24,7 @@
               'language': '{{ preference.account_language }}'
             }]
     }"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=visualization"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
 
 
 <script type="text/javascript" src="{% static 'handsontable/dist/handsontable.full.js' %}"></script>
@@ -151,7 +151,7 @@
       datastream_tags: tags,
       datastream_category: '{{ datastream_revision.category_name }}',
       datastream_sources: sources,
-      datastream_params: params,
+      parameters: params,
       {% if visualization_revision %}
         editMode: true,
         id: {{ visualization_revision.visualization_id }},

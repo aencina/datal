@@ -7,6 +7,8 @@ from django.views.decorators.http import require_GET, require_POST, require_http
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
+from rest_framework.parsers import JSONParser
+
 from core.http import JSONHttpResponse
 from core.shortcuts import render_to_response
 from core.auth.decorators import login_required
@@ -217,13 +219,19 @@ def change_status(request, visualization_revision_id=None):
 
         return JSONHttpResponse(json.dumps(response, cls=DateTimeEncoder))
 
+
 @login_required
 @require_http_methods(['POST','GET'])
 @require_privilege("workspace.can_create_visualization")
 @requires_published_parent()
 @transaction.commit_on_success
 def create(request):
-    
+
+    """
+
+    :param request:
+    :return:
+    """
     if request.method == 'GET':
         datastream_revision_id = request.GET.get('datastream_revision_id', None)
         try:
@@ -244,12 +252,13 @@ def create(request):
         """ save new or update dataset """
         # Valido que llegue el ID de la revision del datastream
         datastream_rev_id = request.GET.get('datastream_revision_id', None)
+
         if not datastream_rev_id:
             raise Http404
         datastream_rev = DataStreamRevision.objects.get(pk=datastream_rev_id)
 
-        # Formulario
         form = VisualizationForm(request.POST)
+
         if not form.is_valid():
             raise VisualizationSaveException('Invalid form data: %s' % str(form.errors.as_text()))
 

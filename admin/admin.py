@@ -231,14 +231,6 @@ class DataStreamParameterAdmin(admin.ModelAdmin):
 admin.site.register(DataStreamParameter, DataStreamParameterAdmin)
 
 
-class VisualizationParameterAdmin(admin.ModelAdmin):
-    list_display = ('revision', 'name')
-    search_fields = ('name',)
-    list_per_page = 25
-
-admin.site.register(VisualizationParameter, VisualizationParameterAdmin)
-
-
 class DatasetAdmin(admin.ModelAdmin):
     list_display = ('user', 'type', 'is_dead','guid','created_at', 'goto_last_revision', 'goto_last_published_revision')
     search_fields = ('user', 'type')

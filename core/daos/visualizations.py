@@ -15,7 +15,7 @@ from datetime import datetime, date, timedelta
 from core.utils import slugify
 from core.cache import Cache
 from core.daos.resource import AbstractVisualizationDBDAO
-from core.models import VisualizationRevision, VisualizationHits, VisualizationI18n, Visualization, Setting
+from core.models import VisualizationRevision, VisualizationHits, VisualizationI18n, Visualization, Setting, DataStreamParameter
 from core.exceptions import SearchIndexNotFoundException
 from workspace.exceptions import VisualizationNotFoundException
 from core.lib.elastic import ElasticsearchIndex
@@ -60,7 +60,8 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             user=user,
             status=StatusChoices.DRAFT,
             lib=fields['lib'],
-            impl_details=VisualizationImplBuilder(**fields).build()
+            impl_details=VisualizationImplBuilder(**fields).build(),
+            parameters=fields['parameters']
         )
 
         visualization_i18n = VisualizationI18n.objects.create(
@@ -126,12 +127,7 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             'source__id'
         )
 
-        try:
-            parameters = visualization_revision.visualizationparameter_set.all().values('name', 'default', 'position',
-                                                                                        'description')
-
-        except FieldError:
-            parameters = []
+        parameters = visualization_revision.get_full_parameters()
 
         # Get category name
         category = visualization_revision.datastream.last_revision.category.categoryi18n_set.get(language=user.language)
@@ -313,6 +309,7 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
             'visualization__datastream__last_revision__datastreami18n__title',
             'visualizationi18n__title',
             'visualizationi18n__description', 'created_at', 'modified_at', 'visualization__user__id',
+            'parameters'
         )
 
         query = query.order_by(sort_by)
@@ -325,7 +322,33 @@ class VisualizationDBDAO(AbstractVisualizationDBDAO):
         # sumamos el field cant
         map(self.__add_cant, query)
 
+        # Add parameters
+        map(self.__add_parameters, query)
+
         return query, total_resources
+
+    def __add_parameters(self, item):
+        if item['parameters']:
+            parameters = []
+            for parameter_str in item['parameters'].split('&'):
+                parameter_split = parameter_str.split('=')
+                position = int(parameter_split[0].split('pArgument')[1])
+                original = DataStreamParameter.objects.get(
+                    datastream_revision__id=item['visualization__datastream__last_revision__id'],
+                    position=position
+                )
+                parameter = dict(
+                    default=parameter_split[1],
+                    position=position,
+                    name=original.name,
+                    description=original.description
+                )
+
+                parameters.append(parameter)
+
+            item['parameters'] = parameters
+        else:
+            item['parameters'] = []
 
     def __add_cant(self, item):
             item['cant']=VisualizationRevision.objects.filter(visualization__id=item['visualization__id']).count()

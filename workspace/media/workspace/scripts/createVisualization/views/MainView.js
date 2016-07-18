@@ -17,8 +17,10 @@ var MainView = Backbone.View.extend({
         this.chartModel = new charts.models.Chart();
 
         this.dataStreamModel = new DataStreamModel({
-            datastream_revision_id: options.chart_model.datastream_revision_id
+            datastream_revision_id: options.chart_model.datastream_revision_id,
+            datastream_params: options.chart_model.parameters
         });
+
         this.dataStreamModel.fetch();
 
         this.chartModel.parse(options.chart_model);
