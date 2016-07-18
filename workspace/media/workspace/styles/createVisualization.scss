@@ -179,6 +179,8 @@ button{background-color:$accent-color;border:none;outline:none;border-radius:non
       padding-top:25px;padding-bottom:40px;
 
       .params-container{
+        .parameter{padding-top:10px;}
+        .parameter:first-child{padding-top:0;}
         input{margin-top:10px;}
         p.tip{margin:5px 0 0 0;}
         p.changeParamsTip{display:none;margin:0 0 10px;}
