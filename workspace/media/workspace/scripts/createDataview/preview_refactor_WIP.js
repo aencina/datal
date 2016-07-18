@@ -14,7 +14,7 @@ if(result.fType != 'ARRAY'){
 			var str = '';
 			if (! _.isUndefined(format)){
 				// sometimes are seconds, sometimes miliseconds
-				if (number < 100000000000) number = number * 1000;
+				if (number > 0 && number < 100000000000) number = number * 1000;
 				var dt = new Date(number);
 				dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
 				var local = format.fLocale;
@@ -73,7 +73,7 @@ if(result.fType != 'ARRAY'){
 					var number = cell.fNum;
 					if (! _.isUndefined(format)) {
 						// sometimes are seconds, sometimes miliseconds
-						if (number < 100000000000) number = number * 1000;
+						if (number > 0 && number < 100000000000) number = number * 1000;
 						var dt = new Date(number);
 						dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
 						var local = format.fLocale;

@@ -603,9 +603,13 @@ class DatasetRevision(RevisionModel):
 
     def get_endpoint_full_url(self):
         if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:
-            content_disposition = u'attachment; filename="{0}"'.format(self.filename)
+            # eliminamos todo lo no ascii
+            filename = "".join([i if ord(i) < 128 else '' for i in self.filename])
+
+            content_disposition = u'attachment; filename="{0}"'.format(filename)
+
             return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
-                {'response-content-disposition': content_disposition.encode("utf-8", errors="ignore")})
+                {'response-content-disposition': content_disposition})
         else:
             return self.end_point
 

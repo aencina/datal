@@ -21,7 +21,7 @@ var PreviewView = Backbone.View.extend({
     },
 
     setLoading: function(){
-        this.$el.html('<div class="loading light preview-loading"></div>');
+        this.$el.html('<div class="loading light" style="height: 300px"></div>');
         this.setLoadingHeight();
     },
 
@@ -111,15 +111,16 @@ var PreviewView = Backbone.View.extend({
 
         }
 
+
         this.$el.html(this.template({
-          rows: rows,
-          headers: _.map(headers, this.formatCell.bind(this)),
-          dataview: this.model.toJSON(),
-          tags: this.model.tags.toJSON(),
-          sources: this.model.sources.toJSON(),
-          category: category,
-          fType: fType,
-          className: className
+           rows: rows,
+           headers: _.map(headers, this.formatCell.bind(this)),
+           dataview: this.model.toJSON(),
+           tags: this.model.tags.toJSON(),
+           sources: this.model.sources.toJSON(),
+           category: category,
+           fType: fType,
+           className: className
         }));
 
     },
