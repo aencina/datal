@@ -65,7 +65,11 @@
 							</div>
 						</div>
 
-						{% include "createVisualization/parameters.html" %}
+						{% if visualization_revision %}
+							{% include "createVisualization/parameters.html" with parameters=visualization_revision.parameters %}
+						{% else %}
+							{% include "createVisualization/parameters.html" with parameters=datastream_revision.parameters %}
+						{% endif %}
 
 					</form>
 				</div>

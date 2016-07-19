@@ -39,8 +39,6 @@
 <script src="/js_core/base_modules/charts/views/mapChart.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="/js_core/base_modules/charts/views/c3Charts.js?id={{settings.VERSION_JS_CSS}}"></script>
 
-
-
 <meta name="main-option" content="id_visualizations_option"/>
 {% endblock %}
 
@@ -82,9 +80,6 @@
 <script src="{% static 'workspace/scripts/viewVisualization/ChartView.js' %}"></script>
 <script src="{% static 'workspace/scripts/viewVisualization/MainView.js' %}"></script>
 <script type="text/javascript">
-
-// google.load('visualization', '1', {packages: ['corechart', 'geomap'], 'language': '{{ preference.account_language }}' });
-
 var params = [];
   {% for param in visualization_revision.parameters %}
   params.push({
@@ -134,6 +129,7 @@ chartModel.parse({
 
     format: {{ visualization_revision.format | jsonify }},
     chart: {{ visualization_revision.chart | jsonify }},
+    parameters: params,
 });
 
 var chartView = new MainView({

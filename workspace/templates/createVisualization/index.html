@@ -135,14 +135,28 @@
   {% endfor %}
 
   var params = [];
-  {% for param in datastream_revision.parameters %}
-  params.push({
-      name:'{{ param.name }}',
-      default:'{{ param.default }}',
-      position: {{ param.position }},
-      description:'{{ param.description }}'
-    });
-  {% endfor %}
+  //IF EDIT, necesito params de la viz
+  {% if visualization_revision %}
+    {% for param in visualization_revision.parameters %}
+    params.push({
+        name:'{{ param.name }}',
+        default:'{{ param.default }}',
+        position: {{ param.position }},
+        description:'{{ param.description }}'
+      });
+    {% endfor %}
+
+  // else, estoy creando. uso los del datastream
+  {% else %}
+    {% for param in datastream_revision.parameters %}
+    params.push({
+        name:'{{ param.name }}',
+        default:'{{ param.default }}',
+        position: {{ param.position }},
+        description:'{{ param.description }}'
+      });
+    {% endfor %}
+  {% endif %}
 
   var mainView = new MainView({
     el: '.main-section',

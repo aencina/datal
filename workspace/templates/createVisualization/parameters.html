@@ -6,13 +6,15 @@
 	<div class="title">{% trans "APP-PARAMETERS-TEXT" %}</div>
 	<div class="params-container">
 		<p class="tip changeParamsTip" style="display:none;">{% trans "CREATEVIZ-CHANGEPARAMSTIP-TEXT" %}</p>
-		{% for param in datastream_revision.parameters %}
-		<div class="parameter">
-			<label for="id_param{{param.position}}">{{ param.name }}</label>
-			<input name="param{{param.position}}" id="id_param{{param.position}}" type="text" value="{{ param.default }}" class="field" data-position="{{param.position}}"/>
-			{% if param.description %}<p class="tip">{{ param.description }}</p>{% endif %}
-		</div>
-		{% endfor %}
+		
+			{% for param in parameters %}
+			<div class="parameter">
+				<label for="id_param{{param.position}}">{{ param.name }}</label>
+				<input name="param{{param.position}}" id="id_param{{param.position}}" type="text" value="{{ param.default }}" class="field" data-position="{{param.position}}"/>
+				{% if param.description %}<p class="tip">{{ param.description }}</p>{% endif %}
+			</div>
+			{% endfor %}
+
 	</div>
 </div>
 {% endif %}

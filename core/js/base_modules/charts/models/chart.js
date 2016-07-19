@@ -96,6 +96,8 @@ charts.models.Chart = Backbone.Model.extend({
                 type: res.format.type,
 
                 data: res.data,
+
+                parameters: res.parameters,
                 
                 select_data:true,
                 notes: _.unescape(res.notes),
