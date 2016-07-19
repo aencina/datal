@@ -1,0 +1,25 @@
+id: datal
+
+grains:
+  roles:
+    - redis_local
+    - memcached_local
+    - database
+    - datal
+    - v8
+    - datastore
+    - elasticsearch
+
+file_client: local
+
+fileserver_backend:
+  - git
+
+gitfs_base: master
+
+gitfs_remotes:
+  - https://github.com/Junar/datal-formula.git
+
+pillar_roots:
+  base:
+    - /srv/salt/pillar

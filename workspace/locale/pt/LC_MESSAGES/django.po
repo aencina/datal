@@ -2329,7 +2329,7 @@ msgid "APP-DATASET-INFORMATION-TEXT"
 msgstr "Dataset information"
 
 msgid "APP-YEARLY-TEXT"
-msgstr "Annualy"
+msgstr "Annually"
 
 msgid "APP-MONTHLY-TEXT"
 msgstr "Monthly"
@@ -3251,3 +3251,12 @@ msgstr "The Data View and its associated visualizations were published correctly
 
 msgid "APP-PUBLISHALL-TEXT"
 msgstr "Publish all"
+
+msgid "CREATEVIZ-CHANGEPARAMSTIP-TEXT"
+msgstr "Press <em>Enter</em> to apply changes."
+
+msgid "APP-LOADINGDATAPLEASEWAIT-TEXT"
+msgstr "Loading data. Please wait."
+
+msgid "CREATEVIZ-NULLRESULTS-TEXT"
+msgstr "<section class='box error-container'><div class='box-content clearfix'><h2>No data available to select. Try the following:</h2><ul><li>If you changed a parameter, it is quite possible that the value entered returned no data. Try another value.</li><li>Review Data View to verify that it is returning data.</li></ul></div></section>"

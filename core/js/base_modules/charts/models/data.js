@@ -48,6 +48,7 @@ charts.models.ChartData = Backbone.Model.extend({
      * @return {[type]} [description]
      */
     fetch: function () {
+
         var self = this;
         this.trigger('fetch:start');
 
@@ -278,6 +279,19 @@ charts.models.ChartData = Backbone.Model.extend({
      * Se arma la url para el fetch utilizando los attributos pasados al modelo y los filtros existentes
      */
     url: function () {
+
+        var params = '';
+
+        if( !_.isUndefined(this.get('parameters')) ){
+
+            var parameters = this.get('parameters');
+
+            for(var i=0;i<parameters.length;i++){
+                params += '&pArgument'+parameters[i].position+'='+parameters[i].default;
+            }
+
+        }
+
         var filters = this.get('filters'),
             id = this.get('id'), // ID existe cuando la visualizacion está siendo editada
             url,
@@ -288,7 +302,7 @@ charts.models.ChartData = Backbone.Model.extend({
         }
 
         if (_.isUndefined(id)) {
-            url = '/rest/' + endpoint + 'sample.json/' + '?' + $.param(filters);
+            url = '/rest/' + endpoint + 'sample.json/' + '?' + $.param(filters) + params;
         } else {
             filters = _.omit(filters, 'data')
             filters = _.omit(filters, 'headers')
@@ -298,7 +312,7 @@ charts.models.ChartData = Backbone.Model.extend({
             filters = _.omit(filters, 'type')
             filters = _.omit(filters, 'invertedAxis')
             filters = _.omit(filters, 'revision_id')
-            url = '/rest/' + endpoint + id + '/data.json/' + '?' + $.param(filters);
+            url = '/rest/' + endpoint + id + '/data.json/' + '?' + $.param(filters) + params;
         }
 
         return url;

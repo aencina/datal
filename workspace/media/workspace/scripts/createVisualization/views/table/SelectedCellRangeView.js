@@ -1,9 +1,9 @@
 var SelectedCellRangeView = Backbone.View.extend({
 
 	events: {
-		'focusin input[type="text"]': 'onFocusInput',
-		'focusout input[type="text"]': 'onFocusOutInput',
-		'keyup input[type="text"]': 'onKeyupInput'
+		'focusin .input-row input[type="text"]': 'onFocusInput',
+		'focusout .input-row input[type="text"]': 'onFocusOutInput',
+		'keyup .input-row input[type="text"]': 'onKeyupInput'
 	},
 
 	initialize: function (options) {

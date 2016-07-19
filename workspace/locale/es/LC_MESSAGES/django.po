@@ -3295,3 +3295,12 @@ msgstr "La vista y sus visualizaciones asociadas fueron publicadas correctamente
 
 msgid "APP-PUBLISHALL-TEXT"
 msgstr "Publicar todo"
+
+msgid "CREATEVIZ-CHANGEPARAMSTIP-TEXT"
+msgstr "Pulse <em>Intro</em> para aplicar cambios."
+
+msgid "APP-LOADINGDATAPLEASEWAIT-TEXT"
+msgstr "Cargando datos. Por favor espere."
+
+msgid "CREATEVIZ-NULLRESULTS-TEXT"
+msgstr "<section class='box error-container'><div class='box-content clearfix'><h2>No hay datos disponibles para seleccionar. Intente lo siguiente:</h2><ul><li>Si cambió un parámetro, es muy posible que el valor ingresado no devuelva datos. Intente con otro valor.</li><li>Revise la vista para corroborar que ésta devuelva datos.</li></ul></div></section>"

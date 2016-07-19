@@ -118,7 +118,7 @@
 	   -moz-border-radius:3px;
 	        border-radius:3px;
 }
-.configs .formBox fieldset .row{padding-top:15px;position:relative;}
+.configs .formBox fieldset .row{padding-top:15px;position:relative;clear:both;}
 .configs .formBox fieldset .row:first-child{padding-top:0;}
 .configs .formBox fieldset label{padding-bottom:8px;display:inline-block;height:17px;line-height:17px;font-size:$form-label-size;color:$form-label-color;padding-left:12px;}
 .configs .formBox fieldset .field{border:1px solid #d9d7d7;width:100%;
@@ -151,7 +151,7 @@
 .configs .formBox fieldset.imageComponent .remove:hover{text-decoration:underline;cursor:pointer;}
 .configs .formBox fieldset.imageComponent .tipText{font-size:11px;color:#333;line-height:16px;padding-top:10px;}
 .configs .formBox fieldset.imageComponent.theme4 .tipText,
-.configs .formBox fieldset.imageComponent.theme5 .tipText{padding:12px 0;}
+.configs .formBox fieldset.imageComponent.theme5 .tipText{padding:12px 0 0;}
 .configs .formBox fieldset.imageComponent .tipText span{background:#fbe89a;padding:0 3px;display:inline-block;margin-right:3px;font-weight:bold;color:#666;}
 .configs .formBox fieldset.imageComponent table{width:100%;}
 .configs .formBox fieldset.imageComponent .tr{height:33px;}
@@ -161,7 +161,7 @@
 .configs .formBox fieldset.imageComponent td{padding:13px 0;}
 .configs .formBox fieldset.imageComponent td > div.clearfix{width:100%;}
 .configs .formBox fieldset.imageComponent tr,
-.configs .formBox fieldset.imageComponent .borderForRow{border-bottom:1px solid #d9d7d7;float:left;width:100%;margin-bottom:10px;
+.configs .formBox fieldset.imageComponent .borderForRow{border-bottom:1px solid #d9d7d7;float:left;width:100%;padding-bottom:15px;
 	-webkit-box-shadow:0 1px 0 0 #fff;
 		 -moz-box-shadow:0 1px 0 0 #fff;
 				  box-shadow:0 1px 0 0 #fff;
@@ -234,3 +234,7 @@
 .configs .buttonsSection #id_radios label.radioLabel{width:inherit !important;}
 .configs .buttonsSection.section3 #id_radios .videoLabel,
 .configs .buttonsSection.section3 #id_radios .videoRadio{display:none !important;}
+
+/* Theme 5 */
+.configs .formBox.section3 fieldset.theme7.imageComponent .row:first-child,
+.configs .formBox.buttonsSection fieldset.theme8.imageComponent .row:first-child{padding-top:15px;}
