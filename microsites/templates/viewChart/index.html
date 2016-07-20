@@ -222,6 +222,8 @@ $(document).ready(function(){
       chart: {{ visualization_revision.chart | jsonify }},
 
       silent: formatDict.type === 'mapchart',
+
+      parameters: params,
   }); 
 
   // Plugins- Extend Main Model After Parse

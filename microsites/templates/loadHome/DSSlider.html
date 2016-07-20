@@ -73,6 +73,8 @@
 
                         format: {{ resource.format | jsonify }},
                         chart: {{ resource.chart | jsonify }},
+
+                        parameters: params,
                     });
                     new ChartView({
                         el: '#id_dataservice_{{resource.resource_id}}',

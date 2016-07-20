@@ -67,8 +67,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		this.model.on('data_updated', this.setTimestamp, this);
 		this.model.on('change:timestamp', this.updateTimestamp, this);
 
-		console.log(this.model.toJSON());
-
 	},
 
 	bindVisualizationResize: function () {
@@ -504,10 +502,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			// Get locale from lang attribute un <html>
 			var local = $('html').attr('lang');
 
-			console.log(local);
-
-			console.log(local.indexOf("es-"));
-
 			// If spanish
 			if(local === "es" || local.indexOf("es-") != -1 || local.indexOf("es_") != -1){
 				local = "es";
@@ -523,8 +517,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 				monthNamesShort: $.datepicker.regional[local].monthNamesShort,
 				monthNames: $.datepicker.regional[local].monthNames
 			});
-
-			console.log(local);
 
 			timeFormatted = $.datepicker.formatTime(tFormat, dt);
 
