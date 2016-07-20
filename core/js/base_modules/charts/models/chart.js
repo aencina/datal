@@ -74,12 +74,13 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     parse: function (res) {
-
+        
         var data = {
             datastream_revision_id: res.datastream_revision_id,
             datastream_tags:  res.datastream_tags,
             datastream_sources: res.datastream_sources,
-            datastream_category: res.datastream_category
+            datastream_category: res.datastream_category,
+            parameters: res.parameters,
         };
 
         this.editMode = res.editMode || false;
@@ -96,8 +97,6 @@ charts.models.Chart = Backbone.Model.extend({
                 type: res.format.type,
 
                 data: res.data,
-
-                parameters: res.parameters,
                 
                 select_data:true,
                 notes: _.unescape(res.notes),
@@ -161,6 +160,9 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     bindDataModel: function () {
+
+        //console.log( this.toJSON() );
+
         var self = this,
             filters = {};
 
