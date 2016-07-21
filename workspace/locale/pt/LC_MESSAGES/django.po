@@ -3120,20 +3120,44 @@ msgstr "Add new filter"
 msgid "APP-OPERATION-TEXT"
 msgstr "Operation"
 
-msgid "APP-EQUAL-TO-TEXT"
+msgid "APP-FILTER-EQUAL"
 msgstr "Equal to"
 
-msgid "APP-NOT-EQUAL-TO-TEXT"
+msgid "APP-FILTER-NOTEQUAL"
 msgstr "Not equal to"
 
-msgid "APP-HIGHER-THAN-TEXT"
-msgstr "Higher than"
+msgid "APP-FILTER-GREATER"
+msgstr "Greater than"
 
-msgid "APP-LOWER-THAN-TEXT"
-msgstr "Lower than"
+msgid "APP-FILTER-GREATEREQUAL"
+msgstr "Greater or equal than"
 
-msgid "APP-CONTAINS-TEXT"
-msgstr "It contains"
+msgid "APP-FILTER-SMALLER"
+msgstr "Smaller than"
+
+msgid "APP-FILTER-SMALLEREQUAL"
+msgstr "Smaller or equal than"
+
+msgid "APP-FILTER-CONTAINSANY"
+msgstr "Contains any"
+
+msgid "APP-FILTER-CONTAINSALL"
+msgstr "Contains all"
+
+msgid "APP-FILTER-NOTCONTAINSALL"
+msgstr "Not contains all"
+
+msgid "APP-FILTER-BETWEEN"
+msgstr "Between"
+
+msgid "APP-FILTER-NOTBETWEEN"
+msgstr "Not between"
+
+msgid "APP-FILTER-LIST"
+msgstr "Contained in a list"
+
+msgid "APP-FILTER-NOTLIST"
+msgstr "Not contained in a list"
 
 msgid "APP-OPERATOR-TEXT"
 msgstr "Operator"

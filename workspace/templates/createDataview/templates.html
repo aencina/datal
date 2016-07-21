@@ -548,11 +548,15 @@
       <label>{% trans 'APP-OPERATION-TEXT' %}</label>
       <select class="form-control select-operator" name="operator">
           <option value="">{% trans 'APP-SELECT-TEXT' %}...</option>
-          <option value="00">{% trans 'APP-EQUAL-TO-TEXT' %}</option>
-          <option value="01">{% trans 'APP-NOT-EQUAL-TO-TEXT' %}</option>
-          <option value="02">{% trans 'APP-HIGHER-THAN-TEXT' %}</option>
-          <option value="03">{% trans 'APP-LOWER-THAN-TEXT' %}</option>
-          <option value="04">{% trans 'APP-CONTAINS-TEXT' %}</option>
+          <option value="00">{% trans 'APP-FILTER-EQUAL' %}</option>
+          <option value="03">{% trans 'APP-FILTER-NOTEQUAL' %}</option>
+          <option value="01">{% trans 'APP-FILTER-GREATER' %}</option>
+          <option value="05">{% trans 'APP-FILTER-GREATEREQUAL' %}</option>
+          <option value="02">{% trans 'APP-FILTER-SMALLER' %}</option>
+          <option value="06">{% trans 'APP-FILTER-SMALLEREQUAL' %}</option>
+          <option value="04">{% trans 'APP-FILTER-CONTAINSANY' %}</option>
+          <option value="13">{% trans 'APP-FILTER-CONTAINSALL' %}</option>
+          <option value="09">{% trans 'APP-FILTER-NOTCONTAINSALL' %}</option>
       </select>
     </div>
   </div>
