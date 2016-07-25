@@ -7,9 +7,10 @@ import datetime
 class HomeFinder(elastic.ElasticsearchFinder):
 
     def __timestamp(self,timestamp):
-        if int(doc['timestamp']) != 0:
-            return datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
-
+        print timestamp
+        if int(timestamp) != 0:
+            timestamp = datetime.datetime.fromtimestamp(int(timestamp)/1000)
+            
         return datetime.datetime.now()
 
     def get_datastream_dictionary(self, doc):
@@ -62,6 +63,8 @@ class HomeFinder(elastic.ElasticsearchFinder):
         permalink = reverse('chart_manager.view', kwargs={'id': id, 'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
         modified_at = datetime.datetime.fromtimestamp(int(doc['modified_at']))
+
+        timestamp=self.__timestamp(doc['timestamp'])
 
         return dict(id=id
                     , title = title
