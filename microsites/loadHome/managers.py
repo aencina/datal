@@ -5,6 +5,13 @@ import datetime
 
 
 class HomeFinder(elastic.ElasticsearchFinder):
+
+    def __timestamp(self,timestamp):
+        if int(doc['timestamp']) != 0:
+            return datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
+
+        return datetime.datetime.now()
+
     def get_datastream_dictionary(self, doc):
 
         id = doc['datastream_id']
@@ -13,7 +20,6 @@ class HomeFinder(elastic.ElasticsearchFinder):
         permalink = reverse('viewDataStream.view', kwargs={'id': id, 'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
         modified_at= datetime.datetime.fromtimestamp(int(doc['modified_at']))
-        timestamp = datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
 
         return dict(
             id=id,
@@ -21,7 +27,7 @@ class HomeFinder(elastic.ElasticsearchFinder):
             category=doc['category_name'],
             created_at=created_at,
             modified_at=modified_at,
-            timestamp=timestamp,
+            timestamp=self.__timestamp(doc['timestamp']),
             permalink=permalink,
             type=doc['type'].upper(),
             account_id=int(doc['account_id'])
@@ -36,14 +42,13 @@ class HomeFinder(elastic.ElasticsearchFinder):
                                                                                                'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
         modified_at = datetime.datetime.fromtimestamp(int(doc['modified_at']))
-        timestamp = datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
 
         return dict(id=dataset_id
                     , title = title
                     , category = doc['category_name']
                     , created_at = created_at
                     , modified_at=modified_at 
-                    , timestamp=timestamp
+                    , timestamp=self.__timestamp(doc['timestamp'])
                     , permalink = permalink
                     , type=doc['type'].upper()
                     , account_id = int(doc['account_id'])
@@ -57,14 +62,13 @@ class HomeFinder(elastic.ElasticsearchFinder):
         permalink = reverse('chart_manager.view', kwargs={'id': id, 'slug': slug})
         created_at = datetime.datetime.fromtimestamp(int(doc['created_at']))
         modified_at = datetime.datetime.fromtimestamp(int(doc['modified_at']))
-        timestamp = datetime.datetime.fromtimestamp(int(doc['timestamp'])/1000)
 
         return dict(id=id
                     , title = title
                     , category = doc['category_name']
                     , created_at = created_at
                     , modified_at = modified_at
-                    , timestamp=timestamp
+                    , timestamp=self.__timestamp(doc['timestamp'])
                     , permalink = permalink
                     , type=doc['type'].upper()
                     , account_id = int(doc['account_id'])
