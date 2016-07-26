@@ -44,12 +44,13 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.clearHeatMapOverlays();
         var points = this.model.data.get('points');
         var clusters = this.model.data.get('clusters');
+        var oms = new OverlappingMarkerSpiderfier(this.mapInstance);
         
         var styles = this.model.data.get('mapStyles');
         var styledPoints = this.mergePointsAndStyles(points, styles);
 
         if(!_.isUndefined(points) && points.length !== 0){
-            this.createMapPoints(styledPoints);
+            this.createMapPoints(styledPoints, oms);
         }
         if(!_.isUndefined(clusters) && clusters.length !== 0){
             this.createMapClusters(clusters);
@@ -212,13 +213,13 @@ charts.views.MapChart = charts.views.Chart.extend({
     /**
      * Crea puntos en el mapa, pueden ser de tipo traces o markers
      */
-    createMapPoints: function (points) {
+    createMapPoints: function (points, oms) {
 
         _.each(points, function (point, index) {
             if(point.trace){
                 this.createMapTrace(point, index);
             } else {
-                this.createMapMarker(point, index);
+                this.createMapMarker(point, index, oms);
             }
         }, this);
     },
@@ -293,7 +294,7 @@ charts.views.MapChart = charts.views.Chart.extend({
      * @param  {int}    index   Indice del punto en el arreglo local de markers
      * @param  {object} styles  Estilos para dibujar el marker
      */
-    createMapMarker: function (point, index) {
+    createMapMarker: function (point, index, oms) {
         var self = this, markerIcon = this.stylesDefault.marker.icon;
 
         //agregar al heatmap
@@ -315,17 +316,30 @@ charts.views.MapChart = charts.views.Chart.extend({
         this.mapMarkers[index] = new google.maps.Marker({
             position: new google.maps.LatLng(point.lat, point.long),
             map: this.mapInstance,
-            icon: markerIcon
+            icon: markerIcon,
+            info: point.info // ADDED for OMS
         });
+        oms.addMarker(this.mapMarkers[index]);
 
         if(point.info){
-            var clickHandler = google.maps.event.addListener(this.mapMarkers[index], 'click', (function (marker, info) {
+            
+            /*var clickHandler = google.maps.event.addListener(this.mapMarkers[index], 'click', (function (marker, info) {
                 return function() {
                     self.infoWindow.setContent("<div class='junarinfowindow'>" + String(info) + "</div>");
                     self.infoWindow.open(self.mapInstance, marker);
                 }
             })(self.mapMarkers[index], point.info));
             this.mapMarkers[index].events = {click: clickHandler};
+            */
+            oms.addListener('click', function(marker, info) {
+                self.infoWindow.setContent("<div class='junarinfowindow'>" + String(marker.info) + "</div>");
+                self.infoWindow.open(self.mapInstance, marker);
+            });
+
+            oms.addListener('spiderfy', function(markers) {
+              self.infoWindow.close();
+            });
+            
         }
     },
 
@@ -346,7 +360,7 @@ charts.views.MapChart = charts.views.Chart.extend({
         cluster.noWrap = true;
 
         // Se desabilita la funcionalidad de joinIntersectedClusters porque contiene problemas
-        this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, false /* joinIntersectedClusters */);
+        this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, true /* joinIntersectedClusters */);
         var hPoint = {lat: parseFloat(cluster.lat), long: parseFloat(cluster.long), weight: parseInt(cluster.info)};
         this.addWeightLocation(hPoint);
     },
