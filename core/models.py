@@ -444,7 +444,7 @@ class DataStreamRevision(RevisionModel):
     def get_parameters(self):
         parameters = self.datastreamparameter_set.all().values('name', 'default', 'position', 'description')
         for parameter in parameters:
-            parameter['default'] = PrimitiveComputer().compute(parameter['default'])
+            parameter['default'] = str(PrimitiveComputer().compute(parameter['default']))
         return parameters
 
     def get_guid(self):
