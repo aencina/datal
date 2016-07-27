@@ -10,7 +10,7 @@ from django.db.models.signals import pre_delete
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
 
-
+from core.primitives import PrimitiveComputer
 from core.utils import slugify
 from core import choices
 from core import managers
@@ -440,6 +440,12 @@ class DataStreamRevision(RevisionModel):
                                                                                 , description=parameter['description']))
 
         self.save()
+
+    def get_parameters(self):
+        parameters = self.datastreamparameter_set.all().values('name', 'default', 'position', 'description')
+        for parameter in parameters:
+            parameter['default'] = PrimitiveComputer().compute(parameter['default'])
+        return parameters
 
     def get_guid(self):
         return self.datastream.guid

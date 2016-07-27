@@ -147,8 +147,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         sources = datastream_revision.sourcedatastream_set.all().values('source__name', 'source__url', 'source__id')
 
         try:
-            parameters = datastream_revision.datastreamparameter_set.all().values('name', 'default', 'position',
-                                                                                  'description')
+            parameters = datastream_revision.get_parameters()
         except FieldError:
             parameters = []
 
