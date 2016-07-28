@@ -11,6 +11,16 @@ import logging
 logger = logging.getLogger(__name__)
 
 class EngineViewSetMixin(object):
+    def get_default_parameters(self, request):
+        instance = self.get_object()
+        answer = {}
+        if 'parameters' in instance:
+            for parameter in instance['parameters']:
+                argument = "pArgument%d" % parameter['position']
+                if not request.GET.get(argument, None):
+                    answer[argument] = parameter['default']
+        return answer
+
     def get_max_rows(self, request):
         preferences = request.auth['preferences']
         if not preferences:
@@ -23,7 +33,7 @@ class EngineViewSetMixin(object):
 
     def engine_call(self, request, engine_method, format=None, is_detail=True, 
                     form_class=RequestForm, serialize=True, download=True, 
-                    limit=False, extra_args=None):
+                    limit=False):
         mutable_get = request.GET.copy()
         mutable_get.update(request.POST.copy())
         mutable_get['output'] = 'json'
@@ -43,9 +53,8 @@ class EngineViewSetMixin(object):
         if is_detail:
             resource = self.get_object()
             mutable_get['revision_id'] = resource[self.dao_pk]
-           
-        if extra_args and isinstance(extra_args, dict):
-            mutable_get.update(extra_args)
+        
+        mutable_get.update(self.get_default_parameters(request))
 
         items = dict(mutable_get.items())
         

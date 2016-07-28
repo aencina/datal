@@ -155,15 +155,6 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
     dao_pk = 'datastream_revision_id'
     app = 'microsites'
 
-    def get_default_parameters(self, request):
-        instance = self.get_object()
-        answer = {}
-        for parameter in instance['parameters']:
-            argument = "pArgument%d" % parameter['position']
-            if not request.GET.get(argument, None):
-                answer[argument] = parameter['default']
-        return answer
-
     @detail_route(methods=['get'], renderer_classes=[
         renderers.BrowsableAPIRenderer,
         UTF8JSONRenderer,
@@ -177,13 +168,11 @@ class DataStreamViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, Resour
     def data(self, request, pk=None, format=None,  *args, **kwargs):
         instance = self.get_object()
         DatastreamHitsDAO(instance).add(1)
-        defaults = self.get_default_parameters(request)
         if format in ['json', 'pjson', 'ajson', 'jsonp'] or not format:
-            return self.engine_call(request, 'invoke', format, limit=True, 
-                                    extra_args=defaults)
+            return self.engine_call(request, 'invoke', format, limit=True)
         return self.engine_call(request, 'invoke', format, 
             serialize=False, form_class=DatastreamRequestForm,
-            download=False, limit=True, extra_args=defaults)
+            download=False, limit=True)
 
     @detail_route(methods=['post'])
     def clone(self, request,  *args, **kwargs):
