@@ -607,6 +607,9 @@ class DatasetRevision(RevisionModel):
     def __unicode__(self):
         return u"DT_REV:%s:%s" %(self.id, self.impl_type)
 
+    def is_cached(self):
+        return self.impl_details and 'usecache="true"' in self.impl_details.lower()
+
     def get_endpoint_full_url(self):
         if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:
             # eliminamos todo lo no ascii

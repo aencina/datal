@@ -2,7 +2,6 @@
 
 from django.conf import settings
 from core.http import get_domain_with_protocol
-from core.lib.elastic import ElasticsearchIndex
 from django.core.cache import cache
 from django.conf import settings
 from core.v8.factories import *
@@ -89,16 +88,6 @@ class EngineCommand(object):
                             # si no tiene
                             else:
                                 timestamp=int(round(time.time() * 1000))
-
-                            if len(pids) > 0:
-                                try:
-                                    es = ElasticsearchIndex()
-                                    doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": pId}}}, fields="_id")['hits']['hits'][0]['_id']
-                                    es.update({'doc': {'fields': {'timestamp': timestamp}}, 'docid': doc_id, 'type': "ds"})
-                                except IndexError:
-                                    self.logger.warning('[ENGINE COMMAND] revision id %s no existe en indexador, posiblemente no este publicado' % pId)
-                                except:
-                                    self.logger.warning('[ENGINE COMMAND] error desconocido')
 
                         except ValueError:
                             self.logger.error('[ENGINE COMMAND] ret no es un json')

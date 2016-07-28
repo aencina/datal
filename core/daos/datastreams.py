@@ -20,7 +20,7 @@ from django.conf import settings
 from core.exceptions import SearchIndexNotFoundException, DataStreamNotFoundException
 from django.core.exceptions import FieldError
 
-from core.choices import STATUS_CHOICES, StatusChoices, ChannelTypes
+from core.choices import STATUS_CHOICES, StatusChoices, ChannelTypes, CollectTypeChoices
 from core.models import DatastreamI18n, DataStream, DataStreamRevision, Category, VisualizationRevision, DataStreamHits, Setting, DataStreamParameter
 
 from core.lib.elastic import ElasticsearchIndex
@@ -455,6 +455,16 @@ class DatastreamSearchDAO():
                 for data in meta_json['field_values']:
                     meta_text.append(data)
 
+        dataset = self.revision.dataset
+        dataset_is_cached = dataset.last_published_revision and dataset.last_published_revision.is_cached()
+        logger.info(dataset.guid, dataset_is_cached)
+        timestamp = int(int(time.mktime(self.revision.modified_at.timetuple()))*1000)
+
+        if dataset.type  == CollectTypeChoices.URL:
+            timestamp = settings.MAX_TIMESTAMP
+        elif dataset.type == CollectTypeChoices.WEBSERVICE and not dataset_is_cached:
+            timestamp = settings.MAX_TIMESTAMP
+
         document = {
                 'docid' : self._get_id(),
                 'fields' :
@@ -470,7 +480,7 @@ class DatastreamSearchDAO():
                      'tags' : ','.join(tags),
                      'account_id' : self.revision.user.account.id,
                      'parameters': "",
-                     'timestamp': int(int(time.mktime(self.revision.modified_at.timetuple()))*1000),
+                     'timestamp': timestamp,
                      'created_at': int(time.mktime(self.revision.created_at.timetuple())),
                      'modified_at': int(time.mktime(self.revision.modified_at.timetuple())),
                      'hits': 0,
