@@ -16,6 +16,7 @@ from core import choices
 from core import managers
 from core.cache import Cache
 from core.lib.datastore import *
+from core.choices import SourceImplementationChoices, CollectTypeChoices
 
 
 logger = logging.getLogger(__name__)
@@ -609,6 +610,28 @@ class DatasetRevision(RevisionModel):
 
     def is_cached(self):
         return self.impl_details and 'usecache="true"' in self.impl_details.lower()
+
+    def is_file(self):
+        return self.impl_type and self.impl_type in [
+            SourceImplementationChoices.TSV,
+            SourceImplementationChoices.KMZ,
+            SourceImplementationChoices.KML,
+            SourceImplementationChoices.CSV,
+            SourceImplementationChoices.XLS,
+            SourceImplementationChoices.XML,
+            SourceImplementationChoices.DOC,
+            SourceImplementationChoices.TXT,
+            SourceImplementationChoices.RDF       
+        ]
+
+    def is_live(self):
+        if self.dataset.type  == CollectTypeChoices.URL and not self.is_file():
+            return True
+
+        if self.dataset.type == CollectTypeChoices.WEBSERVICE and not self.is_cached():
+            return True
+
+        return False
 
     def get_endpoint_full_url(self):
         if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:

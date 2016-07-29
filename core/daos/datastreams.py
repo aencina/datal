@@ -456,13 +456,9 @@ class DatastreamSearchDAO():
                     meta_text.append(data)
 
         dataset = self.revision.dataset
-        dataset_is_cached = dataset.last_published_revision and dataset.last_published_revision.is_cached()
-        logger.info(dataset.guid, dataset_is_cached)
-        timestamp = int(int(time.mktime(self.revision.modified_at.timetuple()))*1000)
 
-        if dataset.type  == CollectTypeChoices.URL:
-            timestamp = settings.MAX_TIMESTAMP
-        elif dataset.type == CollectTypeChoices.WEBSERVICE and not dataset_is_cached:
+        timestamp = int(int(time.mktime(self.revision.modified_at.timetuple()))*1000)
+        if dataset.last_published_revision and dataset.last_published_revision.is_live():
             timestamp = settings.MAX_TIMESTAMP
 
         document = {
