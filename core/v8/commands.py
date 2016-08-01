@@ -70,27 +70,6 @@ class EngineCommand(object):
                         mimetype = '{0}; {1}'.format(response.info().gettype(), response.info().getplist()[0])
                     else:
                         mimetype = 'application; json'
-                
-
-                    # solo si es un json
-                    if mimetype.split(";")[0] == 'application/json':
-                        try:
-                            # obtenemos el json para sacar el ftimestamp
-                            aux = json.loads(ret)
-
-                            pids = filter(None, map(lambda x: x[0]=='pId' and x[1], query))
-                            if len(pids) > 0:
-                                pId = pids[0]
-
-                            # si tiene timestamp
-                            if type(aux) == type({}) and "fTimestamp" in aux.keys():
-                                timestamp=aux['fTimestamp']
-                            # si no tiene
-                            else:
-                                timestamp=int(round(time.time() * 1000))
-
-                        except ValueError:
-                            self.logger.error('[ENGINE COMMAND] ret no es un json')
                  
                     return ret, mimetype
 

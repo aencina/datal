@@ -5,8 +5,13 @@ from core.v8.factories import AbstractCommandFactory
 from core.v8.forms import RequestFormSet, RequestForm
 from core.v8.serializers import EngineSerializer
 from django.http import HttpResponse
+from core import choices
+
+from core.lib.elastic import ElasticsearchIndex
 import urllib2
 import logging
+import time
+
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +35,31 @@ class EngineViewSetMixin(object):
         if max_rows is None or max_rows == '':
             return settings.MAX_ROWS_BY_REQUEST
         return max_rows
+
+    def update_timestamp(self, response, resource):
+        doubts = [
+            'is_file' in resource,
+            resource['is_file'],
+            'collect_type' in resource,
+            resource['collect_type'] == choices.CollectTypeChoices.URL,
+            self.dao_pk == 'datastream_revision_id'
+        ]
+        if all(doubts):
+            if type(response) == type({}) and "fTimestamp" in response.keys():
+                timestamp=response['fTimestamp']
+            else:
+                timestamp=int(round(time.time() * 1000))
+
+            try:
+                es = ElasticsearchIndex()
+                doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": resource['revision_id']}}}, fields="_id")['hits']['hits'][0]['_id']
+                es.update({'doc': {'fields': {'timestamp': timestamp}}, 'docid': doc_id, 'type': "ds"})
+            except IndexError:
+                pass
+            except Exception as e:
+                logger.warning('[ENGINE COMMAND] error desconocido %s ' % str(e))
+
+
 
     def engine_call(self, request, engine_method, format=None, is_detail=True, 
                     form_class=RequestForm, serialize=True, download=True, 
@@ -112,4 +142,9 @@ class EngineViewSetMixin(object):
             final_filename = '{}.{}'.format(name, output)
             response['Content-Disposition'] = 'attachment; filename="{}"'.format(final_filename)
             
+
+        # Si es un recurso, trato de guardar el timestamp si corresponde
+        if is_detail and format == 'json':
+            self.update_timestamp(response, resource)
+
         return response
