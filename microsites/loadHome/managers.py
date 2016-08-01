@@ -1,15 +1,16 @@
 from django.core.urlresolvers import reverse
 from core.utils import slugify
 from core.search import *
+from django.conf import settings
 import datetime
-
+import logging
+logger = logging.getLogger(__name__)
 
 class HomeFinder(elastic.ElasticsearchFinder):
 
     def __timestamp(self,timestamp):
-        print timestamp
-        if int(timestamp) != 0:
-            timestamp = datetime.datetime.fromtimestamp(int(timestamp)/1000)
+        if long(timestamp) < settings.MAX_TIMESTAMP:
+            return datetime.datetime.fromtimestamp(int(timestamp)/1000)
             
         return datetime.datetime.now()
 

@@ -10,12 +10,13 @@ from django.db.models.signals import pre_delete
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
 
-
+from core.primitives import PrimitiveComputer
 from core.utils import slugify
 from core import choices
 from core import managers
 from core.cache import Cache
 from core.lib.datastore import *
+from core.choices import SourceImplementationChoices, CollectTypeChoices
 
 
 logger = logging.getLogger(__name__)
@@ -441,6 +442,12 @@ class DataStreamRevision(RevisionModel):
 
         self.save()
 
+    def get_parameters(self):
+        parameters = self.datastreamparameter_set.all().values('name', 'default', 'position', 'description')
+        for parameter in parameters:
+            parameter['default'] = str(PrimitiveComputer().compute(parameter['default']))
+        return parameters
+
     def get_guid(self):
         return self.datastream.guid
 
@@ -600,6 +607,31 @@ class DatasetRevision(RevisionModel):
 
     def __unicode__(self):
         return u"DT_REV:%s:%s" %(self.id, self.impl_type)
+
+    def is_cached(self):
+        return self.impl_details and 'usecache="true"' in self.impl_details.lower()
+
+    def is_file(self):
+        return self.impl_type and self.impl_type in [
+            SourceImplementationChoices.TSV,
+            SourceImplementationChoices.KMZ,
+            SourceImplementationChoices.KML,
+            SourceImplementationChoices.CSV,
+            SourceImplementationChoices.XLS,
+            SourceImplementationChoices.XML,
+            SourceImplementationChoices.DOC,
+            SourceImplementationChoices.TXT,
+            SourceImplementationChoices.RDF       
+        ]
+
+    def is_live(self):
+        if self.dataset.type  == CollectTypeChoices.URL and not self.is_file():
+            return True
+
+        if self.dataset.type == CollectTypeChoices.WEBSERVICE and not self.is_cached():
+            return True
+
+        return False
 
     def get_endpoint_full_url(self):
         if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:

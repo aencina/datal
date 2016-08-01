@@ -28,6 +28,8 @@ DATABASES = {
 USE_DATASTORE = 'sftp' # uses s3 | sftp
 USE_SEARCHINDEX = 'elasticsearch'
 
+MAX_TIMESTAMP = 99999999999999
+
 PAGINATION_RESULTS_PER_PAGE = 10
 
 TIME_ZONE = 'America/Santiago'
