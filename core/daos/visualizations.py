@@ -9,8 +9,9 @@ from django.db.models import Count
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.exceptions import FieldError
+from django.utils.timezone import now
 
-from datetime import datetime, date, timedelta
+from datetime import timedelta
 
 from core.utils import slugify
 from core.cache import Cache
@@ -519,7 +520,7 @@ class VisualizationHitsDAO():
         """
 
         # si es datetime, usar solo date
-        if type(day) == type(datetime.today()):
+        if type(day) == type(now()):
             day=day.date()
 
         cache_key="%s_hits_%s_by_date_%s" % ( self.doc_type, self.visualization.guid, str(day))
@@ -528,7 +529,7 @@ class VisualizationHitsDAO():
 
         # si el día particular no esta en el caché, lo guarda
         # salvo que sea el parametro pasado sea de hoy, lo guarda en el cache pero usa siempre el de la DB
-        if not hits or day == date.today():
+        if not hits or day == now().date():
             hits=VisualizationHits.objects.filter(visualization=self.visualization, created_at__startswith=day).count()
 
             self._set_cache(cache_key, hits)
@@ -546,7 +547,7 @@ class VisualizationHitsDAO():
             return {}
 
         # tenemos la fecha de inicio
-        start_date=datetime.today()-timedelta(days=day)
+        start_date=now()-timedelta(days=day)
 
         # tomamos solo la parte date
         truncate_date = connection.ops.date_trunc_sql('day', 'created_at')
@@ -558,8 +559,8 @@ class VisualizationHitsDAO():
 
         hits=qs.extra(select={'_date': truncate_date, "fecha": 'DATE(created_at)'}).values("fecha").order_by("created_at").annotate(hits=Count("created_at"))
 
-        control=[ date.today()-timedelta(days=x) for x in range(day-1,0,-1)]
-        control.append(date.today())
+        control=[ now().date()-timedelta(days=x) for x in range(day-1,0,-1)]
+        control.append(now().date())
 
         
         for i in hits:

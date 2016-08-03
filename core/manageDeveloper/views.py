@@ -39,7 +39,7 @@ def create(request):
     application.auth_key = api_key
     application.public_auth_key = public_api_key
     application.valid = True
-    application.expires_at = '2011-12-31 23:59:59'
+    application.expires_at = '2011-12-31 23:59:59Z'
     application.type = '00'
     application.account = account
     application.save()

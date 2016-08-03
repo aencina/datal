@@ -8,9 +8,10 @@ from django.db.models import Q, F, Count
 from django.db import IntegrityError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import connection
+from django.utils.timezone import now
 
 
-from datetime import datetime, timedelta, date
+from datetime import timedelta
 
 from core.primitives import PrimitiveComputer
 from core.utils import slugify
@@ -584,7 +585,7 @@ class DatastreamHitsDAO():
             return {}
 
         # tenemos la fecha de inicio
-        start_date=datetime.today()-timedelta(days=day)
+        start_date=now()-timedelta(days=day)
 
         # tomamos solo la parte date
         truncate_date = connection.ops.date_trunc_sql('day', 'created_at')
@@ -596,8 +597,8 @@ class DatastreamHitsDAO():
 
         hits=qs.extra(select={'_date': truncate_date, "fecha": 'DATE(created_at)'}).values("fecha").order_by("created_at").annotate(hits=Count("created_at"))
 
-        control=[ date.today()-timedelta(days=x) for x in range(day-1,0,-1)]
-        control.append(date.today())
+        control=[ now().date()-timedelta(days=x) for x in range(day-1,0,-1)]
+        control.append(now().date())
         
         for i in hits:
             try:

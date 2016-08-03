@@ -6,6 +6,7 @@ import logging
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import ugettext
+from django.utils.timezone import now
 
 from core import choices
 from core.cache import Cache
@@ -25,8 +26,7 @@ class ActivityStreamDAO:
         c = Cache(db=settings.CACHE_DATABASES['activity_resources'])
 
         timeformat = "%s %s %s %s" % (ugettext('APP-ON-TEXT'), "%Y-%m-%d,", ugettext('APP-AT-TEXT'), "%H:%M")
-        now = datetime.datetime.now()
-        time = now.strftime(timeformat)
+        time = now().strftime(timeformat)
         l_permalink = ""
 
         # TODO check and fix al urls.

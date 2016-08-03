@@ -8,6 +8,7 @@ import datetime
 import sys
 import re
 import logging
+import pytz
 
 logger = logging.getLogger(__name__)
 
@@ -105,9 +106,9 @@ class GridEngineRenderer(EngineRenderer):
             # si el valor sigue mal, fallara otra vez e ira al except general
             # del metodo
             try:
-                myutc = datetime.datetime.utcfromtimestamp(seconds)
+                myutc = datetime.datetime.utcfromtimestamp(seconds).replace(tzinfo=pytz.utc)
             except ValueError:
-                myutc = datetime.datetime.utcfromtimestamp(seconds/1000)
+                myutc = datetime.datetime.utcfromtimestamp(seconds/1000).replace(tzinfo=pytz.utc)
 
             #some patterns are differents from JS to python babel
             strformat = strformat.replace("DD", "EEEE").replace("D", "E").replace("yy", "Y")

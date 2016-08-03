@@ -34,6 +34,13 @@ PAGINATION_RESULTS_PER_PAGE = 10
 
 TIME_ZONE = 'America/Santiago'
 
+USE_TZ = True
+
+import warnings
+warnings.filterwarnings(
+'error', r"DateTimeField .* received a naive datetime",
+RuntimeWarning, r'django\.db\.models\.fields')
+
 LANGUAGES = (
     ('en', 'English'),
     ('es', 'Spanish'),

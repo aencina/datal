@@ -1,6 +1,6 @@
 import hashlib
 import string
-import datetime
+from datetime import timedelta
 
 from django.db.models import Q
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -23,6 +23,8 @@ from core.lib.mail import mail
 from core.lib.mail.django_backend import DjangoMailService
 from core.utils import slugify
 from workspace.manageMyAccount import forms
+from django.utils.timezone import now
+import pytz
 
 
 def signup(request):
@@ -40,8 +42,8 @@ def create(request):
         account_level = AccountLevel.objects.get_by_code('level_5')
         account.level = account_level
 
-        month = datetime.timedelta(days=30)
-        account.expires_at = datetime.date.today() + month
+        month = timedelta(days=30)
+        account.expires_at = now() + month
         account.save()
         new_account_id = account.id
         language = form.cleaned_data.get('language')

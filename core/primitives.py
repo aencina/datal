@@ -1,5 +1,6 @@
-from datetime import date, timedelta
+from datetime import timedelta
 from re import search, UNICODE
+from django.utils.timezone import now
 
 
 class PrimitiveComputer:
@@ -16,7 +17,7 @@ class PrimitiveComputer:
 
 
 def previous_month():
-    today = date.today()
+    today = now().date()
 
     month = today.month
 
@@ -27,7 +28,7 @@ def previous_month():
 
 
 def previous_month_year():
-    today = date.today()
+    today = now().date()
 
     month = today.month
 
@@ -38,7 +39,7 @@ def previous_month_year():
 
 
 def today(days=0, fmt="%d/%m/%Y"):
-    today = date.today()
+    today = now().date()
 
     if days != 0:
         today = today + timedelta(days=days)
