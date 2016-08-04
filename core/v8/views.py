@@ -83,8 +83,7 @@ class EngineViewSetMixin(object):
         if is_detail:
             resource = self.get_object()
             mutable_get['revision_id'] = resource[self.dao_pk]
-        
-        mutable_get.update(self.get_default_parameters(request))
+            mutable_get.update(self.get_default_parameters(request))
 
         items = dict(mutable_get.items())
         
