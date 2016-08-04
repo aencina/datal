@@ -187,18 +187,13 @@ function onSuccessDataServiceExecute(pResponse){
                 if (! _.isUndefined(format)){
                     // sometimes are seconds, sometimes miliseconds
                     if (number > 0 && number < 100000000000) number = number * 1000;
-                    var dt = new Date(number);
-                    dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+
                     var local = format.fLocale;
                     //(?) if I use "en" doesn't work, I must use "" for "en"
-                    if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+                    if (undefined === local || local.indexOf("en_")) local = "en";
                     if (local === "es" || local.indexOf("es_")) local = "es";
-                    str = $.datepicker.formatDate(format.fPattern, dt, {
-                        dayNamesShort: $.datepicker.regional[local].dayNamesShort,
-                        dayNames: $.datepicker.regional[local].dayNames,
-                        monthNamesShort: $.datepicker.regional[local].monthNamesShort,
-                        monthNames: $.datepicker.regional[local].monthNames
-                    });
+                    var dt = moment.utc(number).locale(local)
+                    str = dt.format(Configuration.dp_to_moment[format.fPattern])
                 }else{
                     str = String(number);
                 }
@@ -240,18 +235,13 @@ function onSuccessDataServiceExecute(pResponse){
                         if (! _.isUndefined(format)){
                             // sometimes are seconds, sometimes miliseconds
                             if (number > 0 && number < 100000000000) number = number * 1000;
-                            var dt = new Date(number);
-                            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
+
                             var local = format.fLocale;
-                            //(?) if I use "en" doesn't work, I must use "" for "en"
-                            if (undefined === local || local === "en" || local.indexOf("en_")) local = "";
+                            if (undefined === local || local.indexOf("en_")) local = "en";
                             if (local === "es" || local.indexOf("es_")) local = "es";
-                            lValue = $.datepicker.formatDate(format.fPattern, dt, {
-                                dayNamesShort: $.datepicker.regional[local].dayNamesShort,
-                                dayNames: $.datepicker.regional[local].dayNames,
-                                monthNamesShort: $.datepicker.regional[local].monthNamesShort,
-                                monthNames: $.datepicker.regional[local].monthNames
-                            });
+
+                            var dt = moment.utc(number).locale(local)
+                            lValue = dt.format(Configuration.dp_to_moment[format.fPattern]);
                         }else{
                             lValue = String(number);
                         }

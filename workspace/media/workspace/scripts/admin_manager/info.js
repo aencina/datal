@@ -91,6 +91,7 @@ function getFormParameters(){
     data.account_contact_person_email = $('#id_account_contact_person_email').val();
     data.account_contact_dataperson_email = $('#id_account_contact_dataperson_email').val();
     data.account_contact_person_country = $('#id_account_contact_person_country').val();
+    data.account_timezone = $('#id_account_timezone').val();
     data.account_contact_person_phone = $('#id_account_contact_person_phone').val();
 
     return data;

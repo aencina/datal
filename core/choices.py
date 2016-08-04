@@ -443,6 +443,7 @@ ACCOUNT_PREFERENCES_AVAILABLE_KEYS = (
     ,('account.pivottable.helplink', 'account.pivottable.helplink')
     ,('account.footer.opendatalicense', 'account.footer.opendatalicense')
     ,('account.preview', 'account.preview')
+    ,('account.timezone', 'account.timezone')
 
     # API blazegraph plugin # TODO: Mover al plugin
     ,('account.bigdata.namespace', 'account.bigdata.namespace')

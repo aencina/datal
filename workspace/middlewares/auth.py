@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from core.models import User, Account
 from core.auth.auth import AuthManager
 from django.utils.timezone import now
+from core.http import get_domain_by_request
 
 class AccessManager(object):
     """
@@ -28,7 +29,8 @@ class AccessManager(object):
                 if user_language in [ language[0] for language in settings.LANGUAGES ]:
                     request.session['django_language'] = user_language
 
-            request.auth_manager = AuthManager(language = request.session['django_language'])
+            request.auth_manager = AuthManager(language = request.session['django_language'],
+                                               account = Account.get_by_domain(get_domain_by_request(request)))
             request.user = None
             return None
 

@@ -205,18 +205,9 @@
 		});
 		{% endif %}
 
-		Configuration = {};
-		Configuration.baseUri = "{{settings.BASE_URI}}";
-		Configuration.apiUri = "{{settings.API_URI}}";
-		Configuration.apiKey = "{{settings.PUBLIC_KEY}}";
-		Configuration.language = "{{LANGUAGE_CODE}}";
+		
 		Configuration.createDataViewUrl = "{% url 'manageDataviews.create' %}";
 		Configuration.createVisualizationUrl = "{% url 'manageVisualizations.create' %}";
-
-		Configuration.APPLICATION_DETAILS = {}
-		Configuration.APPLICATION_DETAILS.name = "{{ settings.APPLICATION_DETAILS.name }}";
-		Configuration.APPLICATION_DETAILS.website = "{{ settings.APPLICATION_DETAILS.website }}";
-		Configuration.APPLICATION_DETAILS.mail = "{{ settings.APPLICATION_DETAILS.mail }}";
 
 		{% if preferences.account_microsite_https %}
 			Configuration.microsite_protocol = 'https://';

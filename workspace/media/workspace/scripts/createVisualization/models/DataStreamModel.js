@@ -80,22 +80,17 @@ var DataStreamModel = Backbone.Model.extend({
             }
             var locale = format.fLocale;
             //One must use "" for "en"
-            if (undefined === locale || locale === "en" || locale.indexOf("en_")) {
-                locale = "";
+            if (undefined === locale || locale.indexOf("en_")) {
+                locale = "en";
             }
             if (locale.indexOf("es_")) {
                 locale = "es";
             }
 
-            var dt = new Date(timestamp);
-            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
 
-            value = $.datepicker.formatDate(format.fPattern, dt, {
-                dayNamesShort: $.datepicker.regional[locale].dayNamesShort,
-                dayNames: $.datepicker.regional[locale].dayNames,
-                monthNamesShort: $.datepicker.regional[locale].monthNamesShort,
-                monthNames: $.datepicker.regional[locale].monthNames
-            });
+            var dt = moment.utc(timestamp).locale(locale);
+            
+            value = dt.format(Configuration.dp_to_moment[format.fPattern])
         } else {
             value = String(timestamp);
         }

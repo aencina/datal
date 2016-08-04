@@ -17,6 +17,7 @@ MIDDLEWARE_CLASSES += (
     'django.contrib.messages.middleware.MessageMiddleware',
     'workspace.middlewares.nocache.NoCacheMiddleware',
     'workspace.middlewares.auth.AccessManager',
+    'core.middlewares.tz.TimezoneMiddleware',
     'workspace.middlewares.ioc.DependenciesInjector',
     'workspace.middlewares.catch.ExceptionManager',
 )

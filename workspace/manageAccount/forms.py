@@ -2,8 +2,10 @@ from django import forms
 from django.utils.translation import ugettext_lazy
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_email
+from django.conf import settings
 from core import choices
 from core.models import Role
+from pytz import all_timezones
 
 
 class AccountInfoForm(forms.Form):
@@ -17,7 +19,7 @@ class AccountInfoForm(forms.Form):
     account_contact_dataperson_email = forms.EmailField(label=ugettext_lazy('ACCOUNT-FORM-CONTACT-DATAPERSON-EMAIL-LABEL'), required=False, max_length=120)
     account_contact_person_phone = forms.CharField(label=ugettext_lazy('ACCOUNT-FORM-CONTACT-PERSON-PHONE-LABEL'), required=False, max_length=80)
     account_contact_person_country = forms.ChoiceField(choices=choices.COUNTRY_CHOICES, label=ugettext_lazy('ACCOUNT-FORM-CONTACT-PERSON-COUNTRY-LABEL'), required=False)
-
+    account_timezone = forms.ChoiceField(choices=map(lambda x: (x, x), all_timezones), label=ugettext_lazy('ACCOUNT-TIMEZONE-LABEL'), required=True)
     def action(self):
         return reverse('admin_manager.edit_info_update')
 

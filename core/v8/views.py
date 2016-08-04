@@ -38,10 +38,8 @@ class EngineViewSetMixin(object):
 
     def update_timestamp(self, response, resource):
         doubts = [
-            'is_file' in resource,
-            resource['is_file'],
-            'collect_type' in resource,
-            resource['collect_type'] == choices.CollectTypeChoices.URL,
+            'is_file' in resource and resource['is_file'],  
+            'collect_type' in resource and resource['collect_type'] == choices.CollectTypeChoices.URL,
             self.dao_pk == 'datastream_revision_id'
         ]
         if all(doubts):

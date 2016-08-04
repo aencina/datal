@@ -1,3 +1,5 @@
+{% load tz %}
+{% localtime off %}
 {
   "number_of_pages": {% if paginator  %}{{paginator.num_pages}}{%else%}0{% endif %}, 
   "errors": [{% if error %} "{{error}}"{% endif %}],
@@ -8,9 +10,9 @@
         "permalink": "{{obj.permalink}}",
         "account_id": {{obj.account_id}},
         "title": "{{obj.title}}",
-        "created_at": "{{obj.created_at|date:'Y-m-d\TH:i:s'|capfirst}}",
-        "modified_at": "{{obj.modified_at|date:'Y-m-d\TH:i:s'|capfirst}}",
-        "timestamp": "{{obj.timestamp|date:'Y-m-d\TH:i:s'|capfirst}}",
+        "created_at": "{{obj.created_at|date:'c'|capfirst}}",
+        "modified_at": "{{obj.modified_at|date:'c'|capfirst}}",
+        "timestamp": "{{obj.timestamp|date:'c'|capfirst}}",
         "type": "{{obj.type}}",
         "id": {{obj.id}}
     }{% if not forloop.last %},{% endif %}
@@ -23,3 +25,4 @@
     {% endfor %}
   ]
 }
+{% endlocaltime %}

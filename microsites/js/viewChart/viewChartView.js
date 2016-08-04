@@ -480,24 +480,14 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 
 		if( !_.isUndefined( timestamp ) ){
 
-			var dFormat = 'MM dd, yy',
-				tFormat = 'hh:mm TT',
+			var dFormat = 'MMMM DD, Y',
+				tFormat = 'hh:mm A',
 				dt;
 
 			// sometimes are seconds, sometimes miliseconds
 			if(timestamp < 100000000000){
 				timestamp = timestamp * 1000;	
 			}
-
-			// if 0, date/time is now
-			if( timestamp == 0 ){
-				dt = new Date();
-			}else{
-				dt = new Date(timestamp);
-			}			
-
-			// Set timezone
-			dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
 
 			// Get locale from lang attribute un <html>
 			var local = $('html').attr('lang');
@@ -511,14 +501,16 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 				local = "";
 			}
 
-			dateFormatted = $.datepicker.formatDate(dFormat, dt, {
-				dayNamesShort: $.datepicker.regional[local].dayNamesShort,
-				dayNames: $.datepicker.regional[local].dayNames,
-				monthNamesShort: $.datepicker.regional[local].monthNamesShort,
-				monthNames: $.datepicker.regional[local].monthNames
-			});
+			if( timestamp == 0 ){
+				dt = new moment().locale(local)
+			}else{
+				dt = new moment(timestamp).locale(local);
+			}
 
-			timeFormatted = $.datepicker.formatTime(tFormat, dt);
+			dateFormatted = dt.format(dFormat)
+
+			timeFormatted = dt.format(tFormat)
+
 
 			timestamp = dateFormatted + ', ' + timeFormatted;
 
