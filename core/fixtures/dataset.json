@@ -9,7 +9,7 @@
         "last_published_revision": 631, 
         "guid": "ESTAD-DE-OPERA-DE-86401", 
         "type": 1, 
-        "created_at": "2012-06-04T14:12:52"
+        "created_at": "2012-06-04T14:12:52Z"
     }
 },
 {
@@ -22,7 +22,7 @@
         "last_published_revision": 61701,
         "guid": "IEP-PRIME-TRIME-2012-21824",
         "type": 1,
-        "created_at": "2012-06-04T14:12:52"
+        "created_at": "2012-06-04T14:12:52Z"
     }
 },
 {
@@ -35,7 +35,7 @@
         "last_published_revision": 61702,
         "guid": "NOMIN-DE-INICI-DE-57730",
         "type": 1,
-        "created_at": "2012-06-04T14:12:52"
+        "created_at": "2012-06-04T14:12:52Z"
     }
 },
 {
@@ -48,7 +48,7 @@
         "last_published_revision": 79900,
         "guid": "TRAFF-COUNT",
         "type": 0,
-        "created_at": "2015-11-10T10:39:22"
+        "created_at": "2015-11-10T10:39:22Z"
     }
 },
 {
@@ -61,7 +61,7 @@
         "last_published_revision": 79902,
         "guid": "TRAFF-INCID",
         "type": 1,
-        "created_at": "2015-11-10T10:53:50"
+        "created_at": "2015-11-10T10:53:50Z"
     }
 },
 {
@@ -74,7 +74,7 @@
         "last_published_revision": 79903,
         "guid": "ENERG-INFOR",
         "type": 2,
-        "created_at": "2015-11-10T11:44:49"
+        "created_at": "2015-11-10T11:44:49Z"
     }
 },
 {
@@ -87,7 +87,7 @@
         "last_published_revision": 79904,
         "guid": "311-DATA",
         "type": 0,
-        "created_at": "2015-11-10T11:48:29"
+        "created_at": "2015-11-10T11:48:29Z"
     }
 },
 {
@@ -100,7 +100,7 @@
         "last_published_revision": null,
         "guid": "TITLE",
         "type": 0,
-        "created_at": "2015-11-10T12:12:49"
+        "created_at": "2015-11-10T12:12:49Z"
     }
 },
 {
@@ -113,7 +113,7 @@
         "last_published_revision": 79906,
         "guid": "SACRA-CRIME-DATA",
         "type": 0,
-        "created_at": "2015-11-10T12:22:54"
+        "created_at": "2015-11-10T12:22:54Z"
     }
 },
 {
@@ -126,7 +126,7 @@
         "last_published_revision": 79908,
         "guid": "PURCH-ORDER",
         "type": 0,
-        "created_at": "2015-11-10T12:41:42"
+        "created_at": "2015-11-10T12:41:42Z"
     }
 }
 ]
