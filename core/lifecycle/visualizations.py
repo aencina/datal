@@ -56,6 +56,8 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
     model = Visualization
     search_model = VisualizationSearchDAOFactory
     dao_model = VisualizationDBDAO
+    model_name_plural = 'visualizations'
+    model_name = 'visualization'
 
     def __init__(self, user, resource=None, language=None, visualization_id=0, visualization_revision_id=0):
         super(VisualizationLifeCycleManager, self).__init__(user, language)
@@ -191,13 +193,6 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
         self._update_last_revisions()
         return vzr
 
-    def _remove_all(self):
-        self.visualization.delete()
-        self._log_activity(ActionStreams.DELETE)
-        if settings.DEBUG: logger.info('Clean Caches')
-        self._delete_cache(cache_key='my_total_visualizations_%d' % self.visualization.user.id)
-        self._delete_cache(cache_key='account_total_visualization_%d' % self.visualization.user.account.id)
-
     def _log_activity(self, action_id):
         if not self.visualizationi18n:
             self.visualizationi18n = self.visualization_revision.visualizationi18n_set.all()[0] # TODO at at DAO
@@ -223,42 +218,6 @@ class VisualizationLifeCycleManager(AbstractLifeCycleManager):
             visualization__id=self.visualization.id,
             status=StatusChoices.PUBLISHED)\
         .update(status=to_status)
-
-    def remove(self, killemall=False, allowed_states=REMOVE_ALLOWED_STATES):
-        """ Elimina una revision o todas las revisiones de un visualizacion """
-
-        if self.visualization_revision.status not in allowed_states:
-            raise IllegalStateException(
-                from_state=self.visualization_revision.status,
-                to_state=None,
-                allowed_states=allowed_states
-            )
-
-        if killemall:
-            self._remove_all()
-        else:
-            revcount = VisualizationRevision.objects.filter(
-                visualization=self.visualization.id,
-                status=StatusChoices.PUBLISHED
-            ).count()
-
-            if revcount == 1:
-                # Si la revision a eliminar es la unica publicada entonces despublicar todas las visualizaciones
-                # en cascada
-                self._unpublish_all()
-
-            # Fix para evitar el fallo de FK con las published revision. Luego la funcion update_last_revisions
-            # completa el valor correspondiente.
-            self.visualization.last_published_revision=None
-            self.visualization.save()
-
-            self.visualization_revision.delete()
-
-        self._update_last_revisions()
-
-        self._log_activity(ActionStreams.DELETE)
-        self._delete_cache(cache_key='my_total_visualizations_%d' % self.visualization.user.id)
-        self._delete_cache(cache_key='account_total_visualization_%d' % self.visualization.user.account.id)
 
     def unpublish(self, killemall=False, allowed_states=UNPUBLISH_ALLOWED_STATES, to_status=StatusChoices.DRAFT):
         """ Despublica la revision de un dataset """
