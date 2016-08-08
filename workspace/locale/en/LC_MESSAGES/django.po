@@ -79,6 +79,11 @@ msgstr "Phone"
 msgid "ACCOUNT-FORM-CONTACT-PERSON-COUNTRY-LABEL"
 msgstr "Country"
 
+msgid "ACCOUNT-TIMEZONE-LABEL"
+msgstr "Timezone"
+
+
+
 msgid "ACCOUNT-HTML-TITLE-LABEL"
 msgstr "HTML <title>"
 
