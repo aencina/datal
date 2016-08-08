@@ -834,7 +834,7 @@ class VisualizationRevision(RevisionModel):
                     position=position
                 )
                 parameter = dict(
-                    default=parameter_split[1],
+                    default=str(PrimitiveComputer().compute(parameter_split[1])),
                     position=position,
                     name=original.name,
                     description=original.description
