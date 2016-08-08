@@ -32,7 +32,7 @@ class AuthManager:
             self.account_id = account.id if account else None
             self.account_level = None
             self.language = language
-            self.timezone = account.get_preference('account.timezone') if account else settings.TIME_ZONE
+            self.timezone = account.get_preference('account.timezone') if account and account.get_preference('account.timezone') else settings.TIME_ZONE
 
     def is_anonymous(self):
         return not self.is_authenticated
