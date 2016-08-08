@@ -833,7 +833,7 @@ msgstr "Não acesso a visualização"
 msgid "EXCEPTION-DESCRIPTION-VISUALIZATION-NOT-ACCESS"
 msgstr "Sua conta não tem acesso à visualização"
 
-msgid "EXCEPTION-DESCRIPTION-VIZUALIZATION-PARENT-NOT-PUBLISHED"
+msgid "EXCEPTION-DESCRIPTION-VIsUALIZATION-PARENT-NOT-PUBLISHED"
 msgstr "Você deve publicar a vista associada"
 
 msgid "APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT"
@@ -883,3 +883,9 @@ msgstr "Resource"
 
 msgid "APP-ALL-S-TEXT"
 msgstr "All"
+
+msgid "EXCEPTION-TITLE-PARENT-NOT-PUBLISHED"
+msgstr "Resource can't be published"
+
+msgid "EXCEPTION-DESCRIPTION-PARENT-NOT-PUBLISHED"
+msgstr "You need to publish the resource parent."

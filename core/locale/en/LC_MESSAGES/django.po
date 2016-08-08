@@ -1031,9 +1031,6 @@ msgstr "Not access to visualization"
 msgid "EXCEPTION-DESCRIPTION-VISUALIZATION-NOT-ACCESS"
 msgstr "Your account has no access to the visualization"
 
-msgid "EXCEPTION-DESCRIPTION-VIZUALIZATION-PARENT-NOT-PUBLISHED"
-msgstr "You must publish the associated view"
-
 msgid "APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT"
 msgstr "We do not find what you are looking for"
 

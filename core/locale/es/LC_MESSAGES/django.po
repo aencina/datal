@@ -903,11 +903,11 @@ msgstr "No se puede publicar la visualización"
 msgid "EXCEPTION-TITLE-PARENT-NOT-PUBLISHED"
 msgstr "No se puede publicar el recurso"
 
-msgid "EXCEPTION-DESCRIPTION-VIZUALIZATION-PARENT-NOT-PUBLISHED"
+msgid "EXCEPTION-DESCRIPTION-VISUALIZATION-PARENT-NOT-PUBLISHED"
 msgstr "Es necesario publicar la vista asociada"
 
 msgid "EXCEPTION-DESCRIPTION-PARENT-NOT-PUBLISHED"
-msgstr "Es necesario publicar el conjunto de datos asociado"
+msgstr "Es necesario publicar el recurso padre."
 
 msgid "EXCEPTION-TITLE-DASTREAM-PARENT-NOT-PUBLISHED"
 msgstr "No se pudo publicar la vista"

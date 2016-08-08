@@ -199,7 +199,7 @@ class ParentNotPublishedException(LifeCycleException):
 
 class VisualizationParentNotPublishedException(ParentNotPublishedException):
     title = _('EXCEPTION-TITLE-VISUALIZATION-PARENT-NOT-PUBLISHED')
-    description = _('EXCEPTION-DESCRIPTION-VIZUALIZATION-PARENT-NOT-PUBLISHED')
+    description = _('EXCEPTION-DESCRIPTION-VISUALIZATION-PARENT-NOT-PUBLISHED')
 
     def get_actions(self):
         if hasattr(self, 'revision'):#Prevent exepction for Exception Test script to prevent fall in the view.
