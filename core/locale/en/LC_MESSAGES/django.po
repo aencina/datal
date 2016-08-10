@@ -875,7 +875,7 @@ msgid "EXCEPTION-TITLE-PARENT-NOT-PUBLISHED"
 msgstr "Resource can't be published"
 
 msgid "EXCEPTION-DESCRIPTION-PARENT-NOT-PUBLISHED"
-msgstr "A previous step is needed."
+msgstr "You need to publish the resource parent."
 
 msgid "EXCEPTION-TITLE-DASTREAM-PARENT-NOT-PUBLISHED"
 msgstr "You can´t create dataviews yet."
