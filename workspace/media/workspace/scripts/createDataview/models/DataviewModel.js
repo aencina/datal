@@ -329,10 +329,18 @@ var DataviewModel = Backbone.Model.extend({
             }),
             totalCols = this.get('totalCols'),
             cellModels = this.selection.getItemsByMode('cell'),
-            cells = _.map(cellModels, function (cell) {
-                var range = cell.getRange();
-                return range.from.col + range.from.row * totalCols;
-            });
+            cells = []
+            for (var x = 0; x < cellModels.length; x++) {
+                var range = cellModels[x].getRange();
+                for (var z = 0; z <= range.to.row - range.from.row; z++) {
+                    var row = z + range.from.row
+                    for (var y = 0; y <= range.to.col - range.from.col; y++) {
+                        var col = y + range.from.col
+                        cells.push( row * totalCols + col )
+                    }
+                }
+
+            }
             rowModels = this.selection.getItemsByMode('row'),
             rows = _.map(rowModels, function (model) {
                 return model.getRange().from.row;
