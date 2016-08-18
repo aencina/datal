@@ -23,6 +23,7 @@
 
 				<div class="selected-ranges-view">
 					<form class="form" novalidate>
+					
 						<div class="row input-row hidden" data-name="latitudSelection">
 							<label>{% trans "APP-CUSTOMIZE-MAP-SELECT-LATITUDE-TEXT" %}</label>
 							<div class="hot-sel-1">
@@ -63,6 +64,13 @@
 								<p class="validation-invalid-range hidden">{% trans "APP-INVALID-RANGE" %}</p>
 							</div>
 						</div>
+
+						{% if visualization_revision %}
+							{% include "createVisualization/parameters.html" with parameters=visualization_revision.parameters %}
+						{% else %}
+							{% include "createVisualization/parameters.html" with parameters=datastream_revision.parameters %}
+						{% endif %}
+
 					</form>
 				</div>
 
@@ -90,9 +98,10 @@
 
 		<div class="col-xs-9">
 			<div class="data-table-view">
-				<div class="table-view">
-				</div>
+				<div class="table-view"></div>
+				<div class="table-null-message" style="display:none;">{% trans "CREATEVIZ-NULLRESULTS-TEXT" %}</div>
 			</div>
+			<div class="table-loading loading light" style="display:none;">{% trans "APP-LOADINGDATAPLEASEWAIT-TEXT" %}</div>
 		</div>
 
 	</div>

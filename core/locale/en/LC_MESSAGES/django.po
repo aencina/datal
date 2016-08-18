@@ -881,7 +881,7 @@ msgid "EXCEPTION-TITLE-PARENT-NOT-PUBLISHED"
 msgstr "Resource can't be published"
 
 msgid "EXCEPTION-DESCRIPTION-PARENT-NOT-PUBLISHED"
-msgstr "A previous step is needed."
+msgstr "You need to publish the resource parent."
 
 msgid "EXCEPTION-TITLE-DASTREAM-PARENT-NOT-PUBLISHED"
 msgstr "You can´t create dataviews yet."
@@ -1039,9 +1039,6 @@ msgstr "Not access to visualization"
 
 msgid "EXCEPTION-DESCRIPTION-VISUALIZATION-NOT-ACCESS"
 msgstr "Your account has no access to the visualization"
-
-msgid "EXCEPTION-DESCRIPTION-VIZUALIZATION-PARENT-NOT-PUBLISHED"
-msgstr "You must publish the associated view"
 
 msgid "APP-WE-DONT-FIND-WHAT-YOU-ARE-LOOKING-TEXT"
 msgstr "We do not find what you are looking for"

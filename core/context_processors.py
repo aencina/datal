@@ -16,6 +16,7 @@ def request_context(request):
         'MSPROTOCOL': 'http',
         'APIPROTOCOL': 'http',
         'COLLECT_TYPE_DOWNLOADABLE': choices.COLLECT_TYPE_DOWNLOADABLE,
+        'TIME_ZONE': request.auth_manager.timezone,
     }
 
     my_choices = {

@@ -35,6 +35,8 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
     dao_model = DatasetDBDAO
     child_lifecycle_model = DatastreamLifeCycleManager
     child_type = settings.TYPE_DATASTREAM
+    model_name_plural = 'datasets'
+    model_name = 'dataset'
     
     def __init__(self, user, resource=None, language=None, dataset_id=0, dataset_revision_id=0):
         super(DatasetLifeCycleManager, self).__init__(user, language)
@@ -66,7 +68,7 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
         self.resource=self.dataset
         self.revision=self.dataset_revision
 
-    def get_children_queryset(self, last=True, publish=False):
+    def get_children_revisions_queryset(self, last=True, publish=False):
         queryset = DataStreamRevision.objects.filter(
             dataset=self.dataset.id)
 
@@ -77,6 +79,9 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
             queryset = queryset.filter(datastream__last_published_revision__isnull=False)
 
         return queryset
+
+    def get_children_queryset(self):
+        return DataStream.objects.filter(datastreamrevision__dataset=self.dataset).distinct()
 
     def get_revisions_queryset(self):
         return DatasetRevision.objects.filter(dataset=self.dataset.id)
@@ -231,62 +236,6 @@ class DatasetLifeCycleManager(AbstractLifeCycleManager):
         self.dataset_revision.status = StatusChoices.DRAFT
         self.dataset_revision.save()
         self._log_activity(ActionStreams.REJECT)
-
-    def remove(self, killemall=False, allowed_states=REMOVE_ALLOWED_STATES):
-        """ Elimina una revision o todas las revisiones de un dataset y la de sus datastreams hijos en cascada
-        :param allowed_states:
-        :param killemall:
-        """
-
-        # Tener en cuenta que si es necesario ejecutar varios delete, debemos crear un nuevo objecto LifeCycle
-        if settings.DEBUG: logger.info('removing dataset rev %d all:%s' % (self.dataset_revision.id, str(killemall)))
-        if self.dataset_revision.status not in allowed_states:
-            raise IllegalStateException(
-                                    from_state=self.dataset_revision.status,
-                                    to_state=None,
-                                    allowed_states=allowed_states)
-
-        if not killemall:
-            _revisions = DatasetRevision.objects.filter(dataset=self.dataset.id)
-            killemall = _revisions.count() == 1
-
-        # si la revision a eliminar es la unica revision
-        # elimino todos los recursos asociados a ella
-        if killemall:
-            self._remove_all()
-
-        else:
-            revision_published_count = _revisions.filter(status=StatusChoices.PUBLISHED).count()
-
-            # Si la revision a eliminar es la unica publicada y es la que vamos a eliminar,
-            # entonces despublicar todos los datastreams en cascada
-            if revision_published_count == 1 and self.dataset.last_published_revision == self.dataset_revision:
-                self._unpublish_all()
-
-            # Fix para evitar el fallo de FK con las published revision. Luego la funcion update_last_revisions
-            # completa el valor correspondiente.
-            self.dataset.last_published_revision = None
-            self.dataset.save()
-
-            # Elimino revision del dataset
-            self.dataset_revision.delete()
-
-        self._update_last_revisions()
-        self._log_activity(ActionStreams.DELETE)
-        if settings.DEBUG: logger.info('Clean Caches')
-        self._delete_cache(cache_key='my_total_datasets_%d' % self.dataset.user.id)
-        self._delete_cache(cache_key='account_total_datasets_%d' % self.dataset.user.account.id)
-
-    def _remove_all(self):
-        # Remove all asociated datastreams revisions
-
-        for datastream_revision in DataStreamRevision.objects.filter(dataset=self.dataset.id):
-            DatastreamLifeCycleManager(self.user,resource=datastream_revision).remove(killemall=True)
-
-        self.dataset.delete()
-        self._log_activity(ActionStreams.DELETE)
-        self._delete_cache(cache_key='my_total_datasets_%d' % self.dataset.user.id)
-        self._delete_cache(cache_key='account_total_datasets_%d' % self.dataset.user.account.id)
 
     def has_source_changed(self, fields, old_end_point, old_file_name):
         if self.dataset.type == CollectTypeChoices.SELF_PUBLISH:

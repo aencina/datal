@@ -4,10 +4,10 @@
 Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  
+
   # Maquina Virtual Ubuntu Trusty
   config.vm.box = "ubuntu/trusty64"
-  
+
   # Maquina Virtual Debian 8.2
   # config.vm.box = "boxcutter/debian82"
 
@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   config.vm.synced_folder ".", "/home/vagrant/app", :group =>'vagrant', :owner => 'vagrant'
-  config.vm.synced_folder "salt/roots/", "/srv/salt/"
+  config.vm.synced_folder "salt/pillar/", "/srv/salt/pillar/"
 
   # Salt provisioning
   config.vm.provision :salt do |salt|

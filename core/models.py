@@ -10,12 +10,13 @@ from django.db.models.signals import pre_delete
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
 
-
+from core.primitives import PrimitiveComputer
 from core.utils import slugify
 from core import choices
 from core import managers
 from core.cache import Cache
 from core.lib.datastore import *
+from core.choices import SourceImplementationChoices, CollectTypeChoices
 
 
 logger = logging.getLogger(__name__)
@@ -441,6 +442,12 @@ class DataStreamRevision(RevisionModel):
 
         self.save()
 
+    def get_parameters(self):
+        parameters = self.datastreamparameter_set.all().values('name', 'default', 'position', 'description')
+        for parameter in parameters:
+            parameter['default'] = str(PrimitiveComputer().compute(parameter['default']))
+        return parameters
+
     def get_guid(self):
         return self.datastream.guid
 
@@ -545,27 +552,6 @@ class DataStreamParameter(models.Model):
         return  unicode(self.id)
 
 
-class VisualizationParameter(models.Model):
-    revision = models.ForeignKey(
-        'VisualizationRevision',
-        verbose_name=ugettext_lazy('MODEL_VISUALIZATION_REVISION_LABEL'),
-        null=True
-    )
-    name = models.CharField(max_length=30, verbose_name=ugettext_lazy('MODEL_NAME_LABEL'))
-    default = models.CharField(max_length=100, verbose_name=ugettext_lazy('MODEL_DEFAULT_LABEL'))
-    position = models.PositiveSmallIntegerField()
-    impl_details = models.TextField(blank=True, verbose_name=ugettext_lazy('MODEL_IMPLEMENTATION_DETAILS_LABEL'))
-    description = models.CharField(max_length=100, blank=True, verbose_name=ugettext_lazy('MODEL_DESCRIPTION_LABEL'))
-
-    class Meta:
-        db_table = 'ao_visualization_parameters'
-        ordering = ['position']
-        unique_together = ("revision", "name")
-
-    def __unicode__(self):
-        return  unicode(self.id)
-
-
 class Dataset(GuidModel):
     user = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), on_delete=models.PROTECT)
     type = models.IntegerField(choices=choices.COLLECT_TYPE_CHOICES)
@@ -622,11 +608,40 @@ class DatasetRevision(RevisionModel):
     def __unicode__(self):
         return u"DT_REV:%s:%s" %(self.id, self.impl_type)
 
+    def is_cached(self):
+        return self.impl_details and 'usecache="true"' in self.impl_details.lower()
+
+    def is_file(self):
+        return self.impl_type and self.impl_type in [
+            SourceImplementationChoices.TSV,
+            SourceImplementationChoices.KMZ,
+            SourceImplementationChoices.KML,
+            SourceImplementationChoices.CSV,
+            SourceImplementationChoices.XLS,
+            SourceImplementationChoices.XML,
+            SourceImplementationChoices.DOC,
+            SourceImplementationChoices.TXT,
+            SourceImplementationChoices.RDF       
+        ]
+
+    def is_live(self):
+        if self.dataset.type  == CollectTypeChoices.URL and not self.is_file():
+            return True
+
+        if self.dataset.type == CollectTypeChoices.WEBSERVICE and not self.is_cached():
+            return True
+
+        return False
+
     def get_endpoint_full_url(self):
         if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:
-            content_disposition = u'attachment; filename="{0}"'.format(self.filename)
+            # eliminamos todo lo no ascii
+            filename = "".join([i if ord(i) < 128 else '' for i in self.filename])
+
+            content_disposition = u'attachment; filename="{0}"'.format(filename)
+
             return active_datastore.build_url(settings.AWS_BUCKET_NAME, self.end_point.replace('file://', ''), 
-                {'response-content-disposition': content_disposition.encode("utf-8", errors="ignore")})
+                {'response-content-disposition': content_disposition})
         else:
             return self.end_point
 
@@ -783,10 +798,7 @@ class Visualization(GuidModel):
 
 class VisualizationRevision(RevisionModel):
     visualization = models.ForeignKey('Visualization', verbose_name=ugettext_lazy('MODEL_VISUALIZATION_LABEL'))
-
-    datastream = models.ForeignKey('DataStream',
-                                            verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
-
+    datastream = models.ForeignKey('DataStream', verbose_name=ugettext_lazy('MODEL_DATASTREAM_LABEL'))
     user = models.ForeignKey('User', verbose_name=ugettext_lazy('MODEL_USER_LABEL'), on_delete=models.PROTECT)
     lib = models.CharField(max_length=10, choices=choices.VISUALIZATION_LIBS)
     impl_details = models.TextField(blank=True)
@@ -794,7 +806,7 @@ class VisualizationRevision(RevisionModel):
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
     modified_at = models.DateTimeField(editable=False, auto_now=True)
     status = models.IntegerField(choices=choices.STATUS_CHOICES, verbose_name=ugettext_lazy('MODEL_STATUS_LABEL'))
-    parameters = models.CharField(max_length=2048, verbose_name=ugettext_lazy( 'MODEL-URL-TEXT' ), blank=True)
+    parameters = models.CharField(max_length=2048, verbose_name=ugettext_lazy('MODEL-PARAMETER-TEXT'), blank=True)
 
     class Meta:
         db_table = 'ao_visualizations_revisions'
@@ -809,6 +821,26 @@ class VisualizationRevision(RevisionModel):
 
     def get_latest_revision(self):
         return self.visualization.visualizationrevision_set.latest()
+
+    def get_full_parameters(self):
+        # Create parameters joining metadata from datastream parameters with visualization parameter 's values
+        parameters = []
+        if self.parameters:
+            for parameter_str in self.parameters.split('&'):
+                parameter_split = parameter_str.split('=')
+                position = int(parameter_split[0].split('pArgument')[1])
+                original = DataStreamParameter.objects.get(
+                    datastream_revision=self.datastream.last_revision,
+                    position=position
+                )
+                parameter = dict(
+                    default=str(PrimitiveComputer().compute(parameter_split[1])),
+                    position=position,
+                    name=original.name,
+                    description=original.description
+                )
+                parameters.append(parameter)
+        return parameters
 
     def clone(self, status=choices.StatusChoices.DRAFT):
         visualization_revision = VisualizationRevision(

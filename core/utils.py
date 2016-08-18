@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify as django_slugify
 from django.template.defaultfilters import date as _date
 from django.db.models.base import ModelState
 from django.conf.urls import include, patterns
+from django.utils.timezone import get_current_timezone
 
 from core.choices import SOURCE_IMPLEMENTATION_CHOICES
 from core.choices import SourceImplementationChoices
@@ -32,7 +33,7 @@ def include_notroot_plugins(point, pattern=r'{plugin}/', urls='urls'):
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
         if hasattr(obj, 'strftime'):
-            return string.capitalize(_date(obj, 'F d, Y, h:i A'))
+            return string.capitalize(_date(obj.astimezone(get_current_timezone()), 'F d, Y, h:i A'))
         elif isinstance(obj, decimal.Decimal):
             return float(obj)
         elif isinstance(obj, ModelState):

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import template
-from datetime import datetime
+from django.utils.timezone import now
+
+from datetime import datetime, date
 import re
 import logging
 
@@ -90,7 +92,7 @@ def extractUrl(value):
 @register.filter(name='isDate')
 def isDate(value):
     res = False
-    if type(value) == datetime.date:
+    if type(value) == date:
         res = True
     elif value != "":
         from dateutil.parser import *
@@ -199,16 +201,14 @@ def add_value(context, value, addvalue):
     return res
     
 @register.filter(name='exist_day')
-def exist_day(arg):
-    from datetime import date
-        
+def exist_day(arg):        
     vals = arg.split("|")
     day = int(vals[0])
     month = int(vals[1])
     if len(vals) > 2:
         year = int(vals[2])
     else:
-        year = date.today().year + 1 
+        year = now().year + 1 
 
     try:
         d = date(year, month, day)

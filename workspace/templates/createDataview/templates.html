@@ -299,56 +299,55 @@
           <div class="title">{% trans 'APP-SELECTED-DATA-TEXT' %}</div>
         </div>
 
-        <div class="preview-datastream">
+        <div class="preview-datastream relative" style="min-height:250px;">
 
+          <% if( _.isUndefined( fType ) ){ %>
 
+            <div class="loading light"></div>
 
-        <% if(fType != 'ARRAY'){ %>
+          <% }else if(fType != 'ARRAY'){ %>
 
-          <table class="<%= className %>">
-            <tbody>
-              <tr>
-              <td>
-                <% if( fType != 'ERROR'){ %>
-
-                  <%= rows %>
-
-                <% }else{ %>
-
-                  <%= gettext( "APP-NODATAFOUD-TEXT" ) %>.
-
-                <% } %>
-
-              </td>
-              </tr>
-            </tbody>
-          </table>
-
-        <% }else{ %> 
-
-          <table class="array">
-            <thead>
-              <tr>
-                <% _.each(headers, function(cell) { %>
-                  <th><%= cell %></th>
-                <% }); %>
-              </tr>
-            </thead>
-            <tbody>
-              <% _.each(rows, function(cells, row) { %>
+            <table class="<%= className %>">
+              <tbody>
                 <tr>
-                  <% _.each(cells, function(cell, col) { %>
-                    <td><%= cell %></td>
+                <td>
+                  <% if( fType != 'ERROR'){ %>
+
+                    <%= rows %>
+
+                  <% }else{ %>
+
+                    <%= gettext( "APP-NODATAFOUD-TEXT" ) %>.
+
+                  <% } %>
+
+                </td>
+                </tr>
+              </tbody>
+            </table>
+
+          <% }else{ %> 
+
+            <table class="array">
+              <thead>
+                <tr>
+                  <% _.each(headers, function(cell) { %>
+                    <th><%= cell %></th>
                   <% }); %>
                 </tr>
-              <% }); %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% _.each(rows, function(cells, row) { %>
+                  <tr>
+                    <% _.each(cells, function(cell, col) { %>
+                      <td><%= cell %></td>
+                    <% }); %>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
 
-        <% } %>
-
-
-
+          <% } %>
 
         </div>
 
@@ -549,11 +548,15 @@
       <label>{% trans 'APP-OPERATION-TEXT' %}</label>
       <select class="form-control select-operator" name="operator">
           <option value="">{% trans 'APP-SELECT-TEXT' %}...</option>
-          <option value="00">{% trans 'APP-EQUAL-TO-TEXT' %}</option>
-          <option value="01">{% trans 'APP-NOT-EQUAL-TO-TEXT' %}</option>
-          <option value="02">{% trans 'APP-HIGHER-THAN-TEXT' %}</option>
-          <option value="03">{% trans 'APP-LOWER-THAN-TEXT' %}</option>
-          <option value="04">{% trans 'APP-CONTAINS-TEXT' %}</option>
+          <option value="00">{% trans 'APP-FILTER-EQUAL' %}</option>
+          <option value="03">{% trans 'APP-FILTER-NOTEQUAL' %}</option>
+          <option value="01">{% trans 'APP-FILTER-GREATER' %}</option>
+          <option value="05">{% trans 'APP-FILTER-GREATEREQUAL' %}</option>
+          <option value="02">{% trans 'APP-FILTER-SMALLER' %}</option>
+          <option value="06">{% trans 'APP-FILTER-SMALLEREQUAL' %}</option>
+          <option value="04">{% trans 'APP-FILTER-CONTAINSANY' %}</option>
+          <option value="13">{% trans 'APP-FILTER-CONTAINSALL' %}</option>
+          <option value="09">{% trans 'APP-FILTER-NOTCONTAINSALL' %}</option>
       </select>
     </div>
   </div>

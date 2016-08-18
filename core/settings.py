@@ -28,9 +28,18 @@ DATABASES = {
 USE_DATASTORE = 'sftp' # uses s3 | sftp
 USE_SEARCHINDEX = 'elasticsearch'
 
+MAX_TIMESTAMP = 99999999999999
+
 PAGINATION_RESULTS_PER_PAGE = 10
 
 TIME_ZONE = 'America/Santiago'
+
+USE_TZ = True
+
+import warnings
+warnings.filterwarnings(
+'error', r"DateTimeField .* received a naive datetime",
+RuntimeWarning, r'django\.db\.models\.fields')
 
 LANGUAGES = (
     ('en', 'English'),

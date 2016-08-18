@@ -9,12 +9,12 @@
         "is_active": true, 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2015-08-04T12:32:43", 
+        "last_login": "2015-08-04T12:32:43Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$12000$1zBt6o3NTPwF$FLX2TB4RfvjLueTzTCVNKzysRW+nPyTWlX6SjeaFXAw=", 
         "email": "admin@admin.com", 
-        "date_joined": "2015-08-04T12:32:25"
+        "date_joined": "2015-08-04T12:32:25Z"
     }
 }
 ]

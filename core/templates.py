@@ -2,7 +2,6 @@ from django.template import Context, Template
 from django.conf import settings
 import json
 import csv
-import datetime
 import logging 
 logger = logging.getLogger(__name__)
 

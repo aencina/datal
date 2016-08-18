@@ -31,8 +31,12 @@ class AbstractLifeCycleManager():
     REMOVE_ALLOWED_STATES = [StatusChoices.DRAFT, StatusChoices.APPROVED, StatusChoices.PUBLISHED ]
     EDIT_ALLOWED_STATES = [StatusChoices.DRAFT, StatusChoices.APPROVED, StatusChoices.PUBLISHED]
 
-    def get_children_queryset(self, last=True, publish=True):
-        """ Returns a queryset of children """
+    def get_children_revisions_queryset(self, last=True, publish=True):
+        """ Returns a queryset of children revisions """
+        pass
+
+    def get_children_queryset(self):
+        """ Returns a queryset of children"""
         pass
 
     def get_parents_list(self):
@@ -43,6 +47,14 @@ class AbstractLifeCycleManager():
     def get_revisions_queryset(self):
         """ Returns a queryset with all resource revisions """
         pass
+
+    def get_revisions(self, statuses=None):
+        queryset = self.get_revisions_queryset()
+
+        if statuses and queryset:
+            queryset = queryset.filter(status__in=statuses)
+
+        return queryset
 
     def get_queryset(self):
         """ Returns base queryset for this resource """
@@ -56,8 +68,8 @@ class AbstractLifeCycleManager():
             return self.search_model()
         raise NotImplementedError()
 
-    def get_children(self, statuses=None, last=True, publish=False, for_update=False):
-        queryset = self.get_children_queryset(last, publish)
+    def get_children_revisions(self, statuses=None, last=True, publish=False, for_update=False):
+        queryset = self.get_children_revisions_queryset(last, publish)
         
         if statuses and queryset:
             queryset = queryset.filter(status__in=statuses)
@@ -67,16 +79,22 @@ class AbstractLifeCycleManager():
 
         return queryset
 
-    def get_children_not_published(self, for_update=False):
-        return self.get_children(
+    def get_children(self):
+        return self.get_children_queryset()
+
+    def get_children_revisions_not_published(self, for_update=False):
+        return self.get_children_revisions(
             statuses=[StatusChoices.DRAFT, StatusChoices.PENDING_REVIEW ],
             publish=True
         )
 
-    def get_children_for_publishing(self, for_update=False):
-        return self.get_children(
+    def get_children_revisions_for_publishing(self, for_update=False):
+        return self.get_children_revisions(
             statuses=[StatusChoices.APPROVED, StatusChoices.PUBLISHED],
             publish=True)
+
+    def get_children_for_remove(self):
+        return self.get_children()
 
     def get_parents(self, statuses=None):
         answer = []
@@ -90,7 +108,6 @@ class AbstractLifeCycleManager():
             return self.child_lifecycle_model(user=self.user, resource=resource)
 
     def can_accept(self, allowed_states):
-        logger.info('[%s] Puedo Aceptar Rev. %s.' % (type(self).__name__, self.revision.id))
         if self.revision.status not in allowed_states:
             raise IllegalStateException(
                 from_state=self.revision.status,
@@ -102,17 +119,13 @@ class AbstractLifeCycleManager():
 
     def accept(self, allowed_states=ACCEPT_ALLOWED_STATES):
         if self.can_accept(allowed_states):
-            logger.info('[%s] Acepto Rev. %s.' % (type(self).__name__, self.revision.id))
             self.revision.status = StatusChoices.APPROVED
             self.revision.save()
 
             self._log_activity(ActionStreams.ACCEPT)
 
-
-
     def accept_children(self, allowed_states):
-        logger.info('[%s] Acepto Children Rev. %s.' % (type(self).__name__, self.revision.id))
-        queryset = self.get_children_not_published()
+        queryset = self.get_children_revisions_not_published()
         if queryset:
             for child in queryset.all():
                 lifecycle = self.get_child_lifecycle(child)
@@ -125,19 +138,17 @@ class AbstractLifeCycleManager():
         return True
 
     def can_publish_bof_children(self, allowed_states=PUBLISH_ALLOWED_STATES, accept_children=False):
-        children_not_published = self.get_children_not_published()
+        children_not_published = self.get_children_revisions_not_published()
         if children_not_published and children_not_published.exists():
             raise ChildNotApprovedException(self.revision, self.child_type)
 
-        children_for_publishing = self.get_children_for_publishing()
+        children_for_publishing = self.get_children_revisions_for_publishing()
         if children_for_publishing:
             for resource in children_for_publishing.all():
                 self.get_child_lifecycle(resource).can_publish_bof_children(allowed_states, accept_children)
         return True
 
     def can_publish(self, allowed_states=PUBLISH_ALLOWED_STATES, accept_children=False):
-        logger.info('[%s] Puedo Publicar Rev. %s.' % (
-            type(self).__name__, self.revision.id))
         if self.revision.status not in allowed_states:
             raise IllegalStateException(
                     from_state=self.revision.status,
@@ -159,8 +170,7 @@ class AbstractLifeCycleManager():
 
     def publish(self, allowed_states=PUBLISH_ALLOWED_STATES, parent_status=None, accept_children=False):
         if self.can_publish(allowed_states, accept_children):
-            logger.info('[%s] Publico Rev. %s.' % (type(self).__name__, self.revision.id))
-            
+             
             if accept_children:
                 self.accept_children(allowed_states)
 
@@ -170,7 +180,7 @@ class AbstractLifeCycleManager():
             self._update_last_revisions()
 
             with transaction.atomic():
-                queryset = self.get_children_for_publishing()
+                queryset = self.get_children_revisions_for_publishing()
                 if queryset:
                     for child in queryset.all():
                         lifecycle = self.get_child_lifecycle(child)
@@ -189,12 +199,12 @@ class AbstractLifeCycleManager():
             self._log_activity(ActionStreams.PUBLISH)
 
     def _update_last_revisions(self):
-        last_revision_id = self.get_revisions_queryset().aggregate(Max('id'))['id__max']
+        last_revision_id = self.get_revisions().aggregate(Max('id'))['id__max']
 
         if last_revision_id:
             self.resource.last_revision = self.get_queryset().get(pk=last_revision_id)
-            last_published_revision_id = self.get_revisions_queryset().filter(
-                status=StatusChoices.PUBLISHED).aggregate(Max('id'))['id__max']
+            last_published_revision_id = self.get_revisions(
+                statuses=[StatusChoices.PUBLISHED]).aggregate(Max('id'))['id__max']
             if last_published_revision_id:
                 self.resource.last_published_revision = self.get_queryset().get(
                     pk=last_published_revision_id)
@@ -234,13 +244,46 @@ class AbstractLifeCycleManager():
     def reject(self, allowed_states=REJECT_ALLOWED_STATES):
         pass
 
-    @abstractmethod
-    def remove(self, killemall=False, allowed_states=REMOVE_ALLOWED_STATES):
-        pass
+    def can_remove(self, allowed_states=REMOVE_ALLOWED_STATES):
+        if self.revision.status not in allowed_states:
+            raise IllegalStateException(
+                                    from_state=self.revision.status,
+                                    to_state=None,
+                                    allowed_states=allowed_states)
 
-    @abstractmethod
+        return True
+
+    def remove(self, killemall=False, allowed_states=REMOVE_ALLOWED_STATES):
+        if self.can_remove(allowed_states):
+            if killemall or self.get_revisions() == 1:
+                self._remove_all()
+            else:
+                self._remove_revision()
+
+        self._update_last_revisions()
+        self._log_activity(ActionStreams.DELETE)
+        self._delete_cache(cache_key='my_total_%s_%d' % (self.model_name_plural, self.resource.user.id) )
+        self._delete_cache(cache_key='account_total_%s_%d' % (self.model_name_plural, self.resource.user.account.id) )
+
+    def _remove_revision(self):
+        revision_published_count = self.get_revisions(statuses=[StatusChoices.PUBLISHED]).count()
+
+        if revision_published_count == 1 and self.resource.last_published_revision == self.revision:
+            self._unpublish_all()
+
+        self.resource.last_published_revision = None
+        self.resource.save()
+
+        self.revision.delete()
+
     def _remove_all(self):
-        pass
+        queryset = self.get_children_for_remove()
+        if queryset:
+            for child in queryset:
+                lifecycle = self.get_child_lifecycle(child)
+                lifecycle.remove(killemall=True)
+
+        self.resource.delete()
 
     @abstractmethod
     def edit(self, allowed_states=EDIT_ALLOWED_STATES, changed_fields=None, **fields):

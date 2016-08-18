@@ -2,9 +2,7 @@
   "name": "datal",
   "version": "1.0.1",
   "homepage": "https://github.com/datal-org/datal",
-  "authors": [
-    "Gaston Avila <avila.gas@gmail.com>"
-  ],
+  "authors": [],
   "license": "MIT",
   "private": true,
   "ignore": [
@@ -33,7 +31,9 @@
     "backbone-validation": "0.11.5",
     "bootstrap-sass": "~3.3.6",
     "hash-tabs": "*",
-    "raven-js": "^3.1.0"
+    "raven-js": "^3.1.0",
+    "moment": "~2.14.1",
+    "moment-timezone": "~0.5.5"
   },
   "resolutions": {
     "jquery": "1.11.2",

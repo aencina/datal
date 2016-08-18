@@ -119,6 +119,9 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
             notes=dataseti18n.notes,
             tags=tags,
             sources=sources,
+            is_cached=dataset_revision.is_cached(), 
+            is_file=dataset_revision.is_file(), 
+            is_live=dataset_revision.is_live(), 
             slug=slugify(dataseti18n.title),
             cant=DatasetRevision.objects.filter(dataset__id=dataset_revision.dataset.id).count(),
         )

@@ -27,6 +27,7 @@ charts.models.Chart = Backbone.Model.extend({
         datastream_category: undefined,
         datastream_sources: undefined,
         datastream_tags: undefined,
+        parameters: undefined,
 
         //data selection
         range_headers: undefined,
@@ -51,6 +52,7 @@ charts.models.Chart = Backbone.Model.extend({
 
     },
     initialize: function (options) {
+
         //Se inicializa acá para prevenir error en embed
         if(window.gettext){
             this.set('message',gettext("APP-CUSTOMIZE-VISUALIZATION-SELECT-DATA-TEXT"));
@@ -72,12 +74,13 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     parse: function (res) {
-
+        
         var data = {
             datastream_revision_id: res.datastream_revision_id,
             datastream_tags:  res.datastream_tags,
             datastream_sources: res.datastream_sources,
-            datastream_category: res.datastream_category
+            datastream_category: res.datastream_category,
+            parameters: res.parameters,
         };
 
         this.editMode = res.editMode || false;
@@ -157,6 +160,9 @@ charts.models.Chart = Backbone.Model.extend({
     },
 
     bindDataModel: function () {
+
+        //console.log( this.toJSON() );
+
         var self = this,
             filters = {};
 
@@ -164,6 +170,11 @@ charts.models.Chart = Backbone.Model.extend({
             filters = this.getMapPreviewFilters();
         } else {
             filters = this.getChartPreviewFilters();
+        }
+
+        // Set de visualization_parameters al data model
+        if( !_.isUndefined( this.get('parameters') ) ){
+            this.data.set( 'parameters', this.get('parameters') );
         }
 
         this.data.set('filters', filters);
@@ -258,14 +269,14 @@ charts.models.Chart = Backbone.Model.extend({
                 // example validation
                 // valid = (this.data.get('clusters').length >0);
                 valid = true;
-                console.log('valid',valid);
+                //console.log('valid',valid);
 
             } else if (this.get('type') === 'piechart') {
 
                 // TODO: agregar validacion 
                 // tenemos piechart que traen 'series' con unv alor y piecharts que no.
                 valid = true;
-                console.log('valid',valid);
+                //console.log('valid',valid);
             
             } else {
 
@@ -286,7 +297,7 @@ charts.models.Chart = Backbone.Model.extend({
                     //TODO specific validation for chart type
                     switch(this.get('type')){
                         case 'piechart':
-                            console.log('is pie chart');
+                            //console.log('is pie chart');
                             //validar que no haya números negativos en la primer serie que se usa para el pie
                         break;
                     }
@@ -317,11 +328,21 @@ charts.models.Chart = Backbone.Model.extend({
             };
     },
 
+    paramsToURLString: function(parameters){
+        var result = [];
+        _.each(parameters, function(parameter){
+            result.push('pArgument' + parameter.position + '=' + parameter.default);
+        });
+        return result.join('&');
+    },
+
     getSettings: function(){
         var settings = {
             title: this.get('title'),
             description: this.get('description'),
             notes: this.get('notes'),
+
+            parameters: this.paramsToURLString(this.get('parameters')),
 
             type: this.get('type'),
             lib: this.get('lib'),
@@ -386,7 +407,7 @@ charts.models.Chart = Backbone.Model.extend({
             dataType: 'json'
         }).then(function (response) {
             if(response.status=='ok'){
-                console.log(response);
+                //console.log(response);
                 return response;
             } else {
                 console.error(response);

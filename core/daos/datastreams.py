@@ -8,9 +8,10 @@ from django.db.models import Q, F, Count
 from django.db import IntegrityError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import connection
+from django.utils.timezone import now
 
 
-from datetime import datetime, timedelta, date
+from datetime import timedelta
 
 from core.primitives import PrimitiveComputer
 from core.utils import slugify
@@ -20,7 +21,7 @@ from django.conf import settings
 from core.exceptions import SearchIndexNotFoundException, DataStreamNotFoundException
 from django.core.exceptions import FieldError
 
-from core.choices import STATUS_CHOICES, StatusChoices, ChannelTypes
+from core.choices import STATUS_CHOICES, StatusChoices, ChannelTypes, CollectTypeChoices
 from core.models import DatastreamI18n, DataStream, DataStreamRevision, Category, VisualizationRevision, DataStreamHits, Setting, DataStreamParameter
 
 from core.lib.elastic import ElasticsearchIndex
@@ -147,8 +148,7 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
         sources = datastream_revision.sourcedatastream_set.all().values('source__name', 'source__url', 'source__id')
 
         try:
-            parameters = datastream_revision.datastreamparameter_set.all().values('name', 'default', 'position',
-                                                                                  'description')
+            parameters = datastream_revision.get_parameters()
         except FieldError:
             parameters = []
 
@@ -188,6 +188,9 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             notes=datastreami18n.notes,
             tags=tags,
             sources=sources,
+            is_cached=dataset_revision.is_cached(), 
+            is_file=dataset_revision.is_file(), 
+            is_live=dataset_revision.is_live(),
             parameters=parameters,
             data_source=datastream_revision.data_source,
             select_statement=datastream_revision.select_statement,
@@ -456,6 +459,12 @@ class DatastreamSearchDAO():
                 for data in meta_json['field_values']:
                     meta_text.append(data)
 
+        dataset = self.revision.dataset
+
+        timestamp = int(int(time.mktime(self.revision.modified_at.timetuple()))*1000)
+        if dataset.last_published_revision and dataset.last_published_revision.is_live():
+            timestamp = settings.MAX_TIMESTAMP
+
         document = {
                 'docid' : self._get_id(),
                 'fields' :
@@ -471,7 +480,7 @@ class DatastreamSearchDAO():
                      'tags' : ','.join(tags),
                      'account_id' : self.revision.user.account.id,
                      'parameters': "",
-                     'timestamp': int(int(time.mktime(self.revision.modified_at.timetuple()))*1000),
+                     'timestamp': timestamp,
                      'created_at': int(time.mktime(self.revision.created_at.timetuple())),
                      'modified_at': int(time.mktime(self.revision.modified_at.timetuple())),
                      'hits': 0,
@@ -576,7 +585,7 @@ class DatastreamHitsDAO():
             return {}
 
         # tenemos la fecha de inicio
-        start_date=datetime.today()-timedelta(days=day)
+        start_date=now()-timedelta(days=day)
 
         # tomamos solo la parte date
         truncate_date = connection.ops.date_trunc_sql('day', 'created_at')
@@ -588,8 +597,8 @@ class DatastreamHitsDAO():
 
         hits=qs.extra(select={'_date': truncate_date, "fecha": 'DATE(created_at)'}).values("fecha").order_by("created_at").annotate(hits=Count("created_at"))
 
-        control=[ date.today()-timedelta(days=x) for x in range(day-1,0,-1)]
-        control.append(date.today())
+        control=[ now().date()-timedelta(days=x) for x in range(day-1,0,-1)]
+        control.append(now().date())
         
         for i in hits:
             try:

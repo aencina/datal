@@ -5,12 +5,27 @@ from core.v8.factories import AbstractCommandFactory
 from core.v8.forms import RequestFormSet, RequestForm
 from core.v8.serializers import EngineSerializer
 from django.http import HttpResponse
+from core import choices
+
+from core.lib.elastic import ElasticsearchIndex
 import urllib2
 import logging
+import time
+
 
 logger = logging.getLogger(__name__)
 
 class EngineViewSetMixin(object):
+    def get_default_parameters(self, request):
+        instance = self.get_object()
+        answer = {}
+        if 'parameters' in instance:
+            for parameter in instance['parameters']:
+                argument = "pArgument%d" % parameter['position']
+                if not request.GET.get(argument, None):
+                    answer[argument] = parameter['default']
+        return answer
+
     def get_max_rows(self, request):
         preferences = request.auth['preferences']
         if not preferences:
@@ -21,9 +36,32 @@ class EngineViewSetMixin(object):
             return settings.MAX_ROWS_BY_REQUEST
         return max_rows
 
+    def update_timestamp(self, response, resource):
+        doubts = [
+            'is_file' in resource and resource['is_file'],  
+            'collect_type' in resource and resource['collect_type'] == choices.CollectTypeChoices.URL,
+            self.dao_pk == 'datastream_revision_id'
+        ]
+        if all(doubts):
+            if type(response) == type({}) and "fTimestamp" in response.keys():
+                timestamp=response['fTimestamp']
+            else:
+                timestamp=int(round(time.time() * 1000))
+
+            try:
+                es = ElasticsearchIndex()
+                doc_id = es.search(doc_type="ds", query={ "query": { "match": {"revision_id": resource['revision_id']}}}, fields="_id")['hits']['hits'][0]['_id']
+                es.update({'doc': {'fields': {'timestamp': timestamp}}, 'docid': doc_id, 'type': "ds"})
+            except IndexError:
+                pass
+            except Exception as e:
+                logger.warning('[ENGINE COMMAND] error desconocido %s ' % str(e))
+
+
+
     def engine_call(self, request, engine_method, format=None, is_detail=True, 
                     form_class=RequestForm, serialize=True, download=True, 
-                    limit=False, extra_args=None):
+                    limit=False):
         mutable_get = request.GET.copy()
         mutable_get.update(request.POST.copy())
         mutable_get['output'] = 'json'
@@ -43,9 +81,7 @@ class EngineViewSetMixin(object):
         if is_detail:
             resource = self.get_object()
             mutable_get['revision_id'] = resource[self.dao_pk]
-           
-        if extra_args and isinstance(extra_args, dict):
-            mutable_get.update(extra_args)
+            mutable_get.update(self.get_default_parameters(request))
 
         items = dict(mutable_get.items())
         
@@ -103,4 +139,9 @@ class EngineViewSetMixin(object):
             final_filename = '{}.{}'.format(name, output)
             response['Content-Disposition'] = 'attachment; filename="{}"'.format(final_filename)
             
+
+        # Si es un recurso, trato de guardar el timestamp si corresponde
+        if is_detail and format == 'json':
+            self.update_timestamp(response, resource)
+
         return response

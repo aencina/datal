@@ -21,7 +21,7 @@ var PreviewView = Backbone.View.extend({
     },
 
     setLoading: function(){
-        this.$el.html('<div class="loading light preview-loading"></div>');
+        this.$el.html('<div class="loading light" style="height: 300px"></div>');
         this.setLoadingHeight();
     },
 
@@ -111,15 +111,16 @@ var PreviewView = Backbone.View.extend({
 
         }
 
+
         this.$el.html(this.template({
-          rows: rows,
-          headers: _.map(headers, this.formatCell.bind(this)),
-          dataview: this.model.toJSON(),
-          tags: this.model.tags.toJSON(),
-          sources: this.model.sources.toJSON(),
-          category: category,
-          fType: fType,
-          className: className
+           rows: rows,
+           headers: _.map(headers, this.formatCell.bind(this)),
+           dataview: this.model.toJSON(),
+           tags: this.model.tags.toJSON(),
+           sources: this.model.sources.toJSON(),
+           category: category,
+           fType: fType,
+           className: className
         }));
 
     },
@@ -173,23 +174,16 @@ var PreviewView = Backbone.View.extend({
             }
             var locale = format.fLocale;
             //One must use "" for "en"
-            if (undefined === locale || locale === "en" || locale.indexOf("en_")) {
-                locale = "";
+            if (undefined === locale || locale.indexOf("en_")) {
+                locale = "en";
             }
             if (locale.indexOf("es_")) {
                 locale = "es";
             }
 
-            var dt = new Date(timestamp);
-            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
-
-            value = $.datepicker.formatDate(format.fPattern, dt, {
-                dayNamesShort: $.datepicker.regional[locale].dayNamesShort,
-                dayNames: $.datepicker.regional[locale].dayNames,
-                monthNamesShort: $.datepicker.regional[locale].monthNamesShort,
-                monthNames: $.datepicker.regional[locale].monthNames
-            });
-
+            var dt = moment.utc(timestamp).locale(locale);
+            
+            value = dt.format(Configuration.dp_to_moment[format.fPattern])
         } else {
             value = String(timestamp);
         }

@@ -2,6 +2,8 @@
 
 from django.conf import settings
 from core.auth.auth import AuthManager
+from core.models import Account
+from core.http import get_domain_by_request
 
 import logging
 
@@ -25,7 +27,9 @@ class AccessManager(object):
             if user_language in [ language[0] for language in settings.LANGUAGES ]:
                 request.session['django_language'] = user_language
 
-        request.auth_manager = AuthManager(language = request.session['django_language'])
+
+        request.auth_manager = AuthManager(language = request.session['django_language'],
+                                           account = Account.get_by_domain(get_domain_by_request(request)))
 
         # el user se arma en middlerware.ioc ya que necesitamos el account para completar el user
         request.user = None

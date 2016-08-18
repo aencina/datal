@@ -57,12 +57,10 @@ var DatatableHomeManager = DatatableManager.extend({
         templ += "<td class='viewInfo'>\
                 <div class='" + className + "'></div><a href='<%= revision.permalink %>' target='_blank'><strong><%= revision.title %></strong> </a> <% if(revision.account_name){ %> <span class='sep'> | </span> <%= revision.account_name %> <% } %> <span class='sep'> | </span>  <span class='category'><%= revision.category %></span></td>";
            
-        var date = new Date(msg.timestamp);
-        templ += "<td class='date' data-sort-value='" + date.getTime() + 
+        var date = moment(msg.timestamp)
+        templ += "<td class='date' data-sort-value='" + date.valueOf() + 
                     "'><span class='longDateFormat'>" + 
-                    $.datepicker.formatDate( (Configuration.language == "en")?"MM d, yy":"d 'de' MM 'de' yy", date
-				    , { monthNames: $.datepicker.regional[ (Configuration.language == "en")? "": Configuration.language ].monthNames }) 
-				    + "</span></td>";
+                   date.format((Configuration.language == "en")?"MMMM D, Y":"D [de] MMMM [de] Y") + "</span></td>";
         templ +="</tr>";
 
         var tpl = _.template(templ); // , {variable: 'revision'});

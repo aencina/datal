@@ -34,7 +34,8 @@ def edit_info(request):
         'account.contact.person.email',
         'account.contact.person.phone', 
         'account.contact.person.country',
-        'account.contact.dataperson.email'
+        'account.contact.dataperson.email',
+        'account.timezone'
     ]
 
     form = forms.AccountInfoForm(initial=get_initial(account, keys))

@@ -3,10 +3,11 @@ from django.conf import settings
 from core.models import *
 from core.choices import StatusChoices, AccountRoles
 from django.utils.translation import ugettext_lazy, ugettext
+from django.conf import settings
 
 
 class AuthManager:
-    def __init__(self, user=None, language=None):
+    def __init__(self, user=None, language=None, account=None):
         if user:
             self.id = user.id
             self.email = user.email
@@ -19,6 +20,7 @@ class AuthManager:
             self.account_id = user.account_id
             self.account_level = user.account.level.code
             self.language = user.language
+            self.timezone = user.account.get_preference('account.timezone') or settings.TIME_ZONE
         else:
             self.id = None
             self.email = ''
@@ -27,9 +29,10 @@ class AuthManager:
             self.is_authenticated = False
             self.roles = []
             self.privileges = []
-            self.account_id = None
+            self.account_id = account.id if account else None
             self.account_level = None
             self.language = language
+            self.timezone = account.get_preference('account.timezone') if account and account.get_preference('account.timezone') else settings.TIME_ZONE
 
     def is_anonymous(self):
         return not self.is_authenticated

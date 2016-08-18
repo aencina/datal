@@ -3,7 +3,8 @@ from django.conf import settings
 from django.shortcuts import redirect
 from core.models import User, Account
 from core.auth.auth import AuthManager
-import datetime
+from django.utils.timezone import now
+from core.http import get_domain_by_request
 
 class AccessManager(object):
     """
@@ -32,7 +33,7 @@ class AccessManager(object):
             request.user = None
             return None
 
-        user.last_visit = datetime.datetime.now()
+        user.last_visit = now()
         user.save()
 
         request.user = user

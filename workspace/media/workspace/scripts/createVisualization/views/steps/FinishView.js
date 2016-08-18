@@ -67,6 +67,7 @@ var FinishView = StepViewSPA.extend({
 	},
 
 	onFinishButtonClicked: function(e){
+
 		if(!this.finishBtn.hasClass('saving')){
 			$("#ajax_loading_overlay").show();
 			this.finishBtn.addClass('saving');

@@ -369,20 +369,14 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 
 		if( !_.isUndefined( timestamp ) ){
 
-			var dFormat = 'MM dd, yy';
-
+			var dFormat = 'MMMM DD, Y';
+			var tFormat = 'hh:mm A';
 			// sometimes are seconds, sometimes miliseconds
 			if(timestamp < 100000000000){
 				timestamp = timestamp * 1000;	
 			}
 
 			// if 0, date/time is now
-			if( timestamp == 0 ){
-				dt = new Date();
-			}else{
-				dt = new Date(timestamp);
-			}			
-
 
 			// Get locale from lang attribute un <html>
 			var local = $('html').attr('lang');
@@ -392,19 +386,18 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 				local = "es";
 			// else englishs
 			}else{
-				//(?) if I use "en" doesn't work, I must use "" for "en"
-				local = "";
+				local = "en";
 			}
 
-			dateFormatted = $.datepicker.formatDate(dFormat, dt, {
-				dayNamesShort: $.datepicker.regional[local].dayNamesShort,
-				dayNames: $.datepicker.regional[local].dayNames,
-				monthNamesShort: $.datepicker.regional[local].monthNamesShort,
-				monthNames: $.datepicker.regional[local].monthNames
-			});
+			if( timestamp == 0 ){
+				dt = new moment().locale(local)
+			}else{
+				dt = new moment(timestamp).locale(local);
+			}
 
-			//timeFormatted = $.datepicker.formatTime(tFormat, dt);
-			timeFormatted = ('0' + dt.getUTCHours()).slice(-2)+":"+('0' + dt.getUTCMinutes()).slice(-2)+" "+('0' + dt.getUTCSeconds()).slice(-2);
+			dateFormatted = dt.format(dFormat)
+
+			timeFormatted = dt.format(tFormat)
 
 			var template = _.template( $("#id_timestampTemplate").html() );
 

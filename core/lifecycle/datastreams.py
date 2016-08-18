@@ -2,7 +2,7 @@
 from django.db.models import F, Max
 from django.db import transaction
 from core.choices import ActionStreams, StatusChoices
-from core.models import DatasetRevision, DataStreamRevision, DataStream, DatastreamI18n, VisualizationRevision
+from core.models import DatasetRevision, DataStreamRevision, DataStream, DatastreamI18n, VisualizationRevision, Visualization
 from core.lifecycle.resource import AbstractLifeCycleManager
 from core.lib.datastore import *
 from core.exceptions import IllegalStateException, DataStreamNotFoundException
@@ -33,6 +33,8 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
     dao_model = DataStreamDBDAO
     child_lifecycle_model = VisualizationLifeCycleManager
     child_type = settings.TYPE_VISUALIZATION
+    model_name_plural = 'datastreams'
+    model_name = 'datastream'
 
     def __init__(self, user, resource=None, language=None, datastream_id=0, datastream_revision_id=0):
         super(DatastreamLifeCycleManager, self).__init__(user, language)
@@ -72,7 +74,7 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self.resource=self.datastream
         self.revision=self.datastream_revision
 
-    def get_children_queryset(self, last=True, publish=False):
+    def get_children_revisions_queryset(self, last=True, publish=False):
         queryset = VisualizationRevision.objects.filter(
                 visualization__datastream__id=self.datastream.id)
 
@@ -88,6 +90,9 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
 
     def get_parents_list(self):
         return [self.revision.dataset]
+
+    def get_children_queryset(self):
+        return Visualization.objects.filter(visualizationrevision__datastream=self.datastream).distinct()
 
     def get_revisions_queryset(self):
         return DataStreamRevision.objects.filter(datastream=self.datastream)
@@ -213,50 +218,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
         self.datastream_revision.status = StatusChoices.DRAFT
         self.datastream_revision.save()
         self._log_activity(ActionStreams.REJECT)
-
-    def remove(self, killemall=False, allowed_states=REMOVE_ALLOWED_STATES):
-        """ Elimina una revision o todas las revisiones de un dataset y la de sus datastreams hijos en cascada """
-
-        if self.datastream_revision.status not in allowed_states:
-            raise IllegalStateException(
-                                    from_state=self.datastream_revision.status,
-                                    to_state=None,
-                                    allowed_states=allowed_states)
-
-        if killemall:
-            self._remove_all()
-        else:
-            revcount = DatasetRevision.objects.filter(dataset=self.datastream.id, status=StatusChoices.PUBLISHED).count()
-
-            if revcount == 1:
-                ## Si la revision a eliminar es la unica publicada entonces despublicar todos los datastreams en cascada
-                self._unpublish_all()
-
-            # Fix para evitar el fallo de FK con las published revision. Luego la funcion update_last_revisions
-            # completa el valor correspondiente.
-            self.datastream.last_published_revision=None
-            self.datastream.save()
-
-            self.datastream_revision.delete()
-
-        self._update_last_revisions()
-
-        self._log_activity(ActionStreams.DELETE)
-
-        if settings.DEBUG: logger.info('Clean Caches')
-        self._delete_cache(cache_key='my_total_datastreams_%d' % self.datastream.user.id)
-        self._delete_cache(cache_key='account_total_datastreams_%d' % self.datastream.user.account.id)
-
-    def _remove_all(self):
-
-        for visualization_revision in VisualizationRevision.objects.filter(datastream=self.datastream_revision.datastream):
-            VisualizationLifeCycleManager(user=self.user, resource=visualization_revision).remove(killemall=True)
-
-        self.datastream.delete()
-        self._log_activity(ActionStreams.DELETE)
-        if settings.DEBUG: logger.info('Clean Caches')
-        self._delete_cache(cache_key='my_total_datastreams_%d' % self.datastream.user.id)
-        self._delete_cache(cache_key='account_total_datastreams_%d' % self.datastream.user.account.id)
 
     def edit(self, allowed_states=EDIT_ALLOWED_STATES, changed_fields=None, **fields):
         """ Create new revision or update it

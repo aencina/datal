@@ -16,6 +16,7 @@ MIDDLEWARE_CLASSES += (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'microsites.middlewares.auth.AccessManager',
+    'core.middlewares.tz.TimezoneMiddleware',
     'microsites.middlewares.ioc.DependencyInjector',
     'microsites.middlewares.catch.ExceptionManager',
     'django.middleware.locale.LocaleMiddleware',

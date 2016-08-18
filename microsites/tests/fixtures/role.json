@@ -3,7 +3,7 @@
     "pk": 1, 
     "model": "core.role", 
     "fields": {
-        "created_at": "2012-06-19T17:21:46", 
+        "created_at": "2012-06-19T17:21:46Z", 
         "code": "ao-account-admin", 
         "name": "Administrador de cuenta",
         "description": ""
@@ -13,7 +13,7 @@
     "pk": 2,
     "model": "core.role", 
     "fields": {
-        "created_at": "2012-06-19T17:21:46", 
+        "created_at": "2012-06-19T17:21:46Z", 
         "code": "ao-editor",
         "name": "Editor",
         "description": ""
@@ -23,7 +23,7 @@
     "pk": 3,
     "model": "core.role", 
     "fields": {
-        "created_at": "2012-06-19T17:21:46", 
+        "created_at": "2012-06-19T17:21:46Z", 
         "code": "ao-publisher", 
         "name": "Publicador",
         "description": ""
@@ -32,7 +32,7 @@
     "pk": 99,
     "model": "core.role", 
     "fields": {
-        "created_at": "2012-06-19T17:21:46", 
+        "created_at": "2012-06-19T17:21:46Z", 
         "code": "ao-ops", 
         "name": "Darth Vader",
         "description": ""

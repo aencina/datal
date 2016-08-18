@@ -67,8 +67,6 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 		this.model.on('data_updated', this.setTimestamp, this);
 		this.model.on('change:timestamp', this.updateTimestamp, this);
 
-		console.log(this.model.toJSON());
-
 	},
 
 	bindVisualizationResize: function () {
@@ -482,8 +480,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 
 		if( !_.isUndefined( timestamp ) ){
 
-			var dFormat = 'MM dd, yy',
-				tFormat = 'hh:mm TT',
+			var dFormat = 'MMMM DD, Y',
+				tFormat = 'hh:mm A',
 				dt;
 
 			// sometimes are seconds, sometimes miliseconds
@@ -491,22 +489,8 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 				timestamp = timestamp * 1000;	
 			}
 
-			// if 0, date/time is now
-			if( timestamp == 0 ){
-				dt = new Date();
-			}else{
-				dt = new Date(timestamp);
-			}			
-
-			// Set timezone
-			dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
-
 			// Get locale from lang attribute un <html>
 			var local = $('html').attr('lang');
-
-			console.log(local);
-
-			console.log(local.indexOf("es-"));
 
 			// If spanish
 			if(local === "es" || local.indexOf("es-") != -1 || local.indexOf("es_") != -1){
@@ -517,16 +501,16 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 				local = "";
 			}
 
-			dateFormatted = $.datepicker.formatDate(dFormat, dt, {
-				dayNamesShort: $.datepicker.regional[local].dayNamesShort,
-				dayNames: $.datepicker.regional[local].dayNames,
-				monthNamesShort: $.datepicker.regional[local].monthNamesShort,
-				monthNames: $.datepicker.regional[local].monthNames
-			});
+			if( timestamp == 0 ){
+				dt = new moment().locale(local)
+			}else{
+				dt = new moment(timestamp).locale(local);
+			}
 
-			console.log(local);
+			dateFormatted = dt.format(dFormat)
 
-			timeFormatted = $.datepicker.formatTime(tFormat, dt);
+			timeFormatted = dt.format(tFormat)
+
 
 			timestamp = dateFormatted + ', ' + timeFormatted;
 

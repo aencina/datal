@@ -26,6 +26,7 @@ class VisualizationForm(forms.Form):
     invertedAxis = forms.ChoiceField(required=False, choices=BOOLEAN_FIELD)
     correlativeData = forms.ChoiceField(required=False, choices=BOOLEAN_FIELD)
     is3D = forms.ChoiceField(required=False, choices=BOOLEAN_FIELD)
+    parameters = forms.CharField(required=False, max_length=2048)
 
     # Mapas
     latitudSelection = forms.CharField(required=False, max_length=200)

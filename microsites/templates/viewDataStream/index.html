@@ -56,7 +56,7 @@
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-	google.load('visualization', '1', {packages: ['corechart', 'geomap'] , 'language': '{{ preference.account_language }}' });
+	google.load('visualization', '1', {packages: ['corechart'] , 'language': '{{ preference.account_language }}' });
 </script>
 
 {% comment %}
@@ -161,7 +161,7 @@ $(document).ready(function(){
     guid: "{{datastream.guid}}",
     type: "{{datastream.type}}",
     {% for parameter in datastream.parameters %}
-    parameter{{forloop.counter0}}: {name: "{{parameter.name}}", value: "{{parameter.default|parameter_value}}"},
+    parameter{{forloop.counter0}}: {name: "{{parameter.name}}", value: "{{parameter.default}}"},
     {% endfor %}
     permaLink: "{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{% permalink 'datastream' datastream.datastream_id datastream.slug %}{%if url_query%}?{{url_query}}{%endif%}",
     embedUrl: "{{settings.MSPROTOCOL}}://{{preferences.account_domain}}{{ datastream.guid|embedlink:'datastream' }}?header_row=0&fixed_column=0{%if url_query%}&{{url_query}}{%endif%}" ,

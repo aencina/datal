@@ -20,7 +20,8 @@
 
 <script src="/js_core/constants.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-<script src="https://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<!--<script src="https://code.jquery.com/jquery-migrate-1.2.1.js"></script>-->
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
 <script src="/js_core/libs/jquery/jquery.parseHTML.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
@@ -204,19 +205,14 @@
 		});
 		{% endif %}
 
-		Configuration = {};
-		Configuration.baseUri = "{{settings.BASE_URI}}";
-		Configuration.apiUri = "{{settings.API_URI}}";
-		Configuration.apiKey = "{{settings.PUBLIC_KEY}}";
-		Configuration.language = "{{LANGUAGE_CODE}}";
+		
 		Configuration.createDataViewUrl = "{% url 'manageDataviews.create' %}";
 		Configuration.createVisualizationUrl = "{% url 'manageVisualizations.create' %}";
-
-
 		Configuration.APPLICATION_DETAILS = {}
 		Configuration.APPLICATION_DETAILS.name = "{{ settings.APPLICATION_DETAILS.name }}";
 		Configuration.APPLICATION_DETAILS.website = "{{ settings.APPLICATION_DETAILS.website }}";
 		Configuration.APPLICATION_DETAILS.mail = "{{ settings.APPLICATION_DETAILS.mail }}";
+
 
 		{% if preferences.account_microsite_https %}
 			Configuration.microsite_protocol = 'https://';

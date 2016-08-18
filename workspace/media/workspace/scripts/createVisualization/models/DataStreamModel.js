@@ -2,9 +2,23 @@ var DataStreamModel = Backbone.Model.extend({
     idAttribute: 'datastream_revision_id',
 
     url: function () {
+
+        var params = '';
+
+        if( !_.isUndefined(this.get('datastream_params')) ){
+
+            var parameters = this.get('datastream_params');
+
+            for(var i=0;i<parameters.length;i++){
+                params += '&pArgument'+parameters[i].position+'='+parameters[i].default;
+            }
+
+        }
+
         return ['/rest/datastreams/',
             this.get('datastream_revision_id'),
-            '/data.json/?limit=50&page=0'].join('');
+            '/data.json/?limit=50&page=0'+params].join('');
+            
     },
 
     initialize: function () {
@@ -66,22 +80,17 @@ var DataStreamModel = Backbone.Model.extend({
             }
             var locale = format.fLocale;
             //One must use "" for "en"
-            if (undefined === locale || locale === "en" || locale.indexOf("en_")) {
-                locale = "";
+            if (undefined === locale || locale.indexOf("en_")) {
+                locale = "en";
             }
             if (locale.indexOf("es_")) {
                 locale = "es";
             }
 
-            var dt = new Date(timestamp);
-            dt.setTime( dt.getTime() + dt.getTimezoneOffset()*60*1000 );
 
-            value = $.datepicker.formatDate(format.fPattern, dt, {
-                dayNamesShort: $.datepicker.regional[locale].dayNamesShort,
-                dayNames: $.datepicker.regional[locale].dayNames,
-                monthNamesShort: $.datepicker.regional[locale].monthNamesShort,
-                monthNames: $.datepicker.regional[locale].monthNames
-            });
+            var dt = moment.utc(timestamp).locale(locale);
+            
+            value = dt.format(Configuration.dp_to_moment[format.fPattern])
         } else {
             value = String(timestamp);
         }

@@ -112,11 +112,6 @@
 			return (User.roles.indexOf(pRole) > -1);
 		}
 	
-		Configuration = {};
-		Configuration.baseUri = "{{settings.BASE_URI}}";
-		Configuration.apiUri = "{{settings.API_URI}}";
-		Configuration.apiKey = "{{settings.PUBLIC_KEY}}";	    
-		Configuration.language = "{{LANGUAGE_CODE}}";
 		Configuration.showLastUpdate = {% if not preferences.account_hidelastupdate %}true{% else %}false{% endif %};
 		{% if preferences.account_embed_powered_by %}
 		Configuration.embedPoweredBy = ["{{settings.MSPROTOCOL}}://{{preferences.account_domain}}","{{preferences.account_name}}"];
@@ -124,10 +119,6 @@
 		Configuration.embedPoweredBy = ["{{ settings.APPLICATION_DETAILS.website }}","{{ settings.APPLICATION_DETAILS.name }}"];
 		{% endif %}
 
-		Configuration.APPLICATION_DETAILS = {}
-			Configuration.APPLICATION_DETAILS.name = "{{ settings.APPLICATION_DETAILS.name }}";
-			Configuration.APPLICATION_DETAILS.website = "{{ settings.APPLICATION_DETAILS.website }}";
-			Configuration.APPLICATION_DETAILS.mail = "{{ settings.APPLICATION_DETAILS.mail }}";
 
 		/* ]]> */
 	</script>
