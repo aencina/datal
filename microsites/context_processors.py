@@ -46,3 +46,29 @@ def request_context(request):
     obj['microsite_uri']=msprotocol
     obj['core_version']=VERSION
     return obj
+
+def context_paths(request):
+    """ info for headers and footers about where am I and in which language show """
+    
+    is_home = request.path == '/' or request.path.startswith('/home')
+    is_search = request.path.startswith('/search')
+    is_developers = request.path.startswith('/developers') # not working (duplicated) reverse('developer_manager.action_query')) 
+    is_datastream = request.path.startswith('/datastreams') or request.path.startswith('/dataviews')
+    is_visualization = request.path.startswith('/visualizations')
+    is_dashboard = request.path.startswith('/dashboards')
+
+    if is_home: path_is='home'
+    elif is_search: path_is='search'
+    elif is_developers: path_is='developers'
+    elif is_datastream: path_is='datastream'
+    elif is_visualization: path_is='visualization'
+    elif is_dashboard: path_is='dashboard'
+    else: path_is='unknown'
+
+    res = {'context_path': path_is}
+    
+    # read if we're forcing language
+    if request.GET.get('locale', None) in dict(settings.LANGUAGES).keys():
+        res['force_language'] = request.GET['locale']
+        
+    return res

@@ -7,6 +7,7 @@ LOCALE_PATHS = (
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     "microsites.context_processors.request_context",
+    "microsites.context_processors.context_paths"
 )
 
 MIDDLEWARE_CLASSES += (
