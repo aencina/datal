@@ -286,7 +286,7 @@ if(result.fType != 'ARRAY'){
 				if (undefined === local || local.indexOf("en_")) local = "en";
 				if (local === "es" || local.indexOf("es_")) local = "es";
 				var dt = moment.utc(number).locale(local)
-				str = dt.format(Configuration.dp_to_moment[format.fPattern])
+				str = dt.format(dp_to_moment(format.fPattern))
 			}else{
 				str = String(number);
 			}
@@ -342,7 +342,7 @@ if(result.fType != 'ARRAY'){
 								if (undefined === local || local.indexOf("en_")) local = "en";
 								if (local === "es" || local.indexOf("es_")) local = "es";
 								var dt = moment.utc(number).locale(local)
-								value = dt.format(Configuration.dp_to_moment[format.fPattern])
+								value = dt.format(dp_to_moment(format.fPattern))
 								}
 							else
 								value = String(number);

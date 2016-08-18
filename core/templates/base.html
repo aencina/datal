@@ -51,6 +51,8 @@
     </div>
     {% endblock %}
 
+
+    <script type="text/javascript" src="/js_core/switch_date_format.js?id={{settings.VERSION_JS_CSS}}"></script>
     <script type="text/javascript">
         Configuration = {};
         Configuration.baseUri = "{{settings.BASE_URI}}";
@@ -62,14 +64,6 @@
         Configuration.APPLICATION_DETAILS.name = "{{ settings.APPLICATION_DETAILS.name }}";
         Configuration.APPLICATION_DETAILS.website = "{{ settings.APPLICATION_DETAILS.website }}";
         Configuration.APPLICATION_DETAILS.mail = "{{ settings.APPLICATION_DETAILS.mail }}";
-        Configuration.dp_to_moment = {
-            "yy/mm/dd": "Y/MM/DD",
-            "yy-mm-dd": "Y-MM-DD",
-            "dd/mm/yy": "DD/MM/Y",
-            "dd-mm-yy": "DD-MM-Y",
-            "mm/dd/yy": "MM/DD/Y",
-            "mm-dd-yy": "MM-DD-Y"
-        }
 
         // Set timezone
         moment.tz.setDefault(Configuration.timezone);
