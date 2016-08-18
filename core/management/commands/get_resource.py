@@ -8,7 +8,8 @@ from core.choices import CollectTypeChoices, SourceImplementationChoices, Status
 from core.models import User,Visualization, VisualizationRevision, Account
 
 from core.models import AccountAnonymousUser
-
+import logging
+logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = "Index datasets."
@@ -90,6 +91,9 @@ class Command(BaseCommand):
                 self.resource = self.get_visualization(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
             elif options['dashboard']:
                 self.resource = self.get_dashboard(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
+            elif options['kpi']:  # TODO kpi v8
+                logger.info("KPI ________________________get_resource/handle   options='kpi'")
+                self.resource = self.get_kpi(resource_id=options['resource_id'], revision_id=options['revision_id'], published=options['published'])
 
         except User.DoesNotExist:
             raise CommandError(u"Usuario inexistente (administrador: 1647, administrator: 1)")
@@ -131,3 +135,8 @@ class Command(BaseCommand):
     def get_dashboard(self,resource_id=None, revision_id=None, published=True):
         from plugins.dashboards.daos.dashboards import DashboardDBDAO
         return DashboardDBDAO().get(self.user, dashboard_id=resource_id, dashboard_revision_id=revision_id, published=published)
+
+    def get_kpi(self, resource_id=None, revision_id=None, published=True): # TODO kpi v8
+        logger.info("KPI ________________________get_resource/get_kpi")
+        from plugins.kpi.daos.kpi import KpiDBDAO
+        return KpiDBDAO().get(self.user, kpi_id=resource_id, kpi_revision_id=revision_id, published=published)

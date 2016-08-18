@@ -121,7 +121,7 @@ class PreviewCommandFactory(CommandFactory):
             return EnginePreviewCommand(self._process_items(items), app)
         elif self.resourse_type == 'vz':
             return EnginePreviewChartCommand(self._process_items(items), app)
-        elif self.resourse_type == 'kp':
+        elif self.resourse_type == 'kp': # TODO kpi v8
             return EngineKpiPreviewChartCommand(self._process_items(items), app)
 
 
@@ -131,7 +131,7 @@ class InvokeCommandFactory(CommandFactory):
             return EngineInvokeCommand(self._process_items(items), app)
         elif self.resourse_type == 'vz':
             return EngineChartCommand(self._process_items(items), app)
-        elif self.resourse_type == 'kp':
+        elif self.resourse_type == 'kp': # TODO kpi v8
             return EngineKpiChartCommand(self._process_items(items), app)
 
 

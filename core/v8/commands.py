@@ -97,8 +97,10 @@ class EngineCommand(object):
 class EngineInvokeCommand(EngineCommand):
     endpoint = settings.END_POINT_SERVLET
 
+
 class EngineChartCommand(EngineCommand):
     endpoint = settings.END_POINT_CHART_SERVLET
+
 
 class EnginePreviewChartCommand(EngineCommand):
     endpoint = settings.END_POINT_CHART_PREVIEWER_SERVLET
@@ -130,6 +132,7 @@ class EnginePreviewChartCommand(EngineCommand):
                 
         return new_query
 
+
 class EngineLoadCommand(EngineCommand):
     endpoint = settings.END_POINT_LOADER_SERVLET
 
@@ -138,14 +141,13 @@ class EnginePreviewCommand(EngineCommand):
     method = 'POST'
 
 
-# TODO kpi:
-class EngineKpiInvokeCommand(EngineCommand):
+class EngineKpiInvokeCommand(EngineCommand): # TODO kpi v8
     endpoint = settings.END_POINT_SERVLET
 
-class EngineKpiChartCommand(EngineCommand):
+class EngineKpiChartCommand(EngineCommand): # TODO kpi v8
     endpoint = settings.END_POINT_KPI_CHART_SERVLET
 
-class EngineKpiPreviewChartCommand(EngineCommand):
+class EngineKpiPreviewChartCommand(EngineCommand): # TODO kpi v8
     endpoint = settings.END_POINT_KPI_CHART_PREVIEWER_SERVLET
 
     def _build_query(self, query):
