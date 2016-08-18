@@ -417,6 +417,9 @@ msgstr "Buscar Colecciones"
 msgid "SEARCH-VISUALIZATIONS-TEXT"
 msgstr "Buscar Gráficos"
 
+msgid "SEARCH-KPIS-TEXT"
+msgstr "Buscar Métricas"
+
 msgid "SEARCH-HOME-TEXT"
 msgstr "Filtrar Recursos"
 

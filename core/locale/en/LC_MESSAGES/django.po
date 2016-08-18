@@ -418,6 +418,9 @@ msgstr "Search Dashboards"
 msgid "SEARCH-VISUALIZATIONS-TEXT"
 msgstr "Search Visualizations"
 
+msgid "SEARCH-KPIS-TEXT"
+msgstr "Search KPIs"
+
 msgid "SEARCH-HOME-TEXT"
 msgstr "Filter Resources"
 

@@ -9,6 +9,7 @@ from core.utils import slugify
 from core import helpers, choices
 from core.exceptions import SearchIndexNotFoundException
 from core.plugins_point import DatalPluginPoint
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -228,6 +229,35 @@ class Finder:
         slug = slugify(title)
         permalink = reverse('kpi.view', urlconf='microsites.urls', kwargs={'resource_id': document['kpi_id'], 'slug': slug})
 
+        # TODO KPI: document example:
+        # {
+        # u'resource_id': 1,
+        # u'text': u'metricaa desc administrador METRI',
+        # u'owner_nick': u'administrador',
+        # u'account_id': 1,
+        # 'category': {
+        # u'id': u'70',
+        # u'name': u'Finanzas'
+        # },
+        # 'docid': u'KP::METRI',
+        # u'parameters': u'',
+        # u'title': u'metricaa',
+        # u'tags': u'',
+        # u'api_hits': 0,
+        # u'type': u'kp',
+        # u'datastream_id': 69620,
+        # u'kpi_revision_id': 1,
+        # u'description': u'desc',
+        # u'web_hits': 1, u'timestamp': 0,
+        # u'kpi_id': 1,
+        # 'category_name': u'Finanzas',
+        # u'hits': 1,
+        # u'created_at': 1469067209,
+        # u'modified_at': 1469067218,
+        # u'revision_id': 1,
+        # 'category_id': u'70'
+        # }
+
         kpi = dict(
             resource_id=document['kpi_id'],
             slug=slug,
@@ -238,17 +268,17 @@ class Finder:
             parameters=parameters,
             tags=[tag.strip() for tag in document['tags'].split(',')],
             permalink=permalink,
-            timestamp=document['timestamp'],
-            modified_at=document['modified_at'],
+            timestamp=datetime.datetime.fromtimestamp(int(document['timestamp'] / 1000)),
             type=document['type'],
-            category=document['category_id'],
-            category_name=document['category_name'],
+            category=document['category_name'],
+            category_id=document['category_id'],
             guid=document['docid'].split("::")[1],
             end_point=document.get('end_point', None),
-            created_at=document['created_at'],
+            created_at=datetime.datetime.fromtimestamp(int(document['created_at'])),
+            modified_at=datetime.datetime.fromtimestamp(int(document['modified_at'])),
+            account_id=document['account_id'],
             owner_nick=document['owner_nick']
         )
-
 
         return kpi
 

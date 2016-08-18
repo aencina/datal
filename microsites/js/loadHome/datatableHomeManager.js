@@ -48,6 +48,8 @@ var DatatableHomeManager = DatatableManager.extend({
             className = 'ic_Dashboard';
         }else if(msg.type == 'VZ'){
             className = 'ic_Chart';
+        }else if(msg.type == 'kp'){ /* TODO kpi */
+            className = 'ic_Chart';
         }
 
         var templ = "<tr id='id_<%= revision.id %>'>";

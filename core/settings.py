@@ -122,6 +122,8 @@ END_POINT_LOADER_SERVLET= '/AgileOfficeServer/DataSourceLoaderServlet'
 END_POINT_PREVIEWER_SERVLET = '/AgileOfficeServer/DataStreamPreviewerServlet'
 END_POINT_CHART_PREVIEWER_SERVLET = '/AgileOfficeServer/ChartPreviewerServlet'
 
+END_POINT_KPI_CHART_SERVLET = '/AgileOfficeServer/KpiInvokeServlet' # TODO kpi
+END_POINT_KPI_CHART_PREVIEWER_SERVLET = '/AgileOfficeServer/KpiPreviewerServlet' # TODO kpi
 
 BASE_URI = 'localhost'
 MEDIA_URI = BASE_URI

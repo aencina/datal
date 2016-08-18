@@ -34,7 +34,9 @@
                 {% if table_prefix == 'dashboard' %}
                     <h2>{% trans "APP-DASHBOARDS-TEXT" %}</h2>
                 {% endif %}
-            
+                {% if table_prefix == 'kpi' %}
+                    <h2>{% trans "APP-KPIS-TEXT" %}</h2>
+                {% endif %}
                 {% if mass_template %}
                     {% include mass_template %}
                 {% else %}

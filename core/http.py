@@ -47,6 +47,17 @@ def gravatar_url(email, size):
 
 def add_domains_to_permalinks(resources):
     from core.models import Preference
+
+    # TODO kpi uncomment this!
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info("KPI &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 1")
+    for r in resources:
+        if(r['type'] == 'kp'):
+            logger.info("KPI &&&&&&&&&&RESOURCE:")
+            logger.info(str(r))
+    logger.info("KPI &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 2")
+
     accounts_ids = [ item['account_id'] for item in resources ]
     seen = set()
     seen_add = seen.add
