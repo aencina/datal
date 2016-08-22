@@ -53,8 +53,8 @@ var DeleteItemView = Backbone.View.extend({
 
             success: function(response, a) {
                 $.gritter.add({
-                    title: gettext('APP-DELETE-VISUALIZATION-TEXT'),
-                    text:  resource + ": "+ gettext('APP-DELETE-DATASET-ACTION-TEXT'),
+                    title: gettext('APP-OVERLAY-DELETE-VISUALIZATION-CONFIRM-TITLE'),
+                    text:  resource + ": "+ gettext('APP-DELETE-VISUALIZATION-ACTION-TEXT'),
                     image: '/static/workspace/images/common/ic_validationOk32.png',
                     sticky: false,
                     time: 3500
