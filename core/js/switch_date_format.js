@@ -1,3 +1,8 @@
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
 var switchDateFormat;
 (function (switchDateFormat) {
     function convert(format, sourceRules, destRules) {
