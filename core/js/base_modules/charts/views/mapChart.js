@@ -40,6 +40,9 @@ charts.views.MapChart = charts.views.Chart.extend({
     },
 
     render: function () {
+
+        console.log('render');
+
         this.clearMapOverlays();
         this.clearHeatMapOverlays();
         var points = this.model.data.get('points');
@@ -128,7 +131,9 @@ charts.views.MapChart = charts.views.Chart.extend({
      * Add event handlers to the map events
      */
     bindMapEvents: function () {
-        this.mapInstance.addListener('idle', this.handleBoundChanges.bind(this));
+        //this.mapInstance.addListener('idle', this.handleBoundChanges.bind(this));
+        this.mapInstance.addListener('dragend', this.handleBoundChanges.bind(this));
+        this.mapInstance.addListener('zoom_changed', this.handleBoundChanges.bind(this));
     },
 
     /**

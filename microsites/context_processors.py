@@ -56,6 +56,7 @@ def context_paths(request):
     is_datastream = request.path.startswith('/datastreams') or request.path.startswith('/dataviews')
     is_visualization = request.path.startswith('/visualizations')
     is_dashboard = request.path.startswith('/dashboards')
+    is_dataset = request.path.startswith('/datasets')
 
     if is_home: path_is='home'
     elif is_search: path_is='search'
@@ -63,6 +64,7 @@ def context_paths(request):
     elif is_datastream: path_is='datastream'
     elif is_visualization: path_is='visualization'
     elif is_dashboard: path_is='dashboard'
+    elif is_dataset: path_is='dataset'
     else: path_is='unknown'
 
     res = {'context_path': path_is}

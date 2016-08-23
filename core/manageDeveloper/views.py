@@ -1,6 +1,6 @@
 import random
 import hashlib
-from django.shortcuts import render_to_response, HttpResponse
+from django.shortcuts import render, HttpResponse
 from core.models import Application, DataStream
 from django.conf import settings
 
@@ -23,7 +23,7 @@ def filter(request):
             example_guid = 'GUID'
     auth_manager = request.auth_manager
         
-    return render_to_response('manageDeveloper/query_list.html', locals())
+    return render(request, 'manageDeveloper/query_list.html', locals())
 
 
 def create(request):
