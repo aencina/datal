@@ -131,9 +131,14 @@ charts.views.MapChart = charts.views.Chart.extend({
      * Add event handlers to the map events
      */
     bindMapEvents: function () {
-        //this.mapInstance.addListener('idle', this.handleBoundChanges.bind(this));
-        this.mapInstance.addListener('dragend', this.handleBoundChanges.bind(this));
-        this.mapInstance.addListener('zoom_changed', this.handleBoundChanges.bind(this));
+
+        // TODO: Buscar una solucion a todo esto.
+
+        // Vuelvo atras este cambio, porque hay 342 revisions de visualizaciones que no tienen bounds en el impl_details, entonces eso hace que si quito la linea de idle y uso las otras dos (para evitar los request que hace el idle innecesarios) venga bounds=undefined en los que no lo tienen en el impl_details.
+
+        this.mapInstance.addListener('idle', this.handleBoundChanges.bind(this));
+        //this.mapInstance.addListener('dragend', this.handleBoundChanges.bind(this));
+        //this.mapInstance.addListener('zoom_changed', this.handleBoundChanges.bind(this));
     },
 
     /**
