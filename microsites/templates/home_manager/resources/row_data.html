@@ -1,11 +1,11 @@
 <script type="text/javascript">
     /*$('#id_{{table_prefix}}_{{revision.id}}').data("revision_id", {{revision.id}});
 	$('#id_{{table_prefix}}_{{revision.id}}').data("resource_id", {{revision.dataset__id}});
-    $('#id_{{table_prefix}}_{{revision.id}}').data("description", "{{revision.description|safe}}");
+    $('#id_{{table_prefix}}_{{revision.id}}').data("description", "{{revision.description|capfirst|safe}}");
     $('#id_{{table_prefix}}_{{revision.id}}').data("category", "{{revision.category}}");
     $('#id_{{table_prefix}}_{{revision.id}}').data("category_id", "{{revision.category_id}}");
     $('#id_{{table_prefix}}_{{revision.id}}').data("end_point", "{{revision.end_point}}");
-    $('#id_{{table_prefix}}_{{revision.id}}').data("title", "{{revision.title}}");
+    $('#id_{{table_prefix}}_{{revision.id}}').data("title", "{{revision.title|capfirst}}");
     $('#id_{{table_prefix}}_{{revision.id}}').data("collect_type", "{{revision.collect_type}}");
     $('#id_{{table_prefix}}_{{revision.id}}').data("size", "{{revision.size}}");*/
 </script>

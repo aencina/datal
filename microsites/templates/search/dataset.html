@@ -4,9 +4,9 @@
 
 <div id="id_dataservice_container_{{item.dataset_id}}" class="panel clearfix">
     <h2><a class="ic_Dset" id="id_viewDataServiceButton_{{ item.dataset_id }}" rel="{{ item.dataset_id }}" href="{{ item.permalink }}">
-    <strong>{{item.title}}</strong>{% for parameter in item.parameters %}{% if not forloop.first %}, {%else%}({% endif %}{{parameter.name}}{% if forloop.last %}){% endif %}{%endfor%}
+    <strong>{{item.title|capfirst}}</strong>{% for parameter in item.parameters %}{% if not forloop.first %}, {%else%}({% endif %}{{parameter.name}}{% if forloop.last %}){% endif %}{%endfor%}
     </a></h2>
-    <p>{{ item.description }}</p>
+    <p>{{ item.description|capfirst|safe }}</p>
 
     <div id="id_dataservice_toolbar_{{dataservice.dataservice_id}}" class="toolbar">
     </div>
