@@ -23,6 +23,7 @@ from core.lib.mail import mail
 from core.lib.mail.django_backend import DjangoMailService
 from core.utils import slugify
 from workspace.manageMyAccount import forms
+from core.utils import slugify
 from django.utils.timezone import now
 import pytz
 
@@ -64,11 +65,13 @@ def create(request):
             description=category_description
         )
 
+        slug_title = slugify(account.name)
+
         initial_preferences = [
             ('account.url', str(new_account_id)), # TODO is for testing accounts
-            ('account.domain', '%d.microsites.dev:8080' % new_account_id), # TODO is for testing accounts
-            ('account.link', 'http://%d.microsites.dev:8080' % new_account_id), # TODO is for testing accounts
-            ('account.api.domain', '%d.api.dev:8080' % new_account_id), # TODO is for testing accounts
+            ('account.domain', '%s.opendata.junar.com' % slug_title), # TODO is for testing accounts
+            ('account.link', 'http://%s.opendata.junar.com' % slug_title), # TODO is for testing accounts
+            ('account.api.domain', 'api.%s.opendata.junar.com' % slug_title), # TODO is for testing accounts
             ('account.name', account.name),
             ('account.language', language),
             ('enable.junar.footer', 'on'),

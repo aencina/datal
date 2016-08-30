@@ -144,6 +144,8 @@ _.extend(viewDataStreamView.prototype, Backbone.View.prototype, {
 		$('.tabs .sidebarIcon').removeClass('active');
 		$('#id_columns').removeClass('showSidebar');
 
+		$('.sidebar .box').hide();
+
 		// For preferences.account_description_enhancement
 		$('.dataTable header h2 .link').removeClass('active');
 		this.toggleDescriptionLink();

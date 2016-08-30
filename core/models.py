@@ -124,7 +124,7 @@ class Account(models.Model):
 
     name = models.CharField(max_length=80)
     level = models.ForeignKey('AccountLevel')
-    status = models.IntegerField(choices=STATUS_CHOICES, verbose_name=ugettext_lazy('MODEL_STATUS_LABEL'), default=TRIAL)
+    status = models.IntegerField(choices=STATUS_CHOICES, verbose_name=ugettext_lazy('MODEL_STATUS_LABEL'), default=ACTIVE)
     meta_data = models.TextField(blank=True, verbose_name=ugettext_lazy('MODEL_METADATA_LABEL'))
     created_at = models.DateTimeField(editable=False, auto_now_add=True, verbose_name=ugettext_lazy('MODEL_CREATED_AT_LABEL'))
     expires_at = models.DateTimeField(verbose_name=ugettext_lazy('MODEL_EXPIRES_AT_LABEL'))
