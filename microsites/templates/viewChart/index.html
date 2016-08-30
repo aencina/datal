@@ -192,6 +192,9 @@ $(document).ready(function(){
       lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
       guid: "{{visualization_revision.guid}}",
       parameters: params,
+      filter: "",
+      exportCSVURL: "{% url 'datastreams-data' datastream.last_published_revision_id 'csv' %}",
+      exportXLSURL: "{% url 'datastreams-data' datastream.last_published_revision_id 'xls' %}",
 
       // Revisar
       id: "{{ visualization_revision.last_published_revision_id }}",
