@@ -110,7 +110,7 @@ class s3(Datastore):
         k = Key(self.connection.get_bucket(bucket_name))
         k.key = end_point
         if mimetype:
-            key.content_type = mimetype
+            k.content_type = mimetype
         if isinstance(File, str) or isinstance(File, unicode):
             k.set_contents_from_string(File)
         else:
