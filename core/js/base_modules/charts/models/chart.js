@@ -166,10 +166,18 @@ charts.models.Chart = Backbone.Model.extend({
         var self = this,
             filters = {};
 
+        if (!_.isUndefined(filters)) {
+            $.each(this.data.get('filters'), function(key, val) {
+                 if (key.indexOf('filter') == 0) {
+                    filters[key] = val;
+                 }
+            });
+        }
+
         if (this.get('type') === 'mapchart' || this.get('type') === 'trace') {
-            filters = this.getMapPreviewFilters();
+            $.extend(filters, this.getMapPreviewFilters());
         } else {
-            filters = this.getChartPreviewFilters();
+            $.extend(filters, this.getChartPreviewFilters());
         }
 
         // Set de visualization_parameters al data model
