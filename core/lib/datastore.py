@@ -80,7 +80,7 @@ class s3(Datastore):
         #                                                               bucket_name))
         #    raise S3CreateException(e)
 
-    def upload(self, bucket_name, uuid, file_data, account_id):
+    def upload(self, bucket_name, uuid, file_data, account_id, mimetype=None):
         """
         Crea un archivo en S3 dentro de un bucket. La ruta hacia el archivo se genera dando vuelta los ids de la
         cuenta y el usuario. El nombre del archivo con UUID
@@ -91,7 +91,7 @@ class s3(Datastore):
         #try:
         end_point = "%s/%s" % (str(account_id), uuid)
         try:
-            self._save(bucket_name, end_point, file_data)
+            self._save(bucket_name, end_point, file_data, mimetype)
             logger.info('S3 saved to: %s ' % end_point)
         except Exception, e:
             logger.error('Error saving to S3: %s :: %s, %s,%s,%s,%s' % (str(e), end_point, bucket_name, uuid, file_data, account_id))
@@ -106,9 +106,11 @@ class s3(Datastore):
         except Exception, e:
             raise S3UpdateException(e)
 
-    def _save(self, bucket_name, end_point, File):
+    def _save(self, bucket_name, end_point, File, mimetype=None):
         k = Key(self.connection.get_bucket(bucket_name))
         k.key = end_point
+        if mimetype:
+            key.content_type = mimetype
         if isinstance(File, str) or isinstance(File, unicode):
             k.set_contents_from_string(File)
         else:
@@ -180,7 +182,7 @@ class datastore_sftp(datastore):
         self.save_checking_path(uploaded_file=data, folder=final_remote_folder, file_name=uuid)
         return key
 
-    def upload(self, bucket_name, file_name, file_data, account_id):
+    def upload(self, bucket_name, file_name, file_data, account_id, mimetype=None):
         """ update file for existing resource """
         logger.info(file_name)
         remote_path = "%s/%s/%s/" % (self.base_folder, bucket_name, str(account_id))
