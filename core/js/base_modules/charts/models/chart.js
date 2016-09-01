@@ -223,7 +223,7 @@ charts.models.Chart = Backbone.Model.extend({
 
         var filters = {
                 zoom: this.get('options').zoom,
-                bounds: (this.get('options').bounds)? this.get('options').bounds.join(';'): undefined,
+                bounds: (this.get('options').bounds)? this.get('options').bounds.join(';'): this.getBoundsByCenterAndZoom(this.get('options').center, this.get('options').zoom),
                 type: 'mapchart'
         };
 
@@ -248,6 +248,20 @@ charts.models.Chart = Backbone.Model.extend({
             filters.nullValuePreset = this.get('nullValuePreset');
         }
         return filters;
+    },
+    getBoundsByCenterAndZoom: function(center, zoom){
+        var zf = Math.pow(2, zoom) * 2;
+
+        // defino un ancho y un alto default porque no tengo acceso al elemento.
+        var dw = 1000  / zf;
+        var dh = 1000 / zf;
+ 
+        var ne_lat = center.lat + dh; //NE lat
+        var ne_lng = center.long + dw; //NE lng
+        var sw_lat = center.lat - dh; //SW lat
+        var sw_lng = center.long - dw; //SW lng
+
+        return "" + ne_lat + ";" + ne_lng + ";" + sw_lat + ";" + sw_lng 
     },
 
     /**
