@@ -411,7 +411,7 @@ _.extend(viewVisualizationView.prototype, Backbone.View.prototype, {
 			paramsQuery = '',
 			filter = this.model.get('filter'),
 			CSV = this.model.get('exportCSVURL'),
-			XLS = this.model.get('exportXLSURL')
+			XLS = this.model.get('exportXLSURL');
 
 		if(params.length > 0){
 			paramsQuery = params.join('');

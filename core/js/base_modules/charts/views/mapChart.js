@@ -370,7 +370,7 @@ charts.views.MapChart = charts.views.Chart.extend({
         cluster.noWrap = true;
 
         // Se desabilita la funcionalidad de joinIntersectedClusters porque contiene problemas
-        this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, true /* joinIntersectedClusters */);
+        this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, false /* joinIntersectedClusters */);
         var hPoint = {lat: parseFloat(cluster.lat), long: parseFloat(cluster.long), weight: parseInt(cluster.info)};
         this.addWeightLocation(hPoint);
     },

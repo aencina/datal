@@ -9,8 +9,8 @@
                 <h2>
                     <a id="id_dataservice_link_{{resource.resource_id}}" href="{% url "chart_manager.view" resource.resource_id resource.slug %}" target="_blank" title="{{resource.description}}" class="clearfix">
                         <span class="txt">
-                            <span class="titleDS"><strong>{{resource.title}}</strong></span>
-                            <span class="descriptionDS">{{resource.description|truncate:"50"}}</span>
+                            <span class="titleDS"><strong>{{resource.title|capfirst}}</strong></span>
+                            <span class="descriptionDS">{{resource.description|striptags|truncate:"50"|capfirst}}</span>
                             {% comment %}
                             <span class="infoDS">
                                 <span class="categoryDS">{{resource.category_name}}</span> 
@@ -38,8 +38,8 @@
                     {% endfor %}
 
                     var chartModel_{{resource.resource_id}} = new charts.models.Chart({
-                        title: "{{resource.title}}", 
-                        description: "{{resource.description|escapejs}}", 
+                        title: "{{resource.title|capfirst}}", 
+                        description: "{{resource.description|escapejs|capfirst|striptags}}", 
                         visualizationJson : '{{result|escapejs}}',
                         chartJson : '{{resource.impl_details|escapejs}}',
                         chartLib: "{{resource.lib}}",
@@ -64,8 +64,8 @@
                         id: {{ resource.resource_id }},
                         revision_id: {{ resource.revision_id }},
 
-                        title: '{{ resource.title }}',
-                        description: '{{ resource.description }}',
+                        title: '{{ resource.title|capfirst }}',
+                        description: '{{ resource.description|capfirst|striptags }}',
                         notes: '{{ resource.notes|escapejs }}',
                         lib: '{{ resource.lib }}',
 
@@ -93,8 +93,8 @@
                 <h2>
                     <a id="id_dataservice_link_{{resource.datastream_id}}" href="{% url "viewDataStream.view" resource.datastream_id "-" %}" target="_blank" title="{{resource.description}}" class="clearfix">
                         <span class="txt">
-                            <span class="titleDS"><strong>{{resource.title}}</strong></span>
-                            <span class="descriptionDS">{{resource.description|truncate:"50"}}</span>
+                            <span class="titleDS"><strong>{{resource.title|capfirst}}</strong></span>
+                            <span class="descriptionDS">{{resource.description|striptags|truncate:"50"|capfirst}}</span>
                             {% comment %}
                             <span class="infoDS">
                                 <span class="categoryDS">{{resource.category_name}}</span> 
@@ -113,8 +113,8 @@
 
                     var lDataService = $("#id_dataservice_container_{{resource.datastream_id}}")[0];
                     jQuery.data(lDataService, "dataservice_id", "{{resource.datastream_id}}");
-                    jQuery.data(lDataService, "dataservice_title", "{{resource.title}}");
-                    jQuery.data(lDataService, "dataservice_description", "{{resource.description}}");
+                    jQuery.data(lDataService, "dataservice_title", "{{resource.title|capfirst}}");
+                    jQuery.data(lDataService, "dataservice_description", "{{resource.description|striptags|capfirst}}");
                     jQuery.data(lDataService, "user_nick", "{{resource.user_nick}}");
                     jQuery.data(lDataService, "retries", "0");
 
