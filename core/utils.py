@@ -53,6 +53,7 @@ def slugify(value):
 def template_slugify(value):
     value = django_slugify(value)
     value = value.replace('-', '_')
+    return value
 
 # Esto solo se usa en un lugar no se si vale la pena que ete aca
 def remove_duplicated_filters(list_of_resources):
