@@ -3,7 +3,7 @@ body.embedded{
 	.layoutInner.clearfix:after,
 	.wrapper.clearfix:after,
 	.columns.clearfix:after{display:none;}
-	.columns{float:none;}
+	.columns{float:right;}
 
 	.dataTable{border:0;}
 	.dataTable header{min-width:0;}
