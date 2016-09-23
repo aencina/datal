@@ -64,8 +64,13 @@ var DataTableView = Backbone.View.extend({
               td.classList.add('hot-sel-' + cellProperties.classArray[i]);
             }
           }
+          objeto = self.tableData.rows_data[(row*self.tableData.columns.length)+col]
+          if (objeto.fType == 'NUMBER' && objeto.fDisplayFormat) {
+            cellProperties.format = objeto.fDisplayFormat.fPattern;
+          }
+
           if (self.tableData.rows_data)
-            return self.typeToRenderer[self.tableData.rows_data[(row*self.tableData.columns.length)+col].fType](instance, td, row, col, prop, value, cellProperties)  
+            return self.typeToRenderer[objeto.fType](instance, td, row, col, prop, value, cellProperties)  
           return self.typeToRenderer['TEXT'](instance, td, row, col, prop, value, cellProperties)
         }
       };
