@@ -94,14 +94,15 @@ var MapView = StepViewSPA.extend({
     },
 
     onChartChanged: function(){
-        if( this.model.get('select_data') ){
-             if(this.selectDataBtn.hasClass('icon-add')){
-                this.selectDataBtn.removeClass('icon-add').addClass('icon-edit');       
-                this.vizContent.addClass('dataSelected');
-            }
-
-        }
         this.setupChart();
+    },
+
+    onChangeData: function () {
+        if(this.selectDataBtn.hasClass('icon-add')){
+            this.selectDataBtn.removeClass('icon-add').addClass('icon-edit');       
+            this.vizContent.addClass('dataSelected');
+        }
+        this.renderChart();
     },
 
     onMapContentClicked: function(){
@@ -188,7 +189,7 @@ var MapView = StepViewSPA.extend({
 
         // Event binding
         this.listenTo(this.modalView, 'close', this.fetchPreviewData, this);
-        this.listenTo(this.model, 'data_updated',this.renderChart,this);
+        this.listenTo(this.model, 'data_updated',this.onChangeData,this);
 
         this.listenTo(this.model.data, 'fetch:start', this.onFetchStart, this);
         this.listenTo(this.model.data, 'fetch:end', this.onFetchEnd, this);
