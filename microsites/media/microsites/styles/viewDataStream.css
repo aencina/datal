@@ -135,6 +135,7 @@ div.colCopy{border-bottom:1px solid #ccc !important;}
 	.flexigrid div.sDiv input{height:18px;font-size:11px;margin-left:5px;}
 	.flexigrid div.sDiv select{font-size:11px;height:22px;}
 	.flexigrid div.sDiv div.sDiv2{padding-left:10px;text-shadow:0 1px 0 #fff;}
+	.flexigrid div.sDiv div.sDiv2 input.qsbox{padding-top:1px; padding-bottom: 0px;}
 
 	/* Erase this if vGrip needed */
 	.flexigrid div.vGrip{display:none;}

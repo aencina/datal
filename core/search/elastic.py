@@ -43,6 +43,10 @@ class ElasticsearchFinder(Finder):
             self.sort =  "timestamp:%s" % ("asc" if reverse else "desc")
         elif self.order and self.order=='title':
             self.sort = "title_lower_sort:%s" % ("asc" if reverse else "desc")
+        elif self.order and self.order=='modified':
+            self.sort =  "modified_at:%s" % ("asc" if reverse else "desc")
+        elif self.order and self.order=='published':
+            self.sort =  "created_at:%s" % ("asc" if reverse else "desc")
         elif self.order:
             self.sort=self.order
         else:

@@ -166,6 +166,7 @@ class DatasetForm(forms.Form):
 
         account_id = kwargs.get('account_id')
         language = kwargs.get('language')
+        self.initial = kwargs.get('initial')
 
         # Set Categories
         self.fields['category'].choices = [[category['category__id'], category['name']] for category in CategoryI18n.objects.filter(language=language, category__account=account_id).values('category__id', 'name')]

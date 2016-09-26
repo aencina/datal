@@ -136,7 +136,10 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 						text: response.messages.description,
 						image: '/static/workspace/images/common/ic_validationOk32.png',
 						sticky: false,
-						time: 2500
+						time: 2500,
+						after_close: function () {
+							window.location.reload();
+						}
 					});
 
 				}else{
@@ -149,9 +152,6 @@ var ViewDataStreamView = Backbone.Epoxy.View.extend({
 			error:function(response){
 				response.onClose = function(){ window.location.reload(true)}; 
 				datalEvents.trigger('datal:application-error', response);
-			},
-			complete:function(response){
-				// Hide Loading
 				$("#ajax_loading_overlay").hide();
 			}
 		});
