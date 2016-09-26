@@ -32,6 +32,7 @@ class ResourceSerializer(serializers.Serializer):
 
     resource_type = serializers.CharField()
     created_at = serializers.DateTimeField()
+    modified_at = serializers.DateTimeField()
 
     @classmethod
     def get_mapping_dict(cls):

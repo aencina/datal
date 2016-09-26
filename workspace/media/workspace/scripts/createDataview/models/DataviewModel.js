@@ -324,11 +324,20 @@ var DataviewModel = Backbone.Model.extend({
         var tableId = this.get('tableId'),
             isFullTable = this.selection.hasItemsByMode('table'),
             columnModels = this.selection.getItemsByMode('col'),
-            columns = _.map(columnModels, function (model) {
-                return model.getRange().from.col;
-            }),
+            columns = _.uniq(_.reduce(columnModels, function(memo, model, key, list){
+                var range = model.getRange()
+                Array.prototype.push.apply(memo, _.range(range.from.col, range.to.col+1));
+                return memo 
+            }, [])),
             totalCols = this.get('totalCols'),
             cellModels = this.selection.getItemsByMode('cell'),
+            rowModels = this.selection.getItemsByMode('row'),
+            rows = _.uniq(_.reduce(rowModels, function(memo, model, key, list){
+                var range = model.getRange()
+                Array.prototype.push.apply(memo, _.range(range.from.row, range.to.row+1));
+                return memo 
+            }, []));
+
             cells = []
             for (var x = 0; x < cellModels.length; x++) {
                 var range = cellModels[x].getRange();
@@ -341,10 +350,6 @@ var DataviewModel = Backbone.Model.extend({
                 }
 
             }
-            rowModels = this.selection.getItemsByMode('row'),
-            rows = _.map(rowModels, function (model) {
-                return model.getRange().from.row;
-            });
 
         return this.select_statement_template({
             isFullTable: isFullTable,

@@ -40,6 +40,9 @@ charts.views.MapChart = charts.views.Chart.extend({
     },
 
     render: function () {
+
+        console.log('render');
+
         this.clearMapOverlays();
         this.clearHeatMapOverlays();
         var points = this.model.data.get('points');
@@ -128,7 +131,14 @@ charts.views.MapChart = charts.views.Chart.extend({
      * Add event handlers to the map events
      */
     bindMapEvents: function () {
+
+        // TODO: Buscar una solucion a todo esto.
+
+        // Vuelvo atras este cambio, porque hay 342 revisions de visualizaciones que no tienen bounds en el impl_details, entonces eso hace que si quito la linea de idle y uso las otras dos (para evitar los request que hace el idle innecesarios) venga bounds=undefined en los que no lo tienen en el impl_details.
+
         this.mapInstance.addListener('idle', this.handleBoundChanges.bind(this));
+        //this.mapInstance.addListener('dragend', this.handleBoundChanges.bind(this));
+        //this.mapInstance.addListener('zoom_changed', this.handleBoundChanges.bind(this));
     },
 
     /**
@@ -360,7 +370,7 @@ charts.views.MapChart = charts.views.Chart.extend({
         cluster.noWrap = true;
 
         // Se desabilita la funcionalidad de joinIntersectedClusters porque contiene problemas
-        this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, true /* joinIntersectedClusters */);
+        this.mapClusters[index] = new multimarker(cluster, cluster.info, this.mapInstance, false /* joinIntersectedClusters */);
         var hPoint = {lat: parseFloat(cluster.lat), long: parseFloat(cluster.long), weight: parseInt(cluster.info)};
         this.addWeightLocation(hPoint);
     },

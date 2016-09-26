@@ -190,6 +190,11 @@ body .theme2 .caroufredsel_wrapper{border:0 !important;}
 .theme2 .placeholder.homeMainContent img,
 .theme2 .placeholder.homeSearchContent img{max-width:940px;}
 
+.theme2.w960{width:960px;}
+.theme2 .dataStreamBox h2 a{border-top:0;border-left:0;border-right:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}
+.theme2 .dataStreamBox .dataStreamResult{border:0;}
+body .theme2 #id_dataservices_container{margin-left:0 !important;}
+
 /* Theme 3 */
 .theme3{}
 .theme3 .placeholder.homeMainContent img{max-width:940px;}

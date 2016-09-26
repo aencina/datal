@@ -90,7 +90,7 @@ var DataStreamModel = Backbone.Model.extend({
 
             var dt = moment.utc(timestamp).locale(locale);
             
-            value = dt.format(Configuration.dp_to_moment[format.fPattern])
+            value = dt.format(dp_to_moment(format.fPattern))
         } else {
             value = String(timestamp);
         }

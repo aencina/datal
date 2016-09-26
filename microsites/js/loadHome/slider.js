@@ -111,7 +111,7 @@ function onSuccessDataServiceExecute(pResponse){
                     if (local === "es" || local.indexOf("es_")) local = "es";
 
                     var dt = moment.utc(number).locale(local)
-                    lValue = dt.format(Configuration.dp_to_moment[format.fPattern]);
+                    lValue = dt.format(dp_to_moment(format.fPattern));
                 }else{
                     str = String(number);
                 }
@@ -163,7 +163,7 @@ function onSuccessDataServiceExecute(pResponse){
                             if (local === "es" || local.indexOf("es_")) local = "es";
 
                             var dt = moment.utc(number).locale(local)
-                            lValue = dt.format(Configuration.dp_to_moment[format.fPattern]);
+                            lValue = dt.format(dp_to_moment(format.fPattern));
                         }else{
                             lValue = String(number);
                         }

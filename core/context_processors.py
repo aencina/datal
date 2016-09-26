@@ -10,6 +10,7 @@ def request_context(request):
         'API_URI' : settings.API_URI,
         'API_KEY' : settings.API_KEY,
         'VERSION_JS_CSS': settings.VERSION_JS_CSS,
+        'GOOGLE_MAPS_API_KEY' : settings.GOOGLE_MAPS_API_KEY,
         'WORKSPACE_URI': settings.WORKSPACE_URI,
         'DOMAINS': settings.DOMAINS,
         'APPLICATION_DETAILS': settings.APPLICATION_DETAILS,

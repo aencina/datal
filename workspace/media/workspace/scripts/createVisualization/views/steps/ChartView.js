@@ -242,6 +242,13 @@ var ChartView = StepViewSPA.extend({
 	},
 
 	onNextButtonClicked: function(){
+		var nullValueAction = this.model.get('nullValueAction')
+		if (!_.isUndefined(nullValueAction) && nullValueAction === 'given') {
+			var nullValuePreset = this.$el.find('#nullValuePreset').val();
+            if (!_.isUndefined(nullValuePreset) && isNaN(nullValuePreset)) {
+                return;
+            }
+        }
 		this.next();
 	},
 

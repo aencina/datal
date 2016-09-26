@@ -292,11 +292,20 @@ def create(request, collect_type='index'):
     
     collect_type_id = next(x[1] for x in COLLECT_TYPE_SLUGS if x[0] == collect_type)
 
+    default_category = request.account.get_preference('account.default.category') or None
+    initial = None
+    if default_category:
+        try:
+            initial={'category': int(default_category)}
+        except ValueError:
+            pass
+
     if request.method == 'GET':
         form = DatasetFormFactory(collect_type_id).create(
             account_id=account_id,
             language=language,
-            status_choices=auth_manager.get_allowed_actions()
+            status_choices=auth_manager.get_allowed_actions(),
+            initial=initial
         )
         form.label_suffix = ''
         url = 'createDataset/{0}.html'.format(collect_type)

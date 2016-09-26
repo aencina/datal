@@ -56,7 +56,7 @@
               'language': '{{ preference.account_language }}'
             }]
     }"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAPS_API_KEY}}&amp;libraries=visualization"></script>
 
 <script src="/js_core/libs/oms.min.js?id={{settings.VERSION_JS_CSS}}"></script>
 <script type="text/javascript" src="/js_core/plugins/multimarker.js?id={{settings.VERSION_JS_CSS}}"></script>
@@ -192,6 +192,9 @@ $(document).ready(function(){
       lastPublishRevisionId: "{{ visualization_revision.last_published_revision_id }}",
       guid: "{{visualization_revision.guid}}",
       parameters: params,
+      filter: "",
+      exportCSVURL: "{% url 'datastreams-data' datastream.last_published_revision_id 'csv' %}",
+      exportXLSURL: "{% url 'datastreams-data' datastream.last_published_revision_id 'xls' %}",
 
       // Revisar
       id: "{{ visualization_revision.last_published_revision_id }}",
