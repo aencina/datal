@@ -6,6 +6,7 @@ from django.db import transaction
 from django.utils.translation import ugettext
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.core.serializers.json import DjangoJSONEncoder
+from django.conf import settings
 from core.shortcuts import render_to_response
 from core.auth.decorators import login_required
 from core.daos.datastreams import DataStreamDBDAO
@@ -219,6 +220,9 @@ def create(request):
             raise DatastreamSaveException(form)
 
         dataset_revision = DatasetRevision.objects.get(pk=form.cleaned_data['dataset_revision_id'])
+
+        if dataset_revision.size > settings.MAX_DATASTREAM_SIZE:
+            raise DatasetTooBigException(size=settings.MAX_DATASTREAM_SIZE)
 
         dataview = DatastreamLifeCycleManager(user=request.user)
         dataview.create(

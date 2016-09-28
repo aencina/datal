@@ -21,6 +21,7 @@ from core.builders.datastreams import SelectStatementBuilder, DataSourceBuilder
 from core.v8.renderers import *
 from core.rest.renderers import *
 from core.forms import MetaForm
+from django.conf import settings
 
 import json
 
@@ -76,6 +77,10 @@ class DataStreamSerializer(ResourceSerializer):
             if data['dataset'].last_revision.impl_type not in DATASTREAM_IMPL_VALID_CHOICES:
                 # TODO: mejorar errores
                 raise exceptions.ValidationError({'dataset':'El tipo de archivo no permite creacion de vistas'})
+
+            if data['dataset'].last_revision.size > settings.MAX_DATASTREAM_SIZE:
+                 # TODO: mejorar errores
+                raise exceptions.ValidationError({'dataset':'El dataset es demasiado grande'})
 
             if 'table_id' in data:
                 table_id = data.pop('table_id')

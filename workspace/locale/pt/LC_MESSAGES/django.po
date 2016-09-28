@@ -2547,6 +2547,12 @@ msgstr "Invalid file format"
 msgid "EXCEPTION-DESCRIPTION-FILE-INVALID"
 msgstr "The file type %(file_type)s is not allowed."
 
+msgid "EXCEPTION-TITLE-DATASET-TOO-BIG"
+msgstr "Dataset too big"
+
+msgid "EXCEPTION-DESCRIPTION-DATASET-TOO-BIG"
+msgstr "Dataset too big to create a datastream."
+
 msgid "APP-BACK-TEXT"
 msgstr "Back"
 

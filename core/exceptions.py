@@ -136,7 +136,6 @@ class DatastreamSaveException(SaveException):
     description = _('EXCEPTION-DESCRIPTION-DATASTREAM-SAVE-ERROR')
     tipo = 'datastream-save-error'
 
-
 class VisualizationSaveException(SaveException):
     title = _('EXCEPTION-TITLE-VISUALIZATION-SAVE-ERROR')
     description = _('EXCEPTION-DESCRIPTION-VISUALIZATION-SAVE-ERROR')
@@ -233,6 +232,10 @@ class FileTypeNotValidException(LifeCycleException):
     def get_actions(self):
         return [ValidFileType(self._context['valid_types'])]
 
+class DatasetTooBigException(LifeCycleException):
+    title = _('EXCEPTION-TITLE-DATASET-TOO-BIG')
+    description = _('EXCEPTION-DESCRIPTION-DATASET-TOO-BIG')
+
 
 class ApplicationException(DATALException):
     title = 'Application error'
@@ -248,9 +251,6 @@ class MailServiceNotFoundException(ApplicationException):
 
 class SearchIndexNotFoundException(ApplicationException):
     title = 'Search index not found exception'
-
-
-
 
 
 class S3CreateException(DATALException):
