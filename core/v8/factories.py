@@ -22,6 +22,7 @@ class CommandFactory(object):
         'invertedAxis': 'pInvertedAxis',
         'nullValueAction': 'pNullValueAction',
         'nullValuePreset': 'pNullValuePreset',
+        'template': 'pTemplate',
         'zoom': 'pZoom',
         'bounds': 'pBounds',
         'traces': 'pTraceSelection',
