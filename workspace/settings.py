@@ -53,8 +53,6 @@ CSRF_COOKIE_SECURE = False
 
 STATICFILES_DIRS += (os.path.join(PROJECT_PATH, 'workspace/media/'),)
 
-MAX_DATASTREAM_SIZE = 300 * 1024 * 1024
-
 if DEBUG:
     INSTALLED_APPS += (
         'selenium',
