@@ -124,6 +124,7 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
             is_live=dataset_revision.is_live(), 
             slug=slugify(dataseti18n.title),
             cant=DatasetRevision.objects.filter(dataset__id=dataset_revision.dataset.id).count(),
+            is_datastreamable=dataset_revision.is_datastreamable(),
         )
         dataset.update(self.query_childs(dataset_revision.dataset.id, user.language))
 
@@ -139,7 +140,10 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
                                                dataseti18n__language=language, category__categoryi18n__language=language
                                                )
         if exclude:
-            query = query.exclude(**exclude)
+            if type(exclude) == dict:
+                exclude = [exclude]
+            for item in exclude:
+                query = query.exclude(**item)
 
         if filter_name:
             query = query.filter(dataseti18n__title__icontains=filter_name)
@@ -167,14 +171,6 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
             query = query.filter(dataset__user__nick=filter_user)
 
         total_resources = query.count()
-
-        query = query.values('filename', 'dataset__user__name', 'dataset__user__nick', 'dataset__type', 'status', 'id',
-                             'impl_type', 'dataset__guid', 'category__id', 'dataset__id', 'id',
-                             'category__categoryi18n__name', 'category__categoryi18n__slug',
-                             'dataseti18n__title', 'dataseti18n__description',
-                             'created_at', 'modified_at', 'size', 'end_point', 'dataset__user__id',
-                             'dataset__last_revision_id', 'dataset__last_published_revision__modified_at',
-                             'dataset__last_published_revision_id')
         """
         query = query.extra(select={'author':'ao_users.nick','user_id':'ao_users.id','type':'ao_datasets.type',
             'guid':'ao_datasets.guid','category_id':'ao_categories.id', 'dataset_id':'ao_datasets.id',
@@ -192,10 +188,38 @@ class DatasetDBDAO(AbstractDatasetDBDAO):
         nto = nfrom + itemsxpage
         query = query[nfrom:nto]
 
-        # sumamos el field cant
-        map(self.__add_cant, query)
+        answer = []
+        for ds in query:
+            answer.append({
+                'filename': ds.filename,
+                'dataset__user__name': ds.dataset.user.name,
+                'dataset__user__nick': ds.dataset.user.nick,
+                'dataset__type': ds.dataset.type,
+                'status': ds.status,
+                'id': ds.id,
+                'impl_type': ds.impl_type,
+                'dataset__guid': ds.dataset.guid,
+                'category__id': ds.category.id,
+                'dataset__id': ds.dataset.id,
+                'category__categoryi18n__name': ds.category.categoryi18n_set.filter(language=language).first().name,
+                'category__categoryi18n__slug': ds.category.categoryi18n_set.filter(language=language).first().slug,
+                'dataseti18n__title': ds.dataseti18n_set.filter(language=language).first().title,
+                'dataseti18n__description': ds.dataseti18n_set.filter(language=language).first().description,
+                'created_at': ds.created_at,
+                'modified_at': ds.modified_at,
+                'size': ds.size,
+                'end_point': ds.end_point,
+                'dataset__user__id': ds.dataset.user.id,
+                'dataset__last_revision_id': ds.dataset.last_revision_id,
+                'dataset__last_published_revision__modified_at':  ds.dataset.last_published_revision.modified_at if ds.dataset.last_published_revision else None,
+                'dataset__last_published_revision_id': ds.dataset.last_published_revision_id if ds.dataset.last_published_revision else None,
+                'is_datastreamable': ds.is_datastreamable()
+            })
 
-        return query, total_resources
+        # sumamos el field cant
+        map(self.__add_cant, answer)
+
+        return answer, total_resources
 
     def __add_cant(self, item):
             item['cant']=DatasetRevision.objects.filter(dataset__id=item['dataset__id']).count()

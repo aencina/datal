@@ -2,7 +2,7 @@
 
 <div class="flex-center">
 	<p>{% trans 'APP-NOCHILDRESOURCESYET-TEXT' %} 
-        {% if dataset.impl_type not in datastream_impl_not_valid_choices %}
+        {% if dataset.is_datastreamable %}
             <a id="id_create" href="{% url 'manageDataviews.create' %}?dataset_revision_id={{ dataset.dataset_revision_id }}" title="{% trans 'APP-ACTIONS-CREATEVIEW' %}">{% trans 'APP-ACTIONS-CREATEVIEW' %}</a>.
         {% endif %}
     </p>

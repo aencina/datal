@@ -29,7 +29,8 @@
 			"modified_at": "{{resource.modified_at|date:'F d, Y, h:i A'|capfirst}}", 
 			"id": {{resource.id}}, 
 			"collect_type": {{resource.dataset__type}},
-			"cant": {{resource.cant}}
+			"cant": {{resource.cant}},
+			"is_datastreamable": {{resource.is_datastreamable|yesno:"true,false"}}
 		}{% if not forloop.last %}, {% endif%}
 		{% endfor %}
 	]

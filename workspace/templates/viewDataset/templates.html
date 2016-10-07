@@ -25,7 +25,7 @@
 				<% }else{ %>
 
 					{# If dataset.collect_type is URL or WEBSERVICE, or if impl_type is one of the allowed (for FILE), then enable "create data view" button #}
-					{% if dataset.collect_type == 2 or dataset.impl_type not in datastream_impl_not_valid_choices %}
+					{% if dataset.collect_type == 2 or dataset.is_datastreamable %}
 
 						<!-- Main Action - Create Data View -->
 						
@@ -49,7 +49,7 @@
 			{% elif auth_manager.is_editor %}
 
 				{# If dataset.collect_type is URL or WEBSERVICE, or if impl_type is one of the allowed (for FILE), then enable "create data view" button #}
-				{% if dataset.collect_type == 2 or dataset.impl_type not in datastream_impl_not_valid_choices %}
+				{% if dataset.collect_type == 2 or dataset.is_datastreamable %}
 
 					<!-- Main Action - Create Data View -->
 					<a id="id_create" class="button primary FR" href="<%= createDataViewUrl %>" title="{% trans 'APP-ACTIONS-CREATEVIEW' %}">{% trans 'APP-ACTIONS-CREATEVIEW' %}</a>

@@ -2546,6 +2546,12 @@ msgstr "Tipo de archivo no soportado"
 msgid "EXCEPTION-DESCRIPTION-FILE-INVALID"
 msgstr "Los tipos de archivo %(file_type)s no son permitidos."
 
+msgid "EXCEPTION-TITLE-DATASET-TOO-BIG"
+msgstr "Dataset demasiado grande"
+
+msgid "EXCEPTION-DESCRIPTION-DATASET-TOO-BIG"
+msgstr "Dataset demasiado grande parar crear la vista."
+
 msgid "APP-BACK-TEXT"
 msgstr "Volver"
 

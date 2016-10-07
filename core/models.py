@@ -633,6 +633,12 @@ class DatasetRevision(RevisionModel):
 
         return False
 
+    def is_datastreamable(self):
+        return (
+            self.impl_type in choices.DATASTREAM_IMPL_VALID_CHOICES and 
+            self.size <= settings.MAX_DATASTREAM_SIZE
+        ) 
+
     def get_endpoint_full_url(self):
         if self.dataset.type == choices.CollectTypeChoices.SELF_PUBLISH:
             # eliminamos todo lo no ascii

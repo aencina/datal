@@ -174,10 +174,12 @@ def filter(request, page=0, itemsxpage=settings.PAGINATION_RESULTS_PER_PAGE):
     if bb_request.get('collect_type', None) is not None:
         # If File Dataset, set impl_types as valid ones. File = 0
         if bb_request.get('collect_type') in map(lambda x: str(x), COLLECT_TYPE_FILTERABLES):
-            exclude = {
+            exclude = [{
                 'dataset__type__in': COLLECT_TYPE_FILTERABLES,
-                'impl_type__in': DATASTREAM_IMPL_NOT_VALID_CHOICES
-            }
+                'impl_type__in': DATASTREAM_IMPL_NOT_VALID_CHOICES,
+            },{
+                'size__gt': settings.MAX_DATASTREAM_SIZE,
+            }]
 
     # define la forma de ordenamiento
     if sort_by:
