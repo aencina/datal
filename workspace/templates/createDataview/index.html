@@ -111,11 +111,19 @@
             tags: {{tags|jsonify}}
         });
 
+        {% if dao %}
+        dataviewModel.dataset.once('sync', function(){
+            this.addSelectStatement('{{dao.select_statement|safe}}');
+            this.addDataSource('{{dao.data_source|safe}}')
+        }, dataviewModel);
+        {% endif %}
+
         var mainView = new MainView({
             el: '.main-section',
             dataviewModel: dataviewModel,
             categories: {{categories|jsonify}}
         });
+        
     </script>
 
 {% endblock %}

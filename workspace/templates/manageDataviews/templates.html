@@ -98,7 +98,7 @@
       if( status != StatusChoices.PENDING_REVIEW ) { 
     %>
     	<li class="edit">
-    		<a data-id="<%=id%>" data-url="{% url 'manageDataviews.edit' %}" title=<%= gettext('APP-EDIT-TEXT') %>><%= gettext('APP-EDIT-TEXT') %></a>
+    		<a href="{% url 'manageDataviews.edit' %}<%=id%>/" title=<%= gettext('APP-EDIT-TEXT') %>><%= gettext('APP-EDIT-TEXT') %></a>
     	</li>
     <% } %>
 

@@ -12,7 +12,7 @@ from core.auth.decorators import login_required
 from core.daos.datastreams import DataStreamDBDAO
 from core.lifecycle.datastreams import DatastreamLifeCycleManager
 from core.exceptions import DataStreamNotFoundException, DatasetNotFoundException
-from core.models import DatasetRevision, Account, CategoryI18n, DataStreamRevision
+from core.models import DatasetRevision, Account, CategoryI18n, DataStreamRevision, Dataset
 from core.http import JSONHttpResponse
 from core.signals import datastream_changed, datastream_removed, datastream_unpublished, datastream_rev_removed
 from core.utils import DateTimeEncoder
@@ -291,27 +291,63 @@ def create(request):
 @requires_review
 @transaction.commit_on_success
 def edit(request, datastream_revision_id=None):
+    lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=datastream_revision_id)
+    dao= DataStreamDBDAO().get(request.user, datastream_revision_id=datastream_revision_id)
+    auth_manager = request.auth_manager
+    
     if request.method == 'GET':
-        account_id = request.auth_manager.account_id
-        credentials = request.auth_manager
-        language = request.auth_manager.language
-        categories = CategoryI18n.objects.filter(
-            language=language,
-            category__account=account_id
-        ).values('category__id', 'name')
-        status_options = credentials.get_allowed_actions()
-        lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=datastream_revision_id)
-        status = lifecycle.datastream_revision.status
-        dao = DataStreamDBDAO().get(request.user, datastream_revision_id=datastream_revision_id)
-        response = DefaultDataViewEdit(template='datastream_edit_response.json').render(
-            categories, status,
-            status_options,
-            lifecycle.datastream_revision,
-            lifecycle.datastreami18n,
-            dao
-        )
+        is_update = True
+        is_update_selection = True
+        dataset_revision = Dataset.objects.get(id=dao['dataset_id']).last_revision
+        datastream_id = None
 
-        return JSONHttpResponse(response)
+        if auth_manager.is_level('level_5'):
+            meta_data = Account.objects.get(pk=auth_manager.account_id).meta_data
+
+        end_point = dataset_revision.end_point
+        type = dataset_revision.dataset.type
+        impl_type = dataset_revision.impl_type
+        impl_details = dataset_revision.impl_details
+        bucket_name = request.bucket_name
+
+        categoriesQuery = CategoryI18n.objects\
+                            .filter(language=request.auth_manager.language,
+                                    category__account=request.auth_manager.account_id)\
+                            .values('category__id', 'name')
+        categories = [[category['category__id'], category['name']] for category in categoriesQuery]
+        preferences = auth_manager.get_account().get_preferences()
+        try:
+            default_category = int(preferences['account.default.category'])
+        except:
+            default_category = categories[0][0]
+        # Agregar categoria por defecto
+        categories = map(lambda x: x + [int(x[0]) == default_category], categories)
+
+        sources = [source for source in dataset_revision.get_sources()]
+        tags = [tag for tag in dataset_revision.get_tags()]
+
+
+        return render_to_response('createDataview/index.html', locals())
+        
+        # account_id = request.auth_manager.account_id
+        # credentials = request.auth_manager
+        # language = request.auth_manager.language
+        # categories = CategoryI18n.objects.filter(
+        #     language=language,
+        #     category__account=account_id
+        # ).values('category__id', 'name')
+        # status_options = credentials.get_allowed_actions()
+        # lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=datastream_revision_id)
+        # status = lifecycle.datastream_revision.status
+        # 
+        # response = DefaultDataViewEdit(template='datastream_edit_response.json').render(
+        #     categories, status,
+        #     status_options,
+        #     lifecycle.datastream_revision,
+        #     lifecycle.datastreami18n,
+        #     dao
+        # )
+        #return JSONHttpResponse(response)
 
     elif request.method == 'POST':
         """update dataset """
