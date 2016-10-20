@@ -100,6 +100,37 @@
     <script src="{% static 'workspace/scripts/createDataview/views/steps/PreviewView.js' %}"></script>
     <script src="{% static 'workspace/scripts/createDataview/views/MainView.js' %}"></script>
     <script>
+        {% if dao %}
+            var tags = [];
+            {% for tag in dao.tags %}
+            tags.push({
+              id:'{{ tag.tag__id }}',
+              name:'{{ tag.tag__name }}',
+              status:'{{ tag.tag__status }}'
+            });
+            {% endfor %}
+
+            var sources = [];
+            {% for source in dao.sources %}
+            sources.push({
+              id:'{{ source.source__id }}',
+              name:'{{ source.source__name }}',
+              url:'{{ source.source__url }}'
+            });
+            {% endfor %}
+
+            var params = [];
+           
+            {% for param in dao.parameters %}
+            params.push({
+                name:'{{ param.name }}',
+                default:'{{ param.default }}',
+                position: {{ param.position }},
+                description:'{{ param.description }}'
+              });
+            {% endfor %}
+        {% endif %}
+       
         var dataviewModel = new DataviewModel();
 
         dataviewModel.attachDataset({
@@ -113,7 +144,7 @@
 
         {% if dao %}
         dataviewModel.dataset.once('sync', function(){
-            this.addSelectStatement('{{dao.select_statement|safe}}');
+            this.addSelectStatement('{{dao.select_statement|safe}}', params);
             this.addDataSource('{{dao.data_source|safe}}')
         }, dataviewModel);
         {% endif %}

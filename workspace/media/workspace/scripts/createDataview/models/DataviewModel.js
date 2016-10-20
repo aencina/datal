@@ -319,7 +319,7 @@ var DataviewModel = Backbone.Model.extend({
         result[prefix + '-INITIAL_FORMS'] = 0;
         return result;
     },
-    addSelectStatement: function(statement) {
+    addSelectStatement: function(statement, params) {
         if (window.DOMParser) {
             parser = new DOMParser();
             xmlDoc = parser.parseFromString(statement, "text/xml");
@@ -330,19 +330,49 @@ var DataviewModel = Backbone.Model.extend({
             xmlDoc.loadXML(statement);
         }
         var filters = xmlDoc.getElementsByTagName("Filter");
+        var rowFiltersCount = 0
         if (filters.length > 0 ) {
             for (var i = 0; i < filters.length; i++) {
                 filter = filters[i]
-                row_index = parseInt(filter.getElementsByTagName("Operand2")[0].textContent) + 1
-                this.selection.add({
-                    classname: 'row',
-                    mode: 'row',
-                    excelRange: row_index + ":" + row_index
-                })
+                operand = filter.getElementsByTagName('Operand1')[0].textContent
+                if (operand == 'rownum') {
+                    row_index = parseInt(filter.getElementsByTagName("Operand2")[0].textContent) + 1
+                    this.selection.add({
+                        classname: 'row',
+                        mode: 'row',
+                        excelRange: row_index + ":" + row_index
+                    })
+                    rowFiltersCount += 1
+                } else {
+                    column_number = operand.replace('column', '')
+                    filterModel = new FilterModel()
+                    filterModel.set('column',column_number)
+                    filterModel.set('excelCol', DataTableUtils.intToExcelCol(parseInt(column_number)))
+                    filterModel.set('operator', filter.getElementsByTagName("LogicalOperator")[0].textContent)
+
+                    operand2 = filter.getElementsByTagName("Operand2")[0].textContent
+                    if (operand2.indexOf('parameter') >= 0) {
+                        position = parseInt(operand2.replace('parameter', ''))
+                        for (var j = 0; j < params.length; j++) {
+                            if ( params[j].position == position ) {
+                                filterModel.set('default', params[j].default)
+                                filterModel.set('name', params[j].name)
+                                filterModel.set('description', params[j].description)
+                                filterModel.set('type', 'parameter')
+                                filterModel.set('position', position)
+                                break
+                            }
+                        }
+                    } else {
+                        filterModel.set('default', operand2)
+                        filterModel.set('type', 'fixed')
+                    }
+                    this.filters.add(filterModel)
+                }
             }
         } 
         var columns = xmlDoc.getElementsByTagName("Column");
-        if (columns.length == 1 && columns[0].textContent == "*" && filters.length == 0) {
+        if (columns.length == 1 && columns[0].textContent == "*" && rowFiltersCount == 0) {
             this.selection.add({
                 classname: 'table',
                 mode: 'table',
