@@ -329,33 +329,13 @@ def edit(request, datastream_revision_id=None):
 
         return render_to_response('createDataview/index.html', locals())
         
-        # account_id = request.auth_manager.account_id
-        # credentials = request.auth_manager
-        # language = request.auth_manager.language
-        # categories = CategoryI18n.objects.filter(
-        #     language=language,
-        #     category__account=account_id
-        # ).values('category__id', 'name')
-        # status_options = credentials.get_allowed_actions()
-        # lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=datastream_revision_id)
-        # status = lifecycle.datastream_revision.status
-        # 
-        # response = DefaultDataViewEdit(template='datastream_edit_response.json').render(
-        #     categories, status,
-        #     status_options,
-        #     lifecycle.datastream_revision,
-        #     lifecycle.datastreami18n,
-        #     dao
-        # )
-        #return JSONHttpResponse(response)
-
     elif request.method == 'POST':
         """update dataset """
 
         form = EditDataStreamForm(request.POST)
 
         if not form.is_valid():
-            raise LifeCycleException('Invalid form data: %s' % str(form.errors.as_text()))
+            raise DatastreamSaveException(form)
 
         if form.is_valid():
             lifecycle = DatastreamLifeCycleManager(user=request.user, datastream_revision_id=datastream_revision_id)

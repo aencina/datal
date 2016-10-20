@@ -20,7 +20,7 @@ var FiltersCollection = Backbone.Collection.extend({
 
         // If added model is of type 'parameter', we add a position attribute to it.
         _.each(models, function (model, i) {
-            if (model.get('type') === 'parameter') {
+            if (model.get('type') === 'parameter' && _.isUndefined(model.get('position'))) {
                 model.set('position', l + i);
             }
         });

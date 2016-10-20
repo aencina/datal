@@ -126,12 +126,14 @@ var DataviewModel = Backbone.Model.extend({
         limit: 50
     },
 
-    initialize: function () {
+    initialize: function (attributes) {
         this.data = new Backbone.Model();
         this.selection = new DataTableSelectedCollection();
 
         this.filters = new FiltersCollection();
         this.formats = new ColumnsCollection();
+        this.editMode = attributes.edit_mode
+        this.datastream_revision_id = attributes.datastream_id;
     },
 
     url: '/rest/datastreams/sample.json/',
@@ -288,12 +290,22 @@ var DataviewModel = Backbone.Model.extend({
         params.select_statement = this.getSelectStatement();
         params.data_source = this.getDataSource();
 
-        return $.ajax({
-                type: 'POST',
-                url: '/dataviews/create/',
-                data: params,
-                dataType: 'json'
-            });
+        if (this.editMode) {
+            params.datastream_revision_id = this.datastream_revision_id
+            return $.ajax({
+                    type: 'POST',
+                    url: '/dataviews/edit/' + this.datastream_revision_id + '/',
+                    data: params,
+                    dataType: 'json'
+                });
+        } else {
+            return $.ajax({
+                    type: 'POST',
+                    url: '/dataviews/create/',
+                    data: params,
+                    dataType: 'json'
+                });
+        }
     },
 
     onChangeTableId: function (model, value) {
@@ -318,6 +330,24 @@ var DataviewModel = Backbone.Model.extend({
         result[prefix + '-TOTAL_FORMS'] = total;
         result[prefix + '-INITIAL_FORMS'] = 0;
         return result;
+    },
+    addCategory: function(category_id, category_name) {
+        this.set('category', category_id)
+    },
+    addTitle: function(title) {
+        this.set('title', title)
+    },
+    addDescription: function(title) {
+        this.set('description', title)
+    },
+    addNotes: function(notes) {
+        this.set('notes', notes)
+    },
+    addSources: function(sources) {
+        this.sources = new SourcesCollection(sources)
+    },
+    addTags: function(tags) {
+        this.tags = new TagsCollection(tags)  
     },
     addSelectStatement: function(statement, params) {
         if (window.DOMParser) {
@@ -347,7 +377,7 @@ var DataviewModel = Backbone.Model.extend({
                     column_number = operand.replace('column', '')
                     filterModel = new FilterModel()
                     filterModel.set('column',column_number)
-                    filterModel.set('excelCol', DataTableUtils.intToExcelCol(parseInt(column_number)))
+                    filterModel.set('excelCol', DataTableUtils.intToExcelCol(parseInt(column_number) + 1))
                     filterModel.set('operator', filter.getElementsByTagName("LogicalOperator")[0].textContent)
 
                     operand2 = filter.getElementsByTagName("Operand2")[0].textContent

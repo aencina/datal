@@ -100,38 +100,14 @@
     <script src="{% static 'workspace/scripts/createDataview/views/steps/PreviewView.js' %}"></script>
     <script src="{% static 'workspace/scripts/createDataview/views/MainView.js' %}"></script>
     <script>
-        {% if dao %}
-            var tags = [];
-            {% for tag in dao.tags %}
-            tags.push({
-              id:'{{ tag.tag__id }}',
-              name:'{{ tag.tag__name }}',
-              status:'{{ tag.tag__status }}'
-            });
-            {% endfor %}
 
-            var sources = [];
-            {% for source in dao.sources %}
-            sources.push({
-              id:'{{ source.source__id }}',
-              name:'{{ source.source__name }}',
-              url:'{{ source.source__url }}'
-            });
-            {% endfor %}
-
-            var params = [];
-           
-            {% for param in dao.parameters %}
-            params.push({
-                name:'{{ param.name }}',
-                default:'{{ param.default }}',
-                position: {{ param.position }},
-                description:'{{ param.description }}'
-              });
-            {% endfor %}
-        {% endif %}
        
-        var dataviewModel = new DataviewModel();
+        var dataviewModel = new DataviewModel({ 
+            edit_mode: {% if dao %}true {% else %}false {% endif %}, 
+            {% if dao %}
+               datastream_id: '{{dao.revision_id}}',
+            {% endif %}
+        });
 
         dataviewModel.attachDataset({
             dataset_revision_id: {{dataset_revision.id}},
@@ -143,10 +119,44 @@
         });
 
         {% if dao %}
-        dataviewModel.dataset.once('sync', function(){
-            this.addSelectStatement('{{dao.select_statement|safe}}', params);
-            this.addDataSource('{{dao.data_source|safe}}')
-        }, dataviewModel);
+         var tags = [];
+            {% for tag in dao.tags %}
+            tags.push({
+              tag__id:'{{ tag.tag__id }}',
+              tag__name:'{{ tag.tag__name }}',
+              tag__status:'{{ tag.tag__status }}'
+            });
+            {% endfor %}
+
+            var sources = [];
+            {% for source in dao.sources %}
+            sources.push({
+              source__id:'{{ source.source__id }}',
+              source__name:'{{ source.source__name }}',
+              source__url:'{{ source.source__url }}'
+            });
+            {% endfor %}
+
+            var params = [];
+            {% for param in dao.parameters %}
+            params.push({
+                name:'{{ param.name }}',
+                default:'{{ param.default }}',
+                position: {{ param.position }},
+                description:'{{ param.description }}'
+              });
+            {% endfor %}
+
+            dataviewModel.dataset.once('sync', function(){
+                this.addSelectStatement('{{dao.select_statement|safe}}', params);
+                this.addDataSource('{{dao.data_source|safe}}')
+                this.addCategory('{{dao.category_id}}', '{{dao.category_name}}')
+                this.addTitle('{{dao.title}}')
+                this.addDescription('{{dao.description}}')
+                this.addNotes('{{dao.notes|escapejs}}')
+                this.addSources(sources)
+                this.addTags(tags)
+            }, dataviewModel);
         {% endif %}
 
         var mainView = new MainView({

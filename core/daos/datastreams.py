@@ -99,6 +99,8 @@ class DataStreamDBDAO(AbstractDataStreamDBDAO):
             datastream_revision.add_tags(fields['tags'])
         if 'sources' in fields:
             datastream_revision.add_sources(fields['sources'])
+        if 'parameters' in fields:
+            datastream_revision.add_parameters(fields['parameters'])
 
         return datastream_revision
 

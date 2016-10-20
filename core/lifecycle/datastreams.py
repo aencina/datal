@@ -248,6 +248,8 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
             fields['data_source'] = self.datastream_revision.data_source
         if fields['select_statement'] == "":
             fields['select_statement'] = self.datastream_revision.select_statement
+        if fields['parameters'] == "":
+            fields['parameters'] = self.datastream_revision.datastreamparameter_set.values()
 
         # si el status de la version anterior es publicado o aprobado
         # genera revisiones de sus hijos
@@ -257,7 +259,6 @@ class DatastreamLifeCycleManager(AbstractLifeCycleManager):
                 dataset=self.datastream_revision.dataset,
                 user=self.datastream_revision.user,
                 status=fields.pop('status', StatusChoices.DRAFT),
-                parameters=self.datastream_revision.datastreamparameter_set.values(),
                 **fields
             )
 
