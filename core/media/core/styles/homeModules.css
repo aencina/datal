@@ -28,8 +28,10 @@
 td .ic_Dset,
 td .ic_Chart,
 td .ic_Data,
-td .ic_Dashboard{background-image:url(/static/workspace/images/common/ic_resources.png);background-repeat:no-repeat;width:17px;height:22px;margin:-4px 6px 0 0;float:left;}
+td .ic_Dashboard,
+td .ic_KPI{background-image:url(/static/workspace/images/common/ic_resources.png);background-repeat:no-repeat;width:17px;height:22px;margin:-4px 6px 0 0;float:left;}
 td .ic_Dset{background-position:0 2px !important;}
 td .ic_Chart{background-position:0 -38px !important}
 td .ic_Data{background-position:0 -19px !important;}
 td .ic_Dashboard{background-position:0 -58px !important;}
+td .ic_KPI{background-position:0 -118px !important;}

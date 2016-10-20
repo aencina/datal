@@ -18,6 +18,7 @@
 .resources-list table td.cell-resource .icon-resources{position:absolute;top:-3px;left:5px;background-image:url(/static/workspace/images/common/ic_resources.png);background-repeat:no-repeat;width:17px;height:22px;}
 .resources-list table td.cell-resource .icon-resources.icon-dataview{background-position:0 -19px !important;}
 .resources-list table td.cell-resource .icon-resources.icon-visualization{background-position:0 -38px;}
+.resources-list table td.cell-resource .icon-resources.icon-KPI{background-position:0 -118px;}
 .resources-list table td.cell-resource .api_example p:first-child{margin-top:5px;font-weight:bold;}
 
 .resources-list table .cell-last-update{width:240px;}

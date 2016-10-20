@@ -124,6 +124,7 @@ body,
 .filters span.DST{background-position:8px 0;}
 .filters span.DS{background-position:8px -20px;}
 .filters span.VZ{background-position:8px -40px;}
+.filters span.KPI{background-position:8px -120px;}
 
 /*PLACEHOLDERS*/
 .placeholder{line-height:21px;font-size:14px;color:#666;}

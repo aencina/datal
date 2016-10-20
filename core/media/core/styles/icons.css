@@ -82,6 +82,12 @@ li:hover .button .icon-trivia{background-position:-12px -1668px;}
 li.active .icon-trivia{background-position:-48px -1668px;}
 .icon-trivia.inactive{background-position:-84px -1668px;}
 
+.icon-kpi,
+li:hover .button .icon-kpi{background-position:-12px -1704px;}
+.icon-kpi:hover,
+li.active .icon-kpi{background-position:-48px -1704px;}
+.icon-kpi.inactive{background-position:-84px -1704px;}
+
 /* General icons */
 .icon-view-site{background-position:-12px -696px;}
 .button:hover .icon-view-site{background-position:-48px -696px;}
@@ -209,3 +215,13 @@ li.active .icon-trivia{background-position:-48px -1668px;}
 
 .icon-map-geo{background-position:-12px -1020px;}
 .icon-map-geo.size-48{background-position:-24px -2040px;}
+
+/* KPI options */
+.icon-kpi-fixed-value{background-position:-12px -1740px;}
+.icon-kpi-fixed-value.size-48{background-position:-24px -3480px;}
+
+.icon-kpi-two-series{background-position:-12px -1776px;}
+.icon-kpi-two-series.size-48{background-position:-24px -3552px;}
+
+.icon-kpi-min-max{background-position:-12px -1812px;}
+.icon-kpi-min-max.size-48{background-position:-24px -3624px;}
